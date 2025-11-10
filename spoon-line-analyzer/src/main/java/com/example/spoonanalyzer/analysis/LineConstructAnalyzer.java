@@ -73,7 +73,58 @@ public class LineConstructAnalyzer {
         launcher.getEnvironment().setAutoImports(true);
         launcher.getEnvironment().setCommentEnabled(false);
         launcher.getEnvironment().setCopyResources(false);
+        sanitizeClasspath(launcher);
         return launcher;
+    }
+
+    private static void sanitizeClasspath(MavenLauncher launcher) {
+        String[] classpath = launcher.getEnvironment().getSourceClasspath();
+        if (classpath == null || classpath.length == 0) {
+            return;
+        }
+
+        List<String> sanitized = new ArrayList<>(classpath.length);
+        boolean removedEntries = false;
+
+        for (String entry : classpath) {
+            if (entry == null || entry.isBlank()) {
+                removedEntries = true;
+                continue;
+            }
+
+            Path path;
+            try {
+                path = Path.of(entry);
+            } catch (Exception ex) {
+                LOGGER.debug("Skipping malformed classpath entry {}: {}", entry, ex.getMessage());
+                removedEntries = true;
+                continue;
+            }
+
+            if (!Files.exists(path)) {
+                LOGGER.debug("Skipping non-existent classpath entry {}", path);
+                removedEntries = true;
+                continue;
+            }
+
+            if (Files.isDirectory(path)) {
+                sanitized.add(path.toString());
+                continue;
+            }
+
+            String lowerName = path.getFileName().toString().toLowerCase();
+            if (lowerName.endsWith(".jar") || lowerName.endsWith(".zip") || lowerName.endsWith(".jmod")) {
+                sanitized.add(path.toString());
+                continue;
+            }
+
+            LOGGER.warn("Removing unsupported classpath entry {}", path);
+            removedEntries = true;
+        }
+
+        if (removedEntries) {
+            launcher.getEnvironment().setSourceClasspath(sanitized.toArray(String[]::new));
+        }
     }
 
     public List<ConstructUsage> analyze(Path sourceFile, int lineNumber) {
