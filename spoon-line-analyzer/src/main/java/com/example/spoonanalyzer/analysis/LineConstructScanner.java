@@ -29,12 +29,17 @@ public class LineConstructScanner extends CtScanner {
     private final Path targetFile;
     private final int targetLine;
     private final DependencyResolver dependencyResolver;
+    private final String codeLineContent;
     private final Set<ConstructUsage> usages = new LinkedHashSet<>();
 
-    public LineConstructScanner(Path targetFile, int targetLine, DependencyResolver dependencyResolver) {
+    public LineConstructScanner(Path targetFile,
+                                int targetLine,
+                                DependencyResolver dependencyResolver,
+                                String codeLineContent) {
         this.targetFile = targetFile.toAbsolutePath().normalize();
         this.targetLine = targetLine;
         this.dependencyResolver = dependencyResolver;
+        this.codeLineContent = codeLineContent;
     }
 
     public Set<ConstructUsage> getUsages() {
@@ -51,7 +56,8 @@ public class LineConstructScanner extends CtScanner {
                         ConstructType.METHOD_INVOCATION,
                         ConstructDescriptors.describeExecutable(executableReference),
                         dependencyInfo,
-                        invocation.getPosition()));
+                        invocation.getPosition(),
+                        codeLineContent));
             }
         }
         super.visitCtInvocation(invocation);
@@ -65,7 +71,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.CONSTRUCTOR_CALL,
                     ConstructDescriptors.describeExecutable(ctConstructorCall.getExecutable()),
                     dependencyInfo,
-                    ctConstructorCall.getPosition()));
+                    ctConstructorCall.getPosition(),
+                    codeLineContent));
         }
         super.visitCtConstructorCall(ctConstructorCall);
     }
@@ -78,7 +85,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.CONSTRUCTOR_CALL,
                     ConstructDescriptors.describeExecutable(ctNewClass.getExecutable()),
                     dependencyInfo,
-                    ctNewClass.getPosition()));
+                    ctNewClass.getPosition(),
+                    codeLineContent));
         }
         super.visitCtNewClass(ctNewClass);
     }
@@ -104,7 +112,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.TYPE_REFERENCE,
                     ConstructDescriptors.describeType(typeReference),
                     dependencyInfo,
-                    typeAccess.getPosition()));
+                    typeAccess.getPosition(),
+                    codeLineContent));
         }
         super.visitCtTypeAccess(typeAccess);
     }
@@ -118,7 +127,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.ANNOTATION_USAGE,
                     ConstructDescriptors.describeType(annotationType),
                     dependencyInfo,
-                    annotation.getPosition()));
+                    annotation.getPosition(),
+                    codeLineContent));
         }
         super.visitCtAnnotation(annotation);
     }
@@ -133,7 +143,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.METHOD_INVOCATION,
                     ConstructDescriptors.describeExecutable(executableReference),
                     dependencyInfo,
-                    expression.getPosition()));
+                    expression.getPosition(),
+                    codeLineContent));
         }
         super.visitCtExecutableReferenceExpression(expression);
     }
@@ -146,7 +157,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.TYPE_REFERENCE,
                     ConstructDescriptors.describeType(reference),
                     dependencyInfo,
-                    reference.getPosition()));
+                    reference.getPosition(),
+                    codeLineContent));
         }
         super.visitCtTypeReference(reference);
     }
@@ -159,7 +171,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.TYPE_REFERENCE,
                     access.getType() != null ? access.getType().getQualifiedName() : "<unknown type>",
                     dependencyInfo,
-                    access.getPosition()));
+                    access.getPosition(),
+                    codeLineContent));
         }
         super.visitCtSuperAccess(access);
     }
@@ -172,7 +185,8 @@ public class LineConstructScanner extends CtScanner {
                     ConstructType.TYPE_REFERENCE,
                     access.getType() != null ? access.getType().getQualifiedName() : "<unknown type>",
                     dependencyInfo,
-                    access.getPosition()));
+                    access.getPosition(),
+                    codeLineContent));
         }
         super.visitCtThisAccess(access);
     }
@@ -198,7 +212,8 @@ public class LineConstructScanner extends CtScanner {
                 ConstructType.FIELD_ACCESS,
                 ConstructDescriptors.describeField(fieldReference),
                 dependencyInfo,
-                element.getPosition()));
+                element.getPosition(),
+                codeLineContent));
     }
 }
 

@@ -8,6 +8,8 @@ import java.util.List;
 public record ConstructImpact(String constructType,
                               String signature,
                               DependencySummary dependency,
+                              Integer lineNumber,
+                              String codeLine,
                               List<ApiChangeMatch> apiChanges) {
 
     public ConstructImpact {
