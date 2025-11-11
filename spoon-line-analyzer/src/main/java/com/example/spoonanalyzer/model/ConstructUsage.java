@@ -10,15 +10,18 @@ public final class ConstructUsage {
     private final String signature;
     private final DependencyInfo dependencyInfo;
     private final SourcePosition sourcePosition;
+    private final String codeLine;
 
     public ConstructUsage(ConstructType constructType,
                           String signature,
                           DependencyInfo dependencyInfo,
-                          SourcePosition sourcePosition) {
+                          SourcePosition sourcePosition,
+                          String codeLine) {
         this.constructType = Objects.requireNonNull(constructType, "constructType");
         this.signature = Objects.requireNonNull(signature, "signature");
         this.dependencyInfo = Objects.requireNonNull(dependencyInfo, "dependencyInfo");
         this.sourcePosition = sourcePosition;
+        this.codeLine = codeLine;
     }
 
     public ConstructType getConstructType() {
@@ -37,6 +40,10 @@ public final class ConstructUsage {
         return sourcePosition;
     }
 
+    public String getCodeLine() {
+        return codeLine;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(constructType.name())
@@ -49,6 +56,11 @@ public final class ConstructUsage {
                     .append(sourcePosition.getFile().getName())
                     .append(":")
                     .append(sourcePosition.getLine());
+        }
+        if (codeLine != null && !codeLine.isBlank()) {
+            builder.append(" | line=\"")
+                    .append(codeLine.trim())
+                    .append("\"");
         }
         return builder.toString();
     }
@@ -65,12 +77,13 @@ public final class ConstructUsage {
         return constructType == that.constructType
                 && Objects.equals(signature, that.signature)
                 && Objects.equals(dependencyInfo, that.dependencyInfo)
-                && Objects.equals(sourcePositionKey(sourcePosition), sourcePositionKey(that.sourcePosition));
+                && Objects.equals(sourcePositionKey(sourcePosition), sourcePositionKey(that.sourcePosition))
+                && Objects.equals(codeLineNormalized(codeLine), codeLineNormalized(that.codeLine));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(constructType, signature, dependencyInfo, sourcePositionKey(sourcePosition));
+        return Objects.hash(constructType, signature, dependencyInfo, sourcePositionKey(sourcePosition), codeLineNormalized(codeLine));
     }
 
     private static String sourcePositionKey(SourcePosition position) {
@@ -78,6 +91,10 @@ public final class ConstructUsage {
             return "unknown";
         }
         return position.getFile().getAbsolutePath() + ":" + position.getLine();
+    }
+
+    private static String codeLineNormalized(String codeLine) {
+        return codeLine == null ? "" : codeLine.strip();
     }
 }
 

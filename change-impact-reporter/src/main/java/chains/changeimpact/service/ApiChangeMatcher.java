@@ -57,10 +57,17 @@ final class ApiChangeMatcher {
             matches.addAll(matchTypeLevel(classChange));
         }
 
+        Integer lineNumber = null;
+        if (usage.getSourcePosition() != null && usage.getSourcePosition().isValidPosition()) {
+            lineNumber = usage.getSourcePosition().getLine();
+        }
+
         return new ConstructImpact(
                 usage.getConstructType().name(),
                 usage.getSignature(),
                 DependencySummary.from(usage.getDependencyInfo()),
+                lineNumber,
+                usage.getCodeLine(),
                 matches
         );
     }
