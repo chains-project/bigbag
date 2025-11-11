@@ -1,0 +1,14 @@
+package github.chains.breakingclassifier;
+
+public enum FailureCategory {
+    JAVA_VERSION_FAILURE,
+    TEST_FAILURE,
+    WERROR_FAILURE,
+    COMPILATION_FAILURE,
+    BUILD_SUCCESS,
+    ENFORCER_FAILURE,
+    DEPENDENCY_RESOLUTION_FAILURE,
+    DEPENDENCY_LOCK_FAILURE,
+    UNKNOWN
+}
+
