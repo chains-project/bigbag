@@ -6,12 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class ErrorReportAggregator {
+public final class ErrorReportAggregator {
 
     private ErrorReportAggregator() {
     }
 
-    static BreakingReport aggregate(Path originalFailurePath, List<BreakingError> errors) {
+    public static BreakingReport aggregate(Path originalFailurePath, List<BreakingError> errors) {
         String failurePath = originalFailurePath != null ? originalFailurePath.toString() : "";
 
         if (errors == null || errors.isEmpty()) {

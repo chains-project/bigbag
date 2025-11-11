@@ -33,6 +33,16 @@
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
         </dependency>
+        <dependency>
+            <groupId>se.kth</groupId>
+            <artifactId>docker-build</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>github.chains</groupId>
+            <artifactId>breaking-classifier</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -42,20 +52,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>${maven.compiler.release}</release>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.example.core.app.CoreProcessorApp</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>
