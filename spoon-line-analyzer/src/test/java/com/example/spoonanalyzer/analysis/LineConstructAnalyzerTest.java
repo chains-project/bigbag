@@ -36,6 +36,7 @@ class LineConstructAnalyzerTest {
                     assertThat(usage.getConstructType()).isEqualTo(ConstructType.IMPORT);
                     assertThat(usage.getSignature()).isEqualTo("java.util.List");
                     assertThat(usage.getDependencyInfo().getOrigin()).isEqualTo(DependencyOrigin.JDK);
+                    assertThat(usage.getCodeLine()).isEqualTo("import java.util.List;");
                 });
     }
 
@@ -49,6 +50,8 @@ class LineConstructAnalyzerTest {
                     assertThat(usage.getConstructType()).isEqualTo(ConstructType.METHOD_INVOCATION);
                     assertThat(usage.getSignature()).isEqualTo("com.example.sample.Helper#provide()");
                     assertThat(usage.getDependencyInfo().getOrigin()).isEqualTo(DependencyOrigin.PROJECT_SOURCE);
+                    assertThat(usage.getCodeLine()).isNotNull();
+                    assertThat(usage.getCodeLine().trim()).isEqualTo("List<String> result = helper.provide();");
                 });
 
         assertThat(usages)
@@ -57,6 +60,8 @@ class LineConstructAnalyzerTest {
                     assertThat(usage.getConstructType()).isEqualTo(ConstructType.FIELD_ACCESS);
                     assertThat(usage.getSignature()).isEqualTo("com.example.sample.App::helper");
                     assertThat(usage.getDependencyInfo().getOrigin()).isEqualTo(DependencyOrigin.PROJECT_SOURCE);
+                    assertThat(usage.getCodeLine()).isNotNull();
+                    assertThat(usage.getCodeLine().trim()).isEqualTo("List<String> result = helper.provide();");
                 });
     }
 
@@ -68,6 +73,11 @@ class LineConstructAnalyzerTest {
                 .filteredOn(usage -> usage.getConstructType() == ConstructType.IMPORT)
                 .extracting(ConstructUsage::getSignature)
                 .contains("com.legacy.missing.LegacyTool");
+
+        assertThat(usages)
+                .filteredOn(usage -> usage.getConstructType() == ConstructType.IMPORT)
+                .extracting(ConstructUsage::getCodeLine)
+                .contains("import com.legacy.missing.LegacyTool;");
     }
 }
 

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class LineConstructAnalyzer {
 
@@ -139,9 +140,10 @@ public class LineConstructAnalyzer {
                 .orElseThrow(() -> new IllegalArgumentException("Could not locate compilation unit for " + resolvedSource));
 
         Set<ConstructUsage> usages = new LinkedHashSet<>();
-        usages.addAll(analyzeImports(compilationUnit, resolvedSource, lineNumber));
+        String codeLine = readCodeLine(resolvedSource, lineNumber);
+        usages.addAll(analyzeImports(compilationUnit, resolvedSource, lineNumber, codeLine));
 
-        LineConstructScanner scanner = new LineConstructScanner(resolvedSource, lineNumber, dependencyResolver);
+        LineConstructScanner scanner = new LineConstructScanner(resolvedSource, lineNumber, dependencyResolver, codeLine);
         compilationUnit.getDeclaredTypes().forEach(scanner::scan);
         usages.addAll(scanner.getUsages());
 
@@ -171,7 +173,10 @@ public class LineConstructAnalyzer {
         return Optional.empty();
     }
 
-    private List<ConstructUsage> analyzeImports(CompilationUnit compilationUnit, Path sourceFile, int lineNumber) {
+    private List<ConstructUsage> analyzeImports(CompilationUnit compilationUnit,
+                                                Path sourceFile,
+                                                int lineNumber,
+                                                String codeLine) {
         List<ConstructUsage> usages = new ArrayList<>();
         for (CtImport ctImport : compilationUnit.getImports()) {
             if (ctImport == null || ctImport.getPosition() == null) {
@@ -180,7 +185,7 @@ public class LineConstructAnalyzer {
             if (!matchesTargetLine(sourceFile, ctImport, lineNumber)) {
                 continue;
             }
-            usages.add(createImportUsage(ctImport));
+            usages.add(createImportUsage(ctImport, codeLine));
         }
         return usages;
     }
@@ -201,7 +206,7 @@ public class LineConstructAnalyzer {
         return lineNumber >= begin && lineNumber <= end;
     }
 
-    private ConstructUsage createImportUsage(CtImport ctImport) {
+    private ConstructUsage createImportUsage(CtImport ctImport, String codeLine) {
         CtReference reference = ctImport.getReference();
         DependencyInfo dependencyInfo;
         String signature;
@@ -233,7 +238,7 @@ public class LineConstructAnalyzer {
             }
         }
 
-        return new ConstructUsage(ConstructType.IMPORT, signature, dependencyInfo, ctImport.getPosition());
+        return new ConstructUsage(ConstructType.IMPORT, signature, dependencyInfo, ctImport.getPosition(), codeLine);
     }
 
     private String extractImportSignature(CtImport ctImport) {
@@ -274,6 +279,22 @@ public class LineConstructAnalyzer {
             return raw.isEmpty() ? null : raw;
         } catch (IOException ex) {
             LOGGER.debug("Failed to extract import signature for {}: {}", filePath, ex.getMessage());
+            return null;
+        }
+    }
+
+    private String readCodeLine(Path sourceFile, int lineNumber) {
+        if (lineNumber < 1) {
+            return null;
+        }
+        try (Stream<String> lines = Files.lines(sourceFile)) {
+            return lines
+                    .skip(lineNumber - 1L)
+                    .findFirst()
+                    .map(line -> line.replace("\t", "    ").stripTrailing())
+                    .orElse(null);
+        } catch (IOException ex) {
+            LOGGER.debug("Failed to read line {} from {}: {}", lineNumber, sourceFile, ex.getMessage());
             return null;
         }
     }
