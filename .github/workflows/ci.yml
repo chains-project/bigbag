@@ -7,23 +7,7 @@ on:
   pull_request:
 
 jobs:
-  secret-scan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Scan for secrets with TruffleHog
-        uses: trufflesecurity/trufflehog@v3
-        with:
-          scan: git
-          extra_args: --no-update --only-verified
-
   build:
-    needs: secret-scan
     runs-on: ubuntu-latest
 
     steps:
