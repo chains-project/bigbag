@@ -5,6 +5,7 @@ This repository is a Maven multi-module project that bundles three complementary
 - `spoon-line-analyzer`: a Spoon-based CLI that inspects a Java source file and lists every construct found on a given line.
 - `api_changes` (`japicmp-diff-tool`): a japicmp-powered utility that compares two JAR files and produces an enriched API change report.
 - `change-impact-reporter`: a CLI that merges both analyses into a single JSON report.
+- `breaking-classifier`: a CLI that parses Maven build logs, groups compiler errors per file (with failure categories, line/column, and message details), and can export the findings to JSON.
 
 ## Requirements
 
