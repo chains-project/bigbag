@@ -1,6 +1,9 @@
 package chains.changeimpact.service;
 
-import com.example.japicmp.JapicmpDiffTool;
+import com.example.japicmp.model.ClassChange;
+import com.example.japicmp.model.ClassDetail;
+import com.example.japicmp.model.ComparisonReport;
+import com.example.japicmp.model.MemberChange;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,25 +16,26 @@ import java.util.Map;
  */
 final class ApiChangeIndex {
 
-    private final Map<String, JapicmpDiffTool.ClassChange> classChanges;
+    private final Map<String, ClassChange> classChanges;
     private final Map<String, List<MemberEntry>> membersByName;
 
-    private ApiChangeIndex(Map<String, JapicmpDiffTool.ClassChange> classChanges,
+    private ApiChangeIndex(Map<String, ClassChange> classChanges,
                            Map<String, List<MemberEntry>> membersByName) {
         this.classChanges = classChanges;
         this.membersByName = membersByName;
     }
 
-    static ApiChangeIndex fromReport(JapicmpDiffTool.ComparisonReport report) {
-        Map<String, JapicmpDiffTool.ClassChange> classes = new HashMap<>();
+    static ApiChangeIndex fromReport(ComparisonReport report) {
+        Map<String, ClassChange> classes = new HashMap<>();
         Map<String, List<MemberEntry>> members = new HashMap<>();
-        if (report != null && report.changes != null) {
-            for (JapicmpDiffTool.ClassChange classChange : report.changes) {
-                classes.put(classChange.fullyQualifiedName, classChange);
-                if (classChange.detail != null) {
-                    indexMembers(members, classChange.fullyQualifiedName, classChange.detail.constructors);
-                    indexMembers(members, classChange.fullyQualifiedName, classChange.detail.methods);
-                    indexMembers(members, classChange.fullyQualifiedName, classChange.detail.fields);
+        if (report != null && report.changes() != null) {
+            for (ClassChange classChange : report.changes()) {
+                classes.put(classChange.fullyQualifiedName(), classChange);
+                ClassDetail detail = classChange.detail();
+                if (detail != null) {
+                    indexMembers(members, classChange.fullyQualifiedName(), detail.constructors());
+                    indexMembers(members, classChange.fullyQualifiedName(), detail.methods());
+                    indexMembers(members, classChange.fullyQualifiedName(), detail.fields());
                 }
             }
         }
@@ -42,7 +46,7 @@ final class ApiChangeIndex {
         );
     }
 
-    JapicmpDiffTool.ClassChange classChange(String fullyQualifiedName) {
+    ClassChange classChange(String fullyQualifiedName) {
         return classChanges.get(fullyQualifiedName);
     }
 
@@ -52,21 +56,21 @@ final class ApiChangeIndex {
 
     private static void indexMembers(Map<String, List<MemberEntry>> members,
                                      String declaringType,
-                                     List<JapicmpDiffTool.MemberChange> changes) {
+                                     List<MemberChange> changes) {
         if (changes == null) {
             return;
         }
-        for (JapicmpDiffTool.MemberChange change : changes) {
-            members.computeIfAbsent(change.name, key -> new ArrayList<>())
+        for (MemberChange change : changes) {
+            members.computeIfAbsent(change.name(), key -> new ArrayList<>())
                     .add(new MemberEntry(declaringType, change));
         }
     }
 
     static final class MemberEntry {
         private final String declaringType;
-        private final JapicmpDiffTool.MemberChange member;
+        private final MemberChange member;
 
-        MemberEntry(String declaringType, JapicmpDiffTool.MemberChange member) {
+        MemberEntry(String declaringType, MemberChange member) {
             this.declaringType = declaringType;
             this.member = member;
         }
@@ -75,7 +79,7 @@ final class ApiChangeIndex {
             return declaringType;
         }
 
-        JapicmpDiffTool.MemberChange member() {
+        MemberChange member() {
             return member;
         }
     }

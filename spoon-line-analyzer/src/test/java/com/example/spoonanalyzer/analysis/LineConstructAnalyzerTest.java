@@ -15,18 +15,20 @@ class LineConstructAnalyzerTest {
 
     private static LineConstructAnalyzer analyzer;
     private static Path projectPath;
-    private static Path sourcePath;
+    private static Path sampleSource;
+    private static Path unresolvedImportSource;
 
     @BeforeAll
     static void buildModel() {
         projectPath = Path.of("src/test/resources/sample-maven-project").toAbsolutePath().normalize();
         analyzer = LineConstructAnalyzer.initialize(projectPath);
-        sourcePath = projectPath.resolve("src/main/java/com/example/sample/App.java");
+        sampleSource = projectPath.resolve("src/main/java/com/example/sample/App.java");
+        unresolvedImportSource = projectPath.resolve("src/main/java/com/example/sample/LegacyImport.java");
     }
 
     @Test
     void detectsImportUsageOnTargetLine() {
-        List<ConstructUsage> usages = analyzer.analyze(sourcePath, 3);
+        List<ConstructUsage> usages = analyzer.analyze(sampleSource, 3);
 
         assertThat(usages)
                 .as("import usages")
@@ -39,7 +41,7 @@ class LineConstructAnalyzerTest {
 
     @Test
     void detectsMethodAndFieldUsageOnTargetLine() {
-        List<ConstructUsage> usages = analyzer.analyze(sourcePath, 10);
+        List<ConstructUsage> usages = analyzer.analyze(sampleSource, 10);
 
         assertThat(usages)
                 .as("method invocation on helper.provide()")
@@ -56,6 +58,16 @@ class LineConstructAnalyzerTest {
                     assertThat(usage.getSignature()).isEqualTo("com.example.sample.App::helper");
                     assertThat(usage.getDependencyInfo().getOrigin()).isEqualTo(DependencyOrigin.PROJECT_SOURCE);
                 });
+    }
+
+    @Test
+    void extractsSignatureForUnresolvedImport() {
+        List<ConstructUsage> usages = analyzer.analyze(unresolvedImportSource, 3);
+
+        assertThat(usages)
+                .filteredOn(usage -> usage.getConstructType() == ConstructType.IMPORT)
+                .extracting(ConstructUsage::getSignature)
+                .contains("com.legacy.missing.LegacyTool");
     }
 }
 

@@ -4,6 +4,7 @@ import chains.changeimpact.model.ChangeImpactReport;
 import chains.changeimpact.model.ChangeImpactRequest;
 import chains.changeimpact.model.ConstructImpact;
 import com.example.japicmp.JapicmpDiffTool;
+import com.example.japicmp.model.ComparisonReport;
 import com.example.spoonanalyzer.analysis.LineConstructAnalyzer;
 import com.example.spoonanalyzer.model.ConstructUsage;
 
@@ -24,7 +25,7 @@ public class ChangeImpactAnalyzer {
         LineConstructAnalyzer analyzer = LineConstructAnalyzer.initialize(normalizedProject);
         List<ConstructUsage> usages = analyzer.analyze(resolvedSource, request.lineNumber());
 
-        JapicmpDiffTool.ComparisonReport comparisonReport = JapicmpDiffTool.generateComparisonReport(
+        ComparisonReport comparisonReport = JapicmpDiffTool.generateComparisonReport(
                 request.oldJar(),
                 request.newJar()
         );

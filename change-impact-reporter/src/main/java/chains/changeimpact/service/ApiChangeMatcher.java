@@ -3,7 +3,8 @@ package chains.changeimpact.service;
 import chains.changeimpact.model.ApiChangeMatch;
 import chains.changeimpact.model.ConstructImpact;
 import chains.changeimpact.model.DependencySummary;
-import com.example.japicmp.JapicmpDiffTool;
+import com.example.japicmp.model.ClassChange;
+import com.example.japicmp.model.MemberChange;
 import com.example.spoonanalyzer.model.ConstructType;
 import com.example.spoonanalyzer.model.ConstructUsage;
 
@@ -33,7 +34,7 @@ final class ApiChangeMatcher {
         ParsedSignature parsed = ParsedSignature.from(usage);
         List<ApiChangeMatch> matches = new ArrayList<>();
 
-        JapicmpDiffTool.ClassChange classChange = parsed != null
+        ClassChange classChange = parsed != null
                 ? index.classChange(parsed.declaringType())
                 : null;
 
@@ -53,7 +54,6 @@ final class ApiChangeMatcher {
                 matches.addAll(classLevelIfRelevant(classChange));
             }
         } else if (parsed != null) {
-            // no classChange found – still add class-level information when available
             matches.addAll(matchTypeLevel(classChange));
         }
 
@@ -65,37 +65,37 @@ final class ApiChangeMatcher {
         );
     }
 
-    private List<ApiChangeMatch> classLevelIfRelevant(JapicmpDiffTool.ClassChange classChange) {
+    private List<ApiChangeMatch> classLevelIfRelevant(ClassChange classChange) {
         if (classChange == null) {
             return List.of();
         }
-        boolean hasRelevantChange = !"UNCHANGED".equalsIgnoreCase(classChange.changeStatus)
-                || classChange.changedMemberCount > 0
-                || (classChange.compatibilityChanges != null && !classChange.compatibilityChanges.isEmpty());
+        boolean hasRelevantChange = !"UNCHANGED".equalsIgnoreCase(classChange.changeStatus())
+                || classChange.changedMemberCount() > 0
+                || (classChange.compatibilityChanges() != null && !classChange.compatibilityChanges().isEmpty());
         if (!hasRelevantChange) {
             return List.of();
         }
         return List.of(ApiChangeMatch.fromClassChange(classChange));
     }
 
-    private List<ApiChangeMatch> matchTypeLevel(JapicmpDiffTool.ClassChange classChange) {
+    private List<ApiChangeMatch> matchTypeLevel(ClassChange classChange) {
         if (classChange == null) {
             return List.of();
         }
         return List.of(ApiChangeMatch.fromClassChange(classChange));
     }
 
-    private List<ApiChangeMatch> matchField(JapicmpDiffTool.ClassChange classChange, ParsedSignature parsed) {
-        if (classChange.detail == null || parsed.memberName() == null) {
+    private List<ApiChangeMatch> matchField(ClassChange classChange, ParsedSignature parsed) {
+        if (classChange.detail() == null || parsed.memberName() == null) {
             return List.of();
         }
-        return classChange.detail.fields.stream()
-                .filter(field -> Objects.equals(field.name, parsed.memberName()))
-                .map(field -> ApiChangeMatch.fromMemberChange(field, "FIELD_EXACT", classChange.fullyQualifiedName))
+        return classChange.detail().fields().stream()
+                .filter(field -> Objects.equals(field.name(), parsed.memberName()))
+                .map(field -> ApiChangeMatch.fromMemberChange(field, "FIELD_EXACT", classChange.fullyQualifiedName()))
                 .collect(Collectors.toList());
     }
 
-    private List<ApiChangeMatch> matchExecutable(JapicmpDiffTool.ClassChange classChange,
+    private List<ApiChangeMatch> matchExecutable(ClassChange classChange,
                                                  ParsedSignature parsed,
                                                  ConstructType constructType) {
         List<ApiChangeMatch> matches = new ArrayList<>();
@@ -104,23 +104,23 @@ final class ApiChangeMatcher {
             return matches;
         }
 
-        if (classChange.detail != null) {
-            List<JapicmpDiffTool.MemberChange> candidates = constructType == ConstructType.CONSTRUCTOR_CALL
-                    ? classChange.detail.constructors
-                    : classChange.detail.methods;
+        if (classChange.detail() != null) {
+            List<MemberChange> candidates = constructType == ConstructType.CONSTRUCTOR_CALL
+                    ? classChange.detail().constructors()
+                    : classChange.detail().methods();
 
             List<ApiChangeMatch> exactMatches = candidates.stream()
-                    .filter(member -> Objects.equals(member.name, parsed.memberName()))
-                    .filter(member -> parameterTypesEqual(parsed.parameterTypes(), member.parameterTypes))
-                    .map(member -> ApiChangeMatch.fromMemberChange(member, "EXACT_SIGNATURE", classChange.fullyQualifiedName))
+                    .filter(member -> Objects.equals(member.name(), parsed.memberName()))
+                    .filter(member -> parameterTypesEqual(parsed.parameterTypes(), member.parameterTypes()))
+                    .map(member -> ApiChangeMatch.fromMemberChange(member, "EXACT_SIGNATURE", classChange.fullyQualifiedName()))
                     .collect(Collectors.toList());
 
             matches.addAll(exactMatches);
 
             List<ApiChangeMatch> nameOnlyMatches = candidates.stream()
-                    .filter(member -> Objects.equals(member.name, parsed.memberName()))
-                    .filter(member -> !parameterTypesEqual(parsed.parameterTypes(), member.parameterTypes))
-                    .map(member -> ApiChangeMatch.fromMemberChange(member, "NAME_ONLY", classChange.fullyQualifiedName))
+                    .filter(member -> Objects.equals(member.name(), parsed.memberName()))
+                    .filter(member -> !parameterTypesEqual(parsed.parameterTypes(), member.parameterTypes()))
+                    .map(member -> ApiChangeMatch.fromMemberChange(member, "NAME_ONLY", classChange.fullyQualifiedName()))
                     .collect(Collectors.toList());
 
             for (ApiChangeMatch match : nameOnlyMatches) {
@@ -152,7 +152,7 @@ final class ApiChangeMatcher {
 
     private List<ApiChangeMatch> matchAcrossClasses(ParsedSignature parsed,
                                                     ConstructType constructType,
-                                                    JapicmpDiffTool.ClassChange currentClass,
+                                                    ClassChange currentClass,
                                                     List<ApiChangeMatch> existingMatches) {
         if (parsed == null || parsed.memberName() == null) {
             return List.of();
@@ -161,18 +161,18 @@ final class ApiChangeMatcher {
         List<ApiChangeMatch> crossClassMatches = new ArrayList<>();
 
         for (ApiChangeIndex.MemberEntry entry : index.membersWithName(parsed.memberName())) {
-            JapicmpDiffTool.MemberChange candidate = entry.member();
-            if (!memberTypeMatches(constructType, candidate.memberType)) {
+            MemberChange candidate = entry.member();
+            if (!memberTypeMatches(constructType, candidate.memberType())) {
                 continue;
             }
             if (isSameDeclaringType(currentClass, entry.declaringType())) {
                 continue;
             }
-            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus)) {
+            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus())) {
                 continue;
             }
 
-            String matchType = parameterTypesEqual(parsed.parameterTypes(), candidate.parameterTypes)
+            String matchType = parameterTypesEqual(parsed.parameterTypes(), candidate.parameterTypes())
                     ? "NAME_AND_PARAMS_OTHER_CLASS"
                     : "NAME_ONLY_OTHER_CLASS";
 
@@ -193,11 +193,11 @@ final class ApiChangeMatcher {
         };
     }
 
-    private boolean isSameDeclaringType(JapicmpDiffTool.ClassChange currentClass, String otherDeclaringType) {
+    private boolean isSameDeclaringType(ClassChange currentClass, String otherDeclaringType) {
         if (currentClass == null) {
             return false;
         }
-        return Objects.equals(currentClass.fullyQualifiedName, otherDeclaringType);
+        return Objects.equals(currentClass.fullyQualifiedName(), otherDeclaringType);
     }
 
     private record ParsedSignature(String declaringType,

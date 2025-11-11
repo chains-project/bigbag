@@ -1,6 +1,6 @@
 package chains.changeimpact.model;
 
-import com.example.japicmp.JapicmpDiffTool;
+import com.example.japicmp.model.CompatibilityChangeInfo;
 
 /**
  * Lightweight copy of japicmp compatibility change information for JSON output.
@@ -10,12 +10,12 @@ public record CompatibilityChangeSummary(String type,
                                          boolean sourceCompatible,
                                          String semanticVersionImpact) {
 
-    public static CompatibilityChangeSummary from(JapicmpDiffTool.CompatibilityChangeInfo info) {
+    public static CompatibilityChangeSummary from(CompatibilityChangeInfo info) {
         return new CompatibilityChangeSummary(
-                info.type,
-                info.binaryCompatible,
-                info.sourceCompatible,
-                info.semanticVersionImpact
+                info.type(),
+                info.binaryCompatible(),
+                info.sourceCompatible(),
+                info.semanticVersionImpact()
         );
     }
 }

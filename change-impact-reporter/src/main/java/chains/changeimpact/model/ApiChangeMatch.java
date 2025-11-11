@@ -1,6 +1,7 @@
 package chains.changeimpact.model;
 
-import com.example.japicmp.JapicmpDiffTool;
+import com.example.japicmp.model.ClassChange;
+import com.example.japicmp.model.MemberChange;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,58 +29,58 @@ public record ApiChangeMatch(String elementType,
         parameterTypes = parameterTypes == null ? null : List.copyOf(parameterTypes);
     }
 
-    public static ApiChangeMatch fromClassChange(JapicmpDiffTool.ClassChange classChange) {
-        List<CompatibilityChangeSummary> compatibilitySummaries = classChange.compatibilityChanges == null
+    public static ApiChangeMatch fromClassChange(ClassChange classChange) {
+        List<CompatibilityChangeSummary> compatibilitySummaries = classChange.compatibilityChanges() == null
                 ? List.of()
-                : classChange.compatibilityChanges.stream()
+                : classChange.compatibilityChanges().stream()
                 .map(CompatibilityChangeSummary::from)
                 .collect(Collectors.toUnmodifiableList());
 
         return new ApiChangeMatch(
-                classChange.elementType,
+                classChange.elementType(),
                 "CLASS",
-                classChange.fullyQualifiedName,
-                classChange.fullyQualifiedName,
-                classChange.fullyQualifiedName,
-                classChange.changeStatus,
-                classChange.binaryCompatible,
-                classChange.sourceCompatible,
+                classChange.fullyQualifiedName(),
+                classChange.fullyQualifiedName(),
+                classChange.fullyQualifiedName(),
+                classChange.changeStatus(),
+                classChange.binaryCompatible(),
+                classChange.sourceCompatible(),
                 compatibilitySummaries,
                 null,
                 null,
                 null,
-                classChange.changedMemberCount
+                classChange.changedMemberCount()
         );
     }
 
-    public static ApiChangeMatch fromMemberChange(JapicmpDiffTool.MemberChange memberChange,
+    public static ApiChangeMatch fromMemberChange(MemberChange memberChange,
                                                   String matchType,
                                                   String declaringType) {
         Objects.requireNonNull(matchType, "matchType");
-        List<CompatibilityChangeSummary> compatibilitySummaries = memberChange.compatibilityChanges == null
+        List<CompatibilityChangeSummary> compatibilitySummaries = memberChange.compatibilityChanges() == null
                 ? List.of()
-                : memberChange.compatibilityChanges.stream()
+                : memberChange.compatibilityChanges().stream()
                 .map(CompatibilityChangeSummary::from)
                 .collect(Collectors.toUnmodifiableList());
 
-        List<String> params = memberChange.parameterTypes == null
+        List<String> params = memberChange.parameterTypes() == null
                 ? List.of()
-                : List.copyOf(memberChange.parameterTypes);
+                : List.copyOf(memberChange.parameterTypes());
 
-        String qualifiedSignature = formatQualifiedSignature(declaringType, memberChange.name, memberChange.memberType, params);
+        String qualifiedSignature = formatQualifiedSignature(declaringType, memberChange.name(), memberChange.memberType(), params);
 
         return new ApiChangeMatch(
-                memberChange.memberType,
+                memberChange.memberType(),
                 matchType,
-                memberChange.name,
+                memberChange.name(),
                 declaringType,
                 qualifiedSignature,
-                memberChange.changeStatus,
-                memberChange.binaryCompatible,
-                memberChange.sourceCompatible,
+                memberChange.changeStatus(),
+                memberChange.binaryCompatible(),
+                memberChange.sourceCompatible(),
                 compatibilitySummaries,
-                ValueChangeSummary.from(memberChange.signature),
-                ValueChangeSummary.from(memberChange.value),
+                ValueChangeSummary.from(memberChange.signature()),
+                ValueChangeSummary.from(memberChange.value()),
                 params,
                 null
         );
@@ -110,4 +111,3 @@ public record ApiChangeMatch(String elementType,
                 .collect(Collectors.joining(", ", "(", ")"));
     }
 }
-

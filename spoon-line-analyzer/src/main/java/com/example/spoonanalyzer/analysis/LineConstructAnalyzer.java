@@ -19,6 +19,7 @@ import spoon.reflect.reference.CtPackageReference;
 import spoon.reflect.reference.CtReference;
 import spoon.reflect.reference.CtTypeReference;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -225,7 +226,56 @@ public class LineConstructAnalyzer {
             signature = "<unknown import>";
         }
 
+        if ("<unknown import>".equals(signature)) {
+            String fallbackSignature = extractImportSignature(ctImport);
+            if (fallbackSignature != null && !fallbackSignature.isBlank()) {
+                signature = fallbackSignature;
+            }
+        }
+
         return new ConstructUsage(ConstructType.IMPORT, signature, dependencyInfo, ctImport.getPosition());
+    }
+
+    private String extractImportSignature(CtImport ctImport) {
+        if (ctImport == null || ctImport.getPosition() == null) {
+            return null;
+        }
+        if (ctImport.getPosition().getFile() == null) {
+            return null;
+        }
+        Path filePath = ctImport.getPosition().getFile().toPath();
+        int startLine = Math.max(1, ctImport.getPosition().getLine());
+        int endLine = Math.max(startLine, ctImport.getPosition().getEndLine());
+        try {
+            List<String> lines = Files.readAllLines(filePath);
+            if (lines.isEmpty()) {
+                return null;
+            }
+            StringBuilder snippet = new StringBuilder();
+            for (int line = startLine; line <= endLine && line <= lines.size(); line++) {
+                if (snippet.length() > 0) {
+                    snippet.append(' ');
+                }
+                snippet.append(lines.get(line - 1));
+            }
+            String raw = snippet.toString().trim();
+            if (raw.isEmpty()) {
+                return null;
+            }
+            if (raw.startsWith("import")) {
+                raw = raw.substring("import".length()).trim();
+            }
+            if (raw.startsWith("static")) {
+                raw = raw.substring("static".length()).trim();
+            }
+            if (raw.endsWith(";")) {
+                raw = raw.substring(0, raw.length() - 1).trim();
+            }
+            return raw.isEmpty() ? null : raw;
+        } catch (IOException ex) {
+            LOGGER.debug("Failed to extract import signature for {}: {}", filePath, ex.getMessage());
+            return null;
+        }
     }
 }
 
