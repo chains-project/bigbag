@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import spoon.Launcher;
 import spoon.MavenLauncher;
 import spoon.reflect.CtModel;
-import spoon.reflect.cu.CompilationUnit;
+import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.reference.CtExecutableReference;
@@ -136,7 +136,7 @@ public class LineConstructAnalyzer {
         Path resolvedSource = resolveSource(sourceFile);
         LOGGER.info("Analyzing constructs for {}:{}", resolvedSource, lineNumber);
 
-        CompilationUnit compilationUnit = findCompilationUnit(resolvedSource)
+        CtCompilationUnit compilationUnit = findCompilationUnit(resolvedSource)
                 .orElseThrow(() -> new IllegalArgumentException("Could not locate compilation unit for " + resolvedSource));
 
         Set<ConstructUsage> usages = new LinkedHashSet<>();
@@ -159,10 +159,15 @@ public class LineConstructAnalyzer {
         return normalized;
     }
 
-    private Optional<CompilationUnit> findCompilationUnit(Path sourceFile) {
-        Map<String, CompilationUnit> compilationUnitMap = launcher.getFactory().CompilationUnit().getMap();
-        Collection<CompilationUnit> values = compilationUnitMap.values();
-        for (CompilationUnit unit : values) {
+    @SuppressWarnings("deprecation")
+    private Optional<CtCompilationUnit> findCompilationUnit(Path sourceFile) {
+        // Note: Factory still returns deprecated CompilationUnit, but it's compatible with CtCompilationUnit
+        // We suppress deprecation warnings here because the Factory API hasn't been updated yet
+        Map<String, spoon.reflect.cu.CompilationUnit> compilationUnitMap = launcher.getFactory().CompilationUnit().getMap();
+        Collection<spoon.reflect.cu.CompilationUnit> values = compilationUnitMap.values();
+        for (spoon.reflect.cu.CompilationUnit deprecatedUnit : values) {
+            // CompilationUnit extends CtCompilationUnit, so we can cast safely
+            CtCompilationUnit unit = (CtCompilationUnit) deprecatedUnit;
             if (unit.getFile() != null) {
                 Path unitPath = unit.getFile().toPath().toAbsolutePath().normalize();
                 if (unitPath.equals(sourceFile)) {
@@ -173,7 +178,7 @@ public class LineConstructAnalyzer {
         return Optional.empty();
     }
 
-    private List<ConstructUsage> analyzeImports(CompilationUnit compilationUnit,
+    private List<ConstructUsage> analyzeImports(CtCompilationUnit compilationUnit,
                                                 Path sourceFile,
                                                 int lineNumber,
                                                 String codeLine) {
