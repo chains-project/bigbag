@@ -83,6 +83,59 @@ public class DockerBuild {
     }
 
     /**
+     * Helper method to safely stop and remove a Docker container.
+     * This method handles exceptions gracefully and logs warnings instead of throwing exceptions.
+     *
+     * @param containerId the container ID to clean up
+     */
+    private void cleanupContainer(String containerId) {
+        if (containerId == null || containerId.trim().isEmpty()) {
+            return;
+        }
+        try {
+            dockerClient.stopContainerCmd(containerId).exec();
+        } catch (Exception e) {
+            log.warn("Could not stop container {}", containerId, e);
+        }
+        try {
+            dockerClient.removeContainerCmd(containerId).exec();
+        } catch (Exception e) {
+            log.warn("Could not remove container {}", containerId, e);
+        }
+    }
+
+    /**
+     * Helper method to execute an operation within a temporary Docker container.
+     * The container is automatically cleaned up after the operation completes (success or failure).
+     *
+     * @param dockerImage the Docker image to use for the container
+     * @param operation a function that receives the container ID and returns a result
+     * @param <T> the type of result returned by the operation
+     * @return the result of the operation, or null if the operation fails
+     */
+    private <T> T executeInContainer(String dockerImage, java.util.function.Function<String, T> operation) {
+        String containerId = null;
+        try {
+            ensureBaseMavenImageExists(dockerImage);
+
+            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
+                    .withCmd("sh", "-c", "sleep 10")
+                    .exec();
+
+            containerId = container.getId();
+            dockerClient.startContainerCmd(containerId).exec();
+
+            return operation.apply(containerId);
+
+        } catch (Exception e) {
+            log.error("Error executing operation in container from image {}", dockerImage, e);
+            return null;
+        } finally {
+            cleanupContainer(containerId);
+        }
+    }
+
+    /**
      * Copies a project from a Docker container to a specified directory.
      *
      * @param containerId the ID of the Docker container
@@ -865,89 +918,77 @@ public class DockerBuild {
                 log.info("Created output directory: {}", outputDir);
             }
 
-            // Create container from image
-            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
-                    .withCmd("sh", "-c", "sleep 10") // Keep container alive briefly
-                    .exec();
+            // Extract project and m2 using the helper method
+            Path result = executeInContainer(dockerImage, containerId -> {
+                try {
+                    // Extract project
+                    Files.createDirectories(projectOutputDir);
+                    log.info("Extracting project from {} to {}", projectPath, projectOutputDir);
 
-            String containerId = container.getId();
-            log.info("Created container {} from image {}", containerId, dockerImage);
-
-            try {
-                // Start container
-                dockerClient.startContainerCmd(containerId).exec();
-
-                // Extract project
-                Files.createDirectories(projectOutputDir);
-                log.info("Extracting project from {} to {}", projectPath, projectOutputDir);
-
-                try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, projectPath).exec()) {
-                    copyFiles(projectOutputDir, projectStream);
-                    log.info("Project extracted successfully");
-                } catch (Exception e) {
-                    log.warn("Could not extract project from {}, trying common paths", projectPath, e);
-                    // Try common project paths
-                    String[] commonPaths = {"/project", "/app", "/workspace", "/code", "/src"};
-                    boolean extracted = false;
-                    for (String commonPath : commonPaths) {
-                        try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, commonPath).exec()) {
-                            copyFiles(projectOutputDir, projectStream);
-                            log.info("Project extracted from {}", commonPath);
-                            extracted = true;
-                            break;
-                        } catch (Exception ex) {
-                            // Try next path
+                    try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, projectPath).exec()) {
+                        copyFiles(projectOutputDir, projectStream);
+                        log.info("Project extracted successfully");
+                    } catch (Exception e) {
+                        log.warn("Could not extract project from {}, trying common paths", projectPath, e);
+                        // Try common project paths
+                        String[] commonPaths = {"/project", "/app", "/workspace", "/code", "/src"};
+                        boolean extracted = false;
+                        for (String commonPath : commonPaths) {
+                            try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, commonPath).exec()) {
+                                copyFiles(projectOutputDir, projectStream);
+                                log.info("Project extracted from {}", commonPath);
+                                extracted = true;
+                                break;
+                            } catch (Exception ex) {
+                                // Try next path
+                            }
+                        }
+                        if (!extracted) {
+                            log.error("Could not extract project from any common path");
+                            throw new RuntimeException("Failed to extract project from Docker image");
                         }
                     }
-                    if (!extracted) {
-                        log.error("Could not extract project from any common path");
-                        throw new RuntimeException("Failed to extract project from Docker image");
-                    }
-                }
 
-                // Extract m2 folder
-                Path m2OutputDir = outputDir.resolve("m2");
-                Files.createDirectories(m2OutputDir);
-                log.info("Extracting m2 folder to {}", m2OutputDir);
+                    // Extract m2 folder
+                    Path m2OutputDir = outputDir.resolve("m2");
+                    Files.createDirectories(m2OutputDir);
+                    log.info("Extracting m2 folder to {}", m2OutputDir);
 
-                try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, "/root/.m2").exec()) {
-                    copyFiles(m2OutputDir, m2Stream);
-                    log.info("M2 folder extracted successfully");
-                } catch (Exception e) {
-                    log.warn("Could not extract m2 from /root/.m2, trying alternative locations", e);
-                    // Try alternative m2 locations
-                    String[] m2Paths = {"/home/user/.m2", "/.m2"};
-                    boolean extracted = false;
-                    for (String m2Path : m2Paths) {
-                        try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, m2Path).exec()) {
-                            copyFiles(m2OutputDir, m2Stream);
-                            log.info("M2 folder extracted from {}", m2Path);
-                            extracted = true;
-                            break;
-                        } catch (Exception ex) {
-                            // Try next path
+                    try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, "/root/.m2").exec()) {
+                        copyFiles(m2OutputDir, m2Stream);
+                        log.info("M2 folder extracted successfully");
+                    } catch (Exception e) {
+                        log.warn("Could not extract m2 from /root/.m2, trying alternative locations", e);
+                        // Try alternative m2 locations
+                        String[] m2Paths = {"/home/user/.m2", "/.m2"};
+                        boolean extracted = false;
+                        for (String m2Path : m2Paths) {
+                            try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, m2Path).exec()) {
+                                copyFiles(m2OutputDir, m2Stream);
+                                log.info("M2 folder extracted from {}", m2Path);
+                                extracted = true;
+                                break;
+                            } catch (Exception ex) {
+                                // Try next path
+                            }
+                        }
+                        if (!extracted) {
+                            log.warn("Could not extract m2 folder from any location");
                         }
                     }
-                    if (!extracted) {
-                        log.warn("Could not extract m2 folder from any location");
-                    }
-                }
 
-                return outputDir;
+                    return outputDir;
+                } catch (IOException e) {
+                    log.error("Error creating directories during extraction", e);
+                    throw new RuntimeException("Failed to create directories for extraction", e);
+                }
+            });
 
-            } finally {
-                // Clean up container
-                try {
-                    dockerClient.stopContainerCmd(containerId).exec();
-                } catch (Exception e) {
-                    log.warn("Could not stop container {}", containerId, e);
-                }
-                try {
-                    dockerClient.removeContainerCmd(containerId).exec();
-                } catch (Exception e) {
-                    log.warn("Could not remove container {}", containerId, e);
-                }
+            if (result == null) {
+                throw new RuntimeException("Failed to extract project and m2 from Docker image");
             }
+
+            return result;
 
         } catch (Exception e) {
             log.error("Error extracting project and m2 from image {}", dockerImage, e);
@@ -1007,6 +1048,36 @@ public class DockerBuild {
     }
 
     /**
+     * Extracts a single JAR file from a Docker image's m2 repository.
+     * This is a convenience method for extracting a single JAR without needing to handle both previous and new versions.
+     *
+     * @param dockerImage the Docker image containing the JAR
+     * @param groupId the Maven group ID
+     * @param artifactId the Maven artifact ID
+     * @param version the version of the JAR to extract
+     * @param outputBaseDir the base directory where JAR will be saved
+     * @return the path to the extracted JAR, or null if extraction failed
+     */
+    public Path extractJarFromImage(String dockerImage, String groupId, String artifactId, String version, Path outputBaseDir) {
+        if (version == null || version.trim().isEmpty()) {
+            log.warn("Version is null or empty, cannot extract JAR");
+            return null;
+        }
+
+        Path jarPath = outputBaseDir.resolve("%s-%s.jar".formatted(artifactId, version));
+
+        Boolean extracted = executeInContainer(dockerImage, containerId -> {
+            return extractJarFromContainer(containerId, groupId, artifactId, version, jarPath);
+        });
+
+        if (extracted != null && extracted && Files.exists(jarPath)) {
+            return jarPath;
+        }
+
+        return null;
+    }
+
+    /**
      * Extracts specific dependency JARs (previous and new versions) from Docker images.
      * Useful for API diff analysis.
      *
@@ -1020,56 +1091,31 @@ public class DockerBuild {
      */
     public Map<String, Path> extractDependencyJars(String dockerImage, String groupId, String artifactId, 
                                                      String previousVersion, String newVersion, Path outputBaseDir) {
-        try {
-            ensureBaseMavenImageExists(dockerImage);
-
-            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
-                    .withCmd("sh", "-c", "sleep 10")
-                    .exec();
-
-            String containerId = container.getId();
+        Map<String, Path> result = executeInContainer(dockerImage, containerId -> {
             Map<String, Path> jarPaths = new HashMap<>();
-
-            try {
-                dockerClient.startContainerCmd(containerId).exec();
-
-                // Extract previous version JAR
-                if (previousVersion != null && !previousVersion.trim().isEmpty()) {
-                    Path previousJarPath = outputBaseDir.resolve("%s-%s-%s.jar".formatted(artifactId, previousVersion, "previous"));
-                    boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, previousVersion, previousJarPath);
-                    if (extracted) {
-                        jarPaths.put("previous", previousJarPath);
-                    }
-                }
-
-                // Extract new version JAR
-                if (newVersion != null && !newVersion.trim().isEmpty()) {
-                    Path newJarPath = outputBaseDir.resolve("%s-%s-%s.jar".formatted(artifactId, newVersion, "new"));
-                    boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, newVersion, newJarPath);
-                    if (extracted) {
-                        jarPaths.put("new", newJarPath);
-                    }
-                }
-
-                return jarPaths.isEmpty() ? null : jarPaths;
-
-            } finally {
-                try {
-                    dockerClient.stopContainerCmd(containerId).exec();
-                } catch (Exception e) {
-                    log.warn("Could not stop container {}", containerId, e);
-                }
-                try {
-                    dockerClient.removeContainerCmd(containerId).exec();
-                } catch (Exception e) {
-                    log.warn("Could not remove container {}", containerId, e);
+            
+            // Extract previous version JAR
+            if (previousVersion != null && !previousVersion.trim().isEmpty()) {
+                Path previousJarPath = outputBaseDir.resolve("%s-%s.jar".formatted(artifactId, previousVersion));
+                boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, previousVersion, previousJarPath);
+                if (extracted) {
+                    jarPaths.put("previous", previousJarPath);
                 }
             }
 
-        } catch (Exception e) {
-            log.error("Error extracting dependency JARs from image {}", dockerImage, e);
-            return null;
-        }
+            // Extract new version JAR
+            if (newVersion != null && !newVersion.trim().isEmpty()) {
+                Path newJarPath = outputBaseDir.resolve("%s-%s.jar".formatted(artifactId, newVersion));
+                boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, newVersion, newJarPath);
+                if (extracted) {
+                    jarPaths.put("new", newJarPath);
+                }
+            }
+
+            return jarPaths;
+        });
+
+        return (result != null && !result.isEmpty()) ? result : null;
     }
 }
 

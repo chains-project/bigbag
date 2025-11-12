@@ -30,6 +30,22 @@ public class JsonReportReader {
                 .toList();
     }
 
+    /**
+     * Reads a single JSON file and returns a list with one BreakingUpdateRecord.
+     *
+     * @param jsonFilePath the path to the JSON file
+     * @return a list containing the BreakingUpdateRecord from the file
+     * @throws IOException if the file cannot be read
+     */
+    public List<BreakingUpdateRecord> readFromFile(Path jsonFilePath) throws IOException {
+        try {
+            BreakingUpdateRecord record = objectMapper.readValue(jsonFilePath.toFile(), BreakingUpdateRecord.class);
+            return List.of(record);
+        } catch (IOException e) {
+            throw new JsonReportReaderException("Failed to read JSON file: " + jsonFilePath, e);
+        }
+    }
+
     public List<ReportFile> readReportFiles(Path directory) throws IOException {
         if (!Files.isDirectory(directory)) {
             throw new IOException("Provided path is not a directory: " + directory);
