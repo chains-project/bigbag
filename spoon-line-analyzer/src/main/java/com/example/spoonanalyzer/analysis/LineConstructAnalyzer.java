@@ -140,7 +140,7 @@ public class LineConstructAnalyzer {
                 .orElseThrow(() -> new IllegalArgumentException("Could not locate compilation unit for " + resolvedSource));
 
         Set<ConstructUsage> usages = new LinkedHashSet<>();
-        String codeLine = readCodeLine(resolvedSource, lineNumber);
+        String codeLine = readCodeLineFromSpoon(compilationUnit, lineNumber);
         usages.addAll(analyzeImports(compilationUnit, resolvedSource, lineNumber, codeLine));
 
         LineConstructScanner scanner = new LineConstructScanner(resolvedSource, lineNumber, dependencyResolver, codeLine);
@@ -288,7 +288,64 @@ public class LineConstructAnalyzer {
         }
     }
 
-    private String readCodeLine(Path sourceFile, int lineNumber) {
+    /**
+     * Reads a specific line from the source code using Spoon's compilation unit.
+     * This uses Spoon's already-loaded source code instead of reading from the file system.
+     *
+     * @param compilationUnit The Spoon compilation unit containing the source code
+     * @param lineNumber The 1-based line number to read
+     * @return The line content, or null if the line number is invalid or source code is unavailable
+     */
+    private String readCodeLineFromSpoon(CtCompilationUnit compilationUnit, int lineNumber) {
+        if (lineNumber < 1 || compilationUnit == null) {
+            return null;
+        }
+
+        try {
+            // Get the original source code from Spoon's compilation unit
+            String originalSourceCode = compilationUnit.getOriginalSourceCode();
+            if (originalSourceCode == null || originalSourceCode.isEmpty()) {
+                // Fallback: try to read from file if Spoon doesn't have the source
+                Path sourceFile = compilationUnit.getFile() != null 
+                    ? compilationUnit.getFile().toPath() 
+                    : null;
+                if (sourceFile != null) {
+                    return readCodeLineFromFile(sourceFile, lineNumber);
+                }
+                return null;
+            }
+
+            // Split by line separators (handles both \n and \r\n)
+            String[] lines = originalSourceCode.split("\r?\n", -1);
+            if (lineNumber > lines.length) {
+                return null;
+            }
+
+            String line = lines[lineNumber - 1];
+            // Normalize tabs and trailing whitespace
+            return line.replace("\t", "    ").stripTrailing();
+        } catch (Exception ex) {
+            LOGGER.debug("Failed to read line {} from Spoon compilation unit: {}", lineNumber, ex.getMessage());
+            // Fallback to file reading if Spoon source access fails
+            Path sourceFile = compilationUnit.getFile() != null 
+                ? compilationUnit.getFile().toPath() 
+                : null;
+            if (sourceFile != null) {
+                return readCodeLineFromFile(sourceFile, lineNumber);
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Fallback method to read a line directly from the file system.
+     * Used when Spoon's source code access is unavailable.
+     *
+     * @param sourceFile The source file path
+     * @param lineNumber The 1-based line number to read
+     * @return The line content, or null if reading fails
+     */
+    private String readCodeLineFromFile(Path sourceFile, int lineNumber) {
         if (lineNumber < 1) {
             return null;
         }
