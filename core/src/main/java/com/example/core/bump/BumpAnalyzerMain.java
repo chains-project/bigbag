@@ -40,7 +40,7 @@ public class BumpAnalyzerMain {
         String inputDirStr = DEFAULT_INPUT_DIR;
         String outputFileStr = DEFAULT_OUTPUT_FILE;
         boolean verbose = false;
-        String singleJsonFile = null;
+        String singleJsonFile = "24d4a90ec1b375751e71f33d18949405c9529d77";
         FailureCategory filterCategory = FailureCategoryUtils.parseFailureCategory("COMPILATION_FAILURE");
         boolean extractDependencies = true;
         String dependenciesOutputDir = "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/dependencies/";
