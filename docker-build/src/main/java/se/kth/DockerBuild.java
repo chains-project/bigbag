@@ -770,6 +770,49 @@ public class DockerBuild {
         }
     }
 
+    /**
+     * Copies only the JAR file from a TAR archive, ignoring directory structure.
+     * This method extracts only the specific JAR file and writes it directly to the output path.
+     *
+     * @param outputPath the path where the JAR file should be written
+     * @param jarFileName the expected JAR file name (e.g., "artifact-version.jar")
+     * @param tarStream the TAR archive input stream from Docker
+     * @throws IOException if there's an error reading or writing the file
+     */
+    private void copyJarFile(Path outputPath, String jarFileName, InputStream tarStream) throws IOException {
+        try (TarArchiveInputStream archiveStream = new TarArchiveInputStream(tarStream)) {
+            TarArchiveEntry entry;
+            boolean jarFound = false;
+            
+            while ((entry = archiveStream.getNextTarEntry()) != null) {
+                if (!entry.isDirectory()) {
+                    String entryName = entry.getName();
+                    // Extract only the JAR file, ignoring directory structure
+                    // The entry name might be like "root/.m2/repository/.../artifact-version.jar"
+                    // or just "artifact-version.jar"
+                    if (entryName.endsWith(jarFileName)) {
+                        // Ensure parent directory exists
+                        if (outputPath.getParent() != null) {
+                            Files.createDirectories(outputPath.getParent());
+                        }
+                        
+                        // Read the JAR file content and write it to the output path
+                        // Only copy this specific JAR file, not the directory structure
+                        byte[] fileContent = archiveStream.readAllBytes();
+                        Files.write(outputPath, fileContent, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                        jarFound = true;
+                        log.debug("Extracted JAR file: {} -> {}", entryName, outputPath);
+                        break; // Found the JAR, no need to continue
+                    }
+                }
+            }
+            
+            if (!jarFound) {
+                throw new IOException("JAR file " + jarFileName + " not found in TAR archive");
+            }
+        }
+    }
+
     public static void deleteImage(String imageId) {
         try {
             try {
@@ -1008,6 +1051,12 @@ public class DockerBuild {
      */
     public boolean extractJarFromContainer(String containerId, String groupId, String artifactId, String version, Path outputPath) {
         try {
+            // Check if JAR already exists before downloading
+            if (Files.exists(outputPath)) {
+                log.info("JAR already exists, skipping extraction: {}", outputPath);
+                return true;
+            }
+
             // Build Maven repository path: /root/.m2/repository/group/artifact/version/artifact-version.jar
             String groupPath = groupId.replace(".", "/");
             String jarFileName = "%s-%s.jar".formatted(artifactId, version);
@@ -1021,7 +1070,7 @@ public class DockerBuild {
             }
 
             try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, jarPathInContainer).exec()) {
-                copyFile(outputPath, jarStream);
+                copyJarFile(outputPath, jarFileName, jarStream);
                 log.info("JAR extracted successfully to: {}", outputPath);
                 return true;
             } catch (Exception e) {
@@ -1031,7 +1080,7 @@ public class DockerBuild {
                 for (String m2Base : m2BasePaths) {
                     String altJarPath = "%s/repository/%s/%s/%s/%s".formatted(m2Base, groupPath, artifactId, version, jarFileName);
                     try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, altJarPath).exec()) {
-                        copyFile(outputPath, jarStream);
+                        copyJarFile(outputPath, jarFileName, jarStream);
                         log.info("JAR extracted from alternative location: {}", altJarPath);
                         return true;
                     } catch (Exception ex) {
