@@ -53,7 +53,6 @@ public class DependencyExtractor {
         int skipped = 0;
         int failed = 0;
         Map<String, Integer> apiDiffLinesMap = new HashMap<>();
-        Set<String> dockerImagesToDelete = new HashSet<>();
         
         for (VersionCombination combination : combinations) {
             // Create the same key format as VersionCombinationAnalyzer
@@ -78,7 +77,7 @@ public class DependencyExtractor {
                 continue;
             }
             
-            // Extract both versions and collect Docker images for cleanup
+            // Extract Docker images for this combination
             String previousImage = extractDockerImageFromCommand(record.preCommitReproductionCommand());
             String newImage = extractDockerImageFromCommand(record.breakingUpdateReproductionCommand());
             
@@ -97,14 +96,6 @@ public class DependencyExtractor {
                     record.breakingUpdateReproductionCommand(),
                     "new"
             );
-            
-            // Collect Docker images for deletion after extraction
-            if (previousImage != null && !previousImage.trim().isEmpty()) {
-                dockerImagesToDelete.add(previousImage);
-            }
-            if (newImage != null && !newImage.trim().isEmpty()) {
-                dockerImagesToDelete.add(newImage);
-            }
             
             boolean bothJarsAvailable = bothJarsExist(combination);
             
@@ -142,24 +133,31 @@ public class DependencyExtractor {
                     log.warn("Failed to run japicmp for combination {}: {}", combinationKey, e.getMessage());
                 }
             }
-        }
-        
-        log.info("Extraction complete: {} extracted, {} skipped, {} failed", extracted, skipped, failed);
-        
-        // Delete Docker images after extraction
-        if (!dockerImagesToDelete.isEmpty()) {
-            log.info("Deleting {} Docker images after extraction", dockerImagesToDelete.size());
-            for (String imageId : dockerImagesToDelete) {
+            
+            // Delete Docker images immediately after processing this combination
+            Set<String> imagesToDelete = new HashSet<>();
+            if (previousImage != null && !previousImage.trim().isEmpty()) {
+                imagesToDelete.add(previousImage);
+            }
+            if (newImage != null && !newImage.trim().isEmpty()) {
+                imagesToDelete.add(newImage);
+            }
+            
+            // Remove duplicates (in case previous and new are the same image)
+            for (String imageId : imagesToDelete) {
                 try {
                     DockerBuild.deleteImage(imageId);
                     if (verbose) {
                         System.out.println("  ✓ Deleted Docker image: " + imageId);
                     }
+                    log.info("Deleted Docker image after processing combination: {}", imageId);
                 } catch (Exception e) {
                     log.warn("Failed to delete Docker image {}: {}", imageId, e.getMessage());
                 }
             }
         }
+        
+        log.info("Extraction complete: {} extracted, {} skipped, {} failed", extracted, skipped, failed);
         
         return new ExtractionSummary(extracted, skipped, failed, apiDiffLinesMap);
     }
