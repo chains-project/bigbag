@@ -27,11 +27,28 @@ public class DependencyExtractor {
     private final DockerBuild dockerBuild;
     private final Path outputBaseDir;
     private final boolean verbose;
+    private CombinationUpdateCallback updateCallback;
+    
+    /**
+     * Callback interface for updating the report after each combination is processed.
+     */
+    public interface CombinationUpdateCallback {
+        void onCombinationProcessed(VersionCombination combination, Integer apiDiffLines);
+    }
     
     public DependencyExtractor(Path outputBaseDir, boolean verbose) {
         this.dockerBuild = new DockerBuild(false);
         this.outputBaseDir = outputBaseDir;
         this.verbose = verbose;
+    }
+    
+    /**
+     * Sets a callback to be invoked after each combination is processed.
+     * 
+     * @param callback the callback to invoke
+     */
+    public void setCombinationUpdateCallback(CombinationUpdateCallback callback) {
+        this.updateCallback = callback;
     }
     
     /**
@@ -120,9 +137,10 @@ public class DependencyExtractor {
             }
             
             // Run japicmp if both JARs are available
+            Integer diffLines = null;
             if (bothJarsAvailable) {
                 try {
-                    Integer diffLines = runJapicmp(combination);
+                    diffLines = runJapicmp(combination);
                     if (diffLines != null) {
                         apiDiffLinesMap.put(combinationKey, diffLines);
                         if (verbose) {
@@ -154,6 +172,23 @@ public class DependencyExtractor {
                 } catch (Exception e) {
                     log.warn("Failed to delete Docker image {}: {}", imageId, e.getMessage());
                 }
+            }
+            
+            // Notify callback to update report with this combination's data
+            if (updateCallback != null) {
+                // Create updated combination with API diff lines
+                VersionCombination updatedCombination = new VersionCombination(
+                        combination.dependencyGroupId(),
+                        combination.dependencyArtifactId(),
+                        combination.previousVersion(),
+                        combination.newVersion(),
+                        combination.count(),
+                        combination.projects(),
+                        combination.breakingCommits(),
+                        combination.failureCategories(),
+                        diffLines
+                );
+                updateCallback.onCombinationProcessed(updatedCombination, diffLines);
             }
         }
         

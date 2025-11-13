@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -204,7 +205,8 @@ public class BumpAnalyzerMain {
             // Analyze version combinations
             VersionCombinationAnalyzer analyzer = new VersionCombinationAnalyzer();
             AnalysisResult analysisResult = analyzer.analyze(records, filterCategory);
-            VersionAnalysisReport report = analysisResult.report();
+            final VersionAnalysisReport initialReport = analysisResult.report();
+            VersionAnalysisReport report = initialReport;
             
             // Display summary
             System.out.println("\n=== Analysis Summary ===");
@@ -237,6 +239,52 @@ public class BumpAnalyzerMain {
                 Files.createDirectories(dependenciesDir);
                 
                 DependencyExtractor extractor = new DependencyExtractor(dependenciesDir, verbose);
+                
+                // Create a map to track updated combinations
+                Map<String, VersionCombination> updatedCombinationsMap = new HashMap<>();
+                for (VersionCombination combination : report.combinations()) {
+                    String combinationKey = combination.dependencyGroupId() + ":" + 
+                                           combination.dependencyArtifactId() + ":" + 
+                                           combination.previousVersion() + " -> " + combination.newVersion();
+                    updatedCombinationsMap.put(combinationKey, combination);
+                }
+                
+                // Set callback to update report after each combination
+                extractor.setCombinationUpdateCallback((updatedCombination, diffLines) -> {
+                    String combinationKey = updatedCombination.dependencyGroupId() + ":" + 
+                                           updatedCombination.dependencyArtifactId() + ":" + 
+                                           updatedCombination.previousVersion() + " -> " + updatedCombination.newVersion();
+                    
+                    // Update the combination in the map
+                    updatedCombinationsMap.put(combinationKey, updatedCombination);
+                    
+                    // Create updated report with all combinations processed so far
+                    List<VersionCombination> currentCombinations = new ArrayList<>();
+                    for (VersionCombination original : initialReport.combinations()) {
+                        String key = original.dependencyGroupId() + ":" + 
+                                    original.dependencyArtifactId() + ":" + 
+                                    original.previousVersion() + " -> " + original.newVersion();
+                        VersionCombination updated = updatedCombinationsMap.get(key);
+                        currentCombinations.add(updated != null ? updated : original);
+                    }
+                    
+                    VersionAnalysisReport updatedReport = new VersionAnalysisReport(
+                            initialReport.totalRecords(),
+                            initialReport.filteredRecords(),
+                            initialReport.failureCategory(),
+                            initialReport.uniqueCombinations(),
+                            currentCombinations
+                    );
+                    
+                    // Write report immediately after each combination
+                    try {
+                        writeReportToJson(updatedReport, outputFile);
+                        log.debug("Report updated after processing combination: {}", combinationKey);
+                    } catch (IOException e) {
+                        log.error("Failed to write report after combination {}: {}", combinationKey, e.getMessage());
+                    }
+                });
+                
                 ExtractionSummary extractionSummary = extractor.extractDependencies(
                         report.combinations(),
                         analysisResult.recordsByCombination()
@@ -249,43 +297,26 @@ public class BumpAnalyzerMain {
                 System.out.println("Total: " + extractionSummary.total());
                 System.out.println("Output directory: " + dependenciesDir.toAbsolutePath());
                 
-                // Update combinations with API diff line counts
-                Map<String, Integer> apiDiffLinesMap = extractionSummary.apiDiffLines();
-                if (!apiDiffLinesMap.isEmpty()) {
-                    List<VersionCombination> updatedCombinations = new ArrayList<>();
-                    for (VersionCombination combination : report.combinations()) {
-                        String combinationKey = combination.dependencyGroupId() + ":" + 
-                                               combination.dependencyArtifactId() + ":" + 
-                                               combination.previousVersion() + " -> " + combination.newVersion();
-                        Integer diffLines = apiDiffLinesMap.get(combinationKey);
-                        
-                        // Create updated combination with API diff lines
-                        VersionCombination updated = new VersionCombination(
-                                combination.dependencyGroupId(),
-                                combination.dependencyArtifactId(),
-                                combination.previousVersion(),
-                                combination.newVersion(),
-                                combination.count(),
-                                combination.projects(),
-                                combination.breakingCommits(),
-                                combination.failureCategories(),
-                                diffLines
-                        );
-                        updatedCombinations.add(updated);
-                    }
-                    
-                    // Update report with combinations that include API diff line counts
-                    report = new VersionAnalysisReport(
-                            report.totalRecords(),
-                            report.filteredRecords(),
-                            report.failureCategory(),
-                            report.uniqueCombinations(),
-                            updatedCombinations
-                    );
+                // Final update of report with all combinations
+                List<VersionCombination> finalCombinations = new ArrayList<>();
+                for (VersionCombination original : report.combinations()) {
+                    String key = original.dependencyGroupId() + ":" + 
+                                original.dependencyArtifactId() + ":" + 
+                                original.previousVersion() + " -> " + original.newVersion();
+                    VersionCombination updated = updatedCombinationsMap.get(key);
+                    finalCombinations.add(updated != null ? updated : original);
                 }
+                
+                report = new VersionAnalysisReport(
+                        report.totalRecords(),
+                        report.filteredRecords(),
+                        report.failureCategory(),
+                        report.uniqueCombinations(),
+                        finalCombinations
+                );
             }
             
-            // Write report to JSON
+            // Write final report to JSON (in case extractDependencies was not called)
             writeReportToJson(report, outputFile);
             System.out.println("\n=== Report Generated ===");
             System.out.println("Output file: " + outputFile.toAbsolutePath());
