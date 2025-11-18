@@ -20,8 +20,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Main class for analyzing version combinations in breaking update records.
@@ -45,6 +48,7 @@ public class BumpAnalyzerMain {
         FailureCategory filterCategory = FailureCategoryUtils.parseFailureCategory("COMPILATION_FAILURE");
         boolean extractDependencies = true;
         String dependenciesOutputDir = "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/dependencies/";
+        String excludeCommitsFile = "analysis/java_version_incompatibility.txt";
         
         // Parse arguments
         for (int i = 0; i < args.length; i++) {
@@ -108,6 +112,16 @@ public class BumpAnalyzerMain {
                         dependenciesOutputDir = args[++i];
                     }
                 }
+                case "--exclude-commits", "-x" -> {
+                    if (i + 1 < args.length) {
+                        excludeCommitsFile = args[++i];
+                    } else {
+                        System.err.println("Error: --exclude-commits requires a file path");
+                        printUsage();
+                        System.exit(1);
+                        return;
+                    }
+                }
                 case "--help", "-h" -> {
                     printUsage();
                     System.exit(0);
@@ -142,6 +156,34 @@ public class BumpAnalyzerMain {
         if (singleJsonFile != null) {
             log.info("Processing single JSON file: {}", singleJsonFile);
             System.out.println("Processing single file: " + singleJsonFile);
+        }
+        
+        // Read excluded commits if file is provided
+        final Set<String> excludedCommits;
+        if (excludeCommitsFile != null) {
+            try {
+                Path excludeFile = Paths.get(excludeCommitsFile);
+                if (!Files.exists(excludeFile)) {
+                    log.error("Exclude commits file does not exist: {}", excludeFile);
+                    System.err.println("Error: Exclude commits file does not exist: " + excludeFile);
+                    System.exit(1);
+                    return;
+                }
+                excludedCommits = Files.readAllLines(excludeFile)
+                    .stream()
+                    .map(String::trim)
+                    .filter(line -> !line.isEmpty())
+                    .collect(Collectors.toSet());
+                log.info("Loaded {} commits to exclude from analysis", excludedCommits.size());
+                System.out.println("Excluding " + excludedCommits.size() + " commits from analysis");
+            } catch (IOException e) {
+                log.error("Error reading exclude commits file: {}", excludeCommitsFile, e);
+                System.err.println("Error: Failed to read exclude commits file: " + e.getMessage());
+                System.exit(1);
+                return;
+            }
+        } else {
+            excludedCommits = new HashSet<>();
         }
         
         // Validate input directory (only if not processing a single file with full path)
@@ -201,6 +243,18 @@ public class BumpAnalyzerMain {
             log.info("Found {} breaking update records", records.size());
             System.out.println("\n=== Breaking Update Records ===");
             System.out.println("Total records found: " + records.size());
+            
+            // Filter out excluded commits
+            if (!excludedCommits.isEmpty()) {
+                int originalSize = records.size();
+                records = records.stream()
+                    .filter(record -> !excludedCommits.contains(record.breakingCommit()))
+                    .collect(Collectors.toList());
+                int excludedCount = originalSize - records.size();
+                log.info("Excluded {} records based on commit exclusion list", excludedCount);
+                System.out.println("Excluded " + excludedCount + " records (commits in exclusion list)");
+                System.out.println("Remaining records: " + records.size());
+            }
             
             // Analyze version combinations
             VersionCombinationAnalyzer analyzer = new VersionCombinationAnalyzer();
@@ -374,6 +428,8 @@ public class BumpAnalyzerMain {
         System.out.println("  -e, --extract-dependencies [DIR]  Extract JAR dependencies from Docker images");
         System.out.println("                      (optional DIR: output directory for dependencies)");
         System.out.println("                      (default: dependencies/)");
+        System.out.println("  -x, --exclude-commits FILE  Exclude commits from analysis");
+        System.out.println("                      File should contain one commit hash per line");
         System.out.println("  -v, --verbose       Show detailed information including top combinations");
         System.out.println("  -h, --help          Show this help message");
         System.out.println();
@@ -388,6 +444,7 @@ public class BumpAnalyzerMain {
         System.out.println("  BumpAnalyzerMain -i ./data --file my-project -o ./output.json");
         System.out.println("  BumpAnalyzerMain --file /path/to/specific-file.json -o ./output.json");
         System.out.println("  BumpAnalyzerMain -i ./data -e ./deps --extract-dependencies");
+        System.out.println("  BumpAnalyzerMain -i ./data -x ./excluded-commits.txt -o ./output.json");
         System.out.println();
         System.out.println("Output:");
         System.out.println("  Generates a JSON file with unique version combinations:");
