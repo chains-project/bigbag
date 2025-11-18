@@ -98,48 +98,61 @@ public class DependencyExtractor {
             String previousImage = extractDockerImageFromCommand(record.preCommitReproductionCommand());
             String newImage = extractDockerImageFromCommand(record.breakingUpdateReproductionCommand());
             
-            boolean extractedPrevious = extractJarVersion(
-                    combination, 
-                    record, 
-                    dependency.previousVersion(), 
-                    record.preCommitReproductionCommand(),
-                    "previous"
-            );
-            
-            boolean extractedNew = extractJarVersion(
-                    combination, 
-                    record, 
-                    dependency.newVersion(), 
-                    record.breakingUpdateReproductionCommand(),
-                    "new"
-            );
-            
+            // Check if both JARs already exist BEFORE attempting extraction
             boolean bothJarsAvailable = bothJarsExist(combination);
+            boolean jarsWereAlreadyPresent = bothJarsAvailable;
             
-            if (extractedPrevious || extractedNew) {
+            boolean extractedPrevious = false;
+            boolean extractedNew = false;
+            
+            // Only attempt extraction if JARs don't already exist
+            if (!bothJarsAvailable) {
+                extractedPrevious = extractJarVersion(
+                        combination, 
+                        record, 
+                        dependency.previousVersion(), 
+                        record.preCommitReproductionCommand(),
+                        "previous"
+                );
+                
+                extractedNew = extractJarVersion(
+                        combination, 
+                        record, 
+                        dependency.newVersion(), 
+                        record.breakingUpdateReproductionCommand(),
+                        "new"
+                );
+                
+                // Re-check after extraction attempts
+                bothJarsAvailable = bothJarsExist(combination);
+            }
+            
+            // Track extraction results
+            if (jarsWereAlreadyPresent) {
+                skipped++;
+                if (verbose) {
+                    System.out.println("  ⊙ Dependencies already exist, skipping download: " + combinationKey);
+                }
+            } else if (extractedPrevious || extractedNew) {
                 extracted++;
                 if (verbose) {
                     System.out.println("  ✓ Extracted JARs for: " + combinationKey);
                 }
-            } else {
-                // Check if both JARs already exist
-                if (bothJarsAvailable) {
-                    skipped++;
-                    if (verbose) {
-                        System.out.println("  ⊙ Skipped (already exist): " + combinationKey);
-                    }
-                } else {
-                    failed++;
-                    if (verbose) {
-                        System.out.println("  ✗ Failed to extract: " + combinationKey);
-                    }
+            } else if (!bothJarsAvailable) {
+                failed++;
+                if (verbose) {
+                    System.out.println("  ✗ Failed to extract: " + combinationKey);
                 }
             }
             
-            // Run japicmp if both JARs are available
+            // Run japicmp if both JARs are available (whether extracted or already existed)
+            // This ensures analysis runs even when dependencies were already present
             Integer diffLines = null;
             if (bothJarsAvailable) {
                 try {
+                    if (verbose && jarsWereAlreadyPresent) {
+                        System.out.println("  → Running analysis on existing dependencies: " + combinationKey);
+                    }
                     diffLines = runJapicmp(combination);
                     if (diffLines != null) {
                         apiDiffLinesMap.put(combinationKey, diffLines);
@@ -152,26 +165,31 @@ public class DependencyExtractor {
                 }
             }
             
-            // Delete Docker images immediately after processing this combination
-            Set<String> imagesToDelete = new HashSet<>();
-            if (previousImage != null && !previousImage.trim().isEmpty()) {
-                imagesToDelete.add(previousImage);
-            }
-            if (newImage != null && !newImage.trim().isEmpty()) {
-                imagesToDelete.add(newImage);
-            }
-            
-            // Remove duplicates (in case previous and new are the same image)
-            for (String imageId : imagesToDelete) {
-                try {
-                    DockerBuild.deleteImage(imageId);
-                    if (verbose) {
-                        System.out.println("  ✓ Deleted Docker image: " + imageId);
-                    }
-                    log.info("Deleted Docker image after processing combination: {}", imageId);
-                } catch (Exception e) {
-                    log.warn("Failed to delete Docker image {}: {}", imageId, e.getMessage());
+            // Delete Docker images only if we actually extracted JARs (not if they already existed)
+            // This avoids unnecessary Docker operations when dependencies are already present
+            if (!jarsWereAlreadyPresent && (extractedPrevious || extractedNew)) {
+                Set<String> imagesToDelete = new HashSet<>();
+                if (previousImage != null && !previousImage.trim().isEmpty()) {
+                    imagesToDelete.add(previousImage);
                 }
+                if (newImage != null && !newImage.trim().isEmpty()) {
+                    imagesToDelete.add(newImage);
+                }
+                
+                // Remove duplicates (in case previous and new are the same image)
+                for (String imageId : imagesToDelete) {
+                    try {
+                        DockerBuild.deleteImage(imageId);
+                        if (verbose) {
+                            System.out.println("  ✓ Deleted Docker image: " + imageId);
+                        }
+                        log.info("Deleted Docker image after processing combination: {}", imageId);
+                    } catch (Exception e) {
+                        log.warn("Failed to delete Docker image {}: {}", imageId, e.getMessage());
+                    }
+                }
+            } else if (jarsWereAlreadyPresent && verbose) {
+                log.debug("Skipping Docker image deletion - dependencies were already present");
             }
             
             // Notify callback to update report with this combination's data
@@ -448,7 +466,7 @@ public class DependencyExtractor {
      */
     private String buildJapicmpCommand(Path previousJar, Path newJar, Path diffFile) {
         // Build command string: java -jar japicmp.jar --ignore-missing-classes -m -o <previous> -n <new> <output> > diffFile
-        String japicmpJar = "/Users/frankreyesgarcia/Documents/WORK/PHD/Tools/japicmp/japicmp-0.24.2-jar-with-dependencies.jar";
+        String japicmpJar = "/home/kth/Documents/last_transformer/transformer-agent/japicmp-0.24.2-jar-with-dependencies.jar";
         
         // Check if JAR exists
         Path jarPath = Paths.get(japicmpJar);
