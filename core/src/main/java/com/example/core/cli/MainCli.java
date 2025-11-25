@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
@@ -42,8 +43,6 @@ public class MainCli implements Callable<Integer> {
     private static final Logger log = LoggerFactory.getLogger(MainCli.class);
 
     // Default configuration values
-    private static final String DEFAULT_INPUT_DIR = "/Users/frankreyesgarcia/Documents/WORK/PHD/Bump/bump/data/benchmark";
-    private static final String DEFAULT_OUTPUT_DIR = "output";
     private static final String DEFAULT_CATEGORY = "COMPILATION_FAILURE";
     private static final boolean DEFAULT_EXTRACT_PROJECTS = true;
     private static final boolean DEFAULT_EXTRACT_JARS_AND_CLASSIFY = true;
@@ -51,15 +50,13 @@ public class MainCli implements Callable<Integer> {
 
     @CommandLine.Option(
             names = {"-i", "--input"},
-            description = "Input directory containing BreakingUpdateRecord JSON files",
-            defaultValue = DEFAULT_INPUT_DIR
+            description = "Input directory containing BreakingUpdateRecord JSON files"
     )
     private String inputDirStr;
 
     @CommandLine.Option(
             names = {"-o", "--output"},
-            description = "Output directory where extracted projects will be saved",
-            defaultValue = DEFAULT_OUTPUT_DIR
+            description = "Output directory where extracted projects will be saved"
     )
     private String outputDirStr;
 
@@ -158,7 +155,7 @@ public class MainCli implements Callable<Integer> {
                 this.verbose = envVerbose;
             }
             if (this.changeImpactReportService == null) {
-                this.changeImpactReportService = new ChangeImpactReportService(this.verbose);
+                this.changeImpactReportService = new ChangeImpactReportService(this.verbose, envConfig);
             }
 
             boolean shouldExtract = (extractProjects != null ? extractProjects : envExtract) && !noExtract;
@@ -172,7 +169,7 @@ public class MainCli implements Callable<Integer> {
                 jsonOutput = envConfig.getPath("JSON_OUTPUT").orElse(null);
             }
             String fileToProcess = singleJsonFile != null ? singleJsonFile
-                    : envConfig.get("SPECIFIC_FILE").filter(s -> !s.isBlank()).orElse("0abf7148300f40a1da0538ab060552bca4a2f1d8");
+                    : envConfig.get("SPECIFIC_FILE").filter(s -> !s.isBlank()).orElse(null);
 
             if (category == null) {
                 category = envConfig.get("CATEGORY").orElse(DEFAULT_CATEGORY);
@@ -252,6 +249,18 @@ public class MainCli implements Callable<Integer> {
                 System.out.println("\nUse --verbose to see detailed information for each record");
             }
 
+            Map<String, BreakingUpdateRecord> recordByCommit = buildRecordIndex(records);
+
+            Consumer<ClassificationSummary> summaryConsumer = null;
+            if (jsonOutput != null) {
+                summaryConsumer = summary -> writeClassificationSummary(
+                        jsonOutput,
+                        summary,
+                        recordByCommit,
+                        outputDir
+                );
+            }
+
             // Extract or classify depending on requested actions
             List<ClassificationSummary> classificationSummaries = java.util.Collections.emptyList();
             BreakingUpdateExtractionService extractionService = new BreakingUpdateExtractionService(verbose);
@@ -270,17 +279,16 @@ public class MainCli implements Callable<Integer> {
                         records,
                         outputDir,
                         shouldClassify,
-                        shouldClean
+                        shouldClean,
+                        summaryConsumer
                 );
             } else if (shouldClassify) {
-                classificationSummaries = extractionService.classifyExistingProjects(records, outputDir);
+                classificationSummaries = extractionService.classifyExistingProjects(records, outputDir, summaryConsumer);
             }
 
-            if (jsonOutput != null) {
-                List<ClassificationSummary> summariesToWrite = !classificationSummaries.isEmpty()
-                        ? classificationSummaries
-                        : buildDatasetOnlySummaries(records);
-                writeClassificationSummaries(jsonOutput, summariesToWrite, records, outputDir);
+            if (jsonOutput != null && (classificationSummaries == null || classificationSummaries.isEmpty())) {
+                List<ClassificationSummary> datasetSummaries = buildDatasetOnlySummaries(records);
+                datasetSummaries.forEach(summaryConsumer);
             }
 
             log.info("=== Processing Complete ===");
@@ -329,6 +337,16 @@ public class MainCli implements Callable<Integer> {
         System.out.println();
     }
 
+    private Map<String, BreakingUpdateRecord> buildRecordIndex(List<BreakingUpdateRecord> records) {
+        Map<String, BreakingUpdateRecord> index = new HashMap<>();
+        for (BreakingUpdateRecord record : records) {
+            if (record.breakingCommit() != null) {
+                index.put(record.breakingCommit(), record);
+            }
+        }
+        return index;
+    }
+
     private List<ClassificationSummary> buildDatasetOnlySummaries(List<BreakingUpdateRecord> records) {
         return records.stream()
                 .map(record -> new ClassificationSummary(
@@ -343,10 +361,10 @@ public class MainCli implements Callable<Integer> {
                 .toList();
     }
 
-    private void writeClassificationSummaries(Path targetJson,
-                                              List<ClassificationSummary> summaries,
-                                              List<BreakingUpdateRecord> records,
-                                              Path outputDir) {
+    private void writeClassificationSummary(Path targetJson,
+                                            ClassificationSummary summary,
+                                            Map<String, BreakingUpdateRecord> recordByCommit,
+                                            Path outputDir) {
         try {
             if (targetJson.getParent() != null) {
                 Files.createDirectories(targetJson.getParent());
@@ -371,20 +389,11 @@ public class MainCli implements Callable<Integer> {
                 }
             }
 
-            Map<String, BreakingUpdateRecord> recordByCommit = new HashMap<>();
-            for (BreakingUpdateRecord record : records) {
-                if (record.breakingCommit() != null) {
-                    recordByCommit.put(record.breakingCommit(), record);
-                }
-            }
-
-            for (ClassificationSummary summary : summaries) {
-                ReportEntry entry = buildReportEntry(summary);
-                String key = summary.breakingCommit() != null ? summary.breakingCommit() : entry.breakingCommit();
-                existing.put(key, entry);
-                if (key != null) {
-                    writePerCommitReport(targetJson.getParent(), outputDir, key, summary, recordByCommit.get(key));
-                }
+            ReportEntry entry = buildReportEntry(summary);
+            String key = summary.breakingCommit() != null ? summary.breakingCommit() : entry.breakingCommit();
+            existing.put(key, entry);
+            if (key != null) {
+                writePerCommitReport(targetJson.getParent(), outputDir, key, summary, recordByCommit.get(key));
             }
 
             mapper.writeValue(targetJson.toFile(), existing);

@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -46,35 +47,35 @@ public class LineConstructAnalyzer {
     }
 
     public static LineConstructAnalyzer initialize(Path projectRoot) {
+        return initialize(projectRoot, Collections.emptyList());
+    }
+
+    public static LineConstructAnalyzer initialize(Path projectRoot, List<Path> manualClasspathEntries) {
         Path normalizedRoot = projectRoot.toAbsolutePath().normalize();
-        MavenLauncher launcher = createLauncher(normalizedRoot, false);
-        CtModel model;
+        List<Path> normalizedClasspath = normalizeClasspathEntries(manualClasspathEntries);
+        MavenLauncher launcher = createLauncher(normalizedRoot, normalizedClasspath);
+        CtModel model = launcher.buildModel();
 
-        try {
-            LOGGER.info("Building Spoon model for project {}", normalizedRoot);
-            model = launcher.buildModel();
-        } catch (RuntimeException ex) {
-            LOGGER.warn("Primary model build failed: {}. Retrying in no-classpath mode.", ex.getMessage());
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Full model build failure", ex);
-            }
-            launcher = createLauncher(normalizedRoot, true);
-            model = launcher.buildModel();
-        }
+        LOGGER.info("Model built for {}: {} top-level elements (manual cp entries: {})",
+                normalizedRoot,
+                model.getAllTypes().size(),
+                normalizedClasspath.size());
 
-        LOGGER.info("Model built: {} top-level elements", model.getAllTypes().size());
-
-        DependencyResolver dependencyResolver = new DependencyResolver(normalizedRoot, launcher.getEnvironment().getInputClassLoader());
+        DependencyResolver dependencyResolver = new DependencyResolver(
+                normalizedRoot,
+                launcher.getEnvironment().getInputClassLoader());
         return new LineConstructAnalyzer(normalizedRoot, launcher, dependencyResolver);
     }
 
-    private static MavenLauncher createLauncher(Path projectRoot, boolean noClasspath) {
+    private static MavenLauncher createLauncher(Path projectRoot, List<Path> manualClasspathEntries) {
         MavenLauncher launcher = new MavenLauncher(projectRoot.toString(), MavenLauncher.SOURCE_TYPE.ALL_SOURCE);
-        launcher.getEnvironment().setNoClasspath(noClasspath);
+        launcher.getEnvironment().setNoClasspath(true);
         launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+        launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);
         launcher.getEnvironment().setAutoImports(true);
         launcher.getEnvironment().setCommentEnabled(false);
         launcher.getEnvironment().setCopyResources(false);
+        applyManualClasspath(launcher, manualClasspathEntries);
         sanitizeClasspath(launcher);
         return launcher;
     }
@@ -126,6 +127,33 @@ public class LineConstructAnalyzer {
 
         if (removedEntries) {
             launcher.getEnvironment().setSourceClasspath(sanitized.toArray(String[]::new));
+        }
+    }
+
+    private static void applyManualClasspath(MavenLauncher launcher, List<Path> manualClasspathEntries) {
+        if (manualClasspathEntries == null || manualClasspathEntries.isEmpty()) {
+            return;
+        }
+
+        List<String> classpath = new ArrayList<>();
+        if (launcher.getEnvironment().getSourceClasspath() != null) {
+            Collections.addAll(classpath, launcher.getEnvironment().getSourceClasspath());
+        }
+
+        for (Path entry : manualClasspathEntries) {
+            if (entry == null) {
+                continue;
+            }
+            Path normalized = entry.toAbsolutePath().normalize();
+            if (!Files.exists(normalized)) {
+                LOGGER.warn("Ignoring missing classpath entry {}", normalized);
+                continue;
+            }
+            classpath.add(normalized.toString());
+        }
+
+        if (!classpath.isEmpty()) {
+            launcher.getEnvironment().setSourceClasspath(classpath.toArray(String[]::new));
         }
     }
 
@@ -359,6 +387,23 @@ public class LineConstructAnalyzer {
             LOGGER.debug("Failed to read line {} from {}: {}", lineNumber, sourceFile, ex.getMessage());
             return null;
         }
+    }
+
+    private static List<Path> normalizeClasspathEntries(List<Path> entries) {
+        if (entries == null || entries.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Path> normalized = new ArrayList<>(entries.size());
+        for (Path entry : entries) {
+            if (entry == null) {
+                continue;
+            }
+            Path normalizedEntry = entry.toAbsolutePath().normalize();
+            if (!normalized.contains(normalizedEntry)) {
+                normalized.add(normalizedEntry);
+            }
+        }
+        return Collections.unmodifiableList(normalized);
     }
 }
 

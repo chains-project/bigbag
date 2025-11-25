@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Service class responsible for extracting projects from Docker images
@@ -86,7 +87,8 @@ public class BreakingUpdateExtractionService {
             List<BreakingUpdateRecord> records,
             Path outputBaseDir,
             boolean extractJarsAndClassify,
-            boolean cleanExisting) {
+            boolean cleanExisting,
+            Consumer<ClassificationSummary> summaryConsumer) {
 
         int successCount = 0;
         int failureCount = 0;
@@ -246,7 +248,14 @@ public class BreakingUpdateExtractionService {
                     System.out.println((i + 1) + ". ✗ Error: " + record.project() + " - " + e.getMessage());
                 }
             } finally {
-                summaries.add(buildSummary(record, dockerImage, classificationOutcome));
+                ClassificationSummary summary = buildSummary(record, dockerImage, classificationOutcome);
+                summaries.add(summary);
+                if (summaryConsumer != null) {
+                    summaryConsumer.accept(summary);
+                }
+                if (dockerImage != null) {
+                    DockerBuild.deleteImage(dockerImage);
+                }
             }
         }
 
@@ -266,7 +275,8 @@ public class BreakingUpdateExtractionService {
      */
     public List<ClassificationSummary> classifyExistingProjects(
             List<BreakingUpdateRecord> records,
-            Path outputBaseDir
+            Path outputBaseDir,
+            Consumer<ClassificationSummary> summaryConsumer
     ) {
         ClassificationService classificationService = new ClassificationService(verbose);
         List<ClassificationSummary> summaries = new java.util.ArrayList<>();
@@ -301,7 +311,11 @@ public class BreakingUpdateExtractionService {
                     System.out.println("  ✗ Error: " + e.getMessage());
                 }
             } finally {
-                summaries.add(buildSummary(record, null, outcome));
+                ClassificationSummary summary = buildSummary(record, null, outcome);
+                summaries.add(summary);
+                if (summaryConsumer != null) {
+                    summaryConsumer.accept(summary);
+                }
             }
         }
 

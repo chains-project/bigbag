@@ -7,6 +7,7 @@ import com.example.spoonanalyzer.model.DependencyOrigin;
 import picocli.CommandLine;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -32,6 +33,11 @@ public class App implements Callable<Integer> {
     @CommandLine.Option(names = {"-v", "--verbose"}, description = "Enable verbose output")
     private boolean verbose;
 
+    @CommandLine.Option(
+            names = {"-c", "--classpath"},
+            description = "Additional classpath entry (JAR or directory). Repeat option for multiple entries.")
+    private List<Path> extraClasspath = new ArrayList<>();
+
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
@@ -40,7 +46,7 @@ public class App implements Callable<Integer> {
     @Override
     public Integer call() {
         try {
-            LineConstructAnalyzer analyzer = LineConstructAnalyzer.initialize(projectPath);
+            LineConstructAnalyzer analyzer = LineConstructAnalyzer.initialize(projectPath, extraClasspath);
             List<ConstructUsage> usages = analyzer.analyze(sourceFile, lineNumber);
 
             usages.stream()

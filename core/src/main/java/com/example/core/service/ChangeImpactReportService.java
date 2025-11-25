@@ -1,8 +1,8 @@
 package com.example.core.service;
 
 import chains.changeimpact.model.ChangeImpactReport;
-import chains.changeimpact.model.ChangeImpactRequest;
 import chains.changeimpact.service.ChangeImpactAnalyzer;
+import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.model.UpdatedDependency;
@@ -36,11 +36,26 @@ public class ChangeImpactReportService {
     private final boolean verbose;
     private final ChangeImpactAnalyzer analyzer;
     private final ObjectMapper mapper;
+    private final List<Path> additionalClasspath;
 
     public ChangeImpactReportService(boolean verbose) {
+        this(verbose, null);
+    }
+
+    public ChangeImpactReportService(boolean verbose, EnvConfig envConfig) {
         this.verbose = verbose;
         this.analyzer = new ChangeImpactAnalyzer();
         this.mapper = new ObjectMapper();
+        
+        // Load additional classpath from environment if available
+        if (envConfig != null) {
+            this.additionalClasspath = envConfig.getPathList("SPOON_CLASSPATH");
+            if (!this.additionalClasspath.isEmpty()) {
+                log.info("Loaded {} additional classpath entries from SPOON_CLASSPATH", this.additionalClasspath.size());
+            }
+        } else {
+            this.additionalClasspath = List.of();
+        }
     }
 
     /**
@@ -136,6 +151,17 @@ public class ChangeImpactReportService {
         Path oldJar = maybeOldJar.get();
         Path newJar = maybeNewJar.get();
 
+        ChangeImpactAnalyzer.Session analyzerSession;
+        try {
+            analyzerSession = this.analyzer.openSession(projectDir, oldJar, newJar, additionalClasspath);
+        } catch (Exception sessionError) {
+            log.warn("Failed to initialize change-impact session for {}: {}", record.breakingCommit(), sessionError.getMessage());
+            if (verbose) {
+                sessionError.printStackTrace();
+            }
+            return null;
+        }
+
         List<FileImpact> fileImpacts = new ArrayList<>();
         for (FileErrorGroup group : breakingReport.errorsByFile()) {
             Path sourceFile = resolveSourceFile(commitOutputDir, projectDir, group.filePath());
@@ -150,16 +176,11 @@ public class ChangeImpactReportService {
                     continue;
                 }
 
-                ChangeImpactRequest request = new ChangeImpactRequest(
-                        projectDir,
-                        relativizeOrSelf(projectDir, sourceFile),
-                        errorDetail.lineNumber(),
-                        oldJar,
-                        newJar
-                );
-
                 try {
-                    ChangeImpactReport changeImpact = analyzer.analyze(request);
+                    ChangeImpactReport changeImpact = analyzerSession.analyze(
+                            relativizeOrSelf(projectDir, sourceFile),
+                            errorDetail.lineNumber()
+                    );
                     errorImpacts.add(new ErrorImpact(
                             errorDetail.lineNumber(),
                             errorDetail.columnNumber(),

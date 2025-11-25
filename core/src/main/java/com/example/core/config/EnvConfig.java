@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -85,6 +86,35 @@ public final class EnvConfig {
 
     public Optional<Path> getPath(String key) {
         return get(key).map(Paths::get);
+    }
+
+    /**
+     * Gets a list of paths from a comma or colon-separated string.
+     * Useful for classpath configuration.
+     *
+     * @param key the configuration key
+     * @return list of paths, or empty list if key is not found
+     */
+    public List<Path> getPathList(String key) {
+        return get(key)
+                .filter(value -> !value.isBlank())
+                .map(value -> {
+                    // Support both comma and colon separators (classpath standard)
+                    String[] parts = value.split("[,:]");
+                    List<Path> paths = new java.util.ArrayList<>();
+                    for (String part : parts) {
+                        String trimmed = part.trim();
+                        if (!trimmed.isEmpty()) {
+                            try {
+                                paths.add(Paths.get(trimmed));
+                            } catch (Exception e) {
+                                log.warn("Invalid path in {}: {}", key, trimmed);
+                            }
+                        }
+                    }
+                    return paths;
+                })
+                .orElse(java.util.Collections.emptyList());
     }
 
     public String require(String key) {

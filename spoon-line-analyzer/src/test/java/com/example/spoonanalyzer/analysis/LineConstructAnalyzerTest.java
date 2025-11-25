@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +22,7 @@ class LineConstructAnalyzerTest {
     @BeforeAll
     static void buildModel() {
         projectPath = Path.of("src/test/resources/sample-maven-project").toAbsolutePath().normalize();
-        analyzer = LineConstructAnalyzer.initialize(projectPath);
+        analyzer = LineConstructAnalyzer.initialize(projectPath, Collections.emptyList());
         sampleSource = projectPath.resolve("src/main/java/com/example/sample/App.java");
         unresolvedImportSource = projectPath.resolve("src/main/java/com/example/sample/LegacyImport.java");
     }

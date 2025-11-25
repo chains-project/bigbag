@@ -45,6 +45,8 @@ public class JarExtractionService {
             Path extractedPath,
             String breakingCommit) {
 
+        String preDockerImage = null;
+
         try {
             UpdatedDependency updatedDependency = record.updatedDependency();
             if (updatedDependency == null) {
@@ -58,7 +60,7 @@ public class JarExtractionService {
             // Extract previous JAR from pre Docker image
             Path previousJarPath = null;
             if (updatedDependency.previousVersion() != null && !updatedDependency.previousVersion().trim().isEmpty()) {
-                String preDockerImage = dockerBuild.extractDockerImageFromCommand(record.preCommitReproductionCommand());
+                preDockerImage = dockerBuild.extractDockerImageFromCommand(record.preCommitReproductionCommand());
                 if (preDockerImage != null && !preDockerImage.trim().isEmpty()) {
                     if (verbose) {
                         System.out.println("  Extracting previous JAR from pre Docker image: " + preDockerImage);
@@ -164,6 +166,10 @@ public class JarExtractionService {
                 e.printStackTrace();
             }
             return null;
+        } finally {
+            if (preDockerImage != null) {
+                DockerBuild.deleteImage(preDockerImage);
+            }
         }
     }
 
