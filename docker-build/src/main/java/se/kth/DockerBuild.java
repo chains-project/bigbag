@@ -935,16 +935,17 @@ public class DockerBuild {
         try {
             // Create output directory with breakingCommit name
             Path outputDir = outputBaseDir.resolve(breakingCommit);
-            Path projectOutputDir = outputDir.resolve("project");
-            
-            // Check if project already exists and has content
-            if (Files.exists(outputDir) && Files.exists(projectOutputDir)) {
+            Path projectOutputDir = outputDir;
+
+            // Check if project already exists and has content (other than m2)
+            if (Files.exists(outputDir)) {
                 try {
-                    boolean hasContent = Files.list(projectOutputDir).findAny().isPresent();
-                    if (hasContent && !force) {
+                    boolean hasProjectContent = Files.list(outputDir)
+                            .anyMatch(path -> !"m2".equals(path.getFileName().toString()));
+                    if (hasProjectContent && !force) {
                         log.info("Project already exists and is not empty at {}. Skipping extraction...", outputDir);
                         return outputDir;
-                    } else if (hasContent && force) {
+                    } else if (hasProjectContent && force) {
                         log.warn("Output directory already exists with content: {}. Will overwrite.", outputDir);
                     }
                 } catch (IOException e) {

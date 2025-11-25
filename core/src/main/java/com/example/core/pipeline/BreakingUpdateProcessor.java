@@ -1,6 +1,7 @@
 package com.example.core.pipeline;
 
 import com.example.core.model.BreakingUpdateRecord;
+import com.example.core.util.ProjectPaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.kth.DockerBuild;
@@ -64,7 +65,7 @@ public class BreakingUpdateProcessor {
                     config.isForceReextraction()
             );
 
-            Path projectDir = extractedDir.resolve("project");
+            Path projectDir = ProjectPaths.resolveProjectDir(extractedDir, record.project());
             if (!Files.exists(projectDir)) {
                 log.error("Project directory not found after extraction: {}", projectDir);
                 return false;
