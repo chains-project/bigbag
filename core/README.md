@@ -128,3 +128,26 @@ OUTPUT_DIR/
 - `jackson` - For JSON parsing
 - `picocli` - For CLI interface
 
+## Breaking Change CLI
+
+Use `BreakingChangeCli` when you want to process a single breaking-change JSON descriptor end-to-end (extract Docker image, locate the build log, run `breaking-classifier`, and persist the outcome to JSON).
+
+```bash
+java -cp target/core-1.0.0-SNAPSHOT.jar com.example.core.breakingchange.BreakingChangeCli \
+  --input ./breaking-change.json \
+  --output-dir ./extracted-projects \
+  --result-json ./reports/breaking-change-report.json \
+  --force \
+  --verbose
+```
+
+### Options
+
+- `-i, --input` (required): Path to the BreakingChange JSON descriptor.
+- `-o, --output-dir`: Folder where the project (and `.m2`) will be extracted. Defaults to `./extracted-projects`.
+- `-r, --result-json`: Optional file where the classifier result will be written.
+- `-f, --force`: Forces re-extraction even if the `{breakingCommit}` folder already exists.
+- `-v, --verbose`: Enables additional logging.
+
+The result JSON includes the detected failure category, total errors, and a breakdown of errors per file together with metadata such as the Docker image used and the log file location.
+

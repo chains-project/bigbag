@@ -44,11 +44,14 @@ public class BreakingClassifierApp implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        List<BreakingError> errors = extractor.extract(logPath);
-        BreakingReport report = ErrorReportAggregator.aggregate(logPath, errors);
+        BreakingReport report = analyzeLog(logPath, jsonOutput);
+        if (report == null) {
+            System.err.println("Unable to analyze log file: " + logPath);
+            return 1;
+        }
+
         if (report.errorsByFile().isEmpty()) {
             System.out.println("No compiler errors detected in " + logPath);
-            writeJsonIfRequested(report);
             return 0;
         }
 
@@ -65,19 +68,42 @@ public class BreakingClassifierApp implements Callable<Integer> {
                 }
             }
         }
-        writeJsonIfRequested(report);
         return 0;
     }
 
-    private void writeJsonIfRequested(BreakingReport report) throws IOException {
-        if (jsonOutput == null) {
+    /**
+     * Analyzes the provided log file and optionally writes the JSON report.
+     *
+     * @param logFile    the Maven build log to analyze
+     * @param targetJson optional JSON output path; may be {@code null}
+     * @return the aggregated {@link BreakingReport}, or {@code null} if analysis failed
+     */
+    public BreakingReport analyzeLog(Path logFile, Path targetJson) throws IOException {
+        List<BreakingError> errors = extractor.extract(logFile);
+        BreakingReport report = ErrorReportAggregator.aggregate(logFile, errors);
+        writeJsonIfRequested(report, targetJson);
+        return report;
+    }
+
+    /**
+     * Convenience overload that analyzes a log file without writing JSON output.
+     *
+     * @param logFile the Maven build log to analyze
+     * @return the aggregated report, or {@code null} if analysis failed
+     */
+    public BreakingReport analyzeLog(Path logFile) throws IOException {
+        return analyzeLog(logFile, null);
+    }
+
+    private void writeJsonIfRequested(BreakingReport report, Path targetJson) throws IOException {
+        if (targetJson == null) {
             return;
         }
-        if (jsonOutput.getParent() != null) {
-            Files.createDirectories(jsonOutput.getParent());
+        if (targetJson.getParent() != null) {
+            Files.createDirectories(targetJson.getParent());
         }
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonOutput.toFile(), report);
-        System.out.println("JSON report written to " + jsonOutput);
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(targetJson.toFile(), report);
+        System.out.println("JSON report written to " + targetJson);
     }
 }
 

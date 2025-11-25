@@ -7,35 +7,6 @@ The rules must be context-aware, attempting to infer required values from existi
 Here is the diff showing the changes in the dependency:
 
 <dependency_change_diff>
-Comparing source compatibility of /home/kth/Documents/last_transformer/transformer-agent/dependencies/org_yaml_snakeyaml_2.0-2.1/snakeyaml-2.1.jar against /home/kth/Documents/last_transformer/transformer-agent/dependencies/org_yaml_snakeyaml_2.0-2.1/snakeyaml-2.0.jar
-WARNING: You are using the option '--ignore-missing-classes', i.e. superclasses and interfaces that could not be found on the classpath are ignored. Hence changes caused by these superclasses and interfaces are not reflected in the output.
-***  MODIFIED CLASS: PUBLIC FINAL org.yaml.snakeyaml.emitter.Emitter  (not serializable)
-	===  CLASS FILE FORMAT VERSION: 51.0 <- 51.0
----! REMOVED CLASS: PUBLIC(-) FINAL(-) org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector  (not serializable)
-	---  CLASS FILE FORMAT VERSION: n.a. <- 51.0
-	---! REMOVED INTERFACE: org.yaml.snakeyaml.inspector.TagInspector
-	---! REMOVED SUPERCLASS: java.lang.Object
-	---! REMOVED CONSTRUCTOR: PUBLIC(-) TrustedPrefixesTagInspector(java.util.List<java.lang.String>)
-	---  REMOVED METHOD: PUBLIC(-) boolean isGlobalTagAllowed(org.yaml.snakeyaml.nodes.Tag)
----! REMOVED CLASS: PUBLIC(-) FINAL(-) org.yaml.snakeyaml.inspector.TrustedTagInspector  (not serializable)
-	---  CLASS FILE FORMAT VERSION: n.a. <- 51.0
-	---! REMOVED INTERFACE: org.yaml.snakeyaml.inspector.TagInspector
-	---! REMOVED SUPERCLASS: java.lang.Object
-	---! REMOVED CONSTRUCTOR: PUBLIC(-) TrustedTagInspector()
-	---  REMOVED METHOD: PUBLIC(-) boolean isGlobalTagAllowed(org.yaml.snakeyaml.nodes.Tag)
-***  MODIFIED CLASS: PUBLIC org.yaml.snakeyaml.reader.StreamReader  (not serializable)
-	===  CLASS FILE FORMAT VERSION: 51.0 <- 51.0
-	+++  NEW METHOD: PUBLIC(+) int getDocumentIndex()
-	+++  NEW METHOD: PUBLIC(+) void resetDocumentIndex()
-**** MODIFIED INTERFACE: PUBLIC ABSTRACT org.yaml.snakeyaml.scanner.Scanner  (not serializable)
-	===  CLASS FILE FORMAT VERSION: 51.0 <- 51.0
-	+++* NEW METHOD: PUBLIC(+) ABSTRACT(+) void resetDocumentIndex()
-***  MODIFIED CLASS: PUBLIC FINAL org.yaml.snakeyaml.scanner.ScannerImpl  (not serializable)
-	===  CLASS FILE FORMAT VERSION: 51.0 <- 51.0
-	===* UNCHANGED INTERFACE: org.yaml.snakeyaml.scanner.Scanner
-	+++  NEW METHOD: PUBLIC(+) void resetDocumentIndex()
-
-
 </dependency_change_diff>
 
 Here are examples of different types of changes and their corresponding enhanced Spoon rules:
