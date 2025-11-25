@@ -1,0 +1,127 @@
+You are an expert Java developer and a specialist in the Spoon code transformation library.
+Your task is to generate **Spoon transformation rules** to automatically migrate client code after a dependency upgrade.
+
+You will be provided a **diff of the dependency changes**:
+
+<dependency_change_diff>
+[Insert diff here]
+</dependency_change_diff>
+
+**Important:**
+
+* Only generate **Spoon transformation rules**.
+* Do **not** include explanations, analysis, or instructions.
+* The output must be **ready to copy and execute**.
+
+---
+
+### **In-Context Examples**
+
+<example_1>
+Change: Method signature change (with parameter inference)
+Old version: `public void processData(String data)`
+New version: `public void processData(String data, ProcessingContext context)`
+Spoon Rule:
+
+```java
+CtInvocation<?> invocation = /* find processData invocation */;
+CtExpression<?> contextArgument = null;
+String requiredType = "com.example.ProcessingContext";
+
+CtMethod<?> parentMethod = invocation.getParent(CtMethod.class);
+if (parentMethod != null) {
+    for (CtLocalVariable<?> var : parentMethod.getElements(new TypeFilter<>(CtLocalVariable.class))) {
+        if (var.getType().getQualifiedName().equals(requiredType)) {
+            contextArgument = getFactory().Code().createVariableRead(var.getReference(), false);
+            break;
+        }
+    }
+}
+
+if (contextArgument == null) {
+    CtClass<?> parentClass = invocation.getParent(CtClass.class);
+    if (parentClass != null) {
+        for (CtField<?> field : parentClass.getFields()) {
+            if (field.getType().getQualifiedName().equals(requiredType)) {
+                CtThisAccess<?> thisAccess = getFactory().Code().createThisAccess(parentClass.getReference());
+                contextArgument = getFactory().Code().createFieldRead().setTarget(thisAccess).setVariable(field.getReference());
+                break;
+            }
+        }
+    }
+}
+
+if (contextArgument == null) {
+    contextArgument = getFactory().Code().createConstructorCall(
+        getFactory().Core().createTypeReference().setQualifiedName(requiredType)
+    );
+}
+
+invocation.addArgument(contextArgument);
+```
+
+</example_1>
+
+<example_2>
+Change: Removed method
+Old version: `public String getData()`
+New version: Replaced by `public String retrieveInformation()`
+Spoon Rule:
+
+```java
+CtInvocation<?> oldInvocation = /* find getData() invocations */;
+CtInvocation<?> newInvocation = getFactory().Code().createInvocation(
+    oldInvocation.getTarget(),
+    getFactory().Core().createExecutableReference().setSimpleName("retrieveInformation")
+);
+oldInvocation.replace(newInvocation);
+```
+
+</example_2>
+
+<example_3>
+Change: Class moved to a new package
+Old version: `com.example.old.DataProcessor`
+New version: `com.example.new.DataProcessor`
+Spoon Rule:
+
+```java
+CtImport oldImport = /* find old import */;
+CtImport newImport = getFactory().Core().createImport();
+newImport.setReference(getFactory().Core().createTypeReference().setQualifiedName("com.example.new.DataProcessor"));
+oldImport.replace(newImport);
+```
+
+</example_3>
+
+<example_4>
+Change: Method return type changed
+Old version: `public List<String> getItems()`
+New version: `public Set<String> getItems()`
+Spoon Rule:
+
+```java
+CtInvocation<?> invocation = /* find getItems() invocations */;
+if (invocation.getParent(CtLocalVariable.class) != null &&
+    invocation.getParent(CtLocalVariable.class).getType().getQualifiedName().equals("java.util.List")) {
+    
+    CtConstructorCall<?> conversionCall = getFactory().Code().createConstructorCall(
+        getFactory().Core().createTypeReference().setQualifiedName("java.util.ArrayList"),
+        invocation
+    );
+    invocation.replace(conversionCall);
+}
+```
+
+</example_4>
+
+---
+
+### **Instructions to Follow**
+
+* For each change in the diff, generate **only Spoon rules**, ready to copy and execute.
+* Apply **contextual inference** for parameters and method replacements.
+* Update imports and fully-qualified class names when classes are moved or renamed.
+* Adapt consuming code for return type changes.
+* **Do not include explanations, commentary, or step-by-step reasoning.**
+* Output must be **a clean list of Java Spoon code blocks**, one per transformation.
