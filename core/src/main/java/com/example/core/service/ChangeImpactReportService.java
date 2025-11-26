@@ -108,7 +108,7 @@ public class ChangeImpactReportService {
             if (report != null) {
                 mapper.writerWithDefaultPrettyPrinter().writeValue(changeImpactTarget.toFile(), report);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.warn("Failed to generate change-impact report for {}: {}", record.breakingCommit(), e.getMessage());
             if (verbose) {
                 e.printStackTrace();
@@ -118,7 +118,7 @@ public class ChangeImpactReportService {
         // Export all breaking changes to a separate JSON file
         try {
             exportBreakingChanges(record, outputBaseDir, commitReportDir);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.warn("Failed to export breaking changes for {}: {}", record.breakingCommit(), e.getMessage());
             if (verbose) {
                 e.printStackTrace();
@@ -201,7 +201,7 @@ public class ChangeImpactReportService {
                             null,
                             changeImpact
                     ));
-                } catch (Exception ex) {
+                } catch (Throwable ex) {
                     log.warn("Change-impact failed for {}:{} -> {}", group.filePath(), errorDetail.lineNumber(), ex.getMessage());
                     if (verbose) {
                         ex.printStackTrace();
