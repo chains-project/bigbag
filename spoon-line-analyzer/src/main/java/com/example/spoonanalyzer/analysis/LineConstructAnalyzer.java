@@ -164,8 +164,13 @@ public class LineConstructAnalyzer {
         Path resolvedSource = resolveSource(sourceFile);
         LOGGER.info("Analyzing constructs for {}:{}", resolvedSource, lineNumber);
 
+        // Try to use the full project model first (better for resolving references)
+        // Only build model for single file if the file is not in the main model
         CtCompilationUnit compilationUnit = findCompilationUnit(resolvedSource)
-                .orElseThrow(() -> new IllegalArgumentException("Could not locate compilation unit for " + resolvedSource));
+                .orElseGet(() -> {
+                    LOGGER.debug("File {} not found in main model, building model for file only", resolvedSource);
+                    return buildModelForFile(resolvedSource);
+                });
 
         Set<ConstructUsage> usages = new LinkedHashSet<>();
         String codeLine = readCodeLineFromSpoon(compilationUnit, lineNumber);
@@ -176,6 +181,52 @@ public class LineConstructAnalyzer {
         usages.addAll(scanner.getUsages());
 
         return new ArrayList<>(usages);
+    }
+
+    /**
+     * Builds a Spoon model only for the specified file, not the entire project.
+     * This is more efficient when analyzing individual files.
+     */
+    private CtCompilationUnit buildModelForFile(Path sourceFile) {
+        // Try to find existing compilation unit first
+        Optional<CtCompilationUnit> existing = findCompilationUnit(sourceFile);
+        if (existing.isPresent()) {
+            return existing.get();
+        }
+
+        // Build model only for this file using a new launcher
+        spoon.Launcher fileLauncher = new spoon.Launcher();
+        fileLauncher.getEnvironment().setNoClasspath(true);
+        fileLauncher.getEnvironment().setIgnoreSyntaxErrors(true);
+        fileLauncher.getEnvironment().setIgnoreDuplicateDeclarations(true);
+        fileLauncher.getEnvironment().setAutoImports(true);
+        fileLauncher.getEnvironment().setCommentEnabled(false);
+        fileLauncher.getEnvironment().setCopyResources(false);
+
+        // Copy classpath from main launcher
+        if (launcher.getEnvironment().getSourceClasspath() != null) {
+            fileLauncher.getEnvironment().setSourceClasspath(launcher.getEnvironment().getSourceClasspath());
+        }
+
+        // Add only this file as input
+        fileLauncher.addInputResource(sourceFile.toString());
+        fileLauncher.buildModel();
+
+        // Find the compilation unit we just built
+        @SuppressWarnings("deprecation")
+        Map<String, spoon.reflect.cu.CompilationUnit> compilationUnitMap = fileLauncher.getFactory().CompilationUnit().getMap();
+        Collection<spoon.reflect.cu.CompilationUnit> values = compilationUnitMap.values();
+        for (spoon.reflect.cu.CompilationUnit deprecatedUnit : values) {
+            CtCompilationUnit unit = (CtCompilationUnit) deprecatedUnit;
+            if (unit.getFile() != null) {
+                Path unitPath = unit.getFile().toPath().toAbsolutePath().normalize();
+                if (unitPath.equals(sourceFile.toAbsolutePath().normalize())) {
+                    return unit;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("Failed to build model for " + sourceFile);
     }
 
     private Path resolveSource(Path sourceFile) {
@@ -243,16 +294,24 @@ public class LineConstructAnalyzer {
         CtReference reference = ctImport.getReference();
         DependencyInfo dependencyInfo;
         String signature;
+        String fqn = null;
 
         if (reference instanceof CtTypeReference<?> typeReference) {
             dependencyInfo = dependencyResolver.resolveType(typeReference);
             signature = ConstructDescriptors.describeType(typeReference);
+            fqn = typeReference.getQualifiedName();
         } else if (reference instanceof CtExecutableReference<?> executableReference) {
             dependencyInfo = dependencyResolver.resolveExecutable(executableReference);
             signature = ConstructDescriptors.describeExecutable(executableReference);
+            fqn = executableReference.getDeclaringType() != null
+                    ? executableReference.getDeclaringType().getQualifiedName()
+                    : null;
         } else if (reference instanceof CtFieldReference<?> fieldReference) {
             dependencyInfo = dependencyResolver.resolveField(fieldReference);
             signature = ConstructDescriptors.describeField(fieldReference);
+            fqn = fieldReference.getDeclaringType() != null
+                    ? fieldReference.getDeclaringType().getQualifiedName()
+                    : null;
         } else if (reference instanceof CtPackageReference packageReference) {
             dependencyInfo = DependencyInfo.builder(DependencyOrigin.UNKNOWN).build();
             signature = packageReference.getQualifiedName() + ".*";
@@ -271,7 +330,7 @@ public class LineConstructAnalyzer {
             }
         }
 
-        return new ConstructUsage(ConstructType.IMPORT, signature, dependencyInfo, ctImport.getPosition(), codeLine);
+        return new ConstructUsage(ConstructType.IMPORT, signature, dependencyInfo, ctImport.getPosition(), codeLine, fqn);
     }
 
     private String extractImportSignature(CtImport ctImport) {

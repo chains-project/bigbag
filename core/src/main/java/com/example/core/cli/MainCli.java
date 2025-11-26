@@ -453,7 +453,16 @@ public class MainCli implements Callable<Integer> {
             }
 
             if (changeImpactReportService != null) {
-                changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir, classifierSource);
+                try {
+                    changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir, classifierSource);
+                } catch (Throwable analysisError) {
+                    String projectName = record != null ? record.project() : "unknown";
+                    String message = analysisError.getMessage() != null
+                            ? analysisError.getMessage()
+                            : analysisError.getClass().getSimpleName();
+                    log.error("Change-impact analysis failed for {} (project: {}): {}", commit, projectName, message);
+                    System.err.printf("Change-impact failed for %s (%s): %s%n", commit, projectName, message);
+                }
             } else if (classifierSource != null) {
                 Path classifierTarget = commitDir.resolve("breaking-classifier-report.json");
                 Files.copy(classifierSource, classifierTarget, StandardCopyOption.REPLACE_EXISTING);

@@ -104,6 +104,10 @@ public class DependencyResolver {
                 return Class.forName(typeReference.getQualifiedName(), false, modelClassLoader);
             } catch (ClassNotFoundException ex) {
                 LOGGER.debug("Class not found in model class loader for {}", typeReference.getQualifiedName());
+            } catch (LinkageError linkageError) {
+                LOGGER.debug("Linkage error while loading {}: {}", typeReference.getQualifiedName(), linkageError.getMessage());
+            } catch (Throwable throwable) {
+                LOGGER.debug("Unexpected error while loading {}: {}", typeReference.getQualifiedName(), throwable.getMessage());
             }
         }
         return null;
