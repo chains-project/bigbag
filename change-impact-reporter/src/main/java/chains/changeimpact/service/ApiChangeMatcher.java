@@ -45,6 +45,20 @@ final class ApiChangeMatcher {
 
         List<ApiChangeMatch> matches = new ArrayList<>();
         boolean appendClassSummary = true;
+        String memberQualifiedName = usage.getMemberQualifiedName();
+
+        if (memberQualifiedName != null && !memberQualifiedName.isBlank()) {
+            List<ApiChangeMatch> directMemberMatches = matchByQualifiedMember(memberQualifiedName, usage.getConstructType());
+            if (!directMemberMatches.isEmpty()) {
+                matches.addAll(directMemberMatches);
+                if (classChange == null) {
+                    String memberDeclaringType = declaringTypeFromMemberFqn(memberQualifiedName);
+                    if (memberDeclaringType != null) {
+                        classChange = index.classChange(memberDeclaringType);
+                    }
+                }
+            }
+        }
 
         if (classChange != null) {
             ConstructType type = usage.getConstructType();
@@ -319,6 +333,39 @@ final class ApiChangeMatcher {
             case CONSTRUCTOR_CALL -> "CONSTRUCTOR".equals(memberType);
             default -> false;
         };
+    }
+
+    private List<ApiChangeMatch> matchByQualifiedMember(String memberQualifiedName,
+                                                        ConstructType constructType) {
+        List<ApiChangeMatch> matches = new ArrayList<>();
+        for (ApiChangeIndex.MemberEntry entry : index.membersWithQualifiedName(memberQualifiedName)) {
+            MemberChange candidate = entry.member();
+            boolean isFieldCandidate = "FIELD".equals(candidate.memberType());
+            if (constructType == ConstructType.FIELD_ACCESS) {
+                if (!isFieldCandidate) {
+                    continue;
+                }
+            } else if (!memberTypeMatches(constructType, candidate.memberType())) {
+                continue;
+            }
+            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus())) {
+                continue;
+            }
+            String matchType = "QUALIFIED_FQN";
+            ApiChangeMatch match = ApiChangeMatch.fromMemberChange(candidate, matchType, entry.declaringType());
+            if (!matches.contains(match)) {
+                matches.add(match);
+            }
+        }
+        return matches;
+    }
+
+    private String declaringTypeFromMemberFqn(String memberQualifiedName) {
+        int lastDot = memberQualifiedName.lastIndexOf('.');
+        if (lastDot <= 0) {
+            return null;
+        }
+        return memberQualifiedName.substring(0, lastDot);
     }
 
     private boolean isSameDeclaringType(ClassChange currentClass, String otherDeclaringType) {

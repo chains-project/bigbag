@@ -62,13 +62,15 @@ public class LineConstructScanner extends CtScanner {
                 String fqn = executableReference.getDeclaringType() != null
                         ? executableReference.getDeclaringType().getQualifiedName()
                         : null;
+                String memberFqn = buildMemberQualifiedName(fqn, executableReference.getSimpleName());
                 usages.add(new ConstructUsage(
                         ConstructType.METHOD_INVOCATION,
                         ConstructDescriptors.describeExecutable(executableReference),
                         dependencyInfo,
                         invocation.getPosition(),
                         codeLineContent,
-                        fqn));
+                        fqn,
+                        memberFqn));
             }
         }
         super.visitCtInvocation(invocation);
@@ -81,13 +83,15 @@ public class LineConstructScanner extends CtScanner {
             String fqn = ctConstructorCall.getExecutable().getDeclaringType() != null
                     ? ctConstructorCall.getExecutable().getDeclaringType().getQualifiedName()
                     : null;
+            String memberFqn = buildMemberQualifiedName(fqn, ctConstructorCall.getExecutable().getSimpleName());
             usages.add(new ConstructUsage(
                     ConstructType.CONSTRUCTOR_CALL,
                     ConstructDescriptors.describeExecutable(ctConstructorCall.getExecutable()),
                     dependencyInfo,
                     ctConstructorCall.getPosition(),
                     codeLineContent,
-                    fqn));
+                    fqn,
+                    memberFqn));
         }
         super.visitCtConstructorCall(ctConstructorCall);
     }
@@ -99,13 +103,15 @@ public class LineConstructScanner extends CtScanner {
             String fqn = ctNewClass.getExecutable().getDeclaringType() != null
                     ? ctNewClass.getExecutable().getDeclaringType().getQualifiedName()
                     : null;
+            String memberFqn = buildMemberQualifiedName(fqn, ctNewClass.getExecutable().getSimpleName());
             usages.add(new ConstructUsage(
                     ConstructType.CONSTRUCTOR_CALL,
                     ConstructDescriptors.describeExecutable(ctNewClass.getExecutable()),
                     dependencyInfo,
                     ctNewClass.getPosition(),
                     codeLineContent,
-                    fqn));
+                    fqn,
+                    memberFqn));
         }
         super.visitCtNewClass(ctNewClass);
     }
@@ -165,13 +171,15 @@ public class LineConstructScanner extends CtScanner {
             String fqn = executableReference.getDeclaringType() != null
                     ? executableReference.getDeclaringType().getQualifiedName()
                     : null;
+            String memberFqn = buildMemberQualifiedName(fqn, executableReference.getSimpleName());
             usages.add(new ConstructUsage(
                     ConstructType.METHOD_INVOCATION,
                     ConstructDescriptors.describeExecutable(executableReference),
                     dependencyInfo,
                     expression.getPosition(),
                     codeLineContent,
-                    fqn));
+                    fqn,
+                    memberFqn));
         }
         super.visitCtExecutableReferenceExpression(expression);
     }
@@ -403,13 +411,25 @@ public class LineConstructScanner extends CtScanner {
         String fqn = fieldReference.getDeclaringType() != null
                 ? fieldReference.getDeclaringType().getQualifiedName()
                 : null;
+        String memberFqn = buildMemberQualifiedName(fqn, fieldReference != null ? fieldReference.getSimpleName() : null);
         usages.add(new ConstructUsage(
                 ConstructType.FIELD_ACCESS,
                 ConstructDescriptors.describeField(fieldReference),
                 dependencyInfo,
                 element.getPosition(),
                 codeLineContent,
-                fqn));
+                fqn,
+                memberFqn));
+    }
+
+    private String buildMemberQualifiedName(String declaringTypeFqn, String memberName) {
+        if (memberName == null || memberName.isBlank()) {
+            return null;
+        }
+        if (declaringTypeFqn == null || declaringTypeFqn.isBlank()) {
+            return memberName;
+        }
+        return declaringTypeFqn + "." + memberName;
     }
 }
 
