@@ -7,6 +7,7 @@ import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.model.UpdatedDependency;
 import com.example.core.util.ProjectPaths;
+import com.example.japicmp.JapicmpDiffTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import github.chains.breakingclassifier.BreakingReport;
 import github.chains.breakingclassifier.ErrorDetail;
@@ -109,6 +110,16 @@ public class ChangeImpactReportService {
             }
         } catch (Exception e) {
             log.warn("Failed to generate change-impact report for {}: {}", record.breakingCommit(), e.getMessage());
+            if (verbose) {
+                e.printStackTrace();
+            }
+        }
+
+        // Export all breaking changes to a separate JSON file
+        try {
+            exportBreakingChanges(record, outputBaseDir, commitReportDir);
+        } catch (Exception e) {
+            log.warn("Failed to export breaking changes for {}: {}", record.breakingCommit(), e.getMessage());
             if (verbose) {
                 e.printStackTrace();
             }
@@ -354,6 +365,264 @@ public class ChangeImpactReportService {
             String status,
             String errorMessage,
             ChangeImpactReport changeImpact
+    ) {
+    }
+
+    /**
+     * Exports all breaking changes from the API comparison to a JSON file.
+     * Breaking changes include: removed classes/methods/fields, incompatible modifications, etc.
+     */
+    private void exportBreakingChanges(BreakingUpdateRecord record,
+                                      Path outputBaseDir,
+                                      Path commitReportDir) throws IOException {
+        UpdatedDependency dependency = record.updatedDependency();
+        if (dependency == null) {
+            return;
+        }
+
+        Path commitOutputDir = outputBaseDir.resolve(record.breakingCommit());
+        if (!Files.isDirectory(commitOutputDir)) {
+            return;
+        }
+
+        Optional<Path> maybeOldJar = resolveJar(commitOutputDir, dependency.dependencyArtifactId(), dependency.previousVersion());
+        Optional<Path> maybeNewJar = resolveJar(commitOutputDir, dependency.dependencyArtifactId(), dependency.newVersion());
+
+        if (maybeOldJar.isEmpty() || maybeNewJar.isEmpty()) {
+            return;
+        }
+
+        Path oldJar = maybeOldJar.get();
+        Path newJar = maybeNewJar.get();
+
+        try {
+            com.example.japicmp.model.ComparisonReport comparisonReport = 
+                JapicmpDiffTool.generateComparisonReport(oldJar, newJar);
+            
+            BreakingChangesReport breakingChangesReport = extractBreakingChanges(record, dependency, comparisonReport);
+            
+            Path breakingChangesTarget = commitReportDir.resolve("breaking-changes.json");
+            mapper.writerWithDefaultPrettyPrinter().writeValue(breakingChangesTarget.toFile(), breakingChangesReport);
+            
+            log.info("Exported {} breaking changes to {}", 
+                    breakingChangesReport.breakingChanges().size(), breakingChangesTarget);
+        } catch (Exception e) {
+            log.warn("Failed to generate breaking changes report: {}", e.getMessage());
+            if (verbose) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private BreakingChangesReport extractBreakingChanges(BreakingUpdateRecord record,
+                                                         UpdatedDependency dependency,
+                                                         com.example.japicmp.model.ComparisonReport comparisonReport) {
+        List<BreakingChangeEntry> breakingChanges = new ArrayList<>();
+
+        if (comparisonReport.changes() != null) {
+            for (com.example.japicmp.model.ClassChange classChange : comparisonReport.changes()) {
+                // Check if class itself is breaking
+                if (isBreakingChange(classChange.changeStatus(), 
+                                    classChange.binaryCompatible(), 
+                                    classChange.sourceCompatible())) {
+                    breakingChanges.add(createClassBreakingChange(classChange));
+                }
+
+                // Check members (methods, constructors, fields)
+                if (classChange.detail() != null) {
+                    com.example.japicmp.model.ClassDetail detail = classChange.detail();
+                    
+                    if (detail.constructors() != null) {
+                        for (com.example.japicmp.model.MemberChange member : detail.constructors()) {
+                            if (isBreakingChange(member.changeStatus(), 
+                                                member.binaryCompatible(), 
+                                                member.sourceCompatible())) {
+                                breakingChanges.add(createMemberBreakingChange(
+                                    classChange.fullyQualifiedName(), 
+                                    "CONSTRUCTOR", 
+                                    member));
+                            }
+                        }
+                    }
+
+                    if (detail.methods() != null) {
+                        for (com.example.japicmp.model.MemberChange member : detail.methods()) {
+                            if (isBreakingChange(member.changeStatus(), 
+                                                member.binaryCompatible(), 
+                                                member.sourceCompatible())) {
+                                breakingChanges.add(createMemberBreakingChange(
+                                    classChange.fullyQualifiedName(), 
+                                    "METHOD", 
+                                    member));
+                            }
+                        }
+                    }
+
+                    if (detail.fields() != null) {
+                        for (com.example.japicmp.model.MemberChange member : detail.fields()) {
+                            if (isBreakingChange(member.changeStatus(), 
+                                                member.binaryCompatible(), 
+                                                member.sourceCompatible())) {
+                                breakingChanges.add(createMemberBreakingChange(
+                                    classChange.fullyQualifiedName(), 
+                                    "FIELD", 
+                                    member));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return new BreakingChangesReport(
+                record.project(),
+                record.breakingCommit(),
+                dependency.dependencyGroupId(),
+                dependency.dependencyArtifactId(),
+                dependency.previousVersion(),
+                dependency.newVersion(),
+                comparisonReport.oldJar(),
+                comparisonReport.newJar(),
+                comparisonReport.generatedAt(),
+                breakingChanges.size(),
+                breakingChanges
+        );
+    }
+
+    private boolean isBreakingChange(String changeStatus, boolean binaryCompatible, boolean sourceCompatible) {
+        // A change is breaking if:
+        // 1. It's REMOVED (always breaking)
+        // 2. It's not source compatible (breaking for source code)
+        // 3. It's not binary compatible (breaking for compiled code)
+        return "REMOVED".equalsIgnoreCase(changeStatus) 
+                || !sourceCompatible 
+                || !binaryCompatible;
+    }
+
+    private BreakingChangeEntry createClassBreakingChange(com.example.japicmp.model.ClassChange classChange) {
+        String qualifiedSignature = classChange.fullyQualifiedName();
+        return new BreakingChangeEntry(
+                "CLASS",
+                classChange.fullyQualifiedName(),
+                classChange.simpleName(),
+                qualifiedSignature,
+                classChange.changeStatus(),
+                classChange.binaryCompatible(),
+                classChange.sourceCompatible(),
+                classChange.compatibilityChanges() != null 
+                    ? classChange.compatibilityChanges().stream()
+                        .map(cc -> new CompatibilityChangeSummary(
+                            cc.type(),
+                            cc.binaryCompatible(),
+                            cc.sourceCompatible(),
+                            cc.semanticVersionImpact()))
+                        .collect(java.util.stream.Collectors.toList())
+                    : List.of(),
+                null, // signature (not applicable for classes)
+                null, // value (not applicable for classes)
+                classChange.detail() != null ? classChange.detail().oldModifiers() : List.of(),
+                classChange.detail() != null ? classChange.detail().newModifiers() : List.of(),
+                null // parameterTypes (not applicable for classes)
+        );
+    }
+
+    private BreakingChangeEntry createMemberBreakingChange(String declaringType,
+                                                          String memberType,
+                                                          com.example.japicmp.model.MemberChange member) {
+        String qualifiedSignature = buildQualifiedSignature(declaringType, memberType, member);
+        return new BreakingChangeEntry(
+                memberType,
+                member.name(),
+                member.name(),
+                qualifiedSignature,
+                member.changeStatus(),
+                member.binaryCompatible(),
+                member.sourceCompatible(),
+                member.compatibilityChanges() != null
+                    ? member.compatibilityChanges().stream()
+                        .map(cc -> new CompatibilityChangeSummary(
+                            cc.type(),
+                            cc.binaryCompatible(),
+                            cc.sourceCompatible(),
+                            cc.semanticVersionImpact()))
+                        .collect(java.util.stream.Collectors.toList())
+                    : List.of(),
+                member.signature() != null 
+                    ? new ValueChangeSummary(
+                        member.signature().oldValue(),
+                        member.signature().newValue(),
+                        member.signature().changed())
+                    : null,
+                member.value() != null
+                    ? new ValueChangeSummary(
+                        member.value().oldValue(),
+                        member.value().newValue(),
+                        member.value().changed())
+                    : null,
+                member.oldModifiers() != null ? member.oldModifiers() : List.of(),
+                member.newModifiers() != null ? member.newModifiers() : List.of(),
+                member.parameterTypes() != null ? member.parameterTypes() : List.of()
+        );
+    }
+
+    private String buildQualifiedSignature(String declaringType, String memberType, com.example.japicmp.model.MemberChange member) {
+        StringBuilder sb = new StringBuilder(declaringType);
+        if ("METHOD".equals(memberType) || "CONSTRUCTOR".equals(memberType)) {
+            sb.append("#").append(member.name()).append("(");
+            if (member.parameterTypes() != null && !member.parameterTypes().isEmpty()) {
+                sb.append(String.join(", ", member.parameterTypes()));
+            }
+            sb.append(")");
+        } else if ("FIELD".equals(memberType)) {
+            sb.append("::").append(member.name());
+        }
+        return sb.toString();
+    }
+
+    public record BreakingChangesReport(
+            String project,
+            String breakingCommit,
+            String dependencyGroupId,
+            String dependencyArtifactId,
+            String previousVersion,
+            String newVersion,
+            String oldJar,
+            String newJar,
+            String generatedAt,
+            int totalBreakingChanges,
+            List<BreakingChangeEntry> breakingChanges
+    ) {
+    }
+
+    public record BreakingChangeEntry(
+            String elementType,
+            String name,
+            String simpleName,
+            String qualifiedSignature,
+            String changeStatus,
+            boolean binaryCompatible,
+            boolean sourceCompatible,
+            List<CompatibilityChangeSummary> compatibilityChanges,
+            ValueChangeSummary signature,
+            ValueChangeSummary value,
+            List<String> oldModifiers,
+            List<String> newModifiers,
+            List<String> parameterTypes
+    ) {
+    }
+
+    public record ValueChangeSummary(
+            String oldValue,
+            String newValue,
+            boolean changed
+    ) {
+    }
+
+    public record CompatibilityChangeSummary(
+            String type,
+            boolean binaryCompatible,
+            boolean sourceCompatible,
+            String semanticVersionImpact
     ) {
     }
 }

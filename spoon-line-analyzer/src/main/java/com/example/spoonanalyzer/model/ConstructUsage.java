@@ -11,17 +11,28 @@ public final class ConstructUsage {
     private final DependencyInfo dependencyInfo;
     private final SourcePosition sourcePosition;
     private final String codeLine;
+    private final String fullyQualifiedName;
 
     public ConstructUsage(ConstructType constructType,
                           String signature,
                           DependencyInfo dependencyInfo,
                           SourcePosition sourcePosition,
                           String codeLine) {
+        this(constructType, signature, dependencyInfo, sourcePosition, codeLine, null);
+    }
+
+    public ConstructUsage(ConstructType constructType,
+                          String signature,
+                          DependencyInfo dependencyInfo,
+                          SourcePosition sourcePosition,
+                          String codeLine,
+                          String fullyQualifiedName) {
         this.constructType = Objects.requireNonNull(constructType, "constructType");
         this.signature = Objects.requireNonNull(signature, "signature");
         this.dependencyInfo = Objects.requireNonNull(dependencyInfo, "dependencyInfo");
         this.sourcePosition = sourcePosition;
         this.codeLine = codeLine;
+        this.fullyQualifiedName = fullyQualifiedName;
     }
 
     public ConstructType getConstructType() {
@@ -42,6 +53,10 @@ public final class ConstructUsage {
 
     public String getCodeLine() {
         return codeLine;
+    }
+
+    public String getFullyQualifiedName() {
+        return fullyQualifiedName;
     }
 
     @Override
@@ -78,12 +93,13 @@ public final class ConstructUsage {
                 && Objects.equals(signature, that.signature)
                 && Objects.equals(dependencyInfo, that.dependencyInfo)
                 && Objects.equals(sourcePositionKey(sourcePosition), sourcePositionKey(that.sourcePosition))
-                && Objects.equals(codeLineNormalized(codeLine), codeLineNormalized(that.codeLine));
+                && Objects.equals(codeLineNormalized(codeLine), codeLineNormalized(that.codeLine))
+                && Objects.equals(fullyQualifiedName, that.fullyQualifiedName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(constructType, signature, dependencyInfo, sourcePositionKey(sourcePosition), codeLineNormalized(codeLine));
+        return Objects.hash(constructType, signature, dependencyInfo, sourcePositionKey(sourcePosition), codeLineNormalized(codeLine), fullyQualifiedName);
     }
 
     private static String sourcePositionKey(SourcePosition position) {
