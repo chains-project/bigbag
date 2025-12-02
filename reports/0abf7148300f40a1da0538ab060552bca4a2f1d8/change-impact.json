@@ -30,7 +30,7 @@
         "lineNumber" : 369,
         "oldJar" : "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/transformer-agent/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.18.1.jar",
         "newJar" : "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/transformer-agent/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.19.1.jar",
-        "generatedAt" : "2025-11-25T18:42:52.412047Z",
+        "generatedAt" : "2025-12-02T11:46:32.423241Z",
         "constructs" : [ {
           "constructType" : "METHOD_INVOCATION",
           "signature" : "net.sf.jasperreports.engine.JRPen#setLineWidth(java.lang.Float)",
@@ -45,6 +45,33 @@
           "lineNumber" : 369,
           "codeLine" : "        textField.getLineBox().getPen().setLineWidth(border.getLineWidth());",
           "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setLineWidth",
+            "declaringType" : "net.sf.jasperreports.engine.JRPen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRPen.setLineWidth(float)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fb4c0db[public abstract setLineWidth (F)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "float" ],
+            "changedMemberCount" : null
+          }, {
             "elementType" : "METHOD",
             "matchType" : "EXACT_SIGNATURE",
             "name" : "setLineWidth",

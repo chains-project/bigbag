@@ -1,39 +1,34 @@
-Después de comparar todos los prompts que me enviaste y el que optimicé previamente, el **prompt más eficiente y optimizado** para tu caso cumple estas condiciones:
+You are an expert Java developer and a specialist in the Spoon code transformation library. Your task is to generate **Spoon transformation rules** to automatically migrate client code after a dependency upgrade.
 
-1. **Enfoque 100% en reglas ejecutables**: elimina análisis, explicaciones y comentarios innecesarios. Esto asegura que el modelo genere solo código listo para copiar y ejecutar.
-2. **In-Context Learning efectivo**: incluye ejemplos claros de cambios típicos (firma de método, método eliminado, clase movida, cambio de tipo de retorno) que enseñan al modelo los patrones de transformación sin saturarlo con texto.
-3. **Contextual inference explícita**: mantiene la lógica de búsqueda de variables locales, campos de clase y valores por defecto para parámetros nuevos.
-4. **Salida limpia**: cada transformación produce un bloque de código Java Spoon, correctamente formateado.
-5. **Generalizable**: puede aplicarse a cualquier diff de dependencia siguiendo los ejemplos.
+You will be provided a **diff of the dependency changes**:
+
+<dependency_change_diff>
+- METHOD net.sf.jasperreports.engine.JRPen.setLineWidth(float) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD net.sf.jasperreports.engine.JRPen.setLineWidth(java.lang.Float) [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true]
+- METHOD net.sf.jasperreports.engine.base.JRBasePen.setLineWidth(float) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- CLASS net.sf.jasperreports.engine.JRPen [status=MODIFIED, binaryCompatible=false, sourceCompatible=false]
+- METHOD net.sf.jasperreports.engine.JRLineBox.getPen() [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true]
+- CLASS net.sf.jasperreports.engine.JRLineBox [status=MODIFIED, binaryCompatible=false, sourceCompatible=false]
+- METHOD net.sf.jasperreports.engine.design.JRDesignTextElement.getLineBox() [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true]
+- CLASS net.sf.jasperreports.engine.design.JRDesignTextElement [status=MODIFIED, binaryCompatible=true, sourceCompatible=true]
+</dependency_change_diff>
+
+**Important:**
+
+* Only generate **Spoon transformation rules**.
+* Do **not** include explanations, analysis, or instructions.
+* The output must be **ready to copy and execute**.
 
 ---
 
-### **Prompt Optimizado Recomendada**
-
-````text
-You are an expert Java developer and a specialist in the Spoon code transformation library. Your task is to generate Spoon transformation rules to automatically migrate client code after a dependency upgrade.
-
-You will be provided a diff of the dependency changes:
-
-<dependency_change_diff>
-{{DEPENDENCY_CHANGE_DIFF}}
-</dependency_change_diff>
-
-Requirements:
-- Only generate Spoon transformation rules.
-- Do not include explanations, analysis, or instructions.
-- Rules must be ready to copy and execute.
-- Apply contextual inference when adding parameters or replacing methods.
-- Update imports and fully-qualified class names when classes are moved or renamed.
-- Handle return type changes by adapting consuming code as needed.
-
-In-Context Examples:
+### **In-Context Examples**
 
 <example_1>
 Change: Method signature change (with parameter inference)
 Old version: `public void processData(String data)`
 New version: `public void processData(String data, ProcessingContext context)`
 Spoon Rule:
+
 ```java
 CtInvocation<?> invocation = /* find processData invocation */;
 CtExpression<?> contextArgument = null;
@@ -69,7 +64,7 @@ if (contextArgument == null) {
 }
 
 invocation.addArgument(contextArgument);
-````
+```
 
 </example_1>
 
@@ -115,7 +110,7 @@ Spoon Rule:
 CtInvocation<?> invocation = /* find getItems() invocations */;
 if (invocation.getParent(CtLocalVariable.class) != null &&
     invocation.getParent(CtLocalVariable.class).getType().getQualifiedName().equals("java.util.List")) {
-    
+
     CtConstructorCall<?> conversionCall = getFactory().Code().createConstructorCall(
         getFactory().Core().createTypeReference().setQualifiedName("java.util.ArrayList"),
         invocation
@@ -126,15 +121,22 @@ if (invocation.getParent(CtLocalVariable.class) != null &&
 
 </example_4>
 
-Instructions:
+---
 
-* Generate **only Spoon rules** for each change identified in the diff.
-* Produce **ready-to-execute Java Spoon code blocks**, one per transformation.
-* Apply contextual inference where necessary.
-* Update imports and fully-qualified class names as needed.
-* Adapt consuming code for return type changes.
-* **Do not include explanations or analysis.**
+### **Instructions to Follow**
 
-Generate the Spoon transformation rules now.
+Analyze the dependency change diff and generate **only Spoon transformation rules** for each change identified. For each transformation:
 
-```
+* Generate **ready-to-execute Java Spoon code blocks**
+* Apply **contextual inference** for parameters and method replacements when needed
+* Update imports and fully-qualified class names when classes are moved or renamed
+* Handle return type changes by adapting consuming code appropriately
+* Use appropriate Spoon API methods for creating, modifying, and replacing code elements
+
+**Output Requirements:**
+* **Do not include explanations, commentary, or step-by-step reasoning**
+* **Do not include change descriptions or analysis**
+* Output must be **clean Java Spoon code blocks only**, one per transformation
+* Each code block should be properly formatted and ready to copy and execute
+
+Generate the Spoon transformation rules now:
