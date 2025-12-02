@@ -6,6 +6,7 @@ import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.model.UpdatedDependency;
+import com.example.core.prompt.PromptGenerationService;
 import com.example.core.util.ProjectPaths;
 import com.example.japicmp.JapicmpDiffTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +39,7 @@ public class ChangeImpactReportService {
     private final ChangeImpactAnalyzer analyzer;
     private final ObjectMapper mapper;
     private final List<Path> additionalClasspath;
+    private final PromptGenerationService promptGenerationService;
 
     public ChangeImpactReportService(boolean verbose) {
         this(verbose, null);
@@ -47,15 +49,17 @@ public class ChangeImpactReportService {
         this.verbose = verbose;
         this.analyzer = new ChangeImpactAnalyzer();
         this.mapper = new ObjectMapper();
-        
+
         // Load additional classpath from environment if available
         if (envConfig != null) {
             this.additionalClasspath = envConfig.getPathList("SPOON_CLASSPATH");
             if (!this.additionalClasspath.isEmpty()) {
                 log.info("Loaded {} additional classpath entries from SPOON_CLASSPATH", this.additionalClasspath.size());
             }
+            this.promptGenerationService = new PromptGenerationService(envConfig);
         } else {
             this.additionalClasspath = List.of();
+            this.promptGenerationService = null;
         }
     }
 
@@ -107,6 +111,24 @@ public class ChangeImpactReportService {
             DetailedChangeImpactReport report = buildDetailedReport(record, summary, outputBaseDir, copiedClassifierReport);
             if (report != null) {
                 mapper.writerWithDefaultPrettyPrinter().writeValue(changeImpactTarget.toFile(), report);
+            }
+            // Generate per-file prompts for each file with errors (one prompt per file),
+            // so that LLMs can be invoked later with fine-grained context.
+            try {
+                if (promptGenerationService != null && report != null) {
+                    promptGenerationService.generateFilePrompts(
+                            record,
+                            summary,
+                            commitReportDir,
+                            outputBaseDir,
+                            report.files()
+                    );
+                }
+            } catch (Throwable e) {
+                log.warn("Failed to generate per-file prompts for {}: {}", record.breakingCommit(), e.getMessage());
+                if (verbose) {
+                    e.printStackTrace();
+                }
             }
         } catch (Throwable e) {
             log.warn("Failed to generate change-impact report for {}: {}", record.breakingCommit(), e.getMessage());
