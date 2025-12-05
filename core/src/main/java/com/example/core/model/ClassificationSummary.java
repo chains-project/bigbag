@@ -2,6 +2,9 @@ package com.example.core.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+import se.kth.models.Attempt;
+
 /**
  * Represents the classification outcome for a breaking update record,
  * including both the dataset-provided category and the category inferred
@@ -13,9 +16,8 @@ public record ClassificationSummary(
         String breakingCommit,
         String datasetCategory,
         String inferredCategory,
-            String logFile,
-            String classifierReport,
-            String dockerImage
-) {
+        String logFile,
+        String classifierReport,
+        String dockerImage,
+        List<Attempt> attempts) {
 }
-

@@ -425,6 +425,8 @@ public class BreakingUpdateExtractionService {
                 inferredCategory,
                 logFile,
                 classifierReport,
-                dockerImage);
+                dockerImage,
+                null // attempts
+        );
     }
 }

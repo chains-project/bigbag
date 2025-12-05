@@ -34,7 +34,7 @@ public class GitWorkflowService {
             return;
         }
 
-        try (Git git = Git.init().setDirectory(projectDir.toFile()).call()) {
+        try (Git git = Git.init().setDirectory(projectDir.toFile()).setInitialBranch("master").call()) {
             log.info("Initialized git repository at {}", projectDir);
 
             // Add all files
@@ -73,6 +73,75 @@ public class GitWorkflowService {
         } catch (IOException | GitAPIException e) {
             log.error("Failed to create/checkout branch {} at {}", branchName, projectDir, e);
             throw new RuntimeException("Git branch operation failed", e);
+        }
+    }
+
+    /**
+     * Creates a new branch from a specific base branch and checks it out.
+     *
+     * @param projectDir the project directory
+     * @param branchName the name of the new branch
+     * @param baseBranch the name of the base branch
+     */
+    public void createBranchFromBase(Path projectDir, String branchName, String baseBranch) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            log.info("Creating branch {} from {}", branchName, baseBranch);
+            git.checkout()
+                    .setCreateBranch(true)
+                    .setName(branchName)
+                    .setStartPoint(baseBranch)
+                    .call();
+        } catch (IOException | GitAPIException e) {
+            log.error("Failed to create branch {} from {} at {}", branchName, baseBranch, projectDir, e);
+            throw new RuntimeException("Git branch creation failed", e);
+        }
+    }
+
+    /**
+     * Checks out an existing branch.
+     *
+     * @param projectDir the project directory
+     * @param branchName the name of the branch to checkout
+     */
+    public void checkout(Path projectDir, String branchName) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            log.info("Checking out branch {}", branchName);
+            git.checkout().setName(branchName).call();
+        } catch (IOException | GitAPIException e) {
+            log.error("Failed to checkout branch {} at {}", branchName, projectDir, e);
+            throw new RuntimeException("Git checkout failed", e);
+        }
+    }
+
+    /**
+     * Deletes a branch.
+     *
+     * @param projectDir the project directory
+     * @param branchName the name of the branch to delete
+     */
+    public void deleteBranch(Path projectDir, String branchName) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            log.info("Deleting branch {}", branchName);
+            git.branchDelete().setBranchNames(branchName).setForce(true).call();
+        } catch (IOException | GitAPIException e) {
+            log.warn("Failed to delete branch {} at {} (might not exist)", branchName, projectDir);
+        }
+    }
+
+    /**
+     * Commits all changes with the given message.
+     *
+     * @param projectDir the project directory
+     * @param message    the commit message
+     */
+    public void commitAll(Path projectDir, String message) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            git.add().addFilepattern(".").call();
+            git.commit().setMessage(message).call();
+            log.info("Committed changes: '{}'", message);
+        } catch (IOException | GitAPIException e) {
+            log.error("Failed to commit changes at {}", projectDir, e);
+            throw new RuntimeException("Git commit failed", e);
         }
     }
 }
