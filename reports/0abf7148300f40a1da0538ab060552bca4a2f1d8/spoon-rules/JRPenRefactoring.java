@@ -1,0 +1,104 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class JRPenRefactoring {
+
+    public static class JRPenProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setLineWidth".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we know it's already a wrapper Float, skip it.
+            // If it is an object type (and not null), we assume it's not the primitive target.
+            if (type != null && !type.isPrimitive()) {
+                return false;
+            }
+            // If type is null (unknown) or primitive (float, int, etc.), we process it
+            // to ensure it targets the setLineWidth(Float) overload explicitly.
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // The method setLineWidth(float) was removed from JRPen and JRBasePen.
+            if (owner != null && !owner.getQualifiedName().contains("Pen") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation: Wrap originalArg inside Float.valueOf(...)
+            // This fixes the source incompatibility where setLineWidth(float) was removed
+            // but setLineWidth(Float) remains.
+            
+            CtTypeReference<?> floatClassRef = factory.Type().createReference("java.lang.Float");
+            CtTypeReference<?> floatPrimRef = factory.Type().floatPrimitiveType();
+
+            // Create Float.valueOf(arg)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(floatClassRef),
+                factory.Method().createReference(
+                    floatClassRef, 
+                    floatClassRef, // Return type is Float
+                    "valueOf", 
+                    floatPrimRef   // Arg type is float
+                ),
+                originalArg.clone()
+            );
+
+            originalArg.replace(replacement);
+            System.out.println("Refactored setLineWidth at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "output/0abf7148300f40a1da0538ab060552bca4a2f1d8/biapi/src/main/java/xdev/tableexport/export/ReportBuilder.java";
+        String outputPath = "./reports/0abf7148300f40a1da0538ab060552bca4a2f1d8/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JRPenProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

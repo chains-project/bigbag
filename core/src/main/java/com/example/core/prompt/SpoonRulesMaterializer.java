@@ -32,7 +32,7 @@ public final class SpoonRulesMaterializer {
      * Extract Spoon rules from an LLM answer file and generate:
      * <ol>
      *   <li>a raw rules file, and</li>
-     *   <li>a Java driver skeleton to apply those rules with Spoon</li>
+     *   <li>a Java driver skeleton to apply those rules with Spoon (or the complete class if LLM provided it)</li>
      * </ol>
      * Both files are written under {@code commitReportDir/spoon-rules/}.
      *
@@ -40,8 +40,9 @@ public final class SpoonRulesMaterializer {
      * @param originalSourceFile original Java source file to which the rules should be applied
      * @param commitReportDir   reports/{commit} directory for this analysis
      * @param baseName          logical base name (e.g., sanitized file path) used for output files
+     * @return the Path to the generated Java file (either SpoonApplyRules.java or the complete class from LLM)
      */
-    public static void materialize(Path promptOutputFile,
+    public static Path materialize(Path promptOutputFile,
                                    Path originalSourceFile,
                                    Path commitReportDir,
                                    String baseName) throws IOException {
@@ -59,10 +60,74 @@ public final class SpoonRulesMaterializer {
         Path rawRules = targetDir.resolve(baseName + "_spoon_rules_raw.txt");
         Files.writeString(rawRules, rules, StandardCharsets.UTF_8);
 
-        // 2) Java driver skeleton that embeds the rules and sets up Spoon
-        Path driver = targetDir.resolve(baseName + "_spoon_apply.java");
-        String driverSource = buildDriverSource(originalSourceFile, rawRules, rules);
-        Files.writeString(driver, driverSource, StandardCharsets.UTF_8);
+        // 2) Detect if the LLM output is a complete class or just rules
+        String javaCode = extractJavaCode(rules);
+        boolean isCompleteClass = isCompleteSpoonClass(javaCode);
+        
+        Path driver;
+        if (isCompleteClass) {
+            // LLM provided a complete class - adapt it and save it
+            String adaptedClass = adaptCompleteClass(javaCode, originalSourceFile, commitReportDir);
+            // Extract class name from the code or use a default
+            String className = extractClassName(javaCode);
+            driver = targetDir.resolve(className + ".java");
+            Files.writeString(driver, adaptedClass, StandardCharsets.UTF_8);
+        } else {
+            // Only rules provided - generate the driver skeleton
+            driver = targetDir.resolve("SpoonApplyRules.java");
+            String driverSource = buildDriverSource(originalSourceFile, commitReportDir, rawRules, rules);
+            Files.writeString(driver, driverSource, StandardCharsets.UTF_8);
+        }
+        
+        return driver;
+    }
+    
+    /**
+     * Generates a diff file between the original and transformed Java files.
+     * This should be called after the Spoon transformation has been executed.
+     * The diff is saved in reports/{commit}/diff/ with the same name as the original file plus .diff extension.
+     *
+     * @param originalSourceFile the original source file path
+     * @param commitReportDir the commit report directory (reports/{commit})
+     * @param baseName the base name used for file identification (not used for diff filename)
+     * @throws IOException if file operations fail
+     * @throws InterruptedException if the diff process is interrupted
+     */
+    public static void generateDiffAfterTransformation(Path originalSourceFile,
+                                                       Path commitReportDir,
+                                                       String baseName) throws IOException, InterruptedException {
+        // The transformed file should be in reports/{commit}/transformed/
+        Path transformedDir = commitReportDir.resolve("transformed");
+        String originalFileName = originalSourceFile.getFileName().toString();
+        
+        // Find the transformed file recursively (Spoon maintains package structure)
+        Path transformedFile = findTransformedFile(transformedDir, originalFileName);
+        
+        if (transformedFile == null || !Files.exists(transformedFile)) {
+            throw new IOException("Transformed file not found in: " + transformedDir);
+        }
+        
+        // Save diff in reports/{commit}/diff/ directory
+        // Each diff file corresponds to one original class and its transformed version
+        Path diffDir = commitReportDir.resolve("diff");
+        Path diffOutputFile = diffDir.resolve(originalFileName + ".diff");
+        
+        DiffGenerator.generateDiff(originalSourceFile, transformedFile, diffOutputFile);
+    }
+    
+    /**
+     * Helper method to find a transformed file recursively in a directory.
+     */
+    private static Path findTransformedFile(Path baseDir, String fileName) throws IOException {
+        if (!Files.exists(baseDir)) {
+            return null;
+        }
+        try (var paths = Files.walk(baseDir)) {
+            return paths.filter(Files::isRegularFile)
+                    .filter(path -> path.getFileName().toString().equals(fileName))
+                    .findFirst()
+                    .orElse(null);
+        }
     }
 
     /**
@@ -89,28 +154,49 @@ public final class SpoonRulesMaterializer {
      * <ul>
      *   <li>configures a Launcher for the original source file</li>
      *   <li>contains an explicit section where the extracted rules are embedded</li>
+     *   <li>saves transformed files to reports/{commit}/transformed/</li>
      * </ul>
      */
     private static String buildDriverSource(Path originalSourceFile,
+                                            Path commitReportDir,
                                             Path rawRulesFile,
                                             String rules) {
         String nl = System.lineSeparator();
         StringBuilder sb = new StringBuilder();
 
+        // Extract Java code from markdown code blocks if present
+        String javaCode = extractJavaCode(rules);
+        
+        // Determine output directory: transformed files go in reports/{commit}/transformed/
+        // This maintains the package structure while keeping transformed code separate from rules
+        Path outputDir = commitReportDir.resolve("transformed");
+        String outputDirPath = outputDir.toString().replace("\\", "/");
+        
+        // Add necessary imports
         sb.append("import spoon.Launcher;").append(nl);
+        sb.append("import spoon.reflect.CtModel;").append(nl);
         sb.append("import spoon.reflect.factory.Factory;").append(nl);
-        sb.append("import spoon.processing.Processor;").append(nl);
+        sb.append("import spoon.reflect.declaration.CtElement;").append(nl);
+        sb.append("import spoon.reflect.declaration.CtMethod;").append(nl);
+        sb.append("import spoon.reflect.declaration.CtType;").append(nl);
+        sb.append("import spoon.reflect.code.CtInvocation;").append(nl);
+        sb.append("import spoon.reflect.code.CtExpression;").append(nl);
+        sb.append("import spoon.reflect.reference.CtExecutableReference;").append(nl);
+        sb.append("import spoon.reflect.reference.CtTypeReference;").append(nl);
+        sb.append("import spoon.reflect.visitor.filter.TypeFilter;").append(nl);
+        sb.append("import java.util.Collections;").append(nl);
+        sb.append("import java.util.List;").append(nl);
+        sb.append("import java.io.File;").append(nl);
         sb.append(nl);
+        
         sb.append("/**").append(nl);
         sb.append(" * Auto-generated Spoon driver to apply LLM-generated rules to:").append(nl);
         sb.append(" *   ").append(originalSourceFile.toString()).append(nl);
         sb.append(" * ").append(nl);
         sb.append(" * Raw rules file: ").append(rawRulesFile.toString()).append(nl);
         sb.append(" * ").append(nl);
-        sb.append(" * The section marked BEGIN_SPOON_RULES / END_SPOON_RULES contains").append(nl);
-        sb.append(" * the rules as returned by the LLM. You may need to wrap them into").append(nl);
-        sb.append(" * proper Spoon Processors or integrate them into the main method").append(nl);
-        sb.append(" * depending on their structure.").append(nl);
+        sb.append(" * The transformed file will be written to: ").append(outputDirPath).append(nl);
+        sb.append(" * (maintaining the original package directory structure)").append(nl);
         sb.append(" */").append(nl);
         sb.append("public class SpoonApplyRules {").append(nl).append(nl);
 
@@ -118,26 +204,201 @@ public final class SpoonRulesMaterializer {
         sb.append("        Launcher launcher = new Launcher();").append(nl);
         sb.append("        launcher.getEnvironment().setNoClasspath(true);").append(nl);
         sb.append("        launcher.addInputResource(\"").append(originalSourceFile.toString().replace("\\", "/")).append("\");").append(nl);
-        sb.append("        Factory factory = launcher.getFactory();").append(nl).append(nl);
-        sb.append("        // TODO: register your Spoon processors or transformations here").append(nl);
-        sb.append("        // Example: launcher.addProcessor(new MyProcessor());").append(nl).append(nl);
+        sb.append("        // Set output directory for transformed files").append(nl);
+        sb.append("        launcher.setSourceOutputDirectory(new File(\"").append(outputDirPath).append("\"));").append(nl);
+        sb.append(nl);
         sb.append("        launcher.buildModel();").append(nl);
+        sb.append("        CtModel model = launcher.getModel();").append(nl);
+        sb.append("        Factory factory = launcher.getFactory();").append(nl).append(nl);
+        sb.append("        // Apply transformation rules").append(nl);
+        sb.append("        applyTransformationRules(model, factory);").append(nl).append(nl);
         sb.append("        launcher.process();").append(nl);
+        sb.append("        launcher.prettyprint();").append(nl);
+        sb.append("        System.out.println(\"Transformed files written to: ").append(outputDirPath).append("\");").append(nl);
         sb.append("    }").append(nl).append(nl);
 
-        sb.append("    // === BEGIN_SPOON_RULES (raw content from LLM) ===").append(nl);
-        sb.append("    /*").append(nl);
-        if (rules != null && !rules.isBlank()) {
-            for (String line : rules.split("\\r?\\n")) {
-                sb.append("     * ").append(line).append(nl);
-            }
+        sb.append("    private static void applyTransformationRules(CtModel model, Factory factory) {").append(nl);
+        if (javaCode != null && !javaCode.isBlank()) {
+            // Indent the extracted code and replace getFactory() with factory parameter
+            String indentedCode = indentAndAdaptCode(javaCode, "        ");
+            sb.append(indentedCode);
+        } else {
+            sb.append("        // No transformation rules provided").append(nl);
         }
-        sb.append("     */").append(nl);
-        sb.append("    // === END_SPOON_RULES ===").append(nl);
-
+        sb.append("    }").append(nl);
         sb.append("}").append(nl);
 
         return sb.toString();
+    }
+    
+    /**
+     * Extracts Java code from markdown code blocks (```java ... ```).
+     * Extracts ALL code blocks and concatenates them.
+     * If no code blocks are found, returns the original content.
+     */
+    private static String extractJavaCode(String content) {
+        if (content == null || content.isBlank()) {
+            return "";
+        }
+        
+        StringBuilder allCode = new StringBuilder();
+        String lower = content.toLowerCase();
+        int searchStart = 0;
+        
+        // Extract all Java code blocks
+        while (true) {
+            int startIdx = lower.indexOf("```java", searchStart);
+            if (startIdx < 0) {
+                // Try generic code blocks
+                startIdx = lower.indexOf("```", searchStart);
+                if (startIdx < 0) {
+                    break;
+                }
+            }
+            
+            int codeStart = startIdx + (lower.substring(startIdx).startsWith("```java") ? "```java".length() : 3);
+            int endIdx = content.indexOf("```", codeStart);
+            
+            if (endIdx > codeStart) {
+                String block = content.substring(codeStart, endIdx).trim();
+                if (!block.isEmpty()) {
+                    if (allCode.length() > 0) {
+                        allCode.append("\n\n");
+                    }
+                    allCode.append(block);
+                }
+                searchStart = endIdx + 3;
+            } else {
+                break;
+            }
+        }
+        
+        // If we found code blocks, return concatenated result
+        if (allCode.length() > 0) {
+            return allCode.toString();
+        }
+        
+        // Fallback: return the content as-is
+        return content.trim();
+    }
+    
+    /**
+     * Detects if the Java code is a complete Spoon class (has main method, AbstractProcessor, etc.)
+     * or just transformation rules.
+     */
+    private static boolean isCompleteSpoonClass(String javaCode) {
+        if (javaCode == null || javaCode.isBlank()) {
+            return false;
+        }
+        
+        String code = javaCode.toLowerCase();
+        // Check for indicators of a complete class:
+        // - Has "public class" declaration
+        // - Has "public static void main"
+        // - Has "abstractprocessor" (typical for complete Spoon classes)
+        boolean hasPublicClass = code.contains("public class");
+        boolean hasMainMethod = code.contains("public static void main");
+        boolean hasProcessor = code.contains("abstractprocessor") || code.contains("extends abstractprocessor");
+        
+        // A complete class should have all three
+        return hasPublicClass && hasMainMethod && hasProcessor;
+    }
+    
+    /**
+     * Extracts the class name from Java code.
+     * Looks for "public class ClassName" pattern.
+     */
+    private static String extractClassName(String javaCode) {
+        if (javaCode == null || javaCode.isBlank()) {
+            return "SpoonApplyRules";
+        }
+        
+        // Pattern: "public class ClassName" or "public class ClassName {"
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+            "public\\s+class\\s+([A-Za-z_][A-Za-z0-9_]*)"
+        );
+        java.util.regex.Matcher matcher = pattern.matcher(javaCode);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        
+        return "SpoonApplyRules";
+    }
+    
+    /**
+     * Adapts a complete Spoon class from LLM output to work with our paths.
+     * Replaces input/output paths in the main method to point to the correct locations.
+     */
+    private static String adaptCompleteClass(String javaCode, Path originalSourceFile, Path commitReportDir) {
+        if (javaCode == null || javaCode.isBlank()) {
+            return javaCode;
+        }
+        
+        Path outputDir = commitReportDir.resolve("transformed");
+        String outputDirPath = outputDir.toString().replace("\\", "/");
+        String inputPath = originalSourceFile.toString().replace("\\", "/");
+        
+        // Replace common path patterns in the main method
+        String adapted = javaCode;
+        
+        // Replace input path patterns
+        // Look for: addInputResource("...") or String inputPath = "..."
+        adapted = adapted.replaceAll(
+            "(addInputResource\\(\")([^\"]+)(\"\\))",
+            "$1" + inputPath + "$3"
+        );
+        adapted = adapted.replaceAll(
+            "(String\\s+inputPath\\s*=\\s*\")([^\"]+)(\"\\s*;)",
+            "$1" + inputPath + "$3"
+        );
+        
+        // Replace output path patterns
+        // Look for: setSourceOutputDirectory(...) or String outputPath = "..."
+        adapted = adapted.replaceAll(
+            "(setSourceOutputDirectory\\([^)]*\")([^\"]+)(\"[^)]*\\))",
+            "$1" + outputDirPath + "$3"
+        );
+        adapted = adapted.replaceAll(
+            "(String\\s+outputPath\\s*=\\s*\")([^\"]+)(\"\\s*;)",
+            "$1" + outputDirPath + "$3"
+        );
+        
+        // Also handle File constructor patterns
+        adapted = adapted.replaceAll(
+            "(new\\s+File\\(\")([^\"]+)(\"\\))",
+            "$1" + outputDirPath + "$3"
+        );
+        
+        return adapted;
+    }
+    
+    /**
+     * Indents code and adapts it to use the factory parameter instead of getFactory().
+     * Note: Rules are copied as-is from LLM output, no modifications are made.
+     */
+    private static String indentAndAdaptCode(String code, String indent) {
+        if (code == null || code.isBlank()) {
+            return indent + "// No code provided" + System.lineSeparator();
+        }
+        
+        String nl = System.lineSeparator();
+        StringBuilder result = new StringBuilder();
+        String[] lines = code.split("\\r?\\n");
+        
+        for (String line : lines) {
+            String trimmed = line.trim();
+            // Skip empty lines or preserve them
+            if (trimmed.isEmpty()) {
+                result.append(indent).append(nl);
+            } else {
+                // Replace getFactory() with factory parameter (only this adaptation is needed)
+                String adapted = trimmed.replace("getFactory()", "factory");
+                // Rules are copied as-is from LLM - no other modifications
+                result.append(indent).append(adapted).append(nl);
+            }
+        }
+        
+        return result.toString();
     }
 }
 
