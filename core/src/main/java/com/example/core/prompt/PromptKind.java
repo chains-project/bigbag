@@ -18,7 +18,10 @@ public enum PromptKind {
     DEFAULT("default"),
     IN_CONTEXT("in_context"),
     ANTHROPIC_SPOON_RULES("anthropic_spoon_rules"),
-    FINAL_SPOON_RULES("final");
+    FINAL_SPOON_RULES("final"),
+    V2_IN_CONTEXT("v2_in_context"),
+    BASELINE("baseline"),
+    PROMPT_4("prompt_4");
 
     private final String id;
 
@@ -55,7 +58,10 @@ public enum PromptKind {
             case "in_context", "context" -> Optional.of(IN_CONTEXT);
             case "anthropic", "anthropic_spoon_rules" -> Optional.of(ANTHROPIC_SPOON_RULES);
             case "final", "final_spoon_rules" -> Optional.of(FINAL_SPOON_RULES);
-            default -> Optional.empty();
+            case "v2_in_context", "v2-in-context" -> Optional.of(V2_IN_CONTEXT);
+            case "baseline", "base_line", "base-line" -> Optional.of(BASELINE);
+            case "prompt_4", "prompt4", "prompt-4" -> Optional.of(PROMPT_4);
+           default -> Optional.empty();
         };
     }
 }

@@ -14,6 +14,10 @@ import com.example.japicmp.model.ClassChange;
 import com.example.japicmp.model.ComparisonReport;
 import com.example.japicmp.model.MemberChange;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import github.chains.breakingclassifier.BreakingReport;
+import github.chains.breakingclassifier.ErrorDetail;
+import github.chains.breakingclassifier.FileErrorGroup;
+import github.chains.breakingclassifier.FailureCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +25,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -144,13 +149,21 @@ public class PromptGenerationService {
 
                 // Do not create a directory per class; encode kind id into the filename:
                 // {sanitizedFileName}_{kindId}_prompt.txt
-                String fileName = sanitizedFileName + "_" + kind.id() + "_prompt.txt";
-                Path target = basePromptsDir.resolve(fileName);
+                String promptFileName = sanitizedFileName + "_" + kind.id() + "_prompt.txt";
+                Path promptTarget = basePromptsDir.resolve(promptFileName);
                 try {
-                    Files.writeString(target, rendered, StandardCharsets.UTF_8);
-                    log.info("Wrote file-level prompt for {} ({}) to {}", record.breakingCommit(), fileImpact.filePath(), target);
-                } catch (IOException e) {
-                    log.warn("Failed to write file-level prompt for {} ({}): {}", record.breakingCommit(), fileImpact.filePath(), e.getMessage());
+                    Files.writeString(promptTarget, rendered, StandardCharsets.UTF_8);
+                    log.info("Wrote file-level prompt for {} ({}) [{}] to {}",
+                            record.breakingCommit(), fileImpact.filePath(), kind.id(), promptTarget);
+
+                    // Immediately invoke the LLM pipeline for this prompt:
+                    long fileStartTime = System.currentTimeMillis();
+                    invokeLlmAndMaterialize(record, commitReportDir, outputBaseDir, fileImpact, kind, promptTarget, sanitizedFileName);
+                    long fileDuration = System.currentTimeMillis() - fileStartTime;
+                    log.info("Completed processing for {} [{}] in {}ms", fileImpact.filePath(), kind.id(), fileDuration);
+                } catch (IOException | InterruptedException e) {
+                    log.warn("Failed to generate or process prompt for {} ({}) [{}]: {}",
+                            record.breakingCommit(), fileImpact.filePath(), kind.id(), e.getMessage());
                 }
             }
         }
@@ -304,6 +317,559 @@ public class PromptGenerationService {
         }
 
         return any ? sb.toString().trim() : "";
+    }
+
+    /**
+     * End-to-end pipeline for a single file-level prompt:
+     * <ol>
+     *   <li>Call the Python LLM client to obtain a completion.</li>
+     *   <li>Extract Spoon rules and generate a driver skeleton.</li>
+     *   <li>Extract a transformed Java class from the LLM output (if present)
+     *       and store it under reports/{commit}/response/.</li>
+     *   <li>Generate a simple textual diff between original and transformed
+     *       class under reports/{commit}/diff/.</li>
+     * </ol>
+     */
+    private void invokeLlmAndMaterialize(BreakingUpdateRecord record,
+                                         Path commitReportDir,
+                                         Path outputBaseDir,
+                                         FileImpact fileImpact,
+                                         PromptKind kind,
+                                         Path promptFile,
+                                         String sanitizedFileName) throws IOException, InterruptedException {
+        if (record == null || fileImpact == null || promptFile == null) {
+            return;
+        }
+
+        // Check if prompt generation should be skipped (SKIP_PROMPT_GENERATION env var)
+        boolean skipPromptGeneration = envConfig.getBoolean("SKIP_PROMPT_GENERATION").orElse(false);
+
+        Path promptsDir = promptFile.getParent();
+        if (promptsDir == null) {
+            promptsDir = commitReportDir;
+        }
+        String baseName = sanitizedFileName + "_" + kind.id();
+        Path llmOutput = promptsDir.resolve(baseName + "_llm.txt");
+        Path llmMeta = promptsDir.resolve(baseName + "_llm.meta.json");
+
+        // 1) Invoke LLM client (skip if SKIP_PROMPT_GENERATION is enabled)
+        if (!skipPromptGeneration) {
+            callLlmClient(commitReportDir, promptFile, llmOutput, llmMeta);
+        } else {
+            log.info("Skipping LLM prompt generation (SKIP_PROMPT_GENERATION=true). Assuming files already exist.");
+            // Verify that required files exist
+            if (!Files.exists(llmOutput)) {
+                log.warn("LLM output file not found (expected at {}). Skipping materialization.", llmOutput);
+                return;
+            }
+        }
+
+        // Resolve original source once; needed for response/original and further processing
+        Path originalSource = resolveOriginalSourceFile(record, outputBaseDir, fileImpact.filePath());
+        if (originalSource == null || !Files.isRegularFile(originalSource)) {
+            log.warn("Could not resolve original source file for {} in {}", fileImpact.filePath(), record.breakingCommit());
+            return;
+        }
+
+        // 2) Create original/ and response/ directories inside reports/{commit}
+        Path originalDir = commitReportDir.resolve("original");
+        Files.createDirectories(originalDir);
+        // 2) Create response directory inside reports/{commit}
+        Path responseDir = commitReportDir.resolve("response");
+        Files.createDirectories(responseDir);
+
+        // Copy the original source file into original/ using only the simple file name
+        Path originalCopyTarget = originalDir.resolve(originalSource.getFileName());
+        try {
+            Files.copy(originalSource, originalCopyTarget, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            log.info("Copied original source {} to {}", originalSource, originalCopyTarget);
+        } catch (IOException copyEx) {
+            log.warn("Failed to copy original source {} to {}: {}", originalSource, originalCopyTarget, copyEx.getMessage());
+        }
+
+        // 3) Use SpoonRulesMaterializer to extract rules and generate driver
+        String rawBaseName = sanitizedFileName + "_" + kind.id();
+        Path spoonApplyFile = SpoonRulesMaterializer.materialize(llmOutput, originalSource, commitReportDir, rawBaseName);
+
+        // Also copy LLM output and driver into the response directory for this commit
+        Path responseLlmOutput = responseDir.resolve(baseName + "_llm.txt");
+        Path responseLlmMeta = responseDir.resolve(baseName + "_llm.meta.json");
+        try {
+            Files.copy(llmOutput, responseLlmOutput, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            if (Files.exists(llmMeta)) {
+                Files.copy(llmMeta, responseLlmMeta, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException copyEx) {
+            log.warn("Failed to copy LLM output/meta into response dir for {} ({}) [{}]: {}",
+                    record.breakingCommit(), fileImpact.filePath(), kind.id(), copyEx.getMessage());
+        }
+
+        // 4) Apply transformation and generate diff (always, regardless of SKIP_PROMPT_GENERATION)
+        // SKIP_PROMPT_GENERATION only controls the LLM call, not the transformation pipeline
+        try {
+            Path projectRoot = findProjectRoot(commitReportDir);
+            Path transformedDir = commitReportDir.resolve("transformed");
+            String originalFileName = originalSource.getFileName().toString();
+            Path transformedFile = findTransformedFile(transformedDir, originalFileName);
+
+            // If transformed file doesn't exist, try to execute spoon_apply.java
+            if (transformedFile == null || !Files.exists(transformedFile)) {
+                if (Files.exists(spoonApplyFile)) {
+                    log.info("Executing Spoon transformation from {}", spoonApplyFile);
+                    executeSpoonTransformation(spoonApplyFile, commitReportDir, projectRoot, originalSource, fileImpact.filePath());
+                    // Re-check for transformed file after execution
+                    transformedFile = findTransformedFile(transformedDir, originalFileName);
+                } else {
+                    log.warn("Spoon apply file not found at {}. Skipping transformation.", spoonApplyFile);
+                }
+            }
+
+            // Generate diff if transformed file exists
+            if (transformedFile != null && Files.exists(transformedFile)) {
+                log.info("Generating diff for {} (original) vs {} (transformed)", originalSource, transformedFile);
+                SpoonRulesMaterializer.generateDiffAfterTransformation(originalSource, commitReportDir, rawBaseName);
+            } else {
+                log.warn("Transformed file not found. Cannot generate diff. Expected at: {}", transformedDir);
+            }
+        } catch (Exception e) {
+            log.error("Failed to apply transformation or generate diff: {}", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Helper method to find a transformed file recursively in a directory.
+     */
+    private Path findTransformedFile(Path baseDir, String fileName) throws IOException {
+        if (!Files.exists(baseDir)) {
+            return null;
+        }
+        try (var paths = Files.walk(baseDir)) {
+            return paths.filter(Files::isRegularFile)
+                    .filter(path -> path.getFileName().toString().equals(fileName))
+                    .findFirst()
+                    .orElse(null);
+        }
+    }
+
+    /**
+     * Executes the Spoon transformation by compiling and running the spoon_apply.java file.
+     * Logs are saved to a file in the spoon-rules directory.
+     */
+    private void executeSpoonTransformation(Path spoonApplyFile, Path commitReportDir, Path projectRoot, Path originalSource, String filePathForErrorReporting) throws IOException, InterruptedException {
+        Path spoonRulesDir = spoonApplyFile.getParent();
+        
+        // Create log file path in spoon-rules directory
+        String logFileName = spoonApplyFile.getFileName().toString().replace(".java", "_execution.log");
+        Path logFile = spoonRulesDir.resolve(logFileName);
+        java.io.Writer logWriter = Files.newBufferedWriter(logFile, StandardCharsets.UTF_8);
+
+        try {
+            logWriter.write("=== Spoon Transformation Execution Log ===\n");
+            logWriter.write("Java file: " + spoonApplyFile + "\n");
+            logWriter.write("Started at: " + java.time.Instant.now() + "\n\n");
+
+            // Find Spoon JAR - check environment variable first
+            Optional<String> spoonJarPath = envConfig.get("SPOON_JAR");
+            Path spoonJar = null;
+            
+            if (spoonJarPath.isPresent() && !spoonJarPath.get().isBlank()) {
+                Path envJar = Paths.get(spoonJarPath.get());
+                if (Files.exists(envJar)) {
+                    spoonJar = envJar;
+                } else {
+                    log.warn("SPOON_JAR environment variable points to non-existent file: {}", envJar);
+                    logWriter.write("WARNING: SPOON_JAR environment variable points to non-existent file: " + envJar + "\n");
+                }
+            }
+            
+            // Fallback: try standard Maven location
+            if (spoonJar == null) {
+                Path defaultJar = projectRoot.resolve("spoon-line-analyzer/target/spoon-line-analyzer-1.0.0-SNAPSHOT-jar-with-dependencies.jar");
+                if (Files.exists(defaultJar)) {
+                    spoonJar = defaultJar;
+                }
+            }
+            
+            if (spoonJar == null || !Files.exists(spoonJar)) {
+                String errorMsg = "Spoon JAR not found. Please set SPOON_JAR environment variable or build spoon-line-analyzer.";
+                log.warn(errorMsg);
+                log.warn("Expected location: {}/spoon-line-analyzer/target/spoon-line-analyzer-1.0.0-SNAPSHOT-jar-with-dependencies.jar", projectRoot);
+                log.warn("Build with: mvn -pl spoon-line-analyzer package");
+                logWriter.write("ERROR: " + errorMsg + "\n");
+                logWriter.flush();
+                return;
+            }
+
+            logWriter.write("Using Spoon JAR: " + spoonJar + "\n\n");
+
+            // Extract class name from the Java file (either from filename or by reading the file)
+            String className = extractClassNameFromFile(spoonApplyFile);
+            logWriter.write("Class name: " + className + "\n\n");
+
+            // Compile the Java file
+            log.info("Compiling Spoon transformation: {}", spoonApplyFile);
+            logWriter.write("=== COMPILATION ===\n");
+            logWriter.write("Command: javac -cp " + spoonJar + " -d " + spoonRulesDir + " " + spoonApplyFile + "\n\n");
+            
+            ProcessBuilder compilePb = new ProcessBuilder(
+                    "javac",
+                    "-cp", spoonJar.toString(),
+                    "-d", spoonRulesDir.toString(),
+                    spoonApplyFile.toString()
+            );
+            compilePb.directory(projectRoot.toFile());
+            compilePb.redirectErrorStream(true);
+            
+            Process compileProcess = compilePb.start();
+            
+            // Read compilation output
+            StringBuilder compileOutput = new StringBuilder();
+            try (var reader = new java.io.BufferedReader(
+                    new java.io.InputStreamReader(compileProcess.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    compileOutput.append(line).append("\n");
+                    logWriter.write(line + "\n");
+                    log.debug("Compilation: {}", line);
+                }
+            }
+            
+            int compileExitCode = compileProcess.waitFor();
+            logWriter.write("\nCompilation exit code: " + compileExitCode + "\n\n");
+            
+            if (compileExitCode != 0) {
+                log.error("Failed to compile Spoon transformation. Output:\n{}", compileOutput);
+                logWriter.write("=== COMPILATION FAILED ===\n");
+                logWriter.flush();
+                // Report compilation error to breaking-classifier-report.json
+                reportSpoonError(commitReportDir, filePathForErrorReporting, compileOutput.toString(), "COMPILATION_ERROR");
+                return; // Don't throw, just report the error
+            }
+            log.info("Compilation successful");
+            logWriter.write("=== COMPILATION SUCCESSFUL ===\n\n");
+
+            // Execute the compiled class
+            log.info("Executing Spoon transformation");
+            logWriter.write("=== EXECUTION ===\n");
+            String classpath = spoonJar.toString() + java.io.File.pathSeparator + spoonRulesDir.toString();
+            logWriter.write("Command: java -cp " + classpath + " " + className + "\n\n");
+            
+            ProcessBuilder runPb = new ProcessBuilder(
+                    "java",
+                    "-cp", classpath,
+                    className
+            );
+            runPb.directory(projectRoot.toFile());
+            runPb.redirectErrorStream(true);
+            
+            Process runProcess = runPb.start();
+            
+            // Read execution output
+            StringBuilder runOutput = new StringBuilder();
+            try (var reader = new java.io.BufferedReader(
+                    new java.io.InputStreamReader(runProcess.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    runOutput.append(line).append("\n");
+                    logWriter.write(line + "\n");
+                    log.info("Spoon: {}", line);
+                }
+            }
+            
+            int runExitCode = runProcess.waitFor();
+            logWriter.write("\nExecution exit code: " + runExitCode + "\n\n");
+            
+            if (runExitCode != 0) {
+                log.warn("Spoon transformation exited with code: {}. Output:\n{}", runExitCode, runOutput);
+                logWriter.write("=== EXECUTION FAILED ===\n");
+                // Report execution error to breaking-classifier-report.json
+                reportSpoonError(commitReportDir, filePathForErrorReporting, runOutput.toString(), "EXECUTION_ERROR");
+            } else {
+                log.info("Spoon transformation completed successfully");
+                logWriter.write("=== EXECUTION SUCCESSFUL ===\n");
+            }
+            
+            logWriter.write("\nCompleted at: " + java.time.Instant.now() + "\n");
+            logWriter.flush();
+        } finally {
+            logWriter.close();
+        }
+    }
+    
+    /**
+     * Extracts the fully qualified class name from a Java file by reading it.
+     * If the class has a package declaration, returns "package.ClassName", otherwise just "ClassName".
+     */
+    private String extractClassNameFromFile(Path javaFile) throws IOException {
+        String content = Files.readString(javaFile, StandardCharsets.UTF_8);
+        
+        // First, try to extract package name
+        String packageName = null;
+        java.util.regex.Pattern packagePattern = java.util.regex.Pattern.compile(
+            "^\\s*package\\s+([a-zA-Z_][a-zA-Z0-9_.]*)\\s*;"
+        );
+        java.util.regex.Matcher packageMatcher = packagePattern.matcher(content);
+        if (packageMatcher.find()) {
+            packageName = packageMatcher.group(1);
+        }
+        
+        // Extract class name
+        String className = null;
+        java.util.regex.Pattern classPattern = java.util.regex.Pattern.compile(
+            "public\\s+class\\s+([A-Za-z_][A-Za-z0-9_]*)"
+        );
+        java.util.regex.Matcher classMatcher = classPattern.matcher(content);
+        if (classMatcher.find()) {
+            className = classMatcher.group(1);
+        }
+        
+        // If both package and class found, return fully qualified name
+        if (packageName != null && className != null) {
+            return packageName + "." + className;
+        }
+        
+        // If only class found, return just the class name
+        if (className != null) {
+            return className;
+        }
+        
+        // Fallback: use filename without extension
+        String fileName = javaFile.getFileName().toString();
+        return fileName.substring(0, fileName.lastIndexOf('.'));
+    }
+
+    /**
+     * Reports Spoon transformation errors (compilation or execution) to breaking-classifier-report.json.
+     */
+    private void reportSpoonError(Path commitReportDir, String filePath, String errorOutput, String errorType) {
+        try {
+            Path classifierReport = commitReportDir.resolve("breaking-classifier-report.json");
+            ObjectMapper mapper = new ObjectMapper();
+            
+            // Read existing report or create new one
+            BreakingReport report;
+            if (Files.exists(classifierReport)) {
+                report = mapper.readValue(classifierReport.toFile(), BreakingReport.class);
+            } else {
+                String failurePath = commitReportDir.resolve("../output").toString(); // Approximate
+                report = new BreakingReport(failurePath, FailureCategory.COMPILATION_FAILURE, new java.util.ArrayList<>());
+            }
+            
+            // Use the filePath directly (already in the correct format from fileImpact.filePath())
+            String originalSourcePath = filePath;
+            
+            // Parse error output to extract line number and message
+            ErrorDetail errorDetail = parseErrorOutput(errorOutput, errorType);
+            
+            // Add error to report
+            java.util.List<FileErrorGroup> errorsByFile = new java.util.ArrayList<>(report.errorsByFile());
+            
+            // Find or create FileErrorGroup for this file
+            FileErrorGroup fileGroup = null;
+            int fileIndex = -1;
+            for (int i = 0; i < errorsByFile.size(); i++) {
+                if (errorsByFile.get(i).filePath().equals(originalSourcePath)) {
+                    fileGroup = errorsByFile.get(i);
+                    fileIndex = i;
+                    break;
+                }
+            }
+            
+            if (fileGroup == null) {
+                // Create new FileErrorGroup
+                java.util.List<ErrorDetail> errors = new java.util.ArrayList<>();
+                errors.add(errorDetail);
+                fileGroup = new FileErrorGroup(originalSourcePath, errors);
+                errorsByFile.add(fileGroup);
+            } else {
+                // Add error to existing group
+                java.util.List<ErrorDetail> errors = new java.util.ArrayList<>(fileGroup.errors());
+                errors.add(errorDetail);
+                fileGroup = new FileErrorGroup(originalSourcePath, errors);
+                errorsByFile.set(fileIndex, fileGroup);
+            }
+            
+            // Create updated report
+            BreakingReport updatedReport = new BreakingReport(
+                report.originalFailurePath(),
+                FailureCategory.COMPILATION_FAILURE, // Use COMPILATION_FAILURE for Spoon errors
+                errorsByFile
+            );
+            
+            // Write updated report
+            mapper.writerWithDefaultPrettyPrinter().writeValue(classifierReport.toFile(), updatedReport);
+            log.info("Added Spoon {} to breaking-classifier-report.json: {}", errorType, originalSourcePath);
+            
+        } catch (Exception e) {
+            log.error("Failed to report Spoon error to breaking-classifier-report.json: {}", e.getMessage(), e);
+        }
+    }
+
+
+    /**
+     * Parses error output to extract line number and message.
+     */
+    private ErrorDetail parseErrorOutput(String errorOutput, String errorType) {
+        // Try to extract line number from error output (e.g., "error: ... SpoonApplyRules.java:25: ...")
+        int lineNumber = 1;
+        String message = errorType + ": " + (errorOutput.length() > 200 ? errorOutput.substring(0, 200) + "..." : errorOutput);
+        
+        // Try to find line number pattern: "filename.java:lineNumber:"
+        java.util.regex.Pattern linePattern = java.util.regex.Pattern.compile(".*\\.java:(\\d+):.*");
+        java.util.regex.Matcher matcher = linePattern.matcher(errorOutput);
+        if (matcher.find()) {
+            try {
+                lineNumber = Integer.parseInt(matcher.group(1));
+            } catch (NumberFormatException e) {
+                // Keep default
+            }
+        }
+        
+        // Extract first meaningful error message line
+        String[] lines = errorOutput.split("\n");
+        for (String line : lines) {
+            if (line.contains("error:") || line.contains("Error:")) {
+                message = line.trim();
+                break;
+            }
+        }
+        
+        return new ErrorDetail(lineNumber, null, message, java.util.List.of());
+    }
+
+    private void callLlmClient(Path commitReportDir,
+                               Path promptFile,
+                               Path outputFile,
+                               Path metaFile) throws IOException, InterruptedException {
+        long startTime = System.currentTimeMillis();
+        log.info("Calling LLM client for prompt: {}", promptFile.getFileName());
+        
+        String script = envConfig.get("LLM_CLIENT_PY").orElse("llm/llm_client.py");
+        ProcessBuilder pb = new ProcessBuilder(
+                "python3",
+                script,
+                "--prompt-file", promptFile.toString(),
+                "--output-file", outputFile.toString(),
+                "--meta-file", metaFile.toString()
+        );
+        // Ejecutar desde la raíz del proyecto (padre de reports/)
+        Path projectRoot = findProjectRoot(commitReportDir);
+        pb.directory(projectRoot.toFile());
+        pb.redirectErrorStream(true);
+
+        Process process = pb.start();
+        
+        // Read output in real-time to avoid blocking issues
+        try (var reader = new java.io.BufferedReader(
+                new java.io.InputStreamReader(process.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Log LLM output if verbose (optional)
+            }
+        }
+        
+        int exitCode = process.waitFor();
+        long duration = System.currentTimeMillis() - startTime;
+        
+        if (exitCode != 0) {
+            log.error("LLM client exited with code {} after {}ms", exitCode, duration);
+            throw new IOException("LLM client exited with code " + exitCode);
+        }
+        
+        log.info("LLM call completed in {}ms for {}", duration, promptFile.getFileName());
+    }
+
+    private Path findProjectRoot(Path commitReportDir) {
+        Path current = commitReportDir.toAbsolutePath();
+        while (current != null) {
+            if (Files.isRegularFile(current.resolve("pom.xml"))) {
+                return current;
+            }
+            current = current.getParent();
+        }
+        // Fallback: directory of commitReportDir
+        return commitReportDir.toAbsolutePath().getParent();
+    }
+
+    private Path resolveOriginalSourceFile(BreakingUpdateRecord record,
+                                           Path outputBaseDir,
+                                           String filePath) {
+        if (record == null || outputBaseDir == null || filePath == null || filePath.isBlank()) {
+            return null;
+        }
+        try {
+            Path commitOutputDir = outputBaseDir.resolve(record.breakingCommit());
+            String normalized = filePath.replace("\\", "/");
+            if (normalized.startsWith("/")) {
+                normalized = normalized.substring(1);
+            }
+            Path candidate = commitOutputDir.resolve(normalized);
+            if (Files.isRegularFile(candidate)) {
+                return candidate.normalize();
+            }
+        } catch (Exception e) {
+            log.warn("Failed to resolve original source file {} for {}: {}", filePath, record.breakingCommit(), e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Try to extract a full Java class from the LLM output.
+     * Strategy:
+     *   - Prefer the last ```java ... ``` fenced block.
+     *   - Fallback to the entire text if no code fence is found.
+     */
+    private String extractTransformedJavaSource(String llmText) {
+        if (llmText == null || llmText.isBlank()) {
+            return null;
+        }
+        String lower = llmText.toLowerCase();
+        int lastFence = lower.lastIndexOf("```java");
+        if (lastFence >= 0) {
+            int start = lower.indexOf('\n', lastFence);
+            if (start < 0) {
+                start = lastFence + "```java".length();
+            } else {
+                start = start + 1;
+            }
+            int end = lower.indexOf("```", start);
+            if (end > start) {
+                return llmText.substring(start, end).trim();
+            }
+        }
+        // Fallback: return full content
+        return llmText.trim();
+    }
+
+    private Path buildResponseSourcePath(Path responseDir, Path originalSource) {
+        // Store the transformed class in the response directory using only the
+        // simple file name (e.g., ReportBuilder.java), without the original path.
+        return responseDir.resolve(originalSource.getFileName());
+    }
+
+    /**
+     * Very simple textual diff: writes both original and transformed files
+     * into a patch-like structure so it can be inspected later.
+     *
+     * This is not a full unified-diff algorithm, but it preserves enough
+     * information to inspect changes per file and per prompt.
+     */
+    private void generateSimpleDiff(Path original, Path transformed, Path diffFile) {
+        try {
+            String originalText = Files.readString(original, StandardCharsets.UTF_8);
+            String transformedText = Files.readString(transformed, StandardCharsets.UTF_8);
+            String nl = System.lineSeparator();
+            StringBuilder sb = new StringBuilder();
+            sb.append("--- ").append(original.toString()).append(nl);
+            sb.append("+++ ").append(transformed.toString()).append(nl);
+            sb.append("@@ ORIGINAL @@").append(nl);
+            sb.append(originalText).append(nl);
+            sb.append("@@ TRANSFORMED @@").append(nl);
+            sb.append(transformedText).append(nl);
+            Files.writeString(diffFile, sb.toString(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            log.warn("Failed to generate diff between {} and {}: {}", original, transformed, e.getMessage());
+        }
     }
 
     /**
@@ -565,6 +1131,9 @@ public class PromptGenerationService {
         return switch (normalized) {
             case "in_context", "in-context", "context" -> new InContextFilePromptFormatter();
             case "anthropic_spoon_rules" -> new AnthropicSpoonRulesFilePromptFormatter();
+            case "v2_in_context", "v2-in-context" -> new V2InContextFilePromptFormatter();
+            case "baseline", "base_line", "base-line" -> new BaseLineFilePromptFormatter();
+            case "prompt_4", "prompt4", "prompt-4" -> new Prompt4FilePromptFormatter();
             case "default" -> new DefaultFilePromptFormatter();
             default -> new DefaultFilePromptFormatter();
         };
@@ -620,6 +1189,9 @@ public class PromptGenerationService {
             case IN_CONTEXT -> new InContextFilePromptFormatter();
             case ANTHROPIC_SPOON_RULES -> new AnthropicSpoonRulesFilePromptFormatter();
             case FINAL_SPOON_RULES -> new FinalSpoonRulesFilePromptFormatter();
+            case V2_IN_CONTEXT -> new V2InContextFilePromptFormatter();
+            case BASELINE -> new BaseLineFilePromptFormatter();
+            case PROMPT_4 -> new Prompt4FilePromptFormatter();
             case DEFAULT -> new DefaultFilePromptFormatter();
         };
     }
