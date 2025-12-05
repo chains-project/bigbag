@@ -31,13 +31,10 @@ import java.util.stream.Collectors;
 
 /**
  * CLI command for processing breaking update records from JSON files.
- * Uses Picocli for argument parsing and delegates to service classes for business logic.
+ * Uses Picocli for argument parsing and delegates to service classes for
+ * business logic.
  */
-@CommandLine.Command(
-        name = "breaking-update-processor",
-        mixinStandardHelpOptions = true,
-        description = "Processes breaking update records from JSON files, extracts projects from Docker images, and optionally runs classification."
-)
+@CommandLine.Command(name = "breaking-update-processor", mixinStandardHelpOptions = true, description = "Processes breaking update records from JSON files, extracts projects from Docker images, and optionally runs classification.")
 public class MainCli implements Callable<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(MainCli.class);
@@ -48,76 +45,47 @@ public class MainCli implements Callable<Integer> {
     private static final boolean DEFAULT_EXTRACT_JARS_AND_CLASSIFY = true;
     private static final boolean DEFAULT_CLEAN_EXISTING = true;
 
-    @CommandLine.Option(
-            names = {"-i", "--input"},
-            description = "Input directory containing BreakingUpdateRecord JSON files"
-    )
+    @CommandLine.Option(names = { "-i",
+            "--input" }, description = "Input directory containing BreakingUpdateRecord JSON files")
     private String inputDirStr;
 
-    @CommandLine.Option(
-            names = {"-o", "--output"},
-            description = "Output directory where extracted projects will be saved"
-    )
+    @CommandLine.Option(names = { "-o",
+            "--output" }, description = "Output directory where extracted projects will be saved")
     private String outputDirStr;
 
-    @CommandLine.Option(
-            names = {"-c", "--category"},
-            description = "Filter by failure category (COMPILATION_FAILURE, TEST_FAILURE, etc.)"
-    )
+    @CommandLine.Option(names = { "-c",
+            "--category" }, description = "Filter by failure category (COMPILATION_FAILURE, TEST_FAILURE, etc.)")
     private String category;
 
-    @CommandLine.Option(
-            names = {"-f", "--file"},
-            description = "Process only the specified JSON file (name without .json extension)"
-    )
+    @CommandLine.Option(names = { "-f",
+            "--file" }, description = "Process only the specified JSON file (name without .json extension)")
     private String singleJsonFile;
 
-    @CommandLine.Option(
-            names = {"-e", "--extract"},
-            description = "Extract projects from Docker images"
-    )
+    @CommandLine.Option(names = { "-e", "--extract" }, description = "Extract projects from Docker images")
     private Boolean extractProjects;
 
-    @CommandLine.Option(
-            names = {"--no-extract"},
-            description = "Do not extract projects from Docker images"
-    )
+    @CommandLine.Option(names = { "--no-extract" }, description = "Do not extract projects from Docker images")
     private boolean noExtract;
 
-    @CommandLine.Option(
-            names = {"-k", "--classify"},
-            description = "Extract JARs and run breaking-classifier"
-    )
+    @CommandLine.Option(names = { "-k", "--classify" }, description = "Extract JARs and run breaking-classifier")
     private Boolean extractJarsAndClassify;
 
-    @CommandLine.Option(
-            names = {"--no-classify"},
-            description = "Do not extract JARs or run breaking-classifier"
-    )
+    @CommandLine.Option(names = { "--no-classify" }, description = "Do not extract JARs or run breaking-classifier")
     private boolean noClassify;
 
-    @CommandLine.Option(
-            names = {"--clean"},
-            description = "Remove existing {breakingCommit} folders before extraction"
-    )
+    @CommandLine.Option(names = {
+            "--clean" }, description = "Remove existing {breakingCommit} folders before extraction")
     private Boolean cleanExisting;
 
-    @CommandLine.Option(
-            names = {"--no-clean"},
-            description = "Keep existing {breakingCommit} folders (skip if exists)"
-    )
+    @CommandLine.Option(names = {
+            "--no-clean" }, description = "Keep existing {breakingCommit} folders (skip if exists)")
     private boolean noClean;
 
-    @CommandLine.Option(
-            names = {"-v", "--verbose"},
-            description = "Show detailed information for each record"
-    )
+    @CommandLine.Option(names = { "-v", "--verbose" }, description = "Show detailed information for each record")
     private boolean verbose;
 
-    @CommandLine.Option(
-            names = {"-j", "--json-output"},
-            description = "Path to store a JSON summary with dataset and inferred categories"
-    )
+    @CommandLine.Option(names = { "-j",
+            "--json-output" }, description = "Path to store a JSON summary with dataset and inferred categories")
     private Path jsonOutput;
 
     private final EnvConfig envConfig;
@@ -159,7 +127,8 @@ public class MainCli implements Callable<Integer> {
             }
 
             boolean shouldExtract = (extractProjects != null ? extractProjects : envExtract) && !noExtract;
-            boolean shouldClassify = (extractJarsAndClassify != null ? extractJarsAndClassify : envClassify) && !noClassify;
+            boolean shouldClassify = (extractJarsAndClassify != null ? extractJarsAndClassify : envClassify)
+                    && !noClassify;
             boolean shouldClean = (cleanExisting != null ? cleanExisting : envClean) && !noClean;
 
             if (singleJsonFile == null) {
@@ -168,6 +137,18 @@ public class MainCli implements Callable<Integer> {
             if (jsonOutput == null) {
                 jsonOutput = envConfig.getPath("JSON_OUTPUT").orElse(null);
             }
+
+            String modelName = envConfig.get("LLM_MODEL").orElse("default_model");
+
+            // Adjust jsonOutput to be per-model
+            if (jsonOutput != null) {
+                Path parent = jsonOutput.getParent();
+                if (parent == null) {
+                    parent = Paths.get(".");
+                }
+                jsonOutput = parent.resolve(modelName).resolve(jsonOutput.getFileName());
+            }
+
             String fileToProcess = singleJsonFile != null ? singleJsonFile
                     : envConfig.get("SPECIFIC_FILE").filter(s -> !s.isBlank()).orElse(null);
 
@@ -253,12 +234,12 @@ public class MainCli implements Callable<Integer> {
 
             Consumer<ClassificationSummary> summaryConsumer = null;
             if (jsonOutput != null) {
+                final Path finalJsonOutput = jsonOutput;
                 summaryConsumer = summary -> writeClassificationSummary(
-                        jsonOutput,
+                        finalJsonOutput,
                         summary,
                         recordByCommit,
-                        outputDir
-                );
+                        outputDir);
             }
 
             // Extract or classify depending on requested actions
@@ -271,7 +252,8 @@ public class MainCli implements Callable<Integer> {
 
                 // If clean mode is enabled, remove all existing folders BEFORE processing
                 if (shouldClean) {
-                    System.out.println("Clean mode enabled: Removing existing {breakingCommit} folders before processing...");
+                    System.out.println(
+                            "Clean mode enabled: Removing existing {breakingCommit} folders before processing...");
                     extractionService.cleanExistingFolders(records, outputDir);
                 }
 
@@ -280,10 +262,10 @@ public class MainCli implements Callable<Integer> {
                         outputDir,
                         shouldClassify,
                         shouldClean,
-                        summaryConsumer
-                );
+                        summaryConsumer);
             } else if (shouldClassify) {
-                classificationSummaries = extractionService.classifyExistingProjects(records, outputDir, summaryConsumer);
+                classificationSummaries = extractionService.classifyExistingProjects(records, outputDir,
+                        summaryConsumer);
             }
 
             if (jsonOutput != null && (classificationSummaries == null || classificationSummaries.isEmpty())) {
@@ -312,7 +294,7 @@ public class MainCli implements Callable<Integer> {
     /**
      * Displays information from a BreakingUpdateRecord.
      *
-     * @param index the record index
+     * @param index  the record index
      * @param record the breaking update record
      */
     private void displayRecordInfo(int index, BreakingUpdateRecord record) {
@@ -320,7 +302,8 @@ public class MainCli implements Callable<Integer> {
         System.out.println("Project: " + (record.project() != null ? record.project() : "N/A"));
         System.out.println("Breaking Commit: " + (record.breakingCommit() != null ? record.breakingCommit() : "N/A"));
         System.out.println("URL: " + (record.url() != null ? record.url() : "N/A"));
-        System.out.println("Failure Category: " + (record.failureCategory() != null ? record.failureCategory() : "N/A"));
+        System.out
+                .println("Failure Category: " + (record.failureCategory() != null ? record.failureCategory() : "N/A"));
 
         if (record.updatedDependency() != null) {
             System.out.println("Updated Dependency:");
@@ -356,15 +339,14 @@ public class MainCli implements Callable<Integer> {
                         null,
                         null,
                         null,
-                        null
-                ))
+                        null))
                 .toList();
     }
 
     private void writeClassificationSummary(Path targetJson,
-                                            ClassificationSummary summary,
-                                            Map<String, BreakingUpdateRecord> recordByCommit,
-                                            Path outputDir) {
+            ClassificationSummary summary,
+            Map<String, BreakingUpdateRecord> recordByCommit,
+            Path outputDir) {
         try {
             if (targetJson.getParent() != null) {
                 Files.createDirectories(targetJson.getParent());
@@ -376,8 +358,8 @@ public class MainCli implements Callable<Integer> {
                 try {
                     existing = mapper.readValue(
                             targetJson.toFile(),
-                            mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class, ReportEntry.class)
-                    );
+                            mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class,
+                                    ReportEntry.class));
                 } catch (com.fasterxml.jackson.databind.exc.MismatchedInputException e) {
                     // Handle legacy array format
                     ReportEntry[] legacyEntries = mapper.readValue(targetJson.toFile(), ReportEntry[].class);
@@ -417,8 +399,7 @@ public class MainCli implements Callable<Integer> {
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 summary.logFile() != null ? parentOrSelf(summary.logFile()) : "",
-                inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred)
-        );
+                inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred));
         return new ReportEntry(commit, originalCategory, java.util.List.of(attempt));
     }
 
@@ -433,10 +414,10 @@ public class MainCli implements Callable<Integer> {
     }
 
     private void writePerCommitReport(Path reportBase,
-                                      Path outputBaseDir,
-                                      String commit,
-                                      ClassificationSummary summary,
-                                      BreakingUpdateRecord record) {
+            Path outputBaseDir,
+            String commit,
+            ClassificationSummary summary,
+            BreakingUpdateRecord record) {
         if (reportBase == null || commit == null) {
             return;
         }
@@ -454,7 +435,8 @@ public class MainCli implements Callable<Integer> {
 
             if (changeImpactReportService != null) {
                 try {
-                    changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir, classifierSource);
+                    changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir,
+                            classifierSource);
                 } catch (Throwable analysisError) {
                     String projectName = record != null ? record.project() : "unknown";
                     String message = analysisError.getMessage() != null
@@ -476,8 +458,7 @@ public class MainCli implements Callable<Integer> {
     private record ReportEntry(
             String breakingCommit,
             String originalFailureCategory,
-            java.util.List<AttemptReport> attempts
-    ) {
+            java.util.List<AttemptReport> attempts) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -495,8 +476,6 @@ public class MainCli implements Callable<Integer> {
             int unfixedErrors,
             int newErrors,
             String outputFolder,
-            boolean successful
-    ) {
+            boolean successful) {
     }
 }
-
