@@ -22,6 +22,8 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import se.kth.models.FailureCategory;
 import se.kth.models.Result;
 import se.kth.models.Attempt;
@@ -53,6 +55,8 @@ public class DockerBuild {
     private Boolean isBump = false;
 
     private int max_attempts = 1;
+    
+    private boolean verbose = false;
 
     public DockerBuild(Boolean isBump, int max_attempts) {
         this.isBump = isBump;
@@ -63,6 +67,19 @@ public class DockerBuild {
     public DockerBuild(Boolean isBump) {
         this.isBump = isBump;
         createDockerClient();
+    }
+    
+    public DockerBuild(Boolean isBump, boolean verbose) {
+        this.isBump = isBump;
+        this.verbose = verbose;
+        createDockerClient();
+    }
+    
+    public DockerBuild(Boolean isBump, int max_attempts, boolean verbose) {
+        this.isBump = isBump;
+        this.verbose = verbose;
+        createDockerClient();
+        this.max_attempts = max_attempts;
     }
 
     /**
@@ -389,18 +406,40 @@ public class DockerBuild {
                 .build();
 
         dockerClient = DockerClientImpl.getInstance(clientConfig, httpClient);
+        
+        // Configure docker-java logger level based on verbose flag
+        configureDockerJavaLogging();
+    }
+    
+    private void configureDockerJavaLogging() {
+        try {
+            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+            ch.qos.logback.classic.Logger dockerJavaLogger = loggerContext.getLogger("com.github.dockerjava");
+            if (verbose) {
+                dockerJavaLogger.setLevel(Level.DEBUG);
+            } else {
+                dockerJavaLogger.setLevel(Level.INFO);
+            }
+        } catch (Exception e) {
+            // If logback is not available or there's an error, just log a warning
+            log.debug("Could not configure docker-java logging level: {}", e.getMessage());
+        }
     }
 
     public void ensureBaseMavenImageExists(String image) throws InterruptedException {
         try {
             dockerClient.inspectImageCmd(image).exec();
         } catch (NotFoundException e) {
-            log.info("Base image not present, pulling {}", image);
-            log.info("Pulling Maven image {} ...", image);
+            if (verbose) {
+                log.info("Base image not present, pulling {}", image);
+                log.info("Pulling Maven image {} ...", image);
+            }
             dockerClient.pullImageCmd(image)
                     .exec(new PullImageResultCallback())
                     .awaitCompletion();
-            log.info("Done pulling Maven image {}", image);
+            if (verbose) {
+                log.info("Done pulling Maven image {}", image);
+            }
         }
     }
 

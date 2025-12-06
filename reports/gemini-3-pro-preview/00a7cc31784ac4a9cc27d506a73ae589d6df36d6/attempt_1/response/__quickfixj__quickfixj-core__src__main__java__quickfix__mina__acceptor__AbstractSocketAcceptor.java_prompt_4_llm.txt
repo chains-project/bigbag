@@ -1,0 +1,97 @@
+Based on the dependency diff, the method `SslFilter.setUseClientMode(boolean)` has been **removed**. In newer versions of Apache Mina, the client/server mode is typically determined by the `SSLContext` or the handshake state, rendering this manual setter obsolete.
+
+The refactoring strategy is to **remove the breaking method call** to allow compilation, while replacing it with a **comment block** (TODO) preserving the original code and instructing the developer to verify the `SSLEngine` configuration.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SslFilterRefactoring {
+
+    /**
+     * Processor to handle the removal of SslFilter.setUseClientMode(boolean).
+     * Strategy: Replace the method invocation with a comment block containing a TODO 
+     * and the original code, as the configuration logic has moved to SSLContext initialization.
+     */
+    public static class SslFilterClientModeProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setUseClientMode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We check if the owner is likely SslFilter or unknown (to be safe in NoClasspath)
+            if (owner != null && !owner.getQualifiedName().contains("SslFilter") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Capture the original source code of the invocation to preserve it in the comment
+            String originalStatement = invocation.toString();
+
+            // Create the explanatory comment
+            String commentContent = " [MIGRATION-TODO] setUseClientMode(boolean) was removed in this version.\n" +
+                                    " * The client/server mode is now usually determined by the SSLContext or Handshake.\n" +
+                                    " * Original Code: " + originalStatement;
+
+            CtComment comment = getFactory().Code().createComment(commentContent, CtComment.CommentType.BLOCK);
+
+            // Replace the invocation with the comment. 
+            // Since setUseClientMode is a void setter, it is typically a statement.
+            try {
+                invocation.replace(comment);
+                System.out.println("Refactored setUseClientMode at line " + invocation.getPosition().getLine());
+            } catch (Exception e) {
+                System.err.println("Failed to refactor invocation at line " + invocation.getPosition().getLine() + ": " + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be adjusted or passed as args)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ and Source Preservation
+        // 1. Enable comments to ensure they are parsed and printed
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new SslFilterClientModeProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

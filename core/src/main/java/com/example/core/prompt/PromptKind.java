@@ -21,7 +21,8 @@ public enum PromptKind {
     FINAL_SPOON_RULES("final"),
     V2_IN_CONTEXT("v2_in_context"),
     BASELINE("baseline"),
-    PROMPT_4("prompt_4");
+    PROMPT_4("prompt_4"),
+    PROMPT_5("prompt_5");
 
     private final String id;
 
@@ -61,6 +62,7 @@ public enum PromptKind {
             case "v2_in_context", "v2-in-context" -> Optional.of(V2_IN_CONTEXT);
             case "baseline", "base_line", "base-line" -> Optional.of(BASELINE);
             case "prompt_4", "prompt4", "prompt-4" -> Optional.of(PROMPT_4);
+            case "prompt_5", "prompt5", "prompt-5" -> Optional.of(PROMPT_5);
            default -> Optional.empty();
         };
     }

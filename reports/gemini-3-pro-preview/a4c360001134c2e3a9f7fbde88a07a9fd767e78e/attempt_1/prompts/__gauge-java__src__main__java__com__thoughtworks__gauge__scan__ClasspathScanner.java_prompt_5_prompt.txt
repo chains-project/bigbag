@@ -1,0 +1,295 @@
+You are a Senior Java Tooling Engineer and expert in the **Spoon** library for AST transformation and refactoring.
+
+You will receive a dependency change diff describing API changes between two library versions. Here is the diff:
+
+<dependency_change_diff>
+- METHOD org.reflections.ReflectionUtils$1.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$1.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$10.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$10.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$11.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$11.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$11$1.apply(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$11$1.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$12.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$12.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$12$1.apply(java.lang.annotation.Annotation) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$12$1.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$13.apply(java.lang.reflect.Field) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$13.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$14.apply(java.lang.reflect.Field) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$14.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$15.apply(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$15.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$16.apply(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$16.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$17.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$17.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$18.apply(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$18.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$2.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$2.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$3.apply(java.lang.reflect.AnnotatedElement) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$3.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$4.apply(java.lang.reflect.AnnotatedElement) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$4.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$5.apply(java.lang.reflect.AnnotatedElement) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$5.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$6.apply(java.lang.reflect.AnnotatedElement) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$6.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$7.apply(java.lang.reflect.AnnotatedElement) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$7.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$8.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$8.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$9.apply(java.lang.reflect.Member) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.ReflectionUtils$9.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.Reflections$2.apply(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.Reflections$2.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.Reflections$3.apply(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.Reflections$3.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.FilterBuilder.apply(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.FilterBuilder.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.FilterBuilder$Exclude.apply(java.lang.String) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.reflections.util.FilterBuilder$Exclude.apply(java.lang.Object) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.reflections.util.FilterBuilder$Include.apply(java.lang.String) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.reflections.util.FilterBuilder$Include.apply(java.lang.Object) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.reflections.util.FilterBuilder$Matcher.apply(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.FilterBuilder$Matcher.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.QueryFunction.apply(java.lang.Object) [status=NEW, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.reflections.vfs.UrlTypeVFS$1.apply(java.io.File) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.vfs.UrlTypeVFS$1.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.vfs.Vfs$1.apply(org.reflections.vfs.Vfs$File) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.vfs.Vfs$1.apply(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.reflections.util.FilterBuilder.include(java.lang.String) [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true] changes=ANNOTATION_DEPRECATED_ADDED(MINOR)
+- CLASS org.reflections.util.FilterBuilder [status=MODIFIED, binaryCompatible=false, sourceCompatible=false] changes=INTERFACE_ADDED(MINOR), METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE(MINOR)
+- CONSTRUCTOR org.reflections.util.FilterBuilder.FilterBuilder() [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true]
+- CONSTRUCTOR org.reflections.util.FilterBuilder.FilterBuilder(java.lang.Iterable) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- CONSTRUCTOR org.reflections.util.FilterBuilder.FilterBuilder(java.util.Collection) [status=NEW, binaryCompatible=true, sourceCompatible=true]
+</dependency_change_diff>
+
+Your task is to:
+1. Analyze the diff to identify breaking changes (method removals, signature changes, type changes, class modifications)
+2. Determine the necessary refactoring strategy to migrate code from the old API to the new API
+3. Generate a **single, self-contained Java class** that automates this refactoring using Spoon
+
+## CRITICAL IMPLEMENTATION RULES
+
+### 1. Type Safety with Generics
+Spoon uses heavy generics. To avoid compilation errors:
+- **ALWAYS** use `CtInvocation<?>` with wildcard, never `CtInvocation<SomeType>`
+- **ALWAYS** use `CtExpression<?>` with wildcard
+- **ALWAYS** use `CtExecutableReference<?>` with wildcard
+- When calling `setExecutable()`, cast the new reference: `invocation.setExecutable((CtExecutableReference) newRef);`
+- When creating method references, use wildcards in all type parameters
+
+### 2. Method Reference Creation (CRITICAL - Fixes Common Errors)
+When creating `CtExecutableReference` for methods, **NEVER** call `getParameterTypes()` - this method does not exist and causes compilation errors.
+
+**WRONG Pattern (causes error):**
+```java
+currentRef.getParameterTypes().toArray(new CtTypeReference[0])
+```
+
+**CORRECT Pattern:**
+```java
+// Option 1: Use Parameters() which returns List<CtTypeReference<?>>
+List<CtTypeReference<?>> paramTypes = currentRef.getParameters();
+
+// Option 2: Create reference directly with explicit parameter types
+CtExecutableReference<?> newRef = factory.Method().createReference(
+    declaringTypeRef,
+    returnTypeRef,
+    "methodName",
+    paramType1,
+    paramType2  // Pass types directly as varargs
+);
+
+// Option 3: If you need to preserve existing parameters, extract them properly
+CtExecutableReference<?> currentRef = invocation.getExecutable();
+// Get the actual invocation arguments (not from reference)
+List<CtExpression<?>> args = invocation.getArguments();
+List<CtTypeReference<?>> argTypes = new ArrayList<>();
+for (CtExpression<?> arg : args) {
+    argTypes.add(arg.getType());
+}
+```
+
+### 3. Setting Executable References (Type Safety)
+When replacing method references, use explicit casting:
+
+```java
+CtExecutableReference<?> newRef = factory.Method().createReference(...);
+invocation.setExecutable((CtExecutableReference) newRef);  // Cast to raw type
+```
+
+### 4. NoClasspath Mode Compatibility
+Assume the code runs without full library JARs (NoClasspath mode):
+- **NEVER** assume `expression.getType()` returns non-null
+- **ALWAYS** check for null before using type information
+- Use string matching with `contains()` for class names instead of strict type resolution
+- Pattern for defensive type checking:
+```java
+CtTypeReference<?> type = arg.getType();
+if (type == null || type.getQualifiedName().equals("<unknown>")) {
+    // Handle unknown type - may need to process anyway
+}
+if (type != null && type.getQualifiedName().contains("ExpectedType")) {
+    // Type matches
+}
+```
+
+### 5. Preserve Source Code (Robust Sniper Configuration)
+To ensure comments, indentation, and unrelated code are preserved strictly (especially in Spoon 11+), you **MUST NOT** rely on the `Environment` enum. Instead, you must manually inject the `SniperJavaPrettyPrinter`.
+
+*   **Required Import:**
+    ```java
+    import spoon.support.sniper.SniperJavaPrettyPrinter;
+    ```
+*   **Required Configuration in Main:**
+    ```java
+    // 1. Enable comments
+    launcher.getEnvironment().setCommentEnabled(true);
+    // 2. Force Sniper Printer manually
+    launcher.getEnvironment().setPrettyPrinterCreator(
+        () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+    );
+    ```
+
+## COMPLETE WORKING EXAMPLE
+
+**Input Diff:**
+```
+- METHOD com.utils.Timer.setDelay(int) [REMOVED]
++ METHOD com.utils.Timer.setDelay(java.time.Duration) [ADDED]
+```
+
+**Expected Output:**
+```java
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+public class TimerRefactoring {
+
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // Check method name
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // Check argument count
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // Check if already refactored (defensive)
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> type = arg.getType();
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false; // Already uses Duration
+            }
+
+            // Check declaring type (relaxed for NoClasspath)
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+            CtTypeReference<?> owner = execRef.getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("Timer")
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Create Duration.ofMillis(...) wrapper
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+            CtTypeReference<?> longType = factory.Type().longPrimitiveType();
+
+            // Create method reference for Duration.ofMillis
+            CtExecutableReference<?> ofMillisRef = factory.Method().createReference(
+                durationRef,
+                durationRef,
+                "ofMillis",
+                longType
+            );
+
+            // Create the invocation Duration.ofMillis(originalArg)
+            CtInvocation<?> durationCall = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                ofMillisRef,
+                originalArg.clone()
+            );
+
+            // Replace the argument
+            originalArg.replace(durationCall);
+
+            System.out.println("✓ Refactored setDelay at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./spooned";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // Configure environment
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        launcher.addProcessor(new TimerProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring completed successfully!");
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+## YOUR TASK
+
+Before writing code, analyze the dependency change diff in a scratchpad to plan your approach.
+
+<scratchpad>
+In your scratchpad:
+1. List each breaking change from the diff
+2. For each change, identify: what code pattern needs to be detected, and what transformation is needed
+3. Determine if you need to wrap arguments, rename methods, change types, or perform other transformations
+4. Plan your `isToBeProcessed` filtering logic
+5. Plan your `process` transformation logic
+6. Identify what imports and type references you'll need
+</scratchpad>
+
+After your analysis, provide the complete Java code inside <code> tags. The code must:
+- Be a single self-contained class with both Processor and main method
+- Follow ALL the critical implementation rules above (especially method reference creation)
+- Compile without errors
+- Handle NoClasspath mode gracefully
+- Include helpful console output showing what was refactored
+
+Generate ONLY valid, compilable Java code. Do not include explanatory text outside the code tags.

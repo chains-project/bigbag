@@ -30,7 +30,7 @@ public class BreakingUpdateExtractionService {
 
     public BreakingUpdateExtractionService(boolean verbose) {
         this.verbose = verbose;
-        this.dockerBuild = new DockerBuild(false);
+        this.dockerBuild = new DockerBuild(false, verbose);
         this.gitWorkflowService = new GitWorkflowService();
     }
 

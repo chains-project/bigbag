@@ -11,16 +11,19 @@ import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
 import com.example.core.service.RepairLoopService;
 import com.example.core.util.FileSystemUtils;
+import com.example.core.util.ProjectPaths;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import picocli.CommandLine;
 import se.kth.DockerBuild;
-import se.kth.models.Attempt;
 import se.kth.models.FailureCategory;
 
 import java.io.IOException;
@@ -99,20 +102,22 @@ public class MainCli implements Callable<Integer> {
     private Path jsonOutput;
 
     private final EnvConfig envConfig;
-    private final BreakingUpdateExtractionService extractionService;
+    private BreakingUpdateExtractionService extractionService;
     private final ChangeImpactReportService changeImpactReportService;
     private final PromptGenerationService promptGenerationService;
     private final GitWorkflowService gitWorkflowService;
-    private final RepairLoopService repairLoopService;
-    private final DockerBuild dockerBuild;
+    private RepairLoopService repairLoopService;
+    private DockerBuild dockerBuild;
+    
 
     public MainCli() {
         this.envConfig = EnvConfig.loadDefault();
+        // Services will be reinitialized with verbose flag in call() after determining verbose value
         this.extractionService = new BreakingUpdateExtractionService(false);
         this.changeImpactReportService = new ChangeImpactReportService(false, envConfig);
         this.promptGenerationService = new PromptGenerationService(envConfig);
         this.gitWorkflowService = new GitWorkflowService();
-        this.dockerBuild = new DockerBuild(false);
+        this.dockerBuild = new DockerBuild(false, false);
         this.repairLoopService = new RepairLoopService(gitWorkflowService, dockerBuild, envConfig, false);
     }
 
@@ -140,6 +145,14 @@ public class MainCli implements Callable<Integer> {
                 this.verbose = envVerbose;
             }
 
+            // Reinitialize services with verbose flag to control logging (especially Docker image pull)
+            this.extractionService = new BreakingUpdateExtractionService(this.verbose);
+            this.dockerBuild = new DockerBuild(false, this.verbose);
+            this.repairLoopService = new RepairLoopService(gitWorkflowService, dockerBuild, envConfig, this.verbose);
+            
+            // Configure external library loggers based on verbose flag
+            configureExternalLibraryLogging();
+
             boolean shouldExtract = (extractProjects != null ? extractProjects : envExtract) && !noExtract;
             boolean shouldClassify = (extractJarsAndClassify != null ? extractJarsAndClassify : envClassify)
                     && !noClassify;
@@ -154,13 +167,25 @@ public class MainCli implements Callable<Integer> {
 
             String modelName = envConfig.get("LLM_MODEL").orElse("default_model");
 
-            // Adjust jsonOutput to be per-model
+            // Adjust jsonOutput: JSON_OUTPUT should point to a directory
+            // The JSON file will be generated at {jsonOutput}/{model}/breaking-updates-results.json
             if (jsonOutput != null) {
-                Path parent = jsonOutput.getParent();
-                if (parent == null) {
-                    parent = Paths.get(".");
+                // If jsonOutput is a file, use its parent directory
+                // If jsonOutput is a directory, use it directly
+                Path jsonOutputDir;
+                if (Files.exists(jsonOutput) && Files.isRegularFile(jsonOutput)) {
+                    // It's a file, use parent directory
+                    jsonOutputDir = jsonOutput.getParent();
+                    if (jsonOutputDir == null) {
+                        jsonOutputDir = Paths.get(".");
+                    }
+                } else {
+                    // It's a directory or doesn't exist yet, use it as directory
+                    jsonOutputDir = jsonOutput;
                 }
-                jsonOutput = parent.resolve(modelName).resolve(jsonOutput.getFileName());
+                // Generate path: {jsonOutputDir}/{model}/breaking-updates-results.json
+                jsonOutput = jsonOutputDir.resolve(modelName).resolve("breaking-updates-results.json");
+                log.info("JSON output will be written to: {}", jsonOutput);
             }
 
             String fileToProcess = singleJsonFile != null ? singleJsonFile
@@ -246,6 +271,18 @@ public class MainCli implements Callable<Integer> {
 
             Map<String, BreakingUpdateRecord> recordByCommit = buildRecordIndex(records);
 
+            // If clean mode is enabled, remove all existing folders BEFORE processing
+            // This should happen regardless of whether we're extracting or just processing
+            if (shouldClean) {
+                System.out.println(
+                        "Clean mode enabled: Removing existing {breakingCommit} folders and reports before processing...");
+                extractionService.cleanExistingFolders(records, outputDir);
+
+                if (jsonOutput != null) {
+                    cleanReportsAndJson(records, jsonOutput);
+                }
+            }
+
             Consumer<ClassificationSummary> summaryConsumer = null;
             if (jsonOutput != null) {
                 final Path finalJsonOutput = jsonOutput;
@@ -264,17 +301,6 @@ public class MainCli implements Callable<Integer> {
             if (shouldExtract) {
                 log.info("=== Starting Project Extraction ===");
                 System.out.println("\n=== Extracting Projects from Docker Images ===");
-
-                // If clean mode is enabled, remove all existing folders BEFORE processing
-                if (shouldClean) {
-                    System.out.println(
-                            "Clean mode enabled: Removing existing {breakingCommit} folders before processing...");
-                    extractionService.cleanExistingFolders(records, outputDir);
-
-                    if (jsonOutput != null) {
-                        cleanReportsAndJson(records, jsonOutput);
-                    }
-                }
 
                 classificationSummaries = extractionService.extractProjectsFromDockerImages(
                         records,
@@ -380,7 +406,7 @@ public class MainCli implements Callable<Integer> {
                             targetJson.toFile(),
                             mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class,
                                     ReportEntry.class));
-                } catch (com.fasterxml.jackson.databind.exc.MismatchedInputException e) {
+                } catch (MismatchedInputException e) {
                     // Handle legacy array format
                     ReportEntry[] legacyEntries = mapper.readValue(targetJson.toFile(), ReportEntry[].class);
                     for (ReportEntry entry : legacyEntries) {
@@ -402,6 +428,9 @@ public class MainCli implements Callable<Integer> {
             if (key != null) {
                 List<se.kth.models.Attempt> attempts = writePerCommitReport(targetJson.getParent(), outputDir, key,
                         summary, recordByCommit.get(key));
+                
+                // Only write to JSON if we have attempts (after attempt 1 is processed)
+                // The attempts contain the failureCategory derived from analyzing the log after building with transformed files
                 if (attempts != null && !attempts.isEmpty()) {
                     summary = new ClassificationSummary(
                             summary.project(),
@@ -412,14 +441,24 @@ public class MainCli implements Callable<Integer> {
                             summary.classifierReport(),
                             summary.dockerImage(),
                             attempts);
+                    
+                    // Write to JSON only after attempts are processed
+                    ReportEntry entry = buildReportEntry(summary);
+                    existing.put(key, entry);
+                    mapper.writeValue(targetJson.toFile(), existing);
+                    log.info("Classification summary written to {} (after {} attempts)", targetJson, attempts.size());
+                } else {
+                    log.debug("Skipping JSON write for {} - no attempts processed yet", key);
                 }
+            } else {
+                // If no key, still write the summary (for backward compatibility)
+                ReportEntry entry = buildReportEntry(summary);
+                if (entry.breakingCommit() != null) {
+                    existing.put(entry.breakingCommit(), entry);
+                }
+                mapper.writeValue(targetJson.toFile(), existing);
+                log.info("Classification summary written to {}", targetJson);
             }
-
-            ReportEntry entry = buildReportEntry(summary);
-            existing.put(key, entry);
-
-            mapper.writeValue(targetJson.toFile(), existing);
-            log.info("Classification summary written to {}", targetJson);
             if (!verbose) {
                 System.out.printf(Locale.ROOT, "Classification summary written to %s%n", targetJson);
             }
@@ -480,32 +519,53 @@ public class MainCli implements Callable<Integer> {
             Path commitDir = reportBase.resolve(commit);
             Files.createDirectories(commitDir);
 
-            // Run Repair Loop
-            List<se.kth.models.Attempt> attempts = null;
-            if (summary.dockerImage() != null) {
-                try {
-                    Path commitOutputDir = outputBaseDir.resolve(record.breakingCommit()); // Renamed to avoid conflict
-                                                                                           // with commitDir
-                    attempts = repairLoopService.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
-                            record);
-                } catch (Exception e) {
-                    log.error("Error in repair loop for {}", record.breakingCommit(), e);
+            // STEP 1: Find and analyze initial log from project
+            // The initial log is inside the project directory: {commit}.log or {breakingCommit}.log
+            Path commitOutputDir = outputBaseDir.resolve(record.breakingCommit());
+            Path projectDir = ProjectPaths.resolveProjectDir(commitOutputDir, record.project());
+            Path initialLogFile = null;
+            Path initialClassifierReport = null;
+
+            if (Files.exists(projectDir)) {
+                // Find the initial log file in the project
+                initialLogFile = com.example.core.pipeline.ProjectLogLocator.findLogFile(
+                        projectDir, record.project(), record.breakingCommit());
+                
+                if (initialLogFile != null && Files.exists(initialLogFile)) {
+                    log.info("Found initial log file: {}", initialLogFile);
+                    
+                    // Analyze initial log with breaking-classifier
+                    try {
+                        initialClassifierReport = commitDir.resolve("breaking-classifier-report.json");
+                        github.chains.breakingclassifier.BreakingClassifierApp classifierApp = 
+                                new github.chains.breakingclassifier.BreakingClassifierApp();
+                        github.chains.breakingclassifier.BreakingReport breakingReport = 
+                                classifierApp.analyzeLog(initialLogFile, initialClassifierReport);
+                        
+                        if (breakingReport != null) {
+                            log.info("Initial log analyzed. Category: {}, Files with errors: {}", 
+                                    breakingReport.failureCategory(), breakingReport.errorsByFile().size());
+                        }
+                    } catch (Exception e) {
+                        log.error("Failed to analyze initial log: {}", e.getMessage(), e);
+                        initialClassifierReport = null;
+                    }
+                } else {
+                    log.warn("Initial log file not found in project directory: {}", projectDir);
                 }
             }
 
-            // Generate Prompts
-            Path classifierSource = null;
-            if (summary.classifierReport() != null) {
-                Path possibleSource = Paths.get(summary.classifierReport());
-                if (Files.exists(possibleSource)) {
-                    classifierSource = possibleSource;
-                }
-            }
-
-            if (changeImpactReportService != null) {
+            // STEP 2: Initial Analysis (before repair loop)
+            // This generates breaking-changes.json only
+            // Note: change-impact.json is generated per attempt (not here) because errors/files can change in each attempt
+            if (changeImpactReportService != null && initialClassifierReport != null) {
                 try {
+                    // This generates:
+                    // - breaking-changes.json (once per commit, based on japicmp)
+                    // Note: change-impact.json is generated within each attempt in RepairLoopService
+                    // Note: prompts and transformed files are generated within each attempt based on previous attempt's log
                     changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir,
-                            classifierSource);
+                            initialClassifierReport);
                 } catch (Throwable analysisError) {
                     String projectName = record != null ? record.project() : "unknown";
                     String message = analysisError.getMessage() != null
@@ -514,10 +574,67 @@ public class MainCli implements Callable<Integer> {
                     log.error("Change-impact analysis failed for {} (project: {}): {}", commit, projectName, message);
                     System.err.printf("Change-impact failed for %s (%s): %s%n", commit, projectName, message);
                 }
-            } else if (classifierSource != null) {
+            } else if (initialClassifierReport != null) {
+                // Just copy the classifier report if change-impact service is not available
                 Path classifierTarget = commitDir.resolve("breaking-classifier-report.json");
-                Files.copy(classifierSource, classifierTarget, StandardCopyOption.REPLACE_EXISTING);
+                if (!Files.exists(classifierTarget)) {
+                    Files.copy(initialClassifierReport, classifierTarget, StandardCopyOption.REPLACE_EXISTING);
+                }
             }
+
+            // STEP 3: Repair Loop - processes transformed files for each attempt
+            // This happens AFTER initial analysis is done
+            // Each attempt: uses log from previous attempt → generates prompts → generates transformed files → builds → analyzes
+            List<se.kth.models.Attempt> attempts = null;
+            if (summary.dockerImage() != null) {
+                try {
+                    attempts = repairLoopService.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
+                            record, commitDir, summary, outputBaseDir, initialLogFile);
+                    
+                    // Update summary with attempts from repair loop
+                    // The failureCategory of each attempt comes from analyzing the log AFTER building with transformed files
+                    // This includes TRANSFORMATION_FAILURE attempts when Spoon transformation fails
+                    if (attempts != null && !attempts.isEmpty()) {
+                        List<se.kth.models.Attempt> updatedAttempts = new ArrayList<>();
+                        if (summary.attempts() != null) {
+                            updatedAttempts.addAll(summary.attempts());
+                        }
+                        updatedAttempts.addAll(attempts);
+                        
+                        // Get the last attempt's category and log file
+                        se.kth.models.Attempt lastAttempt = attempts.get(attempts.size() - 1);
+                        String finalCategory = lastAttempt.getFailureCategory().toString();
+                        String finalLogFile = null;
+                        Path lastLogFile = commitDir.resolve("attempt_" + lastAttempt.getAttemptCount() + "_build.log");
+                        if (Files.exists(lastLogFile)) {
+                            finalLogFile = lastLogFile.toString();
+                        }
+                        
+                        // Update summary with all attempts (including TRANSFORMATION_FAILURE)
+                        summary = new ClassificationSummary(
+                                summary.project(),
+                                summary.breakingCommit(),
+                                summary.datasetCategory(),
+                                finalCategory,
+                                finalLogFile != null ? finalLogFile : summary.logFile(),
+                                summary.classifierReport(),
+                                summary.dockerImage(),
+                                updatedAttempts
+                        );
+                        
+                        // Log transformation failure if it occurred
+                        if (lastAttempt.getFailureCategory() == se.kth.models.FailureCategory.TRANSFORMATION_FAILURE) {
+                            log.warn("Spoon transformation failed for commit {}. Stopping repair loop for this commit. Continuing with next commit.", 
+                                    record.breakingCommit());
+                        }
+                    }
+                } catch (Exception e) {
+                    // Any other exception in repair loop - log and continue with next commit
+                    log.error("Error in repair loop for commit {}: {}", record.breakingCommit(), e.getMessage(), e);
+                    // Don't update summary - keep original state
+                }
+            }
+
             return attempts;
         } catch (IOException e) {
             log.warn("Failed to write per-commit report for {}: {}", commit, e.getMessage());
@@ -534,35 +651,74 @@ public class MainCli implements Callable<Integer> {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
 
-            // Read existing summaries
-            List<ClassificationSummary> summaries = new ArrayList<>();
-            if (Files.exists(jsonFile)) {
-                try {
-                    summaries = mapper.readValue(jsonFile.toFile(), new TypeReference<List<ClassificationSummary>>() {
-                    });
-                } catch (Exception e) {
-                    // If file is empty or invalid, start fresh
-                    summaries = new ArrayList<>();
-                }
-            }
-
             Set<String> commitsToRemove = records.stream()
                     .map(BreakingUpdateRecord::breakingCommit)
                     .collect(Collectors.toSet());
 
-            // Remove entries
-            List<ClassificationSummary> filteredSummaries = summaries.stream()
-                    .filter(s -> !commitsToRemove.contains(s.breakingCommit()))
-                    .collect(Collectors.toList());
-
-            // Write back
-            if (summaries.size() != filteredSummaries.size()) {
-                mapper.enable(SerializationFeature.INDENT_OUTPUT);
-                mapper.writeValue(jsonFile.toFile(), filteredSummaries);
-                log.info("Removed {} entries from JSON report", summaries.size() - filteredSummaries.size());
+            if (!Files.exists(jsonFile)) {
+                return;
             }
 
-            // Remove report directories
+            // Try reading as map keyed by breakingCommit (new format)
+            try {
+                Map<String, ReportEntry> existing = mapper.readValue(
+                        jsonFile.toFile(),
+                        mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class, ReportEntry.class));
+
+                boolean changed = false;
+                for (String commit : commitsToRemove) {
+                    if (existing.remove(commit) != null) {
+                        changed = true;
+                    }
+                }
+
+                if (changed) {
+                    mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    mapper.writeValue(jsonFile.toFile(), existing);
+                    log.info("Removed {} entries from JSON report (map format)", commitsToRemove.size());
+                }
+
+            } catch (com.fasterxml.jackson.databind.exc.MismatchedInputException e) {
+                // Not a map: try legacy array of ReportEntry
+                try {
+                    ReportEntry[] legacyEntries = mapper.readValue(jsonFile.toFile(), ReportEntry[].class);
+                    List<ReportEntry> filtered = java.util.Arrays.stream(legacyEntries)
+                            .filter(entry -> entry == null || entry.breakingCommit() == null
+                                    || !commitsToRemove.contains(entry.breakingCommit()))
+                            .collect(Collectors.toList());
+
+                    if (filtered.size() != legacyEntries.length) {
+                        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                        mapper.writeValue(jsonFile.toFile(), filtered);
+                        log.info("Removed {} entries from JSON report (array format)", legacyEntries.length - filtered.size());
+                    }
+                } catch (com.fasterxml.jackson.databind.exc.MismatchedInputException e2) {
+                    // Not an array: try legacy list of ClassificationSummary
+                    try {
+                        List<ClassificationSummary> summaries = mapper.readValue(jsonFile.toFile(),
+                                new TypeReference<List<ClassificationSummary>>() {
+                                });
+                        List<ClassificationSummary> filteredSummaries = summaries.stream()
+                                .filter(s -> s == null || s.breakingCommit() == null || !commitsToRemove.contains(s.breakingCommit()))
+                                .collect(Collectors.toList());
+
+                        if (filteredSummaries.size() != summaries.size()) {
+                            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                            mapper.writeValue(jsonFile.toFile(), filteredSummaries);
+                            log.info("Removed {} entries from JSON report (legacy summaries)", summaries.size() - filteredSummaries.size());
+                        }
+                    } catch (Exception ex) {
+                        // File not in any expected format or invalid; nothing to remove
+                        log.debug("JSON report is not in a recognized format or is invalid: {}", jsonFile);
+                    }
+                } catch (Exception ex) {
+                    log.warn("Failed to process JSON report as legacy ReportEntry array: {}", ex.getMessage());
+                }
+            } catch (Exception e) {
+                log.warn("Failed to clean JSON report: {}", e.getMessage());
+            }
+
+            // Remove report directories under the JSON parent folder
             Path reportBase = jsonFile.getParent();
             if (reportBase != null) {
                 for (String commit : commitsToRemove) {
@@ -578,7 +734,7 @@ public class MainCli implements Callable<Integer> {
                 }
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Failed to clean reports and JSON", e);
         }
     }
@@ -606,5 +762,28 @@ public class MainCli implements Callable<Integer> {
             int newErrors,
             String outputFolder,
             boolean successful) {
+    }
+
+    /**
+     * Configures external library loggers (JGit, docker-java, Spoon) to respect the verbose flag.
+     * When verbose is false, DEBUG logs from these libraries are suppressed.
+     */
+    private void configureExternalLibraryLogging() {
+        try {
+            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+            
+            // Configure JGit logger
+            ch.qos.logback.classic.Logger jgitLogger = loggerContext.getLogger("org.eclipse.jgit");
+            if (verbose) {
+                jgitLogger.setLevel(Level.DEBUG);
+            } else {
+                jgitLogger.setLevel(Level.INFO);
+            }
+            
+            log.debug("Configured external library loggers - verbose: {}", verbose);
+        } catch (Exception e) {
+            // If logback is not available or there's an error, just log a debug message
+            log.debug("Could not configure external library logging level: {}", e.getMessage());
+        }
     }
 }
