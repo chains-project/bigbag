@@ -15,6 +15,8 @@ import github.chains.breakingclassifier.ErrorDetail;
 import github.chains.breakingclassifier.FileErrorGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +52,9 @@ public class ChangeImpactReportService {
         this.analyzer = new ChangeImpactAnalyzer();
         this.mapper = new ObjectMapper();
 
+        // Configure Spoon logger level based on verbose flag
+        configureSpoonLogging();
+
         // Load additional classpath from environment if available
         if (envConfig != null) {
             this.additionalClasspath = envConfig.getPathList("SPOON_CLASSPATH");
@@ -60,6 +65,30 @@ public class ChangeImpactReportService {
         } else {
             this.additionalClasspath = List.of();
             this.promptGenerationService = null;
+        }
+    }
+    
+    /**
+     * Configures Spoon library loggers to respect the verbose flag.
+     * When verbose is false, Spoon DEBUG logs (especially MavenLauncher) are suppressed.
+     */
+    private void configureSpoonLogging() {
+        try {
+            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+            // Configure spoon.MavenLauncher logger
+            ch.qos.logback.classic.Logger spoonMavenLogger = loggerContext.getLogger("spoon.MavenLauncher");
+            // Configure general spoon logger
+            ch.qos.logback.classic.Logger spoonLogger = loggerContext.getLogger("spoon");
+            if (verbose) {
+                spoonMavenLogger.setLevel(Level.DEBUG);
+                spoonLogger.setLevel(Level.DEBUG);
+            } else {
+                spoonMavenLogger.setLevel(Level.INFO);
+                spoonLogger.setLevel(Level.INFO);
+            }
+        } catch (Exception e) {
+            // If logback is not available or there's an error, just log a debug message
+            log.debug("Could not configure Spoon logging level: {}", e.getMessage());
         }
     }
 
@@ -106,38 +135,8 @@ public class ChangeImpactReportService {
             return;
         }
 
-        Path changeImpactTarget = commitReportDir.resolve("change-impact.json");
-        try {
-            DetailedChangeImpactReport report = buildDetailedReport(record, summary, outputBaseDir, copiedClassifierReport);
-            if (report != null) {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(changeImpactTarget.toFile(), report);
-            }
-            // Generate per-file prompts for each file with errors (one prompt per file),
-            // so that LLMs can be invoked later with fine-grained context.
-            try {
-                if (promptGenerationService != null && report != null) {
-                    promptGenerationService.generateFilePrompts(
-                            record,
-                            summary,
-                            commitReportDir,
-                            outputBaseDir,
-                            report.files()
-                    );
-                }
-            } catch (Throwable e) {
-                log.warn("Failed to generate per-file prompts for {}: {}", record.breakingCommit(), e.getMessage());
-                if (verbose) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (Throwable e) {
-            log.warn("Failed to generate change-impact report for {}: {}", record.breakingCommit(), e.getMessage());
-            if (verbose) {
-                e.printStackTrace();
-            }
-        }
-
-        // Export all breaking changes to a separate JSON file
+        // Export all breaking changes to a separate JSON file (once per commit)
+        // This is based on japicmp comparison of the two JAR versions and doesn't change between attempts
         try {
             exportBreakingChanges(record, outputBaseDir, commitReportDir);
         } catch (Throwable e) {
@@ -146,14 +145,90 @@ public class ChangeImpactReportService {
                 e.printStackTrace();
             }
         }
+
+        // Note: change-impact.json is now generated per attempt in RepairLoopService
+        // This initial generation is kept for backward compatibility but may not be used
+        // if the repair loop is executed
+    }
+
+    /**
+     * Generates a change-impact report from a breaking-classifier report.
+     * This can be used for any breaking-classifier report, not just attempt-specific ones.
+     * 
+     * @param record the breaking update record
+     * @param summary the classification summary
+     * @param outputBaseDir the output base directory
+     * @param classifierReportPath the path to the breaking-classifier report
+     * @param changeImpactTarget the path where the change-impact report should be written (can be null to skip writing)
+     * @return the generated FileImpact list, or empty list if generation failed
+     */
+    public List<FileImpact> generateChangeImpactFromClassifierReport(BreakingUpdateRecord record,
+                                                                     ClassificationSummary summary,
+                                                                     Path outputBaseDir,
+                                                                     Path classifierReportPath,
+                                                                     Path changeImpactTarget) {
+        if (!Files.exists(classifierReportPath)) {
+            log.warn("Breaking-classifier report not found: {}", classifierReportPath);
+            return List.of();
+        }
+
+        try {
+            DetailedChangeImpactReport report = buildDetailedReport(record, summary, outputBaseDir, classifierReportPath);
+            if (report != null) {
+                if (changeImpactTarget != null) {
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(changeImpactTarget.toFile(), report);
+                    log.info("Change-impact report written to: {}", changeImpactTarget);
+                }
+                log.info("Change-impact analysis completed successfully");
+                return report.files();
+            } else {
+                log.warn("Change-impact report generation returned null");
+            }
+        } catch (Throwable e) {
+            log.error("Failed to generate change-impact report: {}", e.getMessage());
+            if (verbose) {
+                e.printStackTrace();
+            }
+        }
+
+        return List.of();
+    }
+
+    /**
+     * Generates a change-impact report for a specific attempt.
+     * This is called from RepairLoopService for each attempt.
+     * 
+     * @param record the breaking update record
+     * @param summary the classification summary
+     * @param outputBaseDir the output base directory
+     * @param commitReportDir the report directory for this commit
+     * @param attemptNumber the attempt number
+     * @return the generated FileImpact list, or empty list if generation failed
+     */
+    public List<FileImpact> generateChangeImpactForAttempt(BreakingUpdateRecord record,
+                                                           ClassificationSummary summary,
+                                                           Path outputBaseDir,
+                                                           Path commitReportDir,
+                                                           int attemptNumber) {
+        log.info("Generating change-impact report for attempt {}", attemptNumber);
+
+        // Read the breaking-classifier report from this attempt
+        Path classifierReportPath = commitReportDir.resolve("attempt_" + attemptNumber + "_breaking-classifier-report.json");
+        Path changeImpactTarget = commitReportDir.resolve("attempt_" + attemptNumber + "_change-impact.json");
+        
+        return generateChangeImpactFromClassifierReport(record, summary, outputBaseDir, 
+                classifierReportPath, changeImpactTarget);
     }
 
     private DetailedChangeImpactReport buildDetailedReport(BreakingUpdateRecord record,
                                                            ClassificationSummary summary,
                                                            Path outputBaseDir,
                                                            Path classifierReportPath) throws IOException {
-
         BreakingReport breakingReport = mapper.readValue(classifierReportPath.toFile(), BreakingReport.class);
+        
+        int filesWithErrors = breakingReport != null && breakingReport.errorsByFile() != null 
+                ? breakingReport.errorsByFile().size() : 0;
+        log.info("Building detailed change-impact report for {} files with errors...", filesWithErrors);
 
         UpdatedDependency dependency = record.updatedDependency();
         if (dependency == null) {
@@ -258,6 +333,9 @@ public class ChangeImpactReportService {
         classification.put("inferredCategory", summary.inferredCategory());
         classification.put("logFile", summary.logFile());
         classification.put("classifierReport", classifierReportPath.toString());
+
+        log.info("Completed change-impact analysis: {} files analyzed, {} file impacts generated", 
+                filesWithErrors, fileImpacts.size());
 
         return new DetailedChangeImpactReport(
                 record.project(),

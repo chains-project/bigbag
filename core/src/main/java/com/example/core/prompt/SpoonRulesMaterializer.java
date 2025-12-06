@@ -328,6 +328,15 @@ public final class SpoonRulesMaterializer {
     /**
      * Adapts a complete Spoon class from LLM output to work with our paths.
      * Replaces input/output paths in the main method to point to the correct locations.
+     * 
+     * Input: the original source file to transform
+     * Output: directory where transformed files will be written (Spoon maintains package structure)
+     * 
+     * This method handles multiple patterns from different prompt formatters:
+     * - Prompt5FilePromptFormatter: args.length > 0 ? args[0] : "..."
+     * - Prompt4FilePromptFormatter: direct string assignment
+     * - V2InContextFilePromptFormatter: direct addInputResource("src/main/java")
+     * - Any other variations the LLM might generate
      */
     private static String adaptCompleteClass(String javaCode, Path originalSourceFile, Path commitReportDir) {
         if (javaCode == null || javaCode.isBlank()) {
@@ -335,39 +344,86 @@ public final class SpoonRulesMaterializer {
         }
         
         Path outputDir = commitReportDir.resolve("transformed");
-        String outputDirPath = outputDir.toString().replace("\\", "/");
-        String inputPath = originalSourceFile.toString().replace("\\", "/");
+        String outputDirPath = outputDir.toAbsolutePath().toString().replace("\\", "/");
+        String inputPath = originalSourceFile.toAbsolutePath().toString().replace("\\", "/");
         
-        // Replace common path patterns in the main method
         String adapted = javaCode;
         
-        // Replace input path patterns
-        // Look for: addInputResource("...") or String inputPath = "..."
+        // ===== INPUT PATH REPLACEMENTS =====
+        
+        // Pattern 1: String inputPath = args.length > 0 ? args[0] : "...";
+        // Handle variations with different spacing
         adapted = adapted.replaceAll(
-            "(addInputResource\\(\")([^\"]+)(\"\\))",
-            "$1" + inputPath + "$3"
+            "(String\\s+inputPath\\s*=\\s*)(args\\s*\\.\\s*length\\s*>\\s*0\\s*\\?\\s*args\\s*\\[\\s*0\\s*\\]\\s*:\\s*\")([^\"]+)(\"\\s*;)",
+            "$1\"" + inputPath + "\";"
         );
+        
+        // Pattern 2: String inputPath = "..."; (simple assignment)
         adapted = adapted.replaceAll(
             "(String\\s+inputPath\\s*=\\s*\")([^\"]+)(\"\\s*;)",
             "$1" + inputPath + "$3"
         );
         
-        // Replace output path patterns
-        // Look for: setSourceOutputDirectory(...) or String outputPath = "..."
+        // Pattern 3: addInputResource("...") with any path
+        // This catches V2InContextFilePromptFormatter pattern: addInputResource("src/main/java")
         adapted = adapted.replaceAll(
-            "(setSourceOutputDirectory\\([^)]*\")([^\"]+)(\"[^)]*\\))",
-            "$1" + outputDirPath + "$3"
+            "(addInputResource\\s*\\(\\s*\")([^\"]+)(\"\\s*\\))",
+            "$1" + inputPath + "$3"
         );
+        
+        // Pattern 4: addInputResource(inputPath) - variable reference
+        adapted = adapted.replaceAll(
+            "(addInputResource\\s*\\(\\s*)inputPath(\\s*\\))",
+            "$1\"" + inputPath + "\"$2"
+        );
+        
+        // Pattern 5: addInputResource(new File("..."))
+        adapted = adapted.replaceAll(
+            "(addInputResource\\s*\\(\\s*new\\s+File\\s*\\(\\s*\")([^\"]+)(\"\\s*\\)\\s*\\))",
+            "$1" + inputPath + "$3"
+        );
+        
+        // ===== OUTPUT PATH REPLACEMENTS =====
+        
+        // Pattern 1: String outputPath = args.length > 1 ? args[1] : "...";
+        adapted = adapted.replaceAll(
+            "(String\\s+outputPath\\s*=\\s*)(args\\s*\\.\\s*length\\s*>\\s*1\\s*\\?\\s*args\\s*\\[\\s*1\\s*\\]\\s*:\\s*\")([^\"]+)(\"\\s*;)",
+            "$1\"" + outputDirPath + "\";"
+        );
+        
+        // Pattern 2: String outputPath = "..."; (simple assignment)
         adapted = adapted.replaceAll(
             "(String\\s+outputPath\\s*=\\s*\")([^\"]+)(\"\\s*;)",
             "$1" + outputDirPath + "$3"
         );
         
-        // Also handle File constructor patterns
+        // Pattern 3: setSourceOutputDirectory("...")
         adapted = adapted.replaceAll(
-            "(new\\s+File\\(\")([^\"]+)(\"\\))",
+            "(setSourceOutputDirectory\\s*\\(\\s*\")([^\"]+)(\"\\s*\\))",
             "$1" + outputDirPath + "$3"
         );
+        
+        // Pattern 4: setSourceOutputDirectory(outputPath) - variable reference
+        adapted = adapted.replaceAll(
+            "(setSourceOutputDirectory\\s*\\(\\s*)outputPath(\\s*\\))",
+            "$1\"" + outputDirPath + "\"$2"
+        );
+        
+        // Pattern 5: setSourceOutputDirectory(new File("..."))
+        adapted = adapted.replaceAll(
+            "(setSourceOutputDirectory\\s*\\(\\s*new\\s+File\\s*\\(\\s*\")([^\"]+)(\"\\s*\\)\\s*\\))",
+            "$1" + outputDirPath + "$3"
+        );
+        
+        // Pattern 6: setSourceOutputDirectory(new File(outputPath))
+        adapted = adapted.replaceAll(
+            "(setSourceOutputDirectory\\s*\\(\\s*new\\s+File\\s*\\(\\s*)outputPath(\\s*\\)\\s*\\))",
+            "$1\"" + outputDirPath + "\"$2"
+        );
+        
+        // Pattern 7: Standalone File constructor (if used for output)
+        // Only replace if it's clearly an output-related File (be conservative)
+        // This is a fallback for edge cases
         
         return adapted;
     }

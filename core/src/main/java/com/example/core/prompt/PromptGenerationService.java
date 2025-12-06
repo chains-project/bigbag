@@ -97,13 +97,15 @@ public class PromptGenerationService {
                                     ClassificationSummary summary,
                                     Path commitReportDir,
                                     Path outputBaseDir,
-                                    java.util.List<FileImpact> files) {
+                                    java.util.List<FileImpact> files) throws TransformationFailureException {
         if (record == null || commitReportDir == null || outputBaseDir == null || record.breakingCommit() == null) {
             return;
         }
         if (files == null || files.isEmpty()) {
             return;
         }
+        
+        log.info("Starting prompt generation for {} files...", files.size());
 
         // Determine logical prompt kinds (e.g., default, in_context, anthropic_spoon_rules)
         String classesRaw = envConfig.get("PROMPT_CLASSES").orElse("default");
@@ -161,12 +163,17 @@ public class PromptGenerationService {
                     invokeLlmAndMaterialize(record, commitReportDir, outputBaseDir, fileImpact, kind, promptTarget, sanitizedFileName);
                     long fileDuration = System.currentTimeMillis() - fileStartTime;
                     log.info("Completed processing for {} [{}] in {}ms", fileImpact.filePath(), kind.id(), fileDuration);
+                } catch (TransformationFailureException e) {
+                    // Re-throw transformation failures to be handled at a higher level
+                    throw e;
                 } catch (IOException | InterruptedException e) {
                     log.warn("Failed to generate or process prompt for {} ({}) [{}]: {}",
                             record.breakingCommit(), fileImpact.filePath(), kind.id(), e.getMessage());
                 }
             }
         }
+        
+        log.info("Prompt generation completed for {} files", files.size());
     }
 
     private Map<String, String> buildGlobalPlaceholderValues(BreakingUpdateRecord record,
@@ -336,7 +343,7 @@ public class PromptGenerationService {
                                          FileImpact fileImpact,
                                          PromptKind kind,
                                          Path promptFile,
-                                         String sanitizedFileName) throws IOException, InterruptedException {
+                                         String sanitizedFileName) throws IOException, InterruptedException, TransformationFailureException {
         if (record == null || fileImpact == null || promptFile == null) {
             return;
         }
@@ -406,33 +413,41 @@ public class PromptGenerationService {
 
         // 4) Apply transformation and generate diff (always, regardless of SKIP_PROMPT_GENERATION)
         // SKIP_PROMPT_GENERATION only controls the LLM call, not the transformation pipeline
+        Path projectRoot = findProjectRoot(commitReportDir);
+        // Create transformed directory only when we're about to write to it
+        Path transformedDir = commitReportDir.resolve("transformed");
         try {
-            Path projectRoot = findProjectRoot(commitReportDir);
-            Path transformedDir = commitReportDir.resolve("transformed");
-            String originalFileName = originalSource.getFileName().toString();
-            Path transformedFile = findTransformedFile(transformedDir, originalFileName);
+            Files.createDirectories(transformedDir);
+        } catch (IOException e) {
+            log.warn("Failed to create transformed directory: {}", e.getMessage());
+        }
+        
+        String originalFileName = originalSource.getFileName().toString();
+        Path transformedFile = findTransformedFile(transformedDir, originalFileName);
 
-            // If transformed file doesn't exist, try to execute spoon_apply.java
-            if (transformedFile == null || !Files.exists(transformedFile)) {
-                if (Files.exists(spoonApplyFile)) {
-                    log.info("Executing Spoon transformation from {}", spoonApplyFile);
-                    executeSpoonTransformation(spoonApplyFile, commitReportDir, projectRoot, originalSource, fileImpact.filePath());
-                    // Re-check for transformed file after execution
-                    transformedFile = findTransformedFile(transformedDir, originalFileName);
-                } else {
-                    log.warn("Spoon apply file not found at {}. Skipping transformation.", spoonApplyFile);
-                }
+        // If transformed file doesn't exist, try to execute spoon_apply.java
+        if (transformedFile == null || !Files.exists(transformedFile)) {
+            if (Files.exists(spoonApplyFile)) {
+                log.info("Executing Spoon transformation from {}", spoonApplyFile);
+                // executeSpoonTransformation can throw TransformationFailureException
+                executeSpoonTransformation(spoonApplyFile, commitReportDir, projectRoot, originalSource, fileImpact.filePath());
+                // Re-check for transformed file after execution
+                transformedFile = findTransformedFile(transformedDir, originalFileName);
+            } else {
+                log.warn("Spoon apply file not found at {}. Skipping transformation.", spoonApplyFile);
             }
+        }
 
-            // Generate diff if transformed file exists
-            if (transformedFile != null && Files.exists(transformedFile)) {
+        // Generate diff if transformed file exists
+        if (transformedFile != null && Files.exists(transformedFile)) {
+            try {
                 log.info("Generating diff for {} (original) vs {} (transformed)", originalSource, transformedFile);
                 SpoonRulesMaterializer.generateDiffAfterTransformation(originalSource, commitReportDir, rawBaseName);
-            } else {
-                log.warn("Transformed file not found. Cannot generate diff. Expected at: {}", transformedDir);
+            } catch (Exception e) {
+                log.error("Failed to generate diff: {}", e.getMessage(), e);
             }
-        } catch (Exception e) {
-            log.error("Failed to apply transformation or generate diff: {}", e.getMessage(), e);
+        } else {
+            log.warn("Transformed file not found. Cannot generate diff. Expected at: {}", transformedDir);
         }
     }
 
@@ -455,7 +470,7 @@ public class PromptGenerationService {
      * Executes the Spoon transformation by compiling and running the spoon_apply.java file.
      * Logs are saved to a file in the spoon-rules directory.
      */
-    private void executeSpoonTransformation(Path spoonApplyFile, Path commitReportDir, Path projectRoot, Path originalSource, String filePathForErrorReporting) throws IOException, InterruptedException {
+    private void executeSpoonTransformation(Path spoonApplyFile, Path commitReportDir, Path projectRoot, Path originalSource, String filePathForErrorReporting) throws IOException, InterruptedException, TransformationFailureException {
         Path spoonRulesDir = spoonApplyFile.getParent();
         
         // Create log file path in spoon-rules directory
@@ -543,7 +558,8 @@ public class PromptGenerationService {
                 logWriter.flush();
                 // Report compilation error to breaking-classifier-report.json
                 reportSpoonError(commitReportDir, filePathForErrorReporting, compileOutput.toString(), "COMPILATION_ERROR");
-                return; // Don't throw, just report the error
+                // Throw exception to signal transformation failure
+                throw new TransformationFailureException("COMPILATION_ERROR", compileOutput.toString());
             }
             log.info("Compilation successful");
             logWriter.write("=== COMPILATION SUCCESSFUL ===\n\n");
@@ -584,6 +600,8 @@ public class PromptGenerationService {
                 logWriter.write("=== EXECUTION FAILED ===\n");
                 // Report execution error to breaking-classifier-report.json
                 reportSpoonError(commitReportDir, filePathForErrorReporting, runOutput.toString(), "EXECUTION_ERROR");
+                // Throw exception to signal transformation failure
+                throw new TransformationFailureException("EXECUTION_ERROR", runOutput.toString());
             } else {
                 log.info("Spoon transformation completed successfully");
                 logWriter.write("=== EXECUTION SUCCESSFUL ===\n");
@@ -1134,6 +1152,7 @@ public class PromptGenerationService {
             case "v2_in_context", "v2-in-context" -> new V2InContextFilePromptFormatter();
             case "baseline", "base_line", "base-line" -> new BaseLineFilePromptFormatter();
             case "prompt_4", "prompt4", "prompt-4" -> new Prompt4FilePromptFormatter();
+            case "prompt_5", "prompt5", "prompt-5" -> new Prompt5FilePromptFormatter();
             case "default" -> new DefaultFilePromptFormatter();
             default -> new DefaultFilePromptFormatter();
         };
@@ -1192,6 +1211,7 @@ public class PromptGenerationService {
             case V2_IN_CONTEXT -> new V2InContextFilePromptFormatter();
             case BASELINE -> new BaseLineFilePromptFormatter();
             case PROMPT_4 -> new Prompt4FilePromptFormatter();
+            case PROMPT_5 -> new Prompt5FilePromptFormatter();
             case DEFAULT -> new DefaultFilePromptFormatter();
         };
     }
