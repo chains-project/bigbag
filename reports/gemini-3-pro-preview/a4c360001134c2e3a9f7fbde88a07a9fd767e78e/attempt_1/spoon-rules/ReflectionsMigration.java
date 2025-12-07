@@ -1,0 +1,134 @@
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class ReflectionsMigration {
+
+    /**
+     * Processor to migrate org.reflections.Predicate.apply(...) calls to Predicate.test(...)
+     * This handles the removal of apply() methods in favor of Java 8 Predicate.test().
+     */
+    public static class ApplyToTestProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> invocation) {
+            // 1. Check method name is "apply"
+            CtExecutableReference<?> exec = invocation.getExecutable();
+            if (!"apply".equals(exec.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check argument count is 1
+            List<CtExpression<?>> args = invocation.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Verify if the target (receiver) is related to org.reflections
+            CtExpression<?> receiver = invocation.getTarget();
+            if (receiver == null) {
+                return false;
+            }
+
+            return isReflectionsType(receiver);
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Clone the existing executable reference to preserve context (declaring type, types, etc.)
+            CtExecutableReference<?> oldExec = invocation.getExecutable();
+            CtExecutableReference<?> newExec = getFactory().Core().clone(oldExec);
+            
+            // Rename 'apply' to 'test'
+            newExec.setSimpleName("test");
+            
+            // Update the invocation
+            invocation.setExecutable((CtExecutableReference) newExec);
+            
+            System.out.println("✓ Refactored 'apply' to 'test' at " + 
+                (invocation.getPosition().isValidPosition() ? 
+                 "line " + invocation.getPosition().getLine() : "unknown location"));
+        }
+
+        /**
+         * Helper to determine if an expression evaluates to an org.reflections type.
+         * Robust against NoClasspath mode.
+         */
+        private boolean isReflectionsType(CtExpression<?> expression) {
+            // Check 1: Resolved Type (if available)
+            CtTypeReference<?> type = expression.getType();
+            if (type != null && !type.getQualifiedName().equals("<unknown>")) {
+                if (type.getQualifiedName().startsWith("org.reflections")) {
+                    return true;
+                }
+            }
+
+            // Check 2: If expression is a method call (e.g., ReflectionUtils.withName(...))
+            if (expression instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) expression;
+                CtExecutableReference<?> exec = inv.getExecutable();
+                CtTypeReference<?> declType = exec.getDeclaringType();
+                
+                if (declType != null && declType.getQualifiedName().startsWith("org.reflections")) {
+                    return true;
+                }
+                
+                // Also check if the return type of that method is explicitly known
+                CtTypeReference<?> returnType = exec.getType();
+                if (returnType != null && returnType.getQualifiedName().startsWith("org.reflections")) {
+                    return true;
+                }
+            }
+
+            // Check 3: If expression is a constructor call (e.g., new FilterBuilder())
+            if (expression instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) expression;
+                CtTypeReference<?> ctorType = ctor.getType();
+                if (ctorType != null && ctorType.getQualifiedName().startsWith("org.reflections")) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java";
+        String outputPath = "/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/transformer-agent/reports/gemini-3-pro-preview/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java");
+        launcher.setSourceOutputDirectory("/Users/frankreyesgarcia/Documents/WORK/PHD/Transformer/transformer-agent/reports/gemini-3-pro-preview/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/attempt_1/transformed");
+
+        // Critical: Configure environment for precise preservation of source code
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Configure NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+
+        launcher.addProcessor(new ApplyToTestProcessor());
+
+        try {
+            System.out.println("Starting refactoring: org.reflections apply() -> test()...");
+            launcher.run();
+            System.out.println("Refactoring completed successfully!");
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

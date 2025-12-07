@@ -26,17 +26,19 @@ public class BreakingUpdateExtractionService {
 
     private final boolean verbose;
     private final DockerBuild dockerBuild;
+    private final GitWorkflowService gitWorkflowService;
 
     public BreakingUpdateExtractionService(boolean verbose) {
         this.verbose = verbose;
-        this.dockerBuild = new DockerBuild(false);
+        this.dockerBuild = new DockerBuild(false, verbose);
+        this.gitWorkflowService = new GitWorkflowService();
     }
 
     /**
      * Removes existing {breakingCommit} folders before processing.
      * This is done BEFORE any Docker processing starts.
      *
-     * @param records      the list of breaking update records
+     * @param records       the list of breaking update records
      * @param outputBaseDir the base output directory
      */
     public void cleanExistingFolders(List<BreakingUpdateRecord> records, Path outputBaseDir) {
@@ -80,8 +82,10 @@ public class BreakingUpdateExtractionService {
      *
      * @param records                the list of breaking update records
      * @param outputBaseDir          the base output directory
-     * @param extractJarsAndClassify whether to extract JARs and run breaking-classifier
-     * @param cleanExisting          whether clean mode was enabled (folders already removed before this method)
+     * @param extractJarsAndClassify whether to extract JARs and run
+     *                               breaking-classifier
+     * @param cleanExisting          whether clean mode was enabled (folders already
+     *                               removed before this method)
      */
     public List<ClassificationSummary> extractProjectsFromDockerImages(
             List<BreakingUpdateRecord> records,
@@ -149,7 +153,8 @@ public class BreakingUpdateExtractionService {
 
                 // Check if project already exists (only if clean mode is NOT enabled)
                 Path breakingCommitDir = outputBaseDir.resolve(breakingCommit);
-                boolean projectExists = !cleanExisting && Files.exists(breakingCommitDir) && Files.isDirectory(breakingCommitDir);
+                boolean projectExists = !cleanExisting && Files.exists(breakingCommitDir)
+                        && Files.isDirectory(breakingCommitDir);
 
                 // Check if all required components exist
                 boolean allComponentsExist = false;
@@ -159,8 +164,7 @@ public class BreakingUpdateExtractionService {
                             breakingCommitDir,
                             record.project(),
                             updatedDependency,
-                            extractJarsAndClassify
-                    );
+                            extractJarsAndClassify);
                 }
 
                 Path extractedPath;
@@ -176,13 +180,16 @@ public class BreakingUpdateExtractionService {
                         System.out.println("    - M2: exists");
                         if (extractJarsAndClassify && record.updatedDependency() != null) {
                             UpdatedDependency dep = record.updatedDependency();
-                            Path prevJar = breakingCommitDir.resolve("%s-%s.jar".formatted(dep.dependencyArtifactId(), dep.previousVersion()));
-                            Path newJar = breakingCommitDir.resolve("%s-%s.jar".formatted(dep.dependencyArtifactId(), dep.newVersion()));
+                            Path prevJar = breakingCommitDir
+                                    .resolve("%s-%s.jar".formatted(dep.dependencyArtifactId(), dep.previousVersion()));
+                            Path newJar = breakingCommitDir
+                                    .resolve("%s-%s.jar".formatted(dep.dependencyArtifactId(), dep.newVersion()));
                             System.out.println("    - Previous JAR: " + (Files.exists(prevJar) ? "exists" : "missing"));
                             System.out.println("    - New JAR: " + (Files.exists(newJar) ? "exists" : "missing"));
                         }
                     } else {
-                        System.out.println((i + 1) + ". ⊙ Using existing: " + projectName + " (" + breakingCommit + ")");
+                        System.out
+                                .println((i + 1) + ". ⊙ Using existing: " + projectName + " (" + breakingCommit + ")");
                     }
                     log.info("Skipping extraction for existing project with all components: {}", breakingCommit);
                 } else if (projectExists && !cleanExisting) {
@@ -213,19 +220,34 @@ public class BreakingUpdateExtractionService {
                         System.out.println((i + 1) + ". ✓ Extracted: " + projectName + " (" + breakingCommit + ")");
                     }
 
+                    // Initialize Git repo and create branch
+                    try {
+                        Path projectDir = ProjectPaths.resolveProjectDir(extractedPath, projectName);
+                        gitWorkflowService.initAndCommit(projectDir, "Initial extraction from " + dockerImage);
+                        String branchName = "repair/"
+                                + (record.failureCategory() != null ? record.failureCategory().toLowerCase()
+                                        : "unknown");
+                        gitWorkflowService.createAndCheckoutBranch(projectDir, branchName);
+                    } catch (Exception e) {
+                        log.warn("Failed to initialize git repo for {}: {}", projectName, e.getMessage());
+                        if (verbose) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     // Extract JARs and run breaking-classifier if requested
                     if (extractJarsAndClassify) {
                         if (skippedExtraction) {
                             // Only run classifier, skip JAR extraction since they already exist
-                            classificationOutcome = classificationService.runClassifierOnly(record, extractedPath, breakingCommit);
+                            classificationOutcome = classificationService.runClassifierOnly(record, extractedPath,
+                                    breakingCommit);
                         } else {
                             // Extract JARs and run classifier
                             classificationOutcome = jarService.extractJarsAndRunClassifier(
                                     record,
                                     dockerImage,
                                     extractedPath,
-                                    breakingCommit
-                            );
+                                    breakingCommit);
                         }
                     }
                 } else {
@@ -267,17 +289,18 @@ public class BreakingUpdateExtractionService {
     }
 
     /**
-     * Runs breaking-classifier for projects that already exist on disk without re-downloading from Docker.
+     * Runs breaking-classifier for projects that already exist on disk without
+     * re-downloading from Docker.
      *
      * @param records       records to classify
-     * @param outputBaseDir base output directory containing {breakingCommit} folders
+     * @param outputBaseDir base output directory containing {breakingCommit}
+     *                      folders
      * @return summaries with dataset and inferred categories
      */
     public List<ClassificationSummary> classifyExistingProjects(
             List<BreakingUpdateRecord> records,
             Path outputBaseDir,
-            Consumer<ClassificationSummary> summaryConsumer
-    ) {
+            Consumer<ClassificationSummary> summaryConsumer) {
         ClassificationService classificationService = new ClassificationService(verbose);
         List<ClassificationSummary> summaries = new java.util.ArrayList<>();
 
@@ -325,15 +348,15 @@ public class BreakingUpdateExtractionService {
     /**
      * Checks if all required components exist (project, m2, and JARs if needed).
      *
-     * @param breakingCommitDir    the breaking commit directory
-     * @param updatedDependency     the updated dependency information
+     * @param breakingCommitDir      the breaking commit directory
+     * @param updatedDependency      the updated dependency information
      * @param extractJarsAndClassify whether JARs are needed
      * @return true if all required components exist, false otherwise
      */
     private boolean checkAllComponentsExist(Path breakingCommitDir,
-                                            String projectName,
-                                            UpdatedDependency updatedDependency,
-                                            boolean extractJarsAndClassify) {
+            String projectName,
+            UpdatedDependency updatedDependency,
+            boolean extractJarsAndClassify) {
         // Check project folder
         Path projectDir = ProjectPaths.resolveProjectDir(breakingCommitDir, projectName);
         if (!Files.exists(projectDir) || !Files.isDirectory(projectDir)) {
@@ -374,9 +397,10 @@ public class BreakingUpdateExtractionService {
 
         return true;
     }
+
     private ClassificationSummary buildSummary(BreakingUpdateRecord record,
-                                               String dockerImage,
-                                               ClassificationOutcome outcome) {
+            String dockerImage,
+            ClassificationOutcome outcome) {
         String datasetCategory = record.failureCategory();
         String inferredCategory = null;
         String logFile = null;
@@ -401,8 +425,8 @@ public class BreakingUpdateExtractionService {
                 inferredCategory,
                 logFile,
                 classifierReport,
-                dockerImage
+                dockerImage,
+                null // attempts
         );
     }
 }
-

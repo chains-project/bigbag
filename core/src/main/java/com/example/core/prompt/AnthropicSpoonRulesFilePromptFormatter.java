@@ -1,0 +1,171 @@
+package com.example.core.prompt;
+
+import com.example.core.model.BreakingUpdateRecord;
+import com.example.core.model.ClassificationSummary;
+import com.example.core.service.ChangeImpactReportService.FileImpact;
+
+import java.util.Map;
+
+/**
+ * Formatter that implements the Anthropic-style prompt defined in
+ * {@code prompts/prompt_anthropic.txt}.
+ *
+ * It expects the global placeholder {@code DEPENDENCY_CHANGE_DIFF} to contain
+ * a line-by-line description of the dependency's API changes, and embeds it
+ * inside a &lt;dependency_change_diff&gt; block.
+ */
+public class AnthropicSpoonRulesFilePromptFormatter implements FilePromptFormatter {
+
+    @Override
+    public String id() {
+        return "anthropic";
+    }
+
+    @Override
+    public String build(BreakingUpdateRecord record,
+                        ClassificationSummary summary,
+                        Map<String, String> globals,
+                        FileImpact fileImpact) {
+        String apiDiff = globals.getOrDefault("DEPENDENCY_CHANGE_DIFF", "");
+        
+        return """
+            You are an expert Java developer and a specialist in the Spoon code transformation library. Your task is to generate **Spoon transformation rules** to automatically migrate client code after a dependency upgrade.
+            
+            You will be provided a **diff of the dependency changes**:
+            
+            <dependency_change_diff>
+            %s
+            </dependency_change_diff>
+            
+            **Important:**
+            
+            * Only generate **Spoon transformation rules**.
+            * Do **not** include explanations, analysis, or instructions.
+            * The output must be **ready to copy and execute**.
+            
+            ---
+            
+            ### **In-Context Examples**
+            
+            <example_1>
+            Change: Method signature change (with parameter inference)
+            Old version: `public void processData(String data)`
+            New version: `public void processData(String data, ProcessingContext context)`
+            Spoon Rule:
+            
+            ```java
+            CtInvocation<?> invocation = /* find processData invocation */;
+            CtExpression<?> contextArgument = null;
+            String requiredType = "com.example.ProcessingContext";
+            
+            CtMethod<?> parentMethod = invocation.getParent(CtMethod.class);
+            if (parentMethod != null) {
+                for (CtLocalVariable<?> var : parentMethod.getElements(new TypeFilter<>(CtLocalVariable.class))) {
+                    if (var.getType().getQualifiedName().equals(requiredType)) {
+                        contextArgument = getFactory().Code().createVariableRead(var.getReference(), false);
+                        break;
+                    }
+                }
+            }
+            
+            if (contextArgument == null) {
+                CtClass<?> parentClass = invocation.getParent(CtClass.class);
+                if (parentClass != null) {
+                    for (CtField<?> field : parentClass.getFields()) {
+                        if (field.getType().getQualifiedName().equals(requiredType)) {
+                            CtThisAccess<?> thisAccess = getFactory().Code().createThisAccess(parentClass.getReference());
+                            contextArgument = getFactory().Code().createFieldRead().setTarget(thisAccess).setVariable(field.getReference());
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (contextArgument == null) {
+                contextArgument = getFactory().Code().createConstructorCall(
+                    getFactory().Core().createTypeReference().setQualifiedName(requiredType)
+                );
+            }
+            
+            invocation.addArgument(contextArgument);
+            ```
+            
+            </example_1>
+            
+            <example_2>
+            Change: Removed method
+            Old version: `public String getData()`
+            New version: Replaced by `public String retrieveInformation()`
+            Spoon Rule:
+            
+            ```java
+            CtInvocation<?> oldInvocation = /* find getData() invocations */;
+            CtInvocation<?> newInvocation = getFactory().Code().createInvocation(
+                oldInvocation.getTarget(),
+                getFactory().Core().createExecutableReference().setSimpleName("retrieveInformation")
+            );
+            oldInvocation.replace(newInvocation);
+            ```
+            
+            </example_2>
+            
+            <example_3>
+            Change: Class moved to a new package
+            Old version: `com.example.old.DataProcessor`
+            New version: `com.example.new.DataProcessor`
+            Spoon Rule:
+            
+            ```java
+            CtImport oldImport = /* find old import */;
+            CtImport newImport = getFactory().Core().createImport();
+            newImport.setReference(getFactory().Core().createTypeReference().setQualifiedName("com.example.new.DataProcessor"));
+            oldImport.replace(newImport);
+            ```
+            
+            </example_3>
+            
+            <example_4>
+            Change: Method return type changed
+            Old version: `public List<String> getItems()`
+            New version: `public Set<String> getItems()`
+            Spoon Rule:
+            
+            ```java
+            CtInvocation<?> invocation = /* find getItems() invocations */;
+            if (invocation.getParent(CtLocalVariable.class) != null &&
+                invocation.getParent(CtLocalVariable.class).getType().getQualifiedName().equals("java.util.List")) {
+            
+                CtConstructorCall<?> conversionCall = getFactory().Code().createConstructorCall(
+                    getFactory().Core().createTypeReference().setQualifiedName("java.util.ArrayList"),
+                    invocation
+                );
+                invocation.replace(conversionCall);
+            }
+            ```
+            
+            </example_4>
+            
+            ---
+            
+            ### **Instructions to Follow**
+            
+            Analyze the dependency change diff and generate **only Spoon transformation rules** for each change identified. For each transformation:
+            
+            * Generate **ready-to-execute Java Spoon code blocks**
+            * Apply **contextual inference** for parameters and method replacements when needed
+            * Update imports and fully-qualified class names when classes are moved or renamed
+            * Handle return type changes by adapting consuming code appropriately
+            * Use appropriate Spoon API methods for creating, modifying, and replacing code elements
+            
+            **Output Requirements:**
+            * **Do not include explanations, commentary, or step-by-step reasoning**
+            * **Do not include change descriptions or analysis**
+            * Output must be **clean Java Spoon code blocks only**, one per transformation
+            * Each code block should be properly formatted and ready to copy and execute
+            
+            Generate the Spoon transformation rules now:
+            """.formatted(apiDiff);
+    }
+}
+
+

@@ -31,19 +31,52 @@ final class ApiChangeMatcher {
     }
 
     private ConstructImpact mapConstruct(ConstructUsage usage) {
-        ParsedSignature parsed = ParsedSignature.from(usage);
-        List<ApiChangeMatch> matches = new ArrayList<>();
-
-        ClassChange classChange = parsed != null
-                ? index.classChange(parsed.declaringType())
+        // Use FQN directly if available, otherwise fall back to parsing signature
+        String fqn = usage.getFullyQualifiedName();
+        ClassChange classChange = fqn != null && !fqn.isBlank()
+                ? index.classChange(fqn)
                 : null;
 
+        // If FQN didn't match, try parsing signature as fallback
+        ParsedSignature parsed = ParsedSignature.from(usage);
+        if (classChange == null && parsed != null && parsed.declaringType() != null) {
+            classChange = index.classChange(parsed.declaringType());
+        }
+
+        List<ApiChangeMatch> matches = new ArrayList<>();
         boolean appendClassSummary = true;
-        if (parsed != null && classChange != null) {
+        String memberQualifiedName = usage.getMemberQualifiedName();
+
+        if (memberQualifiedName != null && !memberQualifiedName.isBlank()) {
+            List<ApiChangeMatch> directMemberMatches = matchByQualifiedMember(memberQualifiedName, usage.getConstructType());
+            if (!directMemberMatches.isEmpty()) {
+                matches.addAll(directMemberMatches);
+                if (classChange == null) {
+                    String memberDeclaringType = declaringTypeFromMemberFqn(memberQualifiedName);
+                    if (memberDeclaringType != null) {
+                        classChange = index.classChange(memberDeclaringType);
+                    }
+                }
+            }
+        }
+
+        if (classChange != null) {
             ConstructType type = usage.getConstructType();
+            
             switch (type) {
                 case FIELD_ACCESS -> matches.addAll(matchField(classChange, parsed));
                 case METHOD_INVOCATION, CONSTRUCTOR_CALL -> matches.addAll(matchExecutable(classChange, parsed, type));
+                case TYPE_REFERENCE -> {
+                    // TYPE_REFERENCE might actually be a field access that Spoon couldn't resolve
+                    // Try to extract field name and search for it
+                    String possibleFieldName = extractPossibleFieldName(usage.getSignature());
+                    if (possibleFieldName != null) {
+                        matches.addAll(matchFieldByNameOnly(possibleFieldName));
+                    }
+                    // Also include type-level changes
+                    matches.addAll(matchTypeLevel(classChange));
+                    appendClassSummary = false;
+                }
                 default -> {
                     matches.addAll(matchTypeLevel(classChange));
                     appendClassSummary = false;
@@ -53,8 +86,35 @@ final class ApiChangeMatcher {
             if (appendClassSummary) {
                 matches.addAll(classLevelIfRelevant(classChange));
             }
-        } else if (parsed != null) {
-            matches.addAll(matchTypeLevel(classChange));
+        } else {
+            // No classChange found - try various fallback strategies
+            ConstructType type = usage.getConstructType();
+            String signature = usage.getSignature();
+            
+            if (fqn != null && !fqn.isBlank()) {
+                // Try direct FQN match (might be a type reference)
+                classChange = index.classChange(fqn);
+                if (classChange != null) {
+                    matches.addAll(matchTypeLevel(classChange));
+                }
+            }
+            
+            // For TYPE_REFERENCE, always try to extract field name from signature
+            // This handles cases like "quickfix.mina.ssl.PEER_ADDRESS" where Spoon couldn't resolve it
+            // This is critical because Spoon often detects unresolved static fields as TYPE_REFERENCE
+            // when the model doesn't have full context (e.g., model built per-file instead of full project)
+            if (type == ConstructType.TYPE_REFERENCE && signature != null 
+                    && !signature.contains("#") && !signature.contains("::")) {
+                String possibleFieldName = extractPossibleFieldName(signature);
+                if (possibleFieldName != null) {
+                    matches.addAll(matchFieldByNameOnly(possibleFieldName));
+                }
+            }
+            
+            // If we have a parsed signature with member name, search by name
+            if (parsed != null && parsed.memberName() != null) {
+                matches.addAll(matchByNameOnly(parsed, type));
+            }
         }
 
         Integer lineNumber = null;
@@ -157,6 +217,81 @@ final class ApiChangeMatcher {
         return true;
     }
 
+    private List<ApiChangeMatch> matchByNameOnly(ParsedSignature parsed, ConstructType constructType) {
+        if (parsed == null || parsed.memberName() == null) {
+            return List.of();
+        }
+
+        List<ApiChangeMatch> matches = new ArrayList<>();
+
+        for (ApiChangeIndex.MemberEntry entry : index.membersWithName(parsed.memberName())) {
+            MemberChange candidate = entry.member();
+            if (!memberTypeMatches(constructType, candidate.memberType())) {
+                continue;
+            }
+            // Only include removed or modified methods (not unchanged)
+            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus())) {
+                continue;
+            }
+
+            String matchType = parameterTypesEqual(parsed.parameterTypes(), candidate.parameterTypes())
+                    ? "EXACT_SIGNATURE_CROSS_CLASS"
+                    : "NAME_ONLY_CROSS_CLASS";
+
+            ApiChangeMatch match = ApiChangeMatch.fromMemberChange(candidate, matchType, entry.declaringType());
+            if (!matches.contains(match)) {
+                matches.add(match);
+            }
+        }
+
+        return matches;
+    }
+
+    private List<ApiChangeMatch> matchFieldByNameOnly(String fieldName) {
+        List<ApiChangeMatch> matches = new ArrayList<>();
+
+        for (ApiChangeIndex.MemberEntry entry : index.membersWithName(fieldName)) {
+            MemberChange candidate = entry.member();
+            // Only match fields
+            if (!"FIELD".equals(candidate.memberType())) {
+                continue;
+            }
+            // Only include removed or modified fields (not unchanged)
+            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus())) {
+                continue;
+            }
+
+            ApiChangeMatch match = ApiChangeMatch.fromMemberChange(candidate, "FIELD_EXACT_CROSS_CLASS", entry.declaringType());
+            if (!matches.contains(match)) {
+                matches.add(match);
+            }
+        }
+
+        return matches;
+    }
+
+    private String extractPossibleFieldName(String signature) {
+        if (signature == null || signature.isBlank()) {
+            return null;
+        }
+        // Try to extract field name from patterns like:
+        // - "quickfix.mina.ssl.PEER_ADDRESS" -> "PEER_ADDRESS"
+        // - "SomeClass.FIELD_NAME" -> "FIELD_NAME"
+        int lastDot = signature.lastIndexOf('.');
+        if (lastDot >= 0 && lastDot < signature.length() - 1) {
+            String possibleName = signature.substring(lastDot + 1);
+            // Check if it looks like a field name (uppercase with underscores is common for constants)
+            if (possibleName.matches("[A-Z_][A-Z0-9_]*") || possibleName.matches("[a-z][a-zA-Z0-9]*")) {
+                return possibleName;
+            }
+        }
+        // If no dot, the whole signature might be the field name
+        if (signature.matches("[A-Z_][A-Z0-9_]*") || signature.matches("[a-z][a-zA-Z0-9]*")) {
+            return signature;
+        }
+        return null;
+    }
+
     private List<ApiChangeMatch> matchAcrossClasses(ParsedSignature parsed,
                                                     ConstructType constructType,
                                                     ClassChange currentClass,
@@ -198,6 +333,39 @@ final class ApiChangeMatcher {
             case CONSTRUCTOR_CALL -> "CONSTRUCTOR".equals(memberType);
             default -> false;
         };
+    }
+
+    private List<ApiChangeMatch> matchByQualifiedMember(String memberQualifiedName,
+                                                        ConstructType constructType) {
+        List<ApiChangeMatch> matches = new ArrayList<>();
+        for (ApiChangeIndex.MemberEntry entry : index.membersWithQualifiedName(memberQualifiedName)) {
+            MemberChange candidate = entry.member();
+            boolean isFieldCandidate = "FIELD".equals(candidate.memberType());
+            if (constructType == ConstructType.FIELD_ACCESS) {
+                if (!isFieldCandidate) {
+                    continue;
+                }
+            } else if (!memberTypeMatches(constructType, candidate.memberType())) {
+                continue;
+            }
+            if ("UNCHANGED".equalsIgnoreCase(candidate.changeStatus())) {
+                continue;
+            }
+            String matchType = "QUALIFIED_FQN";
+            ApiChangeMatch match = ApiChangeMatch.fromMemberChange(candidate, matchType, entry.declaringType());
+            if (!matches.contains(match)) {
+                matches.add(match);
+            }
+        }
+        return matches;
+    }
+
+    private String declaringTypeFromMemberFqn(String memberQualifiedName) {
+        int lastDot = memberQualifiedName.lastIndexOf('.');
+        if (lastDot <= 0) {
+            return null;
+        }
+        return memberQualifiedName.substring(0, lastDot);
     }
 
     private boolean isSameDeclaringType(ClassChange currentClass, String otherDeclaringType) {
