@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/0c60d0b08c999769313bfe2335fa792efcfb0300/attempt_1/prompts/__IDS-Messaging-Services__messaging__src__main__java__ids__messaging__endpoint__EndpointService.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/0c60d0b08c999769313bfe2335fa792efcfb0300/attempt_1/prompts/__IDS-Messaging-Services__messaging__src__main__java__ids__messaging__endpoint__EndpointService.java_prompt_4_llm.txt",
+  "timestamp": 1765154200.0969734,
+  "duration_seconds": 41.694857597351074,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtFieldRead;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring rule for Spring Framework API changes.\n * \n * Target Diff Analysis:\n * - org.springframework.http.MediaType [MODIFIED]\n * \n * Detected Migration Pattern:\n * In newer Spring versions, `MediaType.APPLICATION_JSON_UTF8` and `APPLICATION_JSON_UTF8_VALUE`\n * are deprecated/removed in favor of `APPLICATION_JSON` and `APPLICATION_JSON_VALUE` \n * (browsers now handle UTF-8 automatically).\n */\npublic class SpringRefactoring {\n\n    public static class MediaTypeProcessor extends AbstractProcessor<CtFieldRead<?>> {\n        \n        @Override\n        public boolean isToBeProcessed(CtFieldRead<?> candidate) {\n            // 1. Safety Check: Ensure variable reference exists\n            if (candidate.getVariable() == null) return false;\n\n            // 2. Name Check: Look for the specific deprecated fields\n            String fieldName = candidate.getVariable().getSimpleName();\n            if (!\"APPLICATION_JSON_UTF8\".equals(fieldName) && \n                !\"APPLICATION_JSON_UTF8_VALUE\".equals(fieldName)) {\n                return false;\n            }\n\n            // 3. Type/Owner Check (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = candidate.getVariable().getDeclaringType();\n            \n            // If we can't resolve the type, or if it's not the Spring MediaType class, skip.\n            // Using relaxed string matching to handle NoClasspath scenarios where full resolution might fail.\n            if (declaringType == null || !declaringType.getQualifiedName().contains(\"org.springframework.http.MediaType\")) {\n                return false;\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtFieldRead<?> fieldRead) {\n            String oldName = fieldRead.getVariable().getSimpleName();\n            \n            // Logic: Remove \"_UTF8\" from the name\n            // APPLICATION_JSON_UTF8 -> APPLICATION_JSON\n            // APPLICATION_JSON_UTF8_VALUE -> APPLICATION_JSON_VALUE\n            String newName = oldName.replace(\"_UTF8\", \"\");\n\n            // Update the reference name. \n            // In Spoon, modifying the reference attached to the invocation/read updates the source code.\n            fieldRead.getVariable().setSimpleName(newName);\n\n            System.out.println(\"Refactored \" + oldName + \" to \" + newName + \n                               \" at line \" + fieldRead.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden or hardcoded)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ / Source Preservation\n        // 1. Enable comments to ensure they aren't stripped\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode (defensive processing)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new MediaTypeProcessor());\n\n        try {\n            System.out.println(\"Starting Spring Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1568,
+      "candidates_token_count": 911,
+      "total_token_count": 5077,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe15d2a6e52b049f6c9e7cc123a5402047a1f01a/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__Supplier.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe15d2a6e52b049f6c9e7cc123a5402047a1f01a/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__Supplier.java_prompt_4_llm.txt",
+  "timestamp": 1765194632.5966194,
+  "duration_seconds": 89.3367087841034,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtTypeAccess;\nimport spoon.reflect.reference.CtFieldReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JaxbStrategyRefactoring {\n\n    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        // List of strategy classes where getInstance() was removed in favor of INSTANCE field\n        private static final Set<String> AFFECTED_CLASSES = new HashSet<>(Arrays.asList(\n            \"JAXBToStringStrategy\", \"DefaultCopyStrategy\", \"DefaultEqualsStrategy\",\n            \"DefaultHashCodeStrategy\", \"DefaultMergeStrategy\", \"DefaultToStringStrategy\",\n            \"JAXBCopyStrategy\", \"JAXBEqualsStrategy\", \"JAXBHashCodeStrategy\",\n            \"JAXBMergeCollectionsStrategy\", \"JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Method Name Check\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Count Check (getInstance() had 0 args)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Declaring Type Check\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType == null) {\n                return false;\n            }\n\n            // Defensive Check: NoClasspath safe matching\n            String qName = declaringType.getQualifiedName();\n            String simpleName = declaringType.getSimpleName();\n\n            // Match if package matches or if simple name is in the known affected list\n            boolean isPackageMatch = qName.contains(\"org.jvnet.jaxb2_commons.lang\");\n            boolean isClassMatch = AFFECTED_CLASSES.contains(simpleName);\n\n            return isPackageMatch || isClassMatch;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            CtTypeReference<?> strategyType = invocation.getExecutable().getDeclaringType();\n\n            // Transformation: Replace ClassName.getInstance() with ClassName.INSTANCE\n            \n            // 1. Create Reference to the 'INSTANCE' field\n            // We assume the type of the field is the Strategy class itself.\n            CtFieldReference<?> instanceRef = factory.Field().createReference(\n                strategyType,          // declaring type\n                strategyType,          // type of the field\n                \"INSTANCE\"             // field name\n            );\n\n            // 2. Determine the target for the field access (the left side of the dot)\n            CtExpression<?> targetExpr = invocation.getTarget();\n            CtExpression<?> accessTarget;\n\n            if (targetExpr instanceof CtTypeAccess) {\n                // If code was explicitly 'DefaultToStringStrategy.getInstance()', keep 'DefaultToStringStrategy'\n                accessTarget = targetExpr.clone();\n            } else {\n                // If code was implicit (static import) or null, explicitly create the TypeAccess\n                // to ensure the resulting code 'DefaultToStringStrategy.INSTANCE' is valid.\n                accessTarget = factory.Code().createTypeAccess(strategyType);\n            }\n\n            // 3. Create the replacement field read expression\n            CtExpression<?> fieldRead = factory.Code().createFieldRead(accessTarget, instanceRef);\n\n            // 4. Perform the replacement\n            invocation.replace(fieldRead);\n            \n            System.out.println(\"Refactored \" + strategyType.getSimpleName() + \".getInstance() -> .INSTANCE at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL IMPLEMENTATION RULES\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Defensive Mode\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new StrategyInstanceProcessor());\n\n        try {\n            launcher.run();\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1123,
+      "total_token_count": 9113,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

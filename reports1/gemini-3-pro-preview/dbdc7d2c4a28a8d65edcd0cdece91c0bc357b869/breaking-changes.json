@@ -1,0 +1,3486 @@
+{
+  "project" : "ci-sauce",
+  "breakingCommit" : "dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869",
+  "dependencyGroupId" : "org.codehaus.plexus",
+  "dependencyArtifactId" : "plexus-archiver",
+  "previousVersion" : "4.2.7",
+  "newVersion" : "4.4.0",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.2.7.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.4.0.jar",
+  "generatedAt" : "2025-12-08T10:18:34.343560752Z",
+  "totalBreakingChanges" : 140,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.AbstractArchiver",
+    "simpleName" : "AbstractArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "INTERFACE_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "contextualize",
+    "simpleName" : "contextualize",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver#contextualize(org.codehaus.plexus.context.Context)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1b99a3d4[public contextualize (Lorg/codehaus/plexus/context/Context;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.context.Context" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getLogger",
+    "simpleName" : "getLogger",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver#getLogger()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f44b1407[protected getLogger ()Lorg/codehaus/plexus/logging/Logger;]",
+      "newValue" : "javassist.CtMethod@f44b1407[protected getLogger ()Lorg/slf4j/Logger;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.logging.Logger",
+      "newValue" : "org.slf4j.Logger",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "normalizeLastModifiedDate",
+    "simpleName" : "normalizeLastModifiedDate",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver#normalizeLastModifiedDate(java.util.Date)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@65f8097a[protected normalizeLastModifiedDate (Ljava/util/Date;)Ljava/util/Date;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Date",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Date" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "archiverManager",
+    "simpleName" : "archiverManager",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver::archiverManager",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver.archiverManager:Lorg/codehaus/plexus/archiver/manager/ArchiverManager;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.manager.ArchiverManager",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "lastModifiedDate",
+    "simpleName" : "lastModifiedDate",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver::lastModifiedDate",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver.lastModifiedDate:Ljava/util/Date;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Date",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "logger",
+    "simpleName" : "logger",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver::logger",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver.logger:Lorg/codehaus/plexus/logging/Logger;",
+      "newValue" : "org.codehaus.plexus.archiver.AbstractArchiver.logger:Lorg/slf4j/Logger;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.logging.Logger",
+      "newValue" : "org.slf4j.Logger",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.AbstractArchiver$1",
+    "simpleName" : "AbstractArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$1",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "addedResourceIter",
+    "simpleName" : "addedResourceIter",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$1::addedResourceIter",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver$1.addedResourceIter:Ljava/util/Iterator;",
+      "newValue" : "org.codehaus.plexus.archiver.AbstractArchiver$1.addedResourceIter:Ljava/util/Iterator;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Iterator",
+      "newValue" : "java.util.Iterator",
+      "changed" : false
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.AbstractArchiver$2",
+    "simpleName" : "AbstractArchiver$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$2",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractArchiver$2",
+    "simpleName" : "AbstractArchiver$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$2#AbstractArchiver$2(org.codehaus.plexus.archiver.AbstractArchiver)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@6d30dcb1[ AbstractArchiver$2 (Lorg/codehaus/plexus/archiver/AbstractArchiver;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.AbstractArchiver" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compare",
+    "simpleName" : "compare",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$2#compare(java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@2761ed12[public compare (Ljava/lang/String;Ljava/lang/String;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compare",
+    "simpleName" : "compare",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$2#compare(java.lang.Object, java.lang.Object)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4230fcee[public volatile compare (Ljava/lang/Object;Ljava/lang/Object;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "BRIDGE", "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "PUBLIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Object", "java.lang.Object" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.AbstractArchiver$2::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver$2.this$0:Lorg/codehaus/plexus/archiver/AbstractArchiver;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.AbstractArchiver",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.Archiver",
+    "simpleName" : "Archiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.Archiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "configureReproducibleBuild",
+    "simpleName" : "configureReproducibleBuild",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.Archiver#configureReproducibleBuild(java.nio.file.attribute.FileTime)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@2cc74f37[public abstract configureReproducibleBuild (Ljava/nio/file/attribute/FileTime;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.nio.file.attribute.FileTime" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getLastModifiedTime",
+    "simpleName" : "getLastModifiedTime",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.Archiver#getLastModifiedTime()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@6b5b4ee3[public abstract getLastModifiedTime ()Ljava/nio/file/attribute/FileTime;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.nio.file.attribute.FileTime",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setLastModifiedTime",
+    "simpleName" : "setLastModifiedTime",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.Archiver#setLastModifiedTime(java.nio.file.attribute.FileTime)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@bdd1e8c7[public abstract setLastModifiedTime (Ljava/nio/file/attribute/FileTime;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.nio.file.attribute.FileTime" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE",
+    "simpleName" : "ROLE",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.Archiver::ROLE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.Archiver.ROLE:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.UnArchiver",
+    "simpleName" : "UnArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.UnArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE",
+    "simpleName" : "ROLE",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.UnArchiver::ROLE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.UnArchiver.ROLE:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.bzip2.BZip2Archiver",
+    "simpleName" : "BZip2Archiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.bzip2.BZip2Archiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "compressor",
+    "simpleName" : "compressor",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.bzip2.BZip2Archiver::compressor",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.bzip2.BZip2Archiver.compressor:Lorg/codehaus/plexus/archiver/bzip2/BZip2Compressor;",
+      "newValue" : "org.codehaus.plexus.archiver.bzip2.BZip2Archiver.compressor:Lorg/codehaus/plexus/archiver/bzip2/BZip2Compressor;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.bzip2.BZip2Compressor",
+      "newValue" : "org.codehaus.plexus.archiver.bzip2.BZip2Compressor",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.diags.DryRunArchiver",
+    "simpleName" : "DryRunArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.diags.DryRunArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DryRunArchiver",
+    "simpleName" : "DryRunArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.diags.DryRunArchiver#DryRunArchiver(org.codehaus.plexus.archiver.Archiver, org.codehaus.plexus.logging.Logger)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5db04170[public DryRunArchiver (Lorg/codehaus/plexus/archiver/Archiver;Lorg/codehaus/plexus/logging/Logger;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.Archiver", "org.codehaus.plexus.logging.Logger" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "logger",
+    "simpleName" : "logger",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.diags.DryRunArchiver::logger",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.diags.DryRunArchiver.logger:Lorg/codehaus/plexus/logging/Logger;",
+      "newValue" : "org.codehaus.plexus.archiver.diags.DryRunArchiver.logger:Lorg/slf4j/Logger;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.logging.Logger",
+      "newValue" : "org.slf4j.Logger",
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.diags.TrackingArchiver",
+    "simpleName" : "TrackingArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.diags.TrackingArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "lastModified",
+    "simpleName" : "lastModified",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.diags.TrackingArchiver::lastModified",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.diags.TrackingArchiver.lastModified:Ljava/util/Date;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Date",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver",
+    "simpleName" : "DirectoryArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "access$000",
+    "simpleName" : "access$000",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver#access$000(org.codehaus.plexus.archiver.dir.DirectoryArchiver, org.codehaus.plexus.archiver.ArchiveEntry, java.io.File, long)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a2114d87[static access$000 (Lorg/codehaus/plexus/archiver/dir/DirectoryArchiver;Lorg/codehaus/plexus/archiver/ArchiveEntry;Ljava/io/File;J)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.dir.DirectoryArchiver", "org.codehaus.plexus.archiver.ArchiveEntry", "java.io.File", "long" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setFileModes",
+    "simpleName" : "setFileModes",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver#setFileModes(org.codehaus.plexus.archiver.ArchiveEntry, java.io.File, long)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@992a667a[private setFileModes (Lorg/codehaus/plexus/archiver/ArchiveEntry;Ljava/io/File;J)V]",
+      "newValue" : "javassist.CtMethod@992a667a[private setFileModes (Lorg/codehaus/plexus/archiver/ArchiveEntry;Ljava/io/File;J)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.ArchiveEntry", "java.io.File", "long" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1",
+    "simpleName" : "DirectoryArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DirectoryArchiver$1",
+    "simpleName" : "DirectoryArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1#DirectoryArchiver$1(org.codehaus.plexus.archiver.dir.DirectoryArchiver, org.codehaus.plexus.archiver.ArchiveEntry, java.io.File, long)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@3483bdd4[ DirectoryArchiver$1 (Lorg/codehaus/plexus/archiver/dir/DirectoryArchiver;Lorg/codehaus/plexus/archiver/ArchiveEntry;Ljava/io/File;J)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.dir.DirectoryArchiver", "org.codehaus.plexus.archiver.ArchiveEntry", "java.io.File", "long" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "run",
+    "simpleName" : "run",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1#run()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@67d48cc[public run ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1.this$0:Lorg/codehaus/plexus/archiver/dir/DirectoryArchiver;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$entry",
+    "simpleName" : "val$entry",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1::val$entry",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1.val$entry:Lorg/codehaus/plexus/archiver/ArchiveEntry;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.ArchiveEntry",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$inLastModified",
+    "simpleName" : "val$inLastModified",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1::val$inLastModified",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1.val$inLastModified:J",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "long",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$outFile",
+    "simpleName" : "val$outFile",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1::val$outFile",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.dir.DirectoryArchiver$1.val$outFile:Ljava/io/File;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.ear.EarArchiver",
+    "simpleName" : "EarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.ear.EarArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.filters.JarSecurityFileSelector",
+    "simpleName" : "JarSecurityFileSelector",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.filters.JarSecurityFileSelector",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE_HINT",
+    "simpleName" : "ROLE_HINT",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.filters.JarSecurityFileSelector::ROLE_HINT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.filters.JarSecurityFileSelector.ROLE_HINT:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.gzip.GZipArchiver",
+    "simpleName" : "GZipArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.gzip.GZipArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.jar.JarArchiver",
+    "simpleName" : "JarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "grabFilesAndDirs",
+    "simpleName" : "grabFilesAndDirs",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver#grabFilesAndDirs(java.lang.String, java.util.List, java.util.List)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "METHOD_NO_LONGER_STATIC",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@511d5e07[protected static grabFilesAndDirs (Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V]",
+      "newValue" : "javassist.CtMethod@511d5e07[private grabFilesAndDirs (Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PROTECTED", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "java.lang.String", "java.util.List", "java.util.List" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "indexJars",
+    "simpleName" : "indexJars",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver::indexJars",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.jar.JarArchiver.indexJars:Ljava/util/ArrayList;",
+      "newValue" : "org.codehaus.plexus.archiver.jar.JarArchiver.indexJars:Ljava/util/List;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.ArrayList",
+      "newValue" : "java.util.List",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "rootEntries",
+    "simpleName" : "rootEntries",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver::rootEntries",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.jar.JarArchiver.rootEntries:Ljava/util/Vector;",
+      "newValue" : "org.codehaus.plexus.archiver.jar.JarArchiver.rootEntries:Ljava/util/List;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Vector",
+      "newValue" : "java.util.List",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.jar.JarArchiver$1",
+    "simpleName" : "JarArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "JarArchiver$1",
+    "simpleName" : "JarArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver$1#JarArchiver$1()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5ec78acb[ JarArchiver$1 ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compare",
+    "simpleName" : "compare",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver$1#compare(java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@2761ed12[public compare (Ljava/lang/String;Ljava/lang/String;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compare",
+    "simpleName" : "compare",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarArchiver$1#compare(java.lang.Object, java.lang.Object)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4230fcee[public volatile compare (Ljava/lang/Object;Ljava/lang/Object;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "BRIDGE", "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "PUBLIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Object", "java.lang.Object" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.jar.JarToolModularJarArchiver",
+    "simpleName" : "JarToolModularJarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.JarToolModularJarArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.jar.ModularJarArchiver",
+    "simpleName" : "ModularJarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.jar.ModularJarArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.manager.ArchiverManager",
+    "simpleName" : "ArchiverManager",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.ArchiverManager",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE",
+    "simpleName" : "ROLE",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.ArchiverManager::ROLE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.manager.ArchiverManager.ROLE:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager",
+    "simpleName" : "DefaultArchiverManager",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "INTERFACE_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DefaultArchiverManager",
+    "simpleName" : "DefaultArchiverManager",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager#DefaultArchiverManager()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@58e31c4d[public DefaultArchiverManager ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "contextualize",
+    "simpleName" : "contextualize",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager#contextualize(org.codehaus.plexus.context.Context)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1b99a3d4[public contextualize (Lorg/codehaus/plexus/context/Context;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.context.Context" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "container",
+    "simpleName" : "container",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager::container",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.manager.DefaultArchiverManager.container:Lorg/codehaus/plexus/PlexusContainer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.PlexusContainer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.manager.NoSuchArchiverException",
+    "simpleName" : "NoSuchArchiverException",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.NoSuchArchiverException",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "archiverName",
+    "simpleName" : "archiverName",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.manager.NoSuchArchiverException::archiverName",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.manager.NoSuchArchiverException.archiverName:Ljava/lang/String;",
+      "newValue" : "org.codehaus.plexus.archiver.manager.NoSuchArchiverException.archiverName:Ljava/lang/String;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "java.lang.String",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.snappy.SnappyArchiver",
+    "simpleName" : "SnappyArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "compressor",
+    "simpleName" : "compressor",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyArchiver::compressor",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.snappy.SnappyArchiver.compressor:Lorg/codehaus/plexus/archiver/snappy/SnappyCompressor;",
+      "newValue" : "org.codehaus.plexus.archiver.snappy.SnappyArchiver.compressor:Lorg/codehaus/plexus/archiver/snappy/SnappyCompressor;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor",
+      "newValue" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor",
+    "simpleName" : "SnappyCompressor",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "zOut",
+    "simpleName" : "zOut",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor::zOut",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor.zOut:Lorg/iq80/snappy/SnappyOutputStream;",
+      "newValue" : "org.codehaus.plexus.archiver.snappy.SnappyCompressor.zOut:Lorg/iq80/snappy/SnappyFramedOutputStream;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.iq80.snappy.SnappyOutputStream",
+      "newValue" : "org.iq80.snappy.SnappyFramedOutputStream",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.snappy.SnappyUnArchiver",
+    "simpleName" : "SnappyUnArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyUnArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSnappyInputStream",
+    "simpleName" : "getSnappyInputStream",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.snappy.SnappyUnArchiver#getSnappyInputStream(java.io.InputStream)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@cf6bee17[public static getSnappyInputStream (Ljava/io/InputStream;)Lorg/iq80/snappy/SnappyInputStream;]",
+      "newValue" : "javassist.CtMethod@cf6bee17[public static getSnappyInputStream (Ljava/io/InputStream;)Lorg/iq80/snappy/SnappyFramedInputStream;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.iq80.snappy.SnappyInputStream",
+      "newValue" : "org.iq80.snappy.SnappyFramedInputStream",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "parameterTypes" : [ "java.io.InputStream" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.PlexusIoTarBZip2FileResourceCollection",
+    "simpleName" : "PlexusIoTarBZip2FileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarBZip2FileResourceCollection",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.PlexusIoTarFileResourceCollection",
+    "simpleName" : "PlexusIoTarFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarFileResourceCollection",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE_HINT",
+    "simpleName" : "ROLE_HINT",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarFileResourceCollection::ROLE_HINT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.tar.PlexusIoTarFileResourceCollection.ROLE_HINT:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.PlexusIoTarGZipFileResourceCollection",
+    "simpleName" : "PlexusIoTarGZipFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarGZipFileResourceCollection",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.PlexusIoTarSnappyFileResourceCollection",
+    "simpleName" : "PlexusIoTarSnappyFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarSnappyFileResourceCollection",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.PlexusIoTarXZFileResourceCollection",
+    "simpleName" : "PlexusIoTarXZFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.PlexusIoTarXZFileResourceCollection",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.tar.TarArchiver",
+    "simpleName" : "TarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.TarArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "options",
+    "simpleName" : "options",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.tar.TarArchiver::options",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.tar.TarArchiver.options:Lorg/codehaus/plexus/archiver/tar/TarArchiver$TarOptions;",
+      "newValue" : "org.codehaus.plexus.archiver.tar.TarArchiver.options:Lorg/codehaus/plexus/archiver/tar/TarArchiver$TarOptions;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.tar.TarArchiver$TarOptions",
+      "newValue" : "org.codehaus.plexus.archiver.tar.TarArchiver$TarOptions",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.util.ArchiveEntryUtils",
+    "simpleName" : "ArchiveEntryUtils",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.ArchiveEntryUtils",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "chmod",
+    "simpleName" : "chmod",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.ArchiveEntryUtils#chmod(java.io.File, int, org.codehaus.plexus.logging.Logger, boolean)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b5bc7a3[public static chmod (Ljava/io/File;ILorg/codehaus/plexus/logging/Logger;Z)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "int", "org.codehaus.plexus.logging.Logger", "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "chmod",
+    "simpleName" : "chmod",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.ArchiveEntryUtils#chmod(java.io.File, int, org.codehaus.plexus.logging.Logger)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4ab06115[public static chmod (Ljava/io/File;ILorg/codehaus/plexus/logging/Logger;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "int", "org.codehaus.plexus.logging.Logger" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.util.DefaultArchivedFileSet",
+    "simpleName" : "DefaultArchivedFileSet",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.DefaultArchivedFileSet",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "archive",
+    "simpleName" : "archive",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.DefaultArchivedFileSet::archive",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.DefaultArchivedFileSet.archive:Ljava/io/File;",
+      "newValue" : "org.codehaus.plexus.archiver.util.DefaultArchivedFileSet.archive:Ljava/io/File;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : "java.io.File",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.util.FilePermission",
+    "simpleName" : "FilePermission",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "executable",
+    "simpleName" : "executable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::executable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.executable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.executable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ownerOnlyExecutable",
+    "simpleName" : "ownerOnlyExecutable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::ownerOnlyExecutable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyExecutable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyExecutable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ownerOnlyReadable",
+    "simpleName" : "ownerOnlyReadable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::ownerOnlyReadable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyReadable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyReadable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ownerOnlyWritable",
+    "simpleName" : "ownerOnlyWritable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::ownerOnlyWritable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyWritable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.ownerOnlyWritable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "readable",
+    "simpleName" : "readable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::readable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.readable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.readable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "writable",
+    "simpleName" : "writable",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermission::writable",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission.writable:Z",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilePermission.writable:Z",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.util.FilePermissionUtils",
+    "simpleName" : "FilePermissionUtils",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermissionUtils",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getFilePermissionFromMode",
+    "simpleName" : "getFilePermissionFromMode",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilePermissionUtils#getFilePermissionFromMode(java.lang.String, org.codehaus.plexus.logging.Logger)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@308cadb8[public static getFilePermissionFromMode (Ljava/lang/String;Lorg/codehaus/plexus/logging/Logger;)Lorg/codehaus/plexus/archiver/util/FilePermission;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilePermission",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "org.codehaus.plexus.logging.Logger" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.util.FilterSupport",
+    "simpleName" : "FilterSupport",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilterSupport",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "FilterSupport",
+    "simpleName" : "FilterSupport",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilterSupport#FilterSupport(java.util.List, org.codehaus.plexus.logging.Logger)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@6ed23294[public FilterSupport (Ljava/util/List;Lorg/codehaus/plexus/logging/Logger;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "org.codehaus.plexus.logging.Logger" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "logger",
+    "simpleName" : "logger",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.util.FilterSupport::logger",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.util.FilterSupport.logger:Lorg/codehaus/plexus/logging/Logger;",
+      "newValue" : "org.codehaus.plexus.archiver.util.FilterSupport.logger:Lorg/slf4j/Logger;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.logging.Logger",
+      "newValue" : "org.slf4j.Logger",
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.war.WarArchiver",
+    "simpleName" : "WarArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.war.WarArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.xz.XZArchiver",
+    "simpleName" : "XZArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.xz.XZArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver",
+    "simpleName" : "AbstractZipArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createInputStreamSupplier",
+    "simpleName" : "createInputStreamSupplier",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver#createInputStreamSupplier(java.io.InputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8b6c729e[protected createInputStreamSupplier (Ljava/io/InputStream;)Lorg/apache/commons/compress/parallel/InputStreamSupplier;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.parallel.InputStreamSupplier",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.InputStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "normalizeLastModifiedDate",
+    "simpleName" : "normalizeLastModifiedDate",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver#normalizeLastModifiedDate(java.util.Date)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@65f8097a[protected normalizeLastModifiedDate (Ljava/util/Date;)Ljava/util/Date;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Date",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Date" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setTime",
+    "simpleName" : "setTime",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver#setTime(java.util.zip.ZipEntry, long)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bc41688[private setTime (Ljava/util/zip/ZipEntry;J)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.zip.ZipEntry", "long" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1",
+    "simpleName" : "AbstractZipArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractZipArchiver$1",
+    "simpleName" : "AbstractZipArchiver$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1#AbstractZipArchiver$1(org.codehaus.plexus.archiver.zip.AbstractZipArchiver, org.codehaus.plexus.archiver.ArchiveEntry)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@24d45930[ AbstractZipArchiver$1 (Lorg/codehaus/plexus/archiver/zip/AbstractZipArchiver;Lorg/codehaus/plexus/archiver/ArchiveEntry;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.AbstractZipArchiver", "org.codehaus.plexus.archiver.ArchiveEntry" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "get",
+    "simpleName" : "get",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1#get()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5db16d7[public get ()Ljava/io/InputStream;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1.this$0:Lorg/codehaus/plexus/archiver/zip/AbstractZipArchiver;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$entry",
+    "simpleName" : "val$entry",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1::val$entry",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$1.val$entry:Lorg/codehaus/plexus/archiver/ArchiveEntry;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.ArchiveEntry",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2",
+    "simpleName" : "AbstractZipArchiver$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractZipArchiver$2",
+    "simpleName" : "AbstractZipArchiver$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2#AbstractZipArchiver$2(org.codehaus.plexus.archiver.zip.AbstractZipArchiver, java.io.InputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@28b5c940[ AbstractZipArchiver$2 (Lorg/codehaus/plexus/archiver/zip/AbstractZipArchiver;Ljava/io/InputStream;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.AbstractZipArchiver", "java.io.InputStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "get",
+    "simpleName" : "get",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2#get()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5db16d7[public get ()Ljava/io/InputStream;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2.this$0:Lorg/codehaus/plexus/archiver/zip/AbstractZipArchiver;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$inputStream",
+    "simpleName" : "val$inputStream",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2::val$inputStream",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.AbstractZipArchiver$2.val$inputStream:Ljava/io/InputStream;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator",
+    "simpleName" : "ConcurrentJarCreator",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "access$000",
+    "simpleName" : "access$000",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator#access$000(org.codehaus.plexus.archiver.zip.ConcurrentJarCreator, org.apache.commons.compress.archivers.zip.ZipArchiveEntry, org.apache.commons.compress.parallel.InputStreamSupplier)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@75639354[static access$000 (Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;Lorg/apache/commons/compress/parallel/InputStreamSupplier;)Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntryRequest;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntryRequest",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator", "org.apache.commons.compress.archivers.zip.ZipArchiveEntry", "org.apache.commons.compress.parallel.InputStreamSupplier" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createEntry",
+    "simpleName" : "createEntry",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator#createEntry(org.apache.commons.compress.archivers.zip.ZipArchiveEntry, org.apache.commons.compress.parallel.InputStreamSupplier)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bd9f2aea[private createEntry (Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;Lorg/apache/commons/compress/parallel/InputStreamSupplier;)Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntryRequest;]",
+      "newValue" : "javassist.CtMethod@bd9f2aea[private createEntry (Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;Lorg/apache/commons/compress/parallel/InputStreamSupplier;)Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntryRequest;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntryRequest",
+      "newValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntryRequest",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "org.apache.commons.compress.archivers.zip.ZipArchiveEntry", "org.apache.commons.compress.parallel.InputStreamSupplier" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createEntrySupplier",
+    "simpleName" : "createEntrySupplier",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator#createEntrySupplier(org.apache.commons.compress.archivers.zip.ZipArchiveEntry, org.apache.commons.compress.parallel.InputStreamSupplier)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@943de97e[private createEntrySupplier (Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;Lorg/apache/commons/compress/parallel/InputStreamSupplier;)Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntryRequestSupplier;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntryRequestSupplier",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.commons.compress.archivers.zip.ZipArchiveEntry", "org.apache.commons.compress.parallel.InputStreamSupplier" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createInputStreamSupplier",
+    "simpleName" : "createInputStreamSupplier",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator#createInputStreamSupplier(java.io.InputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8b6c729e[private createInputStreamSupplier (Ljava/io/InputStream;)Lorg/apache/commons/compress/parallel/InputStreamSupplier;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.parallel.InputStreamSupplier",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.InputStream" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1",
+    "simpleName" : "ConcurrentJarCreator$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ConcurrentJarCreator$1",
+    "simpleName" : "ConcurrentJarCreator$1",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1#ConcurrentJarCreator$1(org.codehaus.plexus.archiver.zip.ConcurrentJarCreator, java.io.InputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@32037243[ ConcurrentJarCreator$1 (Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;Ljava/io/InputStream;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator", "java.io.InputStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "get",
+    "simpleName" : "get",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1#get()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5db16d7[public get ()Ljava/io/InputStream;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1.this$0:Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$payload",
+    "simpleName" : "val$payload",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1::val$payload",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$1.val$payload:Ljava/io/InputStream;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2",
+    "simpleName" : "ConcurrentJarCreator$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ConcurrentJarCreator$2",
+    "simpleName" : "ConcurrentJarCreator$2",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2#ConcurrentJarCreator$2(org.codehaus.plexus.archiver.zip.ConcurrentJarCreator, org.apache.commons.compress.archivers.zip.ZipArchiveEntry, org.apache.commons.compress.parallel.InputStreamSupplier)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@73c9bcd5[ ConcurrentJarCreator$2 (Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;Lorg/apache/commons/compress/parallel/InputStreamSupplier;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator", "org.apache.commons.compress.archivers.zip.ZipArchiveEntry", "org.apache.commons.compress.parallel.InputStreamSupplier" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "get",
+    "simpleName" : "get",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2#get()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5db16d7[public get ()Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntryRequest;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntryRequest",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2.this$0:Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$inputStreamSupplier",
+    "simpleName" : "val$inputStreamSupplier",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2::val$inputStreamSupplier",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2.val$inputStreamSupplier:Lorg/apache/commons/compress/parallel/InputStreamSupplier;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.parallel.InputStreamSupplier",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$zipArchiveEntry",
+    "simpleName" : "val$zipArchiveEntry",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2::val$zipArchiveEntry",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$2.val$zipArchiveEntry:Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.commons.compress.archivers.zip.ZipArchiveEntry",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3",
+    "simpleName" : "ConcurrentJarCreator$3",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ConcurrentJarCreator$3",
+    "simpleName" : "ConcurrentJarCreator$3",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3#ConcurrentJarCreator$3(org.codehaus.plexus.archiver.zip.ConcurrentJarCreator, int, byte[], java.io.InputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@15dd7e38[ ConcurrentJarCreator$3 (Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;I[BLjava/io/InputStream;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator", "int", "byte[]", "java.io.InputStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "get",
+    "simpleName" : "get",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3#get()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5db16d7[public get ()Ljava/io/InputStream;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3.this$0:Lorg/codehaus/plexus/archiver/zip/ConcurrentJarCreator;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$bytes",
+    "simpleName" : "val$bytes",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3::val$bytes",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3.val$bytes:[B",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "byte[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$len",
+    "simpleName" : "val$len",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3::val$len",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3.val$len:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$stream",
+    "simpleName" : "val$stream",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3::val$stream",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.ConcurrentJarCreator$3.val$stream:Ljava/io/InputStream;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.InputStream",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.PlexusArchiverZipFileResourceCollection",
+    "simpleName" : "PlexusArchiverZipFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.PlexusArchiverZipFileResourceCollection",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE_HINT",
+    "simpleName" : "ROLE_HINT",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.PlexusArchiverZipFileResourceCollection::ROLE_HINT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.PlexusArchiverZipFileResourceCollection.ROLE_HINT:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection",
+    "simpleName" : "PlexusIoZipFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "JAR_ROLE_HINT",
+    "simpleName" : "JAR_ROLE_HINT",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection::JAR_ROLE_HINT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection.JAR_ROLE_HINT:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ROLE_HINT",
+    "simpleName" : "ROLE_HINT",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection::ROLE_HINT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.codehaus.plexus.archiver.zip.PlexusIoZipFileResourceCollection.ROLE_HINT:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ZipArchiver",
+    "simpleName" : "ZipArchiver",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ZipArchiver",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ZipResource",
+    "simpleName" : "ZipResource",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ZipResource",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getLastModofied",
+    "simpleName" : "getLastModofied",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ZipResource#getLastModofied(org.apache.commons.compress.archivers.zip.ZipArchiveEntry)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bbac62d6[private static getLastModofied (Lorg/apache/commons/compress/archivers/zip/ZipArchiveEntry;)J]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "long",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.commons.compress.archivers.zip.ZipArchiveEntry" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.archiver.zip.ZipSymlinkResource",
+    "simpleName" : "ZipSymlinkResource",
+    "qualifiedSignature" : "org.codehaus.plexus.archiver.zip.ZipSymlinkResource",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.codehaus.plexus.components.io.resources.PlexusIoZipFileResourceCollection",
+    "simpleName" : "PlexusIoZipFileResourceCollection",
+    "qualifiedSignature" : "org.codehaus.plexus.components.io.resources.PlexusIoZipFileResourceCollection",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  } ]
+}

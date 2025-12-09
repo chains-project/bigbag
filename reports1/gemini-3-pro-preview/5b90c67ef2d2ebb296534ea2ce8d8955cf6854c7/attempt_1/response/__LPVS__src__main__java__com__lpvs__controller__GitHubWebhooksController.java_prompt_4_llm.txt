@@ -1,0 +1,128 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtUnaryOperator;
+import spoon.reflect.code.UnaryOperatorKind;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring rule for Spring Framework 6.0 migration.
+ * Handles the removal of org.springframework.util.StringUtils.isEmpty(Object).
+ * Replaces: StringUtils.isEmpty(str) -> !StringUtils.hasLength(str)
+ * Optimizes: !StringUtils.isEmpty(str) -> StringUtils.hasLength(str)
+ */
+public class StringUtilsRefactoring {
+
+    public static class StringUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // "isEmpty" was removed in Spring 6.0
+            if (!"isEmpty".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We check for "StringUtils" loosely to catch "org.springframework.util.StringUtils" 
+            // or just "StringUtils" (via import)
+            if (owner != null && !owner.getQualifiedName().contains("StringUtils")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            // We preserve the way the class was accessed (e.g., fully qualified or simple name)
+            CtExpression<?> targetAccess = invocation.getTarget();
+            if (targetAccess == null) {
+                // If static import was used, create a type access for safety/clarity 
+                // or assume implicit access (context dependent). 
+                // Here we default to creating a reference to ensure valid code generation.
+                CtTypeReference<?> utilRef = factory.Type().createReference("org.springframework.util.StringUtils");
+                targetAccess = factory.Code().createTypeAccess(utilRef);
+            } else {
+                targetAccess = targetAccess.clone();
+            }
+
+            // Create the new method invocation: StringUtils.hasLength(arg)
+            CtInvocation<?> hasLengthInvocation = factory.Code().createInvocation(
+                targetAccess,
+                factory.Method().createReference(
+                    invocation.getExecutable().getDeclaringType(),
+                    factory.Type().booleanPrimitiveType(),
+                    "hasLength",
+                    factory.Type().stringType()
+                ),
+                originalArg.clone()
+            );
+
+            // Optimization: Check if the original call was negated ( !StringUtils.isEmpty(...) )
+            // If so, we can just replace the whole negation with hasLength(...)
+            CtElement parent = invocation.getParent();
+            if (parent instanceof CtUnaryOperator) {
+                CtUnaryOperator<?> parentOp = (CtUnaryOperator<?>) parent;
+                if (parentOp.getKind() == UnaryOperatorKind.NOT) {
+                    parentOp.replace(hasLengthInvocation);
+                    System.out.println("Refactored !StringUtils.isEmpty to StringUtils.hasLength at line " + invocation.getPosition().getLine());
+                    return;
+                }
+            }
+
+            // Default: Wrap the new invocation in a NOT operator (!StringUtils.hasLength(...))
+            CtUnaryOperator<?> notOperator = factory.Core().createUnaryOperator();
+            notOperator.setKind(UnaryOperatorKind.NOT);
+            notOperator.setOperand(hasLengthInvocation);
+
+            invocation.replace(notOperator);
+            System.out.println("Refactored StringUtils.isEmpty to !StringUtils.hasLength at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StringUtilsProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

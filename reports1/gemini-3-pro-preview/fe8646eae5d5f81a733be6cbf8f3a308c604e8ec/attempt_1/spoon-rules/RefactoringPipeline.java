@@ -1,0 +1,130 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtExecutable;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor Template.
+ * 
+ * NOTE: The provided dependency diff was empty. This class provides the 
+ * required infrastructure (Sniper printer, NoClasspath safety) and a 
+ * template processor structure ready to be adapted for specific refactoring logic.
+ */
+public class RefactoringPipeline {
+
+    /**
+     * Processor template.
+     * To adapt: Change the generic type (CtInvocation, CtConstructorCall, etc.) 
+     * and implement the logic in isToBeProcessed/process.
+     */
+    public static class ChangeListenerProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Check: Ensure executable information is available
+            CtExecutable<?> executable = candidate.getExecutable().getDeclaration();
+            String methodName = candidate.getExecutable().getSimpleName();
+
+            // 2. Name Match (Example: matching a hypothetical method "oldMethod")
+            // REPLACE "oldMethod" with the actual method name from the diff
+            if (!"oldMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 3. Owner/Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // Use string containment for NoClasspath safety (no strict resolution)
+            // REPLACE "OldClass" with the class name from the diff
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().contains("OldClass") && 
+                !declaringType.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 4. Argument Type Check (Example)
+            if (candidate.getArguments().isEmpty()) {
+                return false;
+            }
+            
+            CtExpression<?> firstArg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = firstArg.getType();
+
+            // Defensive: Handle null types in NoClasspath mode
+            // If we know the argument is ALREADY the new type, skip it.
+            // REPLACE "NewType" with the target type
+            if (argType != null && argType.getQualifiedName().contains("NewType")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // EXAMPLE TRANSFORMATION: Rename method
+            // invocation.getExecutable().setSimpleName("newMethod");
+            
+            // EXAMPLE TRANSFORMATION: Wrap argument
+            /*
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            CtTypeReference<?> newTypeRef = factory.Type().createReference("com.package.NewType");
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(newTypeRef),
+                factory.Method().createReference(newTypeRef, factory.Type().voidPrimitiveType(), "of", originalArg.getType()),
+                originalArg.clone()
+            );
+            originalArg.replace(replacement);
+            */
+
+            System.out.println("Refactoring candidate found at: " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/fe8646eae5d5f81a733be6cbf8f3a308c604e8ec/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/aisec/AisecTokenManagerService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe8646eae5d5f81a733be6cbf8f3a308c604e8ec/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/fe8646eae5d5f81a733be6cbf8f3a308c604e8ec/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/aisec/AisecTokenManagerService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe8646eae5d5f81a733be6cbf8f3a308c604e8ec/attempt_1/transformed");
+
+        // ==========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER)
+        // ==========================================================
+        // 1. Enable comments to prevent them from being stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to preserve original source code structure
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // ==========================================================
+        // CRITICAL CONFIGURATION: NO CLASSPATH MODE
+        // ==========================================================
+        // Allows running without full dependency JARs
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // Add the processor
+        launcher.addProcessor(new ChangeListenerProcessor());
+
+        try {
+            System.out.println("Starting Refactoring in Snippet/NoClasspath mode...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,140 @@
+Here is the self-contained Java class `MinaRefactoring.java` that implements the Spoon transformation to handle the removal of `SslFilter.setUseClientMode(boolean)`.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtBlock;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class MinaRefactoring {
+
+    /**
+     * Processor to handle the removal of setUseClientMode(boolean) from SslFilter.
+     * Strategy: Since the method is removed and usually requires architectural changes 
+     * (configuring the SSLEngine/Context upstream), we replace the call with a 
+     * FIXME comment block to allow compilation while forcing code review.
+     */
+    public static class SslFilterClientModeProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setUseClientMode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We check for "SslFilter" in the name. Null check handles cases where type resolution fails entirely.
+            if (owner != null && !owner.getQualifiedName().contains("SslFilter") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 4. Argument Type Check (Defensive)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+            // We expect boolean. If null (unknown), we proceed cautiously. 
+            // If it's explicitly NOT boolean (e.g. String), we skip.
+            if (argType != null && !"boolean".equals(argType.getSimpleName()) && !"java.lang.Boolean".equals(argType.getQualifiedName())) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Get the original argument code to preserve it in the comment
+            String originalArg = invocation.getArguments().get(0).toString();
+            
+            // Construct the remediation message
+            String commentContent = String.format(
+                "FIXME: MINA SslFilter.setUseClientMode(%s) was REMOVED. " +
+                "Configure the SSLEngine/SSLContext for client/server mode before creating the SslFilter.", 
+                originalArg
+            );
+
+            // Create a Block Comment
+            CtComment fixmeComment = factory.Code().createComment(commentContent, CtComment.CommentType.BLOCK);
+
+            // Handling the replacement:
+            // Since setUseClientMode was void, it is likely used as a statement.
+            // We replace the invocation statement with a Block containing the comment.
+            // Using a Block {} ensures validity even inside single-line if/loops (e.g., if(x) filter.set(...))
+            CtBlock<?> safeBlock = factory.Code().createCtBlock(fixmeComment);
+
+            // If the invocation is strictly a statement (not part of a chain/expression)
+            if (invocation.getParent() instanceof CtStatement) {
+                try {
+                    invocation.replace(safeBlock);
+                    System.out.println("Refactored setUseClientMode at line " + invocation.getPosition().getLine());
+                } catch (Exception e) {
+                    System.err.println("Failed to refactor invocation at " + invocation.getPosition() + ": " + e.getMessage());
+                }
+            } else {
+                // Edge case: used in a fluent chain or expression (unlikely for void, but defensive)
+                // We just attach the comment before the statement
+                 CtStatement parentStmt = invocation.getParent(CtStatement.class);
+                 if (parentStmt != null) {
+                     parentStmt.addComment(fixmeComment);
+                     System.out.println("Annotated setUseClientMode with FIXME at line " + invocation.getPosition().getLine() + " (Could not replace inline)");
+                 }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "src/main/java";
+        String outputPath = "target/generated-sources/spoon";
+
+        // Allow overriding via arguments
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION START ---
+        // 1. Enable Comments to ensure they are preserved and parsed
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Set SniperJavaPrettyPrinter to preserve original formatting/indentation strictly
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath mode handles missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+        // --- CRITICAL CONFIGURATION END ---
+
+        launcher.addProcessor(new SslFilterClientModeProcessor());
+
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

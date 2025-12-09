@@ -1,0 +1,670 @@
+{
+  "project" : "license-maven-plugin",
+  "breakingCommit" : "28be199c825d419957bc753a9519e8e9ecc6a08e",
+  "dependency" : {
+    "groupId" : "org.apache.maven.shared",
+    "artifactId" : "maven-dependency-tree",
+    "previousVersion" : "2.2",
+    "newVersion" : "3.1.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/maven-dependency-tree-2.2.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/maven-dependency-tree-3.1.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/license-maven-plugin/28be199c825d419957bc753a9519e8e9ecc6a08e.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/28be199c825d419957bc753a9519e8e9ecc6a08e/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java",
+    "errors" : [ {
+      "lineNumber" : 160,
+      "columnNumber" : 61,
+      "message" : "incompatible types: org.apache.maven.project.MavenProject cannot be converted to org.apache.maven.project.ProjectBuildingRequest",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/license-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java",
+        "lineNumber" : 160,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/maven-dependency-tree-2.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/maven-dependency-tree-3.1.0.jar",
+        "generatedAt" : "2025-12-08T01:55:43.431281895Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.stream.Stream#forEach(java.util.function.Consumer)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 158,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "java.util.function.Consumer",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 158,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Set#addAll(java.util.Collection)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getChildren()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getChildren",
+            "declaringType" : "org.apache.maven.shared.dependency.tree.DependencyNode",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.tree.DependencyNode.getChildren()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@400b9736[public getChildren ()Ljava/util/List;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.List",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder#buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.shared",
+            "artifactId" : "maven-dependency-tree",
+            "version" : "3.1.0",
+            "coordinates" : "org.apache.maven.shared:maven-dependency-tree:3.1.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/shared/maven-dependency-tree/3.1.0/maven-dependency-tree-3.1.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public abstract buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public abstract buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5cd8a3d3[public abstract buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NEW_DEFAULT",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3b030042[public buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5cd8a3d3[public abstract buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public abstract buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public abstract buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NEW_DEFAULT",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3b030042[public buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5cd8a3d3[public buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven2DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven2DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven2DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven2DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5cd8a3d3[public buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e81e2cbf[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.MavenProject, org.apache.maven.artifact.resolver.filter.ArtifactFilter, java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93abd02e[public buildDependencyGraph (Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;Ljava/util/Collection;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.MavenProject", "org.apache.maven.artifact.resolver.filter.ArtifactFilter", "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "buildDependencyGraph",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven3DependencyGraphBuilder.buildDependencyGraph(org.apache.maven.project.ProjectBuildingRequest, org.apache.maven.artifact.resolver.filter.ArtifactFilter)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5cd8a3d3[public buildDependencyGraph (Lorg/apache/maven/project/ProjectBuildingRequest;Lorg/apache/maven/artifact/resolver/filter/ArtifactFilter;)Lorg/apache/maven/shared/dependency/graph/DependencyNode;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.maven.shared.dependency.graph.DependencyNode",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.maven.project.ProjectBuildingRequest", "org.apache.maven.artifact.resolver.filter.ArtifactFilter" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.DependencyGraphBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.mycila.maven.plugin.license.dependencies.MavenProjectLicenses#getGraph()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.mycila.maven.plugin.license.dependencies.MavenProjectLicenses#getFilter()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

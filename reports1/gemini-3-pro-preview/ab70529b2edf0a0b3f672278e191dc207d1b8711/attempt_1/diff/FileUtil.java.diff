@@ -1,0 +1,10 @@
+--- /home/kth/Documents/last_transformer/output/ab70529b2edf0a0b3f672278e191dc207d1b8711/LPVS/src/main/java/com/lpvs/util/FileUtil.java	2025-12-08 08:42:59.168070815 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab70529b2edf0a0b3f672278e191dc207d1b8711/attempt_1/transformed/com/lpvs/util/FileUtil.java	2025-12-08 08:44:28.878772967 +0100
+@@ -112,6 +112,7 @@
+     public static void deleteIfExists (String path) {
+         File dir =  new File(path);
+         if (dir.exists()) {
++            // TODO: Verify dependency status (Diff: - CLASS org.springframework.util.FileSystemUtils)
+             FileSystemUtils.deleteRecursively(dir);
+         }
+     }

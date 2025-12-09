@@ -1,0 +1,24 @@
+--- /home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin/src/main/java/org/simplify4u/plugins/utils/MavenCompilerUtils.java	2025-12-08 10:46:50.349195032 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/cd5bb39f43e4570b875027073da3d4e43349ead1/attempt_1/transformed/org/simplify4u/plugins/utils/MavenCompilerUtils.java	2025-12-08 10:48:45.723327904 +0100
+@@ -67,8 +67,8 @@
+         if (config == null) {
+             return emptySet();
+         }
+-        if (config instanceof Xpp3Dom) {
+-            return stream(((Xpp3Dom) config).getChildren("annotationProcessorPaths"))
++        if (config instanceof org.apache.maven.shared.utils.xml.Xpp3Dom) {
++            return stream(((org.apache.maven.shared.utils.xml.Xpp3Dom) config).getChildren("annotationProcessorPaths"))
+                     .flatMap(aggregate -> stream(aggregate.getChildren("path")))
+                     .map(processor -> system.createArtifact(
+                             extractChildValue(processor, "groupId"),
+@@ -96,8 +96,8 @@
+      * @param name the child node name
+      * @return Returns child value if child node present or otherwise empty string.
+      */
+-    private static String extractChildValue(Xpp3Dom node, String name) {
+-        final Xpp3Dom child = node.getChild(name);
++    private static String extractChildValue(org.apache.maven.shared.utils.xml.Xpp3Dom node, String name) {
++        final org.apache.maven.shared.utils.xml.Xpp3Dom child = node.getChild(name);
+         return child == null ? "" : child.getValue();
+     }
+ }

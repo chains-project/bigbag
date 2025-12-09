@@ -1,0 +1,69 @@
+--- /home/kth/Documents/last_transformer/output/2b4d49d68112941b8abb818549389709d8327963/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java	2025-12-08 02:59:07.430682236 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/2b4d49d68112941b8abb818549389709d8327963/attempt_1/transformed/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java	2025-12-08 03:02:11.816222325 +0100
+@@ -49,7 +49,7 @@
+  * ClusterListener reacts to membership changes in the cluster. It takes care of cleaning up the state
+  * of the routing table and the sessions within it when a node which manages those sessions goes down.
+  */
+-public class ClusterListener implements MembershipListener, LifecycleListener {
++public class ClusterListener implements com.hazelcast.cluster.MembershipListener , LifecycleListener {
+ 
+     private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+ 
+@@ -57,7 +57,7 @@
+ 
+     private final Map<Cache<?,?>, EntryListener> entryListeners = new HashMap<>();
+     
+-    private final Cluster cluster;
++    private final com.hazelcast.cluster.Cluster cluster;
+     private final Map<NodeID, ClusterNodeInfo> clusterNodesInfo = new ConcurrentHashMap<>();
+     
+     /**
+@@ -72,10 +72,10 @@
+     private boolean clusterMember = false;
+     private boolean isSenior;
+ 
+-    ClusterListener(final Cluster cluster) {
++    ClusterListener(final com.hazelcast.cluster.Cluster cluster) {
+ 
+         this.cluster = cluster;
+-        for (final Member member : cluster.getMembers()) {
++        for (final com.hazelcast.cluster.Member member : cluster.getMembers()) {
+             clusterNodesInfo.put(ClusteredCacheFactory.getNodeID(member),
+                     new HazelcastClusterNodeInfo(member, cluster.getClusterTime()));
+         }
+@@ -125,7 +125,7 @@
+ 
+     boolean isSeniorClusterMember() {
+         // first cluster member is the oldest
+-        final Iterator<Member> members = cluster.getMembers().iterator();
++        final Iterator<com.hazelcast.cluster.Member> members = cluster.getMembers().iterator();
+         return members.next().getUuid().equals(cluster.getLocalMember().getUuid());
+     }
+ 
+@@ -152,7 +152,7 @@
+     }
+ 
+     @Override
+-    public void memberAdded(final MembershipEvent event) {
++    public void memberAdded(final com.hazelcast.cluster.MembershipEvent event) {
+         logger.info("Received a Hazelcast memberAdded event {}", event);
+ 
+         final boolean wasSenior = isSenior;
+@@ -225,7 +225,7 @@
+     }
+ 
+     @Override
+-    public void memberRemoved(final MembershipEvent event) {
++    public void memberRemoved(final com.hazelcast.cluster.MembershipEvent event) {
+         logger.info("Received a Hazelcast memberRemoved event {}", event);
+ 
+         isSenior = isSeniorClusterMember();
+@@ -268,7 +268,7 @@
+     }
+ 
+     @Override
+-    public void memberAttributeChanged(final MemberAttributeEvent event) {
++    public void memberAttributeChanged(final com.hazelcast.cluster.MemberAttributeEvent event) {
+         logger.info("Received a Hazelcast memberAttributeChanged event {}", event);
+         isSenior = isSeniorClusterMember();
+         final ClusterNodeInfo priorNodeInfo = clusterNodesInfo.get(ClusteredCacheFactory.getNodeID(event.getMember()));

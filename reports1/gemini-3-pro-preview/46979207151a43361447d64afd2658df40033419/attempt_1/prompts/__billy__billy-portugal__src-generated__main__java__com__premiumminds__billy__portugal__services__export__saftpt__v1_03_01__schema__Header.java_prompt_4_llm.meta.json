@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__Header.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__Header.java_prompt_4_llm.txt",
+  "timestamp": 1765164528.2024155,
+  "duration_seconds": 51.21987462043762,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class Jaxb2CommonsRefactoring {\n\n    /**\n     * Processor to replace static .getInstance() calls with constructor calls new ClassName().\n     * Handles the removal of singleton accessors in JAXB2 Commons strategies.\n     */\n    public static class GetInstanceToConstructorProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        // List of classes where .getInstance() was removed\n        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(\n            \"JAXBToStringStrategy\",\n            \"DefaultCopyStrategy\",\n            \"DefaultEqualsStrategy\",\n            \"DefaultHashCodeStrategy\",\n            \"DefaultMergeStrategy\",\n            \"DefaultToStringStrategy\",\n            \"JAXBCopyStrategy\",\n            \"JAXBEqualsStrategy\",\n            \"JAXBHashCodeStrategy\",\n            \"JAXBMergeCollectionsStrategy\",\n            \"JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Name Check\n            // The method removed is \"getInstance\"\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Count Check\n            // getInstance() typically takes no arguments\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Type/Owner Check (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            \n            // In NoClasspath, types might not be fully resolved. \n            // We check if the declared type name matches any of our target strategies.\n            if (declaringType != null) {\n                String qName = declaringType.getQualifiedName();\n                // Check if the qualified name ends with one of our target classes (to handle packages)\n                // or exactly matches (if used with simple name and imports aren't fully resolved)\n                return TARGET_CLASSES.stream().anyMatch(target -> \n                    qName.equals(target) || qName.endsWith(\".\" + target)\n                );\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // Strategy: Replace `Strategy.getInstance()` with `new Strategy()`\n            \n            // 1. Get the type being accessed (e.g., JAXBToStringStrategy)\n            CtTypeReference<?> typeRef = invocation.getExecutable().getDeclaringType();\n\n            // 2. Create the constructor call: new JAXBToStringStrategy()\n            CtConstructorCall<?> constructorCall = getFactory().Code().createConstructorCall(typeRef);\n\n            // 3. Replace the original invocation\n            invocation.replace(constructorCall);\n            \n            System.out.println(\"Refactored: \" + typeRef.getSimpleName() + \".getInstance() -> new \" \n                + typeRef.getSimpleName() + \"() at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args if expanded)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL: Configure Environment for Source Preservation\n        // 1. Enable comments to prevent loss during parsing\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Set SniperJavaPrettyPrinter to allow precise modification of only changed AST nodes\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Enable NoClasspath mode to run without full dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Add the processor\n        launcher.addProcessor(new GetInstanceToConstructorProcessor());\n\n        // Run the transformation\n        try {\n            System.out.println(\"Starting JAXB2 Commons Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Check output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Error during refactoring:\");\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1077,
+      "total_token_count": 6196,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,610 @@
+{
+  "project" : "wicket-crudifier",
+  "breakingCommit" : "9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f",
+  "dependency" : {
+    "groupId" : "jakarta.validation",
+    "artifactId" : "jakarta.validation-api",
+    "previousVersion" : "2.0.2",
+    "newVersion" : "3.0.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+    "errors" : [ {
+      "lineNumber" : 37,
+      "columnNumber" : 24,
+      "message" : "package javax.validation does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 37,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.994134659Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.Validator",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "import javax.validation.Validator;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.Validator",
+            "declaringType" : "javax.validation.Validator",
+            "qualifiedSignature" : "javax.validation.Validator",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 38,
+      "columnNumber" : 36,
+      "message" : "package javax.validation.constraints does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 38,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.995336144Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.constraints.NotBlank",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 38,
+          "codeLine" : "import javax.validation.constraints.NotBlank;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.constraints.NotBlank",
+            "declaringType" : "javax.validation.constraints.NotBlank",
+            "qualifiedSignature" : "javax.validation.constraints.NotBlank",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 39,
+      "columnNumber" : 36,
+      "message" : "package javax.validation.constraints does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 39,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.996462934Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.constraints.NotEmpty",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 39,
+          "codeLine" : "import javax.validation.constraints.NotEmpty;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.constraints.NotEmpty",
+            "declaringType" : "javax.validation.constraints.NotEmpty",
+            "qualifiedSignature" : "javax.validation.constraints.NotEmpty",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 40,
+      "columnNumber" : 36,
+      "message" : "package javax.validation.constraints does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 40,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.997642479Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.constraints.NotNull",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 40,
+          "codeLine" : "import javax.validation.constraints.NotNull;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.constraints.NotNull",
+            "declaringType" : "javax.validation.constraints.NotNull",
+            "qualifiedSignature" : "javax.validation.constraints.NotNull",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 41,
+      "columnNumber" : 33,
+      "message" : "package javax.validation.metadata does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.998765049Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.metadata.BeanDescriptor",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "import javax.validation.metadata.BeanDescriptor;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.metadata.BeanDescriptor",
+            "declaringType" : "javax.validation.metadata.BeanDescriptor",
+            "qualifiedSignature" : "javax.validation.metadata.BeanDescriptor",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 7
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 42,
+      "columnNumber" : 33,
+      "message" : "package javax.validation.metadata does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 42,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:28.999904693Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.metadata.ConstraintDescriptor",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "import javax.validation.metadata.ConstraintDescriptor;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.metadata.ConstraintDescriptor",
+            "declaringType" : "javax.validation.metadata.ConstraintDescriptor",
+            "qualifiedSignature" : "javax.validation.metadata.ConstraintDescriptor",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 11
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 33,
+      "message" : "package javax.validation.metadata does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:29.001002285Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.validation.metadata.ElementDescriptor",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "import javax.validation.metadata.ElementDescriptor;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.metadata.ElementDescriptor",
+            "declaringType" : "javax.validation.metadata.ElementDescriptor",
+            "qualifiedSignature" : "javax.validation.metadata.ElementDescriptor",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 121,
+      "columnNumber" : 101,
+      "message" : "cannot access javax.validation.ValidatorFactory",
+      "details" : [ "class file for javax.validation.ValidatorFactory not found" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java",
+        "lineNumber" : 121,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-3.0.2.jar",
+        "generatedAt" : "2025-12-08T06:21:29.004738021Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "jakarta.validation.Validator",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "3.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:3.0.2",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "        jakarta.validation.Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "jakarta.validation.Validator",
+            "declaringType" : "jakarta.validation.Validator",
+            "qualifiedSignature" : "jakarta.validation.Validator",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "javax.validation.ValidatorFactory#getValidator()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.validation",
+            "artifactId" : "jakarta.validation-api",
+            "version" : "2.0.2",
+            "coordinates" : "jakarta.validation:jakarta.validation-api:2.0.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/jakarta.validation-api-2.0.2.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "        jakarta.validation.Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "getValidator",
+            "declaringType" : "javax.validation.ValidatorFactory",
+            "qualifiedSignature" : "javax.validation.ValidatorFactory.getValidator()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@895aca9d[public abstract getValidator ()Ljavax/validation/Validator;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.validation.Validator",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getValidator",
+            "declaringType" : "javax.validation.ValidatorFactory",
+            "qualifiedSignature" : "javax.validation.ValidatorFactory.getValidator()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@895aca9d[public abstract getValidator ()Ljavax/validation/Validator;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.validation.Validator",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getValidator",
+            "declaringType" : "jakarta.validation.ValidatorContext",
+            "qualifiedSignature" : "jakarta.validation.ValidatorContext.getValidator()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@895aca9d[public abstract getValidator ()Ljakarta/validation/Validator;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "jakarta.validation.Validator",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getValidator",
+            "declaringType" : "jakarta.validation.ValidatorFactory",
+            "qualifiedSignature" : "jakarta.validation.ValidatorFactory.getValidator()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@895aca9d[public abstract getValidator ()Ljakarta/validation/Validator;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "jakarta.validation.Validator",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getValidator",
+            "declaringType" : "javax.validation.ValidatorContext",
+            "qualifiedSignature" : "javax.validation.ValidatorContext.getValidator()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@895aca9d[public abstract getValidator ()Ljavax/validation/Validator;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.validation.Validator",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.validation.ValidatorFactory",
+            "declaringType" : "javax.validation.ValidatorFactory",
+            "qualifiedSignature" : "javax.validation.ValidatorFactory",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty::validatorFactory",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.premiumminds",
+            "artifactId" : "pm-wicket-utils",
+            "version" : "5.0",
+            "coordinates" : "com.premiumminds:pm-wicket-utils:5.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/premiumminds/pm-wicket-utils/5.0/pm-wicket-utils-5.0.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "        jakarta.validation.Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.premiumminds",
+            "artifactId" : "pm-wicket-utils",
+            "version" : "5.0",
+            "coordinates" : "com.premiumminds:pm-wicket-utils:5.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/premiumminds/pm-wicket-utils/5.0/pm-wicket-utils-5.0.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "        jakarta.validation.Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

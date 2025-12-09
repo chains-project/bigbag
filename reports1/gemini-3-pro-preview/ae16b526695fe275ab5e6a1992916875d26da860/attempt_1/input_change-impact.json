@@ -1,0 +1,1052 @@
+{
+  "project" : "jadler",
+  "breakingCommit" : "ae16b526695fe275ab5e6a1992916875d26da860",
+  "dependency" : {
+    "groupId" : "org.eclipse.jetty",
+    "artifactId" : "jetty-server",
+    "previousVersion" : "8.1.11.v20130520",
+    "newVersion" : "9.4.41.v20210516",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/ae16b526695fe275ab5e6a1992916875d26da860.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/ae16b526695fe275ab5e6a1992916875d26da860/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+    "errors" : [ {
+      "lineNumber" : 14,
+      "columnNumber" : 35,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class SelectChannelConnector", "location: package org.eclipse.jetty.server.nio" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 14,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.111631449Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 14,
+          "codeLine" : "import org.eclipse.jetty.server.nio.SelectChannelConnector;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "declaringType" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 26
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 33,
+      "columnNumber" : 19,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setSendServerVersion(boolean)", "location: variable server of type Server" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.113691893Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.eclipse.jetty.server.Server#setSendServerVersion(boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 33,
+          "codeLine" : "        this.server.setSendServerVersion(false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setSendServerVersion",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server.setSendServerVersion(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@13e1382c[public setSendServerVersion (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setSendServerVersion",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server.setSendServerVersion(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@13e1382c[public setSendServerVersion (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setSendServerVersion",
+            "declaringType" : "org.eclipse.jetty.server.HttpConfiguration",
+            "qualifiedSignature" : "org.eclipse.jetty.server.HttpConfiguration.setSendServerVersion(boolean)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@13e1382c[public setSendServerVersion (Z)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.Server",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 50
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer::server",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "        this.server.setSendServerVersion(false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "        this.server.setSendServerVersion(false);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 34,
+      "columnNumber" : 19,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setSendDateHeader(boolean)", "location: variable server of type Server" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 34,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.113982253Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.eclipse.jetty.server.Server#setSendDateHeader(boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        this.server.setSendDateHeader(true);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setSendDateHeader",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server.setSendDateHeader(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c902fc92[public setSendDateHeader (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setSendDateHeader",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server.setSendDateHeader(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c902fc92[public setSendDateHeader (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setSendDateHeader",
+            "declaringType" : "org.eclipse.jetty.server.HttpConfiguration",
+            "qualifiedSignature" : "org.eclipse.jetty.server.HttpConfiguration.setSendDateHeader(boolean)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@c902fc92[public setSendDateHeader (Z)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.Server",
+            "declaringType" : "org.eclipse.jetty.server.Server",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Server",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 50
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer::server",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        this.server.setSendDateHeader(true);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        this.server.setSendDateHeader(true);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 33,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class SelectChannelConnector", "location: class JettyStubHttpServer" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.117287831Z",
+        "constructs" : [ {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer::httpConnector",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "        this.httpConnector = new SelectChannelConnector();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "        this.httpConnector = new SelectChannelConnector();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.eclipse.jetty.server.nio.SelectChannelConnector#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "        this.httpConnector = new SelectChannelConnector();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SelectChannelConnector",
+            "declaringType" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.SelectChannelConnector.SelectChannelConnector()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@d2568bb[public SelectChannelConnector ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "declaringType" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 26
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "        this.httpConnector = new SelectChannelConnector();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "declaringType" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 26
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 37,
+      "columnNumber" : 26,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setPort(int)", "location: variable httpConnector of type Connector" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 37,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.118184218Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.eclipse.jetty.server.Connector#setPort(int)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 37,
+          "codeLine" : "        this.httpConnector.setPort(port);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setPort",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector.setPort(int)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@99de3445[public abstract setPort (I)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setPort",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector.setPort(int)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@99de3445[public abstract setPort (I)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setPort",
+            "declaringType" : "org.eclipse.jetty.server.AbstractConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.AbstractConnector.setPort(int)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@99de3445[public setPort (I)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setPort",
+            "declaringType" : "org.eclipse.jetty.server.AbstractNetworkConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.AbstractNetworkConnector.setPort(int)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@99de3445[public setPort (I)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setPort",
+            "declaringType" : "org.eclipse.jetty.server.ForwardedRequestCustomizer$MutableHostPort",
+            "qualifiedSignature" : "org.eclipse.jetty.server.ForwardedRequestCustomizer$MutableHostPort.setPort(int, org.eclipse.jetty.server.ForwardedRequestCustomizer$Source)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@d3c6a653[public setPort (ILorg/eclipse/jetty/server/ForwardedRequestCustomizer$Source;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int", "org.eclipse.jetty.server.ForwardedRequestCustomizer$Source" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.Connector",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 59
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer::httpConnector",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "        this.httpConnector.setPort(port);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "        this.httpConnector.setPort(port);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 80,
+      "columnNumber" : 28,
+      "message" : "error: cannot find symbol",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+        "lineNumber" : 80,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-8.1.11.v20130520.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jetty-server-9.4.41.v20210516.jar",
+        "generatedAt" : "2025-12-08T08:15:57.118456134Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.eclipse.jetty.server.Connector#getLocalPort()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 80,
+          "codeLine" : "        return httpConnector.getLocalPort();",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public abstract getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public abstract getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.AbstractNetworkConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.AbstractNetworkConnector.getLocalPort()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "int",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.LocalConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.LocalConnector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.NetworkConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.NetworkConnector.getLocalPort()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@28e91757[public abstract getLocalPort ()I]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "int",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.ServerConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.ServerConnector.getLocalPort()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "int",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.bio.SocketConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.bio.SocketConnector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.nio.BlockingChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.BlockingChannelConnector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLocalPort",
+            "declaringType" : "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.nio.SelectChannelConnector.getLocalPort()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28e91757[public getLocalPort ()I]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.eclipse.jetty.server.Connector",
+            "declaringType" : "org.eclipse.jetty.server.Connector",
+            "qualifiedSignature" : "org.eclipse.jetty.server.Connector",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 59
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "net.jadler.stubbing.server.jetty.JettyStubHttpServer::httpConnector",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java"
+          },
+          "lineNumber" : 80,
+          "codeLine" : "        return httpConnector.getLocalPort();",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,1045 @@
+{
+  "project" : "IDS-Messaging-Services",
+  "breakingCommit" : "e14a9e4a300747a582012aec4d40a6a69f5fd4f4",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-web",
+    "previousVersion" : "5.3.24",
+    "newVersion" : "6.0.5",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/e14a9e4a300747a582012aec4d40a6a69f5fd4f4.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+    "errors" : [ {
+      "lineNumber" : 38,
+      "columnNumber" : 52,
+      "message" : "cannot access org.springframework.beans.factory.annotation.Autowired",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-beans/6.0.5/spring-beans-6.0.5.jar(/org/springframework/beans/factory/annotation/Autowired.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+        "lineNumber" : 38,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.867283083Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 38,
+          "codeLine" : "import org.springframework.beans.factory.annotation.Autowired;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 75,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class ids.messaging.protocol.MessageService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java",
+        "lineNumber" : 75,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.867830692Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 75,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+    "errors" : [ {
+      "lineNumber" : 57,
+      "columnNumber" : 52,
+      "message" : "cannot access org.springframework.beans.factory.annotation.Value",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-beans/6.0.5/spring-beans-6.0.5.jar(/org/springframework/beans/factory/annotation/Value.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+        "lineNumber" : 57,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.868795964Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "import org.springframework.beans.factory.annotation.Value;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 96,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.protocol.http.IdsHttpService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+        "lineNumber" : 96,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.869825302Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 96,
+          "codeLine" : "    @Value(\"#{new Boolean('${shacl.validation:false}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 102,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.protocol.http.IdsHttpService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+        "lineNumber" : 102,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.870676147Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 102,
+          "codeLine" : "    @Value(\"#{new Boolean('${messaging.log.incoming:false}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 108,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.protocol.http.IdsHttpService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java",
+        "lineNumber" : 108,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.871474799Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 108,
+          "codeLine" : "    @Value(\"#{new Boolean('${messaging.log.outgoing:false}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+    "errors" : [ {
+      "lineNumber" : 26,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.http.MediaType",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/http/MediaType.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+        "lineNumber" : 26,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.871926738Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.http.MediaType",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 26,
+          "codeLine" : "import org.springframework.http.MediaType;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.MediaType",
+            "declaringType" : "org.springframework.http.MediaType",
+            "qualifiedSignature" : "org.springframework.http.MediaType",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.bind.annotation.RequestMethod",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/web/bind/annotation/RequestMethod.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.872342625Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "import org.springframework.web.bind.annotation.RequestMethod;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 55,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class ids.messaging.endpoint.EndpointService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/EndpointService.java",
+        "lineNumber" : 55,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.872610915Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+    "errors" : [ {
+      "lineNumber" : 50,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.http.HttpStatus",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/http/HttpStatus.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 50,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.873608386Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.http.HttpStatus",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "import org.springframework.http.HttpStatus;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.HttpStatus",
+            "declaringType" : "org.springframework.http.HttpStatus",
+            "qualifiedSignature" : "org.springframework.http.HttpStatus",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 52,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.http.ResponseEntity",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/http/ResponseEntity.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 52,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.874374685Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.http.ResponseEntity",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "import org.springframework.http.ResponseEntity;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.ResponseEntity",
+            "declaringType" : "org.springframework.http.ResponseEntity",
+            "qualifiedSignature" : "org.springframework.http.ResponseEntity",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 120,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ResponseEntity", "location: class ids.messaging.endpoint.MessageController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 120,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.881680717Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.http.ResponseEntity",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 120,
+          "codeLine" : "    public ResponseEntity<MultiValueMap<String, Object>> handleIDSMessage(",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.ResponseEntity",
+            "declaringType" : "org.springframework.http.ResponseEntity",
+            "qualifiedSignature" : "org.springframework.http.ResponseEntity",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.util.MultiValueMap",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 120,
+          "codeLine" : "    public ResponseEntity<MultiValueMap<String, Object>> handleIDSMessage(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 120,
+          "codeLine" : "    public ResponseEntity<MultiValueMap<String, Object>> handleIDSMessage(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 120,
+          "codeLine" : "    public ResponseEntity<MultiValueMap<String, Object>> handleIDSMessage(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 82,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.endpoint.MessageController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 82,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.882398882Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 82,
+          "codeLine" : "    @Value(\"#{new Boolean('${infomodel.compatibility.validation:true}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 88,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.endpoint.MessageController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 88,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.883090473Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 88,
+          "codeLine" : "    @Value(\"#{new Boolean('${messaging.log.incoming:false}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 94,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.endpoint.MessageController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 94,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.883731943Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 94,
+          "codeLine" : "    @Value(\"#{new Boolean('${messaging.log.outgoing:false}')}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 103,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class ids.messaging.endpoint.MessageController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java",
+        "lineNumber" : 103,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.884357683Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 103,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+    "errors" : [ {
+      "lineNumber" : 35,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.http.HttpEntity",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/http/HttpEntity.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 35,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.884749426Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.http.HttpEntity",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "import org.springframework.http.HttpEntity;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.HttpEntity",
+            "declaringType" : "org.springframework.http.HttpEntity",
+            "qualifiedSignature" : "org.springframework.http.HttpEntity",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.http.HttpHeaders",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.5/spring-web-6.0.5.jar(/org/springframework/http/HttpHeaders.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.885080627Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.http.HttpHeaders",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "import org.springframework.http.HttpHeaders;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.HttpHeaders",
+            "declaringType" : "org.springframework.http.HttpHeaders",
+            "qualifiedSignature" : "org.springframework.http.HttpHeaders",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 54,
+      "columnNumber" : 19,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HttpEntity", "location: class ids.messaging.response.Base64EncodedFileBodyResponse<T>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 54,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.885326177Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.http.HttpEntity",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 54,
+          "codeLine" : "    private final HttpEntity<byte[]> payload;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.HttpEntity",
+            "declaringType" : "org.springframework.http.HttpEntity",
+            "qualifiedSignature" : "org.springframework.http.HttpEntity",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "ARRAY_TYPE_REFERENCE",
+          "signature" : "byte[]",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 54,
+          "codeLine" : "    private final HttpEntity<byte[]> payload;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 66,
+      "columnNumber" : 81,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MediaType", "location: class ids.messaging.response.Base64EncodedFileBodyResponse<T>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 66,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.887645483Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "T extends de.fraunhofer.iais.eis.Message",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 66,
+          "codeLine" : "    public Base64EncodedFileBodyResponse(final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 66,
+          "codeLine" : "    public Base64EncodedFileBodyResponse(final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.http.MediaType",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 66,
+          "codeLine" : "    public Base64EncodedFileBodyResponse(final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.MediaType",
+            "declaringType" : "org.springframework.http.MediaType",
+            "qualifiedSignature" : "org.springframework.http.MediaType",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 95,
+      "columnNumber" : 52,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MediaType", "location: class ids.messaging.response.Base64EncodedFileBodyResponse<T>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 95,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.887981271Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "T extends de.fraunhofer.iais.eis.Message",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 95,
+          "codeLine" : "            final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 95,
+          "codeLine" : "            final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.http.MediaType",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 95,
+          "codeLine" : "            final T header, final File file, final MediaType mediaType)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.MediaType",
+            "declaringType" : "org.springframework.http.MediaType",
+            "qualifiedSignature" : "org.springframework.http.MediaType",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 54,
+      "columnNumber" : 38,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HttpEntity", "location: class ids.messaging.response.Base64EncodedFileBodyResponse<T>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/response/Base64EncodedFileBodyResponse.java",
+        "lineNumber" : 54,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.888252914Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.http.HttpEntity",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar"
+          },
+          "lineNumber" : 54,
+          "codeLine" : "    private final HttpEntity<byte[]> payload;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.http.HttpEntity",
+            "declaringType" : "org.springframework.http.HttpEntity",
+            "qualifiedSignature" : "org.springframework.http.HttpEntity",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "ARRAY_TYPE_REFERENCE",
+          "signature" : "byte[]",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 54,
+          "codeLine" : "    private final HttpEntity<byte[]> payload;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcher.java",
+    "errors" : [ {
+      "lineNumber" : 59,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Value", "location: class ids.messaging.dispatcher.MessageDispatcher" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcher.java",
+        "lineNumber" : 59,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.888724186Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Value",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 59,
+          "codeLine" : "    @Value(\"${referred.check:false}\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java",
+    "errors" : [ {
+      "lineNumber" : 51,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class ids.messaging.handler.request.RequestMessageHandlerService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java",
+        "lineNumber" : 51,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e14a9e4a300747a582012aec4d40a6a69f5fd4f4/spring-web-6.0.5.jar",
+        "generatedAt" : "2025-12-08T10:33:02.888976420Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 51,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

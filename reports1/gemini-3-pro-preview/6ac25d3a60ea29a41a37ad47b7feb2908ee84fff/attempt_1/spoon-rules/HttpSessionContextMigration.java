@@ -1,0 +1,128 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtField;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Spoon Processor to handle the removal of jakarta.servlet.http.HttpSessionContext.
+ * 
+ * Changes:
+ * - CLASS jakarta.servlet.http.HttpSessionContext [REMOVED]
+ * 
+ * Strategy:
+ * 1. Remove variables (Fields/Locals) declared with type HttpSessionContext.
+ * 2. Remove statements containing invocations of getSessionContext().
+ * 3. Remove imports of HttpSessionContext.
+ */
+public class HttpSessionContextMigration {
+
+    public static class HttpSessionContextProcessor extends AbstractProcessor<CtElement> {
+        
+        private static final String REMOVED_CLASS = "HttpSessionContext";
+        private static final String REMOVED_METHOD = "getSessionContext";
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // 1. Check for Imports
+            if (candidate instanceof CtImport) {
+                CtTypeReference<?> ref = ((CtImport) candidate).getReference();
+                return ref != null && isTargetType(ref);
+            }
+
+            // 2. Check for Variables (Fields, Locals) of the removed type
+            if (candidate instanceof CtVariable) {
+                CtTypeReference<?> type = ((CtVariable<?>) candidate).getType();
+                return isTargetType(type);
+            }
+
+            // 3. Check for Invocations of the removed method (getSessionContext)
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) candidate;
+                return REMOVED_METHOD.equals(inv.getExecutable().getSimpleName());
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            // Defensive check: if element was already removed by a parent deletion
+            if (!element.isParentInitialized()) {
+                return;
+            }
+
+            if (element instanceof CtImport) {
+                System.out.println("Removing Import: " + element);
+                element.delete();
+            } else if (element instanceof CtVariable) {
+                System.out.println("Removing Variable (Type " + REMOVED_CLASS + ") at line " + element.getPosition().getLine());
+                element.delete();
+            } else if (element instanceof CtInvocation) {
+                // If it's an invocation, we want to remove the statement calling it
+                // e.g., session.getSessionContext();
+                CtStatement parentStmt = element.getParent(CtStatement.class);
+                if (parentStmt != null) {
+                    System.out.println("Removing Statement calling " + REMOVED_METHOD + " at line " + parentStmt.getPosition().getLine());
+                    parentStmt.delete();
+                } else {
+                    // It might be a field initialization: Object x = session.getSessionContext();
+                    // In this case, we try to remove the field.
+                    CtField<?> parentField = element.getParent(CtField.class);
+                    if (parentField != null) {
+                        System.out.println("Removing Field initializing with " + REMOVED_METHOD + " at line " + parentField.getPosition().getLine());
+                        parentField.delete();
+                    }
+                }
+            }
+        }
+
+        /**
+         * Defensive helper to check type names without relying on classpath resolution.
+         */
+        private boolean isTargetType(CtTypeReference<?> type) {
+            if (type == null) return false;
+            String qName = type.getQualifiedName();
+            return qName != null && qName.contains(REMOVED_CLASS);
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago/tobago-core/src/test/java/org/apache/myfaces/tobago/internal/mock/servlet/MockHttpSession.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago/tobago-core/src/test/java/org/apache/myfaces/tobago/internal/mock/servlet/MockHttpSession.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/attempt_1/transformed");
+
+        // CRITICAL: Configure Environment for Robust Refactoring
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Enable NoClasspath mode (defensive strategy)
+        launcher.getEnvironment().setNoClasspath(true);
+        // 3. Use SniperJavaPrettyPrinter to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        launcher.addProcessor(new HttpSessionContextProcessor());
+
+        try {
+            System.out.println("Starting HttpSessionContext migration...");
+            launcher.run();
+            System.out.println("Migration finished. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,105 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SnakeYamlRefactoring {
+
+    /**
+     * Processor to handle the removal of TrustedTagInspector.
+     * 
+     * Changes:
+     * - CLASS org.yaml.snakeyaml.inspector.TrustedTagInspector [REMOVED]
+     * - CONSTRUCTOR org.yaml.snakeyaml.inspector.TrustedTagInspector() [REMOVED]
+     * 
+     * Refactoring Strategy:
+     * Replace `new TrustedTagInspector()` with a lambda `tag -> true` (or generic equivalent).
+     * TrustedTagInspector was used to allow all tags. In SnakeYAML 2.x, this logic is 
+     * typically passed as a TagInspector implementation.
+     * 
+     * Target: `options.setTagInspector(new TrustedTagInspector())`
+     * Result: `options.setTagInspector(tag -> true)`
+     */
+    public static class TrustedTagInspectorProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Check for valid type reference (Defensive for NoClasspath)
+            CtTypeReference<?> type = candidate.getType();
+            if (type == null) {
+                // Try to infer from executable declaration if type is missing
+                if (candidate.getExecutable() != null && candidate.getExecutable().getDeclaringType() != null) {
+                    type = candidate.getExecutable().getDeclaringType();
+                } else {
+                    return false;
+                }
+            }
+
+            // 2. String-based check for the removed class
+            // Use contains to handle FQCN or simple names depending on resolution
+            return type.getQualifiedName().contains("TrustedTagInspector");
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            Factory factory = getFactory();
+
+            // 3. Construct the replacement
+            // TrustedTagInspector allowed everything. The equivalent is a TagInspector returning true.
+            // We use a CodeSnippetExpression for maximum compatibility in NoClasspath mode
+            // where creating specific AST Lambdas with inferred types can sometimes be tricky without context.
+            // "tag -> true" relies on the target type (TagInspector) being inferred by the compiler 
+            // from the method argument (e.g. setTagInspector).
+            
+            CtExpression<?> replacement = factory.Code().createCodeSnippetExpression("tag -> true");
+
+            // 4. Preserve comments from the original constructor call
+            replacement.setComments(candidate.getComments());
+
+            // 5. Perform replacement
+            candidate.replace(replacement);
+            
+            System.out.println("Refactored TrustedTagInspector instantiation at line " 
+                + (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f6659d758a437f8b676481fe70671a68a6ee1cde/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f6659d758a437f8b676481fe70671a68a6ee1cde/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TrustedTagInspectorProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

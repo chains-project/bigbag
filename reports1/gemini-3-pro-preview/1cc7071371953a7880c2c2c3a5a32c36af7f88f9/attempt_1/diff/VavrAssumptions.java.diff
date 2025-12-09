@@ -1,0 +1,38 @@
+--- /home/kth/Documents/last_transformer/output/1cc7071371953a7880c2c2c3a5a32c36af7f88f9/assertj-vavr/src/main/java/org/assertj/vavr/api/VavrAssumptions.java	2025-12-08 02:33:20.919939796 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1cc7071371953a7880c2c2c3a5a32c36af7f88f9/attempt_1/transformed/org/assertj/vavr/api/VavrAssumptions.java	2025-12-08 02:35:47.208744872 +0100
+@@ -47,17 +47,17 @@
+      * This NamingStrategy takes the original class's name and adds a suffix to distinguish it.
+      * The default is ByteBuddy but for debugging purposes, it makes sense to add AssertJ as a name.
+      */
+-    private static final ByteBuddy BYTE_BUDDY = new ByteBuddy().with(TypeValidation.DISABLED)
++    private static final net.bytebuddy.ByteBuddy BYTE_BUDDY = new ByteBuddy().with(net.bytebuddy.dynamic.scaffold.TypeValidation.DISABLED)
+             .with(new AuxiliaryType.NamingStrategy.SuffixingRandom("Assertj$Assumptions"));
+ 
+-    private static final Implementation ASSUMPTION = MethodDelegation.to(AssumptionMethodInterceptor.class);
++    private static final net.bytebuddy.implementation.Implementation ASSUMPTION = net.bytebuddy.implementation.MethodDelegation.to(AssumptionMethodInterceptor.class);
+ 
+-    private static final TypeCache<SimpleKey> CACHE = new TypeCache.WithInlineExpunction<>(TypeCache.Sort.SOFT);
++    private static final net.bytebuddy.TypeCache<net.bytebuddy.TypeCache.SimpleKey> CACHE = new TypeCache.WithInlineExpunction<>(TypeCache.Sort.SOFT);
+ 
+     private static final class AssumptionMethodInterceptor {
+ 
+-        @RuntimeType
+-        public static Object intercept(@This AbstractVavrAssert<?, ?> assertion, @SuperCall Callable<Object> proxy) throws Exception {
++        @net.bytebuddy.implementation.bind.annotation.RuntimeType
++        public static Object intercept(@net.bytebuddy.implementation.bind.annotation.This AbstractVavrAssert<?, ?> assertion, @net.bytebuddy.implementation.bind.annotation.SuperCall Callable<Object> proxy) throws Exception {
+             try {
+                 Object result = proxy.call();
+                 if (result != assertion && result instanceof AbstractVavrAssert) {
+@@ -212,10 +212,8 @@
+ 
+     @SuppressWarnings("unchecked")
+     private static <ASSERTION> Class<? extends ASSERTION> createAssumptionClass(Class<ASSERTION> assertClass) {
+-        SimpleKey cacheKey = new SimpleKey(assertClass);
+-        return (Class<ASSERTION>) CACHE.findOrInsert(VavrAssumptions.class.getClassLoader(),
+-                cacheKey,
+-                () -> generateAssumptionClass(assertClass));
++        net.bytebuddy.TypeCache.SimpleKey cacheKey = new SimpleKey(assertClass);
++        return (Class<ASSERTION>) CACHE.findOrInsert(org.assertj.vavr.api.VavrAssumptions.class.getClassLoader(), cacheKey, () -> generateAssumptionClass(assertClass));
+     }
+ 
+     private static <ASSERTION> Class<? extends ASSERTION> generateAssumptionClass(Class<ASSERTION> assertionType) {

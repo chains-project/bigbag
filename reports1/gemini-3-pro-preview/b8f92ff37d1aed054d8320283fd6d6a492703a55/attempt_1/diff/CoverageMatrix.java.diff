@@ -1,0 +1,18 @@
+--- /home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java	2025-12-08 09:55:42.528547810 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b8f92ff37d1aed054d8320283fd6d6a492703a55/attempt_1/transformed/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java	2025-12-08 09:58:50.885036398 +0100
+@@ -196,13 +196,13 @@
+ 
+         // True if it is present in the available binaries
+         for (String dir : config.getBinJavaDir()) {
+-            DirectoryScanner directoryScanner = new DirectoryScanner(new File(dir), TestListResolver.getWildcard());
++            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());
+             if (directoryScanner.scan().getClasses().contains(className)) {
+                 return true;
+             }
+         }
+         for (String dir : config.getBinTestDir()) {
+-            DirectoryScanner directoryScanner = new DirectoryScanner(new File(dir), TestListResolver.getWildcard());
++            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());
+             if (directoryScanner.scan().getClasses().contains(className)) {
+                 return true;
+             }

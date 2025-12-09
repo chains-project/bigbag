@@ -1,0 +1,122 @@
+{
+  "project" : "code-coverage-api-plugin",
+  "breakingCommit" : "6d68d927b01ceb567f1067a91afbc97b4c5a66ce",
+  "dependencyGroupId" : "org.jenkins-ci",
+  "dependencyArtifactId" : "acceptance-test-harness",
+  "previousVersion" : "5504.v485694f31cdf",
+  "newVersion" : "5523.vd392288d2b_22",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/acceptance-test-harness-5504.v485694f31cdf.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/acceptance-test-harness-5523.vd392288d2b_22.jar",
+  "generatedAt" : "2025-12-08T05:00:39.858061977Z",
+  "totalBreakingChanges" : 5,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "org.jenkinsci.test.acceptance.junit.Wait",
+    "simpleName" : "Wait",
+    "qualifiedSignature" : "org.jenkinsci.test.acceptance.junit.Wait",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "pollingEvery",
+    "simpleName" : "pollingEvery",
+    "qualifiedSignature" : "org.jenkinsci.test.acceptance.junit.Wait#pollingEvery(long, java.util.concurrent.TimeUnit)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1b48c8a5[public volatile pollingEvery (JLjava/util/concurrent/TimeUnit;)Lorg/openqa/selenium/support/ui/FluentWait;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.openqa.selenium.support.ui.FluentWait",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "BRIDGE", "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "PUBLIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "long", "java.util.concurrent.TimeUnit" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "withTimeout",
+    "simpleName" : "withTimeout",
+    "qualifiedSignature" : "org.jenkinsci.test.acceptance.junit.Wait#withTimeout(long, java.util.concurrent.TimeUnit)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1c93d888[public volatile withTimeout (JLjava/util/concurrent/TimeUnit;)Lorg/openqa/selenium/support/ui/FluentWait;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.openqa.selenium.support.ui.FluentWait",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "BRIDGE", "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "PUBLIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "long", "java.util.concurrent.TimeUnit" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.jenkinsci.test.acceptance.utils.SauceLabsConnection",
+    "simpleName" : "SauceLabsConnection",
+    "qualifiedSignature" : "org.jenkinsci.test.acceptance.utils.SauceLabsConnection",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createWebDriver",
+    "simpleName" : "createWebDriver",
+    "qualifiedSignature" : "org.jenkinsci.test.acceptance.utils.SauceLabsConnection#createWebDriver(org.openqa.selenium.remote.DesiredCapabilities)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d3fbdfa0[public createWebDriver (Lorg/openqa/selenium/remote/DesiredCapabilities;)Lorg/openqa/selenium/WebDriver;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.openqa.selenium.WebDriver",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.openqa.selenium.remote.DesiredCapabilities" ]
+  } ]
+}

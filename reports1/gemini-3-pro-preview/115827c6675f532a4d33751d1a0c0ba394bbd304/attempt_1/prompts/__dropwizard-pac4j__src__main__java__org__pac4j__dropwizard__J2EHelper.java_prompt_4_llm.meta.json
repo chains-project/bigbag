@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/115827c6675f532a4d33751d1a0c0ba394bbd304/attempt_1/prompts/__dropwizard-pac4j__src__main__java__org__pac4j__dropwizard__J2EHelper.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/115827c6675f532a4d33751d1a0c0ba394bbd304/attempt_1/prompts/__dropwizard-pac4j__src__main__java__org__pac4j__dropwizard__J2EHelper.java_prompt_4_llm.txt",
+  "timestamp": 1765155266.4171112,
+  "duration_seconds": 108.1417305469513,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Here is the self-contained Java class `ServletMigration.java` that automates the migration from `javax.servlet` to `jakarta.servlet` based on the provided dependency changes.\n\n```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.declaration.CtImport;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.visitor.CtScanner;\nimport spoon.reflect.declaration.CtCompilationUnit;\n\nimport java.util.Collection;\n\npublic class ServletMigration {\n\n    /**\n     * Processor to migrate javax.servlet types to jakarta.servlet.\n     * This handles:\n     * 1. Class usages (e.g., Filter, ServletContext)\n     * 2. Field access (e.g., DispatcherType.REQUEST)\n     * 3. Method argument types (e.g., addFilter(..., Filter))\n     * 4. Extends/Implements clauses\n     */\n    public static class JakartaServletProcessor extends AbstractProcessor<CtTypeReference<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive check for NoClasspath mode\n            if (candidate == null) return false;\n            \n            // Check qualified name safely\n            String qName = candidate.getQualifiedName();\n            if (qName == null) return false;\n\n            // Target the package javax.servlet and its subpackages (http, descriptor, etc.)\n            // as identified in the diff (e.g., javax.servlet.DispatcherType, javax.servlet.http.Cookie)\n            return qName.startsWith(\"javax.servlet.\");\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            Factory factory = getFactory();\n            String oldQName = candidate.getQualifiedName();\n            \n            // Calculate new qualified name\n            String newQName = oldQName.replace(\"javax.servlet.\", \"jakarta.servlet.\");\n\n            // Create the new reference\n            CtTypeReference<?> newRef = factory.Type().createReference(newQName);\n\n            // Preserve generics (if any) to avoid stripping type arguments\n            if (!candidate.getActualTypeArguments().isEmpty()) {\n                newRef.setActualTypeArguments(candidate.getActualTypeArguments());\n            }\n\n            // Replace the old reference with the new one\n            try {\n                // replace() searches for the candidate in its parent and swaps it.\n                // This updates variable types, return types, inheritance, etc.\n                candidate.replace(newRef);\n                System.out.println(\"Migrated: \" + oldQName + \" -> \" + newQName + \" at line \" + candidate.getPosition().getLine());\n            } catch (Exception e) {\n                // Suppress replacement errors for detached nodes or special edge cases\n                System.err.println(\"Skipped replacement for \" + oldQName + \": \" + e.getMessage());\n            }\n        }\n    }\n\n    /**\n     * Helper to process Imports explicitly, as standard processors might skip CompilationUnit metadata.\n     */\n    public static class ImportFixer extends CtScanner {\n        private final JakartaServletProcessor processor;\n\n        public ImportFixer(JakartaServletProcessor processor) {\n            this.processor = processor;\n        }\n\n        @Override\n        public void visitCtImport(CtImport ctImport) {\n            if (ctImport.getReference() instanceof CtTypeReference) {\n                CtTypeReference<?> ref = (CtTypeReference<?>) ctImport.getReference();\n                if (processor.isToBeProcessed(ref)) {\n                    processor.process(ref);\n                }\n            }\n            super.visitCtImport(ctImport);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Robust Refactoring\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode (defensive assumption)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Build the model\n        launcher.buildModel();\n\n        // Run the main processor on the code body\n        JakartaServletProcessor processor = new JakartaServletProcessor();\n        processor.setFactory(launcher.getFactory());\n        launcher.getModel().processWith(processor);\n\n        // Explicitly scan imports to ensure 'import javax.servlet.*' are updated\n        // Standard model processing usually skips CompilationUnit imports\n        ImportFixer importFixer = new ImportFixer(processor);\n        Collection<CtCompilationUnit> units = launcher.getFactory().CompilationUnit().getMap().values();\n        for (CtCompilationUnit cu : units) {\n            importFixer.scan(cu);\n        }\n\n        // Save results\n        launcher.prettyprint();\n        System.out.println(\"Migration complete. Output in: \" + outputPath);\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2568,
+      "candidates_token_count": 1231,
+      "total_token_count": 11369,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

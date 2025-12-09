@@ -1,0 +1,76 @@
+{
+  "project" : "license-maven-plugin",
+  "breakingCommit" : "1c0972fc3d905b9f2a305a78f8a158a0b3fd8639",
+  "dependency" : {
+    "groupId" : "org.apache.maven.shared",
+    "artifactId" : "maven-dependency-tree",
+    "previousVersion" : "3.1.1",
+    "newVersion" : "3.2.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/maven-dependency-tree-3.1.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/maven-dependency-tree-3.2.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/license-maven-plugin/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java",
+    "errors" : [ {
+      "lineNumber" : 33,
+      "columnNumber" : 57,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Maven31DependencyGraphBuilder", "location: package org.apache.maven.shared.dependency.graph.internal" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/license-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/maven-dependency-tree-3.1.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/maven-dependency-tree-3.2.1.jar",
+        "generatedAt" : "2025-12-08T01:32:28.534406883Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.shared",
+            "artifactId" : "maven-dependency-tree",
+            "version" : "3.1.1",
+            "coordinates" : "org.apache.maven.shared:maven-dependency-tree:3.1.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/maven-dependency-tree-3.1.1.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "import org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "declaringType" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "qualifiedSignature" : "org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

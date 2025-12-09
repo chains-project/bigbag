@@ -1,0 +1,54 @@
+{
+  "project" : "arex-agent-java",
+  "breakingCommit" : "dc9a40fde9a9fee5aaec3f60695385ba539406d4",
+  "dependency" : {
+    "groupId" : "org.apache.dubbo",
+    "artifactId" : "dubbo",
+    "previousVersion" : "2.7.3",
+    "newVersion" : "2.7.21",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/dc9a40fde9a9fee5aaec3f60695385ba539406d4.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/dc9a40fde9a9fee5aaec3f60695385ba539406d4/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+    "errors" : [ {
+      "lineNumber" : 43,
+      "columnNumber" : 47,
+      "message" : "incompatible types: org.apache.dubbo.rpc.AsyncRpcResult cannot be converted to java.util.concurrent.CompletableFuture<?>",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar",
+        "generatedAt" : "2025-12-08T10:25:12.697010766Z",
+        "constructs" : [ ]
+      }
+    }, {
+      "lineNumber" : 45,
+      "columnNumber" : 60,
+      "message" : "incompatible types: org.apache.dubbo.rpc.AsyncRpcResult cannot be converted to java.util.concurrent.CompletableFuture<?>",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+        "lineNumber" : 45,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar",
+        "generatedAt" : "2025-12-08T10:25:12.697219337Z",
+        "constructs" : [ ]
+      }
+    } ]
+  } ]
+}

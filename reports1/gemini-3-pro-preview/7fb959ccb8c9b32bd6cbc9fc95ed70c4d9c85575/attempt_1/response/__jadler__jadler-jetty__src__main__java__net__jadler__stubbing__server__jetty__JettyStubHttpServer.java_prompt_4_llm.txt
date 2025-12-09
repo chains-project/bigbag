@@ -1,0 +1,138 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor 1: Handles the Class Renaming / Replacement.
+     * Replaces `org.eclipse.jetty.server.nio.SelectChannelConnector`
+     * with `org.eclipse.jetty.server.ServerConnector`.
+     */
+    public static class ConnectorReplacementProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        private static final String OLD_CLASS = "SelectChannelConnector";
+        private static final String NEW_CLASS = "ServerConnector";
+        private static final String NEW_PACKAGE = "org.eclipse.jetty.server";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive null check
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+            // Check for the specific old class name
+            return candidate.getQualifiedName().contains("org.eclipse.jetty.server.nio." + OLD_CLASS)
+                   || candidate.getSimpleName().equals(OLD_CLASS);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> typeRef) {
+            // Update the reference to point to the new class
+            typeRef.setPackage(getFactory().Package().getOrCreate(NEW_PACKAGE));
+            typeRef.setSimpleName(NEW_CLASS);
+            
+            System.out.println("Refactored " + OLD_CLASS + " to " + NEW_CLASS + " at " + typeRef.getPosition());
+        }
+    }
+
+    /**
+     * Processor 2: Handles Removed Methods from `Server` class.
+     * `setSendServerVersion` and `setSendDateHeader` were moved to `HttpConfiguration`.
+     * Since we cannot automatically create the HttpConfiguration context, we comment out these calls with a TODO.
+     */
+    public static class ServerMethodRemovalProcessor extends AbstractProcessor<CtInvocation<?>> {
+        private static final List<String> REMOVED_METHODS = Arrays.asList("setSendServerVersion", "setSendDateHeader");
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!REMOVED_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Check Owner Type (Defensive for NoClasspath)
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false; // Static call or implicit this
+            
+            CtTypeReference<?> targetType = target.getType();
+            if (targetType != null) {
+                // If type is known, ensure it's related to Jetty Server
+                if (!targetType.getQualifiedName().contains("Server") && !targetType.getQualifiedName().contains("Jetty")) {
+                    return false;
+                }
+            } else {
+                // NoClasspath fallback: guess based on variable name
+                String targetStr = target.toString().toLowerCase();
+                if (!targetStr.contains("server")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Create a comment explaining the removal
+            String originalCode = invocation.toString();
+            String commentContent = " TODO: Refactor moved method in Jetty 9. " +
+                                    "Moved to HttpConfiguration.\nOriginal: " + originalCode;
+            
+            CtComment comment = factory.Code().createComment(commentContent, CtComment.CommentType.BLOCK);
+            
+            // Replace the invocation with the comment
+            invocation.replace(comment);
+            
+            System.out.println("Commented out removed method " + invocation.getExecutable().getSimpleName() 
+                               + " at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (robustness)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add Processors
+        launcher.addProcessor(new ConnectorReplacementProcessor());
+        launcher.addProcessor(new ServerMethodRemovalProcessor());
+
+        try {
+            System.out.println("Starting Jetty Migration Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

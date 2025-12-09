@@ -1,0 +1,451 @@
+{
+  "project" : "jcabi-ssh",
+  "breakingCommit" : "54abbbde6a1233e1523a9b5f811ea100efb5dead",
+  "dependency" : {
+    "groupId" : "com.jcabi",
+    "artifactId" : "jcabi-aspects",
+    "previousVersion" : "0.24.1",
+    "newVersion" : "0.25.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.25.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh/54abbbde6a1233e1523a9b5f811ea100efb5dead.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/54abbbde6a1233e1523a9b5f811ea100efb5dead/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/jcabi-ssh/src/main/java/com/jcabi/ssh/SshByPassword.java",
+    "errors" : [ {
+      "lineNumber" : 33,
+      "columnNumber" : 25,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Tv", "location: package com.jcabi.aspects" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh/src/main/java/com/jcabi/ssh/SshByPassword.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.25.1.jar",
+        "generatedAt" : "2025-12-08T04:07:23.380760218Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.jcabi.aspects.Tv",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "import com.jcabi.aspects.Tv;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 77,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable Tv", "location: class com.jcabi.ssh.SshByPassword" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh/src/main/java/com/jcabi/ssh/SshByPassword.java",
+        "lineNumber" : 77,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.25.1.jar",
+        "generatedAt" : "2025-12-08T04:07:23.381277161Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "com.jcabi.aspects.RetryOnFailure",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.25.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.25.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/jcabi/jcabi-aspects/0.25.1/jcabi-aspects-0.25.1.jar"
+          },
+          "lineNumber" : 76,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.RetryOnFailure",
+            "declaringType" : "com.jcabi.aspects.RetryOnFailure",
+            "qualifiedSignature" : "com.jcabi.aspects.RetryOnFailure",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.jcabi.aspects.Tv::SEVEN",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "SEVEN",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv.SEVEN",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "com.jcabi.aspects.Tv.SEVEN:I",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "SEVEN",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv.SEVEN",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "com.jcabi.aspects.Tv.SEVEN:I",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.jcabi.aspects.Tv",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jcabi-ssh/src/main/java/com/jcabi/ssh/Ssh.java",
+    "errors" : [ {
+      "lineNumber" : 33,
+      "columnNumber" : 25,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Tv", "location: package com.jcabi.aspects" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh/src/main/java/com/jcabi/ssh/Ssh.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.25.1.jar",
+        "generatedAt" : "2025-12-08T04:07:23.382121258Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.jcabi.aspects.Tv",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "import com.jcabi.aspects.Tv;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 235,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable Tv", "location: class com.jcabi.ssh.Ssh" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-ssh/src/main/java/com/jcabi/ssh/Ssh.java",
+        "lineNumber" : 235,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.25.1.jar",
+        "generatedAt" : "2025-12-08T04:07:23.382953235Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "com.jcabi.aspects.RetryOnFailure",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.25.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.25.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/jcabi/jcabi-aspects/0.25.1/jcabi-aspects-0.25.1.jar"
+          },
+          "lineNumber" : 234,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.RetryOnFailure",
+            "declaringType" : "com.jcabi.aspects.RetryOnFailure",
+            "qualifiedSignature" : "com.jcabi.aspects.RetryOnFailure",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.jcabi.aspects.Tv::SEVEN",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 235,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "SEVEN",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv.SEVEN",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "com.jcabi.aspects.Tv.SEVEN:I",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "SEVEN",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv.SEVEN",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "com.jcabi.aspects.Tv.SEVEN:I",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "int",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.jcabi.aspects.Tv",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/54abbbde6a1233e1523a9b5f811ea100efb5dead/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 235,
+          "codeLine" : "        attempts = Tv.SEVEN,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,112 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtTypeCast;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+public class SpringContextRefactoring {
+
+    /**
+     * Processor to handle potential source incompatibility in ConfigurableApplicationContext.
+     * The diff indicates the class is Modified/Source-Incompatible, while getBeanFactory is Unchanged.
+     * This often implies issues with type inference or generic return types.
+     * 
+     * Strategy: Explicitly cast the result of getBeanFactory() to ConfigurableListableBeanFactory
+     * to ensure type safety and resolve compilation ambiguities in the upgraded environment.
+     */
+    public static class BeanFactoryProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"getBeanFactory".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (getBeanFactory takes 0 args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            // We check if the method belongs to ConfigurableApplicationContext or a subtype.
+            // In NoClasspath, declaring type might be inferred or unknown.
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            boolean isContext = owner != null && 
+                               (owner.getQualifiedName().contains("ConfigurableApplicationContext") || 
+                                owner.getQualifiedName().equals("<unknown>"));
+            
+            if (!isContext) {
+                return false;
+            }
+
+            // 4. Check if already casted
+            // If the parent is already a cast to ConfigurableListableBeanFactory, we skip.
+            if (candidate.getParent() instanceof CtTypeCast) {
+                CtTypeCast<?> parentCast = (CtTypeCast<?>) candidate.getParent();
+                CtTypeReference<?> castType = parentCast.getCastType();
+                if (castType != null && castType.getQualifiedName().contains("ConfigurableListableBeanFactory")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Define the target type: ConfigurableListableBeanFactory
+            // This is the standard return type for ConfigurableApplicationContext.getBeanFactory()
+            CtTypeReference<?> returnTypeRef = factory.Type().createReference("org.springframework.beans.factory.config.ConfigurableListableBeanFactory");
+
+            // Create the cast: (ConfigurableListableBeanFactory) ctx.getBeanFactory()
+            CtTypeCast<?> castExpression = factory.Code().createTypeCast(returnTypeRef, invocation.clone());
+
+            // Replace the original invocation with the casted expression
+            invocation.replace(castExpression);
+            
+            System.out.println("Refactored getBeanFactory call at line " + invocation.getPosition().getLine() + " to explicit cast.");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new BeanFactoryProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

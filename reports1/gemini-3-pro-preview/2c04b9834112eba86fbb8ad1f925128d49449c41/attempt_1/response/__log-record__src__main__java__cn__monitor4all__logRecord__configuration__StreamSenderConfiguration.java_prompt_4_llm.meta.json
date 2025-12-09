@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/2c04b9834112eba86fbb8ad1f925128d49449c41/attempt_1/prompts/__log-record__src__main__java__cn__monitor4all__logRecord__configuration__StreamSenderConfiguration.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/2c04b9834112eba86fbb8ad1f925128d49449c41/attempt_1/prompts/__log-record__src__main__java__cn__monitor4all__logRecord__configuration__StreamSenderConfiguration.java_prompt_4_llm.txt",
+  "timestamp": 1765159463.3835196,
+  "duration_seconds": 53.63649797439575,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.declaration.CtAnnotation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring Strategy:\n * The provided diff indicates that `EnableBinding` and `Output` annotations have been removed \n * from the `org.springframework.cloud.stream.annotation` package.\n * \n * This processor scans for usages of these removed annotations and deletes them to fix \n * compilation errors (Legacy Annotation Removal). \n * \n * Note: Users are expected to migrate to the Spring Cloud Function model manually, \n * as semantic migration from @EnableBinding to functional beans is too complex for \n * a deterministic AST transformation without deeper context. This script automates \n * the cleanup of the removed types.\n */\npublic class SpringCloudStreamRefactoring {\n\n    public static class AnnotationCleanupProcessor extends AbstractProcessor<CtAnnotation<?>> {\n        @Override\n        public boolean isToBeProcessed(CtAnnotation<?> candidate) {\n            // Defensive coding: Ensure type reference exists\n            CtTypeReference<?> typeRef = candidate.getAnnotationType();\n            if (typeRef == null) {\n                return false;\n            }\n\n            // use getQualifiedName() combined with contains() for NoClasspath safety\n            String qualifiedName = typeRef.getQualifiedName();\n\n            // Target 1: org.springframework.cloud.stream.annotation.EnableBinding\n            if (qualifiedName.contains(\"org.springframework.cloud.stream.annotation.EnableBinding\")) {\n                return true;\n            }\n\n            // Target 2: org.springframework.cloud.stream.annotation.Output\n            if (qualifiedName.contains(\"org.springframework.cloud.stream.annotation.Output\")) {\n                return true;\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtAnnotation<?> annotation) {\n            // Log the modification\n            System.out.println(\"Refactoring: Removing removed annotation @\" + \n                annotation.getAnnotationType().getSimpleName() + \n                \" at line \" + annotation.getPosition().getLine());\n\n            // Delete the annotation from its parent element (Method, Class, Field)\n            annotation.delete();\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL CONFIGURATION\n        // 1. Enable comments to preserve them in the AST\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting and unrelated code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode to allow running without full dependency resolution\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new AnnotationCleanupProcessor());\n\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output generated in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1738,
+      "candidates_token_count": 776,
+      "total_token_count": 6408,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

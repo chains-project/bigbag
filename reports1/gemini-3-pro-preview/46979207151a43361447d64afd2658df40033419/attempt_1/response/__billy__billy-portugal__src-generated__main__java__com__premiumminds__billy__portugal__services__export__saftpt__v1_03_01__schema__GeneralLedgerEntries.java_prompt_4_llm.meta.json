@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__GeneralLedgerEntries.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__GeneralLedgerEntries.java_prompt_4_llm.txt",
+  "timestamp": 1765164562.511553,
+  "duration_seconds": 34.13687515258789,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtTypeAccess;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JaxbRefactoring {\n\n    /**\n     * Processor to migrate usage of static getInstance() methods to constructor calls\n     * for org.jvnet.jaxb2_commons.lang.* strategies.\n     */\n    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        private static final Set<String> AFFECTED_CLASSES = new HashSet<>(Arrays.asList(\n            \"JAXBToStringStrategy\",\n            \"DefaultCopyStrategy\",\n            \"DefaultEqualsStrategy\",\n            \"DefaultHashCodeStrategy\",\n            \"DefaultMergeStrategy\",\n            \"DefaultToStringStrategy\",\n            \"JAXBCopyStrategy\",\n            \"JAXBEqualsStrategy\",\n            \"JAXBHashCodeStrategy\",\n            \"JAXBMergeCollectionsStrategy\",\n            \"JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Argument Count (getInstance() usually has 0 args in this context)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Check Target (The class calling .getInstance())\n            CtExpression<?> target = candidate.getTarget();\n            \n            // We expect a static call like ClassName.getInstance(), so target should be a TypeAccess\n            if (!(target instanceof CtTypeAccess)) {\n                return false;\n            }\n\n            CtTypeReference<?> accessedType = ((CtTypeAccess<?>) target).getAccessedType();\n            if (accessedType == null) {\n                return false;\n            }\n\n            // 4. Verify the class is one of the affected strategies\n            // using SimpleName check for robustness in NoClasspath environment\n            String simpleName = accessedType.getSimpleName();\n            if (!AFFECTED_CLASSES.contains(simpleName)) {\n                return false;\n            }\n\n            // Optional: stricter check on package if available, but lenient for NoClasspath\n            String qualifiedName = accessedType.getQualifiedName();\n            if (!qualifiedName.equals(simpleName) && !qualifiedName.contains(\"org.jvnet.jaxb2_commons.lang\")) {\n                // If we have package info and it doesn't match, might be a false positive (different library)\n                // However, these class names are quite specific. We proceed if it matches the name.\n                // In NoClasspath, qualifiedName might just be the simple name.\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // Get the type used in the original invocation (e.g., JAXBToStringStrategy)\n            CtTypeAccess<?> typeAccess = (CtTypeAccess<?>) invocation.getTarget();\n            CtTypeReference<?> strategyType = typeAccess.getAccessedType();\n\n            // Create: new StrategyClass()\n            CtExpression<?> constructorCall = getFactory().Code().createConstructorCall(\n                strategyType,\n                new CtExpression<?>[0]\n            );\n\n            // Replace StrategyClass.getInstance() with new StrategyClass()\n            invocation.replace(constructorCall);\n            \n            System.out.println(\"Refactored \" + strategyType.getSimpleName() + \".getInstance() at line \" + \n                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args or hardcoded here)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ / Precision preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode handles missing dependencies gracefully\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new StrategyInstanceProcessor());\n\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1140,
+      "total_token_count": 4817,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

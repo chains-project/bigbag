@@ -1,0 +1,85 @@
+Based on the provided dependency diff, the class `org.springframework.util.FileSystemUtils` has a status of **UNCHANGED** and remains both binary and source compatible.
+
+Consequently, **no breaking changes** exist, and no code transformation is required. The generated Spoon script below serves as a **usage detector** to identify where this class is referenced in the codebase, ensuring you can verify its presence without altering the source code (acting as a no-op refactoring).
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FileSystemUtilsRefactoring {
+
+    /**
+     * Processor for org.springframework.util.FileSystemUtils.
+     * <p>
+     * ANALYSIS:
+     * The input diff indicates: [status=UNCHANGED, binaryCompatible=true].
+     * <p>
+     * STRATEGY:
+     * No AST transformations are applied. This processor identifies and logs usages 
+     * of the class to confirm existence, preserving the source code exactly as is
+     * via the Sniper printer.
+     */
+    public static class FileSystemUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety check for NoClasspath environment
+            if (candidate.getExecutable() == null) return false;
+
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType == null) return false;
+
+            // 2. Identify the target class safely
+            // Using contains() handles cases where full package might not resolve in NoClasspath
+            String qualifiedName = declaringType.getQualifiedName();
+            return qualifiedName != null 
+                && qualifiedName.contains("org.springframework.util.FileSystemUtils");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // 3. Transformation Logic
+            // According to the diff, the class is UNCHANGED. 
+            // We perform no modification, simply logging the detection.
+            System.out.println("INFO: Found usage of unchanged class 'FileSystemUtils' at line " 
+                + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Refactoring
+        // 1. Enable comments to ensure they are preserved
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FileSystemUtilsProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Processing complete. No changes applied (Status: UNCHANGED).");
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

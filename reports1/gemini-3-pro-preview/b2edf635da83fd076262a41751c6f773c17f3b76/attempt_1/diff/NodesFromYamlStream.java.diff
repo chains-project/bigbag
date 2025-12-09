@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/b2edf635da83fd076262a41751c6f773c17f3b76/jclouds/apis/byon/src/main/java/org/jclouds/byon/functions/NodesFromYamlStream.java	2025-12-08 09:31:11.228814792 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b2edf635da83fd076262a41751c6f773c17f3b76/attempt_1/transformed/org/jclouds/byon/functions/NodesFromYamlStream.java	2025-12-08 09:34:49.933655691 +0100
+@@ -80,7 +80,7 @@
+    @Override
+    public LoadingCache<String, Node> apply(ByteSource source) {
+ 
+-      Constructor constructor = new Constructor(Config.class);
++      Constructor constructor = new Constructor(org.jclouds.byon.functions.NodesFromYamlStream.Config.class, new org.yaml.snakeyaml.LoaderOptions());
+ 
+       TypeDescription nodeDesc = new TypeDescription(YamlNode.class);
+       nodeDesc.putListPropertyType("tags", String.class);

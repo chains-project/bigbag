@@ -1,0 +1,132 @@
+Here is the self-contained Java class implementing the refactoring strategy derived from the dependency diff.
+
+### **Refactoring Strategy**
+Based on the diff:
+1.  **Analysis**: `Logger.setLevel(Level)` is marked `UNCHANGED`, but new methods `LoggerModel.setLevel(String)` and `RootLoggerModel.setLevel(String)` are `NEW`.
+2.  **Deduction**: This indicates a modernization of the API where passing String identifiers (e.g., `"INFO"`) is preferred or enabled, moving away from the hard dependency on the static `Level` class constants.
+3.  **Action**: The script identifies calls to `setLevel` that pass a `ch.qos.logback.classic.Level` constant (like `Level.INFO`) and refactors them to pass the corresponding String literal (`"INFO"`).
+
+### **Java Code**
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.reference.CtFieldReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class LogbackLevelRefactoring {
+
+    /**
+     * Processor to migrate setLevel(Level.X) to setLevel("X").
+     */
+    public static class LevelArgumentProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"setLevel".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Argument Count
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Check Argument Type (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+
+            // We are looking for Field Reads (e.g., Level.INFO or static import INFO)
+            if (!(arg instanceof CtFieldRead)) {
+                return false;
+            }
+
+            CtFieldRead<?> fieldRead = (CtFieldRead<?>) arg;
+            CtFieldReference<?> variable = fieldRead.getVariable();
+            
+            // Defensively check the declaring type of the field
+            CtTypeReference<?> declaringType = variable.getDeclaringType();
+
+            // Match 'ch.qos.logback.classic.Level' loosely to handle incomplete classpaths
+            if (declaringType != null && declaringType.getQualifiedName().contains("ch.qos.logback.classic.Level")) {
+                return true;
+            }
+            
+            // Fallback: if resolving failed, check if the variable name is a known Log Level
+            // and the target looks like "Level" (simple heuristic)
+            if (declaringType == null && arg.toString().startsWith("Level.")) {
+               String fieldName = variable.getSimpleName();
+               return isLogLevelName(fieldName);
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            CtFieldRead<?> fieldRead = (CtFieldRead<?>) invocation.getArguments().get(0);
+            String levelName = fieldRead.getVariable().getSimpleName();
+
+            // Double check validation to avoid transforming unrelated constants
+            if (isLogLevelName(levelName)) {
+                // Transformation: Create String literal "INFO"
+                CtLiteral<String> replacement = getFactory().Code().createLiteral(levelName);
+                
+                // Replace the argument
+                fieldRead.replace(replacement);
+                
+                System.out.println("Refactored setLevel(" + levelName + ") to setLevel(\"" + levelName + "\") at line " + invocation.getPosition().getLine());
+            }
+        }
+
+        private boolean isLogLevelName(String name) {
+            return "OFF".equals(name) || "ERROR".equals(name) || "WARN".equals(name) || 
+                   "INFO".equals(name) || "DEBUG".equals(name) || "TRACE".equals(name) || "ALL".equals(name);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "src/main/java";
+        String outputPath = "target/spoon-refactoring";
+
+        // Allow arguments to override paths
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =========================================================
+        // CRITICAL: Preserve formatting using SniperJavaPrettyPrinter
+        // =========================================================
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: Assume library JARs might be missing
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new LevelArgumentProcessor());
+
+        try {
+            System.out.println("Starting Logback Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```

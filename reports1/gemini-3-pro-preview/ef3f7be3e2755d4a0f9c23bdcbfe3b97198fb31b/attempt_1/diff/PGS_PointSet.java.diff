@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/ef3f7be3e2755d4a0f9c23bdcbfe3b97198fb31b/PGS/src/main/java/micycle/pgs/PGS_PointSet.java	2025-12-08 12:16:38.206013171 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ef3f7be3e2755d4a0f9c23bdcbfe3b97198fb31b/attempt_1/transformed/micycle/pgs/PGS_PointSet.java	2025-12-08 12:20:28.078778783 +0100
+@@ -67,7 +67,7 @@
+                 final List<PVector> newPoints = new ArrayList<>();
+                 for (PVector p : points) {
+                         final double[] coords = new double[] { p.x, p.y };
+-                        if (tree.size() == 0 || tree.query1NN(coords).dist() > distanceTolerance) {
++                        if (tree.size() == 0 || tree.query1nn(coords).dist() > distanceTolerance) {
+                                 tree.insert(coords, p);
+                                 newPoints.add(p);
+                         }

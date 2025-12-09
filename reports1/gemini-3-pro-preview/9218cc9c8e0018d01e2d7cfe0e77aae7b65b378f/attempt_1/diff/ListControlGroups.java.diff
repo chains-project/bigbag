@@ -1,0 +1,33 @@
+--- /home/kth/Documents/last_transformer/output/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java	2025-12-08 07:18:32.204429923 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/attempt_1/transformed/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java	2025-12-08 07:21:21.819370876 +0100
+@@ -118,8 +118,8 @@
+ 
+                 Set<String> properties = getPropertiesByOrder(modelClass);
+ 
+-                Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
+-                BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(modelClass);
++                jakarta.validation.Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
++                jakarta.validation.metadata.BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(modelClass);
+                 for(String property : properties){
+                         PropertyDescriptor descriptor;
+                         try {
+@@ -130,13 +130,13 @@
+ 
+                         boolean required = false;
+ 
+-                        ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
++                        jakarta.validation.metadata.ElementDescriptor constraintDescriptor = constraintDescriptors.getConstraintsForProperty(descriptor.getName());
+                         if(constraintDescriptor!=null){
+-                                Set<ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
+-                                for(ConstraintDescriptor<?> constraint : constraintsSet){
+-                                        if(constraint.getAnnotation() instanceof NotNull ||
+-                                           constraint.getAnnotation() instanceof NotEmpty ||
+-                                           constraint.getAnnotation() instanceof NotBlank)
++                                Set<jakarta.validation.metadata.ConstraintDescriptor<?>> constraintsSet = constraintDescriptor.getConstraintDescriptors();
++                                for(jakarta.validation.metadata.ConstraintDescriptor<?> constraint : constraintsSet){
++                                        if(constraint.getAnnotation() instanceof jakarta.validation.constraints.NotNull ||
++                                           constraint.getAnnotation() instanceof jakarta.validation.constraints.NotEmpty ||
++                                           constraint.getAnnotation() instanceof jakarta.validation.constraints.NotBlank)
+                                                 required = true;
+                                 }
+                         }

@@ -1,0 +1,97 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class HazelcastMigration {
+
+    /**
+     * Processor to handle the relocation of Hazelcast classes from 'com.hazelcast.core' 
+     * to 'com.hazelcast.cluster' (Hazelcast 3.x to 4.x migration).
+     */
+    public static class HazelcastPackageProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final Set<String> MOVED_CLASSES = new HashSet<>();
+        
+        static {
+            // Define the specific classes identified in the diff as REMOVED from core.
+            // These are known to be moved to the 'cluster' package in the new version.
+            MOVED_CLASSES.add("com.hazelcast.core.Cluster");
+            MOVED_CLASSES.add("com.hazelcast.core.Member");
+            MOVED_CLASSES.add("com.hazelcast.core.MemberAttributeEvent");
+            MOVED_CLASSES.add("com.hazelcast.core.MembershipEvent");
+            MOVED_CLASSES.add("com.hazelcast.core.MembershipListener");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive check for safety
+            if (candidate == null || candidate.getPackage() == null) {
+                return false;
+            }
+
+            // In NoClasspath mode, we rely on the qualified name string.
+            // We check if the qualified name matches one of the classes that were removed/moved.
+            return MOVED_CLASSES.contains(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // 1. Determine the new qualified name
+            String simpleName = candidate.getSimpleName();
+            String newQualifiedName = "com.hazelcast.cluster." + simpleName;
+            
+            // 2. Create the new reference
+            CtTypeReference<?> newReference = getFactory().Type().createReference(newQualifiedName);
+            
+            // 3. Preserve Generic Type Arguments (e.g., Member<String>)
+            // We clone them to ensure they are detached from the old parent before attaching to the new one.
+            for (CtTypeReference<?> typeArg : candidate.getActualTypeArguments()) {
+                newReference.addActualTypeArgument(typeArg.clone());
+            }
+            
+            // 4. Replace the old reference in the AST with the new one
+            candidate.replace(newReference);
+            
+            // Logging for verification
+            int line = candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : -1;
+            System.out.println("Refactored: " + simpleName + " -> " + newQualifiedName + " (Line: " + line + ")");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded as needed)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS:
+        // 1. Enable comments to ensure they are preserved during rewriting.
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force SniperJavaPrettyPrinter to perform surgical edits (preserving formatting of untouched code).
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode to run without requiring the full Hazelcast dependencies.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new HazelcastPackageProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

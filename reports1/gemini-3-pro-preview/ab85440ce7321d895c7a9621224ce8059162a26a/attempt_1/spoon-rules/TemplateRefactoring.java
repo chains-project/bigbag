@@ -1,0 +1,119 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Template.
+ * Generated based on the provided System Prompt rules.
+ * 
+ * Since the input diff was empty, this class demonstrates a generic
+ * method renaming strategy (oldMethod -> newMethod) adhering to the
+ * strict requirements:
+ * 1. SniperJavaPrettyPrinter for source preservation.
+ * 2. Defensive coding for NoClasspath compatibility.
+ * 3. Java Generics safety.
+ */
+public class TemplateRefactoring {
+
+    /**
+     * Processor to migrate `oldMethod` to `newMethod`.
+     */
+    public static class MethodRefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Fast fail)
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"oldMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Example: expecting 1 argument)
+            // Adjust this based on the specific API change.
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            // We check the first argument.
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Rule: NEVER assume getType() is not null.
+            // If type is known and does not match expected input, skip.
+            // If type is null (unknown), we assume it might be valid and proceed (optimistic matching).
+            if (type != null && !type.getQualifiedName().contains("String")) {
+                // If we are sure it's NOT a String, we skip. 
+                // Note: In NoClasspath, simple names might be returned, so .contains is safer than .equals
+                return false;
+            }
+
+            // 4. Owner/Scope Check
+            // Check if the method belongs to the target class (e.g., com.example.LegacyClass)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null 
+                && !declaringType.getQualifiedName().contains("LegacyClass") 
+                && !declaringType.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Logic: Rename the method to "newMethod"
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            execRef.setSimpleName("newMethod");
+            
+            // Example: If the owner class also changed
+            /*
+            if (execRef.getDeclaringType() != null) {
+                execRef.getDeclaringType().setSimpleName("NewClass");
+            }
+            */
+
+            System.out.println("Refactored method at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/ab85440ce7321d895c7a9621224ce8059162a26a/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityPostTest.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/ab85440ce7321d895c7a9621224ce8059162a26a/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityPostTest.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments to preserve them
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new MethodRefactoringProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

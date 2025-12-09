@@ -1,0 +1,122 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script for org.reflections Library Migration.
+ * 
+ * Analyzes breaking changes where 'apply(T)' methods were removed in favor of 
+ * Java 8 Predicate 'test(T)' methods (e.g., in FilterBuilder, ReflectionUtils).
+ */
+public class ReflectionsMigration {
+
+    public static class ApplyToTestProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> invocation) {
+            // 1. Check method name is "apply"
+            String methodName = invocation.getExecutable().getSimpleName();
+            if (!"apply".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check argument count (Predicate.test takes 1 arg)
+            if (invocation.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Identify if the target belongs to org.reflections
+            // We use defensive checks for NoClasspath environments.
+            
+            // Check A: The declaring type of the method being called
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            CtTypeReference<?> declType = execRef.getDeclaringType();
+            
+            if (isReflectionsType(declType)) {
+                return true;
+            }
+
+            // Check B: The type of the expression on which apply is called
+            CtExpression<?> target = invocation.getTarget();
+            if (target != null) {
+                if (isReflectionsType(target.getType())) {
+                    return true;
+                }
+
+                // Check C: Handle chained invocations (e.g., ReflectionUtils.withName("...").apply(...))
+                // In NoClasspath, intermediate types might be missing, so we check the chain source.
+                if (target instanceof CtInvocation) {
+                    CtInvocation<?> chainedInv = (CtInvocation<?>) target;
+                    CtExecutableReference<?> chainedExec = chainedInv.getExecutable();
+                    if (chainedExec != null && isReflectionsType(chainedExec.getDeclaringType())) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private boolean isReflectionsType(CtTypeReference<?> typeRef) {
+            if (typeRef == null) return false;
+            String qName = typeRef.getQualifiedName();
+            
+            // Target classes must start with org.reflections
+            if (!qName.startsWith("org.reflections")) {
+                return false;
+            }
+
+            // EXCLUSION: QueryFunction introduced a NEW 'apply' method (likely Function interface),
+            // so we must NOT rename it to 'test'.
+            if (qName.contains("QueryFunction")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Rename 'apply' to 'test'
+            invocation.getExecutable().setSimpleName("test");
+            System.out.println("Refactored 'apply' to 'test' at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = args.length > 0 ? args[0] : "src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "target/generated-sources/refactoring";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer for high-fidelity source code preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Allow running without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ApplyToTestProcessor());
+
+        try {
+            System.out.println("Starting Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring Complete. Output: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

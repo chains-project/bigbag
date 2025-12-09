@@ -1,0 +1,204 @@
+{
+  "project" : "LPVS",
+  "breakingCommit" : "aa14451c6f218af9c08e846345d83259eb7d46a8",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-core",
+    "previousVersion" : "5.3.23",
+    "newVersion" : "6.0.7",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-5.3.23.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-6.0.7.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/aa14451c6f218af9c08e846345d83259eb7d46a8.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/aa14451c6f218af9c08e846345d83259eb7d46a8/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/util/FileUtil.java",
+    "errors" : [ {
+      "lineNumber" : 13,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.util.FileSystemUtils",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/util/FileSystemUtils.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/src/main/java/com/lpvs/util/FileUtil.java",
+        "lineNumber" : 13,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-6.0.7.jar",
+        "generatedAt" : "2025-12-08T07:40:20.792933952Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.util.FileSystemUtils",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar"
+          },
+          "lineNumber" : 13,
+          "codeLine" : "import org.springframework.util.FileSystemUtils;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.util.FileSystemUtils",
+            "declaringType" : "org.springframework.util.FileSystemUtils",
+            "qualifiedSignature" : "org.springframework.util.FileSystemUtils",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/LicensePreValidationSystem.java",
+    "errors" : [ {
+      "lineNumber" : 17,
+      "columnNumber" : 37,
+      "message" : "cannot access org.springframework.core.task.TaskExecutor",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/core/task/TaskExecutor.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/src/main/java/com/lpvs/LicensePreValidationSystem.java",
+        "lineNumber" : 17,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-6.0.7.jar",
+        "generatedAt" : "2025-12-08T07:40:20.793175460Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.core.task.TaskExecutor",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar"
+          },
+          "lineNumber" : 17,
+          "codeLine" : "import org.springframework.core.task.TaskExecutor;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.core.task.TaskExecutor",
+            "declaringType" : "org.springframework.core.task.TaskExecutor",
+            "qualifiedSignature" : "org.springframework.core.task.TaskExecutor",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 39,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TaskExecutor", "location: class com.lpvs.LicensePreValidationSystem" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/src/main/java/com/lpvs/LicensePreValidationSystem.java",
+        "lineNumber" : 39,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-6.0.7.jar",
+        "generatedAt" : "2025-12-08T07:40:20.793324699Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.core.task.TaskExecutor",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar"
+          },
+          "lineNumber" : 39,
+          "codeLine" : "    public TaskExecutor getAsyncExecutor(){",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.core.task.TaskExecutor",
+            "declaringType" : "org.springframework.core.task.TaskExecutor",
+            "qualifiedSignature" : "org.springframework.core.task.TaskExecutor",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/controller/GitHubWebhooksController.java",
+    "errors" : [ {
+      "lineNumber" : 25,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.util.StringUtils",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/util/StringUtils.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/src/main/java/com/lpvs/controller/GitHubWebhooksController.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/spring-core-6.0.7.jar",
+        "generatedAt" : "2025-12-08T07:40:20.793692411Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.util.StringUtils",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "import org.springframework.util.StringUtils;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.util.StringUtils",
+            "declaringType" : "org.springframework.util.StringUtils",
+            "qualifiedSignature" : "org.springframework.util.StringUtils",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

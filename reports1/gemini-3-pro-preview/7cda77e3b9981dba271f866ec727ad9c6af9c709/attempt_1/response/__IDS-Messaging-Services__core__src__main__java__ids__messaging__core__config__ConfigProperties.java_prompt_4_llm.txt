@@ -1,0 +1,123 @@
+Since the provided `<dependency_change_diff>` tag was empty, I have analyzed a **hypothetical** but common breaking change scenario to demonstrate the required implementation.
+
+**Hypothetical Diff:**
+```text
+- METHOD com.billing.Invoice.setTotal(double) [REMOVED]
++ METHOD com.billing.Invoice.setTotal(java.math.BigDecimal) [ADDED]
+```
+
+**Reasoning:**
+The method `setTotal` no longer accepts a primitive `double`. It now requires a `java.math.BigDecimal`. The refactoring strategy is to wrap the existing double argument using `BigDecimal.valueOf(...)`.
+
+**Generated Spoon Code:**
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class InvoiceRefactoring {
+
+    public static class InvoiceProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"setTotal".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we detect it is ALREADY a BigDecimal, we skip it.
+            // If type is null (unknown) or primitive, we assume it needs processing.
+            if (type != null && type.getQualifiedName().contains("BigDecimal")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We verify the owner is likely 'Invoice'. We allow null/unknown to avoid skipping valid calls in partial classpaths.
+            if (owner != null && !owner.getQualifiedName().contains("Invoice") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation: Wrap originalArg inside BigDecimal.valueOf(...)
+            CtTypeReference<?> bigDecimalRef = factory.Type().createReference("java.math.BigDecimal");
+
+            // Create: BigDecimal.valueOf(originalArg)
+            // Note: We use wildcards <?> to ensure generic safety
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(bigDecimalRef),
+                factory.Method().createReference(
+                    bigDecimalRef, 
+                    bigDecimalRef, // return type
+                    "valueOf", 
+                    factory.Type().doublePrimitiveType() // arg type
+                ),
+                originalArg.clone()
+            );
+
+            // Apply replacement
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored setTotal at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown line"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL: Sniper Configuration for Source Fidelity
+        // ==========================================================
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Set NoClasspath to true to process files without full compilation dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new InvoiceProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

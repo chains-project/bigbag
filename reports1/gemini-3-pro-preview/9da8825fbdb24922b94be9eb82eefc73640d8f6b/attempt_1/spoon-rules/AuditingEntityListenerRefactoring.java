@@ -1,0 +1,86 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor for org.springframework.data.jpa.domain.support.AuditingEntityListener.
+ * 
+ * ANALYSIS OF DIFF:
+ * The provided dependency change diff indicates that:
+ * - CLASS org.springframework.data.jpa.domain.support.AuditingEntityListener
+ * - Status: UNCHANGED
+ * - Binary Compatible: true
+ * - Source Compatible: true
+ * 
+ * STRATEGY:
+ * Since the class is explicitly marked as UNCHANGED and compatible, no structural refactoring 
+ * (renaming, method signature updates) is required.
+ * 
+ * This processor is generated as a proactive scanner to identify usages of the class 
+ * within the codebase, ensuring it resolves correctly in the target environment, 
+ * but applies no AST transformations.
+ */
+public class AuditingEntityListenerRefactoring {
+
+    public static class AuditingEntityListenerProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: Ensure candidate and name are not null
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Target the specific class mentioned in the diff
+            // Using "contains" handles cases where the package might be partially inferred in NoClasspath mode
+            return candidate.getQualifiedName().contains("org.springframework.data.jpa.domain.support.AuditingEntityListener");
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // As per diff [status=UNCHANGED], no modification is performed.
+            // We simply log that the reference exists and is compatible.
+            System.out.println("Found valid usage of AuditingEntityListener at line " + 
+                (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/utils/db/Auditable.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/utils/db/Auditable.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Sniper Configuration
+        // 1. Enable comments to preserve source fidelity
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to handle partial dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new AuditingEntityListenerProcessor());
+
+        try {
+            System.out.println("Starting analysis for AuditingEntityListener...");
+            launcher.run();
+            System.out.println("Analysis complete. No structural changes were required.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

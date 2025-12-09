@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__LargeImageITCase.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__LargeImageITCase.java_prompt_4_llm.txt",
+  "timestamp": 1765176543.122978,
+  "duration_seconds": 54.205283641815186,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Spoon Refactoring Rule Generator\n * Generated based on the provided dependency diff (Empty input detected - Defaulting to Template).\n *\n * SCENARIO: Generic Method Rename Template\n * - Detects methods named \"oldMethodName\"\n * - Renames them to \"newMethodName\"\n * - Demonstrates robust Sniper support and NoClasspath defensive coding.\n */\npublic class RefactoringTool {\n\n    public static class RefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Name Check\n            // Replace \"oldMethodName\" with the actual method name from the diff\n            if (!\"oldMethodName\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Owner/Type Check (Defensive for NoClasspath)\n            // We use string matching because in NoClasspath mode, full type resolution might fail.\n            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();\n            \n            // If owner is null/unknown, we might process it to be safe, or skip. \n            // Here we check if it matches the expected class (e.g., \"com.library.TargetClass\")\n            if (owner != null && !owner.getQualifiedName().equals(\"<unknown>\")) {\n                // Replace \"TargetClass\" with the actual class name from the diff\n                if (!owner.getQualifiedName().contains(\"TargetClass\")) {\n                    return false;\n                }\n            }\n\n            // 3. Argument Check (Optional)\n            // Example: Ensure it has specific argument count\n            // if (candidate.getArguments().size() != 2) return false;\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // TRANSFORMATION LOGIC\n            \n            // Rename the method\n            // Replace \"newMethodName\" with the actual new name\n            invocation.getExecutable().setSimpleName(\"newMethodName\");\n\n            // Example: If argument types changed or arguments need re-ordering\n            /*\n            Factory factory = getFactory();\n            List<CtExpression<?>> args = invocation.getArguments();\n            CtExpression<?> arg0 = args.get(0);\n            \n            // Logic to wrap argument or change type...\n            */\n\n            System.out.println(\"Refactored invocation at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Source Preservation\n        // 1. Enable comments to ensure they are parsed\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting/indentation of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Defensive Mode (NoClasspath)\n        // Allows running without full dependency jars\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new RefactoringProcessor());\n        \n        try { \n            launcher.run(); \n            System.out.println(\"Refactoring complete. Check output in: \" + outputPath);\n        } catch (Exception e) { \n            e.printStackTrace(); \n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 886,
+      "total_token_count": 5194,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,21 @@
+--- /home/kth/Documents/last_transformer/output/28be199c825d419957bc753a9519e8e9ecc6a08e/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java	2025-12-08 02:55:11.956160262 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/28be199c825d419957bc753a9519e8e9ecc6a08e/attempt_1/transformed/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java	2025-12-08 02:56:43.918926450 +0100
+@@ -157,7 +157,7 @@
+     getLog().debug(String.format("Building dependency graphs for %d projects", getProjects().size()));
+     getProjects().parallelStream().forEach(project -> {
+       try {
+-        dependencies.addAll(getGraph().buildDependencyGraph(project, getFilter()).getChildren());
++        dependencies.addAll(// FIXME: Refactored by Spoon. Ensure 'session' (MavenSession) is available in scope.getGraph().buildDependencyGraph(session.getProjectBuildingRequest(), getFilter()).getChildren());
+       } catch (DependencyGraphBuilderException ex) {
+         getLog().warn(
+             String.format("Could not get children from project %s, it's dependencies will not be checked!",
+@@ -173,7 +173,9 @@
+     return artifacts;
+ 
+     // tempting, but does not resolve dependencies after the scope in which this
++
+     // plugin is invoked
++
+     // return project.getArtifacts();
+   }
+ 

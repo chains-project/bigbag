@@ -1,0 +1,4552 @@
+{
+  "project" : "jtcop",
+  "breakingCommit" : "3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01",
+  "dependencyGroupId" : "org.apache.opennlp",
+  "dependencyArtifactId" : "opennlp-tools",
+  "previousVersion" : "2.2.0",
+  "newVersion" : "2.3.0",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+  "generatedAt" : "2025-12-08T02:22:44.747326376Z",
+  "totalBreakingChanges" : 191,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.ArgumentParser$Argument",
+    "simpleName" : "ArgumentParser$Argument",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ArgumentParser$Argument",
+    "simpleName" : "ArgumentParser$Argument",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument#ArgumentParser$Argument(java.lang.String, java.lang.String, java.lang.String, boolean)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5b98fd9a[public ArgumentParser$Argument (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V]",
+      "newValue" : "javassist.CtConstructor@705186f7[ ArgumentParser$Argument (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String", "java.lang.String", "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getArgument",
+    "simpleName" : "getArgument",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument#getArgument()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3d236074[public getArgument ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getDescription",
+    "simpleName" : "getDescription",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument#getDescription()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@df443647[public getDescription ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getOptional",
+    "simpleName" : "getOptional",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument#getOptional()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4025b057[public getOptional ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getValue",
+    "simpleName" : "getValue",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$Argument#getValue()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4b9b39fc[public getValue ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.ArgumentParser$ArgumentProxy",
+    "simpleName" : "ArgumentParser$ArgumentProxy",
+    "qualifiedSignature" : "opennlp.tools.cmdline.ArgumentParser$ArgumentProxy",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.chunker.ChunkerCrossValidatorTool$CVToolParams",
+    "simpleName" : "ChunkerCrossValidatorTool$CVToolParams",
+    "qualifiedSignature" : "opennlp.tools.cmdline.chunker.ChunkerCrossValidatorTool$CVToolParams",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.chunker.ChunkerEvaluatorTool$EvalToolParams",
+    "simpleName" : "ChunkerEvaluatorTool$EvalToolParams",
+    "qualifiedSignature" : "opennlp.tools.cmdline.chunker.ChunkerEvaluatorTool$EvalToolParams",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.namefind.TokenNameFinderCrossValidatorTool$CVToolParams",
+    "simpleName" : "TokenNameFinderCrossValidatorTool$CVToolParams",
+    "qualifiedSignature" : "opennlp.tools.cmdline.namefind.TokenNameFinderCrossValidatorTool$CVToolParams",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.namefind.TokenNameFinderEvaluatorTool$EvalToolParams",
+    "simpleName" : "TokenNameFinderEvaluatorTool$EvalToolParams",
+    "qualifiedSignature" : "opennlp.tools.cmdline.namefind.TokenNameFinderEvaluatorTool$EvalToolParams",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.cmdline.params.DetailedFMeasureEvaluatorParams",
+    "simpleName" : "DetailedFMeasureEvaluatorParams",
+    "qualifiedSignature" : "opennlp.tools.cmdline.params.DetailedFMeasureEvaluatorParams",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getDetailedF",
+    "simpleName" : "getDetailedF",
+    "qualifiedSignature" : "opennlp.tools.cmdline.params.DetailedFMeasureEvaluatorParams#getDetailedF()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5ff17fe1[public abstract getDetailedF ()Ljava/lang/Boolean;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.dictionary.serializer.Entry",
+    "simpleName" : "Entry",
+    "qualifiedSignature" : "opennlp.tools.dictionary.serializer.Entry",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream",
+    "simpleName" : "LeipzigLanguageSampleStream",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$new$0",
+    "simpleName" : "lambda$new$0",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream#lambda$new$0(java.io.File)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@71a9a79[private static lambda$new$0 (Ljava/io/File;)Ljava/lang/String;]",
+      "newValue" : "javassist.CtMethod@71a9a79[private static lambda$new$0 (Ljava/io/File;)Z]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "boolean",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "parameterTypes" : [ "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$new$1",
+    "simpleName" : "lambda$new$1",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream#lambda$new$1(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b7a42c47[private static lambda$new$1 (Ljava/lang/String;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$new$2",
+    "simpleName" : "lambda$new$2",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream#lambda$new$2(int, java.util.Map$Entry)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c5fb771e[private static lambda$new$2 (ILjava/util/Map$Entry;)Ljava/lang/Integer;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int", "java.util.Map$Entry" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1",
+    "simpleName" : "LeipzigLanguageSampleStream$1",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "LeipzigLanguageSampleStream$1",
+    "simpleName" : "LeipzigLanguageSampleStream$1",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1#LeipzigLanguageSampleStream$1(opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1938e364[ LeipzigLanguageSampleStream$1 (Lopennlp/tools/formats/leipzig/LeipzigLanguageSampleStream;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "accept",
+    "simpleName" : "accept",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1#accept(java.io.File)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@cc41de72[public accept (Ljava/io/File;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream$1.this$0:Lopennlp/tools/formats/leipzig/LeipzigLanguageSampleStream;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.formats.leipzig.LeipzigLanguageSampleStream",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.formats.masc.MascDocumentStream",
+    "simpleName" : "MascDocumentStream",
+    "qualifiedSignature" : "opennlp.tools.formats.masc.MascDocumentStream",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "documents",
+    "simpleName" : "documents",
+    "qualifiedSignature" : "opennlp.tools.formats.masc.MascDocumentStream::documents",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.formats.masc.MascDocumentStream.documents:Ljava/util/List;",
+      "newValue" : "opennlp.tools.formats.masc.MascDocumentStream.documents:Ljava/util/List;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "saxParser",
+    "simpleName" : "saxParser",
+    "qualifiedSignature" : "opennlp.tools.formats.masc.MascDocumentStream::saxParser",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.formats.masc.MascDocumentStream.saxParser:Ljavax/xml/parsers/SAXParser;",
+      "newValue" : "opennlp.tools.formats.masc.MascDocumentStream.saxParser:Ljavax/xml/parsers/SAXParser;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.xml.parsers.SAXParser",
+      "newValue" : "javax.xml.parsers.SAXParser",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.formats.masc.MascSentence$QuarkExtractor",
+    "simpleName" : "MascSentence$QuarkExtractor",
+    "qualifiedSignature" : "opennlp.tools.formats.masc.MascSentence$QuarkExtractor",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.DefaultLanguageDetectorContextGenerator",
+    "simpleName" : "DefaultLanguageDetectorContextGenerator",
+    "qualifiedSignature" : "opennlp.tools.langdetect.DefaultLanguageDetectorContextGenerator",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getContext",
+    "simpleName" : "getContext",
+    "qualifiedSignature" : "opennlp.tools.langdetect.DefaultLanguageDetectorContextGenerator#getContext(java.lang.CharSequence)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "CLASS_GENERIC_TEMPLATE_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@95d4c716[public getContext (Ljava/lang/CharSequence;)[Ljava/lang/String;]",
+      "newValue" : "javassist.CtMethod@95d4c716[public getContext (Ljava/lang/CharSequence;)[Ljava/lang/CharSequence;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : "java.lang.CharSequence[]",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.CharSequence" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.LanguageDetectorContextGenerator",
+    "simpleName" : "LanguageDetectorContextGenerator",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorContextGenerator",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getContext",
+    "simpleName" : "getContext",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorContextGenerator#getContext(java.lang.CharSequence)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "CLASS_GENERIC_TEMPLATE_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@95d4c716[public abstract getContext (Ljava/lang/CharSequence;)[Ljava/lang/String;]",
+      "newValue" : "javassist.CtMethod@95d4c716[public abstract getContext (Ljava/lang/CharSequence;)[Ljava/lang/CharSequence;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : "java.lang.CharSequence[]",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.CharSequence" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.LanguageDetectorME",
+    "simpleName" : "LanguageDetectorME",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "arrayToCounts",
+    "simpleName" : "arrayToCounts",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME#arrayToCounts(java.lang.String[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@dfadf434[private arrayToCounts ([Ljava/lang/String;)Ljava/util/Map;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String[]" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "predict",
+    "simpleName" : "predict",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME#predict(java.util.Map)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@87c1e5ed[private predict (Ljava/util/Map;)[Lopennlp/tools/langdetect/Language;]",
+      "newValue" : "javassist.CtMethod@87c1e5ed[private predict (Ljava/util/Map;)[Lopennlp/tools/langdetect/Language;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.langdetect.Language[]",
+      "newValue" : "opennlp.tools.langdetect.Language[]",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "seenEnough",
+    "simpleName" : "seenEnough",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME#seenEnough(java.util.List, opennlp.tools.langdetect.Language[], java.util.Map, opennlp.tools.langdetect.LanguageDetectorConfig)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9b33b011[ seenEnough (Ljava/util/List;[Lopennlp/tools/langdetect/Language;Ljava/util/Map;Lopennlp/tools/langdetect/LanguageDetectorConfig;)Z]",
+      "newValue" : "javassist.CtMethod@9b33b011[ seenEnough (Ljava/util/List;[Lopennlp/tools/langdetect/Language;Ljava/util/Map;Lopennlp/tools/langdetect/LanguageDetectorConfig;)Z]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : [ "java.util.List", "opennlp.tools.langdetect.Language[]", "java.util.Map", "opennlp.tools.langdetect.LanguageDetectorConfig" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "updateCounts",
+    "simpleName" : "updateCounts",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME#updateCounts(java.lang.String[], java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f69c55e8[private updateCounts ([Ljava/lang/String;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String[]", "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.LanguageDetectorME$StringCPLengthPair",
+    "simpleName" : "LanguageDetectorME$StringCPLengthPair",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageDetectorME$StringCPLengthPair",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.LanguageSample",
+    "simpleName" : "LanguageSample",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageSample",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "equals",
+    "simpleName" : "equals",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageSample#equals(java.lang.Object)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@87a44f24[public equals (Ljava/lang/Object;)Z]",
+      "newValue" : "javassist.CtMethod@87a44f24[public final equals (Ljava/lang/Object;)Z]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_BRIDGE", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "hashCode",
+    "simpleName" : "hashCode",
+    "qualifiedSignature" : "opennlp.tools.langdetect.LanguageSample#hashCode()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c13165c[public hashCode ()I]",
+      "newValue" : "javassist.CtMethod@c13165c[public final hashCode ()I]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "int",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_BRIDGE", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.langdetect.ProbingLanguageDetectionResult",
+    "simpleName" : "ProbingLanguageDetectionResult",
+    "qualifiedSignature" : "opennlp.tools.langdetect.ProbingLanguageDetectionResult",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.AbstractEventModelSequenceTrainer",
+    "simpleName" : "AbstractEventModelSequenceTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractEventModelSequenceTrainer",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.AbstractEventTrainer",
+    "simpleName" : "AbstractEventTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractEventTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isValid",
+    "simpleName" : "isValid",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractEventTrainer#isValid()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@eb39cd73[public isValid ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.AbstractTrainer",
+    "simpleName" : "AbstractTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "TrainingParameters",
+    "simpleName" : "TrainingParameters",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#TrainingParameters(java.lang.String, int)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@939895ae[protected TrainingParameters (Ljava/lang/String;I)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "int" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getBooleanParam",
+    "simpleName" : "getBooleanParam",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#getBooleanParam(java.lang.String, boolean)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1afc2e6[protected getBooleanParam (Ljava/lang/String;Z)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getDoubleParam",
+    "simpleName" : "getDoubleParam",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#getDoubleParam(java.lang.String, double)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@86126d1[protected getDoubleParam (Ljava/lang/String;D)D]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "double",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "double" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getStringParam",
+    "simpleName" : "getStringParam",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#getStringParam(java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@28017133[protected getStringParam (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "init",
+    "simpleName" : "init",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#init(java.util.Map, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c2a02b71[public init (Ljava/util/Map;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map", "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isValid",
+    "simpleName" : "isValid",
+    "qualifiedSignature" : "opennlp.tools.ml.AbstractTrainer#isValid()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@eb39cd73[public isValid ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.GISTrainer",
+    "simpleName" : "GISTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.GISTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "OLD_LL_THRESHOLD_PARAM",
+    "simpleName" : "OLD_LL_THRESHOLD_PARAM",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.GISTrainer::OLD_LL_THRESHOLD_PARAM",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.maxent.GISTrainer.OLD_LL_THRESHOLD_PARAM:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.io.GISModelWriter",
+    "simpleName" : "GISModelWriter",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.GISModelWriter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_SUPERCLASS",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compressOutcomes",
+    "simpleName" : "compressOutcomes",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.GISModelWriter#compressOutcomes(opennlp.tools.ml.model.ComparablePredicate[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@696f6446[protected compressOutcomes ([Lopennlp/tools/ml/model/ComparablePredicate;)Ljava/util/List;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "opennlp.tools.ml.model.ComparablePredicate[]" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "OUTCOME_LABELS",
+    "simpleName" : "OUTCOME_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.GISModelWriter::OUTCOME_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.maxent.io.GISModelWriter.OUTCOME_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PARAMS",
+    "simpleName" : "PARAMS",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.GISModelWriter::PARAMS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.maxent.io.GISModelWriter.PARAMS:[Lopennlp/tools/ml/model/Context;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.ml.model.Context[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PRED_LABELS",
+    "simpleName" : "PRED_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.GISModelWriter::PRED_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.maxent.io.GISModelWriter.PRED_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.io.QNModelWriter",
+    "simpleName" : "QNModelWriter",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.io.QNModelWriter",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_SUPERCLASS",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.quasinewton.ArrayMath",
+    "simpleName" : "ArrayMath",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.ArrayMath",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ArrayMath",
+    "simpleName" : "ArrayMath",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.ArrayMath#ArrayMath()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@4e5ef0b7[public ArrayMath ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "maxIdx",
+    "simpleName" : "maxIdx",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.ArrayMath#maxIdx(double[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a9ba5711[public static maxIdx ([D)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "double[]" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer",
+    "simpleName" : "QNTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "init",
+    "simpleName" : "init",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer#init(java.util.Map, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c2a02b71[public init (Ljava/util/Map;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map", "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isValid",
+    "simpleName" : "isValid",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer#isValid()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@eb39cd73[public isValid ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer$ModelEvaluator",
+    "simpleName" : "QNTrainer$ModelEvaluator",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer$ModelEvaluator",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "QNTrainer$ModelEvaluator",
+    "simpleName" : "QNTrainer$ModelEvaluator",
+    "qualifiedSignature" : "opennlp.tools.ml.maxent.quasinewton.QNTrainer$ModelEvaluator#QNTrainer$ModelEvaluator(opennlp.tools.ml.model.DataIndexer)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@78ab8f6d[public QNTrainer$ModelEvaluator (Lopennlp/tools/ml/model/DataIndexer;)V]",
+      "newValue" : "javassist.CtConstructor@15454825[private QNTrainer$ModelEvaluator (Lopennlp/tools/ml/model/DataIndexer;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "opennlp.tools.ml.model.DataIndexer" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.model.Event",
+    "simpleName" : "Event",
+    "qualifiedSignature" : "opennlp.tools.ml.model.Event",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Event",
+    "simpleName" : "Event",
+    "qualifiedSignature" : "opennlp.tools.ml.model.Event#Event(java.lang.String, java.lang.String[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@14ccd36d[public Event (Ljava/lang/String;[Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String[]" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter",
+    "simpleName" : "NaiveBayesModelWriter",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_SUPERCLASS",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "compressOutcomes",
+    "simpleName" : "compressOutcomes",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter#compressOutcomes(opennlp.tools.ml.model.ComparablePredicate[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@696f6446[protected compressOutcomes ([Lopennlp/tools/ml/model/ComparablePredicate;)Ljava/util/List;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "opennlp.tools.ml.model.ComparablePredicate[]" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "computeOutcomePatterns",
+    "simpleName" : "computeOutcomePatterns",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter#computeOutcomePatterns(opennlp.tools.ml.model.ComparablePredicate[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7ccfc8ab[protected computeOutcomePatterns ([Lopennlp/tools/ml/model/ComparablePredicate;)Ljava/util/List;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "opennlp.tools.ml.model.ComparablePredicate[]" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "OUTCOME_LABELS",
+    "simpleName" : "OUTCOME_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter::OUTCOME_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter.OUTCOME_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PARAMS",
+    "simpleName" : "PARAMS",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter::PARAMS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter.PARAMS:[Lopennlp/tools/ml/model/Context;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.ml.model.Context[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PRED_LABELS",
+    "simpleName" : "PRED_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter::PRED_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter.PRED_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "logger",
+    "simpleName" : "logger",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter::logger",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter.logger:Lorg/slf4j/Logger;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.slf4j.Logger",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "numOutcomes",
+    "simpleName" : "numOutcomes",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter::numOutcomes",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.naivebayes.NaiveBayesModelWriter.numOutcomes:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.naivebayes.NaiveBayesTrainer",
+    "simpleName" : "NaiveBayesTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.naivebayes.NaiveBayesTrainer",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.perceptron.PerceptronModelWriter",
+    "simpleName" : "PerceptronModelWriter",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_SUPERCLASS",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "computeOutcomePatterns",
+    "simpleName" : "computeOutcomePatterns",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter#computeOutcomePatterns(opennlp.tools.ml.model.ComparablePredicate[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7ccfc8ab[protected computeOutcomePatterns ([Lopennlp/tools/ml/model/ComparablePredicate;)Ljava/util/List;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "opennlp.tools.ml.model.ComparablePredicate[]" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "OUTCOME_LABELS",
+    "simpleName" : "OUTCOME_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter::OUTCOME_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.perceptron.PerceptronModelWriter.OUTCOME_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PARAMS",
+    "simpleName" : "PARAMS",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter::PARAMS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.perceptron.PerceptronModelWriter.PARAMS:[Lopennlp/tools/ml/model/Context;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.ml.model.Context[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PRED_LABELS",
+    "simpleName" : "PRED_LABELS",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter::PRED_LABELS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.perceptron.PerceptronModelWriter.PRED_LABELS:[Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "numOutcomes",
+    "simpleName" : "numOutcomes",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronModelWriter::numOutcomes",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ml.perceptron.PerceptronModelWriter.numOutcomes:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.perceptron.PerceptronTrainer",
+    "simpleName" : "PerceptronTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isValid",
+    "simpleName" : "isValid",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.PerceptronTrainer#isValid()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@eb39cd73[public isValid ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ml.perceptron.SimplePerceptronSequenceTrainer",
+    "simpleName" : "SimplePerceptronSequenceTrainer",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.SimplePerceptronSequenceTrainer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isValid",
+    "simpleName" : "isValid",
+    "qualifiedSignature" : "opennlp.tools.ml.perceptron.SimplePerceptronSequenceTrainer#isValid()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@eb39cd73[public isValid ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.namefind.TokenNameFinderCrossValidator$DocumentSample",
+    "simpleName" : "TokenNameFinderCrossValidator$DocumentSample",
+    "qualifiedSignature" : "opennlp.tools.namefind.TokenNameFinderCrossValidator$DocumentSample",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSamples",
+    "simpleName" : "getSamples",
+    "qualifiedSignature" : "opennlp.tools.namefind.TokenNameFinderCrossValidator$DocumentSample#getSamples()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@41c4d814[private getSamples ()[Lopennlp/tools/namefind/NameSample;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.namefind.NameSample[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.ngram.NGramCharModel",
+    "simpleName" : "NGramCharModel",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "add",
+    "simpleName" : "add",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#add(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bb52d358[public add (Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "contains",
+    "simpleName" : "contains",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#contains(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@33e725d6[public contains (Ljava/lang/String;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getCount",
+    "simpleName" : "getCount",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#getCount(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c6dbc610[public getCount (Ljava/lang/String;)I]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "iterator",
+    "simpleName" : "iterator",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#iterator()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@979ba9ef[public iterator ()Ljava/util/Iterator;]",
+      "newValue" : "javassist.CtMethod@979ba9ef[public iterator ()Ljava/util/Iterator;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Iterator",
+      "newValue" : "java.util.Iterator",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "remove",
+    "simpleName" : "remove",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#remove(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@928883bb[public remove (Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setCount",
+    "simpleName" : "setCount",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel#setCount(java.lang.String, int)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@45bb605[public setCount (Ljava/lang/String;I)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "int" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "mNGrams",
+    "simpleName" : "mNGrams",
+    "qualifiedSignature" : "opennlp.tools.ngram.NGramCharModel::mNGrams",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.ngram.NGramCharModel.mNGrams:Ljava/util/Map;",
+      "newValue" : "opennlp.tools.ngram.NGramCharModel.mNGrams:Ljava/util/Map;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.sentdetect.DefaultEndOfSentenceScanner",
+    "simpleName" : "DefaultEndOfSentenceScanner",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.DefaultEndOfSentenceScanner",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getEndOfSentenceCharacters",
+    "simpleName" : "getEndOfSentenceCharacters",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.DefaultEndOfSentenceScanner#getEndOfSentenceCharacters()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c73f476a[public getEndOfSentenceCharacters ()[C]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "char[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "eosChars",
+    "simpleName" : "eosChars",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.DefaultEndOfSentenceScanner::eosChars",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.sentdetect.DefaultEndOfSentenceScanner.eosChars:[C",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "char[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.sentdetect.EndOfSentenceScanner",
+    "simpleName" : "EndOfSentenceScanner",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.EndOfSentenceScanner",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getEndOfSentenceCharacters",
+    "simpleName" : "getEndOfSentenceCharacters",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.EndOfSentenceScanner#getEndOfSentenceCharacters()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c73f476a[public abstract getEndOfSentenceCharacters ()[C]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "char[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.sentdetect.SentenceDetectorME",
+    "simpleName" : "SentenceDetectorME",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.SentenceDetectorME",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "train",
+    "simpleName" : "train",
+    "qualifiedSignature" : "opennlp.tools.sentdetect.SentenceDetectorME#train(java.lang.String, opennlp.tools.util.ObjectStream, boolean, opennlp.tools.dictionary.Dictionary)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@63883464[public static train (Ljava/lang/String;Lopennlp/tools/util/ObjectStream;ZLopennlp/tools/dictionary/Dictionary;)Lopennlp/tools/sentdetect/SentenceModel;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.sentdetect.SentenceModel",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "opennlp.tools.util.ObjectStream", "boolean", "opennlp.tools.dictionary.Dictionary" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.TokenTag",
+    "simpleName" : "TokenTag",
+    "qualifiedSignature" : "opennlp.tools.util.TokenTag",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_NOW_NOT_EXTENDABLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "equals",
+    "simpleName" : "equals",
+    "qualifiedSignature" : "opennlp.tools.util.TokenTag#equals(java.lang.Object)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@87a44f24[public equals (Ljava/lang/Object;)Z]",
+      "newValue" : "javassist.CtMethod@87a44f24[public final equals (Ljava/lang/Object;)Z]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "boolean",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_BRIDGE", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "hashCode",
+    "simpleName" : "hashCode",
+    "qualifiedSignature" : "opennlp.tools.util.TokenTag#hashCode()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@c13165c[public hashCode ()I]",
+      "newValue" : "javassist.CtMethod@c13165c[public final hashCode ()I]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : "int",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_BRIDGE", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.AggregatedFeatureGeneratorFactory",
+    "simpleName" : "AggregatedFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.AggregatedFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.AggregatedFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.AggregatedFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.ArtifactToSerializerMapper",
+    "simpleName" : "ArtifactToSerializerMapper",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.ArtifactToSerializerMapper",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getArtifactSerializerMapping",
+    "simpleName" : "getArtifactSerializerMapping",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.ArtifactToSerializerMapper#getArtifactSerializerMapping()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@968ce075[public abstract getArtifactSerializerMapping ()Ljava/util/Map;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.BigramNameFeatureGeneratorFactory",
+    "simpleName" : "BigramNameFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BigramNameFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BigramNameFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BigramNameFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.BrownClusterBigramFeatureGeneratorFactory",
+    "simpleName" : "BrownClusterBigramFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterBigramFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterBigramFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterBigramFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.BrownClusterTokenClassFeatureGeneratorFactory",
+    "simpleName" : "BrownClusterTokenClassFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenClassFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenClassFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenClassFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.BrownClusterTokenFeatureGeneratorFactory",
+    "simpleName" : "BrownClusterTokenFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.BrownClusterTokenFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.CachedFeatureGeneratorFactory",
+    "simpleName" : "CachedFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CachedFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CachedFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CachedFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.CharacterNgramFeatureGeneratorFactory",
+    "simpleName" : "CharacterNgramFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CharacterNgramFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CharacterNgramFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CharacterNgramFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.CustomFeatureGenerator",
+    "simpleName" : "CustomFeatureGenerator",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CustomFeatureGenerator",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "CustomFeatureGenerator",
+    "simpleName" : "CustomFeatureGenerator",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CustomFeatureGenerator#CustomFeatureGenerator()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@6f77e573[public CustomFeatureGenerator ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "init",
+    "simpleName" : "init",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.CustomFeatureGenerator#init(java.util.Map, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7c7f4926[public abstract init (Ljava/util/Map;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.DefinitionFeatureGeneratorFactory",
+    "simpleName" : "DefinitionFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DefinitionFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DefinitionFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DefinitionFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.DictionaryFeatureGeneratorFactory",
+    "simpleName" : "DictionaryFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DictionaryFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DictionaryFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DictionaryFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.DocumentBeginFeatureGeneratorFactory",
+    "simpleName" : "DocumentBeginFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DocumentBeginFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DocumentBeginFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.DocumentBeginFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.GeneratorFactory",
+    "simpleName" : "GeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "buildGenerator",
+    "simpleName" : "buildGenerator",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory#buildGenerator(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@837553b1[static buildGenerator (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : "javassist.CtMethod@837553b1[private static buildGenerator (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createGenerator",
+    "simpleName" : "createGenerator",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory#createGenerator(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7b26063f[static createGenerator (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : "javassist.CtMethod@7b26063f[private static createGenerator (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "extractArtifactSerializerMappings",
+    "simpleName" : "extractArtifactSerializerMappings",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory#extractArtifactSerializerMappings(java.util.Map, org.w3c.dom.Element)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_LESS_ACCESSIBLE",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4fe697ab[static extractArtifactSerializerMappings (Ljava/util/Map;Lorg/w3c/dom/Element;)V]",
+      "newValue" : "javassist.CtMethod@4fe697ab[private static extractArtifactSerializerMappings (Ljava/util/Map;Lorg/w3c/dom/Element;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ "java.util.Map", "org.w3c.dom.Element" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "extractArtifactSerializerMappingsClassicFormat",
+    "simpleName" : "extractArtifactSerializerMappingsClassicFormat",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory#extractArtifactSerializerMappingsClassicFormat(org.w3c.dom.Element)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4564d887[static extractArtifactSerializerMappingsClassicFormat (Lorg/w3c/dom/Element;)Ljava/util/Map;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getFirstChild",
+    "simpleName" : "getFirstChild",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory#getFirstChild(org.w3c.dom.Element)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b52ff044[static getFirstChild (Lorg/w3c/dom/Element;)Lorg/w3c/dom/Element;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.w3c.dom.Element",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "factories",
+    "simpleName" : "factories",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory::factories",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "opennlp.tools.util.featuregen.GeneratorFactory.factories:Ljava/util/Map;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.GeneratorFactory$CustomFeatureGeneratorFactory",
+    "simpleName" : "GeneratorFactory$CustomFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$CustomFeatureGeneratorFactory",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "GeneratorFactory$CustomFeatureGeneratorFactory",
+    "simpleName" : "GeneratorFactory$CustomFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$CustomFeatureGeneratorFactory#GeneratorFactory$CustomFeatureGeneratorFactory()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@47cc4fac[ GeneratorFactory$CustomFeatureGeneratorFactory ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$CustomFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$CustomFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.GeneratorFactory$XmlFeatureGeneratorFactory",
+    "simpleName" : "GeneratorFactory$XmlFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$XmlFeatureGeneratorFactory",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.GeneratorFactory$XmlFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public abstract create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.POSTaggerNameFeatureGeneratorFactory",
+    "simpleName" : "POSTaggerNameFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.POSTaggerNameFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.POSTaggerNameFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.POSTaggerNameFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.PosTaggerFeatureGeneratorFactory",
+    "simpleName" : "PosTaggerFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PosTaggerFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PosTaggerFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PosTaggerFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.PrefixFeatureGeneratorFactory",
+    "simpleName" : "PrefixFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PrefixFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PrefixFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PrefixFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.PreviousMapFeatureGeneratorFactory",
+    "simpleName" : "PreviousMapFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PreviousMapFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PreviousMapFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.PreviousMapFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.SentenceFeatureGeneratorFactory",
+    "simpleName" : "SentenceFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SentenceFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SentenceFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SentenceFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.SuffixFeatureGeneratorFactory",
+    "simpleName" : "SuffixFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SuffixFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SuffixFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.SuffixFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.TokenClassFeatureGeneratorFactory",
+    "simpleName" : "TokenClassFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenClassFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenClassFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenClassFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.TokenFeatureGeneratorFactory",
+    "simpleName" : "TokenFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.TokenPatternFeatureGeneratorFactory",
+    "simpleName" : "TokenPatternFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenPatternFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenPatternFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TokenPatternFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.TrigramNameFeatureGeneratorFactory",
+    "simpleName" : "TrigramNameFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TrigramNameFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TrigramNameFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.TrigramNameFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.WindowFeatureGeneratorFactory",
+    "simpleName" : "WindowFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WindowFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WindowFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WindowFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "opennlp.tools.util.featuregen.WordClusterFeatureGeneratorFactory",
+    "simpleName" : "WordClusterFeatureGeneratorFactory",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WordClusterFeatureGeneratorFactory",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "create",
+    "simpleName" : "create",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WordClusterFeatureGeneratorFactory#create(org.w3c.dom.Element, opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@179714da[public create (Lorg/w3c/dom/Element;Lopennlp/tools/util/featuregen/FeatureGeneratorResourceProvider;)Lopennlp/tools/util/featuregen/AdaptiveFeatureGenerator;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "opennlp.tools.util.featuregen.AdaptiveFeatureGenerator",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.w3c.dom.Element", "opennlp.tools.util.featuregen.FeatureGeneratorResourceProvider" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "register",
+    "simpleName" : "register",
+    "qualifiedSignature" : "opennlp.tools.util.featuregen.WordClusterFeatureGeneratorFactory#register(java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e43f963[static register (Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map" ]
+  } ]
+}

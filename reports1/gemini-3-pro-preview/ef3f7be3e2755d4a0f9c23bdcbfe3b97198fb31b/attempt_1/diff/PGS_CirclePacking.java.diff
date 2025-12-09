@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/ef3f7be3e2755d4a0f9c23bdcbfe3b97198fb31b/PGS/src/main/java/micycle/pgs/PGS_CirclePacking.java	2025-12-08 12:16:38.190012878 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ef3f7be3e2755d4a0f9c23bdcbfe3b97198fb31b/attempt_1/transformed/micycle/pgs/PGS_CirclePacking.java	2025-12-08 12:17:50.537503117 +0100
+@@ -223,7 +223,7 @@
+                 float largestR = 0; // the radius of the largest circle in the tree
+ 
+                 for (PVector p : steinerPoints) {
+-                        final PointEntryDist<PVector> nn = tree.query1NN(new double[] { p.x, p.y, largestR }); // find nearest-neighbour circle
++                        final PointEntryDist<PVector> nn = tree.queryKNN(new double[] { p.x, p.y, largestR }, 1); // find nearest-neighbour circle
+ 
+                         /*
+                          * nn.dist() does not return the radius (since it's a distance metric used to

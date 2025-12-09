@@ -1,0 +1,110 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule Generator
+ * 
+ * Generated based on the provided (empty) dependency diff. 
+ * This is a TEMPLATE demonstrating the required infrastructure (Sniper, NoClasspath)
+ * and a sample refactoring strategy (Method Rename) as a placeholder.
+ * 
+ * Placeholder Strategy:
+ * - CHANGE: com.example.LegacyClass.oldMethod() -> com.example.LegacyClass.newMethod()
+ */
+public class MigrationRefactoring {
+
+    /**
+     * Processor to handle the refactoring logic.
+     * Adjust the 'isToBeProcessed' and 'process' methods based on specific diff requirements.
+     */
+    public static class RefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Method Name)
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"oldMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Owner/Type Check (Defensive for NoClasspath)
+            // We use loose matching on the declaring type to handle missing jars.
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Check if the method belongs to the target class (fuzzy match)
+                if (!qualifiedName.contains("LegacyClass") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 3. Argument Check (Optional: depending on overload)
+            // Example: Only match if it has 0 arguments
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Strategy: Rename the method from 'oldMethod' to 'newMethod'
+            // We modify the executable reference directly.
+            
+            CtExecutableReference<?> executableRef = invocation.getExecutable();
+            executableRef.setSimpleName("newMethod");
+            
+            System.out.println("Refactored 'oldMethod' to 'newMethod' at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or passed as args)
+        String inputPath = "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/CachingProxyITCase.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/CachingProxyITCase.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/attempt_1/transformed");
+
+        // ========================================================================
+        // CRITICAL IMPLEMENTATION RULES (Sniper & NoClasspath)
+        // ========================================================================
+        
+        // 1. Enable comments to ensure they are preserved
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve code structure/formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing without full dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ========================================================================
+
+        // Add the processor
+        launcher.addProcessor(new RefactoringProcessor());
+
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

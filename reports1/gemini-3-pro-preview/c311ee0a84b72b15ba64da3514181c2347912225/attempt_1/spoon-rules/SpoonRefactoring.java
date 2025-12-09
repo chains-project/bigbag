@@ -1,0 +1,101 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script.
+ * Generated based on the provided system constraints.
+ * 
+ * NOTE: The input diff was empty. This class provides a robust TEMPLATE 
+ * that implements the required defensive coding, Sniper printer configuration, 
+ * and NoClasspath handling.
+ * 
+ * Default Strategy: Renaming a method (Template: oldMethod -> newMethod).
+ */
+public class SpoonRefactoring {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safe Executable Check
+            CtExecutableReference<?> exec = candidate.getExecutable();
+            if (exec == null) return false;
+
+            // 2. Name Check (Target the old method name)
+            // TODO: Replace "oldMethod" with the actual method name from the diff
+            if (!"oldMethod".equals(exec.getSimpleName())) {
+                return false;
+            }
+
+            // 3. Owner/Class Check (Defensive String matching for NoClasspath)
+            CtTypeReference<?> declaringType = exec.getDeclaringType();
+            // TODO: Replace "TargetClass" with the actual class name
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().contains("TargetClass") && 
+                !declaringType.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 4. Argument Check (Optional: refine based on signature)
+            // Example: Filter if argument types don't match expectations
+            // if (candidate.getArguments().size() != 1) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Logic: Rename the method
+            // TODO: Implement specific logic (e.g., argument wrapping, reordering)
+            
+            String newMethodName = "newMethod"; // TODO: Replace with new name
+            
+            // Clone the executable reference to modify it without affecting others
+            CtExecutableReference<?> newExecRef = invocation.getExecutable().clone();
+            newExecRef.setSimpleName(newMethodName);
+            
+            invocation.setExecutable(newExecRef);
+            
+            System.out.println("Refactored method at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/c311ee0a84b72b15ba64da3514181c2347912225/docker-adapter/src/test/java/com/artipie/docker/TagValidTest.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c311ee0a84b72b15ba64da3514181c2347912225/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/c311ee0a84b72b15ba64da3514181c2347912225/docker-adapter/src/test/java/com/artipie/docker/TagValidTest.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c311ee0a84b72b15ba64da3514181c2347912225/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        
+        // 1. Environment Settings for NoClasspath
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // 2. Force Sniper Printer manually (Preserves formatting/indentation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Add Processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        // 4. Run
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

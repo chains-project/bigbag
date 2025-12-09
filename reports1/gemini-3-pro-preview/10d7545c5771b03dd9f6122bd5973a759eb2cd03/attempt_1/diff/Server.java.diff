@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/lithium/src/main/java/com/wire/lithium/Server.java	2025-12-08 01:50:00.364022688 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/10d7545c5771b03dd9f6122bd5973a759eb2cd03/attempt_1/transformed/com/wire/lithium/Server.java	2025-12-08 01:51:57.255271819 +0100
+@@ -156,7 +156,7 @@
+         onRun(config, env);
+     }
+ 
+-    private Client createHttpClient(Config config, Environment env) {
++    private Client createHttpClient(Config config, io.dropwizard.core.setup.Environment env) {
+         return new JerseyClientBuilder(env)
+                 .using(config.getJerseyClient())
+                 .withProvider(MultiPartFeature.class)

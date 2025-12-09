@@ -1,0 +1,120 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JaxbStrategyRefactoring {
+
+    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // List of Strategy classes where getInstance() was removed in favor of constructors
+        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(
+            "org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy",
+            "org.jvnet.jaxb2_commons.lang.DefaultCopyStrategy",
+            "org.jvnet.jaxb2_commons.lang.DefaultEqualsStrategy",
+            "org.jvnet.jaxb2_commons.lang.DefaultHashCodeStrategy",
+            "org.jvnet.jaxb2_commons.lang.DefaultMergeStrategy",
+            "org.jvnet.jaxb2_commons.lang.DefaultToStringStrategy",
+            "org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy",
+            "org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy",
+            "org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy",
+            "org.jvnet.jaxb2_commons.lang.JAXBMergeCollectionsStrategy",
+            "org.jvnet.jaxb2_commons.lang.JAXBMergeStrategy"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            if (!"getInstance".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (getInstance() implies 0 args here)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            if (declaringType == null) {
+                return false;
+            }
+
+            String qName = declaringType.getQualifiedName();
+            if (qName == null || qName.equals("<unknown>")) {
+                // Try fallback to simple name if qName is broken
+                qName = declaringType.getSimpleName();
+            }
+
+            // Match against known strategy classes
+            for (String target : TARGET_CLASSES) {
+                // Match Fully Qualified Name
+                if (qName.equals(target)) {
+                    return true;
+                }
+                // Match Simple Name (common in NoClasspath if imports exist)
+                String simpleName = target.substring(target.lastIndexOf('.') + 1);
+                if (qName.equals(simpleName)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation: Replace `Strategy.getInstance()` with `new Strategy()`
+            
+            CtTypeReference<?> strategyType = invocation.getExecutable().getDeclaringType();
+
+            // Create constructor call: new ClassName()
+            CtConstructorCall<?> constructorCall = getFactory().Code().createConstructorCall(strategyType);
+
+            // Replace the original invocation
+            invocation.replace(constructorCall);
+            
+            System.out.println("Refactored " + strategyType.getSimpleName() + ".getInstance() to constructor at line " 
+                + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Robust transformations
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode to run without dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StrategyInstanceProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,120 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Transformation Template.
+ * 
+ * NOTE: The provided dependency diff was empty. 
+ * This class demonstrates the required robust configuration (Sniper Printer + NoClasspath) 
+ * and defensive coding patterns required for a generic refactoring task.
+ * 
+ * Replace logic in 'isToBeProcessed' and 'process' to match specific breaking changes.
+ */
+public class RefactoringTemplate {
+
+    /**
+     * A Processor that handles method invocations safely under NoClasspath conditions.
+     */
+    public static class BreakingChangeProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Fast fail)
+            // Replace "targetMethodName" with the actual method name from the Diff.
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"targetMethodName".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // Example: If the method signature changed from 1 arg to 2, or type changed.
+            // List<CtExpression<?>> args = candidate.getArguments();
+            // if (args.size() != 1) return false;
+
+            // 3. Owner/Scope Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            // Use string matching, never strict equality or class loading
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Replace "TargetClassName" with the class owning the method
+                if (!qualifiedName.contains("TargetClassName") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Type Check on Arguments (Defensive)
+            // Example: Checking if arg 0 is an int.
+            /*
+            CtExpression<?> arg0 = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg0.getType();
+            // Check for null (unknown type) or specific primitive/class match
+            if (argType != null && !argType.getQualifiedName().equals("int")) {
+                // If we are unsure, we often process it anyway in NoClasspath, 
+                // but if we know it's definitely WRONG, we return false.
+            }
+            */
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Example Transformation: 
+            // This is where the AST modification logic goes (Renaming, Wrapping, Deleting).
+            
+            // System.out.println("Processing invocation at: " + invocation.getPosition());
+            
+            // Example: Rename method
+            // invocation.getExecutable().setSimpleName("newMethodName");
+        }
+    }
+
+    public static void main(String[] args) {
+        // 1. setup Paths
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ---------------------------------------------------------
+        // CRITICAL CONFIGURATION: Preservation of formatting/comments
+        // ---------------------------------------------------------
+        
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (types might be null or unknown)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // 4. Add the processor
+        launcher.addProcessor(new BreakingChangeProcessor());
+
+        // 5. Run
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,661 @@
+{
+  "project" : "log-record",
+  "breakingCommit" : "3d2b38ee1c838d885db80326b3cd60e314704e39",
+  "dependency" : {
+    "groupId" : "org.springframework.cloud",
+    "artifactId" : "spring-cloud-stream",
+    "previousVersion" : "3.0.7.RELEASE",
+    "newVersion" : "4.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/3d2b38ee1c838d885db80326b3cd60e314704e39.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/3d2b38ee1c838d885db80326b3cd60e314704e39/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+    "errors" : [ {
+      "lineNumber" : 12,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.cloud.stream.config.BindingProperties",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar(/org/springframework/cloud/stream/config/BindingProperties.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.727853679Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.cloud.stream.config.BindingProperties",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import org.springframework.cloud.stream.config.BindingProperties;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingProperties",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingProperties",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingProperties",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 13,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.cloud.stream.config.BindingServiceConfiguration",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar(/org/springframework/cloud/stream/config/BindingServiceConfiguration.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 13,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.728234990Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 13,
+          "codeLine" : "import org.springframework.cloud.stream.config.BindingServiceConfiguration;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 14,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.cloud.stream.config.BindingServiceProperties",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar(/org/springframework/cloud/stream/config/BindingServiceProperties.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 14,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.728569938Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 14,
+          "codeLine" : "import org.springframework.cloud.stream.config.BindingServiceProperties;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 10,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class EnableBinding", "location: package org.springframework.cloud.stream.annotation" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.729040334Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.cloud.stream.annotation.EnableBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "3.0.7.RELEASE",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:3.0.7.RELEASE",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import org.springframework.cloud.stream.annotation.EnableBinding;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "declaringType" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "qualifiedSignature" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Output", "location: package org.springframework.cloud.stream.annotation" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.729548400Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.cloud.stream.annotation.Output",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "3.0.7.RELEASE",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:3.0.7.RELEASE",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import org.springframework.cloud.stream.annotation.Output;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.annotation.Output",
+            "declaringType" : "org.springframework.cloud.stream.annotation.Output",
+            "qualifiedSignature" : "org.springframework.cloud.stream.annotation.Output",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 29,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class EnableBinding" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 29,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.730320680Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.cloud.stream.annotation.EnableBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "3.0.7.RELEASE",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:3.0.7.RELEASE",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar"
+          },
+          "lineNumber" : 29,
+          "codeLine" : "@EnableBinding(StreamSenderConfiguration.LogRecordChannel.class)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "declaringType" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "qualifiedSignature" : "org.springframework.cloud.stream.annotation.EnableBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "cn.monitor4all.logRecord.configuration.StreamSenderConfiguration$LogRecordChannel::class",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java"
+          },
+          "lineNumber" : 29,
+          "codeLine" : "@EnableBinding(StreamSenderConfiguration.LogRecordChannel.class)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 40,
+      "columnNumber" : 19,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BindingServiceProperties", "location: class cn.monitor4all.logRecord.configuration.StreamSenderConfiguration" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 40,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.730650585Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private final BindingServiceProperties bindings;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 42,
+      "columnNumber" : 38,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BindingServiceProperties", "location: class cn.monitor4all.logRecord.configuration.StreamSenderConfiguration" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 42,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.730996657Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "    public StreamSenderConfiguration(BindingServiceProperties bindings, LogRecordProperties logRecordProperties) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceProperties",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "cn.monitor4all.logRecord.configuration.LogRecordProperties",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/cn/monitor4all/logRecord/configuration/LogRecordProperties.java"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "    public StreamSenderConfiguration(BindingServiceProperties bindings, LogRecordProperties logRecordProperties) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 27,
+      "columnNumber" : 21,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class BindingServiceConfiguration" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.731602418Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.boot.autoconfigure.condition.ConditionalOnClass",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.5.1/spring-boot-autoconfigure-2.5.1.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "@ConditionalOnClass(BindingServiceConfiguration.class)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration::class",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "@ConditionalOnClass(BindingServiceConfiguration.class)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 23,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class BindingServiceConfiguration" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.731997126Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.boot.autoconfigure.AutoConfigureBefore",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.5.1/spring-boot-autoconfigure-2.5.1.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "@AutoConfigureBefore({BindingServiceConfiguration.class})",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration::class",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "4.0.0",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/cloud/spring-cloud-stream/4.0.0/spring-cloud-stream-4.0.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "@AutoConfigureBefore({BindingServiceConfiguration.class})",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "declaringType" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "qualifiedSignature" : "org.springframework.cloud.stream.config.BindingServiceConfiguration",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 77,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Output", "location: interface cn.monitor4all.logRecord.configuration.StreamSenderConfiguration.LogRecordChannel" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/log-record/src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java",
+        "lineNumber" : 77,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:29:09.732359189Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.cloud.stream.annotation.Output",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.springframework.cloud",
+            "artifactId" : "spring-cloud-stream",
+            "version" : "3.0.7.RELEASE",
+            "coordinates" : "org.springframework.cloud:spring-cloud-stream:3.0.7.RELEASE",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/3d2b38ee1c838d885db80326b3cd60e314704e39/spring-cloud-stream-3.0.7.RELEASE.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "        @Output(OUTPUT)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.cloud.stream.annotation.Output",
+            "declaringType" : "org.springframework.cloud.stream.annotation.Output",
+            "qualifiedSignature" : "org.springframework.cloud.stream.annotation.Output",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "cn.monitor4all.logRecord.configuration.StreamSenderConfiguration$LogRecordChannel::OUTPUT",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/cn/monitor4all/logRecord/configuration/StreamSenderConfiguration.java"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "        @Output(OUTPUT)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

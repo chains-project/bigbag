@@ -1,0 +1,96 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JwsMigrationRefactoring {
+
+    /**
+     * Processor to migrate javax.jws types to jakarta.jws.
+     * Handles the removal of WebMethod, WebParam, WebResult, and WebService
+     * by retargeting them to the Jakarta EE namespace.
+     */
+    public static class JwsMigrationProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        // The specific classes removed in the diff
+        private static final Set<String> REMOVED_CLASSES = new HashSet<>(Arrays.asList(
+            "WebMethod",
+            "WebParam",
+            "WebResult",
+            "WebService"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // 1. Check for specific class names to avoid over-processing
+            if (!REMOVED_CLASSES.contains(candidate.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Defensive check for Package (NoClasspath safety)
+            CtPackage pack = candidate.getPackage();
+            if (pack == null) {
+                return false;
+            }
+
+            // 3. Check if it belongs to the old javax.jws package
+            // We use string comparison to avoid Class loading issues in NoClasspath
+            return "javax.jws".equals(pack.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Refactoring: Retarget the package from javax.jws to jakarta.jws
+            
+            // Create or get the new package reference
+            CtPackage jakartaPkg = getFactory().Package().getOrCreate("jakarta.jws");
+            
+            // Update the candidate's package
+            candidate.setPackage(jakartaPkg);
+            
+            System.out.println("Migrated " + candidate.getSimpleName() + " to jakarta.jws at " + 
+                (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown line"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/8436e73fa0c913774d9792fc986c74309765ab61/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/webservices/series/SeriesWS.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8436e73fa0c913774d9792fc986c74309765ab61/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/8436e73fa0c913774d9792fc986c74309765ab61/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/webservices/series/SeriesWS.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8436e73fa0c913774d9792fc986c74309765ab61/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Refactoring
+        
+        // 1. Enable comments to ensure they aren't lost during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (libs might be missing during refactoring)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the migration processor
+        launcher.addProcessor(new JwsMigrationProcessor());
+
+        try {
+            System.out.println("Starting JWS to Jakarta Migration...");
+            launcher.run();
+            System.out.println("Migration complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

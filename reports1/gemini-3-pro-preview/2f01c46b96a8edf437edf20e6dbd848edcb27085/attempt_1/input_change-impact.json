@@ -1,0 +1,71 @@
+{
+  "project" : "depclean",
+  "breakingCommit" : "2f01c46b96a8edf437edf20e6dbd848edcb27085",
+  "dependency" : {
+    "groupId" : "org.codehaus.plexus",
+    "artifactId" : "plexus-utils",
+    "previousVersion" : "3.5.1",
+    "newVersion" : "4.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/plexus-utils-3.5.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/plexus-utils-4.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/depclean/2f01c46b96a8edf437edf20e6dbd848edcb27085.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/2f01c46b96a8edf437edf20e6dbd848edcb27085/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/depclean/depclean-maven-plugin/src/main/java/se/kth/depclean/wrapper/MavenDependencyManager.java",
+    "errors" : [ {
+      "lineNumber" : 27,
+      "columnNumber" : 36,
+      "message" : "package org.codehaus.plexus.util.xml does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/depclean",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/depclean/depclean-maven-plugin/src/main/java/se/kth/depclean/wrapper/MavenDependencyManager.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/plexus-utils-3.5.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/2f01c46b96a8edf437edf20e6dbd848edcb27085/plexus-utils-4.0.0.jar",
+        "generatedAt" : "2025-12-08T02:08:41.829646981Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "import org.codehaus.plexus.util.xml.Xpp3Dom;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "declaringType" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "qualifiedSignature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 52
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

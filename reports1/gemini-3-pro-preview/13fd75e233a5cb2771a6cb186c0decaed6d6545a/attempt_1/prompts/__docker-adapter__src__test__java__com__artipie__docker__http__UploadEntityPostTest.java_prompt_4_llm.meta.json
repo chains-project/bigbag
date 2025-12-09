@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__UploadEntityPostTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__UploadEntityPostTest.java_prompt_4_llm.txt",
+  "timestamp": 1765155944.4308763,
+  "duration_seconds": 43.610034227371216,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Spoon Refactoring Script.\n * \n * NOTE: No specific Dependency Diff was provided in the input. \n * This script provides a production-ready TEMPLATE implementing all \n * required constraints (Sniper printer, NoClasspath safety, Generics).\n * \n * Default Behavior: Renames invocations of \"deprecatedMethod\" to \"newMethod\".\n */\npublic class SpoonMigration {\n\n    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Safety Check: Ensure executable reference exists\n            CtExecutableReference<?> exec = candidate.getExecutable();\n            if (exec == null) return false;\n\n            // 2. Name Check: Target specific method name\n            // REPLACE \"deprecatedMethod\" with the actual method name from your diff\n            if (!\"deprecatedMethod\".equals(exec.getSimpleName())) {\n                return false;\n            }\n\n            // 3. Argument Count Check (Optional but recommended)\n            // Example: Filter only if it has 0 arguments\n            // if (candidate.getArguments().size() != 0) return false;\n\n            // 4. Owner/Type Check (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = exec.getDeclaringType();\n            \n            // In NoClasspath, declaringType might be null or <unknown>.\n            // Use relaxed string matching instead of strict class resolution.\n            if (declaringType != null) {\n                String typeName = declaringType.getQualifiedName();\n                // REPLACE \"TargetClass\" with the class name owning the method\n                if (!typeName.contains(\"TargetClass\") && !typeName.equals(\"<unknown>\")) {\n                    return false;\n                }\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // 5. Apply Transformation\n            // Example: Renaming the method\n            CtExecutableReference<?> execRef = invocation.getExecutable();\n            \n            // Store old name for logging\n            String oldName = execRef.getSimpleName();\n            \n            // Set new name\n            // REPLACE \"newMethod\" with the new method name from your diff\n            execRef.setSimpleName(\"newMethod\");\n\n            System.out.println(\"Refactored: \" + oldName + \" -> newMethod at \" + invocation.getPosition());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // =========================================================\n        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)\n        // =========================================================\n        \n        // 1. Enable comments to prevent loss\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve original indentation/formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode (robustness against missing dependencies)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new MigrationProcessor());\n\n        System.out.println(\"Starting Refactoring...\");\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring Complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Error during refactoring:\");\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 939,
+      "total_token_count": 5312,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

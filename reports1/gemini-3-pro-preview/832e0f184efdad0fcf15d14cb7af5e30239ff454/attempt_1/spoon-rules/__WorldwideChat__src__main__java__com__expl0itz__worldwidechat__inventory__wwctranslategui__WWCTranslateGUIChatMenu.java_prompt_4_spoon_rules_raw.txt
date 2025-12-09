@@ -1,0 +1,86 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring rule for XSeries XEnchantment migration.
+ * 
+ * CHANGE:
+ * - Removed: com.cryptomorin.xseries.XEnchantment.parseEnchantment(...)
+ * - Existing/Replacement: com.cryptomorin.xseries.XEnchantment.matchXEnchantment(...)
+ * 
+ * ACTION:
+ * Renames invocations of `parseEnchantment` to `matchXEnchantment`.
+ */
+public class XEnchantmentRefactoring {
+
+    public static class XEnchantmentProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"parseEnchantment".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Owner Type (Defensive for NoClasspath)
+            // We verify if the method belongs to XEnchantment.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If the type is known (resolved) or explicit, it must contain "XEnchantment".
+            // If it is <unknown> (e.g. static import in NoClasspath), we proceed based on the unique method name.
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                if (!declaringType.getQualifiedName().contains("XEnchantment")) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation: Rename the method
+            String oldName = invocation.getExecutable().getSimpleName();
+            invocation.getExecutable().setSimpleName("matchXEnchantment");
+            
+            System.out.println("Refactored " + oldName + " to matchXEnchantment at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments to preserve license headers and javadocs
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new XEnchantmentProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

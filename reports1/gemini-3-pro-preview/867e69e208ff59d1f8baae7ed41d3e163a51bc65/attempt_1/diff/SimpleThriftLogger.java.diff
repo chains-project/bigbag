@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer/singer/src/main/java/com/pinterest/singer/utils/SimpleThriftLogger.java	2025-12-08 06:50:37.613161728 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/867e69e208ff59d1f8baae7ed41d3e163a51bc65/attempt_1/transformed/com/pinterest/singer/utils/SimpleThriftLogger.java	2025-12-08 06:53:02.538919933 +0100
+@@ -42,7 +42,7 @@
+ @SuppressWarnings("rawtypes")
+ public final class SimpleThriftLogger<T extends TBase> implements Closeable {
+ 
+-  private static final class ByteOffsetTFramedTransport extends TFramedTransport {
++  private static final class ByteOffsetTFramedTransport extends org.apache.thrift.transport.layered.TFramedTransport {
+ 
+     private long byteOffset;
+ 

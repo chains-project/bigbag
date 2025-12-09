@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/cb541fd65c7b9bbc3424ea927f1dab223261d156/attempt_1/prompts/__jcabi-http__src__main__java__com__jcabi__http__mock__MkQueryMatchers.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/cb541fd65c7b9bbc3424ea927f1dab223261d156/attempt_1/prompts/__jcabi-http__src__main__java__com__jcabi__http__mock__MkQueryMatchers.java_prompt_4_llm.txt",
+  "timestamp": 1765186908.4330785,
+  "duration_seconds": 73.96151161193848,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtTypeAccess;\nimport spoon.reflect.declaration.CtCompilationUnit;\nimport spoon.reflect.declaration.CtImport;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtFieldReference;\nimport spoon.reflect.reference.CtReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.visitor.filter.TypeFilter;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class HamcrestRefactoring {\n\n    /**\n     * Processor to migrate from org.hamcrest.Matchers to org.hamcrest.CoreMatchers.\n     * Use CtCompilationUnit to ensure we capture both Imports and Code Usage safely.\n     */\n    public static class MatchersProcessor extends AbstractProcessor<CtCompilationUnit> {\n\n        private static final String OLD_CLASS_QNAME = \"org.hamcrest.Matchers\";\n        private static final String NEW_CLASS_SIMPLE = \"CoreMatchers\";\n        private static final String NEW_CLASS_QNAME = \"org.hamcrest.CoreMatchers\";\n\n        @Override\n        public void process(CtCompilationUnit cu) {\n            // 1. Process Imports (Header)\n            // We iterate a copy to safely modify the underlying references if needed\n            for (CtImport imp : new ArrayList<>(cu.getImports())) {\n                processImport(imp);\n            }\n\n            // 2. Process Explicit Type Access in Body (e.g., Matchers.is(...))\n            List<CtTypeAccess<?>> accesses = cu.getElements(new TypeFilter<>(CtTypeAccess.class));\n            for (CtTypeAccess<?> access : accesses) {\n                processTypeAccess(access);\n            }\n        }\n\n        private void processImport(CtImport imp) {\n            CtReference ref = imp.getReference();\n            if (ref == null) return;\n\n            // Case A: import org.hamcrest.Matchers;\n            if (ref instanceof CtTypeReference) {\n                CtTypeReference<?> typeRef = (CtTypeReference<?>) ref;\n                if (isTargetType(typeRef)) {\n                    updateTypeReference(typeRef);\n                    System.out.println(\"Updated Type Import at \" + imp.getPosition().getLine());\n                }\n            }\n            // Case B: import static org.hamcrest.Matchers.is;\n            else if (ref instanceof CtExecutableReference) {\n                CtExecutableReference<?> execRef = (CtExecutableReference<?>) ref;\n                CtTypeReference<?> declaringType = execRef.getDeclaringType();\n                if (isTargetType(declaringType)) {\n                    updateTypeReference(declaringType);\n                    System.out.println(\"Updated Static Method Import at \" + imp.getPosition().getLine());\n                }\n            }\n            // Case C: import static org.hamcrest.Matchers.someField;\n            else if (ref instanceof CtFieldReference) {\n                CtFieldReference<?> fieldRef = (CtFieldReference<?>) ref;\n                CtTypeReference<?> declaringType = fieldRef.getDeclaringType();\n                if (isTargetType(declaringType)) {\n                    updateTypeReference(declaringType);\n                    System.out.println(\"Updated Static Field Import at \" + imp.getPosition().getLine());\n                }\n            }\n        }\n\n        private void processTypeAccess(CtTypeAccess<?> access) {\n            CtTypeReference<?> accessedType = access.getAccessedType();\n            if (isTargetType(accessedType)) {\n                updateTypeReference(accessedType);\n                System.out.println(\"Updated Explicit Type Access at \" + access.getPosition().getLine());\n            }\n        }\n\n        // Helper: Check if type matches org.hamcrest.Matchers\n        private boolean isTargetType(CtTypeReference<?> typeRef) {\n            if (typeRef == null) return false;\n            String qName = typeRef.getQualifiedName();\n            return qName != null && qName.equals(OLD_CLASS_QNAME);\n        }\n\n        // Helper: Rename type to CoreMatchers\n        private void updateTypeReference(CtTypeReference<?> typeRef) {\n            // We assume package \"org.hamcrest\" remains the same.\n            // Just swapping the SimpleName is usually sufficient for Spoon to reprint correctly,\n            // preserving the existing qualification style (fully qualified vs imported).\n            typeRef.setSimpleName(NEW_CLASS_SIMPLE);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL IMPLEMENTATION RULES\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually for precise source preservation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Defensive NoClasspath mode\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new MatchersProcessor());\n\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1547,
+      "candidates_token_count": 1257,
+      "total_token_count": 7446,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

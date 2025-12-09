@@ -1,0 +1,104 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Refactoring Script.
+ * Generated for: Generic Argument Injection (Template)
+ * Scenario: com.example.Service.connect() -> com.example.Service.connect(int timeout)
+ */
+public class ServiceConnectRefactoring {
+
+    public static class ConnectMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            if (!"connect".equals(executable.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Targeting the old signature with 0 args)
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 0) {
+                // Defensive: If it already has 1 arg, check if it's already fixed
+                // to avoid double-processing (idempotency).
+                return false;
+            }
+
+            // 3. Owner/Type Check (Defensive for NoClasspath)
+            // In NoClasspath, we rely on String matching rather than Class resolution.
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+            
+            // If declaring type is null or <unknown>, we might process it based on name/args alone (risky but necessary in NoClasspath),
+            // or conservatively skip. Here we skip if we can't verify the owner name at all.
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                if (!declaringType.getQualifiedName().contains("Service")) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Transformation: Inject default timeout (e.g., 5000)
+            CtExpression<Integer> defaultTimeout = factory.Code().createLiteral(5000);
+            
+            // Add argument to the invocation
+            invocation.addArgument(defaultTimeout);
+            
+            System.out.println("Refactored 'connect()' to 'connect(5000)' at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().toString() : "unknown position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - adjust as necessary
+        String inputPath = "/home/kth/Documents/last_transformer/output/979780b29cf329579fa703552f9090b23c10e81d/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/util/SerializerProvider.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/979780b29cf329579fa703552f9090b23c10e81d/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/979780b29cf329579fa703552f9090b23c10e81d/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/util/SerializerProvider.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/979780b29cf329579fa703552f9090b23c10e81d/attempt_1/transformed");
+
+        // --- CRITICAL CONFIGURATION FOR SOURCE PRESERVATION ---
+        
+        // 1. Enable comments to ensure they are parsed
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter. 
+        // This is strictly required to preserve formatting of untouched code.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Mode
+        // Allows running without full dependency JARs, but requires defensive coding in the processor.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // --- PROCESSOR REGISTRATION ---
+        launcher.addProcessor(new ConnectMethodProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

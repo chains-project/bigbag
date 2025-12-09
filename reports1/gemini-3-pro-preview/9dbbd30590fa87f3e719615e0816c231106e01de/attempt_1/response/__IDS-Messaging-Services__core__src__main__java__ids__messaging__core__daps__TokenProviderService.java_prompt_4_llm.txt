@@ -1,0 +1,86 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Migration Tool.
+ * Generated based on the provided dependency change diff.
+ */
+public class SpoonMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // TODO: Fill in logic based on specific dependency diff.
+            // Currently empty as no diff was provided in the <dependency_change_diff> tag.
+            
+            // Example Pattern for future use:
+            // 1. Check Method Name
+            // if (!"targetMethod".equals(candidate.getExecutable().getSimpleName())) return false;
+            
+            // 2. Check Argument Count
+            // if (candidate.getArguments().size() != 1) return false;
+
+            // 3. Defensive Type Check (NoClasspath)
+            // CtExpression<?> arg = candidate.getArguments().get(0);
+            // CtTypeReference<?> type = arg.getType();
+            // if (type != null && !type.getQualifiedName().equals("ExpectedType")) return false;
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // TODO: Implement transformation logic.
+            // Example:
+            // getFactory().Code().createInvocation(...);
+            // invocation.replace(replacement);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ========================================================================
+        // CRITICAL IMPLEMENTATION RULES (Do not modify)
+        // ========================================================================
+        
+        // 1. Preserve Source Code (Robust Sniper Configuration)
+        // Enable comments to prevent loss during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        // Force Sniper Printer to preserve formatting/indentation of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 2. Defensive Coding (NoClasspath Compatibility)
+        // Ensure the tool runs even if library dependencies are missing
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ========================================================================
+
+        launcher.addProcessor(new MigrationProcessor());
+
+        try {
+            System.out.println("Starting Spoon Migration...");
+            launcher.run();
+            System.out.println("Migration finished. Output generated in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

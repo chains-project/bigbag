@@ -1,0 +1,149 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor 1: Handles the removal of SelectChannelConnector (Class Renaming).
+     * Rule: org.eclipse.jetty.server.nio.SelectChannelConnector -> org.eclipse.jetty.server.ServerConnector
+     */
+    public static class ConnectorRenameProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        private static final String OLD_CLASS = "org.eclipse.jetty.server.nio.SelectChannelConnector";
+        private static final String NEW_PACKAGE = "org.eclipse.jetty.server";
+        private static final String NEW_SIMPLE_NAME = "ServerConnector";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive: Check for null qualified name
+            if (candidate.getQualifiedName() == null) return false;
+            
+            // Match the exact old qualified name
+            return OLD_CLASS.equals(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> typeRef) {
+            Factory factory = getFactory();
+            
+            // Create reference to the new package
+            // We modify the existing reference to preserve context (variable decls, new instantiations)
+            typeRef.setPackage(factory.Package().getOrCreate(NEW_PACKAGE));
+            typeRef.setSimpleName(NEW_SIMPLE_NAME);
+            
+            System.out.println("Refactored Type: " + OLD_CLASS + " -> " + NEW_PACKAGE + "." + NEW_SIMPLE_NAME);
+        }
+    }
+
+    /**
+     * Processor 2: Handles the removal of getLocalPort() from Connector interface.
+     * Logic: ((Connector) c).getLocalPort() -> ((NetworkConnector) c).getLocalPort()
+     * Why: getLocalPort was moved down from Connector to NetworkConnector (and subclasses).
+     */
+    public static class LocalPortCastProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"getLocalPort".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (getLocalPort has 0 args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Defensive Type Check (NoClasspath friendly)
+            // We check if the target of the invocation is likely a generic "Connector"
+            // If it is specifically "ServerConnector" or "NetworkConnector", we don't need to cast.
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false;
+
+            CtTypeReference<?> targetType = target.getType();
+            if (targetType != null) {
+                String typeName = targetType.getQualifiedName();
+                // If it's explicitly the old base interface "Connector", we need to cast.
+                // We use string contains to match fully qualified or simple names.
+                return typeName.endsWith("Connector") 
+                    && !typeName.contains("NetworkConnector") 
+                    && !typeName.contains("ServerConnector");
+            }
+            
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> target = invocation.getTarget();
+
+            // Create reference to org.eclipse.jetty.server.NetworkConnector
+            CtTypeReference<?> networkConnectorRef = factory.Type().createReference("org.eclipse.jetty.server.NetworkConnector");
+
+            // Create the cast: ((NetworkConnector) originalTarget)
+            CtExpression<?> castExpression = factory.Code().createTypeCast(
+                networkConnectorRef, 
+                target.clone()
+            );
+            
+            // Replace the invocation's target with the casted expression
+            invocation.setTarget(castExpression);
+            
+            System.out.println("Refactored getLocalPort at line " + invocation.getPosition().getLine() + ": Added cast to NetworkConnector");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ---------------------------------------------------------
+        // CRITICAL CONFIGURATION: Preserve Comments & Formatting
+        // ---------------------------------------------------------
+        
+        // 1. Enable comment recording
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter manually to respect strict source code preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // ---------------------------------------------------------
+        // Register Processors
+        // ---------------------------------------------------------
+        launcher.addProcessor(new ConnectorRenameProcessor());
+        launcher.addProcessor(new LocalPortCastProcessor());
+
+        System.out.println("Starting Jetty Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

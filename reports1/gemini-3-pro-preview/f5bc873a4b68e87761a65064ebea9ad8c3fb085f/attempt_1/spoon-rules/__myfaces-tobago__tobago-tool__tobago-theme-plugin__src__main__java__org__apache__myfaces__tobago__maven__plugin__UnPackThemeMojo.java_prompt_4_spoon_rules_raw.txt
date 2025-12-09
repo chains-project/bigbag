@@ -1,0 +1,123 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Refactoring Tool generated based on dependency diff.
+ * 
+ * NOTE: The input diff was empty. This is a TEMPLATE class configured 
+ * with the required Sniper printer and NoClasspath safety checks.
+ * 
+ * Please adjust the 'TARGET_METHOD' and logic in 'MigrationProcessor' 
+ * to match your specific API changes.
+ */
+public class RefactoringPipeline {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // TODO: Replace with the method name from your diff
+        private static final String TARGET_METHOD_NAME = "oldMethodName";
+        private static final String TARGET_CLASS_SUBSTRING = "OldClassName";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!TARGET_METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Example: expecting 1 argument)
+            // TODO: Adjust based on the diff (e.g., arguments removed/added)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Example Safety: If type is known and matches the NEW type, skip (idempotency).
+            if (type != null && type.getQualifiedName().contains("NewType")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null 
+                && !owner.getQualifiedName().contains(TARGET_CLASS_SUBSTRING) 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // TODO: Implement the transformation logic here.
+            // Example: Renaming the method
+            invocation.getExecutable().setSimpleName("newMethodName");
+            
+            // Example: Changing the type of an argument (wrapping)
+            /*
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            CtTypeReference<?> newTypeRef = factory.Type().createReference("com.new.WrapperType");
+            CtInvocation<?> wrappingCall = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(newTypeRef),
+                factory.Method().createReference(newTypeRef, factory.Type().voidPrimitiveType(), "valueOf", originalArg.getType()),
+                originalArg.clone()
+            );
+            originalArg.replace(wrappingCall);
+            */
+
+            System.out.println("Refactored invocation at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS FOR PRESERVING FORMATTING
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for strict source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        System.out.println("Starting refactoring...");
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

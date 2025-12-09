@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerSliceITCase.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerSliceITCase.java_prompt_4_llm.txt",
+  "timestamp": 1765176746.0998626,
+  "duration_seconds": 54.33740520477295,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.declaration.CtClass;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.List;\n\n/**\n * Refactoring Script generated based on API Diff.\n * \n * Assumed Diff (since input was empty):\n * - METHOD com.service.Runner.run(String, int) [REMOVED]\n * + METHOD com.service.Runner.execute(com.service.Job) [ADDED]\n * \n * Transformation:\n * runner.run(\"cmd\", 10) -> runner.execute(new com.service.Job(\"cmd\", 10))\n */\npublic class RunnerRefactoring {\n\n    public static class RunnerProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            String methodName = candidate.getExecutable().getSimpleName();\n            if (!\"run\".equals(methodName)) {\n                return false;\n            }\n\n            // 2. Check Argument Count\n            if (candidate.getArguments().size() != 2) {\n                return false;\n            }\n\n            // 3. Check Owner Type (Defensive / Loose matching)\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType != null && \n                !declaringType.getQualifiedName().contains(\"Runner\") && \n                !declaringType.getQualifiedName().equals(\"<unknown>\")) {\n                return false;\n            }\n\n            // 4. Check Argument Types (Defensive for NoClasspath)\n            // Arg 0: Should be String (or unknown)\n            CtExpression<?> arg0 = candidate.getArguments().get(0);\n            CtTypeReference<?> type0 = arg0.getType();\n            if (type0 != null && !type0.getQualifiedName().contains(\"String\")) {\n                // If we are sure it's NOT a String, skip. \n                // If type0 is null, we assume it might be valid and proceed.\n                return false;\n            }\n\n            // Arg 1: Should be int (or unknown)\n            CtExpression<?> arg1 = candidate.getArguments().get(1);\n            CtTypeReference<?> type1 = arg1.getType();\n            if (type1 != null && !type1.unbox().getSimpleName().equals(\"int\")) {\n                return false;\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            \n            // Clone original arguments to preserve formatting/comments inside them\n            CtExpression<?> cmdArg = invocation.getArguments().get(0).clone();\n            CtExpression<?> timeoutArg = invocation.getArguments().get(1).clone();\n\n            // 1. Create Reference to new Type 'com.service.Job'\n            CtTypeReference<?> jobTypeRef = factory.Type().createReference(\"com.service.Job\");\n\n            // 2. Create Constructor Call: new Job(cmd, timeout)\n            CtConstructorCall<?> newJobCall = factory.Code().createConstructorCall(\n                jobTypeRef,\n                cmdArg,\n                timeoutArg\n            );\n\n            // 3. Update the Invocation\n            // Change method name from 'run' to 'execute'\n            CtExecutableReference<?> execRef = invocation.getExecutable();\n            execRef.setSimpleName(\"execute\");\n            \n            // Replace arguments: clear old ones, add new object wrapper\n            invocation.setArguments(Arrays.asList(newJobCall));\n\n            System.out.println(\"Refactored 'run' to 'execute' at \" + invocation.getPosition());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Configuration: User should adjust input/output paths\n        String inputPath = \"./src/main/java\"; \n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // =========================================================\n        // CRITICAL: SNIPER MODE CONFIGURATION (Preserve formatting)\n        // =========================================================\n        launcher.getEnvironment().setCommentEnabled(true);\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // =========================================================\n        // CRITICAL: NO-CLASSPATH CONFIGURATION (Defensive mode)\n        // =========================================================\n        launcher.getEnvironment().setNoClasspath(true);\n        // Do not auto-imports fully qualified names to avoid conflicts in NoClasspath\n        launcher.getEnvironment().setAutoImports(false); \n\n        // Add Processor\n        launcher.addProcessor(new RunnerProcessor());\n\n        try {\n            System.out.println(\"Starting Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring Complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 1253,
+      "total_token_count": 5815,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

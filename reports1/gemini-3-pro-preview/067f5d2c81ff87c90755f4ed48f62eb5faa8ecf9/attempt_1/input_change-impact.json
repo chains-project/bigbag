@@ -1,0 +1,148 @@
+{
+  "project" : "singer",
+  "breakingCommit" : "067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9",
+  "dependency" : {
+    "groupId" : "org.apache.thrift",
+    "artifactId" : "libthrift",
+    "previousVersion" : "0.12.0",
+    "newVersion" : "0.16.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/libthrift-0.12.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/libthrift-0.16.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/singer/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/singer/singer-commons/src/main/java/com/pinterest/singer/loggingaudit/client/AuditEventKafkaSender.java",
+    "errors" : [ {
+      "lineNumber" : 121,
+      "columnNumber" : 36,
+      "message" : "unreported exception org.apache.thrift.transport.TTransportException; must be caught or declared to be thrown",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/singer",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/singer/singer-commons/src/main/java/com/pinterest/singer/loggingaudit/client/AuditEventKafkaSender.java",
+        "lineNumber" : 121,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/libthrift-0.12.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9/libthrift-0.16.0.jar",
+        "generatedAt" : "2025-12-08T00:14:41.978646060Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.thrift.TSerializer",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/thrift/libthrift/0.16.0/libthrift-0.16.0.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "  private TSerializer serializer = new TSerializer();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.thrift.TSerializer",
+            "declaringType" : "org.apache.thrift.TSerializer",
+            "qualifiedSignature" : "org.apache.thrift.TSerializer",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.thrift.TSerializer#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/thrift/libthrift/0.16.0/libthrift-0.16.0.jar"
+          },
+          "lineNumber" : 121,
+          "codeLine" : "  private TSerializer serializer = new TSerializer();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "TSerializer",
+            "declaringType" : "org.apache.thrift.TSerializer",
+            "qualifiedSignature" : "org.apache.thrift.TSerializer.TSerializer()",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@38fa8ca8[public TSerializer ()V]",
+              "newValue" : "javassist.CtConstructor@53fde02[public TSerializer ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "TSerializer",
+            "declaringType" : "org.apache.thrift.TSerializer",
+            "qualifiedSignature" : "org.apache.thrift.TSerializer.TSerializer(org.apache.thrift.protocol.TProtocolFactory)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2c7829cd[public TSerializer (Lorg/apache/thrift/protocol/TProtocolFactory;)V]",
+              "newValue" : "javassist.CtConstructor@2d0b4862[public TSerializer (Lorg/apache/thrift/protocol/TProtocolFactory;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.apache.thrift.protocol.TProtocolFactory" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.thrift.TSerializer",
+            "declaringType" : "org.apache.thrift.TSerializer",
+            "qualifiedSignature" : "org.apache.thrift.TSerializer",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

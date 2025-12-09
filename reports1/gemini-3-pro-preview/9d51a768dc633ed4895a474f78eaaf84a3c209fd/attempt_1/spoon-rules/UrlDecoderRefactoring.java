@@ -1,0 +1,109 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.nio.charset.StandardCharsets;
+
+/**
+ * Spoon Refactoring Rule.
+ * 
+ * Scenario based on common deprecation (since no specific diff was provided):
+ * Refactoring java.net.URLDecoder.decode(String s) [Deprecated/Removed]
+ * to java.net.URLDecoder.decode(String s, Charset enc).
+ * 
+ * Defaulting to StandardCharsets.UTF_8 for the second argument.
+ */
+public class UrlDecoderRefactoring {
+
+    public static class DecodeProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"decode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We are looking for the single argument version: decode(String)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            // We use string matching to avoid resolving types in NoClasspath mode
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Check if it looks like URLDecoder (ignoring version/generics nuances)
+                if (!qualifiedName.contains("java.net.URLDecoder") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // We need to add 'StandardCharsets.UTF_8' as the second argument.
+            
+            // 1. Create reference to java.nio.charset.StandardCharsets
+            CtTypeReference<?> standardCharsetsRef = factory.Type().createReference("java.nio.charset.StandardCharsets");
+            
+            // 2. Create the field access: StandardCharsets.UTF_8
+            CtFieldRead<?> utf8Arg = factory.Code().createFieldRead(
+                factory.Code().createTypeAccess(standardCharsetsRef),
+                factory.Field().createReference(
+                    standardCharsetsRef,
+                    factory.Type().createReference("java.nio.charset.Charset"),
+                    "UTF_8"
+                )
+            );
+
+            // 3. Add the argument to the invocation
+            invocation.addArgument(utf8Arg);
+            
+            System.out.println("Refactored URLDecoder.decode at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/9d51a768dc633ed4895a474f78eaaf84a3c209fd/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9d51a768dc633ed4895a474f78eaaf84a3c209fd/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/9d51a768dc633ed4895a474f78eaaf84a3c209fd/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9d51a768dc633ed4895a474f78eaaf84a3c209fd/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for precise source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Compatibility
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        launcher.addProcessor(new DecodeProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

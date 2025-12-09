@@ -1,0 +1,109 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor.
+ * 
+ * GENERATED BASED ON EMPTY INPUT DIFF. 
+ * This is a TEMPLATE/PLACEHOLDER implementation demonstrating the required 
+ * configuration for Robust Sniper Printing and NoClasspath safety.
+ * 
+ * Placeholder Transformation:
+ * - Target: com.example.LegacyClass.oldMethod(String)
+ * - Replacement: com.example.LegacyClass.newMethod(String)
+ */
+public class RefactoringRecipe {
+
+    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+            if (!"oldMethod".equals(execRef.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Check Owner Type (Defensive / Fuzzy Matching)
+            CtTypeReference<?> declaringType = execRef.getDeclaringType();
+            // In NoClasspath, declaringType might be null or <unknown>
+            // We match loosely to be safe.
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().equals("<unknown>") &&
+                !declaringType.getQualifiedName().contains("LegacyClass")) {
+                return false;
+            }
+
+            // 4. Check Argument Types (Defensive for NoClasspath)
+            // If type is resolvable, ensure it's not a primitive if we expect an object, etc.
+            // Here we assume it accepts anything or a String, so we don't strictly filter
+            // unless we are sure it's the WRONG type.
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // TRANSFORMATION: Rename the method
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            String oldName = execRef.getSimpleName();
+            
+            // Mutate the AST
+            execRef.setSimpleName("newMethod");
+            
+            System.out.println("Refactored: " + oldName + " -> newMethod at line " 
+                + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default Configuration
+        String inputPath = "/home/kth/Documents/last_transformer/output/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/TokenProviderService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/TokenProviderService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL: PRESERVE SOURCE CODE FORMATTING (Sniper Mode)
+        // =========================================================
+        
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Auto-imports off to prevent Spoon from collapsing FQNs unexpectedly
+        launcher.getEnvironment().setAutoImports(false);
+
+        // 3. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // =========================================================
+        // CRITICAL: NO-CLASSPATH SAFETY
+        // =========================================================
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Apply Processor
+        launcher.addProcessor(new MethodRenameProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/3572a1ecc0154c61e05505aed56055b9c5e539a6/attempt_1/prompts/__singer__thrift-logger__src__main__java__com__pinterest__singer__client__logback__AppenderUtils.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/3572a1ecc0154c61e05505aed56055b9c5e539a6/attempt_1/prompts/__singer__thrift-logger__src__main__java__com__pinterest__singer__client__logback__AppenderUtils.java_prompt_4_llm.txt",
+  "timestamp": 1765160007.0004678,
+  "duration_seconds": 87.63692903518677,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Spoon Refactoring Script for Apache Thrift Migration.\n * \n * Addressed Changes:\n * 1. TFastFramedTransport moved from 'org.apache.thrift.transport' to 'org.apache.thrift.transport.layered'.\n *    - Strategy: Update package reference on usages of TFastFramedTransport.\n * \n * Note: TIOStreamTransport constructors now throw checked exceptions. \n * This script does not automatically wrap code in try-catch blocks as it requires semantic knowledge \n * of the surrounding control flow, but the TFastFramedTransport fix is automated.\n */\npublic class ThriftMigration {\n\n    public static class TransportMoveProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final String OLD_CLASS = \"org.apache.thrift.transport.TFastFramedTransport\";\n        private static final String NEW_PACKAGE = \"org.apache.thrift.transport.layered\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive Null Checks\n            if (candidate == null || candidate.getQualifiedName() == null) {\n                return false;\n            }\n\n            // Check if this reference points to the old class\n            // We use string comparison for NoClasspath compatibility\n            return OLD_CLASS.equals(candidate.getQualifiedName());\n        }\n\n        @Override\n        public void process(CtTypeReference<?> ref) {\n            Factory factory = getFactory();\n\n            // Refactoring: Update the package of the type reference.\n            // In Sniper mode, this forces the printer to output the new package (often fully qualified).\n            ref.setPackage(factory.Package().getOrCreate(NEW_PACKAGE));\n\n            // Log the change\n            String position = ref.getPosition().isValidPosition() \n                ? \"line \" + ref.getPosition().getLine() \n                : \"unknown position\";\n            System.out.println(\"Refactored TFastFramedTransport to layered package at \" + position);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user or passed via args)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL CONFIGURATION for Source Preservation\n        // 1. Enable comments to prevent stripping\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer to rewrite only changed parts\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Enable NoClasspath mode (robustness against missing libs)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new TransportMoveProcessor());\n\n        try {\n            System.out.println(\"Starting Thrift Migration...\");\n            launcher.run();\n            System.out.println(\"Migration completed. Source generated in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Migration failed: \" + e.getMessage());\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2391,
+      "candidates_token_count": 832,
+      "total_token_count": 9020,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

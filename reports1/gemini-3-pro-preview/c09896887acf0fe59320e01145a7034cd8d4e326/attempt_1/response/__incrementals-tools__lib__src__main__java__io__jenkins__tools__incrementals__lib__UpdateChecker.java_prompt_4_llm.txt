@@ -1,0 +1,113 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring script for github-api library changes.
+ * 
+ * Major Change Addressed:
+ * - Field 'status' in 'org.kohsuke.github.GHCompare' became less accessible (likely private).
+ *   Refactoring: Change direct field access `compare.status` to getter `compare.getStatus()`.
+ */
+public class GitHubApiRefactoring {
+
+    public static class GHCompareStatusProcessor extends AbstractProcessor<CtFieldRead<?>> {
+        @Override
+        public boolean isToBeProcessed(CtFieldRead<?> candidate) {
+            // 1. Name Check: We are looking for the field named "status"
+            if (!"status".equals(candidate.getVariable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Target Check: Ensure there is a target (e.g., 'obj.status')
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            // We need to verify that the object owning the field is of type GHCompare.
+            CtTypeReference<?> typeRef = target.getType();
+
+            // If type is unknown (null), we cannot safely refactor common name "status".
+            // We check if the qualified name contains the specific class.
+            if (typeRef != null && typeRef.getQualifiedName().contains("GHCompare")) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtFieldRead<?> fieldRead) {
+            Factory factory = getFactory();
+            CtExpression<?> target = fieldRead.getTarget();
+
+            // Transformation: Replace 'obj.status' with 'obj.getStatus()'
+            
+            // 1. Create reference to the 'getStatus' method
+            // We surmise the return type is the same as the field type
+            CtTypeReference<?> returnType = fieldRead.getType();
+            
+            // 2. Create the invocation
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                target.clone(), // Use the existing target expression
+                factory.Method().createReference(
+                    target.getType(), // Declaring type
+                    returnType,       // Return type
+                    "getStatus"       // New method name
+                )
+            );
+
+            // 3. Perform replacement
+            fieldRead.replace(replacement);
+            
+            System.out.println("Refactored GHCompare.status field access at line " + fieldRead.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ and NoClasspath
+        // 1. Enable comments to preserve license headers and Javadoc
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Set NoClasspath to true (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new GHCompareStatusProcessor());
+
+        System.out.println("Starting Refactoring: GHCompare.status -> GHCompare.getStatus()...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

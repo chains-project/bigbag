@@ -1,0 +1,509 @@
+{
+  "project" : "billy",
+  "breakingCommit" : "36859167815292f279e570d39dd2ddbcf1622dc6",
+  "dependency" : {
+    "groupId" : "org.apache.xmlgraphics",
+    "artifactId" : "fop",
+    "previousVersion" : "1.0",
+    "newVersion" : "2.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/fop-1.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/fop-2.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/billy/36859167815292f279e570d39dd2ddbcf1622dc6.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/36859167815292f279e570d39dd2ddbcf1622dc6/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/billy/billy-gin/src/main/java/com/premiumminds/billy/gin/services/impl/pdf/FOPPDFTransformer.java",
+    "errors" : [ {
+      "lineNumber" : 115,
+      "columnNumber" : 43,
+      "message" : "no suitable method found for newInstance(no arguments)",
+      "details" : [ "method org.apache.fop.apps.FopFactory.newInstance(org.apache.fop.apps.FopFactoryConfig) is not applicable", "(actual and formal argument lists differ in length)", "method org.apache.fop.apps.FopFactory.newInstance(java.io.File) is not applicable", "(actual and formal argument lists differ in length)", "method org.apache.fop.apps.FopFactory.newInstance(java.net.URI) is not applicable", "(actual and formal argument lists differ in length)", "method org.apache.fop.apps.FopFactory.newInstance(java.net.URI,java.io.InputStream) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/billy",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/billy/billy-gin/src/main/java/com/premiumminds/billy/gin/services/impl/pdf/FOPPDFTransformer.java",
+        "lineNumber" : 115,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/fop-1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/fop-2.2.jar",
+        "generatedAt" : "2025-12-08T02:14:10.930272915Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.fop.apps.FopFactory",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 115,
+          "codeLine" : "        FopFactory fopFactory = FopFactory.newInstance();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.fop.apps.FopFactory",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_NOW_NOT_EXTENDABLE",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 74
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.fop.apps.FopFactory#newInstance()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 115,
+          "codeLine" : "        FopFactory fopFactory = FopFactory.newInstance();",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6847c616[public static newInstance ()Lorg/apache/fop/apps/FopFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.fop.apps.FopFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(org.apache.fop.apps.FopFactoryConfig)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@65394c4b[public static newInstance (Lorg/apache/fop/apps/FopFactoryConfig;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.fop.apps.FopFactoryConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.io.File)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@59f6f1bf[public static newInstance (Ljava/io/File;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.net.URI)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4a29cd74[public static newInstance (Ljava/net/URI;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URI" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.net.URI, java.io.InputStream)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@70cd685[public static newInstance (Ljava/net/URI;Ljava/io/InputStream;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URI", "java.io.InputStream" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6847c616[public static newInstance ()Lorg/apache/fop/apps/FopFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.fop.apps.FopFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(org.apache.fop.apps.FopFactoryConfig)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@65394c4b[public static newInstance (Lorg/apache/fop/apps/FopFactoryConfig;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.fop.apps.FopFactoryConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.io.File)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@59f6f1bf[public static newInstance (Ljava/io/File;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.net.URI)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4a29cd74[public static newInstance (Ljava/net/URI;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URI" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory.newInstance(java.net.URI, java.io.InputStream)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@70cd685[public static newInstance (Ljava/net/URI;Ljava/io/InputStream;)Lorg/apache/fop/apps/FopFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.apps.FopFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URI", "java.io.InputStream" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.accessibility.StructureTree2SAXEventAdapter",
+            "qualifiedSignature" : "org.apache.fop.accessibility.StructureTree2SAXEventAdapter.newInstance(org.xml.sax.ContentHandler)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@c066ddc0[public static newInstance (Lorg/xml/sax/ContentHandler;)Lorg/apache/fop/accessibility/StructureTreeEventHandler;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.accessibility.StructureTreeEventHandler",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.xml.sax.ContentHandler" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.layoutmgr.LayoutContext",
+            "qualifiedSignature" : "org.apache.fop.layoutmgr.LayoutContext.newInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@6847c616[public static newInstance ()Lorg/apache/fop/layoutmgr/LayoutContext;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.layoutmgr.LayoutContext",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.pdf.PDFEncryptionManager",
+            "qualifiedSignature" : "org.apache.fop.pdf.PDFEncryptionManager.newInstance(int, org.apache.fop.pdf.PDFEncryptionParams)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@857fd1e4[public static newInstance (ILorg/apache/fop/pdf/PDFEncryptionParams;)Lorg/apache/fop/pdf/PDFEncryption;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.fop.pdf.PDFEncryption",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int", "org.apache.fop.pdf.PDFEncryptionParams" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.pdf.PDFEncryptionManager",
+            "qualifiedSignature" : "org.apache.fop.pdf.PDFEncryptionManager.newInstance(org.apache.fop.pdf.PDFEncryptionParams, org.apache.fop.pdf.PDFDocument)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ee87fc2a[public static newInstance (Lorg/apache/fop/pdf/PDFEncryptionParams;Lorg/apache/fop/pdf/PDFDocument;)Lorg/apache/fop/pdf/PDFEncryption;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.pdf.PDFEncryption",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.fop.pdf.PDFEncryptionParams", "org.apache.fop.pdf.PDFDocument" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newInstance",
+            "declaringType" : "org.apache.fop.render.pcl.fonts.truetype.PCLTTFTableFactory",
+            "qualifiedSignature" : "org.apache.fop.render.pcl.fonts.truetype.PCLTTFTableFactory.newInstance(org.apache.fop.fonts.truetype.OFTableName)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@816adb79[public newInstance (Lorg/apache/fop/fonts/truetype/OFTableName;)Lorg/apache/fop/render/pcl/fonts/truetype/PCLTTFTable;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.fop.render.pcl.fonts.truetype.PCLTTFTable",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.fop.fonts.truetype.OFTableName" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.fop.apps.FopFactory",
+            "declaringType" : "org.apache.fop.apps.FopFactory",
+            "qualifiedSignature" : "org.apache.fop.apps.FopFactory",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_NOW_NOT_EXTENDABLE",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 74
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

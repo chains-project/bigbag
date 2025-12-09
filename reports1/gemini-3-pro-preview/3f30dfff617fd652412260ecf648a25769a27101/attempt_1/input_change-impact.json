@@ -1,0 +1,685 @@
+{
+  "project" : "cdi-test",
+  "breakingCommit" : "3f30dfff617fd652412260ecf648a25769a27101",
+  "dependency" : {
+    "groupId" : "jakarta.interceptor",
+    "artifactId" : "jakarta.interceptor-api",
+    "previousVersion" : "1.2.5",
+    "newVersion" : "2.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/3f30dfff617fd652412260ecf648a25769a27101.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/3f30dfff617fd652412260ecf648a25769a27101/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 25,
+      "message" : "package javax.interceptor does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java",
+        "lineNumber" : 5,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.275370244Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.interceptor.InterceptorBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 5,
+          "codeLine" : "import javax.interceptor.InterceptorBinding;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InterceptorBinding",
+            "declaringType" : "javax.interceptor.InterceptorBinding",
+            "qualifiedSignature" : "javax.interceptor.InterceptorBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 13,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class InterceptorBinding" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/Replaceable.java",
+        "lineNumber" : 13,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.275829349Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.interceptor.InterceptorBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 13,
+          "codeLine" : "@InterceptorBinding",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InterceptorBinding",
+            "declaringType" : "javax.interceptor.InterceptorBinding",
+            "qualifiedSignature" : "javax.interceptor.InterceptorBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+    "errors" : [ {
+      "lineNumber" : 10,
+      "columnNumber" : 25,
+      "message" : "package javax.interceptor does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.278332020Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.interceptor.AroundInvoke",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import javax.interceptor.AroundInvoke;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.AroundInvoke",
+            "declaringType" : "javax.interceptor.AroundInvoke",
+            "qualifiedSignature" : "javax.interceptor.AroundInvoke",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 25,
+      "message" : "package javax.interceptor does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.279730793Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.interceptor.Interceptor",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import javax.interceptor.Interceptor;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.Interceptor",
+            "declaringType" : "javax.interceptor.Interceptor",
+            "qualifiedSignature" : "javax.interceptor.Interceptor",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 12,
+      "columnNumber" : 25,
+      "message" : "package javax.interceptor does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.281044964Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.interceptor.InvocationContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import javax.interceptor.InvocationContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InvocationContext",
+            "declaringType" : "javax.interceptor.InvocationContext",
+            "qualifiedSignature" : "javax.interceptor.InvocationContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 18,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Interceptor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.282202506Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.interceptor.Interceptor",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "@Interceptor",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.Interceptor",
+            "declaringType" : "javax.interceptor.Interceptor",
+            "qualifiedSignature" : "javax.interceptor.Interceptor",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 38,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class InvocationContext", "location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.286710052Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    public Object invokeMockableBean(InvocationContext ctx) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.interceptor.InvocationContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    public Object invokeMockableBean(InvocationContext ctx) throws Throwable {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InvocationContext",
+            "declaringType" : "javax.interceptor.InvocationContext",
+            "qualifiedSignature" : "javax.interceptor.InvocationContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Throwable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    public Object invokeMockableBean(InvocationContext ctx) throws Throwable {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 40,
+      "columnNumber" : 36,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class InvocationContext", "location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 40,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.303530115Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private Object callAlternative(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.interceptor.InvocationContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private Object callAlternative(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InvocationContext",
+            "declaringType" : "javax.interceptor.InvocationContext",
+            "qualifiedSignature" : "javax.interceptor.InvocationContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Class",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private Object callAlternative(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "WILDCARD_REFERENCE",
+          "signature" : "? extends java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private Object callAlternative(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Throwable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 40,
+          "codeLine" : "    private Object callAlternative(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 55,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class InvocationContext", "location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 55,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.305033625Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    private Object callMock(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.interceptor.InvocationContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    private Object callMock(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.InvocationContext",
+            "declaringType" : "javax.interceptor.InvocationContext",
+            "qualifiedSignature" : "javax.interceptor.InvocationContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Class",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    private Object callMock(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "WILDCARD_REFERENCE",
+          "signature" : "? extends java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    private Object callMock(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Throwable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "    private Object callMock(InvocationContext ctx, Class<?> javaClass) throws Throwable {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 27,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class AroundInvoke", "location: class de.hilling.junit.cdi.scope.CallRedirectionInterceptor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/cdi-test/cdi-test-core/src/main/java/de/hilling/junit/cdi/scope/CallRedirectionInterceptor.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-1.2.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3f30dfff617fd652412260ecf648a25769a27101/jakarta.interceptor-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T02:42:37.305997665Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.interceptor.AroundInvoke",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jboss.spec.javax.interceptor",
+            "artifactId" : "jboss-interceptors-api_1.2_spec",
+            "version" : "2.0.0.Final",
+            "coordinates" : "org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec:2.0.0.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.2_spec/2.0.0.Final/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "    @AroundInvoke",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.interceptor.AroundInvoke",
+            "declaringType" : "javax.interceptor.AroundInvoke",
+            "qualifiedSignature" : "javax.interceptor.AroundInvoke",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

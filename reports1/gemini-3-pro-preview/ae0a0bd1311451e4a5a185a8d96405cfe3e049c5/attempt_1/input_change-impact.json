@@ -1,0 +1,1456 @@
+{
+  "project" : "docker-adapter",
+  "breakingCommit" : "ae0a0bd1311451e4a5a185a8d96405cfe3e049c5",
+  "dependency" : {
+    "groupId" : "com.artipie",
+    "artifactId" : "asto-core",
+    "previousVersion" : "v1.13.0",
+    "newVersion" : "v1.15.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/TagValidTest.java",
+    "errors" : [ {
+      "lineNumber" : 62,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/TagValidTest.java",
+        "lineNumber" : 62,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.569161616Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "                    new StringContains(true, \"Invalid tag\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.AllOf<>#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                    new StringContains(true, \"Invalid tag\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Arrays#asList(java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    new StringContains(true, \"Invalid tag\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "                    new StringContains(true, \"Invalid tag\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "                    new StringContains(true, \"Invalid tag\"),",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 63,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/TagValidTest.java",
+        "lineNumber" : 63,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.569406757Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "                    new StringContains(false, original)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.AllOf<>#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                    new StringContains(false, original)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Arrays#asList(java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    new StringContains(false, original)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 63,
+          "codeLine" : "                    new StringContains(false, original)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 63,
+          "codeLine" : "                    new StringContains(false, original)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityRequestTest.java",
+    "errors" : [ {
+      "lineNumber" : 93,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityRequestTest.java",
+        "lineNumber" : 93,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.569950446Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 86,
+          "codeLine" : "            new StringContains(false, \"Unexpected path\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 93,
+          "codeLine" : "            new StringContains(false, \"Unexpected path\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 93,
+          "codeLine" : "            new StringContains(false, \"Unexpected path\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 109,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityRequestTest.java",
+        "lineNumber" : 109,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.570405617Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "            new StringContains(false, \"Unexpected query\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 109,
+          "codeLine" : "            new StringContains(false, \"Unexpected query\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 109,
+          "codeLine" : "            new StringContains(false, \"Unexpected query\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/ref/ManifestRefTest.java",
+    "errors" : [ {
+      "lineNumber" : 57,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/ref/ManifestRefTest.java",
+        "lineNumber" : 57,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.571139902Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                    new StringContains(true, \"Unsupported reference\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.ref.AllOf<>#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "                    new StringContains(true, \"Unsupported reference\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Arrays#asList(java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                    new StringContains(true, \"Unsupported reference\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                    new StringContains(true, \"Unsupported reference\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                    new StringContains(true, \"Unsupported reference\"),",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 58,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/ref/ManifestRefTest.java",
+        "lineNumber" : 58,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.571501726Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                    new StringContains(false, string)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.ref.AllOf<>#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 55,
+          "codeLine" : "                    new StringContains(false, string)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Arrays#asList(java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                    new StringContains(false, string)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "                    new StringContains(false, string)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "                    new StringContains(false, string)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/LargeImageITCase.java",
+    "errors" : [ {
+      "lineNumber" : 69,
+      "columnNumber" : 17,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/LargeImageITCase.java",
+        "lineNumber" : 69,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.571969725Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "                new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 69,
+          "codeLine" : "                new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 69,
+          "codeLine" : "                new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 84,
+      "columnNumber" : 46,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/LargeImageITCase.java",
+        "lineNumber" : 84,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.572299943Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            MatcherAssert.assertThat(output, new StringContains(false, \"Pushed\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.MatcherAssert",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            MatcherAssert.assertThat(output, new StringContains(false, \"Pushed\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            MatcherAssert.assertThat(output, new StringContains(false, \"Pushed\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            MatcherAssert.assertThat(output, new StringContains(false, \"Pushed\"));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/DockerAuthITCase.java",
+    "errors" : [ {
+      "lineNumber" : 70,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerAuthITCase.java",
+        "lineNumber" : 70,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.572767552Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 68,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 85,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerAuthITCase.java",
+        "lineNumber" : 85,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.573183763Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 83,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 85,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 85,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/asto/AstoBlobsITCase.java",
+    "errors" : [ {
+      "lineNumber" : 87,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/asto/AstoBlobsITCase.java",
+        "lineNumber" : 87,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.574079611Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#join()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 70,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#handle(java.util.function.BiFunction)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 70,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "java.util.function.BiFunction",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 87,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 87,
+          "codeLine" : "                    new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 95,
+      "columnNumber" : 21,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/asto/AstoBlobsITCase.java",
+        "lineNumber" : 95,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.574647903Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#join()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 70,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#handle(java.util.function.BiFunction)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 70,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "java.util.function.BiFunction",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 92,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 95,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 95,
+          "codeLine" : "                    new StringContains(true, digest)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+    "errors" : [ {
+      "lineNumber" : 84,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+        "lineNumber" : 84,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.575288275Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 82,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 84,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 99,
+      "columnNumber" : 13,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+        "lineNumber" : 99,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.575893573Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 97,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "            new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 123,
+      "columnNumber" : 16,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+        "lineNumber" : 123,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.583922345Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.lang.String#format(java.lang.String, java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.artipie.docker.http.Image#digest()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/Image.java"
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.artipie.docker.http.DockerSliceITCase::image",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/DockerSliceITCase.java"
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.http.DockerSliceITCase",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/DockerSliceITCase.java"
+          },
+          "lineNumber" : 123,
+          "codeLine" : "        return new StringContains(false, String.format(\"latest: digest: %s\", this.image.digest()));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 127,
+      "columnNumber" : 16,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+        "lineNumber" : 127,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.584590310Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.lang.String#format(java.lang.String, java.lang.Object[])",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.artipie.docker.http.Image#layer()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/Image.java"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.artipie.docker.http.DockerSliceITCase::image",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/DockerSliceITCase.java"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.http.DockerSliceITCase",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/DockerSliceITCase.java"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "        return new StringContains(false, String.format(\"%s: Pushed\", this.image.layer()));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 131,
+      "columnNumber" : 16,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java",
+        "lineNumber" : 131,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.585162444Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 131,
+          "codeLine" : "        return new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 131,
+          "codeLine" : "        return new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityPostTest.java",
+    "errors" : [ {
+      "lineNumber" : 113,
+      "columnNumber" : 17,
+      "message" : "constructor StringStartsWith in class org.hamcrest.core.StringStartsWith cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/UploadEntityPostTest.java",
+        "lineNumber" : 113,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.585917492Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.ResponseMatcher#<init>(com.artipie.http.rs.RsStatus, org.hamcrest.Matcher[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.1.4",
+            "coordinates" : "com.artipie:http:v1.1.4",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.1.4/http-v1.1.4.jar"
+          },
+          "lineNumber" : 109,
+          "codeLine" : "                new StringStartsWith(false, \"/v2/test/blobs/uploads/\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.IsHeader#<init>(java.lang.String, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.1.4",
+            "coordinates" : "com.artipie:http:v1.1.4",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.1.4/http-v1.1.4.jar"
+          },
+          "lineNumber" : 111,
+          "codeLine" : "                new StringStartsWith(false, \"/v2/test/blobs/uploads/\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringStartsWith#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 113,
+          "codeLine" : "                new StringStartsWith(false, \"/v2/test/blobs/uploads/\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringStartsWith",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 113,
+          "codeLine" : "                new StringStartsWith(false, \"/v2/test/blobs/uploads/\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/CachingProxyITCase.java",
+    "errors" : [ {
+      "lineNumber" : 170,
+      "columnNumber" : 16,
+      "message" : "constructor StringContains in class org.hamcrest.core.StringContains cannot be applied to given types;",
+      "details" : [ "required: java.lang.String", "found: boolean,java.lang.String", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/docker-adapter/src/test/java/com/artipie/docker/http/CachingProxyITCase.java",
+        "lineNumber" : 170,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ae0a0bd1311451e4a5a185a8d96405cfe3e049c5/asto-core-v1.15.0.jar",
+        "generatedAt" : "2025-12-08T08:06:28.586641409Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.hamcrest.core.StringContains#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 170,
+          "codeLine" : "        return new StringContains(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hamcrest.core.StringContains",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+          },
+          "lineNumber" : 170,
+          "codeLine" : "        return new StringContains(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,142 @@
+```java
+package org.flywaydb.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FlywayRefactoring {
+
+    public static class FlywayChangesProcessor extends AbstractProcessor<CtElement> {
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // Process TypeReferences for MigrationType
+            if (candidate instanceof CtTypeReference) {
+                String name = ((CtTypeReference<?>) candidate).getQualifiedName();
+                return name.contains("org.flywaydb.core.api.MigrationType");
+            }
+
+            // Process Constructor Calls for new Flyway()
+            if (candidate instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) candidate;
+                CtTypeReference<?> type = ctor.getType();
+                return type != null && "org.flywaydb.core.Flyway".equals(type.getQualifiedName())
+                        && ctor.getArguments().isEmpty();
+            }
+
+            // Process Method Invocations for setDataSource
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> invoc = (CtInvocation<?>) candidate;
+                String methodName = invoc.getExecutable().getSimpleName();
+                return "setDataSource".equals(methodName);
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            Factory factory = getFactory();
+
+            // 1. Handle MigrationType -> CoreMigrationType
+            if (element instanceof CtTypeReference) {
+                CtTypeReference<?> typeRef = (CtTypeReference<?>) element;
+                if ("org.flywaydb.core.api.MigrationType".equals(typeRef.getQualifiedName())) {
+                    typeRef.setPackage(factory.Package().getOrCreate("org.flywaydb.core.api"));
+                    typeRef.setSimpleName("CoreMigrationType");
+                    System.out.println("Refactored MigrationType to CoreMigrationType at line " + element.getPosition().getLine());
+                }
+                return;
+            }
+
+            // 2. Handle new Flyway() -> Flyway.configure()
+            if (element instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) element;
+                
+                // Create Flyway.configure() invocation
+                CtTypeReference<?> flywayRef = factory.Type().createReference("org.flywaydb.core.Flyway");
+                CtInvocation<?> configureCall = factory.Code().createInvocation(
+                        factory.Code().createTypeAccess(flywayRef),
+                        factory.Method().createReference(flywayRef, factory.Type().createReference("org.flywaydb.core.api.configuration.FluentConfiguration"), "configure")
+                );
+
+                // If assigned to a variable, we might need to update the variable type
+                if (ctor.getParent() instanceof CtLocalVariable) {
+                    CtLocalVariable<?> var = (CtLocalVariable<?>) ctor.getParent();
+                    CtTypeReference<?> varType = var.getType();
+                    if (varType != null && "org.flywaydb.core.Flyway".equals(varType.getQualifiedName())) {
+                        // Update variable type to FluentConfiguration
+                        var.setType(factory.Type().createReference("org.flywaydb.core.api.configuration.FluentConfiguration"));
+                    }
+                }
+
+                ctor.replace(configureCall);
+                System.out.println("Refactored new Flyway() to Flyway.configure() at line " + element.getPosition().getLine());
+                return;
+            }
+
+            // 3. Handle setDataSource(...) -> dataSource(...)
+            if (element instanceof CtInvocation) {
+                CtInvocation<?> invoc = (CtInvocation<?>) element;
+                // Defensive check: only rename if argument count matches new API (1 arg or 3 args)
+                // Old API had 1 arg (DataSource) or 4 args.
+                // New API has 1 arg (DataSource) or 3 args (String, String, String).
+                int argCount = invoc.getArguments().size();
+                
+                if (argCount == 1 || argCount == 3) {
+                     // Check if owner is likely Flyway or FluentConfiguration (NoClasspath defensive check)
+                     // We skip if owner is clearly unrelated
+                    CtElement target = invoc.getTarget();
+                    if (target instanceof CtExpression) {
+                        CtTypeReference<?> targetType = ((CtExpression<?>) target).getType();
+                        if (targetType != null && !targetType.getQualifiedName().contains("Flyway") 
+                            && !targetType.getQualifiedName().contains("Configuration")
+                            && !targetType.getQualifiedName().equals("<unknown>")) {
+                            return;
+                        }
+                    }
+
+                    // Rename method
+                    invoc.getExecutable().setSimpleName("dataSource");
+                    System.out.println("Refactored setDataSource to dataSource at line " + element.getPosition().getLine());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "./src/main/java"; // Default input
+        String outputPath = "./src/main/gen"; // Default output
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Robust preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FlywayChangesProcessor());
+
+        System.out.println("Starting Flyway Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

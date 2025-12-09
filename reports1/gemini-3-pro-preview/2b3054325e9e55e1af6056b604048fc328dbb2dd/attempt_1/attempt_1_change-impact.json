@@ -1,0 +1,66 @@
+{
+  "project" : "IDS-Messaging-Services",
+  "breakingCommit" : "2b3054325e9e55e1af6056b604048fc328dbb2dd",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-core",
+    "previousVersion" : "5.3.24",
+    "newVersion" : "6.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/spring-core-5.3.24.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/spring-core-6.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/IDS-Messaging-Services/2b3054325e9e55e1af6056b604048fc328dbb2dd.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/2b3054325e9e55e1af6056b604048fc328dbb2dd/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java",
+    "errors" : [ {
+      "lineNumber" : 61,
+      "columnNumber" : 35,
+      "message" : "cannot access org.springframework.core.io.ClassPathResource",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.0/spring-core-6.0.0.jar(/org/springframework/core/io/ClassPathResource.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/IDS-Messaging-Services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java",
+        "lineNumber" : 61,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/spring-core-5.3.24.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/spring-core-6.0.0.jar",
+        "generatedAt" : "2025-12-08T01:59:01.950761673Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.core.io.ClassPathResource",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/spring-core-5.3.24.jar"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "import org.springframework.core.io.ClassPathResource;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.core.io.ClassPathResource",
+            "declaringType" : "org.springframework.core.io.ClassPathResource",
+            "qualifiedSignature" : "org.springframework.core.io.ClassPathResource",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,128 @@
+Here is the self-contained Spoon refactoring script to handle the identified breaking changes.
+
+### Analysis of Changes
+1.  **`org.snmp4j.agent.ManagedObject` (Source Incompatible):** The diff indicates `CLASS_GENERIC_TEMPLATE_CHANGED`. This means `ManagedObject` has been converted from a raw type to a generic type (likely `ManagedObject<MOScope>` in this library context). Existing code using raw `ManagedObject` will trigger compiler warnings or errors.
+2.  **`DefaultMOServer` & `BaseAgent` (Binary Incompatible):** While marked as modified, no specific method removals or signature changes are listed in the provided diff snippet. The most actionable transformation is fixing the `ManagedObject` generic signature.
+
+### Refactoring Strategy
+*   **Target:** `CtTypeReference` elements referring to `ManagedObject`.
+*   **Condition:** The reference is "raw" (has no type arguments) and is not part of an import statement or class literal (e.g., `ManagedObject.class`).
+*   **Action:** Inject `org.snmp4j.agent.MOScope` as a type argument to convert `ManagedObject` -> `ManagedObject<org.snmp4j.agent.MOScope>`.
+
+### Generated Code
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class Snmp4jRefactoring {
+
+    /**
+     * Processor to handle the breaking change:
+     * CLASS org.snmp4j.agent.ManagedObject changes=CLASS_GENERIC_TEMPLATE_CHANGED
+     *
+     * Strategy:
+     * Identify raw usages of ManagedObject and parameterize them with <MOScope>.
+     * This ensures source compatibility with the new generic definition.
+     */
+    public static class ManagedObjectGenericProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // 1. Name Check (Fast fail)
+            if (!"ManagedObject".equals(candidate.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Package/Import Check (Defensive for NoClasspath)
+            // Accepts fully qualified names or simple names if resolution is incomplete
+            String qName = candidate.getQualifiedName();
+            boolean isTarget = qName.equals("ManagedObject") 
+                            || qName.contains("org.snmp4j.agent.ManagedObject");
+            
+            if (!isTarget) {
+                return false;
+            }
+
+            // 3. Generics Check: Only process if it is currently RAW (no type arguments)
+            if (!candidate.getActualTypeArguments().isEmpty()) {
+                return false;
+            }
+
+            // 4. Context Safety Checks
+            // Do not process imports themselves
+            if (candidate.getParent() instanceof CtImport) {
+                return false;
+            }
+            // Do not process class literals (ManagedObject.class) or static field access
+            // These cannot be parameterized in Java
+            if (candidate.getParent() instanceof CtTypeAccess) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Transformation: Add <org.snmp4j.agent.MOScope> as a type argument
+            // We use FQN to avoid ambiguous resolution issues in NoClasspath mode
+            CtTypeReference<?> scopeType = getFactory().Type().createReference("org.snmp4j.agent.MOScope");
+            
+            try {
+                candidate.addActualTypeArgument(scopeType);
+                
+                String position = candidate.getPosition().isValidPosition() 
+                    ? "line " + candidate.getPosition().getLine() 
+                    : "unknown location";
+                System.out.println("Refactored: ManagedObject -> ManagedObject<MOScope> at " + position);
+            } catch (Exception e) {
+                System.err.println("Failed to refactor usage at " + candidate);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified by arguments or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for robust refactoring
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Handle execution without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ManagedObjectGenericProcessor());
+
+        try {
+            System.out.println("Starting SNMP4J Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Fatal error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

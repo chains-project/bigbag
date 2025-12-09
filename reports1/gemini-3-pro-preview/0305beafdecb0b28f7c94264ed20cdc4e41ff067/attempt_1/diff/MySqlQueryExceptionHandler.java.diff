@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/0305beafdecb0b28f7c94264ed20cdc4e41ff067/pdb/src/main/java/com/feedzai/commons/sql/abstraction/engine/impl/mysql/MySqlQueryExceptionHandler.java	2025-12-08 01:12:15.636160258 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/0305beafdecb0b28f7c94264ed20cdc4e41ff067/attempt_1/transformed/com/feedzai/commons/sql/abstraction/engine/impl/mysql/MySqlQueryExceptionHandler.java	2025-12-08 01:13:45.721887368 +0100
+@@ -37,7 +37,7 @@
+ 
+     @Override
+     public boolean isTimeoutException(final SQLException exception) {
+-        return exception instanceof MySQLTimeoutException || super.isTimeoutException(exception);
++        return exception instanceof com.mysql.cj.jdbc.exceptions.MySQLTimeoutException || super.isTimeoutException(exception);
+     }
+ 
+     @Override

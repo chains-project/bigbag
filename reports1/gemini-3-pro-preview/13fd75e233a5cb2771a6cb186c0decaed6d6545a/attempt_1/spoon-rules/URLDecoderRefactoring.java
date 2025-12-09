@@ -1,0 +1,135 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring Rule for java.net.URLDecoder.
+ * 
+ * Scenario assumed (due to empty input diff):
+ * - METHOD java.net.URLDecoder.decode(String) [DEPRECATED/REMOVED]
+ * + METHOD java.net.URLDecoder.decode(String, java.nio.charset.Charset) [ADDED]
+ * 
+ * Strategy:
+ * Locate single-argument calls to URLDecoder.decode(str) and transform them 
+ * into URLDecoder.decode(str, StandardCharsets.UTF_8).
+ */
+public class URLDecoderRefactoring {
+
+    public static class URLDecoderProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"decode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We only care about the legacy version with 1 argument
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("URLDecoder")) {
+                return false;
+            }
+
+            // 4. Type Check (Defensive for NoClasspath)
+            // Ensure the argument is likely a String.
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If type is known (not null) and not String, skip it. 
+            // If type is unknown (null), we process it conservatively.
+            if (type != null && !type.getQualifiedName().contains("String")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalStringArg = invocation.getArguments().get(0);
+
+            // Transformation: Create the second argument (StandardCharsets.UTF_8)
+            
+            // Define types
+            CtTypeReference<?> stdCharsetsType = factory.Type().createReference("java.nio.charset.StandardCharsets");
+            CtTypeReference<?> charsetType = factory.Type().createReference("java.nio.charset.Charset");
+
+            // Create "StandardCharsets.UTF_8" access
+            // We use CodeSnippetExpression for simplicity in ensuring the text is correct,
+            // but we could also build a TypeAccess + FieldRead.
+            // Using a full snippet ensures imports are handled if auto-imports are on, 
+            // or FQN is used if not.
+            CtExpression<?> utf8Arg = factory.Code().createCodeSnippetExpression("java.nio.charset.StandardCharsets.UTF_8");
+
+            // Define the new method reference
+            CtTypeReference<?> urlDecoderType = factory.Type().createReference("java.net.URLDecoder");
+            
+            // Create the new Invocation
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                invocation.getTarget(), // Keep the original target (e.g., static type access)
+                factory.Method().createReference(
+                    urlDecoderType, 
+                    factory.Type().stringType(), 
+                    "decode", 
+                    factory.Type().stringType(), 
+                    charsetType
+                ),
+                originalStringArg.clone(), // Preserved first arg
+                utf8Arg                    // Added second arg
+            );
+
+            // Replace the entire method call
+            invocation.replace(replacement);
+            System.out.println("Refactored URLDecoder.decode at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/13fd75e233a5cb2771a6cb186c0decaed6d6545a/docker-adapter/src/test/java/com/artipie/docker/http/DockerAuthITCase.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/13fd75e233a5cb2771a6cb186c0decaed6d6545a/docker-adapter/src/test/java/com/artipie/docker/http/DockerAuthITCase.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL SETTINGS: SNIPER MODE (Preserve Layout)
+        // =========================================================
+        
+        // 1. Enable comments to prevent them from being stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve whitespace/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // =========================================================
+        // CRITICAL SETTINGS: ROBUSTNESS (NoClasspath)
+        // =========================================================
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        launcher.addProcessor(new URLDecoderProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Generated code in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

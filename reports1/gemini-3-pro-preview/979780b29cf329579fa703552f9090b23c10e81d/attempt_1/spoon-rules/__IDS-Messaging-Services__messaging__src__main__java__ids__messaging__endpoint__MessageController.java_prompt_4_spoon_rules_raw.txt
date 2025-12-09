@@ -1,0 +1,82 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor.
+ * 
+ * NOTE: No specific Dependency Diff was provided in the input. 
+ * This class is a strict template implementing the required 'Sniper' and 'NoClasspath' 
+ * configurations, ready for refactoring logic to be inserted.
+ */
+public class RefactoringTemplate {
+
+    public static class GenericProcessor extends AbstractProcessor<CtElement> {
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // =======================================================================
+            // RULE 2: Defensive Coding (NoClasspath Compatibility)
+            // =======================================================================
+            // In NoClasspath mode, Spoon cannot resolve full class hierarchies.
+            // 1. Do not assume .getType() returns a value (check for null).
+            // 2. Do not rely on .isSubtypeOf(). Use .getQualifiedName().contains().
+            // =======================================================================
+
+            // TODO: Insert filtering logic here based on the Diff.
+            // Example:
+            // if (!(candidate instanceof spoon.reflect.code.CtInvocation)) return false;
+            // String name = ((spoon.reflect.code.CtInvocation<?>) candidate).getExecutable().getSimpleName();
+            // if (!"targetMethod".equals(name)) return false;
+
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            // TODO: Insert transformation logic here.
+            // Use getFactory() to create new elements.
+            // element.replace(replacement);
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =======================================================================
+        // RULE 1: Preserve Source Code (Robust Sniper Configuration)
+        // =======================================================================
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // =======================================================================
+        // RULE 2: Defensive Coding (NoClasspath Compatibility)
+        // =======================================================================
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new GenericProcessor());
+
+        try {
+            System.out.println("Starting Refactoring (Template Mode)...");
+            launcher.run();
+            System.out.println("Refactoring complete.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

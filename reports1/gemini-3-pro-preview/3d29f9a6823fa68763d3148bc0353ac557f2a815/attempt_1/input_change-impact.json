@@ -1,0 +1,2025 @@
+{
+  "project" : "sorald",
+  "breakingCommit" : "3d29f9a6823fa68763d3148bc0353ac557f2a815",
+  "dependency" : {
+    "groupId" : "org.sonarsource.sonarlint.core",
+    "artifactId" : "sonarlint-core",
+    "previousVersion" : "8.15.0.65216",
+    "newVersion" : "9.1.1.74346",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sonarlint-core-8.15.0.65216.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sonarlint-core-9.1.1.74346.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sorald/3d29f9a6823fa68763d3148bc0353ac557f2a815.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/3d29f9a6823fa68763d3148bc0353ac557f2a815/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java",
+    "errors" : [ {
+      "lineNumber" : 163,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method addEnabledLanguages(java.util.Set<org.sonarsource.sonarlint.core.commons.Language>)", "location: class org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration.Builder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sorald",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java",
+        "lineNumber" : 163,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sonarlint-core-8.15.0.65216.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3d29f9a6823fa68763d3148bc0353ac557f2a815/sonarlint-core-9.1.1.74346.jar",
+        "generatedAt" : "2025-12-08T02:27:12.744425230Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#build()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "nl.altindag.ssl.SSLFactory$Builder",
+            "qualifiedSignature" : "nl.altindag.ssl.SSLFactory$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lnl/altindag/ssl/SSLFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "nl.altindag.ssl.SSLFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "nl.altindag.ssl.model.internal.SSLMaterial$Builder",
+            "qualifiedSignature" : "nl.altindag.ssl.model.internal.SSLMaterial$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lnl/altindag/ssl/model/internal/SSLMaterial;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "nl.altindag.ssl.model.internal.SSLMaterial",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "nl.altindag.ssl.util.KeyManagerUtils$KeyManagerBuilder",
+            "qualifiedSignature" : "nl.altindag.ssl.util.KeyManagerUtils$KeyManagerBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljavax/net/ssl/X509ExtendedKeyManager;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "javax.net.ssl.X509ExtendedKeyManager",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "nl.altindag.ssl.util.TrustManagerUtils$TrustManagerBuilder",
+            "qualifiedSignature" : "nl.altindag.ssl.util.TrustManagerUtils$TrustManagerBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljavax/net/ssl/X509ExtendedTrustManager;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "javax.net.ssl.X509ExtendedTrustManager",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.async.methods.SimpleRequestBuilder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/async/methods/SimpleHttpRequest;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.async.methods.SimpleHttpRequest",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.async.methods.SimpleRequestBuilder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.auth.KerberosConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.auth.KerberosConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/auth/KerberosConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.auth.KerberosConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.config.ConnectionConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.config.ConnectionConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/config/ConnectionConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.config.ConnectionConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.config.RequestConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.config.RequestConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/config/RequestConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.config.RequestConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.config.TlsConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.config.TlsConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/config/TlsConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.config.TlsConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.impl.async.H2AsyncClientBuilder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.impl.async.H2AsyncClientBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder",
+            "qualifiedSignature" : "org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.config.CharCodingConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.config.CharCodingConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/config/CharCodingConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.config.CharCodingConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.config.Http1Config$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.config.Http1Config$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/config/Http1Config;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.config.Http1Config",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.config.RegistryBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.config.RegistryBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/config/Registry;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.config.Registry",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/impl/io/DefaultBHttpServerConnectionFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.impl.io.HttpService$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.impl.io.HttpService$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/impl/io/HttpService;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.impl.io.HttpService",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.io.SocketConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.io.SocketConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/io/SocketConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.io.SocketConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.protocol.ChainBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.protocol.ChainBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljava/util/LinkedList;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.util.LinkedList",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.protocol.HttpProcessorBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.protocol.HttpProcessorBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/protocol/HttpProcessor;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.protocol.HttpProcessor",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.support.AbstractMessageBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.support.AbstractMessageBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[protected abstract build ()Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.support.BasicRequestBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.support.BasicRequestBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http/message/BasicHttpRequest;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http.message.BasicHttpRequest",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http.support.BasicRequestBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.http.support.BasicRequestBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.http2.config.H2Config$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.http2.config.H2Config$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/http2/config/H2Config;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.http2.config.H2Config",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.net.URIBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.net.URIBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljava/net/URI;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.net.URI",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.reactor.IOReactorConfig$Builder",
+            "qualifiedSignature" : "org.apache.hc.core5.reactor.IOReactorConfig$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/apache/hc/core5/reactor/IOReactorConfig;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.apache.hc.core5.reactor.IOReactorConfig",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.apache.hc.core5.ssl.SSLContextBuilder",
+            "qualifiedSignature" : "org.apache.hc.core5.ssl.SSLContextBuilder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljavax/net/ssl/SSLContext;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "javax.net.ssl.SSLContext",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.measure.test.TestIssue$Builder",
+            "qualifiedSignature" : "org.sonar.api.ce.measure.test.TestIssue$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/measure/Issue;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.measure.Issue",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.measure.test.TestMeasureComputerDefinition$MeasureComputerDefinitionBuilderImpl",
+            "qualifiedSignature" : "org.sonar.api.ce.measure.test.TestMeasureComputerDefinition$MeasureComputerDefinitionBuilderImpl.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/measure/MeasureComputer$MeasureComputerDefinition;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.measure.MeasureComputer$MeasureComputerDefinition",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$AnalysisBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$AnalysisBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/Analysis;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.Analysis",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$BranchBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$BranchBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/Branch;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.Branch",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$CeTaskBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$CeTaskBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/CeTask;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.CeTask",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ConditionBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ConditionBuilder.build(org.sonar.api.ce.posttask.QualityGate$EvaluationStatus, java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@28519947[public build (Lorg/sonar/api/ce/posttask/QualityGate$EvaluationStatus;Ljava/lang/String;)Lorg/sonar/api/ce/posttask/QualityGate$Condition;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.QualityGate$Condition",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.sonar.api.ce.posttask.QualityGate$EvaluationStatus", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ProjectAnalysisBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ProjectAnalysisBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/PostProjectAnalysisTask$ProjectAnalysis;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.PostProjectAnalysisTask$ProjectAnalysis",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ProjectBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ProjectBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/Project;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.Project",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$QualityGateBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$QualityGateBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/QualityGate;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.QualityGate",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ScannerContextBuilder",
+            "qualifiedSignature" : "org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester$ScannerContextBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/ce/posttask/ScannerContext;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonar.api.ce.posttask.ScannerContext",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.web.AbstractUrlPattern$Builder",
+            "qualifiedSignature" : "org.sonar.api.web.AbstractUrlPattern$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lorg/sonar/api/web/AbstractUrlPattern;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonar.api.web.AbstractUrlPattern",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.web.ServletFilter$UrlPattern$Builder",
+            "qualifiedSignature" : "org.sonar.api.web.ServletFilter$UrlPattern$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lorg/sonar/api/web/AbstractUrlPattern;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonar.api.web.AbstractUrlPattern",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.web.UrlPattern$Builder",
+            "qualifiedSignature" : "org.sonar.api.web.UrlPattern$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonar/api/web/UrlPattern;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonar.api.web.UrlPattern",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonar.api.web.UrlPattern$Builder",
+            "qualifiedSignature" : "org.sonar.api.web.UrlPattern$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lorg/sonar/api/web/AbstractUrlPattern;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonar.api.web.AbstractUrlPattern",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$HotspotLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$HotspotPullQueryTimestamp;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$TextRange;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Issues$Transitions;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverconnection/proto/Sonarlint$LastEventPolling;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.CharCodingConfig$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.CharCodingConfig$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/config/CharCodingConfig;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.CharCodingConfig",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.Http1Config$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.Http1Config$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/config/Http1Config;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.config.Http1Config",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/impl/io/DefaultBHttpServerConnectionFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.DefaultBHttpServerConnectionFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.HttpService$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.HttpService$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/impl/io/HttpService;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.impl.io.HttpService",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.io.SocketConfig$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.io.SocketConfig$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/io/SocketConfig;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.io.SocketConfig",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.protocol.ChainBuilder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.protocol.ChainBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljava/util/LinkedList;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.LinkedList",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.protocol.HttpProcessorBuilder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.protocol.HttpProcessorBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/shaded/org/apache/hc/core5/http/protocol/HttpProcessor;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.http.protocol.HttpProcessor",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.net.URIBuilder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.shaded.org.apache.hc.core5.net.URIBuilder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Ljava/net/URI;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.net.URI",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setModulesProvider(org.sonarsource.sonarlint.core.analysis.api.ClientModulesProvider)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setWorkDir(java.nio.file.Path)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setExtraProperties(java.util.Map)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setClientPid(long)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#addEnabledLanguages(java.util.Set)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "addEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder.addEnabledLanguages(org.sonarsource.sonarlint.core.commons.Language[])",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ec13c09a[public transient addEnabledLanguages ([Lorg/sonarsource/sonarlint/core/commons/Language;)Lorg/sonarsource/sonarlint/core/analysis/api/AnalysisEngineConfiguration$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.sonarsource.sonarlint.core.commons.Language[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "addEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder.addEnabledLanguages(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a02aa8b[public addEnabledLanguages (Ljava/util/Collection;)Lorg/sonarsource/sonarlint/core/analysis/api/AnalysisEngineConfiguration$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration#getEnabledLanguages()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.sonarsource.sonarlint.core",
+            "artifactId" : "sonarlint-core",
+            "version" : "9.1.1.74346",
+            "coordinates" : "org.sonarsource.sonarlint.core:sonarlint-core:9.1.1.74346",
+            "sourcePath" : "/home/kth/.m2/repository/org/sonarsource/sonarlint/core/sonarlint-core/9.1.1.74346/sonarlint-core-9.1.1.74346.jar"
+          },
+          "lineNumber" : 163,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration.getEnabledLanguages()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "newValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Set",
+              "newValue" : "java.util.Set",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration.getEnabledLanguages()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Set",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.IssueDownloader",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.IssueDownloader.getEnabledLanguages()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.util.Set",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "sorald.sonar.SonarLintEngine::globalConfig",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "sorald/src/main/java/sorald/sonar/SonarLintEngine.java"
+          },
+          "lineNumber" : 163,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

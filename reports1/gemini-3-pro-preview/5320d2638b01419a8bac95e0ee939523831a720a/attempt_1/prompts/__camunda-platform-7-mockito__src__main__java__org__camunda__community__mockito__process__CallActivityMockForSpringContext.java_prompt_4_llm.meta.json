@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5320d2638b01419a8bac95e0ee939523831a720a/attempt_1/prompts/__camunda-platform-7-mockito__src__main__java__org__camunda__community__mockito__process__CallActivityMockForSpringContext.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5320d2638b01419a8bac95e0ee939523831a720a/attempt_1/prompts/__camunda-platform-7-mockito__src__main__java__org__camunda__community__mockito__process__CallActivityMockForSpringContext.java_prompt_4_llm.txt",
+  "timestamp": 1765166713.4595177,
+  "duration_seconds": 69.8954668045044,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtUnaryOperator;\nimport spoon.reflect.code.UnaryOperatorKind;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class SpringContextRefactoring {\n\n    /**\n     * Processor to handle breaking changes in ConfigurableApplicationContext.\n     * The diff indicates source incompatibility for ConfigurableApplicationContext,\n     * specifically around getBeanFactory().\n     *\n     * Strategy: Ensure calls to getBeanFactory() are explicitly performed on\n     * ConfigurableApplicationContext to resolve potential ambiguity or visibility issues\n     * arising from the source incompatibility.\n     */\n    public static class GetBeanFactoryCastProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Name Check\n            if (!\"getBeanFactory\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Count Check (getBeanFactory has 0 args)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Target Check\n            CtExpression<?> target = candidate.getTarget();\n            if (target == null) {\n                // Implicit 'this' or static call, skip for safety in NoClasspath\n                return false;\n            }\n\n            // 4. Type Check (Defensive for NoClasspath)\n            CtTypeReference<?> typeRef = target.getType();\n            \n            // If the target is already known to be ConfigurableApplicationContext, skip.\n            // In NoClasspath, typeRef might be null, so we process aggressively or check heuristic names.\n            if (typeRef != null && typeRef.getQualifiedName().contains(\"ConfigurableApplicationContext\")) {\n                return false;\n            }\n\n            // 5. Check if it's already casted (avoid double casting)\n            if (target instanceof CtUnaryOperator) {\n                CtUnaryOperator<?> op = (CtUnaryOperator<?>) target;\n                if (op.getKind() == UnaryOperatorKind.CAST) {\n                    CtTypeReference<?> castType = op.getType();\n                    if (castType != null && castType.getQualifiedName().contains(\"ConfigurableApplicationContext\")) {\n                        return false;\n                    }\n                }\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            CtExpression<?> originalTarget = invocation.getTarget();\n\n            // Create the reference for the cast type\n            CtTypeReference<?> configContextRef = factory.Type().createReference(\"org.springframework.context.ConfigurableApplicationContext\");\n\n            // Transformation: ((ConfigurableApplicationContext) originalTarget).getBeanFactory()\n            // We clone originalTarget to detach it from the current tree before re-attaching\n            CtUnaryOperator<?> castedTarget = factory.Code().createTypeCast(originalTarget.clone(), configContextRef);\n            \n            // Ensure parenthesis are applied: ((Type) var)\n            castedTarget.setParenthesized(true);\n\n            // Apply replacement\n            invocation.setTarget(castedTarget);\n            \n            System.out.println(\"Refactored getBeanFactory call at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL IMPLEMENTATION RULES\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually for strict source preservation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Defensive Coding (NoClasspath Compatibility)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new GetBeanFactoryCastProcessor());\n        \n        try {\n            launcher.run();\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1603,
+      "candidates_token_count": 1025,
+      "total_token_count": 6849,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

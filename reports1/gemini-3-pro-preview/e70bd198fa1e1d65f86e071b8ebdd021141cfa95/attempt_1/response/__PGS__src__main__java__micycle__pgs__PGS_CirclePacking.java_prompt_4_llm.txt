@@ -1,0 +1,105 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Refactoring script for org.tinspin.index changes.
+ * 
+ * CHANGE ANALYSIS:
+ * - Removed: query1NN(double[]) from multiple Index classes (CoverTree, KDTree, RTree, etc.).
+ * - Migration Strategy: Replace convenience method `query1NN(point)` with `queryKNN(point, 1)`.
+ */
+public class TinSpinRefactoring {
+
+    public static class Query1NNProcessor extends AbstractProcessor<CtInvocation<?>> {
+        // List of classes known to have had query1NN removed
+        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(
+            "CoverTree", "PointIndex", "PointIndexWrapper", 
+            "RectangleIndex", "KDTree", "RTree"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"query1NN".equals(candidate.getExecutable().getSimpleName())) return false;
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) return false;
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // If owner is known (not null and not <unknown>), we enforce strict checking.
+            // If owner is <unknown> (common in NoClasspath), we rely on the unique method name 'query1NN'.
+            if (owner != null && !owner.getQualifiedName().equals("<unknown>")) {
+                String qualifiedName = owner.getQualifiedName();
+                // Check if it matches target classes or the library package
+                boolean isTarget = TARGET_CLASSES.stream().anyMatch(qualifiedName::contains);
+                boolean isTinSpin = qualifiedName.contains("org.tinspin") || qualifiedName.contains("index");
+                
+                if (!isTarget && !isTinSpin) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Transformation: query1NN(point) -> queryKNN(point, 1)
+            
+            // 1. Rename the method
+            invocation.getExecutable().setSimpleName("queryKNN");
+            
+            // 2. Create the 'k' argument (int k = 1)
+            CtExpression<Integer> kArg = factory.Code().createLiteral(1);
+            
+            // 3. Append the argument
+            invocation.addArgument(kArg);
+            
+            System.out.println("Refactored query1NN -> queryKNN at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified or passed as args)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually (Required for Spoon 11+ strict preservation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new Query1NNProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

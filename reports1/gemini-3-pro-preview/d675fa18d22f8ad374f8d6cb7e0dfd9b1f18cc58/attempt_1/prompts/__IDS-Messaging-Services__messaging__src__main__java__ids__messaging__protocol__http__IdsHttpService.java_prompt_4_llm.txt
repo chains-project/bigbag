@@ -1,0 +1,76 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Template class generated because no specific Dependency Diff was provided.
+ * This demonstrates the CRITICAL configuration for Spoon (Sniper, NoClasspath, Generics).
+ * 
+ * Replace "TargetClassName", "oldMethodName", and "newMethodName" with actual values.
+ */
+public class TemplateRefactoring {
+
+    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Replace with actual method name from diff)
+            if (!"oldMethodName".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner Check (Defensive for NoClasspath)
+            // Checks if the method belongs to the target class using string matching
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("TargetClassName") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation: Rename the method call
+            // Replace "newMethodName" with the new method name from diff
+            invocation.getExecutable().setSimpleName("newMethodName");
+            System.out.println("Refactored method call at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments to preserve file structure
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for high-fidelity source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive coding required in Processor)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new MethodRenameProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

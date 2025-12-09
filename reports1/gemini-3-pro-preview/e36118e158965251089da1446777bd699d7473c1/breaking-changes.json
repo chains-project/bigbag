@@ -1,0 +1,122 @@
+{
+  "project" : "files-adapter",
+  "breakingCommit" : "e36118e158965251089da1446777bd699d7473c1",
+  "dependencyGroupId" : "com.artipie",
+  "dependencyArtifactId" : "http",
+  "previousVersion" : "v0.26.1",
+  "newVersion" : "v1.0.1",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+  "generatedAt" : "2025-12-08T10:48:12.928348363Z",
+  "totalBreakingChanges" : 5,
+  "breakingChanges" : [ {
+    "elementType" : "METHOD",
+    "name" : "lambda$user$2",
+    "simpleName" : "lambda$user$2",
+    "qualifiedSignature" : "com.artipie.http.auth.BasicIdentities#lambda$user$2(org.cactoos.text.Base64Decoded)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a1fc0ec3[private static lambda$user$2 (Lorg/cactoos/text/Base64Decoded;)[Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.cactoos.text.Base64Decoded" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$user$3",
+    "simpleName" : "lambda$user$3",
+    "qualifiedSignature" : "com.artipie.http.auth.BasicIdentities#lambda$user$3(java.lang.String[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@23a43d95[private lambda$user$3 ([Ljava/lang/String;)Ljava/util/Optional;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Optional",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "PRIVATE", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String[]" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.artipie.http.hm.SliceHasResponse",
+    "simpleName" : "SliceHasResponse",
+    "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "target",
+    "simpleName" : "target",
+    "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse::target",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.artipie.http.hm.SliceHasResponse.target:Lorg/cactoos/func/UncheckedFunc;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.cactoos.func.UncheckedFunc",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.artipie.http.rq.RqHeaders",
+    "simpleName" : "RqHeaders",
+    "qualifiedSignature" : "com.artipie.http.rq.RqHeaders",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_IMPLEMENTED_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  } ]
+}

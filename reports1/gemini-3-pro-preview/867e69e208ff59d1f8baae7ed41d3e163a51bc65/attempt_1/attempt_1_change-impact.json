@@ -1,0 +1,123 @@
+{
+  "project" : "singer",
+  "breakingCommit" : "867e69e208ff59d1f8baae7ed41d3e163a51bc65",
+  "dependency" : {
+    "groupId" : "org.apache.thrift",
+    "artifactId" : "libthrift",
+    "previousVersion" : "0.12.0",
+    "newVersion" : "0.16.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.12.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.16.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer/867e69e208ff59d1f8baae7ed41d3e163a51bc65.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/867e69e208ff59d1f8baae7ed41d3e163a51bc65/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/singer/singer/src/main/java/com/pinterest/singer/reader/ThriftReader.java",
+    "errors" : [ {
+      "lineNumber" : 23,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TFramedTransport", "location: package org.apache.thrift.transport" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer/singer/src/main/java/com/pinterest/singer/reader/ThriftReader.java",
+        "lineNumber" : 23,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.12.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.16.0.jar",
+        "generatedAt" : "2025-12-08T05:53:38.091140077Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.thrift.transport.TFramedTransport",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/thrift/libthrift/0.12.0/libthrift-0.12.0.jar"
+          },
+          "lineNumber" : 23,
+          "codeLine" : "import org.apache.thrift.transport.TFramedTransport;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.thrift.transport.TFramedTransport",
+            "declaringType" : "org.apache.thrift.transport.TFramedTransport",
+            "qualifiedSignature" : "org.apache.thrift.transport.TFramedTransport",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/singer/singer/src/main/java/com/pinterest/singer/utils/SimpleThriftLogger.java",
+    "errors" : [ {
+      "lineNumber" : 24,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TFramedTransport", "location: package org.apache.thrift.transport" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/singer/singer/src/main/java/com/pinterest/singer/utils/SimpleThriftLogger.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.12.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/867e69e208ff59d1f8baae7ed41d3e163a51bc65/libthrift-0.16.0.jar",
+        "generatedAt" : "2025-12-08T05:53:38.091777892Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.thrift.transport.TFramedTransport",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/thrift/libthrift/0.12.0/libthrift-0.12.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "import org.apache.thrift.transport.TFramedTransport;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.thrift.transport.TFramedTransport",
+            "declaringType" : "org.apache.thrift.transport.TFramedTransport",
+            "qualifiedSignature" : "org.apache.thrift.transport.TFramedTransport",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

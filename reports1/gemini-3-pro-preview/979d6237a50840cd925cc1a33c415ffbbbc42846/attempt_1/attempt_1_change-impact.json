@@ -1,0 +1,71 @@
+{
+  "project" : "guice",
+  "breakingCommit" : "979d6237a50840cd925cc1a33c415ffbbbc42846",
+  "dependency" : {
+    "groupId" : "org.apache.struts",
+    "artifactId" : "struts2-core",
+    "previousVersion" : "2.3.37",
+    "newVersion" : "2.5.30",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/struts2-core-2.3.37.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/struts2-core-2.5.30.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/guice/979d6237a50840cd925cc1a33c415ffbbbc42846.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/979d6237a50840cd925cc1a33c415ffbbbc42846/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/guice/extensions/struts2/test/com/google/inject/struts2/Struts2FactoryTest.java",
+    "errors" : [ {
+      "lineNumber" : 19,
+      "columnNumber" : 46,
+      "message" : "error: package org.apache.struts2.dispatcher.ng.filter does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/guice",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/guice/extensions/struts2/test/com/google/inject/struts2/Struts2FactoryTest.java",
+        "lineNumber" : 19,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/struts2-core-2.3.37.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/struts2-core-2.5.30.jar",
+        "generatedAt" : "2025-12-08T06:44:07.617252814Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 19,
+          "codeLine" : "import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter",
+            "declaringType" : "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter",
+            "qualifiedSignature" : "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

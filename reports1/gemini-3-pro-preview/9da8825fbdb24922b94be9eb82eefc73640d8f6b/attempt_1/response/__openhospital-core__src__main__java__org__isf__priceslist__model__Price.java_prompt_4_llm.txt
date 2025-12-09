@@ -1,0 +1,150 @@
+Here is the self-contained Java class to refactor usages of `AuditingEntityListener`.
+
+**Refactoring Strategy:**
+1.  **Analysis:** The diff indicates `AuditingEntityListener` is marked with `-` (Removal). Although the metadata claims "UNCHANGED", the presence in a removal list implies the class should no longer be used.
+2.  **Usage Pattern:** This class is primarily used in the `@EntityListeners` annotation (e.g., `@EntityListeners(AuditingEntityListener.class)`).
+3.  **Transformation:**
+    *   Locate `@EntityListeners` annotations.
+    *   Scan the values (either a single class or an array of classes).
+    *   Remove `AuditingEntityListener.class` from the list.
+    *   If the annotation becomes empty after removal, delete the annotation entirely.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldAccess;
+import spoon.reflect.code.CtNewArray;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AuditingEntityListenerRefactoring {
+
+    /**
+     * Processor to remove 'AuditingEntityListener.class' from @EntityListeners annotations.
+     */
+    public static class AuditingEntityListenerProcessor extends AbstractProcessor<CtAnnotation<?>> {
+
+        private static final String TARGET_SIMPLE_NAME = "AuditingEntityListener";
+        private static final String ANNOTATION_NAME = "EntityListeners";
+
+        @Override
+        public boolean isToBeProcessed(CtAnnotation<?> candidate) {
+            // 1. Check Annotation Name (Defensive check for simple name to handle javax/jakarta packages)
+            if (!ANNOTATION_NAME.equals(candidate.getType().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Defensive check: Does the annotation content imply usage of the target?
+            // This prevents parsing detailed structure if the string doesn't even appear.
+            return candidate.toString().contains(TARGET_SIMPLE_NAME);
+        }
+
+        @Override
+        public void process(CtAnnotation<?> annotation) {
+            // value() is the default element for @EntityListeners
+            CtExpression<?> value = annotation.getValue("value");
+            
+            if (value == null) {
+                return;
+            }
+
+            boolean modified = false;
+
+            // Case A: The value is an Array (e.g., @EntityListeners({ A.class, B.class }))
+            if (value instanceof CtNewArray) {
+                CtNewArray<?> array = (CtNewArray<?>) value;
+                List<CtExpression<?>> elementsToRemove = new ArrayList<>();
+
+                for (CtExpression<?> expr : array.getElements()) {
+                    if (isReferenceToTarget(expr)) {
+                        elementsToRemove.add(expr);
+                    }
+                }
+
+                if (!elementsToRemove.isEmpty()) {
+                    for (CtExpression<?> expr : elementsToRemove) {
+                        array.removeElement(expr);
+                    }
+                    modified = true;
+                    // If array is now empty, remove the whole annotation
+                    if (array.getElements().isEmpty()) {
+                        annotation.delete();
+                        System.out.println("Removed empty @EntityListeners annotation at line " + annotation.getPosition().getLine());
+                        return; // Done
+                    }
+                }
+            } 
+            // Case B: The value is a single element (e.g., @EntityListeners(A.class))
+            else {
+                if (isReferenceToTarget(value)) {
+                    annotation.delete();
+                    System.out.println("Removed @EntityListeners(AuditingEntityListener.class) at line " + annotation.getPosition().getLine());
+                    return;
+                }
+            }
+
+            if (modified) {
+                System.out.println("Removed AuditingEntityListener from @EntityListeners at line " + annotation.getPosition().getLine());
+            }
+        }
+
+        /**
+         * Helper to check if an expression is 'AuditingEntityListener.class'
+         */
+        private boolean isReferenceToTarget(CtExpression<?> expression) {
+            // We expect a class literal access: ClassName.class
+            if (expression instanceof CtFieldAccess) {
+                CtFieldAccess<?> fieldAccess = (CtFieldAccess<?>) expression;
+                // Check if accessing ".class"
+                if ("class".equals(fieldAccess.getVariable().getSimpleName())) {
+                    // Check the target type (the class being accessed)
+                    CtExpression<?> target = fieldAccess.getTarget();
+                    if (target != null) {
+                        // Defensive Type Checking (NoClasspath)
+                        // Use string containment to match qualified or simple names
+                        String typeName = target.toString();
+                        return typeName.contains(TARGET_SIMPLE_NAME);
+                    }
+                }
+            }
+            // Fallback: Type check on the expression itself if structure varies
+            CtTypeReference<?> type = expression.getType();
+            return type != null && type.getQualifiedName().contains(TARGET_SIMPLE_NAME);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Sniper Printer for preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new AuditingEntityListenerProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

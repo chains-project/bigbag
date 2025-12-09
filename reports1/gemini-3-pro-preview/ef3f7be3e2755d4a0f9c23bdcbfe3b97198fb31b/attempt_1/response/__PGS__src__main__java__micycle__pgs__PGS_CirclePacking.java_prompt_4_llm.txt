@@ -1,0 +1,119 @@
+```java
+package org.tinspin.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class TinSpinRefactoring {
+
+    /**
+     * Processor to migrate query1NN(double[]) to queryKNN(double[], 1).
+     * 
+     * Based on the diff:
+     * - METHOD query1NN(double[]) [REMOVED]
+     * 
+     * Strategy:
+     * 1. Locate invocations of query1NN.
+     * 2. Rename method to queryKNN.
+     * 3. Append integer argument '1'.
+     */
+    public static class Query1NNProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // List of classes known to have had this method removed based on the diff
+        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(
+            "PointIndex", "CoverTree", "KDTree", "RTree", "RectangleIndex", "PointIndexWrapper"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"query1NN".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner/Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If the type is completely unknown (null), we might process it if the name matches exactly,
+            // but to be safer, if we have type info, we verify it matches the affected classes.
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                String qualName = declaringType.getQualifiedName();
+                boolean matchesTarget = TARGET_CLASSES.stream().anyMatch(qualName::contains);
+                if (!matchesTarget) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // 1. Rename the method in the invocation reference
+            invocation.getExecutable().setSimpleName("queryKNN");
+
+            // 2. Create the '1' literal for the k argument
+            // We use '1' because 1NN implies K=1
+            var kArgument = factory.Code().createLiteral(1);
+
+            // 3. Add the argument to the invocation
+            invocation.addArgument(kArgument);
+
+            System.out.println("Refactored query1NN -> queryKNN at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Source Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to handle partial dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+        // Do not fail on unresolved symbols
+        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+
+        launcher.addProcessor(new Query1NNProcessor());
+
+        try {
+            System.out.println("Starting TinSpin Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

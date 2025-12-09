@@ -1,0 +1,395 @@
+{
+  "project" : "jtcop",
+  "breakingCommit" : "3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01",
+  "dependency" : {
+    "groupId" : "org.apache.opennlp",
+    "artifactId" : "opennlp-tools",
+    "previousVersion" : "2.2.0",
+    "newVersion" : "2.3.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSourceFileSystem.java",
+    "errors" : [ {
+      "lineNumber" : 28,
+      "columnNumber" : 28,
+      "message" : "cannot access opennlp.tools.postag.POSModel",
+      "details" : [ "bad class file: /root/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar(/opennlp/tools/postag/POSModel.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSourceFileSystem.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.559707379Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "opennlp.tools.postag.POSModel",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "import opennlp.tools.postag.POSModel;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSModel",
+            "declaringType" : "opennlp.tools.postag.POSModel",
+            "qualifiedSignature" : "opennlp.tools.postag.POSModel",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 52,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class POSModel", "location: class com.github.lombrozo.testnames.rules.ml.ModelSourceFileSystem" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSourceFileSystem.java",
+        "lineNumber" : 52,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.559972047Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "opennlp.tools.postag.POSModel",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "    public POSModel model() throws IOException {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSModel",
+            "declaringType" : "opennlp.tools.postag.POSModel",
+            "qualifiedSignature" : "opennlp.tools.postag.POSModel",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.IOException",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 52,
+          "codeLine" : "    public POSModel model() throws IOException {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/RulePresentSimpleMl.java",
+    "errors" : [ {
+      "lineNumber" : 36,
+      "columnNumber" : 28,
+      "message" : "cannot access opennlp.tools.postag.POSTaggerME",
+      "details" : [ "bad class file: /root/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar(/opennlp/tools/postag/POSTaggerME.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/RulePresentSimpleMl.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.560272177Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "opennlp.tools.postag.POSTaggerME",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "import opennlp.tools.postag.POSTaggerME;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSTaggerME",
+            "declaringType" : "opennlp.tools.postag.POSTaggerME",
+            "qualifiedSignature" : "opennlp.tools.postag.POSTaggerME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 53,
+      "columnNumber" : 19,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class POSTaggerME", "location: class com.github.lombrozo.testnames.rules.ml.RulePresentSimpleMl" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/RulePresentSimpleMl.java",
+        "lineNumber" : 53,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.560451427Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "opennlp.tools.postag.POSTaggerME",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    private final POSTaggerME model;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSTaggerME",
+            "declaringType" : "opennlp.tools.postag.POSTaggerME",
+            "qualifiedSignature" : "opennlp.tools.postag.POSTaggerME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 65,
+      "columnNumber" : 31,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class POSTaggerME", "location: class com.github.lombrozo.testnames.rules.ml.RulePresentSimpleMl" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/RulePresentSimpleMl.java",
+        "lineNumber" : 65,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.560637614Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "opennlp.tools.postag.POSTaggerME",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 65,
+          "codeLine" : "    RulePresentSimpleMl(final POSTaggerME tagger, final TestCase tst) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSTaggerME",
+            "declaringType" : "opennlp.tools.postag.POSTaggerME",
+            "qualifiedSignature" : "opennlp.tools.postag.POSTaggerME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.github.lombrozo.testnames.TestCase",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/github/lombrozo/testnames/TestCase.java"
+          },
+          "lineNumber" : 65,
+          "codeLine" : "    RulePresentSimpleMl(final POSTaggerME tagger, final TestCase tst) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSource.java",
+    "errors" : [ {
+      "lineNumber" : 41,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class POSModel", "location: interface com.github.lombrozo.testnames.rules.ml.ModelSource" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSource.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.560822149Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "opennlp.tools.postag.POSModel",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    POSModel model() throws IOException;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSModel",
+            "declaringType" : "opennlp.tools.postag.POSModel",
+            "qualifiedSignature" : "opennlp.tools.postag.POSModel",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.IOException",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    POSModel model() throws IOException;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSourceInternet.java",
+    "errors" : [ {
+      "lineNumber" : 60,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class POSModel", "location: class com.github.lombrozo.testnames.rules.ml.ModelSourceInternet" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/jtcop/src/main/java/com/github/lombrozo/testnames/rules/ml/ModelSourceInternet.java",
+        "lineNumber" : 60,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/3b4a91979f0d93ca4cbb79e6cfa5029a6b8eaf01/opennlp-tools-2.3.0.jar",
+        "generatedAt" : "2025-12-08T02:22:49.561023351Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "opennlp.tools.postag.POSModel",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.opennlp",
+            "artifactId" : "opennlp-tools",
+            "version" : "2.3.0",
+            "coordinates" : "org.apache.opennlp:opennlp-tools:2.3.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/opennlp/opennlp-tools/2.3.0/opennlp-tools-2.3.0.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "    public POSModel model() throws IOException {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "opennlp.tools.postag.POSModel",
+            "declaringType" : "opennlp.tools.postag.POSModel",
+            "qualifiedSignature" : "opennlp.tools.postag.POSModel",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.IOException",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 60,
+          "codeLine" : "    public POSModel model() throws IOException {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

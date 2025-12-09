@@ -1,0 +1,121 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor Template.
+ * 
+ * Generated because no specific <dependency_change_diff> was provided in the input.
+ * This template demonstrates the Critical Implementation Rules:
+ * 1. Sniper Mode (Preserving comments/layout).
+ * 2. NoClasspath Robustness (Defensive type checking).
+ * 3. Generic Safety.
+ */
+public class RefactoringTemplate {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // TODO: Replace "targetMethodName" with the method name from your diff
+            if (!"targetMethodName".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // TODO: Update argument count based on the method signature
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath - Rule #2)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // CRITICAL: NEVER assume type is not null in NoClasspath mode.
+            // Check if valid.
+            if (type != null) {
+                // If it is already the new type (idempotency check), skip it.
+                // TODO: Replace "NewType" with the qualified name of the target type
+                if (type.getQualifiedName().contains("NewType")) {
+                    return false;
+                }
+                
+                // If it is a primitive, and we expect an object, handle logic here.
+                // Or if we check for the old type:
+                // TODO: Replace "OldType" with the qualified name of the source type
+                if (!type.isPrimitive() && !type.getQualifiedName().contains("OldType") && !type.getQualifiedName().equals("<unknown>")) {
+                    return false; 
+                }
+            }
+
+            // 4. Owner/Scope Check
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // TODO: Replace "TargetOwnerClass" with the class owning the method
+            if (owner != null && !owner.getQualifiedName().contains("TargetOwnerClass") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // TODO: Implement transformation logic here.
+            // Example: Wrapping an argument
+            /*
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            CtTypeReference<?> newTypeRef = factory.Type().createReference("com.example.NewType");
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(newTypeRef),
+                factory.Method().createReference(newTypeRef, factory.Type().voidPrimitiveType(), "factoryMethod", originalArg.getType()),
+                originalArg.clone()
+            );
+            originalArg.replace(replacement);
+            */
+
+            System.out.println("Refactored invocation at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULE #1: Preserve Source Code (Robust Sniper Configuration)
+        // Enable comments to be parsed
+        launcher.getEnvironment().setCommentEnabled(true);
+        // Force Sniper Printer manually to preserve exact formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // CRITICAL IMPLEMENTATION RULE #2: Defensive Coding (NoClasspath Compatibility)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new TemplateProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Spoon processing complete. Output generated in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

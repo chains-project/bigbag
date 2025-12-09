@@ -1,0 +1,137 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Refactoring Script
+ * 
+ * Generated based on the Reference Example (Timer.setDelay) since no specific 
+ * dependency diff was provided in the input.
+ * 
+ * Transformation:
+ * - Method: com.utils.Timer.setDelay(int)
+ * - Replacement: com.utils.Timer.setDelay(java.time.Duration.ofMillis(int))
+ */
+public class TimerRefactoring {
+
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // We check the method name explicitly.
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We expect exactly one argument (the int delay).
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Defensive Logic:
+            // - If type is NULL (unknown in NoClasspath), we assume it might be a candidate and proceed to other checks.
+            // - If type is explicitly 'Duration', it's already refactored, so we skip.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // If we can resolve the owner, ensure it looks like "Timer".
+            // If owner is null or unknown, we might process it if the method name is unique enough, 
+            // but here we strictly require some hint of 'Timer'.
+            if (owner != null) {
+                String ownerName = owner.getQualifiedName();
+                if (!ownerName.equals("<unknown>") && !ownerName.contains("Timer")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation Logic:
+            // We need to wrap the existing integer argument 'X' into 'Duration.ofMillis(X)'.
+            
+            // 1. Create reference to java.time.Duration
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            // 2. Create the invocation: Duration.ofMillis(originalArg)
+            // Note: We use wildcards <?> to avoid generic type safety issues during AST construction
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                factory.Method().createReference(
+                    durationRef, 
+                    factory.Type().voidPrimitiveType(), // Return type doesn't strictly matter for the ref here
+                    "ofMillis", 
+                    factory.Type().integerPrimitiveType() // Arg type
+                ),
+                originalArg.clone() // Clone the original expression to move it to the new tree
+            );
+
+            // 3. Apply replacement
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored setDelay at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Configuration: Input and Output paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL CONFIGURATION: PRESERVE SOURCE CODE & NOCLASSPATH
+        // ==========================================================
+        
+        // 1. Enable comments to ensure they aren't stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter
+        // This is crucial for Spoon 11+ to rewrite only changed parts and preserve formatting.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (Defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new TimerProcessor());
+
+        // Run transformation
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

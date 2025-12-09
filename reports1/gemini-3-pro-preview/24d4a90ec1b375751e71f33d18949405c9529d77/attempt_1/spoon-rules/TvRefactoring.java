@@ -1,0 +1,125 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class TvRefactoring {
+
+    /**
+     * Processor to handle the removal of com.jcabi.aspects.Tv.
+     * It replaces usages of Tv constants (e.g., Tv.TEN) with their primitive literal equivalents (e.g., 10).
+     */
+    public static class TvRemovalProcessor extends AbstractProcessor<CtFieldRead<?>> {
+
+        private static final Map<String, Integer> CONSTANTS = new HashMap<>();
+
+        static {
+            // Standard Jcabi Tv constants mapping
+            CONSTANTS.put("ZERO", 0);
+            CONSTANTS.put("ONE", 1);
+            CONSTANTS.put("TWO", 2);
+            CONSTANTS.put("THREE", 3);
+            CONSTANTS.put("FOUR", 4);
+            CONSTANTS.put("FIVE", 5);
+            CONSTANTS.put("SIX", 6);
+            CONSTANTS.put("SEVEN", 7);
+            CONSTANTS.put("EIGHT", 8);
+            CONSTANTS.put("NINE", 9);
+            CONSTANTS.put("TEN", 10);
+            CONSTANTS.put("TWENTY", 20);
+            CONSTANTS.put("THIRTY", 30);
+            CONSTANTS.put("FORTY", 40);
+            CONSTANTS.put("FIFTY", 50);
+            CONSTANTS.put("SIXTY", 60);
+            CONSTANTS.put("SEVENTY", 70);
+            CONSTANTS.put("EIGHTY", 80);
+            CONSTANTS.put("NINETY", 90);
+            CONSTANTS.put("HUNDRED", 100);
+            CONSTANTS.put("THOUSAND", 1000);
+            CONSTANTS.put("MILLION", 1000000);
+            CONSTANTS.put("BILLION", 1000000000);
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtFieldRead<?> candidate) {
+            // Defensive: ensure variable reference is available
+            if (candidate.getVariable() == null) {
+                return false;
+            }
+
+            // Check Declaring Type
+            CtTypeReference<?> declaringType = candidate.getVariable().getDeclaringType();
+            
+            // In NoClasspath mode, we must be defensive about nulls
+            if (declaringType == null || declaringType.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Check if the field belongs to com.jcabi.aspects.Tv
+            // matches "com.jcabi.aspects.Tv"
+            return declaringType.getQualifiedName().equals("com.jcabi.aspects.Tv");
+        }
+
+        @Override
+        public void process(CtFieldRead<?> fieldRead) {
+            String fieldName = fieldRead.getVariable().getSimpleName();
+
+            if (CONSTANTS.containsKey(fieldName)) {
+                int value = CONSTANTS.get(fieldName);
+                
+                // Create the replacement literal (e.g., 10)
+                CtLiteral<Integer> literal = getFactory().Code().createLiteral(value);
+                
+                // Replace Tv.TEN with 10
+                fieldRead.replace(literal);
+                
+                System.out.println("Refactored Tv." + fieldName + " to " + value + 
+                    " at line " + (fieldRead.getPosition().isValidPosition() ? fieldRead.getPosition().getLine() : "?"));
+            } else {
+                // If a constant is used that we don't know (unlikely for Tv), log it.
+                System.err.println("Warning: Encountered unknown Tv constant '" + fieldName + 
+                    "' at line " + (fieldRead.getPosition().isValidPosition() ? fieldRead.getPosition().getLine() : "?") + 
+                    ". Manual intervention required.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/24d4a90ec1b375751e71f33d18949405c9529d77/jcabi-s3/src/test/java/com/jcabi/s3/BucketRule.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/24d4a90ec1b375751e71f33d18949405c9529d77/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/24d4a90ec1b375751e71f33d18949405c9529d77/jcabi-s3/src/test/java/com/jcabi/s3/BucketRule.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/24d4a90ec1b375751e71f33d18949405c9529d77/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for robust transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Assume NoClasspath to allow running without full dependency tree
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TvRemovalProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

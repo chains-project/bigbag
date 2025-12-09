@@ -1,0 +1,1672 @@
+{
+  "project" : "myfaces-tobago",
+  "breakingCommit" : "6ac25d3a60ea29a41a37ad47b7feb2908ee84fff",
+  "dependencyGroupId" : "jakarta.servlet",
+  "dependencyArtifactId" : "jakarta.servlet-api",
+  "previousVersion" : "5.0.0",
+  "newVersion" : "6.0.0",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-6.0.0.jar",
+  "generatedAt" : "2025-12-08T04:52:57.081417610Z",
+  "totalBreakingChanges" : 63,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.ServletContext",
+    "simpleName" : "ServletContext",
+    "qualifiedSignature" : "jakarta.servlet.ServletContext",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getServlet",
+    "simpleName" : "getServlet",
+    "qualifiedSignature" : "jakarta.servlet.ServletContext#getServlet(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@427f65c6[public abstract getServlet (Ljava/lang/String;)Ljakarta/servlet/Servlet;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "jakarta.servlet.Servlet",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getServletNames",
+    "simpleName" : "getServletNames",
+    "qualifiedSignature" : "jakarta.servlet.ServletContext#getServletNames()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f750953a[public abstract getServletNames ()Ljava/util/Enumeration;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Enumeration",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getServlets",
+    "simpleName" : "getServlets",
+    "qualifiedSignature" : "jakarta.servlet.ServletContext#getServlets()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8cb4b845[public abstract getServlets ()Ljava/util/Enumeration;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Enumeration",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "log",
+    "simpleName" : "log",
+    "qualifiedSignature" : "jakarta.servlet.ServletContext#log(java.lang.Exception, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@83d63b37[public abstract log (Ljava/lang/Exception;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Exception", "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.ServletRequest",
+    "simpleName" : "ServletRequest",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequest",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getProtocolRequestId",
+    "simpleName" : "getProtocolRequestId",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequest#getProtocolRequestId()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@ac0c259d[public abstract getProtocolRequestId ()Ljava/lang/String;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.lang.String",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRealPath",
+    "simpleName" : "getRealPath",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequest#getRealPath(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b433bf10[public abstract getRealPath (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRequestId",
+    "simpleName" : "getRequestId",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequest#getRequestId()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@1e5e0555[public abstract getRequestId ()Ljava/lang/String;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.lang.String",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getServletConnection",
+    "simpleName" : "getServletConnection",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequest#getServletConnection()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@c305080e[public abstract getServletConnection ()Ljakarta/servlet/ServletConnection;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "jakarta.servlet.ServletConnection",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRealPath",
+    "simpleName" : "getRealPath",
+    "qualifiedSignature" : "jakarta.servlet.ServletRequestWrapper#getRealPath(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b433bf10[public getRealPath (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.SessionCookieConfig",
+    "simpleName" : "SessionCookieConfig",
+    "qualifiedSignature" : "jakarta.servlet.SessionCookieConfig",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getAttribute",
+    "simpleName" : "getAttribute",
+    "qualifiedSignature" : "jakarta.servlet.SessionCookieConfig#getAttribute(java.lang.String)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@6d91221d[public abstract getAttribute (Ljava/lang/String;)Ljava/lang/String;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.lang.String",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getAttributes",
+    "simpleName" : "getAttributes",
+    "qualifiedSignature" : "jakarta.servlet.SessionCookieConfig#getAttributes()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@245b470e[public abstract getAttributes ()Ljava/util/Map;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.util.Map",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setAttribute",
+    "simpleName" : "setAttribute",
+    "qualifiedSignature" : "jakarta.servlet.SessionCookieConfig#setAttribute(java.lang.String, java.lang.String)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@d1854cc7[public abstract setAttribute (Ljava/lang/String;Ljava/lang/String;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.SingleThreadModel",
+    "simpleName" : "SingleThreadModel",
+    "qualifiedSignature" : "jakarta.servlet.SingleThreadModel",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.UnavailableException",
+    "simpleName" : "UnavailableException",
+    "qualifiedSignature" : "jakarta.servlet.UnavailableException",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "UnavailableException",
+    "simpleName" : "UnavailableException",
+    "qualifiedSignature" : "jakarta.servlet.UnavailableException#UnavailableException(jakarta.servlet.Servlet, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@624f650[public UnavailableException (Ljakarta/servlet/Servlet;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "jakarta.servlet.Servlet", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "UnavailableException",
+    "simpleName" : "UnavailableException",
+    "qualifiedSignature" : "jakarta.servlet.UnavailableException#UnavailableException(int, jakarta.servlet.Servlet, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@18ba2c2e[public UnavailableException (ILjakarta/servlet/Servlet;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int", "jakarta.servlet.Servlet", "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getServlet",
+    "simpleName" : "getServlet",
+    "qualifiedSignature" : "jakarta.servlet.UnavailableException#getServlet()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f405cb50[public getServlet ()Ljakarta/servlet/Servlet;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "jakarta.servlet.Servlet",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "servlet",
+    "simpleName" : "servlet",
+    "qualifiedSignature" : "jakarta.servlet.UnavailableException::servlet",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.UnavailableException.servlet:Ljakarta/servlet/Servlet;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "jakarta.servlet.Servlet",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.descriptor.JspPropertyGroupDescriptor",
+    "simpleName" : "JspPropertyGroupDescriptor",
+    "qualifiedSignature" : "jakarta.servlet.descriptor.JspPropertyGroupDescriptor",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getErrorOnELNotFound",
+    "simpleName" : "getErrorOnELNotFound",
+    "qualifiedSignature" : "jakarta.servlet.descriptor.JspPropertyGroupDescriptor#getErrorOnELNotFound()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@3e947208[public abstract getErrorOnELNotFound ()Ljava/lang/String;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.lang.String",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.Cookie",
+    "simpleName" : "Cookie",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isToken",
+    "simpleName" : "isToken",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie#isToken(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a1288ea6[private isToken (Ljava/lang/String;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "comment",
+    "simpleName" : "comment",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::comment",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.comment:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "domain",
+    "simpleName" : "domain",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::domain",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.domain:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "isHttpOnly",
+    "simpleName" : "isHttpOnly",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::isHttpOnly",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.isHttpOnly:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "lStrings",
+    "simpleName" : "lStrings",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::lStrings",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.lStrings:Ljava/util/ResourceBundle;",
+      "newValue" : "jakarta.servlet.http.Cookie.lStrings:Ljava/util/ResourceBundle;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.ResourceBundle",
+      "newValue" : "java.util.ResourceBundle",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "maxAge",
+    "simpleName" : "maxAge",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::maxAge",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.maxAge:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "name",
+    "simpleName" : "name",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::name",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.name:Ljava/lang/String;",
+      "newValue" : "jakarta.servlet.http.Cookie.name:Ljava/lang/String;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "java.lang.String",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "path",
+    "simpleName" : "path",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::path",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.path:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "secure",
+    "simpleName" : "secure",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::secure",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.secure:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "version",
+    "simpleName" : "version",
+    "qualifiedSignature" : "jakarta.servlet.http.Cookie::version",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.Cookie.version:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpServletRequest",
+    "simpleName" : "HttpServletRequest",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletRequest",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isRequestedSessionIdFromUrl",
+    "simpleName" : "isRequestedSessionIdFromUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d9e34e59[public abstract isRequestedSessionIdFromUrl ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpServletRequestWrapper",
+    "simpleName" : "HttpServletRequestWrapper",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletRequestWrapper",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isRequestedSessionIdFromUrl",
+    "simpleName" : "isRequestedSessionIdFromUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletRequestWrapper#isRequestedSessionIdFromUrl()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d9e34e59[public isRequestedSessionIdFromUrl ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpServletResponse",
+    "simpleName" : "HttpServletResponse",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "encodeRedirectUrl",
+    "simpleName" : "encodeRedirectUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponse#encodeRedirectUrl(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4f39ecb4[public abstract encodeRedirectUrl (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "encodeUrl",
+    "simpleName" : "encodeUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponse#encodeUrl(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ce7dce30[public abstract encodeUrl (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setStatus",
+    "simpleName" : "setStatus",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponse#setStatus(int, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bc9d6d2a[public abstract setStatus (ILjava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int", "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "encodeRedirectUrl",
+    "simpleName" : "encodeRedirectUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponseWrapper#encodeRedirectUrl(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4f39ecb4[public encodeRedirectUrl (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "encodeUrl",
+    "simpleName" : "encodeUrl",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponseWrapper#encodeUrl(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ce7dce30[public encodeUrl (Ljava/lang/String;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setStatus",
+    "simpleName" : "setStatus",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpServletResponseWrapper#setStatus(int, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bc9d6d2a[public setStatus (ILjava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int", "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpSession",
+    "simpleName" : "HttpSession",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSessionContext",
+    "simpleName" : "getSessionContext",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession#getSessionContext()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@19351870[public abstract getSessionContext ()Ljakarta/servlet/http/HttpSessionContext;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "jakarta.servlet.http.HttpSessionContext",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getValue",
+    "simpleName" : "getValue",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession#getValue(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@234f0172[public abstract getValue (Ljava/lang/String;)Ljava/lang/Object;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Object",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getValueNames",
+    "simpleName" : "getValueNames",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession#getValueNames()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ef71720e[public abstract getValueNames ()[Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "putValue",
+    "simpleName" : "putValue",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9c6f69bd[public abstract putValue (Ljava/lang/String;Ljava/lang/Object;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "removeValue",
+    "simpleName" : "removeValue",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSession#removeValue(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@874aa804[public abstract removeValue (Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpSessionContext",
+    "simpleName" : "HttpSessionContext",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSessionContext",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getIds",
+    "simpleName" : "getIds",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSessionContext#getIds()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@74947403[public abstract getIds ()Ljava/util/Enumeration;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Enumeration",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSession",
+    "simpleName" : "getSession",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpSessionContext#getSession(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@e9b9c397[public abstract getSession (Ljava/lang/String;)Ljakarta/servlet/http/HttpSession;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "jakarta.servlet.http.HttpSession",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.HttpUtils",
+    "simpleName" : "HttpUtils",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "HttpUtils",
+    "simpleName" : "HttpUtils",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils#HttpUtils()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@61655894[public HttpUtils ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRequestURL",
+    "simpleName" : "getRequestURL",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils#getRequestURL(jakarta.servlet.http.HttpServletRequest)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@629e26e6[public static getRequestURL (Ljakarta/servlet/http/HttpServletRequest;)Ljava/lang/StringBuffer;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.StringBuffer",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "jakarta.servlet.http.HttpServletRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "parseName",
+    "simpleName" : "parseName",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils#parseName(java.lang.String, java.lang.StringBuilder)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f72d376c[private static parseName (Ljava/lang/String;Ljava/lang/StringBuilder;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.StringBuilder" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "parsePostData",
+    "simpleName" : "parsePostData",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils#parsePostData(int, jakarta.servlet.ServletInputStream)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8800d188[public static parsePostData (ILjakarta/servlet/ServletInputStream;)Ljava/util/Hashtable;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Hashtable",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int", "jakarta.servlet.ServletInputStream" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "parseQueryString",
+    "simpleName" : "parseQueryString",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils#parseQueryString(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@84cb47d[public static parseQueryString (Ljava/lang/String;)Ljava/util/Hashtable;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Hashtable",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "LSTRING_FILE",
+    "simpleName" : "LSTRING_FILE",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils::LSTRING_FILE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.HttpUtils.LSTRING_FILE:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "lStrings",
+    "simpleName" : "lStrings",
+    "qualifiedSignature" : "jakarta.servlet.http.HttpUtils::lStrings",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "jakarta.servlet.http.HttpUtils.lStrings:Ljava/util/ResourceBundle;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.ResourceBundle",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "jakarta.servlet.http.NoBodyResponse",
+    "simpleName" : "NoBodyResponse",
+    "qualifiedSignature" : "jakarta.servlet.http.NoBodyResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_DEPRECATED_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : null
+  } ]
+}

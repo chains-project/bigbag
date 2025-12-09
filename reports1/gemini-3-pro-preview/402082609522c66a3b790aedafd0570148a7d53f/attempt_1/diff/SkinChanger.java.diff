@@ -1,0 +1,22 @@
+--- /home/kth/Documents/last_transformer/output/402082609522c66a3b790aedafd0570148a7d53f/ChangeSkin/sponge/src/main/java/com/github/games647/changeskin/sponge/task/SkinChanger.java	2025-12-08 03:45:15.540826368 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/402082609522c66a3b790aedafd0570148a7d53f/attempt_1/transformed/com/github/games647/changeskin/sponge/task/SkinChanger.java	2025-12-08 03:48:54.577452736 +0100
+@@ -9,9 +9,9 @@
+ 
+ public class SkinChanger extends SharedSkinChanger {
+ 
+-    private final CommandSource invoker;
++    private final net.kyori.adventure.audience.Audience invoker;
+ 
+-    public SkinChanger(ChangeSkinSponge plugin, Account owner, String url, String oldSkinUrl, CommandSource invoker) {
++    public SkinChanger(ChangeSkinSponge plugin, Account owner, String url, String oldSkinUrl, net.kyori.adventure.audience.Audience invoker) {
+         super(plugin.getCore(), owner, url, oldSkinUrl);
+ 
+         this.invoker = invoker;
+@@ -19,6 +19,6 @@
+ 
+     @Override
+     protected void sendMessageInvoker(String localeMessage) {
+-        invoker.sendMessage(TextSerializers.LEGACY_FORMATTING_CODE.deserialize(localeMessage));
++        invoker.sendMessage(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.LEGACY_FORMATTING_CODE.deserialize(localeMessage));
+     }
+ }

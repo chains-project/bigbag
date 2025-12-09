@@ -1,0 +1,134 @@
+Since no specific dependency diff was provided in the input tags, I have generated a **robust template** based on a common hypothetical scenario (Arguments Wrapped in Object). This code strictly adheres to the **SniperJavaPrettyPrinter** (for exact source preservation) and **NoClasspath** (defensive coding) constraints defined in the system prompt.
+
+**Hypothetical Scenario Used:**
+*   **Old API:** `com.network.Client.connect(String host, int port)`
+*   **New API:** `com.network.Client.connect(java.net.InetSocketAddress address)`
+*   **Refactoring:** Wraps the two arguments into a `new InetSocketAddress(...)` constructor.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+/**
+ * Spoon Refactoring Script
+ * Generated based on constraints: SniperPrinter (Strict), NoClasspath (Defensive), Java Generics (Wildcards).
+ * 
+ * Scenario: Refactor Client.connect(host, port) -> Client.connect(new InetSocketAddress(host, port))
+ */
+public class ClientRefactoring {
+
+    public static class ConnectProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"connect".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We are looking for the old signature which took 2 arguments (host, port)
+            if (candidate.getArguments().size() != 2) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            // We verify the second argument looks like an integer (port).
+            // We DO NOT rely on strict type resolution which might fail without classpath.
+            CtExpression<?> secondArg = candidate.getArguments().get(1);
+            CtTypeReference<?> secondArgType = secondArg.getType();
+            
+            // If type is known and NOT numeric, it's likely not the method we want.
+            // If type is null (unknown), we proceed cautiously assuming it matches.
+            if (secondArgType != null && !secondArgType.unbox().isPrimitive()) {
+                // If we can resolve it and it's not a primitive, check if it's already InetSocketAddress
+                if (secondArgType.getQualifiedName().contains("InetSocketAddress")) {
+                    return false; // Already refactored
+                }
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // If owner is null/unknown, we process it to be safe. If known, it must contain "Client".
+            if (owner != null && !owner.getQualifiedName().contains("Client") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Capture original arguments
+            CtExpression<?> hostArg = invocation.getArguments().get(0);
+            CtExpression<?> portArg = invocation.getArguments().get(1);
+
+            // Transformation: Create `new java.net.InetSocketAddress(host, port)`
+            CtTypeReference<?> inetSocketAddressRef = factory.Type().createReference("java.net.InetSocketAddress");
+
+            // Create the constructor call
+            // Note: We use .clone() on args to detach them from their current parent before re-attaching
+            CtConstructorCall<?> newConstructorCall = factory.Code().createConstructorCall(
+                inetSocketAddressRef, 
+                hostArg.clone(), 
+                portArg.clone()
+            );
+
+            // Replace the arguments in the invocation
+            // We clear the existing list and add the new wrapped argument
+            invocation.setArguments(Collections.singletonList(newConstructorCall));
+
+            System.out.println("Refactored Client.connect at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().toString() : "unknown position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded)
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =======================================================================
+        // CRITICAL CONFIGURATION: PRESERVE SOURCE CODE & NO CLASSPATH
+        // =======================================================================
+        
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for exact reproduction of whitespace/formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (Defensive coding in processor required)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // =======================================================================
+
+        launcher.addProcessor(new ConnectProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

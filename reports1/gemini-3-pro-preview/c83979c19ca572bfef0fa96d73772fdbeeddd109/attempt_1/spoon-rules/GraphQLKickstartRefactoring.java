@@ -1,0 +1,159 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class GraphQLKickstartRefactoring {
+
+    /**
+     * Processor to handle the migration from javax.* to jakarta.* types 
+     * for GraphQL Kickstart Servlet Builders and Contexts.
+     * 
+     * Addresses changes like:
+     * - DefaultGraphQLServletContextBuilder.build(javax...) -> build(jakarta...)
+     * - GraphQLServletContextBuilder.build(javax...) -> build(jakarta...)
+     * - DefaultGraphQLRootObjectBuilder.build(javax...) -> build(jakarta...)
+     */
+    public static class JakartaMigrationProcessor extends AbstractProcessor<CtMethod<?>> {
+        
+        private static final Map<String, String> TYPE_REPLACEMENTS = new HashMap<>();
+        
+        static {
+            // Servlet Mappings
+            TYPE_REPLACEMENTS.put("javax.servlet.http.HttpServletRequest", "jakarta.servlet.http.HttpServletRequest");
+            TYPE_REPLACEMENTS.put("javax.servlet.http.HttpServletResponse", "jakarta.servlet.http.HttpServletResponse");
+            
+            // WebSocket Mappings
+            TYPE_REPLACEMENTS.put("javax.websocket.Session", "jakarta.websocket.Session");
+            TYPE_REPLACEMENTS.put("javax.websocket.server.HandshakeRequest", "jakarta.websocket.server.HandshakeRequest");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtMethod<?> method) {
+            // 1. Check Method Name (build or with)
+            String methodName = method.getSimpleName();
+            if (!"build".equals(methodName) && !"with".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Declaring Class/Interface
+            // We want to target classes that implement/extend the GraphQL Kickstart types
+            CtType<?> declaringType = method.getDeclaringType();
+            if (declaringType == null) return false;
+            
+            if (!isRelatedToTargetTypes(declaringType)) {
+                return false;
+            }
+
+            // 3. Check Parameter Types (Defensive)
+            // If the method has parameters of the old javax types, it needs migration
+            for (CtParameter<?> param : method.getParameters()) {
+                CtTypeReference<?> typeRef = param.getType();
+                if (typeRef != null) {
+                    String qName = typeRef.getQualifiedName();
+                    if (TYPE_REPLACEMENTS.containsKey(qName)) {
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+
+        @Override
+        public void process(CtMethod<?> method) {
+            boolean changed = false;
+            for (CtParameter<?> param : method.getParameters()) {
+                CtTypeReference<?> typeRef = param.getType();
+                if (typeRef == null) continue;
+
+                String oldName = typeRef.getQualifiedName();
+                String newName = TYPE_REPLACEMENTS.get(oldName);
+
+                if (newName != null) {
+                    // Create new reference with the Jakarta type
+                    CtTypeReference<?> newTypeRef = getFactory().Type().createReference(newName);
+                    param.setType(newTypeRef);
+                    changed = true;
+                }
+            }
+            
+            if (changed) {
+                System.out.println("Refactored method signature: " + method.getSignature() + 
+                                   " at line " + method.getPosition().getLine());
+            }
+        }
+
+        /**
+         * Checks if the type is related to the affected GraphQL Kickstart classes.
+         * Uses fuzzy string matching to work in NoClasspath mode where hierarchy might be incomplete.
+         */
+        private boolean isRelatedToTargetTypes(CtType<?> type) {
+            // Check the class itself (e.g., if we are refactoring the library itself, or a direct copy)
+            if (matchesTarget(type.getQualifiedName())) return true;
+
+            // Check Interfaces
+            Set<CtTypeReference<?>> superInterfaces = type.getSuperInterfaces();
+            for (CtTypeReference<?> ref : superInterfaces) {
+                if (matchesTarget(ref.getQualifiedName())) return true;
+            }
+
+            // Check Superclass
+            CtTypeReference<?> superClass = type.getSuperClass();
+            if (superClass != null && matchesTarget(superClass.getQualifiedName())) {
+                return true;
+            }
+
+            return false;
+        }
+
+        private boolean matchesTarget(String qualifiedName) {
+            if (qualifiedName == null) return false;
+            // Target specific builder classes and context builders identified in the diff
+            return qualifiedName.contains("GraphQLServletContextBuilder") ||
+                   qualifiedName.contains("GraphQLServletRootObjectBuilder") ||
+                   qualifiedName.contains("DefaultGraphQLServletContext") || // Covers inner classes like Builder
+                   qualifiedName.contains("DefaultGraphQLWebSocketContext") ||
+                   qualifiedName.contains("GraphQLConfiguration");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/c83979c19ca572bfef0fa96d73772fdbeeddd109/dropwizard-graphql/graphql-core/src/main/java/com/smoketurner/dropwizard/graphql/GraphQLBundle.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c83979c19ca572bfef0fa96d73772fdbeeddd109/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/c83979c19ca572bfef0fa96d73772fdbeeddd109/dropwizard-graphql/graphql-core/src/main/java/com/smoketurner/dropwizard/graphql/GraphQLBundle.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c83979c19ca572bfef0fa96d73772fdbeeddd109/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robustness
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JakartaMigrationProcessor());
+
+        try {
+            System.out.println("Starting GraphQL Kickstart Migration...");
+            launcher.run();
+            System.out.println("Migration complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

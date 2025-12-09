@@ -1,0 +1,92 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FileSystemUtilsRefactoring {
+
+    /**
+     * Processor to identify and flag usages of org.springframework.util.FileSystemUtils.
+     * Based on the diff: - CLASS org.springframework.util.FileSystemUtils
+     * Since the status allows for ambiguity (Unchanged vs Removed), this processor
+     * flags usages for manual review to ensure safety in the new dependency version.
+     */
+    public static class FileSystemUtilsProcessor extends AbstractProcessor<CtTypeAccess<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeAccess<?> candidate) {
+            // 1. Defensive check for accessed type
+            CtTypeReference<?> accessedType = candidate.getAccessedType();
+            if (accessedType == null) {
+                return false;
+            }
+
+            // 2. Name Check (String matching for NoClasspath safety)
+            // We check for the specific class mentioned in the diff.
+            String qName = accessedType.getQualifiedName();
+            return qName != null && qName.equals("org.springframework.util.FileSystemUtils");
+        }
+
+        @Override
+        public void process(CtTypeAccess<?> typeAccess) {
+            Factory factory = getFactory();
+
+            // Strategy: Since the diff indicates the class is part of a change (potentially removal or audit),
+            // but provides no direct replacement, we append a TODO comment to the usage.
+            
+            // Avoid adding duplicate comments if run multiple times
+            for (CtComment comment : typeAccess.getComments()) {
+                if (comment.getContent().contains("Verify dependency status")) {
+                    return;
+                }
+            }
+
+            // Create the comment
+            CtComment todoComment = factory.Code().createComment(
+                "TODO: Verify dependency status (Diff: - CLASS org.springframework.util.FileSystemUtils)",
+                CtComment.CommentType.INLINE
+            );
+
+            // Add comment to the type access (e.g., FileSystemUtils.deleteRecursively...)
+            typeAccess.addComment(todoComment);
+            
+            System.out.println("Flagged FileSystemUtils usage at line " + typeAccess.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/ab70529b2edf0a0b3f672278e191dc207d1b8711/LPVS/src/main/java/com/lpvs/util/FileUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab70529b2edf0a0b3f672278e191dc207d1b8711/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/ab70529b2edf0a0b3f672278e191dc207d1b8711/LPVS/src/main/java/com/lpvs/util/FileUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab70529b2edf0a0b3f672278e191dc207d1b8711/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for strict source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FileSystemUtilsProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

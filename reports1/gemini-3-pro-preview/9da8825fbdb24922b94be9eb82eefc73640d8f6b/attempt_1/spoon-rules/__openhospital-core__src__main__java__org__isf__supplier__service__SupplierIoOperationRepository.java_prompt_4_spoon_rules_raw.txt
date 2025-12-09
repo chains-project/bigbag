@@ -1,0 +1,167 @@
+Based on the provided diff indicating a breaking change in `org.springframework.data.jpa.repository.JpaRepository` (source incompatible), the most frequent and significant refactoring required when upgrading Spring Data JPA (specifically moving from 1.x/2.x paradigms to modern versions) is the removal of `save(Iterable)` and `delete(Iterable)` in favor of `saveAll(Iterable)` and `deleteAll(Iterable)`.
+
+This generator produces a Spoon refactoring script to detect `save` or `delete` invocations where the argument is a Collection/Iterable, and renames them to `saveAll` or `deleteAll` respectively.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
+public class SpringDataJpaRefactoring {
+
+    /**
+     * Processor to handle breaking changes in JpaRepository.
+     * 
+     * Change Analysis:
+     * Previous versions of JpaRepository allowed:
+     * - save(Iterable<S>)
+     * - delete(Iterable<? extends T>)
+     * 
+     * Newer versions (source incompatible) removed these in favor of:
+     * - saveAll(Iterable<S>)
+     * - deleteAll(Iterable<? extends T>)
+     * 
+     * Strategy:
+     * 1. Detect invocations of "save" or "delete".
+     * 2. Analyze the argument type.
+     * 3. If the argument is an Iterable/Collection/List/Set, rename the method.
+     */
+    public static class JpaRepositoryMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> TARGET_METHODS = new HashSet<>(Arrays.asList("save", "delete"));
+        
+        // Types that trigger the rename from save -> saveAll
+        private static final Set<String> COLLECTION_TYPES = new HashSet<>(Arrays.asList(
+            "java.lang.Iterable",
+            "java.util.Collection",
+            "java.util.List",
+            "java.util.Set",
+            "java.util.ArrayList",
+            "java.util.HashSet",
+            "java.util.LinkedList"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Must be 1 argument)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Argument Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            if (argType == null) {
+                // In NoClasspath, type might be null. 
+                // We cannot safely refactor unless we are sure it's a collection.
+                // Heuristic: Check if variable name suggests collection (risky, so disabled by default, 
+                // but usually necessary if classpath is incomplete). 
+                // Here we strict check only if type is resolved or explicit.
+                return false;
+            }
+
+            // Check if the argument is a collection type
+            boolean isCollection = false;
+            
+            // Direct qualified name match
+            if (COLLECTION_TYPES.stream().anyMatch(t -> argType.getQualifiedName().contains(t))) {
+                isCollection = true;
+            }
+            
+            // Check inheritance (only works if classpath is available or types are known)
+            if (!isCollection) {
+                try {
+                    // Try to resolve java.lang.Iterable
+                    CtTypeReference<?> iterableRef = getFactory().Type().createReference("java.lang.Iterable");
+                    if (argType.isSubtypeOf(iterableRef)) {
+                        isCollection = true;
+                    }
+                } catch (Exception e) {
+                    // NoClasspath resolution failed, ignore
+                }
+            }
+
+            if (!isCollection) {
+                return false;
+            }
+
+            // 4. Owner Check (Heuristic)
+            // We ensure the method belongs to something that looks like a Repository
+            // This prevents renaming save(List) on unrelated utility classes.
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+            CtTypeReference<?> declaringType = execRef.getDeclaringType();
+            
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                String ownerName = declaringType.getQualifiedName();
+                // Common naming convention for Spring Data Repositories or explicit JpaRepository usage
+                boolean looksLikeRepo = ownerName.contains("Repository") || ownerName.contains("Dao");
+                if (!looksLikeRepo) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String originalName = invocation.getExecutable().getSimpleName();
+            String newName = originalName.equals("save") ? "saveAll" : "deleteAll";
+
+            // Modification: Rename the method invocation
+            invocation.getExecutable().setSimpleName(newName);
+            
+            System.out.println("Refactored " + originalName + " -> " + newName + 
+                               " at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ and Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JpaRepositoryMethodProcessor());
+
+        System.out.println("Starting Spring Data JPA Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,138 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script generated based on breaking changes.
+ * 
+ * Scenario: 
+ * Refactoring 'setDelay(int)' to 'setDelay(Duration)'.
+ * 
+ * Implementation Rules Compliance:
+ * 1. Uses SniperJavaPrettyPrinter for high-fidelity source code preservation.
+ * 2. Uses NoClasspath mode with defensive type checking.
+ * 3. Uses generic wildcards to ensure type safety.
+ */
+public class TimerRefactoring {
+
+    /**
+     * Processor to handle the method signature change of setDelay.
+     */
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // We target the method "setDelay"
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // The old signature took 1 int, the new takes 1 Duration. Both have size 1.
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Defensive Rule: 
+            // - If type is NULL (common in NoClasspath), we assume it MIGHT be a match and proceed to Owner check.
+            // - If type is known and matches the NEW type ("Duration"), we skip (already migrated).
+            // - If type is primitive int, it's a candidate.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false; // Already migrated
+            }
+
+            // 4. Owner Check (Relaxed string matching)
+            // We check if the method belongs to "Timer". 
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // In NoClasspath, owner might be null or <unknown>.
+            if (owner != null && !owner.getQualifiedName().equals("<unknown>")) {
+                // If we have type info, ensure it matches the target class "Timer"
+                if (!owner.getQualifiedName().contains("Timer")) {
+                    return false;
+                }
+            }
+            // If owner is null/unknown, we proceed optimistically based on method name and arg structure.
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation Logic:
+            // Wrap the original integer argument: Duration.ofMillis(originalArg)
+            
+            // Create reference to java.time.Duration
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            // Create invocation: Duration.ofMillis(...)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef), // Target: Duration
+                factory.Method().createReference(
+                    durationRef, 
+                    factory.Type().voidPrimitiveType(), 
+                    "ofMillis", 
+                    factory.Type().integerPrimitiveType()
+                ), // Method: ofMillis(int)
+                originalArg.clone() // Argument: The original int expression
+            );
+
+            // Apply replacement
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored setDelay call at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().toString() : "unknown position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Paths - adjustable by user
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION START ---
+        
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer (Strict source preservation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Set NoClasspath (Robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // --- CRITICAL CONFIGURATION END ---
+
+        launcher.addProcessor(new TimerProcessor());
+        
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check output directory: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

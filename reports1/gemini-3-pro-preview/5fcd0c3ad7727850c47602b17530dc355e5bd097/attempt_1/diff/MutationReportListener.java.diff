@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-mutation-testing-elements-plugin/src/main/java/org/pitest/elements/MutationReportListener.java	2025-12-08 05:33:56.673629936 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5fcd0c3ad7727850c47602b17530dc355e5bd097/attempt_1/transformed/org/pitest/elements/MutationReportListener.java	2025-12-08 05:35:20.010315599 +0100
+@@ -102,7 +102,7 @@
+   private MutationTestSummaryData createSummaryData(
+       final CoverageDatabase coverage, final ClassMutationResults data) {
+     return new MutationTestSummaryData(data.getFileName(),
+-        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));
++        data.getMutations(), null /* FIXME: PITest API Removed: getClassInfo(Collection) was removed. Please check migration guide. */);
+   }
+ 
+   private void updatePackageSummary(

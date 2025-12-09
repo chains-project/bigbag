@@ -1,0 +1,824 @@
+{
+  "project" : "geostore",
+  "breakingCommit" : "9a8b6fc7847a0782ae4c48d0e4f7056507c0397d",
+  "dependency" : {
+    "groupId" : "org.jasypt",
+    "artifactId" : "jasypt",
+    "previousVersion" : "1.8",
+    "newVersion" : "1.9.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStorePBEPasswordEncoder.java",
+    "errors" : [ {
+      "lineNumber" : 33,
+      "columnNumber" : 33,
+      "message" : "error: package org.jasypt.spring.security does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStorePBEPasswordEncoder.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.765686804Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 33,
+          "codeLine" : "import org.jasypt.spring.security.PBEPasswordEncoder;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 102,
+      "columnNumber" : 3,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class PBEPasswordEncoder", "location: class GeoStorePBEPasswordEncoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStorePBEPasswordEncoder.java",
+        "lineNumber" : 102,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.817003213Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 102,
+          "codeLine" : "            PBEPasswordEncoder encoder = new PBEPasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.jasypt.spring.security.PBEPasswordEncoder#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 102,
+          "codeLine" : "            PBEPasswordEncoder encoder = new PBEPasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@48b7ce7e[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security2.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security2.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@49946563[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security3.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security3.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@6d45001e[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 102,
+      "columnNumber" : 36,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class PBEPasswordEncoder", "location: class GeoStorePBEPasswordEncoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStorePBEPasswordEncoder.java",
+        "lineNumber" : 102,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.864914916Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 102,
+          "codeLine" : "            PBEPasswordEncoder encoder = new PBEPasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.jasypt.spring.security.PBEPasswordEncoder#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 102,
+          "codeLine" : "            PBEPasswordEncoder encoder = new PBEPasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@48b7ce7e[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security2.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security2.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@49946563[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security3.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security3.PBEPasswordEncoder.PBEPasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@6d45001e[public PBEPasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PBEPasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStoreDigestPasswordEncoder.java",
+    "errors" : [ {
+      "lineNumber" : 24,
+      "columnNumber" : 33,
+      "message" : "error: package org.jasypt.spring.security does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStoreDigestPasswordEncoder.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.875058584Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 24,
+          "codeLine" : "import org.jasypt.spring.security.PasswordEncoder;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 44,
+      "columnNumber" : 15,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class PasswordEncoder", "location: class GeoStoreDigestPasswordEncoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStoreDigestPasswordEncoder.java",
+        "lineNumber" : 44,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.885362933Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 44,
+          "codeLine" : "        protected PasswordEncoder createStringEncoder() {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 45,
+      "columnNumber" : 9,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class PasswordEncoder", "location: class GeoStoreDigestPasswordEncoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStoreDigestPasswordEncoder.java",
+        "lineNumber" : 45,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.895227864Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            PasswordEncoder encoder = new PasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            PasswordEncoder encoder = new PasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@55afa35a[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security2.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security2.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@1bf7f920[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security3.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security3.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@45d8cb9f[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 45,
+      "columnNumber" : 39,
+      "message" : "error: cannot find symbol",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/geostore/src/core/security/src/main/java/it/geosolutions/geostore/core/security/password/GeoStoreDigestPasswordEncoder.java",
+        "lineNumber" : 45,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9a8b6fc7847a0782ae4c48d0e4f7056507c0397d/jasypt-1.9.2.jar",
+        "generatedAt" : "2025-12-08T06:55:17.903450824Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            PasswordEncoder encoder = new PasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.jasypt.spring.security.PasswordEncoder#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            PasswordEncoder encoder = new PasswordEncoder();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@55afa35a[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security2.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security2.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@1bf7f920[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security3.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security3.PasswordEncoder.PasswordEncoder()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@45d8cb9f[public PasswordEncoder ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jasypt.spring.security.PasswordEncoder",
+            "declaringType" : "org.jasypt.spring.security.PasswordEncoder",
+            "qualifiedSignature" : "org.jasypt.spring.security.PasswordEncoder",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

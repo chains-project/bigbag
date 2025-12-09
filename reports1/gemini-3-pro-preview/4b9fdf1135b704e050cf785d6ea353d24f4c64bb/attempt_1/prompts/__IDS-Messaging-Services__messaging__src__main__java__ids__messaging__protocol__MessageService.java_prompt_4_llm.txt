@@ -1,0 +1,104 @@
+Based on the empty `<dependency_change_diff>` provided in your request, I have generated a **template implementation** that demonstrates a common refactoring scenario: **Renaming a method**.
+
+This template strictly follows your constraints:
+1.  **Robust Sniper Configuration**: Manually injects `SniperJavaPrettyPrinter`.
+2.  **NoClasspath Compatibility**: Uses defensive string-based type checking.
+3.  **Generics Safety**: Uses wildcards for Spoon types.
+
+You can adapt the logic inside `MethodRefactoringProcessor` to match your specific diff when available.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SpoonRefactoring {
+
+    /**
+     * Processor to handle breaking changes.
+     * Currently configured to handle a Method Renaming scenario:
+     * oldMethod() -> newMethod()
+     */
+    public static class MethodRefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            
+            // 1. Name Check (Fastest check first)
+            // Replace "oldMethod" with the actual method name from your diff
+            if (!"oldMethod".equals(executable.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Type Check (Defensive for NoClasspath)
+            // We check if the declaring type contains the target class name.
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+            if (declaringType != null) {
+                String qualName = declaringType.getQualifiedName();
+                // Replace "TargetClassName" with the actual class owning the method
+                if (!qualName.contains("TargetClassName") && !qualName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 3. Argument Check (Optional: Filter by argument count/types)
+            // Example: if (candidate.getArguments().size() != 2) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Refactoring Logic
+            // Scenario: Renaming the method
+            invocation.getExecutable().setSimpleName("newMethod");
+            
+            System.out.println("Refactored method call at: " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - assume running from project root
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL: PRESERVE SOURCE CODE FORMATTING (SNIPER MODE)
+        // ==========================================================
+        
+        // 1. Capture comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve whitespace/formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Enable NoClasspath mode (Defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ==========================================================
+
+        launcher.addProcessor(new MethodRefactoringProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output at: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

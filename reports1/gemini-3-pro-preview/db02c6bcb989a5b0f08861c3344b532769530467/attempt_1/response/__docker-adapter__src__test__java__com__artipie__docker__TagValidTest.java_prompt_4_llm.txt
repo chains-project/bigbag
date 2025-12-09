@@ -1,0 +1,127 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Migration Strategy.
+ * Generated based on: Empty/Template Diff.
+ *
+ * This class adheres to strict tooling rules:
+ * 1. Uses SniperJavaPrettyPrinter to preserve comments and formatting.
+ * 2. Runs in NoClasspath mode (defensive type checking).
+ * 3. Uses Java Generics wildcards to prevent compiler warnings.
+ */
+public class RefactoringTemplate {
+
+    /**
+     * Processor skeleton.
+     * Since no specific diff was provided in the input, this processor
+     * implements a template for a method rename/modification pattern.
+     *
+     * TODO: Update TARGET_CLASS and TARGET_METHOD based on the actual diff.
+     */
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // TODO: Define the class and method to look for
+        private static final String TARGET_CLASS = "TargetClassName";
+        private static final String TARGET_METHOD = "targetMethodName";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Basic Safety
+            if (candidate == null || candidate.getExecutable() == null) {
+                return false;
+            }
+
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+
+            // 2. Name Check
+            if (!TARGET_METHOD.equals(execRef.getSimpleName())) {
+                return false;
+            }
+
+            // 3. Defensive Owner Check (NoClasspath safe)
+            CtTypeReference<?> declaringType = execRef.getDeclaringType();
+            
+            // If declaring type is null, we can't be sure, but in NoClasspath it happens.
+            // If it is NOT null, check if it matches our target.
+            // Using .contains() accounts for simple names vs qualified names.
+            if (declaringType != null) {
+                String qName = declaringType.getQualifiedName();
+                if (!qName.contains(TARGET_CLASS) && !qName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Argument Check (Optional: filter by arg count if overloading exists)
+            // if (candidate.getArguments().size() != 1) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // TODO: Implement the specific refactoring logic here.
+            
+            // Example 1: Rename the method
+            // invocation.getExecutable().setSimpleName("newMethodName");
+
+            // Example 2: Modify arguments (e.g., wrap in a new object)
+            // CtExpression<?> oldArg = invocation.getArguments().get(0);
+            // ... create new argument ...
+            // oldArg.replace(newArg);
+
+            System.out.println("Refactoring candidate found at line: " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Configuration
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./target/spooned";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION START ---
+        
+        // 1. Enable Comments to ensure they aren't stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+
+        // 2. Force SniperJavaPrettyPrinter
+        // This is required to print ONLY changes and preserve original formatting elsewhere
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Set NoClasspath to true to handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+        
+        // --- CRITICAL CONFIGURATION END ---
+
+        // Add the processor
+        launcher.addProcessor(new TemplateProcessor());
+
+        try {
+            System.out.println("Starting Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring Complete. Output: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Fatal error during Spoon processing:");
+            e.printStackTrace();
+        }
+    }
+}
+```

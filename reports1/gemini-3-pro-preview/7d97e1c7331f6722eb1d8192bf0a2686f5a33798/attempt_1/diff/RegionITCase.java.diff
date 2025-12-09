@@ -1,0 +1,33 @@
+--- /home/kth/Documents/last_transformer/output/7d97e1c7331f6722eb1d8192bf0a2686f5a33798/jcabi-simpledb/src/test/java/com/jcabi/simpledb/RegionITCase.java	2025-12-08 06:30:24.851954109 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/7d97e1c7331f6722eb1d8192bf0a2686f5a33798/attempt_1/transformed/com/jcabi/simpledb/RegionITCase.java	2025-12-08 06:31:45.334457091 +0100
+@@ -60,9 +60,9 @@
+     void putsAndRemovesIndividualItems() {
+         final Domain domain = this.domain();
+         try {
+-            final String name = RandomStringUtils.randomAlphanumeric(Tv.TEN);
+-            final String attr = RandomStringUtils.randomAlphabetic(Tv.EIGHT);
+-            final String value = RandomStringUtils.randomAlphanumeric(Tv.TEN);
++            final String name = RandomStringUtils.randomAlphanumeric(10);
++            final String attr = RandomStringUtils.randomAlphabetic(8);
++            final String value = RandomStringUtils.randomAlphanumeric(10);
+             for (int idx = 0; idx < 2; ++idx) {
+                 domain.item(name).put(attr, value);
+                 MatcherAssert.assertThat(
+@@ -108,7 +108,7 @@
+     void selectsManyItems() {
+         final Domain domain = this.domain();
+         try {
+-            for (int idx = 0; idx < Tv.TEN; ++idx) {
++            for (int idx = 0; idx < 10 ; ++idx) {
+                 domain.item(String.format("i-%d", idx)).put("hey", "");
+             }
+             MatcherAssert.assertThat(
+@@ -117,7 +117,7 @@
+                         String.format("SELECT * FROM `%s`", domain.name())
+                     ).withConsistentRead(true)
+                 ),
+-                Matchers.iterableWithSize(Tv.TEN)
++                Matchers.iterableWithSize(10)
+             );
+         } finally {
+             domain.drop();

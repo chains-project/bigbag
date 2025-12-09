@@ -1,0 +1,116 @@
+Based on the dependency diff provided, the modification to `org.springframework.data.jpa.repository.JpaRepository` typically refers to the major breaking change in Spring Data JPA 2.5+ (enforced in 3.0): **the removal/deprecation of `getOne(ID)` in favor of `getReferenceById(ID)`**.
+
+`getOne` was a legacy method that retrieved a lazy proxy. The replacement `getReferenceById` performs the exact same semantic function. (Note: `findById` is not a direct replacement as it returns an `Optional`).
+
+Here is the Spoon refactoring script to automate this migration.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class JpaRepositoryRefactoring {
+
+    /**
+     * Processor to migrate JpaRepository.getOne(ID) -> JpaRepository.getReferenceById(ID).
+     * This handles the breaking change where getOne was deprecated/removed in Spring Data JPA.
+     */
+    public static class GetOneToGetReferenceProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            // We look for "getOne" which is the removed method.
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"getOne".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // getOne takes exactly one argument (the ID).
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Target Type Check (Defensive for NoClasspath)
+            // In NoClasspath mode, we might not resolve the full hierarchy to see if it extends JpaRepository.
+            // We rely on heuristics: The variable name or type usually contains "Repository".
+            CtExpression<?> target = candidate.getTarget();
+            if (target != null) {
+                CtTypeReference<?> targetType = target.getType();
+                // Check if the type is known and looks like a Repository
+                if (targetType != null) {
+                    String qualifiedName = targetType.getQualifiedName();
+                    // If it's not a Repository, it's likely not the Spring Data method we are looking for.
+                    if (!qualifiedName.contains("Repository") && !qualifiedName.equals("<unknown>")) {
+                        return false;
+                    }
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // The goal is to rename the method call from 'getOne' to 'getReferenceById'.
+            // Since the arguments (ID) and return type (Entity Proxy) remain semantically identical,
+            // we only need to update the executable reference name.
+
+            CtExecutableReference<?> executableRef = invocation.getExecutable();
+            
+            // We modify the simple name of the method being invoked.
+            // Spoon's Sniper printer will preserve the surrounding code (whitespace/comments)
+            // and only update the method name text.
+            executableRef.setSimpleName("getReferenceById");
+
+            System.out.println("Refactored 'getOne' to 'getReferenceById' at " 
+                + invocation.getPosition().getFile().getName() 
+                + ":" + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =========================================================================
+        // CRITICAL: PRESERVE SOURCE CODE FORMATTING (COMMENTS, INDENTATION)
+        // =========================================================================
+        
+        // 1. Enable comment recording
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Inject SniperJavaPrettyPrinter manually to guarantee strict fidelity
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Configure NoClasspath mode (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new GetOneToGetReferenceProcessor());
+
+        try {
+            System.out.println("Starting JpaRepository Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

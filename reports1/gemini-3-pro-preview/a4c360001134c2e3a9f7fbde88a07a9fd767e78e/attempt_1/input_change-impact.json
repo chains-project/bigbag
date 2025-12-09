@@ -1,0 +1,3568 @@
+{
+  "project" : "gauge-java",
+  "breakingCommit" : "a4c360001134c2e3a9f7fbde88a07a9fd767e78e",
+  "dependency" : {
+    "groupId" : "org.reflections",
+    "artifactId" : "reflections",
+    "previousVersion" : "0.9.9",
+    "newVersion" : "0.10.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.9.9.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.10.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/a4c360001134c2e3a9f7fbde88a07a9fd767e78e.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java",
+    "errors" : [ {
+      "lineNumber" : 64,
+      "columnNumber" : 61,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method apply(java.lang.String)", "location: class org.reflections.util.FilterBuilder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java",
+        "lineNumber" : 64,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.9.9.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.10.2.jar",
+        "generatedAt" : "2025-12-08T07:31:31.402168757Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#apply(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 64,
+          "codeLine" : "            return new FilterBuilder().include(\".+\\\\.class\").apply(s);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$1.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$10",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$10.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$10",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$10.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11$1.apply(java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b0b77b80[public apply (Ljava/lang/Class;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12$1.apply(java.lang.annotation.Annotation)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@219e1e97[public apply (Ljava/lang/annotation/Annotation;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.annotation.Annotation" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$13",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$13.apply(java.lang.reflect.Field)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b6e2730[public apply (Ljava/lang/reflect/Field;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Field" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$13",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$13.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$14",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$14.apply(java.lang.reflect.Field)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b6e2730[public apply (Ljava/lang/reflect/Field;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Field" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$14",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$14.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$15",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$15.apply(java.lang.reflect.Method)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff4bfb87[public apply (Ljava/lang/reflect/Method;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Method" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$15",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$15.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$16",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$16.apply(java.lang.reflect.Method)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff4bfb87[public apply (Ljava/lang/reflect/Method;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Method" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$16",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$16.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$17",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$17.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$17",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$17.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$18",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$18.apply(java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b0b77b80[public apply (Ljava/lang/Class;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$18",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$18.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$2",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$2.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$2",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$2.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$3",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$3.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$3",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$3.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$4",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$4.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$4",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$4.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$5",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$5.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$5",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$5.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$6",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$6.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$6",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$6.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$7",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$7.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$7",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$7.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$8",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$8.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$8",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$8.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$9",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$9.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$9",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$9.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$2",
+            "qualifiedSignature" : "org.reflections.Reflections$2.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$2",
+            "qualifiedSignature" : "org.reflections.Reflections$2.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$3",
+            "qualifiedSignature" : "org.reflections.Reflections$3.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$3",
+            "qualifiedSignature" : "org.reflections.Reflections$3.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Exclude",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Exclude.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Exclude",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Exclude.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Include",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Include.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Include",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Include.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Matcher",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Matcher.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public abstract apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Matcher",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Matcher.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.QueryFunction",
+            "qualifiedSignature" : "org.reflections.util.QueryFunction.apply(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4257a553[public abstract apply (Ljava/lang/Object;)Ljava/util/Set;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.util.Set",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.QueryFunction",
+            "qualifiedSignature" : "org.reflections.util.QueryFunction.apply(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.UrlTypeVFS$1",
+            "qualifiedSignature" : "org.reflections.vfs.UrlTypeVFS$1.apply(java.io.File)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d4f820d8[public apply (Ljava/io/File;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.UrlTypeVFS$1",
+            "qualifiedSignature" : "org.reflections.vfs.UrlTypeVFS$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.Vfs$1",
+            "qualifiedSignature" : "org.reflections.vfs.Vfs$1.apply(org.reflections.vfs.Vfs$File)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7d3426bb[public apply (Lorg/reflections/vfs/Vfs$File;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.reflections.vfs.Vfs$File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.Vfs$1",
+            "qualifiedSignature" : "org.reflections.vfs.Vfs$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.reflections.util.FilterBuilder#include(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "            return new FilterBuilder().include(\".+\\\\.class\").apply(s);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "include",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.include(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@50c365df[public include (Ljava/lang/String;)Lorg/reflections/util/FilterBuilder;]",
+              "newValue" : "javassist.CtMethod@50c365df[public include (Ljava/lang/String;)Lorg/reflections/util/FilterBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.reflections.util.FilterBuilder",
+              "newValue" : "org.reflections.util.FilterBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.reflections.util.FilterBuilder#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "            return new FilterBuilder().include(\".+\\\\.class\").apply(s);",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@4d22916d[public FilterBuilder ()V]",
+              "newValue" : "javassist.CtConstructor@6bce0d5f[public FilterBuilder ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder(java.lang.Iterable)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@12fe2696[private FilterBuilder (Ljava/lang/Iterable;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder(java.util.Collection)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@6adf0cd9[private FilterBuilder (Ljava/util/Collection;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.reflections.util.FilterBuilder",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "            return new FilterBuilder().include(\".+\\\\.class\").apply(s);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 69,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method apply(java.lang.String)", "location: class org.reflections.util.FilterBuilder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java",
+        "lineNumber" : 69,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.9.9.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/reflections-0.10.2.jar",
+        "generatedAt" : "2025-12-08T07:31:31.403221321Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#apply(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 69,
+          "codeLine" : "            if (new FilterBuilder().include(regex).apply(s)) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$1.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$10",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$10.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$10",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$10.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11$1.apply(java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b0b77b80[public apply (Ljava/lang/Class;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$11$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$11$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12$1.apply(java.lang.annotation.Annotation)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@219e1e97[public apply (Ljava/lang/annotation/Annotation;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.annotation.Annotation" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$12$1",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$12$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$13",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$13.apply(java.lang.reflect.Field)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b6e2730[public apply (Ljava/lang/reflect/Field;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Field" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$13",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$13.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$14",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$14.apply(java.lang.reflect.Field)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b6e2730[public apply (Ljava/lang/reflect/Field;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Field" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$14",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$14.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$15",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$15.apply(java.lang.reflect.Method)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff4bfb87[public apply (Ljava/lang/reflect/Method;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Method" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$15",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$15.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$16",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$16.apply(java.lang.reflect.Method)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff4bfb87[public apply (Ljava/lang/reflect/Method;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Method" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$16",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$16.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$17",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$17.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$17",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$17.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$18",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$18.apply(java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b0b77b80[public apply (Ljava/lang/Class;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$18",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$18.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$2",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$2.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$2",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$2.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$3",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$3.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$3",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$3.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$4",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$4.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$4",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$4.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$5",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$5.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$5",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$5.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$6",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$6.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$6",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$6.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$7",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$7.apply(java.lang.reflect.AnnotatedElement)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@36cca32a[public apply (Ljava/lang/reflect/AnnotatedElement;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.AnnotatedElement" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$7",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$7.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$8",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$8.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$8",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$8.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$9",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$9.apply(java.lang.reflect.Member)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f3012b00[public apply (Ljava/lang/reflect/Member;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.reflect.Member" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.ReflectionUtils$9",
+            "qualifiedSignature" : "org.reflections.ReflectionUtils$9.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$2",
+            "qualifiedSignature" : "org.reflections.Reflections$2.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$2",
+            "qualifiedSignature" : "org.reflections.Reflections$2.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$3",
+            "qualifiedSignature" : "org.reflections.Reflections$3.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.Reflections$3",
+            "qualifiedSignature" : "org.reflections.Reflections$3.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Exclude",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Exclude.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Exclude",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Exclude.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Include",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Include.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Include",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Include.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Matcher",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Matcher.apply(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a7f075a5[public abstract apply (Ljava/lang/String;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.FilterBuilder$Matcher",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder$Matcher.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.QueryFunction",
+            "qualifiedSignature" : "org.reflections.util.QueryFunction.apply(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4257a553[public abstract apply (Ljava/lang/Object;)Ljava/util/Set;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.util.Set",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.util.QueryFunction",
+            "qualifiedSignature" : "org.reflections.util.QueryFunction.apply(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.UrlTypeVFS$1",
+            "qualifiedSignature" : "org.reflections.vfs.UrlTypeVFS$1.apply(java.io.File)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d4f820d8[public apply (Ljava/io/File;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.UrlTypeVFS$1",
+            "qualifiedSignature" : "org.reflections.vfs.UrlTypeVFS$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.Vfs$1",
+            "qualifiedSignature" : "org.reflections.vfs.Vfs$1.apply(org.reflections.vfs.Vfs$File)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7d3426bb[public apply (Lorg/reflections/vfs/Vfs$File;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.reflections.vfs.Vfs$File" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "apply",
+            "declaringType" : "org.reflections.vfs.Vfs$1",
+            "qualifiedSignature" : "org.reflections.vfs.Vfs$1.apply(java.lang.Object)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4257a553[public volatile apply (Ljava/lang/Object;)Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.reflections.util.FilterBuilder#include(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 69,
+          "codeLine" : "            if (new FilterBuilder().include(regex).apply(s)) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "include",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.include(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@50c365df[public include (Ljava/lang/String;)Lorg/reflections/util/FilterBuilder;]",
+              "newValue" : "javassist.CtMethod@50c365df[public include (Ljava/lang/String;)Lorg/reflections/util/FilterBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.reflections.util.FilterBuilder",
+              "newValue" : "org.reflections.util.FilterBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.reflections.util.FilterBuilder#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 69,
+          "codeLine" : "            if (new FilterBuilder().include(regex).apply(s)) {",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@4d22916d[public FilterBuilder ()V]",
+              "newValue" : "javassist.CtConstructor@6bce0d5f[public FilterBuilder ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder(java.lang.Iterable)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@12fe2696[private FilterBuilder (Ljava/lang/Iterable;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder.FilterBuilder(java.util.Collection)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@6adf0cd9[private FilterBuilder (Ljava/util/Collection;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.reflections.util.FilterBuilder",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.reflections",
+            "artifactId" : "reflections",
+            "version" : "0.10.2",
+            "coordinates" : "org.reflections:reflections:0.10.2",
+            "sourcePath" : "/home/kth/.m2/repository/org/reflections/reflections/0.10.2/reflections-0.10.2.jar"
+          },
+          "lineNumber" : 69,
+          "codeLine" : "            if (new FilterBuilder().include(regex).apply(s)) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.reflections.util.FilterBuilder",
+            "declaringType" : "org.reflections.util.FilterBuilder",
+            "qualifiedSignature" : "org.reflections.util.FilterBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 23
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

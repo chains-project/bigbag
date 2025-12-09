@@ -1,0 +1,121 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class RenderingContextRefactoring {
+
+    /**
+     * Processor to migrate RenderingContext constructors.
+     * The diff indicates that constructors taking 'java.io.File' as the first argument
+     * are being deprecated or phased out. This processor automates the migration
+     * by removing the File argument, assuming the modern API relies on relative paths
+     * or context-inferred base directories.
+     */
+    public static class RenderingContextProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Check Target Class (Defensive for NoClasspath)
+            CtTypeReference<?> typeRef = candidate.getExecutable().getDeclaringType();
+            
+            // In case of 'new RenderingContext(...)', we check the type being instantiated.
+            // In case of 'super(...)', we rely on executable declaring type.
+            if (typeRef == null && candidate.getType() != null) {
+                typeRef = candidate.getType();
+            }
+
+            if (typeRef == null) {
+                return false;
+            }
+
+            // Robust name check
+            String qualifiedName = typeRef.getQualifiedName();
+            if (!qualifiedName.contains("org.apache.maven.doxia.siterenderer.RenderingContext") 
+                && !qualifiedName.endsWith("RenderingContext")) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We expect at least one argument (the File) to remove.
+            if (candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Check First Argument Type (Must be java.io.File)
+            CtExpression<?> firstArg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = firstArg.getType();
+
+            // Defensive: Check if type is File. 
+            // If unknown (null), we skip to avoid breaking unrelated constructors 
+            // (e.g., those already migrated starting with String).
+            if (argType != null) {
+                String argTypeName = argType.getQualifiedName();
+                // Check for File type
+                return argTypeName.contains("java.io.File");
+            }
+
+            // If type is null (NoClasspath), we might peek at the syntax or variable name as a heuristic,
+            // but for safety, we often assume if it's 'new File(...)' it matches.
+            // Here we check if the expression itself is a constructor call to File.
+            if (firstArg instanceof CtConstructorCall) {
+                CtTypeReference<?> constructorType = ((CtConstructorCall<?>) firstArg).getType();
+                if (constructorType != null && constructorType.getQualifiedName().contains("File")) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            // Transformation: Remove the first argument (java.io.File)
+            CtExpression<?> fileArg = candidate.getArguments().get(0);
+            
+            // Log the change
+            System.out.println("Refactoring RenderingContext at " + candidate.getPosition() + 
+                               " - Removing File argument: " + fileArg);
+            
+            // Remove the argument. Spoon handles comma cleanup.
+            candidate.removeArgument(fileArg);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - can be overridden or hardcoded for specific runs
+        String inputPath = "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c7c9590a206d4fb77dd05b9df391d888e6181667/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c7c9590a206d4fb77dd05b9df391d888e6181667/attempt_1/transformed");
+
+        // CRITICAL: Configure Sniper Printer for high-fidelity code preservation
+        // 1. Enable comment recording
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Set Sniper as the printer
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new RenderingContextProcessor());
+
+        System.out.println("Starting refactoring for RenderingContext...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

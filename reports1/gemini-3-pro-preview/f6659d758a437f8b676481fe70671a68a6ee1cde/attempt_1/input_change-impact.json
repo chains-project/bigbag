@@ -1,0 +1,216 @@
+{
+  "project" : "billy",
+  "breakingCommit" : "f6659d758a437f8b676481fe70671a68a6ee1cde",
+  "dependency" : {
+    "groupId" : "org.yaml",
+    "artifactId" : "snakeyaml",
+    "previousVersion" : "2.0",
+    "newVersion" : "2.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/f6659d758a437f8b676481fe70671a68a6ee1cde.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/f6659d758a437f8b676481fe70671a68a6ee1cde/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java",
+    "errors" : [ {
+      "lineNumber" : 36,
+      "columnNumber" : 36,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TrustedTagInspector", "location: package org.yaml.snakeyaml.inspector" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.1.jar",
+        "generatedAt" : "2025-12-08T11:33:34.053761685Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.yaml",
+            "artifactId" : "snakeyaml",
+            "version" : "2.0",
+            "coordinates" : "org.yaml:snakeyaml:2.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "import org.yaml.snakeyaml.inspector.TrustedTagInspector;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "declaringType" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 66,
+      "columnNumber" : 43,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TrustedTagInspector", "location: class com.premiumminds.billy.core.test.AbstractTest" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java",
+        "lineNumber" : 66,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.1.jar",
+        "generatedAt" : "2025-12-08T11:33:34.054433901Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.yaml.snakeyaml.LoaderOptions#setTagInspector(org.yaml.snakeyaml.inspector.TagInspector)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.yaml",
+            "artifactId" : "snakeyaml",
+            "version" : "2.1",
+            "coordinates" : "org.yaml:snakeyaml:2.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/yaml/snakeyaml/2.1/snakeyaml-2.1.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "        loadingConfig.setTagInspector(new TrustedTagInspector());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setTagInspector",
+            "declaringType" : "org.yaml.snakeyaml.LoaderOptions",
+            "qualifiedSignature" : "org.yaml.snakeyaml.LoaderOptions.setTagInspector(org.yaml.snakeyaml.inspector.TagInspector)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@465e28e5[public setTagInspector (Lorg/yaml/snakeyaml/inspector/TagInspector;)V]",
+              "newValue" : "javassist.CtMethod@465e28e5[public setTagInspector (Lorg/yaml/snakeyaml/inspector/TagInspector;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.yaml.snakeyaml.inspector.TagInspector" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.yaml",
+            "artifactId" : "snakeyaml",
+            "version" : "2.0",
+            "coordinates" : "org.yaml:snakeyaml:2.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "        loadingConfig.setTagInspector(new TrustedTagInspector());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "TrustedTagInspector",
+            "declaringType" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector.TrustedTagInspector()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@4661593f[public TrustedTagInspector ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "declaringType" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.yaml",
+            "artifactId" : "snakeyaml",
+            "version" : "2.0",
+            "coordinates" : "org.yaml:snakeyaml:2.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "        loadingConfig.setTagInspector(new TrustedTagInspector());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "declaringType" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,144 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
+/**
+ * Refactoring Processor for Flyway 5.x to 6.x+ migration.
+ * Based on the removal of Flyway setters and constructors, and renaming of MigrationType.
+ */
+public class FlywayRefactoring {
+
+    public static class FlywayProcessor extends AbstractProcessor<CtElement> {
+        
+        private static final Set<String> REMOVED_SETTERS = new HashSet<>(Arrays.asList(
+            "setDataSource", 
+            "setLocations", 
+            "setValidateOnMigrate", 
+            "setClassLoader"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) candidate;
+                String methodName = inv.getExecutable().getSimpleName();
+                
+                // Check 1: MigrationType.valueOf -> CoreMigrationType.valueOf
+                if ("valueOf".equals(methodName)) {
+                    CtTypeReference<?> declType = inv.getExecutable().getDeclaringType();
+                    return declType != null 
+                           && "org.flywaydb.core.api.MigrationType".equals(declType.getQualifiedName());
+                }
+
+                // Check 2: Flyway Setters (Removed)
+                if (REMOVED_SETTERS.contains(methodName)) {
+                    // Defensive check for target type
+                    if (inv.getTarget() != null) {
+                        CtTypeReference<?> targetType = inv.getTarget().getType();
+                        return targetType != null && targetType.getQualifiedName().contains("Flyway");
+                    }
+                    // Implicit this? Assuming Flyway if name matches (risky but necessary in loose mode)
+                    CtTypeReference<?> declType = inv.getExecutable().getDeclaringType();
+                    return declType != null && declType.getQualifiedName().contains("Flyway");
+                }
+            }
+
+            // Check 3: new Flyway() (No-arg constructor removed)
+            if (candidate instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) candidate;
+                CtTypeReference<?> type = ctor.getType();
+                return type != null 
+                       && "org.flywaydb.core.Flyway".equals(type.getQualifiedName())
+                       && ctor.getArguments().isEmpty();
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            Factory factory = getFactory();
+
+            if (element instanceof CtConstructorCall) {
+                // Transform: new Flyway() -> new Flyway(new ClassicConfiguration())
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) element;
+                
+                CtTypeReference<?> classicConfigType = factory.Type().createReference("org.flywaydb.core.api.configuration.ClassicConfiguration");
+                CtConstructorCall<?> newConfig = factory.Code().createConstructorCall(classicConfigType);
+                
+                ctor.addArgument(newConfig);
+                System.out.println("Refactored: new Flyway() -> new Flyway(new ClassicConfiguration()) at line " + ctor.getPosition().getLine());
+            
+            } else if (element instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) element;
+                String methodName = inv.getExecutable().getSimpleName();
+
+                if ("valueOf".equals(methodName)) {
+                    // Transform: MigrationType.valueOf -> CoreMigrationType.valueOf
+                    CtTypeReference<?> coreMigrationType = factory.Type().createReference("org.flywaydb.core.api.CoreMigrationType");
+                    inv.getExecutable().setDeclaringType(coreMigrationType);
+                    
+                    // If the invocation target is static class access (MigrationType.valueOf), update it too
+                    if (inv.getTarget() != null && inv.getTarget().toString().contains("MigrationType")) {
+                        inv.setTarget(factory.Code().createTypeAccess(coreMigrationType));
+                    }
+                    System.out.println("Refactored: MigrationType.valueOf -> CoreMigrationType.valueOf at line " + inv.getPosition().getLine());
+                
+                } else if (REMOVED_SETTERS.contains(methodName)) {
+                    // Action: Add FIXME comment. 
+                    // We cannot automatically refactor these easily because they moved to the configuration object 
+                    // and might require complex structural changes (e.g. converting to Fluent API).
+                    
+                    String commentContent = " FIXME: Method " + methodName + " removed in Flyway 6+. Use Flyway.configure() or configure the ClassicConfiguration passed to constructor. ";
+                    CtComment comment = factory.Code().createComment(commentContent, CtComment.CommentType.BLOCK);
+                    
+                    // Attach comment before the invocation
+                    element.addComment(comment);
+                    System.out.println("Annotated removed method " + methodName + " at line " + inv.getPosition().getLine());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded for testing)
+        String inputPath = "/home/kth/Documents/last_transformer/output/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/attempt_1/transformed");
+
+        // 1. Enable comments to preserve existing ones
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for precise source modification
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FlywayProcessor());
+        
+        System.out.println("Starting Flyway Refactoring on: " + inputPath);
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

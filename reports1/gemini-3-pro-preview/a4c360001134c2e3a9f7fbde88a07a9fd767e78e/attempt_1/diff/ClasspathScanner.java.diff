@@ -1,0 +1,17 @@
+--- /home/kth/Documents/last_transformer/output/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/gauge-java/src/main/java/com/thoughtworks/gauge/scan/ClasspathScanner.java	2025-12-08 08:30:57.767370069 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/a4c360001134c2e3a9f7fbde88a07a9fd767e78e/attempt_1/transformed/com/thoughtworks/gauge/scan/ClasspathScanner.java	2025-12-08 08:32:47.977465485 +0100
+@@ -61,12 +61,12 @@
+     private boolean shouldScan(String s) {
+         final String packagesToScan = System.getenv(PACKAGE_TO_SCAN);
+         if (packagesToScan == null || packagesToScan.isEmpty()) {
+-            return new FilterBuilder().include(".+\\.class").apply(s);
++            return new FilterBuilder().include(".+\\.class").test(s);
+         }
+         final String[] packages = packagesToScan.split(",");
+         for (String packageToScan : packages) {
+             String regex = String.format(".?\\.??%s\\..+\\.class", packageToScan);
+-            if (new FilterBuilder().include(regex).apply(s)) {
++            if (new FilterBuilder().include(regex).test(s)) {
+                 return true;
+             }
+         }

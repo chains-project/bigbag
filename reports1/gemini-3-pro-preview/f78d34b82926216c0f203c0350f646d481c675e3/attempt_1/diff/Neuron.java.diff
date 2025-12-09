@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/f78d34b82926216c0f203c0350f646d481c675e3/PeyangSuperbAntiCheat/src/main/java/ml/peya/plugins/Learn/Neuron.java	2025-12-08 12:39:45.687200881 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f78d34b82926216c0f203c0350f646d481c675e3/attempt_1/transformed/ml/peya/plugins/Learn/Neuron.java	2025-12-08 12:41:21.246999005 +0100
+@@ -47,7 +47,7 @@
+     public void input(ArrayList<Input> inputData)
+     {
+         inputData.parallelStream().forEachOrdered(input -> input(input.getWeightingValue()));
+-        setValue(sigmoid(sum));
++        setValue(tokyo.peya.lib.LearnMath.sigmoid(sum));
+     }
+ 
+     /**

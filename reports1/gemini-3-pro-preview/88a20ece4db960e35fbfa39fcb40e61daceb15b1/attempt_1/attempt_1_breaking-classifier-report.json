@@ -1,0 +1,49 @@
+{
+  "originalFailurePath" : "reports1/gemini-3-pro-preview/88a20ece4db960e35fbfa39fcb40e61daceb15b1/attempt_1/attempt_1_build.log",
+  "failureCategory" : "COMPILATION_FAILURE",
+  "errorsByFile" : [ {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java",
+    "errors" : [ {
+      "lineNumber" : 20,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ]
+    }, {
+      "lineNumber" : 48,
+      "columnNumber" : 12,
+      "message" : "incompatible types: com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory is not a functional interface",
+      "details" : [ "multiple non-overriding abstract methods found in interface com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory" ]
+    }, {
+      "lineNumber" : 55,
+      "columnNumber" : 25,
+      "message" : "incompatible types: com.google.cloud.pubsublite.internal.Publisher<com.google.cloud.pubsublite.MessageMetadata> cannot be converted to com.google.cloud.pubsublite.internal.Publisher<java.lang.String>",
+      "details" : [ ]
+    } ]
+  }, {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactory.java",
+    "errors" : [ {
+      "lineNumber" : 18,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ]
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MessageMetadata", "location: interface com.google.pubsublite.kafka.sink.PublisherFactory" ]
+    } ]
+  }, {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PubSubLiteSinkTask.java",
+    "errors" : [ {
+      "lineNumber" : 22,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ]
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 31,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: class com.google.pubsublite.kafka.sink.PubSubLiteSinkTask" ]
+    } ]
+  } ]
+}

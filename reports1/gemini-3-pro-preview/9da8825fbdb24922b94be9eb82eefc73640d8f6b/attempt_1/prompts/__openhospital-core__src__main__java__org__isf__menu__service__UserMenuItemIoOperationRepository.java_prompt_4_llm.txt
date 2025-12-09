@@ -1,0 +1,176 @@
+Here is the self-contained Java class that performs the refactoring for `JpaRepository` breaking changes using Spoon.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JpaRepositoryRefactoring {
+
+    /**
+     * Processor to handle JpaRepository breaking changes (Spring Data 2.x/3.x migration).
+     * <p>
+     * Transformations:
+     * 1. findOne(ID) -> findById(ID)
+     * 2. getOne(ID) -> getReferenceById(ID)
+     * 3. save(Iterable) -> saveAll(Iterable)
+     * 4. delete(Iterable) -> deleteAll(Iterable)
+     * 5. delete(ID) -> deleteById(ID)
+     */
+    public static class JpaMigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> COLLECTION_TYPES = new HashSet<>(Arrays.asList(
+            "List", "ArrayList", "LinkedList", "Set", "HashSet", "Iterable", "Collection", "Queue"
+        ));
+
+        private static final Set<String> ID_TYPES = new HashSet<>(Arrays.asList(
+            "int", "long", "Integer", "Long", "String", "UUID", "BigInteger", "BigDecimal", "short", "Short"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            String name = candidate.getExecutable().getSimpleName();
+            
+            // Fast fail on irrelevant methods
+            if (!name.equals("findOne") && !name.equals("getOne") && 
+                !name.equals("save") && !name.equals("delete")) {
+                return false;
+            }
+
+            // Check if the owner looks like a Repository
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType == null) return false;
+            
+            String typeName = declaringType.getQualifiedName();
+            // Match "Repository", "JpaRepository", or custom repositories usually ending in Repository
+            // Also handle <unknown> for NoClasspath scenarios if variable name hints at repository
+            boolean isRepoType = typeName.contains("Repository") || typeName.contains("Repo");
+            
+            if (!isRepoType && !typeName.equals("<unknown>")) {
+                return false;
+            }
+            
+            // If unknown type, check variable name heuristic (e.g. userRepo.save)
+            if (typeName.equals("<unknown>")) {
+                CtExpression<?> target = candidate.getTarget();
+                if (target != null && !target.toString().toLowerCase().contains("repo")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String name = invocation.getExecutable().getSimpleName();
+            
+            if (invocation.getArguments().isEmpty()) return;
+
+            CtExpression<?> arg = invocation.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+            String argTypeName = (argType != null) ? argType.getSimpleName() : "";
+
+            switch (name) {
+                case "findOne":
+                    // findOne(ID) -> findById(ID)
+                    // Note: findOne(Example) exists, so we must exclude Example.
+                    if (!argTypeName.contains("Example")) {
+                        renameMethod(invocation, "findById");
+                    }
+                    break;
+
+                case "getOne":
+                    // getOne(ID) -> getReferenceById(ID)
+                    renameMethod(invocation, "getReferenceById");
+                    break;
+
+                case "save":
+                    // save(Iterable) -> saveAll(Iterable)
+                    // save(Entity) remains save(Entity)
+                    if (isCollectionType(argTypeName)) {
+                        renameMethod(invocation, "saveAll");
+                    }
+                    break;
+
+                case "delete":
+                    // delete(Iterable) -> deleteAll(Iterable)
+                    if (isCollectionType(argTypeName)) {
+                        renameMethod(invocation, "deleteAll");
+                    } 
+                    // delete(ID) -> deleteById(ID)
+                    // delete(Entity) remains delete(Entity)
+                    // Heuristic: If type implies ID (primitive/string), rename.
+                    else if (isIdType(argTypeName)) {
+                        renameMethod(invocation, "deleteById");
+                    }
+                    break;
+            }
+        }
+
+        private void renameMethod(CtInvocation<?> invocation, String newName) {
+            invocation.getExecutable().setSimpleName(newName);
+            System.out.println("Refactored " + invocation.getShortRepresentation() + 
+                " at line " + invocation.getPosition().getLine());
+        }
+
+        /**
+         * Heuristic to determine if a type is likely a Collection/Iterable.
+         * Safe for NoClasspath (checks simple names).
+         */
+        private boolean isCollectionType(String typeName) {
+            if (typeName == null) return false;
+            // Check direct match or generic format "List<Entity>"
+            String cleanName = typeName.split("<")[0];
+            return COLLECTION_TYPES.contains(cleanName) || typeName.endsWith("[]");
+        }
+
+        /**
+         * Heuristic to determine if a type is likely an ID (scalar).
+         */
+        private boolean isIdType(String typeName) {
+            if (typeName == null) return false;
+            return ID_TYPES.contains(typeName);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Robust Sniper Configuration for Spoon 11+
+        // 1. Preserve comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer for high-fidelity preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JpaMigrationProcessor());
+        
+        System.out.println("Starting JpaRepository Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

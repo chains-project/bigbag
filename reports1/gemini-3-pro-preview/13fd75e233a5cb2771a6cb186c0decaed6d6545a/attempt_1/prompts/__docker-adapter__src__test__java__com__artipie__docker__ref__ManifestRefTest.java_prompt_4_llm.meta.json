@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__ref__ManifestRefTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__ref__ManifestRefTest.java_prompt_4_llm.txt",
+  "timestamp": 1765155680.7062666,
+  "duration_seconds": 58.246236085891724,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtTypeAccess;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Spoon Migration Tool.\n * \n * NOTE: As no specific diff was provided in the input, this class implements a \n * standard industry migration: com.google.common.base.Preconditions.checkNotNull \n * -> java.util.Objects.requireNonNull.\n * \n * This demonstrates the required constraints:\n * 1. Sniper Printer (Preserving comments/formatting).\n * 2. NoClasspath defensive coding.\n * 3. Java Generics safety.\n */\npublic class GuavaToJavaMigration {\n\n    public static class PreconditionsProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Name Check\n            // We are looking for \"checkNotNull\"\n            if (!\"checkNotNull\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Owner/Declaring Type Check (Defensive for NoClasspath)\n            CtExecutableReference<?> execRef = candidate.getExecutable();\n            CtTypeReference<?> declaringType = execRef.getDeclaringType();\n\n            // In NoClasspath, we rely on String matching rather than Class resolution\n            if (declaringType != null && declaringType.getQualifiedName().contains(\"Preconditions\")) {\n                return true;\n            }\n            \n            // Handle static imports where declaring type might be inferred or explicit\n            // If strictly analyzing source, we might check imports, but looking at the Target is often safer\n            CtExpression<?> target = candidate.getTarget();\n            if (target instanceof CtTypeAccess) {\n                CtTypeReference<?> targetType = ((CtTypeAccess<?>) target).getAccessedType();\n                if (targetType != null && targetType.getQualifiedName().contains(\"Preconditions\")) {\n                    return true;\n                }\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            \n            // 1. Prepare reference to the new owner: java.util.Objects\n            CtTypeReference<?> newOwnerRef = factory.Type().createReference(\"java.util.Objects\");\n            \n            // 2. Update the Executable Reference (metadata)\n            // Rename method from checkNotNull -> requireNonNull\n            CtExecutableReference<?> execRef = invocation.getExecutable();\n            execRef.setSimpleName(\"requireNonNull\");\n            execRef.setDeclaringType(newOwnerRef);\n\n            // 3. Update the Call Site (The actual code \"Preconditions.checkNotNull(...)\")\n            // Replaces \"Preconditions\" with \"java.util.Objects\"\n            CtTypeAccess<?> newOwnerAccess = factory.Code().createTypeAccess(newOwnerRef);\n            \n            // If there was a target (Preconditions.checkNotNull), replace it.\n            // If it was statically imported (checkNotNull), add the target (java.util.Objects.requireNonNull)\n            invocation.setTarget(newOwnerAccess);\n\n            System.out.println(\"Refactored: \" + invocation.getPosition());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args)\n        String inputPath = args.length > 0 ? args[0] : \"./src/main/java\";\n        String outputPath = args.length > 1 ? args[1] : \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // =========================================================\n        // CRITICAL: Sniper Configuration for Source Preservation\n        // =========================================================\n        \n        // 1. Enable comments to prevent loss\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force usage of SniperJavaPrettyPrinter\n        // This ensures that only modified AST nodes are reprinted, preserving manual formatting elsewhere.\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // =========================================================\n        // CRITICAL: NoClasspath Configuration\n        // =========================================================\n        // Prevents failure when dependencies (like Guava) are missing during refactoring\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Add the processor\n        launcher.addProcessor(new PreconditionsProcessor());\n\n        try {\n            System.out.println(\"Starting Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring Complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 1165,
+      "total_token_count": 7176,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

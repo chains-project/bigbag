@@ -1,0 +1,152 @@
+Based on the dependency diff provided, the primary breaking changes in `org.springframework.data.jpa.repository.JpaRepository` (and its parent `CrudRepository`) that cause **Source Incompatibility** involve the renaming of batch operations.
+
+In older Spring Data versions, `save` and `delete` were overloaded to handle both single entities and iterables. In newer versions (Migration to Spring Data 2.x/3.x), the `Iterable` variants were removed or renamed to be explicit:
+*   `save(Iterable)` $\to$ `saveAll(Iterable)`
+*   `delete(Iterable)` $\to$ `deleteAll(Iterable)`
+
+The following Spoon script detects invocations of `save` or `delete` on Repositories where the argument is a Collection/Iterable and renames the method to the batch equivalent.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class SpringDataJpaRefactoring {
+
+    /**
+     * Processor to handle JpaRepository breaking changes:
+     * 1. save(Iterable) -> saveAll(Iterable)
+     * 2. delete(Iterable) -> deleteAll(Iterable)
+     */
+    public static class RepositoryMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        // Set of collection types to detect for batch operations
+        private static final Set<String> COLLECTION_TYPES = new HashSet<>(Arrays.asList(
+            "java.util.List",
+            "java.util.Set",
+            "java.util.Collection",
+            "java.lang.Iterable",
+            "java.util.ArrayList",
+            "java.util.HashSet"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"save".equals(methodName) && !"delete".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Argument Count (Batch ops usually take 1 argument)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Check Owner (Heuristic: Variable name or Type should resemble a Repository)
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false;
+            
+            CtTypeReference<?> targetType = target.getType();
+            // Defensive Check: If type is known, check if it's a Repository
+            if (targetType != null) {
+                String typeName = targetType.getQualifiedName();
+                if (!typeName.contains("Repository") && !typeName.contains("Dao")) {
+                    return false;
+                }
+            } else {
+                // If type is unknown (NoClasspath), fallback to variable naming convention heuristic
+                // Use toString() of the target expression (e.g., "userRepository")
+                String targetName = target.toString().toLowerCase();
+                if (!targetName.contains("repository") && !targetName.contains("dao")) {
+                    return false;
+                }
+            }
+
+            // 4. Check Argument Type (Must be an Iterable/Collection to warrant renaming)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            if (argType == null) {
+                // In NoClasspath, we might not know the type. 
+                // To be safe, we SKIP if we can't confirm it's a List/Set.
+                // Renaming save(Entity) to saveAll(Entity) would break code.
+                return false;
+            }
+
+            // Check if the argument type matches known collection patterns
+            String argTypeName = argType.getQualifiedName();
+            boolean isCollection = COLLECTION_TYPES.stream().anyMatch(argTypeName::startsWith);
+            
+            // Also check for array types if applicable (though less common in JpaRepository save/delete)
+            if (!isCollection && argType.isArray()) {
+                // Arrays are generally not valid for save(), but strict Iterable check is safer
+                return false;
+            }
+
+            return isCollection;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String currentName = invocation.getExecutable().getSimpleName();
+            String newName = null;
+
+            if ("save".equals(currentName)) {
+                newName = "saveAll";
+            } else if ("delete".equals(currentName)) {
+                newName = "deleteAll";
+            }
+
+            if (newName != null) {
+                // Mutate the method name
+                invocation.getExecutable().setSimpleName(newName);
+                
+                System.out.println("Refactored: " + currentName + " -> " + newName + 
+                                   " at " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Input/Output paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER)
+        // ==========================================================
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Enable NoClasspath mode to allow running without full dependency resolution
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new RepositoryMethodProcessor());
+
+        try {
+            System.out.println("Starting Spring Data JPA Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

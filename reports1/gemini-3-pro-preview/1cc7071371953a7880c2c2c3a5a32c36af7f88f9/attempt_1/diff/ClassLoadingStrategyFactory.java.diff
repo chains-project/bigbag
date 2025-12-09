@@ -1,0 +1,19 @@
+--- /home/kth/Documents/last_transformer/output/1cc7071371953a7880c2c2c3a5a32c36af7f88f9/assertj-vavr/src/main/java/org/assertj/vavr/api/ClassLoadingStrategyFactory.java	2025-12-08 02:33:20.916939739 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1cc7071371953a7880c2c2c3a5a32c36af7f88f9/attempt_1/transformed/org/assertj/vavr/api/ClassLoadingStrategyFactory.java	2025-12-08 02:37:21.426558441 +0100
+@@ -26,12 +26,12 @@
+         () -> MethodHandles.class.getMethod("privateLookupIn", Class.class, MethodHandles.Lookup.class)
+     ).getOrElse((Method) null);
+ 
+-    static ClassLoadingStrategy<ClassLoader> classLoadingStrategy(Class<?> assertClass) {
+-        if (ClassInjector.UsingReflection.isAvailable()) {
++    static net.bytebuddy.dynamic.loading.ClassLoadingStrategy<ClassLoader> classLoadingStrategy(Class<?> assertClass) {
++        if (net.bytebuddy.dynamic.loading.ClassInjector.UsingReflection.isAvailable()) {
+             return ClassLoadingStrategy.Default.INJECTION;
+-        } else if (ClassInjector.UsingLookup.isAvailable() && PRIVATE_LOOKUP_IN != null) {
++        } else if (net.bytebuddy.dynamic.loading.ClassInjector.UsingLookup.isAvailable() && PRIVATE_LOOKUP_IN != null) {
+             try {
+-                return ClassLoadingStrategy.UsingLookup.of(PRIVATE_LOOKUP_IN.invoke(null, assertClass, LOOKUP));
++                return net.bytebuddy.dynamic.loading.ClassLoadingStrategy.UsingLookup.of(PRIVATE_LOOKUP_IN.invoke(null, assertClass, LOOKUP));
+             } catch (Exception e) {
+                 throw new IllegalStateException("Could not access package of " + assertClass, e);
+             }

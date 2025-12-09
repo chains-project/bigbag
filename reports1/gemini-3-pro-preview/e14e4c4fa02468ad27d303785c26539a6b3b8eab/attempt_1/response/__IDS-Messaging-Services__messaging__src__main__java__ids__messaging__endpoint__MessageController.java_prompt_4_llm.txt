@@ -1,0 +1,119 @@
+Since the provided `<dependency_change_diff>` block was empty, I have generated a **robust template** demonstrating a common refactoring scenario (Class Renaming) that adheres strictly to your constraints (Sniper Printer for source preservation, NoClasspath safety, and Type erasure).
+
+This template refactors: `com.legacy.OldService.execute()` $\rightarrow$ `com.modern.NewService.execute()`.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class RefactoringTemplate {
+
+    /**
+     * Processor to handle the migration.
+     * Scenario (Template): Renaming static method calls from a Legacy class to a Modern class.
+     * Input:  com.legacy.OldService.execute(args)
+     * Output: com.modern.NewService.execute(args)
+     */
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            // Fast filter: check if the method name matches the one we want to refactor.
+            if (!"execute".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Target Check (Defensive for NoClasspath)
+            CtExpression<?> target = candidate.getTarget();
+            
+            // If target is null (implicit 'this'), we usually skip unless we are inside the class itself.
+            if (target == null) {
+                return false;
+            }
+
+            // We check the type of the target (the class calling the static method).
+            // In NoClasspath, we rely on string matching rather than strict class equality.
+            CtTypeReference<?> targetType = target.getType();
+            if (targetType == null) {
+                // If type cannot be resolved, we can attempt to check the string representation of the target expression
+                // e.g., if code is "OldService.execute()", target is "OldService".
+                return target.toString().contains("OldService");
+            }
+
+            // Check if the qualified name contains the old class name.
+            // Using .contains() handles cases where imports might vary or packages are partial.
+            return targetType.getQualifiedName().contains("OldService");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // 3. Define the New Class Type
+            CtTypeReference<?> newOwnerRef = factory.Type().createReference("com.modern.NewService");
+
+            // 4. Create the new Target Access (NewService)
+            CtTypeAccess<?> newTarget = factory.Code().createTypeAccess(newOwnerRef);
+
+            // 5. Apply the Change
+            // We replace the target (OldService) with the new target (NewService).
+            // This preserves the arguments and the rest of the invocation structure.
+            if (invocation.getTarget() != null) {
+                invocation.getTarget().replace(newTarget);
+            }
+            
+            System.out.println("Refactored 'OldService' to 'NewService' at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ========================================================================
+        // CRITICAL: Source Code Preservation Configuration
+        // ========================================================================
+        
+        // 1. Preserve Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Use SniperJavaPrettyPrinter
+        // This is mandatory to ensure only changed AST nodes are reprinted, 
+        // keeping original formatting/indentation elsewhere.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. NoClasspath Mode
+        // Allows running without full dependency JARs.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ========================================================================
+
+        launcher.addProcessor(new MigrationProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

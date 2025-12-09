@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/attempt_1/prompts/__license-maven-plugin__license-maven-plugin__src__main__java__com__mycila__maven__plugin__license__dependencies__MavenProjectLicenses.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/attempt_1/prompts/__license-maven-plugin__license-maven-plugin__src__main__java__com__mycila__maven__plugin__license__dependencies__MavenProjectLicenses.java_prompt_4_llm.txt",
+  "timestamp": 1765157593.1090782,
+  "duration_seconds": 44.52389693260193,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class MavenGraphBuilderMigration {\n\n    /**\n     * Processor to migrate from the removed 'Maven31DependencyGraphBuilder' \n     * to the 'DefaultDependencyGraphBuilder'.\n     */\n    public static class Maven31Processor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final String OLD_CLASS_SIMPLE = \"Maven31DependencyGraphBuilder\";\n        private static final String NEW_CLASS_QUALIFIED = \"org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // 1. Safety check\n            if (candidate == null) return false;\n\n            // 2. Simple Name Check (Fast fail)\n            // We check strict equality on simple name to avoid matching partial strings accidentally\n            if (!OLD_CLASS_SIMPLE.equals(candidate.getSimpleName())) {\n                return false;\n            }\n\n            // 3. Qualified Name / Context Check (Defensive)\n            // In NoClasspath, getQualifiedName() relies on imports or local context. \n            // We ensure it matches the target class or is an unqualified reference to it.\n            String qName = candidate.getQualifiedName();\n            return qName != null && qName.contains(OLD_CLASS_SIMPLE);\n        }\n\n        @Override\n        public void process(CtTypeReference<?> oldRef) {\n            // Transformation: Replace the reference to the removed class with the Default implementation.\n            // This handles:\n            // - Variable declarations: Maven31DependencyGraphBuilder var;\n            // - Instantiations: new Maven31DependencyGraphBuilder();\n            // - Method return types/arguments.\n            \n            CtTypeReference<?> newRef = getFactory().Type().createReference(NEW_CLASS_QUALIFIED);\n            \n            // Replace the AST node\n            oldRef.replace(newRef);\n            \n            // Logging\n            int line = (oldRef.getPosition().isValidPosition()) ? oldRef.getPosition().getLine() : -1;\n            System.out.println(\"Refactored \" + OLD_CLASS_SIMPLE + \" to DefaultDependencyGraphBuilder at line \" + line);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args if expanded)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Robust Transformation\n        // 1. Enable comments to preserve existing documentation\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting/indentation of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. NoClasspath mode to allow running without full dependency resolution\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new Maven31Processor());\n\n        try {\n            System.out.println(\"Starting Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring Complete. Check output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1572,
+      "candidates_token_count": 822,
+      "total_token_count": 4790,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

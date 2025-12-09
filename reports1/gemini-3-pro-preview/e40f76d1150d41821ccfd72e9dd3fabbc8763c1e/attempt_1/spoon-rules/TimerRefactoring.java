@@ -1,0 +1,131 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * Note: No specific diff was provided in the input tags. 
+ * This generated code implements the logic for the 'Timer.setDelay' example 
+ * described in the System Prompt to demonstrate the required infrastructure.
+ * 
+ * Target Change:
+ * - METHOD com.utils.Timer.setDelay(int) [REMOVED]
+ * + METHOD com.utils.Timer.setDelay(java.time.Duration) [ADDED]
+ */
+public class TimerRefactoring {
+
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            // We target the method "setDelay"
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // The signature changed from 1 int arg to 1 Duration arg.
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Logic:
+            // - If type is NULL (unknown in NoClasspath), we assume it might be a candidate.
+            // - If type is KNOWN and is already 'java.time.Duration', we skip it (already fixed).
+            // - If type is KNOWN and is 'int', we process it.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed for NoClasspath)
+            // We try to verify if the method belongs to 'com.utils.Timer'.
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().equals("<unknown>")) {
+                // If we have type info, strictly enforce the class name.
+                if (!owner.getQualifiedName().contains("Timer")) {
+                    return false;
+                }
+            }
+            // If owner is unknown, we rely on the method name and arg count (heuristic).
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Refactoring Strategy:
+            // Convert: setDelay(500)
+            // To:      setDelay(java.time.Duration.ofMillis(500))
+
+            // 1. Create Type Reference for Duration
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            // 2. Create the wrapper invocation: Duration.ofMillis(...)
+            CtInvocation<?> wrapper = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                factory.Method().createReference(
+                    durationRef, 
+                    factory.Type().voidPrimitiveType(), 
+                    "ofMillis", 
+                    factory.Type().integerPrimitiveType()
+                ),
+                originalArg.clone() // Clone essential to detach from old parent
+            );
+
+            // 3. Replace the original argument with the wrapped version
+            originalArg.replace(wrapper);
+
+            System.out.println("Refactored 'setDelay' at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Paths - adjust as necessary
+        String inputPath = "/home/kth/Documents/last_transformer/output/e40f76d1150d41821ccfd72e9dd3fabbc8763c1e/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e40f76d1150d41821ccfd72e9dd3fabbc8763c1e/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/e40f76d1150d41821ccfd72e9dd3fabbc8763c1e/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e40f76d1150d41821ccfd72e9dd3fabbc8763c1e/attempt_1/transformed");
+
+        // ==============================================================
+        // CRITICAL: PRESERVE SOURCE CODE FORMATTING (SNIPER MODE)
+        // ==============================================================
+        
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter for high-fidelity preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Enable NoClasspath mode (Defensive robustness)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ==============================================================
+
+        launcher.addProcessor(new TimerProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring completed successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

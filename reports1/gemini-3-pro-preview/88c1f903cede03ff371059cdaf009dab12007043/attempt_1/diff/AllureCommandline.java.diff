@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/88c1f903cede03ff371059cdaf009dab12007043/allure-maven/src/main/java/io/qameta/allure/maven/AllureCommandline.java	2025-12-08 07:02:59.590248280 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/88c1f903cede03ff371059cdaf009dab12007043/attempt_1/transformed/io/qameta/allure/maven/AllureCommandline.java	2025-12-08 07:04:31.374986915 +0100
+@@ -215,7 +215,7 @@
+ 
+     private void unpack(final File file) throws IOException {
+         try {
+-            final ZipFile zipFile = new ZipFile(file);
++            final net.lingala.zip4j.ZipFile zipFile = new ZipFile(file);
+             zipFile.extractAll(getInstallationDirectory().toAbsolutePath().toString());
+         } catch (ZipException e) {
+             throw new IOException(e);

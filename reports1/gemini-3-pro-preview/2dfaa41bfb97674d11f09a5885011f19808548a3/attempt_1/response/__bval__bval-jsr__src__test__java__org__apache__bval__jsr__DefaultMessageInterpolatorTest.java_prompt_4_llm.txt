@@ -1,0 +1,92 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class MockitoRefactoring {
+
+    public static class InvocationOnMockProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"getArgumentAt".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // getArgumentAt(int, Class) -> 2 arguments
+            if (candidate.getArguments().size() != 2) {
+                return false;
+            }
+
+            // 3. Argument Type Check (Defensive for NoClasspath)
+            // We expect the second argument to be a Class object (e.g., String.class)
+            CtExpression<?> secondArg = candidate.getArguments().get(1);
+            CtTypeReference<?> secondArgType = secondArg.getType();
+            
+            // If type is known, it must be related to java.lang.Class
+            if (secondArgType != null && !secondArgType.getQualifiedName().contains("Class")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null 
+                && !owner.getQualifiedName().contains("InvocationOnMock") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Logic: getArgumentAt(index, class) -> getArgument(index)
+            
+            // 1. Rename the method
+            invocation.getExecutable().setSimpleName("getArgument");
+
+            // 2. Remove the second argument (the Class type)
+            // We get the specific expression instance to remove it safely
+            CtExpression<?> classArg = invocation.getArguments().get(1);
+            invocation.removeArgument(classArg);
+            
+            System.out.println("Refactored getArgumentAt to getArgument at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new InvocationOnMockProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

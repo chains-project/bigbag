@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/165381d26b2c3d2278fde88c16f95807506451fe/attempt_1/prompts/__scheduler__safeplace__src__test__java__org__btrplace__safeplace__DSN.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/165381d26b2c3d2278fde88c16f95807506451fe/attempt_1/prompts/__scheduler__safeplace__src__test__java__org__btrplace__safeplace__DSN.java_prompt_4_llm.txt",
+  "timestamp": 1765156594.6529202,
+  "duration_seconds": 98.03237342834473,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.declaration.CtCompilationUnit;\nimport spoon.reflect.declaration.CtImport;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtFieldReference;\nimport spoon.reflect.reference.CtPackageReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.visitor.CtScanner;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class PrettyPrinterConfigRefactoring {\n\n    /**\n     * Processor to handle the relocation of PrettyPrinterConfiguration.\n     * It handles both Imports and inline FQN usages.\n     */\n    public static class PackageMigrationProcessor extends AbstractProcessor<CtCompilationUnit> {\n        \n        private static final String OLD_PKG = \"com.github.javaparser.printer\";\n        private static final String NEW_PKG = \"com.github.javaparser.printer.configuration\";\n        private static final String CLASS_NAME = \"PrettyPrinterConfiguration\";\n        private static final String OLD_FQN = OLD_PKG + \".\" + CLASS_NAME;\n\n        @Override\n        public void process(CtCompilationUnit cu) {\n            // 1. Process Imports explicitly (as scanners might miss them depending on configuration)\n            for (CtImport imp : cu.getImports()) {\n                if (imp.getReference() instanceof CtTypeReference) {\n                    updateTypeReference((CtTypeReference<?>) imp.getReference());\n                } else if (imp.getReference() instanceof CtExecutableReference) {\n                    // Handle static imports of methods\n                    updateTypeReference(((CtExecutableReference<?>) imp.getReference()).getDeclaringType());\n                } else if (imp.getReference() instanceof CtFieldReference) {\n                    // Handle static imports of fields\n                    updateTypeReference(((CtFieldReference<?>) imp.getReference()).getDeclaringType());\n                }\n            }\n\n            // 2. Process all usages in the code (Variables, Object creation, Inheritance, etc.)\n            cu.accept(new CtScanner() {\n                @Override\n                public <T> void visitCtTypeReference(CtTypeReference<T> reference) {\n                    updateTypeReference(reference);\n                    super.visitCtTypeReference(reference);\n                }\n            });\n        }\n\n        private void updateTypeReference(CtTypeReference<?> ref) {\n            if (ref != null && OLD_FQN.equals(ref.getQualifiedName())) {\n                CtPackageReference newPkg = getFactory().Package().getOrCreate(NEW_PKG);\n                ref.setPackage(newPkg);\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden or hardcoded)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Source Preservation\n        // 1. Enable comments to prevent loss during printing\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to respect original formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode (defensive assumption)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new PackageMigrationProcessor());\n\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1748,
+      "candidates_token_count": 847,
+      "total_token_count": 10658,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

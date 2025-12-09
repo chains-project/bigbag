@@ -1,0 +1,143 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class LogbackRefactoring {
+
+    /**
+     * Processor to migrate ch.qos.logback.classic.Logger.setLevel(Level) calls 
+     * to the new String-based API introduced in LoggerModel (which Logger likely now implements).
+     * 
+     * Rationale:
+     * The diff indicates LoggerModel added `setLevel(String)`. Even though `Logger.setLevel(Level)` 
+     * is unchanged, modern Logback usage often prefers the String-based configuration to decouple 
+     * from the `Level` class constants.
+     * 
+     * Transformation:
+     * 1. logger.setLevel(Level.INFO) -> logger.setLevel("INFO")
+     * 2. logger.setLevel(myLevelVar) -> logger.setLevel(myLevelVar.toString())
+     */
+    public static class SetLevelProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"setLevel".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (Must be 1)
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            CtExpression<?> arg = args.get(0);
+
+            // 3. Defensive Type Check (NoClasspath Compatibility)
+            // If the argument is already a String, we assume it's using the new API.
+            CtTypeReference<?> argType = arg.getType();
+            if (argType != null && "java.lang.String".equals(argType.getQualifiedName())) {
+                return false;
+            }
+            // Double-check literal values if type resolution is partial
+            if (arg instanceof CtLiteral) {
+                Object val = ((CtLiteral<?>) arg).getValue();
+                if (val instanceof String) return false;
+            }
+
+            // 4. Identify if the argument is related to 'ch.qos.logback.classic.Level'
+            
+            // Case A: Explicit Field Read (e.g., Level.INFO)
+            // This works well even in NoClasspath mode by checking the target text.
+            if (arg instanceof CtFieldRead) {
+                CtFieldRead<?> fieldRead = (CtFieldRead<?>) arg;
+                if (fieldRead.getTarget() instanceof CtTypeAccess) {
+                    String targetName = ((CtTypeAccess<?>) fieldRead.getTarget()).getAccessedType().getQualifiedName();
+                    // Match "Level" loosely to catch unqualified usage in same package or fully qualified
+                    if (targetName.contains("ch.qos.logback.classic.Level") || targetName.endsWith(".Level") || "Level".equals(targetName)) {
+                        return true;
+                    }
+                }
+            }
+
+            // Case B: Variable or Expression (e.g., setLevel(currentLevel))
+            // Only process if we are certain it is a Level type (requires partial classpath or successful resolution)
+            if (argType != null && argType.getQualifiedName().contains("ch.qos.logback.classic.Level")) {
+               return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> arg = invocation.getArguments().get(0);
+
+            // Strategy: Convert argument to String
+            
+            if (arg instanceof CtFieldRead) {
+                // Case: Level.INFO -> "INFO"
+                CtFieldRead<?> fieldRead = (CtFieldRead<?>) arg;
+                String constantName = fieldRead.getVariable().getSimpleName();
+                
+                CtExpression<String> stringLiteral = factory.Code().createLiteral(constantName);
+                arg.replace(stringLiteral);
+                
+                System.out.println("Refactored Level constant to String at line " + invocation.getPosition().getLine());
+            } else {
+                // Case: Variable passed (e.g., setLevel(myLevel)) -> setLevel(myLevel.toString())
+                // Safe fallback for non-literals
+                CtInvocation<?> toStringInvocation = factory.Code().createInvocation(
+                        arg.clone(),
+                        factory.Method().createReference(factory.Type().stringType(), "toString")
+                );
+                arg.replace(toStringInvocation);
+                
+                System.out.println("Refactored Level variable to .toString() at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default directories (can be overridden)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION FOR SOURCE PRESERVATION ---
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath Mode (Robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new SetLevelProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,197 @@
+package org.eclipse.jetty.refactoring;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.*;
+import spoon.reflect.reference.*;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import spoon.reflect.visitor.filter.TypeFilter;
+
+import java.util.List;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor 1: Handles the removal of SelectChannelConnector.
+     * Replaces references to SelectChannelConnector with ServerConnector.
+     */
+    public static class ConnectorTypeProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            return candidate.getQualifiedName().equals("org.eclipse.jetty.server.nio.SelectChannelConnector");
+        }
+
+        @Override
+        public void process(CtTypeReference<?> ref) {
+            // Update package and name to ServerConnector
+            ref.setPackage(getFactory().Package().getOrCreate("org.eclipse.jetty.server"));
+            ref.setSimpleName("ServerConnector");
+        }
+    }
+
+    /**
+     * Processor 2: Fixes constructors for the replaced connector.
+     * SelectChannelConnector() (no-arg) -> ServerConnector(null) (requires Server).
+     */
+    public static class ConnectorConstructorProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // We check for ServerConnector because TypeProcessor might have already run,
+            // or we check the old name if it hasn't. We handle both for robustness.
+            String name = candidate.getType().getSimpleName();
+            return ("ServerConnector".equals(name) || "SelectChannelConnector".equals(name))
+                    && candidate.getArguments().isEmpty();
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> call) {
+            // Only intervene if this looks like the old no-arg usage
+            // ServerConnector usually requires a Server instance.
+            Factory factory = getFactory();
+            
+            // Create 'null' literal
+            CtLiteral<?> nullArg = factory.Code().createLiteral(null);
+            
+            // Add a comment explaining the manual fix required
+            nullArg.addComment(factory.Code().createComment(
+                "FIXME: ServerConnector requires a Server instance", 
+                CtComment.CommentType.BLOCK)
+            );
+
+            call.addArgument(nullArg);
+            
+            // Ensure type is updated if it wasn't caught by TypeProcessor yet
+            if (call.getType().getSimpleName().equals("SelectChannelConnector")) {
+                call.getType().setPackage(factory.Package().getOrCreate("org.eclipse.jetty.server"));
+                call.getType().setSimpleName("ServerConnector");
+            }
+        }
+    }
+
+    /**
+     * Processor 3: Handles methods moved from Server to HttpConfiguration.
+     * (setSendServerVersion, setSendDateHeader)
+     */
+    public static class ServerConfigMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!("setSendServerVersion".equals(methodName) || "setSendDateHeader".equals(methodName))) {
+                return false;
+            }
+
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false;
+
+            CtTypeReference<?> type = target.getType();
+            // Defensive check for "Server" type
+            return type != null && type.getQualifiedName().contains("Server");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Since we can't easily synthesize the HttpConfiguration object, 
+            // we comment out the call and add a FIXME.
+            
+            // Create a comment explaining the move
+            String commentContent = "FIXME: Method '" + invocation.getExecutable().getSimpleName() 
+                                  + "' moved to HttpConfiguration. logic needs restructuring.";
+            
+            // We replace the statement with a code snippet that comments it out
+            // This preserves the original logic visually for the developer
+            String originalCode = invocation.toString();
+            String commentedCode = "/* " + originalCode + " */";
+            
+            CtCodeSnippetStatement snippet = factory.Code().createCodeSnippetStatement(commentedCode);
+            snippet.addComment(factory.Code().createComment(commentContent, CtComment.CommentType.BLOCK));
+            
+            // Find parent statement to replace
+            CtStatement parentStmt = invocation.getParent(CtStatement.class);
+            if (parentStmt != null) {
+                parentStmt.replace(snippet);
+            }
+        }
+    }
+
+    /**
+     * Processor 4: Handles getLocalPort() removal from Connector interface.
+     * Casts generic Connector references to NetworkConnector.
+     */
+    public static class GetLocalPortProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            if (!"getLocalPort".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false;
+
+            CtTypeReference<?> type = target.getType();
+            // If the type is exactly Connector (or unknown/null in NoClasspath which implies risk), we process.
+            // We skip if it's already ServerConnector or NetworkConnector.
+            if (type != null) {
+                String qName = type.getQualifiedName();
+                if (qName.endsWith(".ServerConnector") || qName.endsWith(".NetworkConnector")) {
+                    return false;
+                }
+                // Target is likely AbstractConnector or Connector (interface)
+                return qName.endsWith("Connector");
+            }
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalTarget = invocation.getTarget();
+            
+            // Create reference to NetworkConnector
+            CtTypeReference<?> netConnRef = factory.Type().createReference("org.eclipse.jetty.server.NetworkConnector");
+            
+            // Create Cast Expression: ((NetworkConnector) originalTarget)
+            CtUnaryOperator<?> castedTarget = factory.Code().createTypeCast(netConnRef, originalTarget.clone());
+            
+            // Replace the target of the invocation
+            invocation.setTarget(castedTarget);
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "/home/kth/Documents/last_transformer/output/8fbb6deb112102ef7507a8e68c5215e5f481d03b/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8fbb6deb112102ef7507a8e68c5215e5f481d03b/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/8fbb6deb112102ef7507a8e68c5215e5f481d03b/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8fbb6deb112102ef7507a8e68c5215e5f481d03b/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for robust refactoring
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setAutoImports(true);
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // Force Sniper Printer to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // Register Processors
+        // Order matters slightly: Type update first, then constructors
+        launcher.addProcessor(new ConnectorTypeProcessor());
+        launcher.addProcessor(new ConnectorConstructorProcessor());
+        launcher.addProcessor(new ServerConfigMethodProcessor());
+        launcher.addProcessor(new GetLocalPortProcessor());
+
+        try {
+            System.out.println("Starting Jetty Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

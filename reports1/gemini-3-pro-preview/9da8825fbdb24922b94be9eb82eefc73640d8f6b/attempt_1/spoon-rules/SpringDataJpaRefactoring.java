@@ -1,0 +1,153 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class SpringDataJpaRefactoring {
+
+    /**
+     * Processor to handle breaking changes in JpaRepository/CrudRepository.
+     * Handles:
+     * 1. save(Iterable) -> saveAll(Iterable)
+     * 2. delete(ID) -> deleteById(ID)
+     * 3. findOne(ID) -> findById(ID)
+     */
+    public static class RepositoryMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> TARGET_METHODS = new HashSet<>(Arrays.asList("save", "delete", "findOne"));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (All target migrations are 1-arity)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Heuristic for NoClasspath)
+            // We ensure the method belongs to something looking like a Repository
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // Check for "Repository" in name or if type is unknown (aggressive mode)
+                // In strict projects, might restrict to "org.springframework.data"
+                if (!typeName.contains("Repository") && !typeName.contains("Dao")) {
+                    return false;
+                }
+            } else {
+                // If we can't resolve the owner type, check the variable name as a fallback heuristic
+                CtExpression<?> target = candidate.getTarget();
+                if (target != null && !target.toString().toLowerCase().contains("repo") 
+                                   && !target.toString().toLowerCase().contains("dao")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+            CtExpression<?> arg = invocation.getArguments().get(0);
+            
+            // Analyze the argument type safely
+            CtTypeReference<?> argType = arg.getType();
+
+            if ("save".equals(methodName)) {
+                // Transformation: save(Iterable) -> saveAll(Iterable)
+                if (isCollectionType(argType)) {
+                    invocation.getExecutable().setSimpleName("saveAll");
+                    System.out.println("Refactored 'save' to 'saveAll' at line " + invocation.getPosition().getLine());
+                }
+            } 
+            else if ("delete".equals(methodName)) {
+                // Transformation: delete(ID) -> deleteById(ID)
+                // logic: If arg is NOT an entity (heuristic: it's a primitive or java.* type), it's likely an ID.
+                if (isIdType(argType)) {
+                    invocation.getExecutable().setSimpleName("deleteById");
+                    System.out.println("Refactored 'delete' to 'deleteById' at line " + invocation.getPosition().getLine());
+                }
+            } 
+            else if ("findOne".equals(methodName)) {
+                // Transformation: findOne(ID) -> findById(ID)
+                // This is the most direct mapping in Spring Data 2.x
+                invocation.getExecutable().setSimpleName("findById");
+                System.out.println("Refactored 'findOne' to 'findById' at line " + invocation.getPosition().getLine());
+            }
+        }
+
+        /**
+         * Defensive check if type is likely a Collection/Iterable.
+         */
+        private boolean isCollectionType(CtTypeReference<?> type) {
+            if (type == null) return false; // Unknown type, safer to skip renaming 'save'
+            
+            // Check for arrays
+            if (type.isArray()) return true;
+
+            String name = type.getQualifiedName();
+            return name.contains("List") || 
+                   name.contains("Set") || 
+                   name.contains("Iterable") || 
+                   name.contains("Collection");
+        }
+
+        /**
+         * Defensive check if type is likely an ID (Primitive, Boxed, String, UUID) 
+         * rather than a custom Entity class.
+         */
+        private boolean isIdType(CtTypeReference<?> type) {
+            if (type == null) return false; // Unknown type, safer to skip
+
+            if (type.isPrimitive()) return true;
+
+            String name = type.getQualifiedName();
+            return name.startsWith("java.lang") || // Integer, Long, String
+                   name.startsWith("java.util.UUID");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/medicalstock/service/MovementIoOperationRepository.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/medicalstock/service/MovementIoOperationRepository.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ and precise refactoring
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (robustness)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new RepositoryMethodProcessor());
+
+        try {
+            System.out.println("Starting JpaRepository Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

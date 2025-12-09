@@ -1,0 +1,1380 @@
+{
+  "project" : "lti-launch",
+  "breakingCommit" : "4259baebb426fefbe9dbee26725d6803170dcb85",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-web",
+    "previousVersion" : "4.1.6.RELEASE",
+    "newVersion" : "6.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/4259baebb426fefbe9dbee26725d6803170dcb85.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/4259baebb426fefbe9dbee26725d6803170dcb85/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+    "errors" : [ {
+      "lineNumber" : 9,
+      "columnNumber" : 52,
+      "message" : "cannot access org.springframework.beans.factory.annotation.Autowired",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar(/org/springframework/beans/factory/annotation/Autowired.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.351998101Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import org.springframework.beans.factory.annotation.Autowired;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 12,
+      "columnNumber" : 43,
+      "message" : "cannot access org.springframework.core.annotation.Order",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.0/spring-core-6.0.0.jar(/org/springframework/core/annotation/Order.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.353126641Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.core.annotation.Order",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.0/spring-core-6.0.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import org.springframework.core.annotation.Order;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 42,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Order", "location: class edu.ksu.lti.launch.spring.config.LtiLaunchSecurityConfig" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 42,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.353747638Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.core.annotation.Order",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.0/spring-core-6.0.0.jar"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "    @Order(1)",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 44,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.spring.config.LtiLaunchSecurityConfig.LTISecurityConfigurerAdapter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 44,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.354319328Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "        @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 46,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.spring.config.LtiLaunchSecurityConfig.LTISecurityConfigurerAdapter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 46,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.354921240Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 46,
+          "codeLine" : "        @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 48,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.spring.config.LtiLaunchSecurityConfig.LTISecurityConfigurerAdapter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 48,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.355502246Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 48,
+          "codeLine" : "        @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 51,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.spring.config.LtiLaunchSecurityConfig.LTISecurityConfigurerAdapter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/spring/config/LtiLaunchSecurityConfig.java",
+        "lineNumber" : 51,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.356139468Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "        @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/service/LtiSessionService.java",
+    "errors" : [ {
+      "lineNumber" : 6,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.context.request.RequestContextHolder",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar(/org/springframework/web/context/request/RequestContextHolder.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/service/LtiSessionService.java",
+        "lineNumber" : 6,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.357009644Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.context.request.RequestContextHolder",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 6,
+          "codeLine" : "import org.springframework.web.context.request.RequestContextHolder;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.context.request.RequestContextHolder",
+            "declaringType" : "org.springframework.web.context.request.RequestContextHolder",
+            "qualifiedSignature" : "org.springframework.web.context.request.RequestContextHolder",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 7,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.context.request.ServletRequestAttributes",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar(/org/springframework/web/context/request/ServletRequestAttributes.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/service/LtiSessionService.java",
+        "lineNumber" : 7,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.357370922Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.context.request.ServletRequestAttributes",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 7,
+          "codeLine" : "import org.springframework.web.context.request.ServletRequestAttributes;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.context.request.ServletRequestAttributes",
+            "declaringType" : "org.springframework.web.context.request.ServletRequestAttributes",
+            "qualifiedSignature" : "org.springframework.web.context.request.ServletRequestAttributes",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 11
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+    "errors" : [ {
+      "lineNumber" : 17,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.bind.annotation.ModelAttribute",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar(/org/springframework/web/bind/annotation/ModelAttribute.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 17,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.358728783Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.bind.annotation.ModelAttribute",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 17,
+          "codeLine" : "import org.springframework.web.bind.annotation.ModelAttribute;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "declaringType" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 18,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.bind.annotation.RequestMapping",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar(/org/springframework/web/bind/annotation/RequestMapping.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.359942381Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.bind.annotation.RequestMapping",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "import org.springframework.web.bind.annotation.RequestMapping;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMapping",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMapping",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMapping",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 44,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 44,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.361081212Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 51,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class RequestMapping", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 51,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.362240289Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMapping",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "    @RequestMapping(\"/beginOauth\")",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMapping",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMapping",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMapping",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 88,
+      "columnNumber" : 18,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ModelAttribute", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 88,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.375602789Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.ModelAttribute",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 88,
+          "codeLine" : "            @ModelAttribute(value=\"code\") String oauthCode,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "declaringType" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 88,
+          "codeLine" : "            @ModelAttribute(value=\"code\") String oauthCode,",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 89,
+      "columnNumber" : 18,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ModelAttribute", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 89,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.376896955Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.ModelAttribute",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 89,
+          "codeLine" : "            @ModelAttribute(value=\"state\") String state,",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "declaringType" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 89,
+          "codeLine" : "            @ModelAttribute(value=\"state\") String state,",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 90,
+      "columnNumber" : 18,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ModelAttribute", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 90,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.377847168Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.ModelAttribute",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "            @ModelAttribute(value=\"error\") String errorMsg) throws NoLtiSessionException {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "declaringType" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 90,
+          "codeLine" : "            @ModelAttribute(value=\"error\") String errorMsg) throws NoLtiSessionException {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "edu.ksu.lti.launch.exception.NoLtiSessionException",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/edu/ksu/lti/launch/exception/NoLtiSessionException.java"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "            @ModelAttribute(value=\"error\") String errorMsg) throws NoLtiSessionException {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 85,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class RequestMapping", "location: class edu.ksu.lti.launch.controller.OauthController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/OauthController.java",
+        "lineNumber" : 85,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.378664327Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMapping",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 85,
+          "codeLine" : "    @RequestMapping(\"/oauthResponse\")",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMapping",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMapping",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMapping",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+    "errors" : [ {
+      "lineNumber" : 11,
+      "columnNumber" : 47,
+      "message" : "cannot access org.springframework.web.bind.annotation.RequestMethod",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar(/org/springframework/web/bind/annotation/RequestMethod.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.379189039Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import org.springframework.web.bind.annotation.RequestMethod;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.controller.LtiLaunchController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.379499337Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 32,
+      "columnNumber" : 30,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ModelAttribute", "location: class edu.ksu.lti.launch.controller.LtiLaunchController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.380461303Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    public String ltiLaunch(@ModelAttribute LtiLaunchData ltiData, HttpSession session) throws Exception {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.ModelAttribute",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    public String ltiLaunch(@ModelAttribute LtiLaunchData ltiData, HttpSession session) throws Exception {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "declaringType" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.ModelAttribute",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "edu.ksu.lti.launch.model.LtiLaunchData",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/edu/ksu/lti/launch/model/LtiLaunchData.java"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    public String ltiLaunch(@ModelAttribute LtiLaunchData ltiData, HttpSession session) throws Exception {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.servlet.http.HttpSession",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "javax.servlet",
+            "artifactId" : "javax.servlet-api",
+            "version" : "3.0.1",
+            "coordinates" : "javax.servlet:javax.servlet-api:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    public String ltiLaunch(@ModelAttribute LtiLaunchData ltiData, HttpSession session) throws Exception {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Exception",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    public String ltiLaunch(@ModelAttribute LtiLaunchData ltiData, HttpSession session) throws Exception {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 31,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class RequestMapping", "location: class edu.ksu.lti.launch.controller.LtiLaunchController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+        "lineNumber" : 31,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.380999340Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMapping",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMapping",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMapping",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMapping",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod::POST",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "POST",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod.POST",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.web.bind.annotation.RequestMethod.POST:Lorg/springframework/web/bind/annotation/RequestMethod;",
+              "newValue" : "org.springframework.web.bind.annotation.RequestMethod.POST:Lorg/springframework/web/bind/annotation/RequestMethod;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.web.bind.annotation.RequestMethod",
+              "newValue" : "org.springframework.web.bind.annotation.RequestMethod",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 31,
+      "columnNumber" : 49,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable RequestMethod", "location: class edu.ksu.lti.launch.controller.LtiLaunchController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/controller/LtiLaunchController.java",
+        "lineNumber" : 31,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.381377733Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMapping",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMapping",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMapping",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMapping",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_MODIFIED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod::POST",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "POST",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod.POST",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.web.bind.annotation.RequestMethod.POST:Lorg/springframework/web/bind/annotation/RequestMethod;",
+              "newValue" : "org.springframework.web.bind.annotation.RequestMethod.POST:Lorg/springframework/web/bind/annotation/RequestMethod;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.web.bind.annotation.RequestMethod",
+              "newValue" : "org.springframework.web.bind.annotation.RequestMethod",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.web.bind.annotation.RequestMethod",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "    @RequestMapping(value = \"/launch\", method = RequestMethod.POST)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.web.bind.annotation.RequestMethod",
+            "declaringType" : "org.springframework.web.bind.annotation.RequestMethod",
+            "qualifiedSignature" : "org.springframework.web.bind.annotation.RequestMethod",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiConsumerDetailsService.java",
+    "errors" : [ {
+      "lineNumber" : 28,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.oauth.LtiConsumerDetailsService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiConsumerDetailsService.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.381745563Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiLaunch.java",
+    "errors" : [ {
+      "lineNumber" : 30,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.oauth.LtiLaunch" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiLaunch.java",
+        "lineNumber" : 30,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.382170038Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 32,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.oauth.LtiLaunch" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiLaunch.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.382503948Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 34,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.oauth.LtiLaunch" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiLaunch.java",
+        "lineNumber" : 34,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.382833288Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.oauth.LtiLaunch" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/oauth/LtiLaunch.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.383189891Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/lti-launch/src/main/java/edu/ksu/lti/launch/security/CanvasInstanceChecker.java",
+    "errors" : [ {
+      "lineNumber" : 25,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Autowired", "location: class edu.ksu.lti.launch.security.CanvasInstanceChecker" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/lti-launch/src/main/java/edu/ksu/lti/launch/security/CanvasInstanceChecker.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-4.1.6.RELEASE.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4259baebb426fefbe9dbee26725d6803170dcb85/spring-web-6.0.0.jar",
+        "generatedAt" : "2025-12-08T02:58:44.383593919Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.beans.factory.annotation.Autowired",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "    @Autowired",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

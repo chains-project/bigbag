@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerAuthITCase.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerAuthITCase.java_prompt_4_llm.txt",
+  "timestamp": 1765155796.9890544,
+  "duration_seconds": 62.67609620094299,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring Rule for java.net.URLDecoder.\n * \n * Scenario assumed (due to empty input diff):\n * - METHOD java.net.URLDecoder.decode(String) [DEPRECATED/REMOVED]\n * + METHOD java.net.URLDecoder.decode(String, java.nio.charset.Charset) [ADDED]\n * \n * Strategy:\n * Locate single-argument calls to URLDecoder.decode(str) and transform them \n * into URLDecoder.decode(str, StandardCharsets.UTF_8).\n */\npublic class URLDecoderRefactoring {\n\n    public static class URLDecoderProcessor extends AbstractProcessor<CtInvocation<?>> {\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Name Check\n            if (!\"decode\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Count Check\n            // We only care about the legacy version with 1 argument\n            if (candidate.getArguments().size() != 1) {\n                return false;\n            }\n\n            // 3. Owner Check (Relaxed string matching for NoClasspath)\n            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();\n            if (owner != null && !owner.getQualifiedName().contains(\"URLDecoder\")) {\n                return false;\n            }\n\n            // 4. Type Check (Defensive for NoClasspath)\n            // Ensure the argument is likely a String.\n            CtExpression<?> arg = candidate.getArguments().get(0);\n            CtTypeReference<?> type = arg.getType();\n\n            // If type is known (not null) and not String, skip it. \n            // If type is unknown (null), we process it conservatively.\n            if (type != null && !type.getQualifiedName().contains(\"String\")) {\n                return false;\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            CtExpression<?> originalStringArg = invocation.getArguments().get(0);\n\n            // Transformation: Create the second argument (StandardCharsets.UTF_8)\n            \n            // Define types\n            CtTypeReference<?> stdCharsetsType = factory.Type().createReference(\"java.nio.charset.StandardCharsets\");\n            CtTypeReference<?> charsetType = factory.Type().createReference(\"java.nio.charset.Charset\");\n\n            // Create \"StandardCharsets.UTF_8\" access\n            // We use CodeSnippetExpression for simplicity in ensuring the text is correct,\n            // but we could also build a TypeAccess + FieldRead.\n            // Using a full snippet ensures imports are handled if auto-imports are on, \n            // or FQN is used if not.\n            CtExpression<?> utf8Arg = factory.Code().createCodeSnippetExpression(\"java.nio.charset.StandardCharsets.UTF_8\");\n\n            // Define the new method reference\n            CtTypeReference<?> urlDecoderType = factory.Type().createReference(\"java.net.URLDecoder\");\n            \n            // Create the new Invocation\n            CtInvocation<?> replacement = factory.Code().createInvocation(\n                invocation.getTarget(), // Keep the original target (e.g., static type access)\n                factory.Method().createReference(\n                    urlDecoderType, \n                    factory.Type().stringType(), \n                    \"decode\", \n                    factory.Type().stringType(), \n                    charsetType\n                ),\n                originalStringArg.clone(), // Preserved first arg\n                utf8Arg                    // Added second arg\n            );\n\n            // Replace the entire method call\n            invocation.replace(replacement);\n            System.out.println(\"Refactored URLDecoder.decode at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // =========================================================\n        // CRITICAL SETTINGS: SNIPER MODE (Preserve Layout)\n        // =========================================================\n        \n        // 1. Enable comments to prevent them from being stripped\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve whitespace/indentation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // =========================================================\n        // CRITICAL SETTINGS: ROBUSTNESS (NoClasspath)\n        // =========================================================\n        launcher.getEnvironment().setNoClasspath(true);\n        launcher.getEnvironment().setAutoImports(true);\n\n        launcher.addProcessor(new URLDecoderProcessor());\n\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Generated code in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 1250,
+      "total_token_count": 7493,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,117 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * SCENARIO:
+ * The method `com.example.Service.connect(String)` was changed to `connect(String, int)`.
+ * This script finds all 1-argument calls and appends a default timeout of 3000.
+ */
+public class ServiceRefactoring {
+
+    public static class ConnectMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // Target method details
+        private static final String TARGET_METHOD_NAME = "connect";
+        private static final String TARGET_CLASS_SUBSTRING = "Service";
+        private static final int TARGET_OLD_ARG_COUNT = 1;
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!TARGET_METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Distinguish old vs new signature)
+            if (candidate.getArguments().size() != TARGET_OLD_ARG_COUNT) {
+                return false;
+            }
+
+            // 3. Owner/Class Check (Defensive for NoClasspath)
+            // We use simple string matching because resolving Types is unreliable in NoClasspath mode
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String qName = declaringType.getQualifiedName();
+                // If it's not the target class and not <unknown>, skip it.
+                if (!qName.contains(TARGET_CLASS_SUBSTRING) && !qName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Type Check on Existing Arguments (Defensive)
+            CtExpression<?> firstArg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = firstArg.getType();
+            
+            // Example: If the first argument MUST be a String.
+            // If type is known (not null) and clearly NOT a String, skip.
+            if (argType != null && !argType.getQualifiedName().contains("String") && !argType.getQualifiedName().equals("<unknown>")) {
+                 return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // 5. Transformation Logic
+            // We need to add a second argument: int timeout = 3000
+            
+            // Create the literal 3000
+            CtExpression<Integer> defaultTimeout = factory.Code().createLiteral(3000);
+
+            // Add the argument to the invocation
+            invocation.addArgument(defaultTimeout);
+
+            System.out.println("Refactored 'connect' at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().toString() : "unknown position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded)
+        String inputPath = "/home/kth/Documents/last_transformer/output/13fd75e233a5cb2771a6cb186c0decaed6d6545a/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/13fd75e233a5cb2771a6cb186c0decaed6d6545a/docker-adapter/src/test/java/com/artipie/docker/http/DockerSliceITCase.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/13fd75e233a5cb2771a6cb186c0decaed6d6545a/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)
+        // =========================================================
+        
+        // 1. Preserve comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer to strictly preserve original code structure
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive NoClasspath mode (User may not have all dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // =========================================================
+
+        launcher.addProcessor(new ConnectMethodProcessor());
+        
+        try {
+            System.out.println("Starting Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

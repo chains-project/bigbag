@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__SupplierAddressStructure.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__SupplierAddressStructure.java_prompt_4_llm.txt",
+  "timestamp": 1765164309.1063035,
+  "duration_seconds": 31.646204948425293,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JAXBStrategyRefactoring {\n\n    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(\n            \"JAXBToStringStrategy\",\n            \"DefaultCopyStrategy\",\n            \"DefaultEqualsStrategy\",\n            \"DefaultHashCodeStrategy\",\n            \"DefaultMergeStrategy\",\n            \"DefaultToStringStrategy\",\n            \"JAXBCopyStrategy\",\n            \"JAXBEqualsStrategy\",\n            \"JAXBHashCodeStrategy\",\n            \"JAXBMergeCollectionsStrategy\",\n            \"JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Argument Count (getInstance() usually has 0 args in this context)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Check Declaring Type (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType == null) {\n                return false;\n            }\n\n            String qualifiedName = declaringType.getQualifiedName();\n            \n            // Check if it belongs to the target package or matches one of the target simple names\n            // We check for containment to handle both fully qualified names and simple names (if imports are used)\n            boolean isTargetStrategy = TARGET_CLASSES.stream().anyMatch(className -> \n                qualifiedName.contains(\"org.jvnet.jaxb2_commons.lang.\" + className) || \n                qualifiedName.endsWith(\".\" + className) || \n                qualifiedName.equals(className)\n            );\n\n            return isTargetStrategy;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // Transformation: Replace ClassName.getInstance() with new ClassName()\n            \n            CtTypeReference<?> typeRef = invocation.getExecutable().getDeclaringType();\n            \n            // Create the constructor call: new ClassName()\n            CtConstructorCall<?> constructorCall = getFactory().Code().createConstructorCall(typeRef);\n            \n            // Replace the original invocation\n            invocation.replace(constructorCall);\n            \n            System.out.println(\"Refactored \" + typeRef.getSimpleName() + \".getInstance() at line \" + \n                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ and Source Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Tolerant mode for missing classpath dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new StrategyInstanceProcessor());\n        \n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 975,
+      "total_token_count": 5179,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

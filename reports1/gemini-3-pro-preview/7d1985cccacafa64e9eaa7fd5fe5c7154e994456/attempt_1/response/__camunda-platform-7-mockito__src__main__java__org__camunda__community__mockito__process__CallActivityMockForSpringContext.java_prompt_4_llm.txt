@@ -1,0 +1,137 @@
+```java
+package org.example.refactoring;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtLocalVariable;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring Rule for Spring ConfigurableApplicationContext changes.
+ * 
+ * Analysis of Diff:
+ * - org.springframework.context.ConfigurableApplicationContext is MODIFIED and sourceCompatible=false.
+ * - getBeanFactory() is UNCHANGED (signature-wise).
+ * 
+ * Implication:
+ * Source incompatibility in the class often implies changes in type hierarchy or strictness of return types
+ * in generic contexts. Code relying on concrete implementations (e.g., casting getBeanFactory() to 
+ * DefaultListableBeanFactory) or relying on implicit narrowing may break.
+ * 
+ * Strategy:
+ * Ensure that the result of `getBeanFactory()` is assigned to the standard interface 
+ * `org.springframework.beans.factory.config.ConfigurableListableBeanFactory` to ensure
+ * forward compatibility and fix potential type mismatch errors.
+ */
+public class SpringContextRefactoring {
+
+    public static class BeanFactoryProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"getBeanFactory".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (getBeanFactory() takes 0 args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Check Target Type (Defensive for NoClasspath)
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) {
+                return false;
+            }
+            CtTypeReference<?> targetType = target.getType();
+            
+            // Check if the target is likely ConfigurableApplicationContext
+            // We use string matching to be safe in NoClasspath mode where full resolution might fail
+            if (targetType == null || !targetType.getQualifiedName().contains("ConfigurableApplicationContext")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            CtElement parent = invocation.getParent();
+
+            // Refactoring Case: The result is assigned to a local variable
+            // Example: DefaultListableBeanFactory factory = ctx.getBeanFactory();
+            // Fix:     ConfigurableListableBeanFactory factory = ctx.getBeanFactory();
+            if (parent instanceof CtLocalVariable) {
+                CtLocalVariable<?> variable = (CtLocalVariable<?>) parent;
+
+                // Skip 'var' (inferred types) as they are usually auto-compatible
+                if (variable.isInferred()) {
+                    return;
+                }
+
+                CtTypeReference<?> currentType = variable.getType();
+                String targetInterface = "org.springframework.beans.factory.config.ConfigurableListableBeanFactory";
+
+                // Defensive check: if type is null or already correct, skip
+                if (currentType != null && currentType.getQualifiedName().equals(targetInterface)) {
+                    return;
+                }
+
+                // Apply Refactoring
+                Factory factory = getFactory();
+                CtTypeReference<?> newType = factory.Type().createReference(targetInterface);
+                
+                // We assume standard imports are available or will be handled, 
+                // but setting the qualified name ensures correctness in AST.
+                variable.setType(newType);
+                
+                System.out.println("Refactored variable type for getBeanFactory() at line " + variable.getPosition().getLine());
+            }
+            
+            // Note: We could also handle explicit CtAssignment or CtCasts here, 
+            // but fixing LocalVariable declarations captures the majority of migration issues.
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args if needed)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ========================================================================
+        // CRITICAL: PRESERVE SOURCE CODE STRUCTURE (SNIPER MODE)
+        // ========================================================================
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to treat code as "immutable unless changed"
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Set NoClasspath to true to process files without full project dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+        // ========================================================================
+
+        launcher.addProcessor(new BeanFactoryProcessor());
+
+        try {
+            System.out.println("Starting Spring Context Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

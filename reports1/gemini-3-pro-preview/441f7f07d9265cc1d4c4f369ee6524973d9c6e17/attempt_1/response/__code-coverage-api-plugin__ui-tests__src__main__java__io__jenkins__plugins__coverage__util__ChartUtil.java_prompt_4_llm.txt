@@ -1,0 +1,158 @@
+Since you did not provide a specific Dependency Diff in the `<dependency_change_diff>` tags, I have generated a **reference implementation** based on a common, complex refactoring scenario: **Migrating JUnit 4 assertions to JUnit 5**.
+
+This scenario demonstrates all the required constraints:
+1.  **Argument Swapping**: JUnit 4 is `(message, expected, actual)`, JUnit 5 is `(expected, actual, message)`.
+2.  **Owner Change**: `org.junit.Assert` -> `org.junit.jupiter.api.Assertions`.
+3.  **Robust Sniper Configuration**: Preserves comments/formatting.
+4.  **NoClasspath Defense**: Handles unknown types gracefully.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Spoon Refactoring Script for JUnit 4 -> JUnit 5 Migration.
+ * 
+ * HYPOTHETICAL DIFF:
+ * - METHOD org.junit.Assert.assertEquals(String message, Object expected, Object actual)
+ * + METHOD org.junit.jupiter.api.Assertions.assertEquals(Object expected, Object actual, String message)
+ */
+public class JunitMigrationRefactoring {
+
+    public static class AssertEqualsProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"assertEquals".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Targeting the 3-argument version specifically)
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 3) {
+                return false;
+            }
+
+            // 3. Owner/Scope Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If we can resolve the type, ensure it's the old JUnit 4 Assert
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // If it's already the new JUnit 5, skip
+                if (qualifiedName.contains("jupiter.api.Assertions")) {
+                    return false;
+                }
+                // If it's not likely the old Assert (and not unknown), skip
+                if (!qualifiedName.contains("junit") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Type Check (Defensive)
+            // JUnit 4 signature: (String message, Object expected, Object actual)
+            // We verify the first argument looks like a String (or is unknown)
+            CtExpression<?> firstArg = args.get(0);
+            CtTypeReference<?> firstArgType = firstArg.getType();
+
+            if (firstArgType != null) {
+                // If the first argument is definitely NOT a String, it might not be the method we target
+                // (Unless it's null/unknown, which we accept in NoClasspath)
+                if (!firstArgType.getQualifiedName().equals("java.lang.String") && 
+                    !firstArgType.getQualifiedName().equals("java.lang.Object") && // Handling generic inference issues
+                    !firstArgType.getQualifiedName().equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Get original arguments: [message, expected, actual]
+            List<CtExpression<?>> originalArgs = invocation.getArguments();
+            CtExpression<?> messageArg = originalArgs.get(0);
+            CtExpression<?> expectedArg = originalArgs.get(1);
+            CtExpression<?> actualArg = originalArgs.get(2);
+
+            // New Owner: org.junit.jupiter.api.Assertions
+            CtTypeReference<?> newOwnerRef = factory.Type().createReference("org.junit.jupiter.api.Assertions");
+
+            // New Argument Order: [expected, actual, message]
+            List<CtExpression<?>> newArgs = new ArrayList<>();
+            newArgs.add(expectedArg.clone());
+            newArgs.add(actualArg.clone());
+            newArgs.add(messageArg.clone());
+
+            // Create Replacement Invocation
+            // We use createInvocation with explicit target and method reference
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(newOwnerRef),
+                factory.Method().createReference(
+                    newOwnerRef, 
+                    factory.Type().voidPrimitiveType(), 
+                    "assertEquals", 
+                    factory.Type().objectType(), 
+                    factory.Type().objectType(), 
+                    factory.Type().stringType()
+                ),
+                newArgs
+            );
+
+            // Preserve comments from the original invocation
+            replacement.setComments(invocation.getComments());
+
+            // Perform Replacement
+            invocation.replace(replacement);
+            
+            System.out.println("Refactored assertEquals at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually (Preserves formatting/indentation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath Mode (Assume dependencies are missing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register Processor
+        launcher.addProcessor(new AssertEqualsProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

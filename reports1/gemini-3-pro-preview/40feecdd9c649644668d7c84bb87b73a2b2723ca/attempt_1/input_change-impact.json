@@ -1,0 +1,52 @@
+{
+  "project" : "CoursesPortlet",
+  "breakingCommit" : "40feecdd9c649644668d7c84bb87b73a2b2723ca",
+  "dependency" : {
+    "groupId" : "joda-time",
+    "artifactId" : "joda-time",
+    "previousVersion" : "2.1",
+    "newVersion" : "2.12.5",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/joda-time-2.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/joda-time-2.12.5.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/CoursesPortlet/40feecdd9c649644668d7c84bb87b73a2b2723ca.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/40feecdd9c649644668d7c84bb87b73a2b2723ca/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/CoursesPortlet/courses-portlet-api/src/main/java/org/jasig/portlet/courses/model/xml/CourseMeetingWrapper.java",
+    "errors" : [ {
+      "lineNumber" : 65,
+      "columnNumber" : 13,
+      "message" : "exception java.io.IOException is never thrown in body of corresponding try statement",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/CoursesPortlet",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/CoursesPortlet/courses-portlet-api/src/main/java/org/jasig/portlet/courses/model/xml/CourseMeetingWrapper.java",
+        "lineNumber" : 65,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/joda-time-2.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/40feecdd9c649644668d7c84bb87b73a2b2723ca/joda-time-2.12.5.jar",
+        "generatedAt" : "2025-12-08T02:54:22.468952489Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.IOException",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 65,
+          "codeLine" : "            catch (IOException e) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,212 @@
+{
+  "project" : "code-coverage-api-plugin",
+  "breakingCommit" : "18eff0121ded81b30af0924676407bfc663e6557",
+  "dependency" : {
+    "groupId" : "org.jenkins-ci",
+    "artifactId" : "acceptance-test-harness",
+    "previousVersion" : "5504.v485694f31cdf",
+    "newVersion" : "5536.vf6d8a_73d1122",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5504.v485694f31cdf.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5536.vf6d8a_73d1122.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin/18eff0121ded81b30af0924676407bfc663e6557.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/18eff0121ded81b30af0924676407bfc663e6557/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java",
+    "errors" : [ {
+      "lineNumber" : 7,
+      "columnNumber" : 36,
+      "message" : "error: package com.gargoylesoftware.htmlunit does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java",
+        "lineNumber" : 7,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5504.v485694f31cdf.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5536.vf6d8a_73d1122.jar",
+        "generatedAt" : "2025-12-08T01:28:44.998233420Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 7,
+          "codeLine" : "import com.gargoylesoftware.htmlunit.ScriptResult;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 35,
+      "columnNumber" : 12,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class ScriptResult", "location: class ChartUtil" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java",
+        "lineNumber" : 35,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5504.v485694f31cdf.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5536.vf6d8a_73d1122.jar",
+        "generatedAt" : "2025-12-08T01:28:44.998696406Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "            ScriptResult scriptResult = new ScriptResult(result);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult#<init>(java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "            ScriptResult scriptResult = new ScriptResult(result);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 35,
+      "columnNumber" : 44,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class ScriptResult", "location: class ChartUtil" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java",
+        "lineNumber" : 35,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5504.v485694f31cdf.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5536.vf6d8a_73d1122.jar",
+        "generatedAt" : "2025-12-08T01:28:44.999042637Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "            ScriptResult scriptResult = new ScriptResult(result);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult#<init>(java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "            ScriptResult scriptResult = new ScriptResult(result);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 60,
+      "columnNumber" : 42,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class ScriptResult", "location: class ChartUtil" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java",
+        "lineNumber" : 60,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5504.v485694f31cdf.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/18eff0121ded81b30af0924676407bfc663e6557/acceptance-test-harness-5536.vf6d8a_73d1122.jar",
+        "generatedAt" : "2025-12-08T01:28:44.999648537Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                Object scriptResult = new ScriptResult(result).getJavaScriptResult();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult#getJavaScriptResult()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                Object scriptResult = new ScriptResult(result).getJavaScriptResult();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult#<init>(java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                Object scriptResult = new ScriptResult(result).getJavaScriptResult();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.gargoylesoftware.htmlunit.ScriptResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.main",
+            "artifactId" : "jenkins-test-harness-htmlunit",
+            "version" : "133.vfd15ce292816",
+            "coordinates" : "org.jenkins-ci.main:jenkins-test-harness-htmlunit:133.vfd15ce292816",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/main/jenkins-test-harness-htmlunit/133.vfd15ce292816/jenkins-test-harness-htmlunit-133.vfd15ce292816.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                Object scriptResult = new ScriptResult(result).getJavaScriptResult();",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

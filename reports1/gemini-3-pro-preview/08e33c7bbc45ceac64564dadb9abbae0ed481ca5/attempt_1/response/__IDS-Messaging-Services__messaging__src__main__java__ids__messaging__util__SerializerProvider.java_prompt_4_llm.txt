@@ -1,0 +1,115 @@
+Since the provided dependency change diff was empty, I have generated a **robust template class** that strictly adheres to your configuration rules (Sniper Printer, NoClasspath compatibility, and defensive typing).
+
+You can modify the `TARGET_METHOD_NAME` and `REPLACEMENT_METHOD_NAME` constants or the transformation logic in the `process` method to match your specific diff once available.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Template
+ * Generated because the <dependency_change_diff> input was empty.
+ * 
+ * Implements:
+ * 1. SniperJavaPrettyPrinter (Preserves formatting/comments)
+ * 2. NoClasspath Defensive Checks (Safe for incomplete environments)
+ */
+public class RefactoringTemplate {
+
+    // TOOD: Replace these with the actual values from your Diff
+    private static final String TARGET_METHOD_NAME = "oldMethodName";
+    private static final String REPLACEMENT_METHOD_NAME = "newMethodName";
+    private static final String TARGET_CLASS_SUBSTRING = "TargetClassName";
+
+    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            CtExecutableReference<?> executable = candidate.getExecutable();
+
+            // 1. Name Check
+            if (!TARGET_METHOD_NAME.equals(executable.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Type Check (Defensive for NoClasspath)
+            // We use string matching because resolving types might fail in NoClasspath mode
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Filter if we successfully resolved the type and it doesn't match our target
+                // If it's <unknown> or null, we might process it to be safe (or strict depending on preference)
+                if (!qualifiedName.equals("<unknown>") && !qualifiedName.contains(TARGET_CLASS_SUBSTRING)) {
+                    return false;
+                }
+            }
+
+            // 3. Argument Check (Optional: Add logic here if overload resolution is needed)
+            // Example: if (candidate.getArguments().size() != 1) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation Logic
+            CtExecutableReference<?> currentRef = invocation.getExecutable();
+            
+            // Clone the reference to modify it safely
+            CtExecutableReference<?> newRef = currentRef.clone();
+            newRef.setSimpleName(REPLACEMENT_METHOD_NAME);
+            
+            // Apply the change
+            invocation.setExecutable(newRef);
+            
+            System.out.println("Refactored " + TARGET_METHOD_NAME + " to " + REPLACEMENT_METHOD_NAME + 
+                             " at " + invocation.getPosition().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =========================================================
+        // CRITICAL IMPLEMENTATION RULES
+        // =========================================================
+        
+        // 1. NoClasspath Mode: Allows running without full dependency JARs
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // 2. Preserve Source Code (Sniper Configuration)
+        // Enables comment preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // Forces the SniperJavaPrettyPrinter to overwrite only changed nodes 
+        // while keeping the rest of the file (indentation, whitespace) intact.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // =========================================================
+
+        launcher.addProcessor(new MethodRenameProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

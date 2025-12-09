@@ -1,0 +1,109 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class SnakeYamlRefactoring {
+
+    public static class ConstructorProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Target Class Check
+            // We verify if the constructor being called belongs to org.yaml.snakeyaml.constructor.Constructor
+            CtTypeReference<?> typeRef = candidate.getType();
+            if (typeRef == null || !typeRef.getQualifiedName().equals("org.yaml.snakeyaml.constructor.Constructor")) {
+                return false;
+            }
+
+            int argCount = candidate.getArguments().size();
+
+            // 2. Case: 0 Arguments -> new Constructor() [REMOVED]
+            // Must become new Constructor(new LoaderOptions())
+            if (argCount == 0) {
+                return true;
+            }
+
+            // 3. Case: 1 Argument
+            // Removed: Constructor(Class), Constructor(String), Constructor(TypeDescription)
+            // Existing/New: Constructor(LoaderOptions)
+            // Strategy: If the single argument is NOT LoaderOptions, we assume it's one of the removed ones and needs wrapping.
+            if (argCount == 1) {
+                CtExpression<?> arg = candidate.getArguments().get(0);
+                CtTypeReference<?> argType = arg.getType();
+
+                // Defensive: If type is known and is LoaderOptions, skip (already correct).
+                // If type is null (NoClasspath), we default to processing it (safest bet for migration).
+                if (argType != null && argType.getQualifiedName().contains("LoaderOptions")) {
+                    return false;
+                }
+                return true;
+            }
+
+            // 4. Case: 2 Arguments
+            // Removed: Constructor(TypeDescription, Collection)
+            // Existing: Constructor(Class, LoaderOptions), Constructor(String, LoaderOptions), etc.
+            // Strategy: If the second argument is NOT LoaderOptions, it must be the (TypeDescription, Collection) case.
+            if (argCount == 2) {
+                CtExpression<?> secondArg = candidate.getArguments().get(1);
+                CtTypeReference<?> secondArgType = secondArg.getType();
+
+                if (secondArgType != null && secondArgType.getQualifiedName().contains("LoaderOptions")) {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            Factory factory = getFactory();
+
+            // Creation: new org.yaml.snakeyaml.LoaderOptions()
+            // We use Fully Qualified Name to avoid import issues in the generated code
+            CtTypeReference<?> loaderOptionsType = factory.Type().createReference("org.yaml.snakeyaml.LoaderOptions");
+            CtConstructorCall<?> loaderOptionsInit = factory.Code().createConstructorCall(loaderOptionsType);
+
+            // Transformation: Append the new LoaderOptions() instance to the argument list
+            candidate.addArgument(loaderOptionsInit);
+
+            System.out.println("Refactored Constructor at line " + candidate.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/b2edf635da83fd076262a41751c6f773c17f3b76/jclouds/apis/byon/src/main/java/org/jclouds/byon/domain/YamlNode.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b2edf635da83fd076262a41751c6f773c17f3b76/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/b2edf635da83fd076262a41751c6f773c17f3b76/jclouds/apis/byon/src/main/java/org/jclouds/byon/domain/YamlNode.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b2edf635da83fd076262a41751c6f773c17f3b76/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually for precise source reproduction
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ConstructorProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

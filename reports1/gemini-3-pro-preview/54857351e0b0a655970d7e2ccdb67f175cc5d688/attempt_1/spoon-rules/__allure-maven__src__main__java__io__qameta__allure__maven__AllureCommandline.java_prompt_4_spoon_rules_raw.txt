@@ -1,0 +1,83 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class ZipFileRefactoring {
+
+    /**
+     * Processor to handle the relocation of ZipFile from 'net.lingala.zip4j.core' 
+     * to 'net.lingala.zip4j'.
+     * 
+     * Rationale: The diff indicates `net.lingala.zip4j.core.ZipFile` was removed.
+     * In the Zip4j library migration (1.x to 2.x), this class was moved to the parent package.
+     */
+    public static class ZipFilePackageProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final String OLD_CLASS_FQN = "net.lingala.zip4j.core.ZipFile";
+        private static final String NEW_PACKAGE_NAME = "net.lingala.zip4j";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: skip nulls
+            if (candidate == null) return false;
+
+            // In NoClasspath mode, we rely on the Qualified Name.
+            // This captures both explicit FQN usages and References resolved via Imports.
+            // We use an exact match to avoid modifying unrelated classes with similar names.
+            String fqn = candidate.getQualifiedName();
+            return OLD_CLASS_FQN.equals(fqn);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // 1. Obtain the factory reference for the new package structure
+            CtPackage newPackage = getFactory().Package().getOrCreate(NEW_PACKAGE_NAME);
+
+            // 2. Update the package of the TypeReference.
+            // This effectively changes the Fully Qualified Name (FQN).
+            // - If the class was imported, the import statement is updated.
+            // - If the class was used with FQN in code, the FQN is updated.
+            candidate.setPackage(newPackage);
+
+            // Logging
+            int line = candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : -1;
+            System.out.println("Refactored ZipFile package at line " + line);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified as needed)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULE 1: Preserve Source Code
+        // Enable comments and use SniperJavaPrettyPrinter for high-fidelity code preservation.
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // CRITICAL IMPLEMENTATION RULE 2: NoClasspath Compatibility
+        // Ensure Spoon runs even if dependencies are missing.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new ZipFilePackageProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ff8b5b61548d50cf60b77784a181e917cb35033b/attempt_1/prompts/__junit-quickcheck__core__src__test__java__com__pholser__junit__quickcheck__internal__generator__RegisterGeneratorsByConventionTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ff8b5b61548d50cf60b77784a181e917cb35033b/attempt_1/prompts/__junit-quickcheck__core__src__test__java__com__pholser__junit__quickcheck__internal__generator__RegisterGeneratorsByConventionTest.java_prompt_4_llm.txt",
+  "timestamp": 1765196059.9019208,
+  "duration_seconds": 71.08105325698853,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class MockitoRunnerRefactoring {\n\n    /**\n     * Processor to handle the removal of org.mockito.runners.MockitoJUnitRunner.\n     * It migrates references to the new package: org.mockito.junit.MockitoJUnitRunner.\n     */\n    public static class MockitoRunnerProcessor extends AbstractProcessor<CtTypeReference<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // 1. Defensive Checks for NoClasspath\n            if (candidate == null || candidate.getPackage() == null) {\n                return false;\n            }\n\n            // 2. Match the specific removed Class\n            // We use getQualifiedName() to handle both FQCN usage and Imports.\n            return \"org.mockito.runners.MockitoJUnitRunner\".equals(candidate.getQualifiedName());\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            // 3. Transformation: Move to 'org.mockito.junit' package\n            // This is the standard replacement for Mockito 2.x+\n            candidate.setPackage(getFactory().Package().getOrCreate(\"org.mockito.junit\"));\n\n            // Log the change\n            String position = candidate.getPosition().isValidPosition() \n                ? \"line \" + candidate.getPosition().getLine() \n                : \"unknown position\";\n            System.out.println(\"Refactored MockitoJUnitRunner at \" + position);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be modified by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL: Configure Sniper Printer for source code preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Set NoClasspath to handle missing dependencies gracefully\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new MockitoRunnerProcessor());\n\n        try {\n            launcher.run();\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1561,
+      "candidates_token_count": 603,
+      "total_token_count": 7821,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

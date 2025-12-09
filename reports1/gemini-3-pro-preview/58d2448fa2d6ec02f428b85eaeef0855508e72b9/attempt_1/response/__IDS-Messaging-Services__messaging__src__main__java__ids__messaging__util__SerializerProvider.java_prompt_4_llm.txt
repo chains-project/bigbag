@@ -1,0 +1,130 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * Generated for: [Template/Empty Diff]
+ * Since no specific dependency diff was provided, this class implements a 
+ * generic template demonstrating the required configuration for strict 
+ * source code preservation (Sniper) and defensive NoClasspath processing.
+ * 
+ * Replace the logic in 'TemplateProcessor' with specific rules.
+ */
+public class RefactoringTemplate {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // --- 1. Name Check ---
+            // Example: Identifying a method named 'oldMethod'
+            if (!"oldMethod".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // --- 2. Owner/Scope Check ---
+            // Defensive check using string matching for NoClasspath compatibility
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().contains("TargetClass") &&
+                !declaringType.getQualifiedName().equals("<unknown>")) {
+                // Only return false if we are certain it belongs to a different class.
+                // In NoClasspath, declaringType might be null or unknown.
+                return false;
+            }
+            
+            // --- 3. Argument Count Check ---
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // --- 4. Type Check (Defensive) ---
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            // Example logic: We want to refactor 'oldMethod(int)' -> 'newMethod(String)'
+            // If the argument is already a String (the new type), skip it.
+            if (argType != null && "java.lang.String".equals(argType.getQualifiedName())) {
+                return false;
+            }
+            
+            // If type is null (unknown) or primitive int, we proceed.
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // --- Refactoring Logic ---
+            // Example: Rename 'oldMethod' to 'newMethod' and wrap arg in 'String.valueOf()'
+            
+            // 1. Rename
+            invocation.getExecutable().setSimpleName("newMethod");
+            
+            // 2. Transform Argument
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            // Create wrapper: String.valueOf(...)
+            CtTypeReference<?> stringRef = getFactory().Type().createReference("java.lang.String");
+            CtTypeReference<?> intRef = getFactory().Type().integerPrimitiveType();
+            
+            CtInvocation<?> replacementArg = getFactory().Code().createInvocation(
+                getFactory().Code().createTypeAccess(stringRef),
+                getFactory().Method().createReference(stringRef, stringRef, "valueOf", intRef),
+                originalArg.clone()
+            );
+            
+            // Apply replacement
+            originalArg.replace(replacementArg);
+            
+            System.out.println("Refactored usage at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Paths - adjust as necessary
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL IMPLEMENTATION RULES ---
+        
+        // 1. Preserve Source Code (Sniper Mode)
+        // Enable comments so they aren't stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        // Manually inject SniperJavaPrettyPrinter to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 2. Defensive Coding (NoClasspath Mode)
+        // Ensure the processor runs even if dependencies are missing
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // -------------------------------------
+
+        launcher.addProcessor(new TemplateProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring completed successfully.");
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

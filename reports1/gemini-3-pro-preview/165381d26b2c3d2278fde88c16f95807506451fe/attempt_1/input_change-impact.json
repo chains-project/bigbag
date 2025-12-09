@@ -1,0 +1,316 @@
+{
+  "project" : "scheduler",
+  "breakingCommit" : "165381d26b2c3d2278fde88c16f95807506451fe",
+  "dependency" : {
+    "groupId" : "com.github.javaparser",
+    "artifactId" : "javaparser-core",
+    "previousVersion" : "3.18.0",
+    "newVersion" : "3.24.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.24.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/scheduler/165381d26b2c3d2278fde88c16f95807506451fe.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/165381d26b2c3d2278fde88c16f95807506451fe/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/scheduler/safeplace/src/test/java/org/btrplace/safeplace/DSN.java",
+    "errors" : [ {
+      "lineNumber" : 15,
+      "columnNumber" : 37,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PrettyPrinterConfiguration", "location: package com.github.javaparser.printer" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/scheduler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/scheduler/safeplace/src/test/java/org/btrplace/safeplace/DSN.java",
+        "lineNumber" : 15,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.24.0.jar",
+        "generatedAt" : "2025-12-08T01:14:56.566657985Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.javaparser",
+            "artifactId" : "javaparser-core",
+            "version" : "3.18.0",
+            "coordinates" : "com.github.javaparser:javaparser-core:3.18.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar"
+          },
+          "lineNumber" : 15,
+          "codeLine" : "import com.github.javaparser.printer.PrettyPrinterConfiguration;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 43
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 335,
+      "columnNumber" : 21,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PrettyPrinterConfiguration", "location: class org.btrplace.safeplace.DSN.UnitTestsVisitor" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/scheduler",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/scheduler/safeplace/src/test/java/org/btrplace/safeplace/DSN.java",
+        "lineNumber" : 335,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.24.0.jar",
+        "generatedAt" : "2025-12-08T01:14:56.569261576Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.javaparser",
+            "artifactId" : "javaparser-core",
+            "version" : "3.18.0",
+            "coordinates" : "com.github.javaparser:javaparser-core:3.18.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar"
+          },
+          "lineNumber" : 335,
+          "codeLine" : "      private final PrettyPrinterConfiguration noComments = new PrettyPrinterConfiguration().setPrintComments(false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 43
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.github.javaparser.printer.PrettyPrinterConfiguration#setPrintComments(boolean)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.javaparser",
+            "artifactId" : "javaparser-core",
+            "version" : "3.18.0",
+            "coordinates" : "com.github.javaparser:javaparser-core:3.18.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar"
+          },
+          "lineNumber" : 335,
+          "codeLine" : "      private final PrettyPrinterConfiguration noComments = new PrettyPrinterConfiguration().setPrintComments(false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setPrintComments",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration.setPrintComments(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7cf70258[public setPrintComments (Z)Lcom/github/javaparser/printer/PrettyPrinterConfiguration;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setPrintComments",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration.setPrintComments(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7cf70258[public setPrintComments (Z)Lcom/github/javaparser/printer/PrettyPrinterConfiguration;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setPrintComments",
+            "declaringType" : "com.github.javaparser.printer.configuration.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.configuration.PrettyPrinterConfiguration.setPrintComments(boolean)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7cf70258[public setPrintComments (Z)Lcom/github/javaparser/printer/configuration/PrettyPrinterConfiguration;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.github.javaparser.printer.configuration.PrettyPrinterConfiguration",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 43
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.github.javaparser.printer.PrettyPrinterConfiguration#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.javaparser",
+            "artifactId" : "javaparser-core",
+            "version" : "3.18.0",
+            "coordinates" : "com.github.javaparser:javaparser-core:3.18.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/165381d26b2c3d2278fde88c16f95807506451fe/javaparser-core-3.18.0.jar"
+          },
+          "lineNumber" : 335,
+          "codeLine" : "      private final PrettyPrinterConfiguration noComments = new PrettyPrinterConfiguration().setPrintComments(false);",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration.PrettyPrinterConfiguration()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@27e49c08[public PrettyPrinterConfiguration ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.configuration.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.configuration.PrettyPrinterConfiguration.PrettyPrinterConfiguration()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@289cac5f[public PrettyPrinterConfiguration ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "declaringType" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "qualifiedSignature" : "com.github.javaparser.printer.PrettyPrinterConfiguration",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 43
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

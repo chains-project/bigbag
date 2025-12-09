@@ -1,0 +1,104 @@
+package org.jenkinsci.plugins.p4.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class P4BrowserRefactoring {
+
+    /**
+     * Processor to modernize P4Browser usage.
+     * The diff indicates 'getUrl()' was added to P4Browser.
+     * This suggests a move from direct field access (e.g., 'browser.url') 
+     * to the getter method 'browser.getUrl()'.
+     */
+    public static class UrlFieldToGetterProcessor extends AbstractProcessor<CtFieldRead<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtFieldRead<?> fieldRead) {
+            // 1. Name Check: Check if we are reading a field named "url"
+            // (Assuming legacy code accessed a public field before the getter was introduced)
+            if (!"url".equals(fieldRead.getVariable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Type Check (Defensive for NoClasspath)
+            // Check if the field belongs to P4Browser hierarchy
+            CtTypeReference<?> declaringType = fieldRead.getVariable().getDeclaringType();
+            
+            // If type is unknown (null) or matches P4Browser, we process it.
+            // If it explicitly belongs to another unrelated class, we skip.
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().contains("P4Browser") && 
+                !declaringType.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtFieldRead<?> fieldRead) {
+            Factory factory = getFactory();
+            
+            // The object on which the field is being read (e.g., 'browser' in 'browser.url')
+            CtExpression<?> target = fieldRead.getTarget();
+
+            // Construct the reference for P4Browser (Defensive fallback if type resolution failed)
+            CtTypeReference<?> ownerRef = fieldRead.getVariable().getDeclaringType();
+            if (ownerRef == null) {
+                ownerRef = factory.Type().createReference("org.jenkinsci.plugins.p4.browsers.P4Browser");
+            }
+
+            // Create the invocation: target.getUrl()
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                target, // Re-use the existing target (handles 'this' or explicit object)
+                factory.Method().createReference(
+                    ownerRef,
+                    factory.Type().stringType(), // Assuming URL returns String
+                    "getUrl"
+                )
+            );
+
+            // Replace the field read with the method invocation
+            fieldRead.replace(replacement);
+            
+            System.out.println("Refactored field access 'url' to 'getUrl()' at line " 
+                + fieldRead.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateJFrogInstanceStep.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b5b64613a1a650a5784ff39386b4e00e05e5c21c/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateJFrogInstanceStep.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b5b64613a1a650a5784ff39386b4e00e05e5c21c/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ and Source Fidelity
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Defensive mode for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new UrlFieldToGetterProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete.");
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

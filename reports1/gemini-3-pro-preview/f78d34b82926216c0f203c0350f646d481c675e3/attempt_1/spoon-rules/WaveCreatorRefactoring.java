@@ -1,0 +1,78 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class WaveCreatorRefactoring {
+
+    /**
+     * Processor to handle the relocation of WaveCreator from develop.p2p.lib to tokyo.peya.lib.
+     * This handles both fully qualified usages and import statements.
+     */
+    public static class WaveCreatorProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final String OLD_CLASS_NAME = "develop.p2p.lib.WaveCreator";
+        private static final String NEW_PACKAGE_NAME = "tokyo.peya.lib";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: ensure candidate is not null
+            if (candidate == null) return false;
+
+            // Check if this reference matches the old class fully qualified name.
+            // In NoClasspath mode, Spoon infers this from imports or FQN usage in the source.
+            try {
+                return OLD_CLASS_NAME.equals(candidate.getQualifiedName());
+            } catch (Exception e) {
+                // In case of resolution errors in NoClasspath, skip safely
+                return false;
+            }
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Create the new package reference
+            CtPackage newPackage = getFactory().Package().getOrCreate(NEW_PACKAGE_NAME);
+            
+            // Update the package of the type reference. 
+            // This updates both Import statements and FQN usages in the code.
+            candidate.setPackage(newPackage);
+
+            System.out.println("Refactored WaveCreator reference at " + 
+                (candidate.getPosition().isValidPosition() ? candidate.getPosition().toString() : "unknown location"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/f78d34b82926216c0f203c0350f646d481c675e3/PeyangSuperbAntiCheat/src/main/java/ml/peya/plugins/Objects/Decorations.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f78d34b82926216c0f203c0350f646d481c675e3/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/f78d34b82926216c0f203c0350f646d481c675e3/PeyangSuperbAntiCheat/src/main/java/ml/peya/plugins/Objects/Decorations.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f78d34b82926216c0f203c0350f646d481c675e3/attempt_1/transformed");
+
+        // CRITICAL SETTINGS
+        // 1. Enable comments to preserve license headers and Javadoc
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new WaveCreatorProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

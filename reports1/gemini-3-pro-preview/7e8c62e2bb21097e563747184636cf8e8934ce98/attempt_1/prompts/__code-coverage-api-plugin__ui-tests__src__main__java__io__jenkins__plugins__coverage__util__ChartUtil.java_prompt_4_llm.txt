@@ -1,0 +1,118 @@
+Since no specific dependency diff was provided in the `<dependency_change_diff>` tags, I have generated a **robust template class** (`RefactoringTemplate.java`).
+
+This class implements all the **Critical Implementation Rules** defined in your prompt:
+1.  **Sniper Mode:** Configured manually in `main` to preserve formatting/comments.
+2.  **NoClasspath Compatibility:** Uses defensive type checking (`type != null`) and string-based class matching.
+3.  **Generics Safety:** Uses `CtInvocation<?>` to avoid compiler warnings.
+
+You can simply rename `oldMethodName` and `NewTargetClass` in the processor to apply your specific refactoring logic.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Template.
+ * Generated because no specific Diff was provided.
+ * 
+ * Rules applied:
+ * 1. Sniper Mode (Preserves formatting/comments).
+ * 2. NoClasspath Safe (Defensive null checks on types).
+ * 3. Generic Safety (Wildcards).
+ */
+public class RefactoringTemplate {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // TODO: Update these constants based on your actual Diff
+        private static final String TARGET_METHOD_NAME = "oldMethodName";
+        private static final String TARGET_OWNER_CLASS = "OldClassName";
+        private static final String NEW_METHOD_NAME = "newMethodName";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!TARGET_METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner Check (Defensive: NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We use string contains/equals to handle cases where types are not fully resolved
+            if (owner != null && 
+                !owner.getQualifiedName().contains(TARGET_OWNER_CLASS) && 
+                !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 3. Argument/Type Check (Example: Filter out already fixed calls)
+            // NEVER assume arg.getType() is not null in NoClasspath mode.
+            /*
+            if (!candidate.getArguments().isEmpty()) {
+                CtExpression<?> arg = candidate.getArguments().get(0);
+                CtTypeReference<?> type = arg.getType();
+                if (type != null && type.getQualifiedName().contains("NewType")) {
+                    return false; // Already migrated
+                }
+            }
+            */
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Example Transformation: Rename the method
+            // In a real scenario, you might wrap arguments or change types here.
+            invocation.getExecutable().setSimpleName(NEW_METHOD_NAME);
+            
+            System.out.println("Refactored invocation at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually (Preserves strict indentation/code structure)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TemplateProcessor());
+        
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

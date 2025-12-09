@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/3ff575ae202cdf76ddfa8a4228a1711a6fa1e921/plexus-archiver/src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java	2025-12-08 03:43:27.557801647 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/3ff575ae202cdf76ddfa8a4228a1711a6fa1e921/attempt_1/transformed/org/codehaus/plexus/archiver/DuplicateFilesTest.java	2025-12-08 03:44:40.272226284 +0100
+@@ -34,7 +34,7 @@
+         throws Exception
+     {
+         super.setUp();
+-        getContainer().getLoggerManager().setThreshold( Logger.LEVEL_DEBUG );
++        getContainer().lookup(org.codehaus.plexus.logging.LoggerManager.class).setThreshold( Logger.LEVEL_DEBUG );
+     }
+ 
+     public void testZipArchiver()

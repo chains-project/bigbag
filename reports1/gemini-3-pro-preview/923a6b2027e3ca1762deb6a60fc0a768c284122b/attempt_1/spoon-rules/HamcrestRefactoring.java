@@ -1,0 +1,143 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Collection;
+
+public class HamcrestRefactoring {
+
+    /**
+     * Processor to handle the removal of org.hamcrest.Matchers.
+     * Strategy: Replace references to 'org.hamcrest.Matchers' with 'org.hamcrest.CoreMatchers'.
+     * CoreMatchers is the standard subset that usually survives such split/removals.
+     */
+    public static class MatchersReplacementProcessor extends AbstractProcessor<CtElement> {
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // We target TypeReferences directly (used in code, variables, static calls)
+            // and Imports (definitions).
+            
+            // 1. Check if it is a TypeReference
+            if (candidate instanceof CtTypeReference) {
+                CtTypeReference<?> ref = (CtTypeReference<?>) candidate;
+                return isTargetType(ref);
+            }
+
+            // 2. Check if it is an Import (Spoon treats imports distinct from the body references sometimes)
+            if (candidate instanceof CtImport) {
+                CtImport imp = (CtImport) candidate;
+                if (imp.getReference() instanceof CtTypeReference) {
+                    return isTargetType((CtTypeReference<?>) imp.getReference());
+                }
+            }
+            
+            return false;
+        }
+
+        private boolean isTargetType(CtTypeReference<?> ref) {
+            // Defensive coding for NoClasspath
+            if (ref == null) return false;
+            
+            String simpleName = ref.getSimpleName();
+            if (!"Matchers".equals(simpleName)) {
+                return false;
+            }
+
+            // Check qualified name defensively
+            try {
+                // We match strict "org.hamcrest.Matchers"
+                // Using contains/endsWith is safer if packages aren't fully resolved,
+                // but we want to avoid accidental false positives.
+                String qName = ref.getQualifiedName();
+                return "org.hamcrest.Matchers".equals(qName);
+            } catch (Exception e) {
+                // In rare cases (noclasspath), getQualifiedName might fail if parent is missing
+                return false;
+            }
+        }
+
+        @Override
+        public void process(CtElement element) {
+            // If it's an import, we update the reference inside it
+            if (element instanceof CtImport) {
+                CtImport imp = (CtImport) element;
+                if (imp.getReference() instanceof CtTypeReference) {
+                    renameReference((CtTypeReference<?>) imp.getReference());
+                }
+            } 
+            // If it's a direct TypeReference
+            else if (element instanceof CtTypeReference) {
+                renameReference((CtTypeReference<?>) element);
+            }
+        }
+
+        private void renameReference(CtTypeReference<?> ref) {
+            // Change simple name to CoreMatchers
+            String oldName = ref.getSimpleName();
+            ref.setSimpleName("CoreMatchers");
+            
+            // Note: The package "org.hamcrest" remains the same.
+            // If the package changed, we would use:
+            // ref.setPackage(getFactory().Package().getOrCreate("new.package"));
+
+            System.out.println("Refactored " + oldName + " to CoreMatchers at line " 
+                + (ref.getPosition().isValidPosition() ? ref.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = "/home/kth/Documents/last_transformer/output/923a6b2027e3ca1762deb6a60fc0a768c284122b/jcabi-http/src/main/java/com/jcabi/http/response/RestResponse.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/923a6b2027e3ca1762deb6a60fc0a768c284122b/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/923a6b2027e3ca1762deb6a60fc0a768c284122b/jcabi-http/src/main/java/com/jcabi/http/response/RestResponse.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/923a6b2027e3ca1762deb6a60fc0a768c284122b/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Refactoring
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Enable NoClasspath mode (defensive)
+        launcher.getEnvironment().setNoClasspath(true);
+        // 3. Force Sniper Printer (Preserves formatting strictly)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        MatchersReplacementProcessor processor = new MatchersReplacementProcessor();
+        launcher.addProcessor(processor);
+
+        try {
+            launcher.buildModel();
+            
+            // HACK: Standard Spoon processors primarily visit types. 
+            // We explicitly visit CompilationUnits to ensure IMPORTS are processed 
+            // if the standard walker skips them in this version.
+            Collection<spoon.reflect.declaration.CtCompilationUnit> units = 
+                launcher.getFactory().CompilationUnit().getMap().values();
+            
+            for (spoon.reflect.declaration.CtCompilationUnit unit : units) {
+                // Process imports specifically
+                for (CtImport imp : unit.getImports()) {
+                    if (processor.isToBeProcessed(imp)) {
+                        processor.process(imp);
+                    }
+                }
+            }
+            
+            // Run standard processing for the rest of the code (Method bodies, etc.)
+            launcher.process();
+            
+            launcher.prettyprint();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4bba3fb6147e72946f64724fe55eee5d15ff6206/attempt_1/prompts/__cdi-test__cdi-test-api__src__main__java__de__hilling__junit__cdi__annotations__GlobalTestImplementation.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4bba3fb6147e72946f64724fe55eee5d15ff6206/attempt_1/prompts/__cdi-test__cdi-test-api__src__main__java__de__hilling__junit__cdi__annotations__GlobalTestImplementation.java_prompt_4_llm.txt",
+  "timestamp": 1765166373.4151006,
+  "duration_seconds": 21.064306020736694,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.declaration.CtAnnotation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class PriorityAnnotationMigration {\n\n    /**\n     * Processor to migrate javax.annotation.Priority to jakarta.annotation.Priority.\n     * The diff indicates the removal of javax.annotation.Priority, which typically\n     * implies a migration to the Jakarta EE namespace in modern dependencies.\n     */\n    public static class PriorityProcessor extends AbstractProcessor<CtAnnotation<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtAnnotation<?> candidate) {\n            // 1. Get the annotation type reference\n            CtTypeReference<?> typeRef = candidate.getAnnotationType();\n\n            // 2. Defensive check for nulls (NoClasspath safety)\n            if (typeRef == null) {\n                return false;\n            }\n\n            // 3. check by qualified name (String comparison) to avoid classpath issues\n            // We look specifically for the removed class: javax.annotation.Priority\n            return \"javax.annotation.Priority\".equals(typeRef.getQualifiedName());\n        }\n\n        @Override\n        public void process(CtAnnotation<?> annotation) {\n            // 1. Create the new type reference for Jakarta\n            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(\"jakarta.annotation.Priority\");\n\n            // 2. Replace the annotation type\n            // Spoon handles import management automatically when the model is saved/printed\n            annotation.setAnnotationType(newTypeRef);\n\n            System.out.println(\"Migrated @Priority annotation at \" \n                + (annotation.getPosition().isValidPosition() ? annotation.getPosition().toString() : \"unknown position\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Source Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting/indentation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode to run without full dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new PriorityProcessor());\n\n        try {\n            System.out.println(\"Starting refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Check output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1557,
+      "candidates_token_count": 676,
+      "total_token_count": 3313,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

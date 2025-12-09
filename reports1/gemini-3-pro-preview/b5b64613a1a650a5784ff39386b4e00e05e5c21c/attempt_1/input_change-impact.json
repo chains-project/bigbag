@@ -1,0 +1,1130 @@
+{
+  "project" : "artifactory-plugin",
+  "breakingCommit" : "b5b64613a1a650a5784ff39386b4e00e05e5c21c",
+  "dependency" : {
+    "groupId" : "org.jenkins-ci.plugins",
+    "artifactId" : "p4",
+    "previousVersion" : "1.3.8",
+    "newVersion" : "1.11.5",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/b5b64613a1a650a5784ff39386b4e00e05e5c21c.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/b5b64613a1a650a5784ff39386b4e00e05e5c21c/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateJFrogInstanceStep.java",
+    "errors" : [ {
+      "lineNumber" : 21,
+      "columnNumber" : 1,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   static isAllBlank", "location: class org.apache.commons.lang3.StringUtils" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateJFrogInstanceStep.java",
+        "lineNumber" : 21,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.774202182Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.commons.lang3.StringUtils#isAllBlank(java.lang.CharSequence[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 21,
+          "codeLine" : "import static org.apache.commons.lang3.StringUtils.isAllBlank;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 140,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)", "location: class org.jfrog.hudson.pipeline.declarative.steps.CreateJFrogInstanceStep.Execution" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateJFrogInstanceStep.java",
+        "lineNumber" : 140,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.774907901Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.lang3.StringUtils#isAllBlank(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.JFrogPlatformInstance#getUrl()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/JFrogPlatformInstance.java"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getUrl",
+            "declaringType" : "org.jenkinsci.plugins.p4.browsers.P4Browser",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.browsers.P4Browser.getUrl()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7543d0fa[public final getUrl ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.ArtifactoryServer#getUrl()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/ArtifactoryServer.java"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getUrl",
+            "declaringType" : "org.jenkinsci.plugins.p4.browsers.P4Browser",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.browsers.P4Browser.getUrl()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7543d0fa[public final getUrl ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.JFrogPlatformInstance#getArtifactory()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/JFrogPlatformInstance.java"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.DistributionServer#getUrl()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/DistributionServer.java"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getUrl",
+            "declaringType" : "org.jenkinsci.plugins.p4.browsers.P4Browser",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.browsers.P4Browser.getUrl()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7543d0fa[public final getUrl ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.JFrogPlatformInstance#getDistribution()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/JFrogPlatformInstance.java"
+          },
+          "lineNumber" : 140,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), server.getArtifactory().getUrl(), server.getDistribution().getUrl(),",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/ReleaseBundleDeleteExecutor.java",
+    "errors" : [ {
+      "lineNumber" : 51,
+      "columnNumber" : 71,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String)", "location: class org.apache.commons.lang3.StringUtils" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/ReleaseBundleDeleteExecutor.java",
+        "lineNumber" : 51,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.775810913Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.collections.CollectionUtils#isEmpty(java.util.Collection)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "commons-collections",
+            "artifactId" : "commons-collections",
+            "version" : "3.2.2",
+            "coordinates" : "commons-collections:commons-collections:3.2.2",
+            "sourcePath" : "/home/kth/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.collections.CollectionUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "commons-collections",
+            "artifactId" : "commons-collections",
+            "version" : "3.2.2",
+            "coordinates" : "commons-collections:commons-collections:3.2.2",
+            "sourcePath" : "/home/kth/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#isAllBlank(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.lang3.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/ReleaseBundleDistributeExecutor.java",
+    "errors" : [ {
+      "lineNumber" : 51,
+      "columnNumber" : 71,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String)", "location: class org.apache.commons.lang3.StringUtils" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/ReleaseBundleDistributeExecutor.java",
+        "lineNumber" : 51,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.776543067Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.collections.CollectionUtils#isEmpty(java.util.Collection)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "commons-collections",
+            "artifactId" : "commons-collections",
+            "version" : "3.2.2",
+            "coordinates" : "commons-collections:commons-collections:3.2.2",
+            "sourcePath" : "/home/kth/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.collections.CollectionUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "commons-collections",
+            "artifactId" : "commons-collections",
+            "version" : "3.2.2",
+            "coordinates" : "commons-collections:commons-collections:3.2.2",
+            "sourcePath" : "/home/kth/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#isAllBlank(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.lang3.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 51,
+          "codeLine" : "            if (!CollectionUtils.isEmpty(countryCodes) || !StringUtils.isAllBlank(siteName, cityName)) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateServerStep.java",
+    "errors" : [ {
+      "lineNumber" : 129,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String)", "location: class org.jfrog.hudson.pipeline.declarative.steps.CreateServerStep.Execution" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateServerStep.java",
+        "lineNumber" : 129,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.777810721Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#isAllBlank(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 129,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), step.url)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.jfrog.hudson.pipeline.common.types.ArtifactoryServer#getUrl()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/types/ArtifactoryServer.java"
+          },
+          "lineNumber" : 129,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), step.url)) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getUrl",
+            "declaringType" : "org.jenkinsci.plugins.p4.browsers.P4Browser",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.browsers.P4Browser.getUrl()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7543d0fa[public final getUrl ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.declarative.steps.CreateServerStep::url",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateServerStep.java"
+          },
+          "lineNumber" : 129,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), step.url)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.declarative.steps.CreateServerStep$Execution::step",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/declarative/steps/CreateServerStep.java"
+          },
+          "lineNumber" : 129,
+          "codeLine" : "            if (isAllBlank(server.getUrl(), step.url)) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/release/scm/perforce/P4Manager.java",
+    "errors" : [ {
+      "lineNumber" : 44,
+      "columnNumber" : 47,
+      "message" : "no suitable constructor found for ClientHelper(java.lang.String,hudson.model.TaskListener,java.lang.String,java.lang.String)",
+      "details" : [ "constructor org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(hudson.model.ItemGroup,java.lang.String,hudson.model.TaskListener,org.jenkinsci.plugins.p4.workspace.Workspace) is not applicable", "(argument mismatch; java.lang.String cannot be converted to hudson.model.ItemGroup)", "constructor org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(hudson.model.Item,java.lang.String,hudson.model.TaskListener,org.jenkinsci.plugins.p4.workspace.Workspace) is not applicable", "(argument mismatch; java.lang.String cannot be converted to hudson.model.Item)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/release/scm/perforce/P4Manager.java",
+        "lineNumber" : 44,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.779202280Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.plugins",
+            "artifactId" : "p4",
+            "version" : "1.11.5",
+            "coordinates" : "org.jenkins-ci.plugins:p4:1.11.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/plugins/p4/1.11.5/p4-1.11.5.jar"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 69
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.jenkinsci.plugins.p4.client.ClientHelper#<init>(org.jenkinsci.plugins.p4.credentials.P4BaseCredentials, hudson.model.TaskListener, org.jenkinsci.plugins.p4.workspace.Workspace)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.jenkins-ci.plugins",
+            "artifactId" : "p4",
+            "version" : "1.11.5",
+            "coordinates" : "org.jenkins-ci.plugins:p4:1.11.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/jenkins-ci/plugins/p4/1.11.5/p4-1.11.5.jar"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(org.jenkinsci.plugins.p4.credentials.P4BaseCredentials, hudson.model.TaskListener, org.jenkinsci.plugins.p4.workspace.Workspace)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@c8f618a[public ClientHelper (Lorg/jenkinsci/plugins/p4/credentials/P4BaseCredentials;Lhudson/model/TaskListener;Lorg/jenkinsci/plugins/p4/workspace/Workspace;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.jenkinsci.plugins.p4.credentials.P4BaseCredentials", "hudson.model.TaskListener", "org.jenkinsci.plugins.p4.workspace.Workspace" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(java.lang.String, hudson.model.TaskListener, java.lang.String, java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@5d9e4862[public ClientHelper (Ljava/lang/String;Lhudson/model/TaskListener;Ljava/lang/String;Ljava/lang/String;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "hudson.model.TaskListener", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(org.jenkinsci.plugins.p4.credentials.P4BaseCredentials, hudson.model.TaskListener, java.lang.String, java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@7760fdb7[public ClientHelper (Lorg/jenkinsci/plugins/p4/credentials/P4BaseCredentials;Lhudson/model/TaskListener;Ljava/lang/String;Ljava/lang/String;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.jenkinsci.plugins.p4.credentials.P4BaseCredentials", "hudson.model.TaskListener", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(hudson.model.Item, java.lang.String, hudson.model.TaskListener, org.jenkinsci.plugins.p4.workspace.Workspace)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@7882d2a0[public ClientHelper (Lhudson/model/Item;Ljava/lang/String;Lhudson/model/TaskListener;Lorg/jenkinsci/plugins/p4/workspace/Workspace;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "hudson.model.Item", "java.lang.String", "hudson.model.TaskListener", "org.jenkinsci.plugins.p4.workspace.Workspace" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(hudson.model.Item, java.lang.String, hudson.model.TaskListener)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@23fdf521[protected ClientHelper (Lhudson/model/Item;Ljava/lang/String;Lhudson/model/TaskListener;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "hudson.model.Item", "java.lang.String", "hudson.model.TaskListener" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper.ClientHelper(hudson.model.ItemGroup, java.lang.String, hudson.model.TaskListener, org.jenkinsci.plugins.p4.workspace.Workspace)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@530039ac[public ClientHelper (Lhudson/model/ItemGroup;Ljava/lang/String;Lhudson/model/TaskListener;Lorg/jenkinsci/plugins/p4/workspace/Workspace;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "hudson.model.ItemGroup", "java.lang.String", "hudson.model.TaskListener", "org.jenkinsci.plugins.p4.workspace.Workspace" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "declaringType" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.client.ClientHelper",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 69
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.release.scm.AbstractScmManager::buildListener",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/release/scm/AbstractScmManager.java"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.nio.charset.Charset#toString()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.changes.P4ChangeRef",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.changes.P4ChangeRef.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.changes.P4GraphRef",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.changes.P4GraphRef.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.changes.P4LabelRef",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.changes.P4LabelRef.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.changes.P4Ref",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.changes.P4Ref.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public abstract toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.scm.P4Path",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.scm.P4Path.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.scm.P4SCMHead",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.scm.P4SCMHead.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "toString",
+            "declaringType" : "org.jenkinsci.plugins.p4.scm.P4SCMRevision",
+            "qualifiedSignature" : "org.jenkinsci.plugins.p4.scm.P4SCMRevision.toString()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "java.nio.charset.StandardCharsets::UTF_8",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.nio.charset.StandardCharsets",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 44,
+          "codeLine" : "                ClientHelper perforceClient = new ClientHelper(credentials, buildListener, clientString, StandardCharsets.UTF_8.toString());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/CreateDockerBuildExecutor.java",
+    "errors" : [ {
+      "lineNumber" : 34,
+      "columnNumber" : 24,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String)", "location: class org.apache.commons.lang3.StringUtils" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/common/executors/CreateDockerBuildExecutor.java",
+        "lineNumber" : 34,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.779872311Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#isAllBlank(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        if (StringUtils.isAllBlank(kanikoImageFile, jibImageFile) || StringUtils.isNoneBlank(kanikoImageFile, jibImageFile)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.lang3.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        if (StringUtils.isAllBlank(kanikoImageFile, jibImageFile) || StringUtils.isNoneBlank(kanikoImageFile, jibImageFile)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.common.executors.CreateDockerBuildExecutor::kanikoImageFile",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/executors/CreateDockerBuildExecutor.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        if (StringUtils.isAllBlank(kanikoImageFile, jibImageFile) || StringUtils.isNoneBlank(kanikoImageFile, jibImageFile)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.common.executors.CreateDockerBuildExecutor::jibImageFile",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/common/executors/CreateDockerBuildExecutor.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        if (StringUtils.isAllBlank(kanikoImageFile, jibImageFile) || StringUtils.isNoneBlank(kanikoImageFile, jibImageFile)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.lang3.StringUtils#isNoneBlank(java.lang.CharSequence[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        if (StringUtils.isAllBlank(kanikoImageFile, jibImageFile) || StringUtils.isNoneBlank(kanikoImageFile, jibImageFile)) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java",
+    "errors" : [ {
+      "lineNumber" : 73,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method isAllBlank(java.lang.String,java.lang.String,java.lang.String)", "location: class org.jfrog.hudson.pipeline.scripted.steps.CreateJFrogPlatformInstanceStep.Execution" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/artifactory-plugin/src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java",
+        "lineNumber" : 73,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.3.8.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b5b64613a1a650a5784ff39386b4e00e05e5c21c/p4-1.11.5.jar",
+        "generatedAt" : "2025-12-08T08:51:13.780925328Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#isAllBlank(java.lang.String, java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 73,
+          "codeLine" : "            if (isAllBlank(step.url, step.artifactoryUrl, step.distributionUrl)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.scripted.steps.CreateJFrogPlatformInstanceStep::url",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "            if (isAllBlank(step.url, step.artifactoryUrl, step.distributionUrl)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.scripted.steps.CreateJFrogPlatformInstanceStep$Execution::step",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "            if (isAllBlank(step.url, step.artifactoryUrl, step.distributionUrl)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.scripted.steps.CreateJFrogPlatformInstanceStep::artifactoryUrl",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "            if (isAllBlank(step.url, step.artifactoryUrl, step.distributionUrl)) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.jfrog.hudson.pipeline.scripted.steps.CreateJFrogPlatformInstanceStep::distributionUrl",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/jfrog/hudson/pipeline/scripted/steps/CreateJFrogPlatformInstanceStep.java"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "            if (isAllBlank(step.url, step.artifactoryUrl, step.distributionUrl)) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

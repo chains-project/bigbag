@@ -1,0 +1,85 @@
+Based on the provided diff, the class `org.springframework.util.FileSystemUtils` is marked as **UNCHANGED** with `binaryCompatible=true` and `sourceCompatible=true`.
+
+Consequently, **no AST transformations are required**. However, to fulfill the requirement of generating a self-contained Spoon class, the code below implements a **Scanner/Verifier**. It identifies usages of the class to ensure the Spoon environment and Sniper printer are configured correctly without modifying the source code, serving as a boilerplate for future changes.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FileSystemUtilsRefactoring {
+
+    /**
+     * Processor designed to handle 'org.springframework.util.FileSystemUtils'.
+     * 
+     * Analysis of Diff:
+     * - Status: UNCHANGED
+     * - Binary Compatible: True
+     * - Source Compatible: True
+     * 
+     * Strategy:
+     * This processor identifies usages of the class but performs NO transformation (No-Op),
+     * ensuring source code is preserved exactly as is via the Sniper printer.
+     */
+    public static class FileSystemUtilsProcessor extends AbstractProcessor<CtTypeAccess<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtTypeAccess<?> candidate) {
+            CtTypeReference<?> accessedType = candidate.getAccessedType();
+
+            // Defensive Coding: Handle NoClasspath scenario where types might be null
+            if (accessedType == null) {
+                return false;
+            }
+
+            // Loose matching to catch qualified names without requiring full classpath resolution
+            String qName = accessedType.getQualifiedName();
+            return qName != null && qName.contains("org.springframework.util.FileSystemUtils");
+        }
+
+        @Override
+        public void process(CtTypeAccess<?> element) {
+            // Per the diff, the class is Unchanged.
+            // We log the discovery to prove the processor ran, but apply no changes.
+            System.out.println("Verified valid usage of FileSystemUtils at " 
+                + element.getPosition().getFile().getName() 
+                + ":" + element.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of unchanged code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Set NoClasspath to true for robust execution without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FileSystemUtilsProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring scan complete. Output generated in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

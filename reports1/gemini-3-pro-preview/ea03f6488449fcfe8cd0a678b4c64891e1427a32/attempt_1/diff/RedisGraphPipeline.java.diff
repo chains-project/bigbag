@@ -1,0 +1,15 @@
+--- /home/kth/Documents/last_transformer/output/ea03f6488449fcfe8cd0a678b4c64891e1427a32/JRedisGraph/src/main/java/com/redislabs/redisgraph/RedisGraphPipeline.java	2025-12-08 12:02:34.290482585 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ea03f6488449fcfe8cd0a678b4c64891e1427a32/attempt_1/transformed/com/redislabs/redisgraph/RedisGraphPipeline.java	2025-12-08 12:06:52.856257839 +0100
+@@ -17,11 +17,7 @@
+ /**
+  * An interface which aligned to Jedis Pipeline interface
+  */
+-public interface RedisGraphPipeline extends
+-        MultiKeyBinaryRedisPipeline,
+-        MultiKeyCommandsPipeline, ClusterPipeline,
+-        BinaryScriptingCommandsPipeline, ScriptingCommandsPipeline,
+-        BasicRedisPipeline, BinaryRedisPipeline, RedisPipeline, Closeable {
++public interface RedisGraphPipeline extends redis.clients.jedis.Pipeline , Closeable {
+ 
+     /**
+      * Execute a Cypher query.

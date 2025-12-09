@@ -1,0 +1,16 @@
+--- /home/kth/Documents/last_transformer/output/0e8625f492854a78c0e1ceff67b2abd7e081d42b/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java	2025-12-08 01:44:54.046115955 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/0e8625f492854a78c0e1ceff67b2abd7e081d42b/attempt_1/transformed/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java	2025-12-08 01:46:19.719770306 +0100
+@@ -30,10 +30,10 @@
+ 
+     public JettyStubHttpServer(final int port) {
+         this.server = new Server();
+-        this.server.setSendServerVersion(false);
+-        this.server.setSendDateHeader(true);
++        /* FIXME: setSendServerVersion removed. Moved to HttpConfiguration. */
++        /* FIXME: setSendDateHeader removed. Moved to HttpConfiguration. */
+ 
+-        this.httpConnector = new SelectChannelConnector();
++        this.httpConnector = new org.eclipse.jetty.server.ServerConnector();
+         this.httpConnector.setPort(port);
+         server.addConnector(this.httpConnector);
+     }

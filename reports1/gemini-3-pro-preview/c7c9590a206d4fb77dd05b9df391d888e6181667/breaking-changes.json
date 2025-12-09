@@ -1,0 +1,1555 @@
+{
+  "project" : "scoverage-maven-plugin",
+  "breakingCommit" : "c7c9590a206d4fb77dd05b9df391d888e6181667",
+  "dependencyGroupId" : "org.apache.maven.doxia",
+  "dependencyArtifactId" : "doxia-site-renderer",
+  "previousVersion" : "1.0",
+  "newVersion" : "1.11.1",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.0.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.11.1.jar",
+  "generatedAt" : "2025-12-08T09:31:39.260931538Z",
+  "totalBreakingChanges" : 63,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer",
+    "simpleName" : "DefaultSiteRenderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "addModuleFiles",
+    "simpleName" : "addModuleFiles",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#addModuleFiles(java.io.File, org.apache.maven.doxia.module.site.SiteModule, java.lang.String, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@721c4e1e[private addModuleFiles (Ljava/io/File;Lorg/apache/maven/doxia/module/site/SiteModule;Ljava/lang/String;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "org.apache.maven.doxia.module.site.SiteModule", "java.lang.String", "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "closeZipFile",
+    "simpleName" : "closeZipFile",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#closeZipFile(java.util.zip.ZipFile)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_STATIC",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@6ef7f54[private closeZipFile (Ljava/util/zip/ZipFile;)V]",
+      "newValue" : "javassist.CtMethod@6ef7f54[private static closeZipFile (Ljava/util/zip/ZipFile;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ "java.util.zip.ZipFile" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "copyFileFromZip",
+    "simpleName" : "copyFileFromZip",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#copyFileFromZip(java.util.zip.ZipFile, java.util.zip.ZipEntry, java.io.File)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_STATIC",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@53d1704c[private copyFileFromZip (Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V]",
+      "newValue" : "javassist.CtMethod@53d1704c[private static copyFileFromZip (Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;Ljava/io/File;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ "java.util.zip.ZipFile", "java.util.zip.ZipEntry", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContext",
+    "simpleName" : "createContext",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#createContext(org.apache.maven.doxia.siterenderer.sink.SiteRendererSink, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1e52e1cb[private createContext (Lorg/apache/maven/doxia/siterenderer/sink/SiteRendererSink;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)Lorg/apache/velocity/context/Context;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.velocity.context.Context",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForSkin",
+    "simpleName" : "createContextForSkin",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#createContextForSkin(java.io.File, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@238420ba[public createContextForSkin (Ljava/io/File;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForTemplate",
+    "simpleName" : "createContextForTemplate",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#createContextForTemplate(java.io.File, java.io.File, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ab883654[public createContextForTemplate (Ljava/io/File;Ljava/io/File;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "java.io.File", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "locateDocumentFiles",
+    "simpleName" : "locateDocumentFiles",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#locateDocumentFiles(org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9a7306e7[public locateDocumentFiles (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)Ljava/util/Map;]",
+      "newValue" : "javassist.CtMethod@9a7306e7[public locateDocumentFiles (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)Ljava/util/Map;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "processTemplate",
+    "simpleName" : "processTemplate",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#processTemplate(java.lang.String, org.apache.velocity.context.Context, java.io.Writer)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a9338b9e[private processTemplate (Ljava/lang/String;Lorg/apache/velocity/context/Context;Ljava/io/Writer;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "org.apache.velocity.context.Context", "java.io.Writer" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "render",
+    "simpleName" : "render",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#render(java.util.Collection, org.apache.maven.doxia.siterenderer.SiteRenderingContext, java.io.File)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f0519deb[public render (Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "newValue" : "javassist.CtMethod@f0519deb[public render (Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.util.Collection", "org.apache.maven.doxia.siterenderer.SiteRenderingContext", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "renderDocument",
+    "simpleName" : "renderDocument",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#renderDocument(java.io.Writer, org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4fc269c7[public renderDocument (Ljava/io/Writer;Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.Writer", "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "renderModule",
+    "simpleName" : "renderModule",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#renderModule(java.util.Collection, org.apache.maven.doxia.siterenderer.SiteRenderingContext, java.io.File)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@305297f7[private renderModule (Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Collection", "org.apache.maven.doxia.siterenderer.SiteRenderingContext", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "writeTemplate",
+    "simpleName" : "writeTemplate",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer#writeTemplate(java.io.Writer, org.apache.velocity.context.Context, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@68669260[private writeTemplate (Ljava/io/Writer;Lorg/apache/velocity/context/Context;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.Writer", "org.apache.velocity.context.Context", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "siteModuleManager",
+    "simpleName" : "siteModuleManager",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer::siteModuleManager",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.siteModuleManager:Lorg/apache/maven/doxia/module/site/manager/SiteModuleManager;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.module.site.manager.SiteModuleManager",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.DocumentRenderer",
+    "simpleName" : "DocumentRenderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DocumentRenderer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRenderingContext",
+    "simpleName" : "getRenderingContext",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DocumentRenderer#getRenderingContext()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9374c3ba[public abstract getRenderingContext ()Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;]",
+      "newValue" : "javassist.CtMethod@9374c3ba[public abstract getRenderingContext ()Lorg/apache/maven/doxia/siterenderer/RenderingContext;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+      "newValue" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isExternalReport",
+    "simpleName" : "isExternalReport",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DocumentRenderer#isExternalReport()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@a7f9676a[public abstract isExternalReport ()Z]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "boolean",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer",
+    "simpleName" : "DoxiaDocumentRenderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DoxiaDocumentRenderer",
+    "simpleName" : "DoxiaDocumentRenderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer#DoxiaDocumentRenderer(org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5d680763[public DoxiaDocumentRenderer (Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getRenderingContext",
+    "simpleName" : "getRenderingContext",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer#getRenderingContext()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9374c3ba[public getRenderingContext ()Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;]",
+      "newValue" : "javassist.CtMethod@9374c3ba[public getRenderingContext ()Lorg/apache/maven/doxia/siterenderer/RenderingContext;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+      "newValue" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "renderingContext",
+    "simpleName" : "renderingContext",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer::renderingContext",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer.renderingContext:Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer.renderingContext:Lorg/apache/maven/doxia/siterenderer/RenderingContext;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+      "newValue" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.ModuleReference",
+    "simpleName" : "ModuleReference",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ModuleReference",
+    "simpleName" : "ModuleReference",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference#ModuleReference(java.lang.String, java.io.File)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@b936265[ ModuleReference (Ljava/lang/String;Ljava/io/File;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getBasedir",
+    "simpleName" : "getBasedir",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference#getBasedir()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@936a9f67[public getBasedir ()Ljava/io/File;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getParserId",
+    "simpleName" : "getParserId",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference#getParserId()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b4c57811[public getParserId ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "basedir",
+    "simpleName" : "basedir",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference::basedir",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.ModuleReference.basedir:Ljava/io/File;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "parserId",
+    "simpleName" : "parserId",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.ModuleReference::parserId",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.ModuleReference.parserId:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.Renderer",
+    "simpleName" : "Renderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "copyResources",
+    "simpleName" : "copyResources",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#copyResources(org.apache.maven.doxia.siterenderer.SiteRenderingContext, java.io.File)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@c1985b96[public abstract copyResources (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.maven.doxia.siterenderer.SiteRenderingContext", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForSkin",
+    "simpleName" : "createContextForSkin",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#createContextForSkin(java.io.File, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@238420ba[public abstract createContextForSkin (Ljava/io/File;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForSkin",
+    "simpleName" : "createContextForSkin",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#createContextForSkin(org.apache.maven.artifact.Artifact, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@ac6ae83d[public abstract createContextForSkin (Lorg/apache/maven/artifact/Artifact;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.maven.artifact.Artifact", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForTemplate",
+    "simpleName" : "createContextForTemplate",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#createContextForTemplate(java.io.File, java.io.File, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ab883654[public abstract createContextForTemplate (Ljava/io/File;Ljava/io/File;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File", "java.io.File", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createContextForTemplate",
+    "simpleName" : "createContextForTemplate",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#createContextForTemplate(java.io.File, java.util.Map, org.apache.maven.doxia.site.decoration.DecorationModel, java.lang.String, java.util.Locale)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "ANNOTATION_DEPRECATED_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@a99f9a9d[public abstract createContextForTemplate (Ljava/io/File;Ljava/util/Map;Lorg/apache/maven/doxia/site/decoration/DecorationModel;Ljava/lang/String;Ljava/util/Locale;)Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.io.File", "java.util.Map", "org.apache.maven.doxia.site.decoration.DecorationModel", "java.lang.String", "java.util.Locale" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "locateDocumentFiles",
+    "simpleName" : "locateDocumentFiles",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#locateDocumentFiles(org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@9a7306e7[public abstract locateDocumentFiles (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)Ljava/util/Map;]",
+      "newValue" : "javassist.CtMethod@9a7306e7[public abstract locateDocumentFiles (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)Ljava/util/Map;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "locateDocumentFiles",
+    "simpleName" : "locateDocumentFiles",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#locateDocumentFiles(org.apache.maven.doxia.siterenderer.SiteRenderingContext, boolean)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@b3eddc11[public abstract locateDocumentFiles (Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Z)Ljava/util/Map;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "java.util.Map",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.maven.doxia.siterenderer.SiteRenderingContext", "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "mergeDocumentIntoSite",
+    "simpleName" : "mergeDocumentIntoSite",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#mergeDocumentIntoSite(java.io.Writer, org.apache.maven.doxia.siterenderer.DocumentContent, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@fcccc09[public abstract mergeDocumentIntoSite (Ljava/io/Writer;Lorg/apache/maven/doxia/siterenderer/DocumentContent;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.io.Writer", "org.apache.maven.doxia.siterenderer.DocumentContent", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "render",
+    "simpleName" : "render",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#render(java.util.Collection, org.apache.maven.doxia.siterenderer.SiteRenderingContext, java.io.File)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f0519deb[public abstract render (Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "newValue" : "javassist.CtMethod@f0519deb[public abstract render (Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.util.Collection", "org.apache.maven.doxia.siterenderer.SiteRenderingContext", "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "renderDocument",
+    "simpleName" : "renderDocument",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#renderDocument(java.io.Writer, org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4fc269c7[public abstract renderDocument (Ljava/io/Writer;Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.Writer", "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "renderDocument",
+    "simpleName" : "renderDocument",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer#renderDocument(java.io.Writer, org.apache.maven.doxia.siterenderer.RenderingContext, org.apache.maven.doxia.siterenderer.SiteRenderingContext)",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@af4a77c3[public abstract renderDocument (Ljava/io/Writer;Lorg/apache/maven/doxia/siterenderer/RenderingContext;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.io.Writer", "org.apache.maven.doxia.siterenderer.RenderingContext", "org.apache.maven.doxia.siterenderer.SiteRenderingContext" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.Renderer$1",
+    "simpleName" : "Renderer$1",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "class$",
+    "simpleName" : "class$",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer$1#class$(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a66aece3[static class$ (Ljava/lang/String;)Ljava/lang/Class;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Class",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "class$org$apache$maven$doxia$siterenderer$Renderer",
+    "simpleName" : "class$org$apache$maven$doxia$siterenderer$Renderer",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.Renderer$1::class$org$apache$maven$doxia$siterenderer$Renderer",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.Renderer$1.class$org$apache$maven$doxia$siterenderer$Renderer:Ljava/lang/Class;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Class",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+    "simpleName" : "SiteRenderingContext",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getModuleExcludes",
+    "simpleName" : "getModuleExcludes",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#getModuleExcludes()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8534a39c[public getModuleExcludes ()Ljava/util/Map;]",
+      "newValue" : "javassist.CtMethod@8534a39c[public getModuleExcludes ()Ljava/util/Map;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getModules",
+    "simpleName" : "getModules",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#getModules()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a2ead812[public getModules ()Ljava/util/List;]",
+      "newValue" : "javassist.CtMethod@a2ead812[public getModules ()Ljava/util/List;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSiteDirectories",
+    "simpleName" : "getSiteDirectories",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#getSiteDirectories()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3a92694f[public getSiteDirectories ()Ljava/util/List;]",
+      "newValue" : "javassist.CtMethod@3a92694f[public getSiteDirectories ()Ljava/util/List;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSkinJarFile",
+    "simpleName" : "getSkinJarFile",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#getSkinJarFile()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@66e5a4c5[public getSkinJarFile ()Ljava/io/File;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getTemplateProperties",
+    "simpleName" : "getTemplateProperties",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#getTemplateProperties()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@41100784[public getTemplateProperties ()Ljava/util/Map;]",
+      "newValue" : "javassist.CtMethod@41100784[public getTemplateProperties ()Ljava/util/Map;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setModuleExcludes",
+    "simpleName" : "setModuleExcludes",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#setModuleExcludes(java.util.Map)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@625971f[public setModuleExcludes (Ljava/util/Map;)V]",
+      "newValue" : "javassist.CtMethod@625971f[public setModuleExcludes (Ljava/util/Map;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setSkinJarFile",
+    "simpleName" : "setSkinJarFile",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#setSkinJarFile(java.io.File)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bd0dfda2[public setSkinJarFile (Ljava/io/File;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.File" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setTemplateProperties",
+    "simpleName" : "setTemplateProperties",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext#setTemplateProperties(java.util.Map)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@404b0c37[public setTemplateProperties (Ljava/util/Map;)V]",
+      "newValue" : "javassist.CtMethod@404b0c37[public setTemplateProperties (Ljava/util/Map;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.util.Map" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "DEFAULT_INPUT_ENCODING",
+    "simpleName" : "DEFAULT_INPUT_ENCODING",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::DEFAULT_INPUT_ENCODING",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.DEFAULT_INPUT_ENCODING:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "DEFAULT_OUTPUT_ENCODING",
+    "simpleName" : "DEFAULT_OUTPUT_ENCODING",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::DEFAULT_OUTPUT_ENCODING",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.DEFAULT_OUTPUT_ENCODING:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "moduleExcludes",
+    "simpleName" : "moduleExcludes",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::moduleExcludes",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.moduleExcludes:Ljava/util/Map;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.moduleExcludes:Ljava/util/Map;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "modules",
+    "simpleName" : "modules",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::modules",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.modules:Ljava/util/List;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.modules:Ljava/util/List;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "siteDirectories",
+    "simpleName" : "siteDirectories",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::siteDirectories",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.siteDirectories:Ljava/util/List;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.siteDirectories:Ljava/util/List;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "skinJarFile",
+    "simpleName" : "skinJarFile",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::skinJarFile",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.skinJarFile:Ljava/io/File;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.io.File",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "templateProperties",
+    "simpleName" : "templateProperties",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext::templateProperties",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.templateProperties:Ljava/util/Map;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.SiteRenderingContext.templateProperties:Ljava/util/Map;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.Map",
+      "newValue" : "java.util.Map",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink",
+    "simpleName" : "SiteRendererSink",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SiteRendererSink",
+    "simpleName" : "SiteRendererSink",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink#SiteRendererSink(org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@4462af7e[public SiteRendererSink (Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SiteRendererSink",
+    "simpleName" : "SiteRendererSink",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink#SiteRendererSink(java.io.StringWriter, org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@246c1d40[private SiteRendererSink (Ljava/io/StringWriter;Lorg/apache/maven/doxia/module/xhtml/decoration/render/RenderingContext;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.io.StringWriter", "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getAuthors",
+    "simpleName" : "getAuthors",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink#getAuthors()",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@57619493[public getAuthors ()Ljava/util/List;]",
+      "newValue" : "javassist.CtMethod@57619493[public getAuthors ()Ljava/util/List;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "authors",
+    "simpleName" : "authors",
+    "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink::authors",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_GENERICS_CHANGED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink.authors:Ljava/util/List;",
+      "newValue" : "org.apache.maven.doxia.siterenderer.sink.SiteRendererSink.authors:Ljava/util/List;",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : "java.util.List",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  } ]
+}

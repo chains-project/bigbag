@@ -1,0 +1,84 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FileSystemUtilsRefactoring {
+
+    /**
+     * Processor for org.springframework.util.FileSystemUtils.
+     * 
+     * Analysis based on input diff:
+     * - CLASS org.springframework.util.FileSystemUtils [status=UNCHANGED, binaryCompatible=true, sourceCompatible=true]
+     * 
+     * Strategy:
+     * Since the input explicitly states the class is UNCHANGED and binary/source compatible,
+     * no breaking changes exist. This processor is configured to identify usages of the class
+     * strictly for verification purposes, but performs no AST modifications (No-Op) to preserve integrity.
+     */
+    public static class FileSystemUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Check: Ensure executable reference exists
+            if (candidate.getExecutable() == null) return false;
+
+            // 2. Owner/Declaring Type Check
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // Defensive coding for NoClasspath: Handle null or <unknown> types
+            if (owner == null) return false;
+            
+            String qualifiedName = owner.getQualifiedName();
+            if (qualifiedName == null || qualifiedName.equals("<unknown>")) {
+                // In NoClasspath, sometimes simple name suffices if imports are missing, 
+                // but we prefer qualified checking if available.
+                return "FileSystemUtils".equals(owner.getSimpleName());
+            }
+
+            // 3. Exact Match on Class Name
+            return qualifiedName.equals("org.springframework.util.FileSystemUtils");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // According to the dependency diff, the class is UNCHANGED.
+            // No Refactoring is required.
+            // Logging usage for verification/audit purposes only.
+            System.out.println("Verified usage of FileSystemUtils (UNCHANGED) at line " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/1e1de78344a89be66d2e78f7adb07a479f6677eb/LPVS/src/main/java/com/lpvs/util/FileUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1e1de78344a89be66d2e78f7adb07a479f6677eb/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/1e1de78344a89be66d2e78f7adb07a479f6677eb/LPVS/src/main/java/com/lpvs/util/FileUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1e1de78344a89be66d2e78f7adb07a479f6677eb/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ and robust refactoring
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve code formatting/indentation strictly
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FileSystemUtilsProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

@@ -1,0 +1,99 @@
+Based on the provided dependency diff, the class `org.springframework.core.task.TaskExecutor` is marked as **UNCHANGED** with both binary and source compatibility preserved.
+
+Consequently, **no structural refactoring (AST transformation) is required**. However, to fulfill the request for a Spoon tool capable of handling this class (perhaps for audit, verification, or future-proofing), I have generated a **Reference Scanner**. This processor correctly sets up the **Sniper** environment (preserving formatting) and identifies usages of `TaskExecutor` without modifying them, serving as a compliant boilerplate for this specific class.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring/Analysis Rule for org.springframework.core.task.TaskExecutor.
+ * 
+ * ANALYSIS:
+ * Input Diff: CLASS org.springframework.core.task.TaskExecutor [status=UNCHANGED]
+ * Strategy: The diff indicates no API breaking changes. 
+ *           This processor identifies usages of the class for verification purposes
+ *           but performs NO transformations, preserving source code integrity.
+ */
+public class TaskExecutorRefactoring {
+
+    public static class TaskExecutorProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // 1. Defensive Check for NoClasspath
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // 2. Match the specific class
+            // Using string matching to be safe in NoClasspath mode where reflection might fail
+            String qName = candidate.getQualifiedName();
+            if (qName.equals("org.springframework.core.task.TaskExecutor")) {
+                return true;
+            }
+            
+            // Handle cases where it might be simple name "TaskExecutor" 
+            // and we rely on imports (approximated in NoClasspath)
+            return "TaskExecutor".equals(candidate.getSimpleName()) && 
+                   (qName.contains("springframework") || qName.equals("TaskExecutor"));
+        }
+
+        @Override
+        public void process(CtTypeReference<?> typeRef) {
+            // Logic: The diff states the class is UNCHANGED.
+            // Action: Log presence, do not modify.
+            
+            // Note: If a transformation were needed in the future, 
+            // typeRef.replace(...) would be called here.
+            
+            System.out.println("Verified usage of stable API: " + 
+                typeRef.getQualifiedName() + " at line " + 
+                (typeRef.getPosition().isValidPosition() ? typeRef.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ========================================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING
+        // ========================================================================
+        // 1. Enable comments to ensure they are captured in the AST
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to allow precise modification (or no-op)
+        //    without destroying original formatting, indentation, or imports.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+        // ========================================================================
+
+        launcher.addProcessor(new TaskExecutorProcessor());
+
+        try {
+            System.out.println("Starting Analysis/Refactoring for TaskExecutor...");
+            launcher.run();
+            System.out.println("Processing complete. Check " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

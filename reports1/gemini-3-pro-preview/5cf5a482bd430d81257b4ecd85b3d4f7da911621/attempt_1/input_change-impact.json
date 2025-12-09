@@ -1,0 +1,3121 @@
+{
+  "project" : "jakartaee-mvc-sample",
+  "breakingCommit" : "5cf5a482bd430d81257b4ecd85b3d4f7da911621",
+  "dependency" : {
+    "groupId" : "jakarta.mvc",
+    "artifactId" : "jakarta.mvc-api",
+    "previousVersion" : "1.1.0",
+    "newVersion" : "2.0.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/5cf5a482bd430d81257b4ecd85b3d4f7da911621.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/5cf5a482bd430d81257b4ecd85b3d4f7da911621/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/AlertMessage.java",
+    "errors" : [ {
+      "lineNumber" : 7,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/AlertMessage.java",
+        "lineNumber" : 7,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.130651402Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.RedirectScoped",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 7,
+          "codeLine" : "import javax.mvc.RedirectScoped;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.RedirectScoped",
+            "declaringType" : "javax.mvc.RedirectScoped",
+            "qualifiedSignature" : "javax.mvc.RedirectScoped",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 14,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class RedirectScoped" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/AlertMessage.java",
+        "lineNumber" : 14,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.130984204Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.RedirectScoped",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 14,
+          "codeLine" : "@RedirectScoped",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.RedirectScoped",
+            "declaringType" : "javax.mvc.RedirectScoped",
+            "qualifiedSignature" : "javax.mvc.RedirectScoped",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+    "errors" : [ {
+      "lineNumber" : 12,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.131608267Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.Controller",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import javax.mvc.Controller;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Controller",
+            "declaringType" : "javax.mvc.Controller",
+            "qualifiedSignature" : "javax.mvc.Controller",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 13,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 13,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.132185924Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 13,
+          "codeLine" : "import javax.mvc.Models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 14,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 14,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.132684712Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.View",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 14,
+          "codeLine" : "import javax.mvc.View;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.View",
+            "declaringType" : "javax.mvc.View",
+            "qualifiedSignature" : "javax.mvc.View",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 15,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 15,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.133195728Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 15,
+          "codeLine" : "import javax.mvc.binding.BindingResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 16,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 16,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.133696546Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.ParamError",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 16,
+          "codeLine" : "import javax.mvc.binding.ParamError;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.ParamError",
+            "declaringType" : "javax.mvc.binding.ParamError",
+            "qualifiedSignature" : "javax.mvc.binding.ParamError",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 17,
+      "columnNumber" : 26,
+      "message" : "package javax.mvc.security does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 17,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.134192949Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 17,
+          "codeLine" : "import javax.mvc.security.CsrfProtected;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 33,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Controller" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.134623410Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.Controller",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "@Controller",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Controller",
+            "declaringType" : "javax.mvc.Controller",
+            "qualifiedSignature" : "javax.mvc.Controller",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 41,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Models", "location: class com.example.web.TaskController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.135118336Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    private Models models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 44,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BindingResult", "location: class com.example.web.TaskController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 44,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.135562877Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 44,
+          "codeLine" : "    private BindingResult validationResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 53,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class View", "location: class com.example.web.TaskController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 53,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.136088351Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.View",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    @View(\"tasks.xhtml\")",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.View",
+            "declaringType" : "javax.mvc.View",
+            "qualifiedSignature" : "javax.mvc.View",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 89,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class CsrfProtected", "location: class com.example.web.TaskController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 89,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.136519474Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 89,
+          "codeLine" : "    @CsrfProtected",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 134,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class CsrfProtected", "location: class com.example.web.TaskController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java",
+        "lineNumber" : 134,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.137154684Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 134,
+          "codeLine" : "    @CsrfProtected",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/TaskForm.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskForm.java",
+        "lineNumber" : 5,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.137577540Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 5,
+          "codeLine" : "import javax.mvc.binding.MvcBinding;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 19,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcBinding", "location: class com.example.web.TaskForm" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskForm.java",
+        "lineNumber" : 19,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.137874638Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 19,
+          "codeLine" : "    @MvcBinding",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 25,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcBinding", "location: class com.example.web.TaskForm" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskForm.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138119862Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "    @MvcBinding",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/LocaleController.java",
+    "errors" : [ {
+      "lineNumber" : 9,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/LocaleController.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138341101Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.MvcContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import javax.mvc.MvcContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.MvcContext",
+            "declaringType" : "javax.mvc.MvcContext",
+            "qualifiedSignature" : "javax.mvc.MvcContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 18,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Controller" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/LocaleController.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138452170Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.Controller",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "@Controller",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Controller",
+            "declaringType" : "javax.mvc.Controller",
+            "qualifiedSignature" : "javax.mvc.Controller",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 23,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcContext", "location: class com.example.web.LocaleController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/LocaleController.java",
+        "lineNumber" : 23,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138564872Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.MvcContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 23,
+          "codeLine" : "    MvcContext mvc;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.MvcContext",
+            "declaringType" : "javax.mvc.MvcContext",
+            "qualifiedSignature" : "javax.mvc.MvcContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 26,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Models", "location: class com.example.web.LocaleController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/LocaleController.java",
+        "lineNumber" : 26,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138670514Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 26,
+          "codeLine" : "    Models models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+    "errors" : [ {
+      "lineNumber" : 8,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 8,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.138958022Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.UriRef",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 8,
+          "codeLine" : "import javax.mvc.UriRef;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.UriRef",
+            "declaringType" : "javax.mvc.UriRef",
+            "qualifiedSignature" : "javax.mvc.UriRef",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 9,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139145269Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import javax.mvc.binding.BindingResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 10,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139326050Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import javax.mvc.binding.MvcBinding;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139458787Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.ParamError",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import javax.mvc.binding.ParamError;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.ParamError",
+            "declaringType" : "javax.mvc.binding.ParamError",
+            "qualifiedSignature" : "javax.mvc.binding.ParamError",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 12,
+      "columnNumber" : 26,
+      "message" : "package javax.mvc.security does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139577843Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import javax.mvc.security.CsrfProtected;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Controller" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139695966Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.Controller",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "@Controller",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Controller",
+            "declaringType" : "javax.mvc.Controller",
+            "qualifiedSignature" : "javax.mvc.Controller",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 29,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BindingResult", "location: class com.example.web.GreetingController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 29,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139832182Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 29,
+          "codeLine" : "    BindingResult bindingResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 32,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Models", "location: class com.example.web.GreetingController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.139956094Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    Models models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 49,
+      "columnNumber" : 14,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcBinding", "location: class com.example.web.GreetingController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 49,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140073366Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            @MvcBinding",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 46,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class UriRef", "location: class com.example.web.GreetingController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/GreetingController.java",
+        "lineNumber" : 46,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140193351Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.UriRef",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 46,
+          "codeLine" : "    @UriRef(\"greeting-post\")",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.UriRef",
+            "declaringType" : "javax.mvc.UriRef",
+            "qualifiedSignature" : "javax.mvc.UriRef",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/Messages.java",
+    "errors" : [ {
+      "lineNumber" : 23,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcContext", "location: class Messages" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/Messages.java",
+        "lineNumber" : 23,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140337233Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.MvcContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 23,
+          "codeLine" : "    private MvcContext mvcContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.MvcContext",
+            "declaringType" : "javax.mvc.MvcContext",
+            "qualifiedSignature" : "javax.mvc.MvcContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/config/PostNotFoundExceptionMapper.java",
+    "errors" : [ {
+      "lineNumber" : 29,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Models", "location: class com.example.config.PostNotFoundExceptionMapper" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/config/PostNotFoundExceptionMapper.java",
+        "lineNumber" : 29,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140472231Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 29,
+          "codeLine" : "    Models models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+    "errors" : [ {
+      "lineNumber" : 8,
+      "columnNumber" : 23,
+      "message" : "package javax.mvc.event does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 8,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140676967Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.event.AfterControllerEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 8,
+          "codeLine" : "import javax.mvc.event.AfterControllerEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.AfterControllerEvent",
+            "declaringType" : "javax.mvc.event.AfterControllerEvent",
+            "qualifiedSignature" : "javax.mvc.event.AfterControllerEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 9,
+      "columnNumber" : 23,
+      "message" : "package javax.mvc.event does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.140875799Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.event.AfterProcessViewEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import javax.mvc.event.AfterProcessViewEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.AfterProcessViewEvent",
+            "declaringType" : "javax.mvc.event.AfterProcessViewEvent",
+            "qualifiedSignature" : "javax.mvc.event.AfterProcessViewEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 10,
+      "columnNumber" : 23,
+      "message" : "package javax.mvc.event does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.141008733Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.event.BeforeControllerEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import javax.mvc.event.BeforeControllerEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.BeforeControllerEvent",
+            "declaringType" : "javax.mvc.event.BeforeControllerEvent",
+            "qualifiedSignature" : "javax.mvc.event.BeforeControllerEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 23,
+      "message" : "package javax.mvc.event does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.141149843Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.event.BeforeProcessViewEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import javax.mvc.event.BeforeProcessViewEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.BeforeProcessViewEvent",
+            "declaringType" : "javax.mvc.event.BeforeProcessViewEvent",
+            "qualifiedSignature" : "javax.mvc.event.BeforeProcessViewEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 12,
+      "columnNumber" : 23,
+      "message" : "package javax.mvc.event does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.141279924Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.event.ControllerRedirectEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import javax.mvc.event.ControllerRedirectEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.ControllerRedirectEvent",
+            "declaringType" : "javax.mvc.event.ControllerRedirectEvent",
+            "qualifiedSignature" : "javax.mvc.event.ControllerRedirectEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 20,
+      "columnNumber" : 48,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BeforeControllerEvent", "location: class com.example.MvcEventListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 20,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.141752736Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 20,
+          "codeLine" : "    private void onControllerMatched(@Observes BeforeControllerEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.enterprise.event.Observes",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.platform",
+            "artifactId" : "jakarta.jakartaee-api",
+            "version" : "8.0.0",
+            "coordinates" : "jakarta.platform:jakarta.jakartaee-api:8.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/platform/jakarta.jakartaee-api/8.0.0/jakarta.jakartaee-api-8.0.0.jar"
+          },
+          "lineNumber" : 20,
+          "codeLine" : "    private void onControllerMatched(@Observes BeforeControllerEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.event.BeforeControllerEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 20,
+          "codeLine" : "    private void onControllerMatched(@Observes BeforeControllerEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.BeforeControllerEvent",
+            "declaringType" : "javax.mvc.event.BeforeControllerEvent",
+            "qualifiedSignature" : "javax.mvc.event.BeforeControllerEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 49,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BeforeProcessViewEvent", "location: class com.example.MvcEventListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.141979926Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 24,
+          "codeLine" : "    private void onViewEngineSelected(@Observes BeforeProcessViewEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.enterprise.event.Observes",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.platform",
+            "artifactId" : "jakarta.jakartaee-api",
+            "version" : "8.0.0",
+            "coordinates" : "jakarta.platform:jakarta.jakartaee-api:8.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/platform/jakarta.jakartaee-api/8.0.0/jakarta.jakartaee-api-8.0.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "    private void onViewEngineSelected(@Observes BeforeProcessViewEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.event.BeforeProcessViewEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "    private void onViewEngineSelected(@Observes BeforeProcessViewEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.BeforeProcessViewEvent",
+            "declaringType" : "javax.mvc.event.BeforeProcessViewEvent",
+            "qualifiedSignature" : "javax.mvc.event.BeforeProcessViewEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class AfterControllerEvent", "location: class com.example.MvcEventListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142174431Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    private void onAfterControllerEvent(@Observes AfterControllerEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.enterprise.event.Observes",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.platform",
+            "artifactId" : "jakarta.jakartaee-api",
+            "version" : "8.0.0",
+            "coordinates" : "jakarta.platform:jakarta.jakartaee-api:8.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/platform/jakarta.jakartaee-api/8.0.0/jakarta.jakartaee-api-8.0.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    private void onAfterControllerEvent(@Observes AfterControllerEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.event.AfterControllerEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    private void onAfterControllerEvent(@Observes AfterControllerEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.AfterControllerEvent",
+            "declaringType" : "javax.mvc.event.AfterControllerEvent",
+            "qualifiedSignature" : "javax.mvc.event.AfterControllerEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 32,
+      "columnNumber" : 52,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class AfterProcessViewEvent", "location: class com.example.MvcEventListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142302745Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    private void onAfterProcessViewEvent(@Observes AfterProcessViewEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.enterprise.event.Observes",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.platform",
+            "artifactId" : "jakarta.jakartaee-api",
+            "version" : "8.0.0",
+            "coordinates" : "jakarta.platform:jakarta.jakartaee-api:8.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/platform/jakarta.jakartaee-api/8.0.0/jakarta.jakartaee-api-8.0.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    private void onAfterProcessViewEvent(@Observes AfterProcessViewEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.event.AfterProcessViewEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    private void onAfterProcessViewEvent(@Observes AfterProcessViewEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.AfterProcessViewEvent",
+            "declaringType" : "javax.mvc.event.AfterProcessViewEvent",
+            "qualifiedSignature" : "javax.mvc.event.AfterProcessViewEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 55,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ControllerRedirectEvent", "location: class com.example.MvcEventListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/MvcEventListener.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142424299Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "     private void onControllerRedirectEvent(@Observes ControllerRedirectEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.enterprise.event.Observes",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.platform",
+            "artifactId" : "jakarta.jakartaee-api",
+            "version" : "8.0.0",
+            "coordinates" : "jakarta.platform:jakarta.jakartaee-api:8.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/jakarta/platform/jakarta.jakartaee-api/8.0.0/jakarta.jakartaee-api-8.0.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "     private void onControllerRedirectEvent(@Observes ControllerRedirectEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.event.ControllerRedirectEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "     private void onControllerRedirectEvent(@Observes ControllerRedirectEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.event.ControllerRedirectEvent",
+            "declaringType" : "javax.mvc.event.ControllerRedirectEvent",
+            "qualifiedSignature" : "javax.mvc.event.ControllerRedirectEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/QueryParamLocaleResolver.java",
+    "errors" : [ {
+      "lineNumber" : 10,
+      "columnNumber" : 24,
+      "message" : "package javax.mvc.locale does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/QueryParamLocaleResolver.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142610850Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.locale.LocaleResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import javax.mvc.locale.LocaleResolver;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.locale.LocaleResolver",
+            "declaringType" : "javax.mvc.locale.LocaleResolver",
+            "qualifiedSignature" : "javax.mvc.locale.LocaleResolver",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 24,
+      "message" : "package javax.mvc.locale does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/QueryParamLocaleResolver.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142728902Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.locale.LocaleResolverContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import javax.mvc.locale.LocaleResolverContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.locale.LocaleResolverContext",
+            "declaringType" : "javax.mvc.locale.LocaleResolverContext",
+            "qualifiedSignature" : "javax.mvc.locale.LocaleResolverContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 35,
+      "columnNumber" : 50,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class LocaleResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/QueryParamLocaleResolver.java",
+        "lineNumber" : 35,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.142862672Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.locale.LocaleResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 35,
+          "codeLine" : "public class QueryParamLocaleResolver implements LocaleResolver {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.locale.LocaleResolver",
+            "declaringType" : "javax.mvc.locale.LocaleResolver",
+            "qualifiedSignature" : "javax.mvc.locale.LocaleResolver",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 41,
+      "columnNumber" : 39,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class LocaleResolverContext", "location: class com.example.web.QueryParamLocaleResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/QueryParamLocaleResolver.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143065795Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Locale",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    public Locale resolveLocale(final LocaleResolverContext context) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.locale.LocaleResolverContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    public Locale resolveLocale(final LocaleResolverContext context) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.locale.LocaleResolverContext",
+            "declaringType" : "javax.mvc.locale.LocaleResolverContext",
+            "qualifiedSignature" : "javax.mvc.locale.LocaleResolverContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+    "errors" : [ {
+      "lineNumber" : 8,
+      "columnNumber" : 17,
+      "message" : "package javax.mvc does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 8,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143277550Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.UriRef",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 8,
+          "codeLine" : "import javax.mvc.UriRef;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.UriRef",
+            "declaringType" : "javax.mvc.UriRef",
+            "qualifiedSignature" : "javax.mvc.UriRef",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 9,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143409314Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import javax.mvc.binding.BindingResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 10,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 10,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143528010Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 10,
+          "codeLine" : "import javax.mvc.binding.MvcBinding;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 11,
+      "columnNumber" : 25,
+      "message" : "package javax.mvc.binding does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143642203Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.binding.ParamError",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "import javax.mvc.binding.ParamError;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.ParamError",
+            "declaringType" : "javax.mvc.binding.ParamError",
+            "qualifiedSignature" : "javax.mvc.binding.ParamError",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 12,
+      "columnNumber" : 26,
+      "message" : "package javax.mvc.security does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143756402Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import javax.mvc.security.CsrfProtected;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Controller" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.143886601Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.Controller",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "@Controller",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Controller",
+            "declaringType" : "javax.mvc.Controller",
+            "qualifiedSignature" : "javax.mvc.Controller",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 29,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BindingResult", "location: class com.example.web.CsrfController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 29,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.144012136Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.binding.BindingResult",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 29,
+          "codeLine" : "    BindingResult bindingResult;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.BindingResult",
+            "declaringType" : "javax.mvc.binding.BindingResult",
+            "qualifiedSignature" : "javax.mvc.binding.BindingResult",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 32,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Models", "location: class com.example.web.CsrfController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.144134268Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "javax.mvc.Models",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 32,
+          "codeLine" : "    Models models;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.Models",
+            "declaringType" : "javax.mvc.Models",
+            "qualifiedSignature" : "javax.mvc.Models",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 49,
+      "columnNumber" : 14,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MvcBinding", "location: class com.example.web.CsrfController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 49,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.144249004Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.binding.MvcBinding",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            @MvcBinding",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.binding.MvcBinding",
+            "declaringType" : "javax.mvc.binding.MvcBinding",
+            "qualifiedSignature" : "javax.mvc.binding.MvcBinding",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 46,
+      "columnNumber" : 6,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class CsrfProtected", "location: class com.example.web.CsrfController" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/CsrfController.java",
+        "lineNumber" : 46,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-2.0.1.jar",
+        "generatedAt" : "2025-12-08T04:27:45.144373887Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.mvc.security.CsrfProtected",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.mvc",
+            "artifactId" : "jakarta.mvc-api",
+            "version" : "1.1.0",
+            "coordinates" : "jakarta.mvc:jakarta.mvc-api:1.1.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakarta.mvc-api-1.1.0.jar"
+          },
+          "lineNumber" : 46,
+          "codeLine" : "    @CsrfProtected",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.mvc.security.CsrfProtected",
+            "declaringType" : "javax.mvc.security.CsrfProtected",
+            "qualifiedSignature" : "javax.mvc.security.CsrfProtected",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

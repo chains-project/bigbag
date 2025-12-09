@@ -1,0 +1,29 @@
+--- /home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue/src/main/java/de/gwdg/metadataqa/marc/MarcFactory.java	2025-12-08 04:08:37.916134102 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/43c824a24b09efd8b4b00449ce31cd121a6b23eb/attempt_1/transformed/de/gwdg/metadataqa/marc/MarcFactory.java	2025-12-08 04:11:15.856126787 +0100
+@@ -64,7 +64,7 @@
+ 
+   public static BibliographicRecord create(JsonPathCache cache, MarcVersion version) {
+     var marcRecord = new Marc21Record();
+-    for (JsonBranch branch : schema.getPaths()) {
++    for (JsonBranch_REMOVED branch : schema.getPaths()) {
+       if (branch.getParent() != null)
+         continue;
+       switch (branch.getLabel()) {
+@@ -310,7 +310,7 @@
+     return field;
+   }
+ 
+-  private static List<String> extractList(JsonPathCache cache, JsonBranch branch) {
++  private static List<String> extractList(JsonPathCache cache, JsonBranch_REMOVED branch) {
+     List<XmlFieldInstance> instances = cache.get(branch.getJsonPath());
+     List<String> values = new ArrayList<>();
+     if (instances != null)
+@@ -319,7 +319,7 @@
+     return values;
+   }
+ 
+-  private static String extractFirst(JsonPathCache cache, JsonBranch branch) {
++  private static String extractFirst(JsonPathCache cache, JsonBranch_REMOVED branch) {
+     List<String> list = extractList(cache, branch);
+     if (!list.isEmpty())
+       return list.get(0);

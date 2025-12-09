@@ -1,0 +1,258 @@
+{
+  "project" : "billy",
+  "breakingCommit" : "f6659d758a437f8b676481fe70671a68a6ee1cde",
+  "dependencyGroupId" : "org.yaml",
+  "dependencyArtifactId" : "snakeyaml",
+  "previousVersion" : "2.0",
+  "newVersion" : "2.1",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.0.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/snakeyaml-2.1.jar",
+  "generatedAt" : "2025-12-08T11:33:26.864904458Z",
+  "totalBreakingChanges" : 11,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "org.yaml.snakeyaml.emitter.Emitter",
+    "simpleName" : "Emitter",
+    "qualifiedSignature" : "org.yaml.snakeyaml.emitter.Emitter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "LEADING_ZERO_PATTERN",
+    "simpleName" : "LEADING_ZERO_PATTERN",
+    "qualifiedSignature" : "org.yaml.snakeyaml.emitter.Emitter::LEADING_ZERO_PATTERN",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.yaml.snakeyaml.emitter.Emitter.LEADING_ZERO_PATTERN:Ljava/util/regex/Pattern;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.regex.Pattern",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector",
+    "simpleName" : "TrustedPrefixesTagInspector",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "TrustedPrefixesTagInspector",
+    "simpleName" : "TrustedPrefixesTagInspector",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector#TrustedPrefixesTagInspector(java.util.List)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@676e0a68[public TrustedPrefixesTagInspector (Ljava/util/List;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isGlobalTagAllowed",
+    "simpleName" : "isGlobalTagAllowed",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector#isGlobalTagAllowed(org.yaml.snakeyaml.nodes.Tag)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@80f1a04[public isGlobalTagAllowed (Lorg/yaml/snakeyaml/nodes/Tag;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.yaml.snakeyaml.nodes.Tag" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "trustedList",
+    "simpleName" : "trustedList",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector::trustedList",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.yaml.snakeyaml.inspector.TrustedPrefixesTagInspector.trustedList:Ljava/util/List;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.List",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+    "simpleName" : "TrustedTagInspector",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "TrustedTagInspector",
+    "simpleName" : "TrustedTagInspector",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector#TrustedTagInspector()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@2271d2d2[public TrustedTagInspector ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isGlobalTagAllowed",
+    "simpleName" : "isGlobalTagAllowed",
+    "qualifiedSignature" : "org.yaml.snakeyaml.inspector.TrustedTagInspector#isGlobalTagAllowed(org.yaml.snakeyaml.nodes.Tag)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@80f1a04[public isGlobalTagAllowed (Lorg/yaml/snakeyaml/nodes/Tag;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.yaml.snakeyaml.nodes.Tag" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.yaml.snakeyaml.scanner.Scanner",
+    "simpleName" : "Scanner",
+    "qualifiedSignature" : "org.yaml.snakeyaml.scanner.Scanner",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "resetDocumentIndex",
+    "simpleName" : "resetDocumentIndex",
+    "qualifiedSignature" : "org.yaml.snakeyaml.scanner.Scanner#resetDocumentIndex()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@94151669[public abstract resetDocumentIndex ()V]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "void",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  } ]
+}

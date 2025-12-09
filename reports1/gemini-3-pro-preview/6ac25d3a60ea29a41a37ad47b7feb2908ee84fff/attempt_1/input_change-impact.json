@@ -1,0 +1,130 @@
+{
+  "project" : "myfaces-tobago",
+  "breakingCommit" : "6ac25d3a60ea29a41a37ad47b7feb2908ee84fff",
+  "dependency" : {
+    "groupId" : "jakarta.servlet",
+    "artifactId" : "jakarta.servlet-api",
+    "previousVersion" : "5.0.0",
+    "newVersion" : "6.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-6.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/myfaces-tobago/tobago-core/src/test/java/org/apache/myfaces/tobago/internal/mock/servlet/MockHttpSession.java",
+    "errors" : [ {
+      "lineNumber" : 24,
+      "columnNumber" : 28,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HttpSessionContext", "location: package jakarta.servlet.http" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago/tobago-core/src/test/java/org/apache/myfaces/tobago/internal/mock/servlet/MockHttpSession.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-6.0.0.jar",
+        "generatedAt" : "2025-12-08T04:53:06.560899182Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "jakarta.servlet.http.HttpSessionContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.servlet",
+            "artifactId" : "jakarta.servlet-api",
+            "version" : "5.0.0",
+            "coordinates" : "jakarta.servlet:jakarta.servlet-api:5.0.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "import jakarta.servlet.http.HttpSessionContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "jakarta.servlet.http.HttpSessionContext",
+            "declaringType" : "jakarta.servlet.http.HttpSessionContext",
+            "qualifiedSignature" : "jakarta.servlet.http.HttpSessionContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 67,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HttpSessionContext", "location: class org.apache.myfaces.tobago.internal.mock.servlet.MockHttpSession" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/myfaces-tobago/tobago-core/src/test/java/org/apache/myfaces/tobago/internal/mock/servlet/MockHttpSession.java",
+        "lineNumber" : 67,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-6.0.0.jar",
+        "generatedAt" : "2025-12-08T04:53:06.561911059Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "jakarta.servlet.http.HttpSessionContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "jakarta.servlet",
+            "artifactId" : "jakarta.servlet-api",
+            "version" : "5.0.0",
+            "coordinates" : "jakarta.servlet:jakarta.servlet-api:5.0.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ac25d3a60ea29a41a37ad47b7feb2908ee84fff/jakarta.servlet-api-5.0.0.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "  public HttpSessionContext getSessionContext() {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "jakarta.servlet.http.HttpSessionContext",
+            "declaringType" : "jakarta.servlet.http.HttpSessionContext",
+            "qualifiedSignature" : "jakarta.servlet.http.HttpSessionContext",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,34 @@
+{
+  "originalFailurePath" : "/home/kth/Documents/last_transformer/output/aa14451c6f218af9c08e846345d83259eb7d46a8/LPVS/aa14451c6f218af9c08e846345d83259eb7d46a8.log",
+  "failureCategory" : "JAVA_VERSION_FAILURE",
+  "errorsByFile" : [ {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/util/FileUtil.java",
+    "errors" : [ {
+      "lineNumber" : 13,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.util.FileSystemUtils",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/util/FileSystemUtils.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ]
+    } ]
+  }, {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/LicensePreValidationSystem.java",
+    "errors" : [ {
+      "lineNumber" : 17,
+      "columnNumber" : 37,
+      "message" : "cannot access org.springframework.core.task.TaskExecutor",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/core/task/TaskExecutor.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ]
+    }, {
+      "lineNumber" : 39,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TaskExecutor", "location: class com.lpvs.LicensePreValidationSystem" ]
+    } ]
+  }, {
+    "filePath" : "/LPVS/src/main/java/com/lpvs/controller/GitHubWebhooksController.java",
+    "errors" : [ {
+      "lineNumber" : 25,
+      "columnNumber" : 32,
+      "message" : "cannot access org.springframework.util.StringUtils",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.7/spring-core-6.0.7.jar(/org/springframework/util/StringUtils.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ]
+    } ]
+  } ]
+}

@@ -1,0 +1,128 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Migration Tool.
+ * 
+ * Generated based on the provided empty diff. 
+ * This is a template implementation demonstrating the required 
+ * Sniper/NoClasspath configuration and a generic method refactoring strategy.
+ * 
+ * Hypothetical Scenario:
+ * - METHOD com.legacy.Api.deprecatedAction() [REMOVED]
+ * + METHOD com.modern.Api.newAction() [ADDED]
+ */
+public class ApiMigration {
+
+    public static class ApiProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // Target definitions
+        private static final String OLD_METHOD_NAME = "deprecatedAction";
+        private static final String NEW_METHOD_NAME = "newAction";
+        private static final String OLD_CLASS_PARTIAL = "legacy.Api";
+        private static final String NEW_CLASS_QNAME = "com.modern.Api";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // We check the method name first as it's the cheapest operation
+            if (!OLD_METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Declaring Type Check (Defensive for NoClasspath)
+            // In NoClasspath, we cannot resolve types fully, so we use string matching
+            // on the qualified name or simple name.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If the declaring type is null (unresolved/inference failed), we might skip or 
+            // process based on strictness. Here we skip if null.
+            if (declaringType == null) {
+                return false;
+            }
+
+            // Check if it looks like our target class.
+            // Using .contains allows for some flexibility with imports/partial qualification.
+            if (!declaringType.getQualifiedName().contains(OLD_CLASS_PARTIAL)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // 1. Create reference to the new class
+            CtTypeReference<?> newTypeRef = factory.Type().createReference(NEW_CLASS_QNAME);
+
+            // 2. Update the Method Name
+            // This modifies the invocation in place
+            invocation.getExecutable().setSimpleName(NEW_METHOD_NAME);
+
+            // 3. Update the Declaring Type of the method reference
+            // This ensures the AST knows the method belongs to the new class
+            invocation.getExecutable().setDeclaringType(newTypeRef);
+
+            // 4. Update the Target (Receiver) if it is a static call
+            // e.g., Api.deprecatedAction() -> Api is the target
+            if (invocation.getTarget() instanceof CtTypeAccess) {
+                CtTypeAccess<?> newTypeAccess = factory.Code().createTypeAccess(newTypeRef);
+                invocation.setTarget(newTypeAccess);
+            }
+            
+            // Note: If the method was instance-based (e.g., obj.deprecatedAction()),
+            // logic would differ here (replacing variable type or casting).
+            
+            System.out.println("Refactored: " + OLD_METHOD_NAME + " -> " + NEW_METHOD_NAME 
+                + " at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/attempt_1/transformed");
+
+        // --- CRITICAL CONFIGURATION START ---
+        
+        // 1. Environment Settings for Robustness
+        // Enable comments to prevent them from being stripped during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // Enable NoClasspath mode (types are not fully resolved, preventing classpath errors)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // 2. Sniper Printer Configuration (Mandatory for Diff-based refactoring)
+        // We inject the SniperJavaPrettyPrinter manually. This printer processes the AST
+        // and only prints changes ("snipes") while keeping the rest of the source code 
+        // (whitespace, formatting, imports) exactly as is.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // --- CRITICAL CONFIGURATION END ---
+
+        launcher.addProcessor(new ApiProcessor());
+        
+        try {
+            System.out.println("Starting Spoon Migration...");
+            launcher.run();
+            System.out.println("Migration finished. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

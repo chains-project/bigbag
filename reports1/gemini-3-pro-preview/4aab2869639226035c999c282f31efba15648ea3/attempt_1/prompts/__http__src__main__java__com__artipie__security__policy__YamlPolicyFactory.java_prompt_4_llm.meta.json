@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4aab2869639226035c999c282f31efba15648ea3/attempt_1/prompts/__http__src__main__java__com__artipie__security__policy__YamlPolicyFactory.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4aab2869639226035c999c282f31efba15648ea3/attempt_1/prompts/__http__src__main__java__com__artipie__security__policy__YamlPolicyFactory.java_prompt_4_llm.txt",
+  "timestamp": 1765165877.0702324,
+  "duration_seconds": 87.14139437675476,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtComment;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Set;\n\npublic class AstoRefactoring {\n\n    /**\n     * Processor to handle API changes in com.artipie.asto:\n     * 1. Renames 'StorageConfig' to 'Config' (as per method signature updates).\n     * 2. Flags usages of the removed 'Storages' class.\n     */\n    public static class AstoMigrationProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        // Target types to detect\n        private static final String OLD_CONFIG = \"com.artipie.asto.factory.StorageConfig\";\n        private static final String OLD_FACTORY = \"com.artipie.asto.factory.Storages\";\n        private static final Set<String> TARGETS = Set.of(OLD_CONFIG, OLD_FACTORY);\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            if (candidate == null) return false;\n            \n            // Defensive coding for NoClasspath: check Qualified Name carefully\n            String qName = candidate.getQualifiedName();\n            if (qName == null) return false;\n\n            // Check for exact FQN or ending with expected class (ignoring package if unresolved)\n            return TARGETS.stream().anyMatch(t -> qName.equals(t) || qName.endsWith(\".\" + t.substring(t.lastIndexOf('.') + 1)));\n        }\n\n        @Override\n        public void process(CtTypeReference<?> ref) {\n            String qName = ref.getQualifiedName();\n            \n            // Rule 1: Handle StorageConfig -> Config rename\n            // This fixes method signatures like newStorage(StorageConfig) -> newStorage(Config)\n            // and variable declarations.\n            if (qName.contains(\"StorageConfig\")) {\n                ref.setSimpleName(\"Config\");\n                // Note: Package com.artipie.asto.factory remains the same, so no package update needed.\n                System.out.println(\"Refactored: StorageConfig -> Config at line \" + ref.getPosition().getLine());\n            } \n            \n            // Rule 2: Handle removal of Storages class\n            // Since this class is completely removed and requires logic change (using specific factories),\n            // we cannot auto-fix safely. We inject a FIXME comment.\n            else if (qName.contains(\"Storages\")) {\n                CtElement parent = ref.getParent();\n                if (parent != null) {\n                    // Avoid duplicate comments if processed multiple times\n                    boolean hasComment = parent.getComments().stream()\n                        .anyMatch(c -> c.getContent().contains(\"FIXME: Class 'Storages' was removed\"));\n                    \n                    if (!hasComment) {\n                        parent.addComment(getFactory().Code().createComment(\n                            \"FIXME: Class 'Storages' was removed. Use a specific StorageFactory implementation (e.g., FileStorageFactory, S3StorageFactory).\",\n                            CtComment.CommentType.BLOCK\n                        ));\n                        System.out.println(\"Flagged: Removed class 'Storages' at line \" + ref.getPosition().getLine());\n                    }\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // 1. Enable comments to preserve existing documentation and allow adding new comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer to strictly preserve indentation and formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Configure NoClasspath mode (defensive assumption)\n        launcher.getEnvironment().setNoClasspath(true);\n        // Ignore duplicate declarations which might occur during partial resolution\n        launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);\n\n        launcher.addProcessor(new AstoMigrationProcessor());\n\n        try {\n            System.out.println(\"Starting ASTO Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Refactoring failed: \" + e.getMessage());\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2138,
+      "candidates_token_count": 1115,
+      "total_token_count": 8879,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

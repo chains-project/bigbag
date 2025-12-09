@@ -1,0 +1,128 @@
+/**
+ * HYPOTHETICAL DIFF USED FOR GENERATION (Input was empty):
+ * 
+ * - METHOD com.shop.ShoppingCart.addItem(int itemId, double price) [REMOVED]
+ * + METHOD com.shop.ShoppingCart.addItem(int itemId, java.math.BigDecimal price) [ADDED]
+ * 
+ * REFACTORING STRATEGY:
+ * The second argument of 'addItem' changed from 'double' to 'BigDecimal'.
+ * We must wrap the double expression in 'BigDecimal.valueOf(...)'.
+ */
+
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+public class ShoppingCartRefactoring {
+
+    public static class AddItemProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"addItem".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We expect (int, double) -> 2 arguments
+            if (candidate.getArguments().size() != 2) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            // We are interested in the 2nd argument (index 1)
+            CtExpression<?> priceArg = candidate.getArguments().get(1);
+            CtTypeReference<?> type = priceArg.getType();
+
+            // If we know it's already a BigDecimal, skip it.
+            if (type != null && type.getQualifiedName().contains("BigDecimal")) {
+                return false;
+            }
+            
+            // If type is known and is NOT a primitive double/float or boxed Double/Float, 
+            // and NOT null (unknown), we might want to skip to avoid breaking other overloads.
+            // However, in NoClasspath, 'type' might be null. 
+            // If it is primitive, we definitely process. If null, we optimistically process based on Owner check.
+            if (type != null && !type.unbox().getQualifiedName().equals("double") 
+                             && !type.unbox().getQualifiedName().equals("float")) {
+                // It's a known type that isn't double/float (e.g., String), so it's likely a different overload.
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("ShoppingCart") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalPriceArg = invocation.getArguments().get(1);
+
+            // Transformation: Wrap originalPriceArg inside BigDecimal.valueOf(...)
+            CtTypeReference<?> bigDecimalRef = factory.Type().createReference("java.math.BigDecimal");
+            
+            // Create TypeAccess for static method call
+            CtExpression<?> typeAccess = factory.Code().createTypeAccess(bigDecimalRef);
+
+            // Create 'valueOf' invocation
+            // Note: We use double primitive type for the parameter of valueOf to ensure correct lookup if classpath existed
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                typeAccess,
+                factory.Method().createReference(
+                    bigDecimalRef, 
+                    factory.Type().createReference(bigDecimalRef.getQualifiedName()), // Return type
+                    "valueOf", 
+                    factory.Type().doublePrimitiveType() // Param type
+                ),
+                originalPriceArg.clone()
+            );
+
+            // Replace the argument
+            originalPriceArg.replace(replacement);
+            
+            System.out.println("Refactored addItem(..., double) to addItem(..., BigDecimal) at line " 
+                + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6d68d927b01ceb567f1067a91afbc97b4c5a66ce/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ and Precision
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve exact formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new AddItemProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

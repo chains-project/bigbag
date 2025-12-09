@@ -1,0 +1,101 @@
+```java
+package org.sonarlint.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class AnalysisEngineRefactoring {
+
+    public static class AnalysisEngineProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safe Executable Check
+            if (candidate.getExecutable() == null) return false;
+            
+            String methodName = candidate.getExecutable().getSimpleName();
+            
+            // 2. Identify Target Methods
+            // "addEnabledLanguages" was removed from Builder
+            // "getEnabledLanguages" was removed from Configuration
+            boolean isRemovedMethod = "addEnabledLanguages".equals(methodName) 
+                                   || "getEnabledLanguages".equals(methodName);
+
+            if (!isRemovedMethod) return false;
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If unknown type, we can't be sure, but strict matching avoids false positives.
+            // We match "AnalysisEngineConfiguration" which covers both the main class and the $Builder inner class.
+            if (declaringType != null && declaringType.getQualifiedName().contains("AnalysisEngineConfiguration")) {
+                return true;
+            }
+            
+            // If NoClasspath mode yields <unknown>, we might skip or use heuristics. 
+            // For safety in this specific rule, we require the type hint.
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+
+            if ("addEnabledLanguages".equals(methodName)) {
+                // Strategy: The 'add' pattern in builders is often replaced by 'with' or 'set' 
+                // when moving to immutable or fluent styles in major versions.
+                // We attempt to rename to 'withEnabledLanguages'. 
+                // If this is incorrect, the compiler will catch it, but it migrates the intention.
+                invocation.getExecutable().setSimpleName("withEnabledLanguages");
+                System.out.println("Refactored: addEnabledLanguages -> withEnabledLanguages at line " + invocation.getPosition().getLine());
+            
+            } else if ("getEnabledLanguages".equals(methodName)) {
+                // Strategy: The getter is removed. We cannot invent a return value.
+                // We replace the invocation with 'null' and attach a FIXME comment.
+                
+                CtLiteral<?> nullLiteral = getFactory().Code().createLiteral(null);
+                
+                // Add inline comment to explain why it is null
+                nullLiteral.addComment(
+                    getFactory().Code().createComment("FIXME: AnalysisEngineConfiguration.getEnabledLanguages() was removed", CtComment.CommentType.BLOCK)
+                );
+                
+                invocation.replace(nullLiteral);
+                System.out.println("Refactored: Removed getEnabledLanguages usage at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Robust transformations
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Assume NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new AnalysisEngineProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

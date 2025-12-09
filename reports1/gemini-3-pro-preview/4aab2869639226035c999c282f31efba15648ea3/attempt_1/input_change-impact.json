@@ -1,0 +1,513 @@
+{
+  "project" : "http",
+  "breakingCommit" : "4aab2869639226035c999c282f31efba15648ea3",
+  "dependency" : {
+    "groupId" : "com.artipie",
+    "artifactId" : "asto-core",
+    "previousVersion" : "v1.13.0",
+    "newVersion" : "v1.15.3",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.15.3.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/http/4aab2869639226035c999c282f31efba15648ea3.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/4aab2869639226035c999c282f31efba15648ea3/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/http/src/main/java/com/artipie/security/policy/YamlPolicyFactory.java",
+    "errors" : [ {
+      "lineNumber" : 9,
+      "columnNumber" : 32,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Storages", "location: package com.artipie.asto.factory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/http",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/http/src/main/java/com/artipie/security/policy/YamlPolicyFactory.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.15.3.jar",
+        "generatedAt" : "2025-12-08T03:49:49.871456697Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.artipie.asto.factory.Storages",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "asto-core",
+            "version" : "v1.13.0",
+            "coordinates" : "com.artipie:asto-core:v1.13.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import com.artipie.asto.factory.Storages;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.asto.factory.Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 25,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Storages", "location: class com.artipie.security.policy.YamlPolicyFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/http",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/http/src/main/java/com/artipie/security/policy/YamlPolicyFactory.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.15.3.jar",
+        "generatedAt" : "2025-12-08T03:49:49.872414205Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.security.policy.YamlPolicy#<init>(com.artipie.asto.blocking.BlockingStorage)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/security/policy/YamlPolicy.java"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "                    new Storages().newStorage(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.asto.blocking.BlockingStorage#<init>(com.artipie.asto.Storage)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "asto-core",
+            "version" : "v1.15.3",
+            "coordinates" : "com.artipie:asto-core:v1.15.3",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/asto-core/v1.15.3/asto-core-v1.15.3.jar"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "                    new Storages().newStorage(",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "BlockingStorage",
+            "declaringType" : "com.artipie.asto.blocking.BlockingStorage",
+            "qualifiedSignature" : "com.artipie.asto.blocking.BlockingStorage.BlockingStorage(com.artipie.asto.Storage)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3e971387[public BlockingStorage (Lcom/artipie/asto/Storage;)V]",
+              "newValue" : "javassist.CtConstructor@624ce917[public BlockingStorage (Lcom/artipie/asto/Storage;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.artipie.asto.Storage" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.artipie.asto.factory.Storages#newStorage(java.lang.String, com.amihaiemil.eoyaml.YamlMapping)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "asto-core",
+            "version" : "v1.13.0",
+            "coordinates" : "com.artipie:asto-core:v1.13.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "                    new Storages().newStorage(",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages.newStorage(java.lang.String, com.amihaiemil.eoyaml.YamlMapping)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d423e685[public newStorage (Ljava/lang/String;Lcom/amihaiemil/eoyaml/YamlMapping;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "com.amihaiemil.eoyaml.YamlMapping" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages.newStorage(java.lang.String, com.amihaiemil.eoyaml.YamlMapping)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d423e685[public newStorage (Ljava/lang/String;Lcom/amihaiemil/eoyaml/YamlMapping;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "com.amihaiemil.eoyaml.YamlMapping" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.etcd.EtcdStorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.etcd.EtcdStorageFactory.newStorage(com.artipie.asto.factory.StorageConfig)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1a8f149a[public newStorage (Lcom/artipie/asto/factory/StorageConfig;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.StorageConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.factory.StorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.factory.StorageFactory.newStorage(com.artipie.asto.factory.StorageConfig)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1a8f149a[public abstract newStorage (Lcom/artipie/asto/factory/StorageConfig;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.StorageConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.factory.StorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.factory.StorageFactory.newStorage(com.artipie.asto.factory.Config)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5107ca01[public abstract newStorage (Lcom/artipie/asto/factory/Config;)Lcom/artipie/asto/Storage;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.artipie.asto.Storage",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.Config" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.fs.FileStorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.fs.FileStorageFactory.newStorage(com.artipie.asto.factory.StorageConfig)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1a8f149a[public newStorage (Lcom/artipie/asto/factory/StorageConfig;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.StorageConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.fs.FileStorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.fs.FileStorageFactory.newStorage(com.artipie.asto.factory.Config)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5107ca01[public newStorage (Lcom/artipie/asto/factory/Config;)Lcom/artipie/asto/Storage;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.artipie.asto.Storage",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.Config" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.s3.S3StorageFactory",
+            "qualifiedSignature" : "com.artipie.asto.s3.S3StorageFactory.newStorage(com.artipie.asto.factory.StorageConfig)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1a8f149a[public newStorage (Lcom/artipie/asto/factory/StorageConfig;)Lcom/artipie/asto/Storage;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.artipie.asto.Storage",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.artipie.asto.factory.StorageConfig" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "newStorage",
+            "declaringType" : "com.artipie.asto.test.StorageWhiteboxVerification",
+            "qualifiedSignature" : "com.artipie.asto.test.StorageWhiteboxVerification.newStorage()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@76cedefc[protected abstract newStorage ()Lcom/artipie/asto/Storage;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.artipie.asto.Storage",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.asto.factory.Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.asto.factory.Storages#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "asto-core",
+            "version" : "v1.13.0",
+            "coordinates" : "com.artipie:asto-core:v1.13.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "                    new Storages().newStorage(",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages.Storages()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@50d34c9f[public Storages ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages.Storages(java.util.Map)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@53cb7100[public Storages (Ljava/util/Map;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Map" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.asto.factory.Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.asto.factory.Storages",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "asto-core",
+            "version" : "v1.13.0",
+            "coordinates" : "com.artipie:asto-core:v1.13.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/4aab2869639226035c999c282f31efba15648ea3/asto-core-v1.13.0.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "                    new Storages().newStorage(",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.asto.factory.Storages",
+            "declaringType" : "com.artipie.asto.factory.Storages",
+            "qualifiedSignature" : "com.artipie.asto.factory.Storages",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

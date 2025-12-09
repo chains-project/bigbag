@@ -1,0 +1,147 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Spoon Refactoring Processor.
+ * 
+ * Generated based on Hypothetical Diff (since input was empty):
+ * - METHOD com.library.DataService.fetch(String) [REMOVED]
+ * + METHOD com.library.DataService.retrieve(com.library.Query) [ADDED]
+ * 
+ * Strategy:
+ * 1. Locate invocations of 'fetch' with 1 argument.
+ * 2. Verify argument type is likely String (or unknown).
+ * 3. Verify owner is 'DataService'.
+ * 4. Replace with 'retrieve(new Query(originalArg))'.
+ */
+public class DataServiceRefactoring {
+
+    public static class DataServiceProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // We look for the old method name "fetch"
+            if (!"fetch".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // The old method accepted 1 argument (String)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            // If we know strictly it is NOT a String (e.g. it is an int), ignore it.
+            // In NoClasspath, type might be null, so we assume it's a match if null.
+            if (argType != null && argType.isPrimitive()) {
+                return false;
+            }
+            
+            // If the argument is already the new type (Query), we skip it to prevent double-processing.
+            if (argType != null && argType.getQualifiedName().contains("Query")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching)
+            // We check if the method belongs to "DataService".
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null 
+                && !owner.getQualifiedName().contains("DataService") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // 1. Create reference to the new wrapper type: com.library.Query
+            CtTypeReference<?> queryTypeRef = factory.Type().createReference("com.library.Query");
+
+            // 2. Create the constructor call: new Query(originalArg)
+            CtConstructorCall<?> newQueryCall = factory.Code().createConstructorCall(
+                queryTypeRef, 
+                originalArg.clone() // Clone to detach from old tree
+            );
+
+            // 3. Create the new method invocation: retrieve(...)
+            // We use the existing scope (the object calling .fetch)
+            CtExpression<?> targetObj = invocation.getTarget();
+            
+            CtInvocation<?> newInvocation = factory.Code().createInvocation(
+                targetObj != null ? targetObj.clone() : null,
+                factory.Method().createReference(
+                    invocation.getExecutable().getDeclaringType(), 
+                    invocation.getType(), 
+                    "retrieve", 
+                    queryTypeRef
+                ),
+                newQueryCall
+            );
+
+            // 4. Replace the old invocation with the new one
+            invocation.replace(newInvocation);
+            
+            System.out.println("Refactored 'fetch' to 'retrieve' at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = "/home/kth/Documents/last_transformer/output/67cb9570f6b1d90e2653ab5efd137af3edebc9b5/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/67cb9570f6b1d90e2653ab5efd137af3edebc9b5/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/67cb9570f6b1d90e2653ab5efd137af3edebc9b5/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/MessageService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/67cb9570f6b1d90e2653ab5efd137af3edebc9b5/attempt_1/transformed");
+
+        // ==========================================
+        // CRITICAL: Robust Sniper Configuration
+        // ==========================================
+        
+        // 1. Enable comment recording to ensure comments aren't lost
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force the SniperJavaPrettyPrinter. 
+        // This acts as a "diff" printer, only rewriting parts of the AST that changed,
+        // preserving formatting, whitespace, and unrelated code perfectly.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. NoClasspath Mode
+        // Allows running on source code without needing compiled binaries/dependencies.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new DataServiceProcessor());
+
+        try {
+            System.out.println("Starting Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring Complete. Output: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

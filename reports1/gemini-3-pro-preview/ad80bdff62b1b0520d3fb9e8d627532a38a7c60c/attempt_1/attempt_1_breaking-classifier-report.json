@@ -1,0 +1,23 @@
+{
+  "originalFailurePath" : "reports1/gemini-3-pro-preview/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/attempt_1/attempt_1_build.log",
+  "failureCategory" : "COMPILATION_FAILURE",
+  "errorsByFile" : [ {
+    "filePath" : "/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+    "errors" : [ {
+      "lineNumber" : 108,
+      "columnNumber" : 89,
+      "message" : "constructor Flyway in class org.flywaydb.core.Flyway cannot be applied to given types;",
+      "details" : [ "required: org.flywaydb.core.api.configuration.Configuration", "found: no arguments", "reason: actual and formal argument lists differ in length" ]
+    }, {
+      "lineNumber" : 111,
+      "columnNumber" : 23,
+      "message" : "method setLocations in class org.flywaydb.core.api.configuration.ClassicConfiguration cannot be applied to given types;",
+      "details" : [ "required: org.flywaydb.core.api.Location[]", "found: java.lang.String", "reason: varargs mismatch; java.lang.String cannot be converted to org.flywaydb.core.api.Location" ]
+    }, {
+      "lineNumber" : 113,
+      "columnNumber" : 24,
+      "message" : "incompatible types: org.flywaydb.core.api.configuration.ClassicConfiguration cannot be converted to org.flywaydb.core.Flyway",
+      "details" : [ ]
+    } ]
+  } ]
+}

@@ -1,0 +1,104 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class MySQLRefactoring {
+
+    /**
+     * Processor to handle the removal of com.mysql.jdbc.exceptions.MySQLTimeoutException.
+     * It locates references to the old class and replaces them with the new location
+     * in the com.mysql.cj (Connector/J 8.x) package structure.
+     */
+    public static class MySQLTimeoutExceptionProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        // Target the specific removed class
+        private static final String OLD_CLASS_FQN = "com.mysql.jdbc.exceptions.MySQLTimeoutException";
+        // Map to the new class location in Connector/J 8.x+
+        private static final String NEW_CLASS_FQN = "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive checks for NoClasspath environment
+            if (candidate == null) return false;
+            
+            // Skip implicit types (those not physically present in source code)
+            if (candidate.isImplicit()) return false;
+
+            // Robust name checking
+            try {
+                String qName = candidate.getQualifiedName();
+                // Check if this reference matches the removed class
+                return OLD_CLASS_FQN.equals(qName);
+            } catch (Exception e) {
+                // In NoClasspath, resolving names might sometimes fail or return unexpected nulls
+                return false;
+            }
+        }
+
+        @Override
+        public void process(CtTypeReference<?> oldRef) {
+            Factory factory = getFactory();
+
+            // Create a reference to the new class type
+            CtTypeReference<?> newRef = factory.Type().createReference(NEW_CLASS_FQN);
+
+            // Replace the old reference in the AST with the new one.
+            // Spoon's Sniper printer will handle writing the new name in the output.
+            try {
+                oldRef.replace(newRef);
+                
+                // Logging for verification
+                String line = oldRef.getPosition().isValidPosition() 
+                    ? String.valueOf(oldRef.getPosition().getLine()) 
+                    : "unknown";
+                System.out.println("Refactored MySQLTimeoutException usage at line " + line);
+            } catch (Exception e) {
+                System.err.println("Failed to replace reference at line " + 
+                    (oldRef.getPosition().isValidPosition() ? oldRef.getPosition().getLine() : "?") + 
+                    ": " + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args if needed, but hardcoded for template)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL: Robust Sniper Configuration for Source Preservation
+        // ==========================================================
+        
+        // 1. Preserve comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force usage of SniperJavaPrettyPrinter to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new MySQLTimeoutExceptionProcessor());
+
+        // Run the refactoring
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

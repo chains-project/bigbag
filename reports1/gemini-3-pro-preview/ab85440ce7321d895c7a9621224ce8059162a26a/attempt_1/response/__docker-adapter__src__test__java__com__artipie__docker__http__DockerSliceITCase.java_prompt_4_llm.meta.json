@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerSliceITCase.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__DockerSliceITCase.java_prompt_4_llm.txt",
+  "timestamp": 1765180427.3148909,
+  "duration_seconds": 52.11959767341614,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Spoon Migration Script.\n * \n * Generated based on the breaking change:\n * - METHOD com.library.OldClass.oldMethod() [REMOVED/RENAMED]\n * + METHOD com.library.NewClass.newMethod() [ADDED]\n * \n * Strategy:\n * 1. Detect invocations of `oldMethod`.\n * 2. Verify the owner is `OldClass` (defensively).\n * 3. Update the method name to `newMethod`.\n * 4. Update the target (owner) class to `NewClass`.\n */\npublic class LibraryMigration {\n\n    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            // We look for the old method name.\n            if (!\"oldMethod\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Owner Type (Defensive for NoClasspath)\n            // We check if the declaring type of the method matches the old class.\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            \n            // If declaringType is null (unresolved) or matches our target, we proceed.\n            // Using loose string matching to handle FQCN variations.\n            if (declaringType != null && \n                !declaringType.getQualifiedName().contains(\"OldClass\") && \n                !declaringType.getQualifiedName().equals(\"<unknown>\")) {\n                return false;\n            }\n\n            // 3. Optional: Check Argument Count (assuming 0 args for this example)\n            // if (candidate.getArguments().size() != 0) return false;\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // Refactoring Logic\n            \n            // 1. Rename the method\n            invocation.getExecutable().setSimpleName(\"newMethod\");\n\n            // 2. Change the Static Target / Owner (if it's a static call)\n            // e.g., OldClass.oldMethod() -> NewClass.newMethod()\n            if (invocation.getTarget() != null && invocation.getTarget().getType() != null) {\n                CtTypeReference<?> newOwnerRef = getFactory().Type().createReference(\"com.library.NewClass\");\n                \n                // If it was a static access (TypeAccess), replace it\n                if (invocation.getTarget() instanceof spoon.reflect.code.CtTypeAccess) {\n                    invocation.setTarget(getFactory().Code().createTypeAccess(newOwnerRef));\n                }\n                \n                // Update the declaring type of the executable reference to ensure imports are handled correctly\n                invocation.getExecutable().setDeclaringType(newOwnerRef);\n            }\n\n            System.out.println(\"Refactored 'oldMethod' to 'newMethod' at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args)\n        String inputPath = args.length > 0 ? args[0] : \"./src/main/java\";\n        String outputPath = args.length > 1 ? args[1] : \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // ===========================================\n        // CRITICAL: Preserve Source Code formatting\n        // ===========================================\n        \n        // 1. Enable comments to prevent loss\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force SniperJavaPrettyPrinter for high-fidelity preservation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // ===========================================\n        // CRITICAL: Defensive / NoClasspath Mode\n        // ===========================================\n        launcher.getEnvironment().setNoClasspath(true);\n        launcher.getEnvironment().setIgnoreSyntaxErrors(true);\n\n        // Register the processor\n        launcher.addProcessor(new MethodRenameProcessor());\n\n        System.out.println(\"Starting Refactoring...\");\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 1075,
+      "total_token_count": 5507,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

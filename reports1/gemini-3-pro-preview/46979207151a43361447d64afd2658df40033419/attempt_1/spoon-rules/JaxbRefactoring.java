@@ -1,0 +1,128 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JaxbRefactoring {
+
+    /**
+     * Processor to migrate usage of static getInstance() methods to constructor calls
+     * for org.jvnet.jaxb2_commons.lang.* strategies.
+     */
+    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> AFFECTED_CLASSES = new HashSet<>(Arrays.asList(
+            "JAXBToStringStrategy",
+            "DefaultCopyStrategy",
+            "DefaultEqualsStrategy",
+            "DefaultHashCodeStrategy",
+            "DefaultMergeStrategy",
+            "DefaultToStringStrategy",
+            "JAXBCopyStrategy",
+            "JAXBEqualsStrategy",
+            "JAXBHashCodeStrategy",
+            "JAXBMergeCollectionsStrategy",
+            "JAXBMergeStrategy"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"getInstance".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (getInstance() usually has 0 args in this context)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Check Target (The class calling .getInstance())
+            CtExpression<?> target = candidate.getTarget();
+            
+            // We expect a static call like ClassName.getInstance(), so target should be a TypeAccess
+            if (!(target instanceof CtTypeAccess)) {
+                return false;
+            }
+
+            CtTypeReference<?> accessedType = ((CtTypeAccess<?>) target).getAccessedType();
+            if (accessedType == null) {
+                return false;
+            }
+
+            // 4. Verify the class is one of the affected strategies
+            // using SimpleName check for robustness in NoClasspath environment
+            String simpleName = accessedType.getSimpleName();
+            if (!AFFECTED_CLASSES.contains(simpleName)) {
+                return false;
+            }
+
+            // Optional: stricter check on package if available, but lenient for NoClasspath
+            String qualifiedName = accessedType.getQualifiedName();
+            if (!qualifiedName.equals(simpleName) && !qualifiedName.contains("org.jvnet.jaxb2_commons.lang")) {
+                // If we have package info and it doesn't match, might be a false positive (different library)
+                // However, these class names are quite specific. We proceed if it matches the name.
+                // In NoClasspath, qualifiedName might just be the simple name.
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Get the type used in the original invocation (e.g., JAXBToStringStrategy)
+            CtTypeAccess<?> typeAccess = (CtTypeAccess<?>) invocation.getTarget();
+            CtTypeReference<?> strategyType = typeAccess.getAccessedType();
+
+            // Create: new StrategyClass()
+            CtExpression<?> constructorCall = getFactory().Code().createConstructorCall(
+                strategyType,
+                new CtExpression<?>[0]
+            );
+
+            // Replace StrategyClass.getInstance() with new StrategyClass()
+            invocation.replace(constructorCall);
+            
+            System.out.println("Refactored " + strategyType.getSimpleName() + ".getInstance() at line " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args or hardcoded here)
+        String inputPath = "/home/kth/Documents/last_transformer/output/46979207151a43361447d64afd2658df40033419/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/46979207151a43361447d64afd2658df40033419/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/GeneralLedgerEntries.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ / Precision preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode handles missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StrategyInstanceProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

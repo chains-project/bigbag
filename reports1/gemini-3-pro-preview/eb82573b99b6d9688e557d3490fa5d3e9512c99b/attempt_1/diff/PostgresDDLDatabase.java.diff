@@ -1,0 +1,62 @@
+--- /home/kth/Documents/last_transformer/output/eb82573b99b6d9688e557d3490fa5d3e9512c99b/jooq-meta-postgres-flyway/src/main/java/com/github/sabomichal/jooq/PostgresDDLDatabase.java	2025-12-08 12:10:32.829306044 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/eb82573b99b6d9688e557d3490fa5d3e9512c99b/attempt_1/transformed/com/github/sabomichal/jooq/PostgresDDLDatabase.java	2025-12-08 12:13:07.993156336 +0100
+@@ -56,7 +56,8 @@
+     protected Connection connection() {
+         if (connection == null) {
+             try {
+-                final String customDockerImageName = getProperties().getProperty("dockerImage");
++                final String customDockerImageName = /* FIXME: Method 'getProperties' was removed or modified in AbstractDatabase superclass. Check migration guide. */
++                getProperties().getProperty("dockerImage");
+                 DockerImageName dockerImageName;
+                 if (isBlank(customDockerImageName)) {
+                     dockerImageName = DEFAULT_IMAGE_NAME.withTag(DEFAULT_TAG);
+@@ -75,17 +76,20 @@
+                 info.put("password", postgresContainer.getPassword());
+                 connection = new org.postgresql.Driver().connect(postgresContainer.getJdbcUrl(), info);
+ 
+-                String locationsProperty = getProperties().getProperty("locations");
++                String locationsProperty = /* FIXME: Method 'getProperties' was removed or modified in AbstractDatabase superclass. Check migration guide. */
++                getProperties().getProperty("locations");
+                 if (isBlank(locationsProperty)) {
+                     locationsProperty = "";
+                     log.warn("No scripts location defined", "It is recommended that you provide an explicit script directory to scan");
+                 }
+                 String[] locations = Arrays.stream(locationsProperty.split(","))
+-                    .map(l -> Location.FILESYSTEM_PREFIX + getBasedir() + "/" + l)
++                    .map(l -> Location.FILESYSTEM_PREFIX + /* FIXME: Method 'getBasedir' was removed or modified in AbstractDatabase superclass. Check migration guide. */
++                getBasedir() + "/" + l)
+                     .toArray(String[]::new);
+ 
+                 Map<String, String> placeholders;
+-                String placeholdersProperty = getProperties().getProperty("placeholders");
++                String placeholdersProperty = /* FIXME: Method 'getProperties' was removed or modified in AbstractDatabase superclass. Check migration guide. */
++                getProperties().getProperty("placeholders");
+                 if (isBlank(placeholdersProperty)) {
+                     placeholders = Collections.emptyMap();
+                 } else {
+@@ -94,7 +98,8 @@
+                         .collect(Collectors.toMap(pair -> pair[0], pair -> pair[1]));
+                 }
+ 
+-                String defaultSchema = getProperties().getProperty("defaultSchema");
++                String defaultSchema = /* FIXME: Method 'getProperties' was removed or modified in AbstractDatabase superclass. Check migration guide. */
++                getProperties().getProperty("defaultSchema");
+                 if (isBlank(defaultSchema)) {
+                     defaultSchema = "public";
+                 }
+@@ -106,6 +111,7 @@
+                     .load()
+                     .migrate();
+ 
++                /* FIXME: Method 'setConnection' was removed or modified in AbstractDatabase superclass. Check migration guide. */
+                 setConnection(connection);
+ 
+             } catch (Exception e) {
+@@ -123,6 +129,6 @@
+             postgresContainer.close();
+             postgresContainer = null;
+         }
+-        super.close();
++        /* FIXME: Method 'close' was removed or modified in AbstractDatabase superclass. Check migration guide. */super.close();
+     }
+ }

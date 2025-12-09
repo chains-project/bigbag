@@ -1,0 +1,95 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtFieldReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class HibernateValidatorRefactoring {
+
+    /**
+     * Processor to identify and flag usages of HibernateValidatorProperty and its field validatorFactory.
+     * Based on the diff, these elements appear to be removed or modified, but no direct replacement is provided.
+     * Strategy: Flag usages with a FIXME comment for manual review.
+     */
+    public static class HibernateValidatorProcessor extends AbstractProcessor<CtElement> {
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // 1. Check for Type References (Usage of the Class)
+            if (candidate instanceof CtTypeReference) {
+                CtTypeReference<?> typeRef = (CtTypeReference<?>) candidate;
+                // Defensive check: ensure not part of a package declaration or import unless necessary
+                // We use relaxed string matching for NoClasspath robustness
+                return typeRef.getQualifiedName().contains("com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty")
+                        || typeRef.getQualifiedName().equals("HibernateValidatorProperty");
+            }
+
+            // 2. Check for Field References (Usage of validatorFactory)
+            if (candidate instanceof CtFieldReference) {
+                CtFieldReference<?> fieldRef = (CtFieldReference<?>) candidate;
+                // Check field name
+                if (!"validatorFactory".equals(fieldRef.getSimpleName())) {
+                    return false;
+                }
+                // Check declaring type (Owner of the field)
+                CtTypeReference<?> declaringType = fieldRef.getDeclaringType();
+                return declaringType != null && 
+                       (declaringType.getQualifiedName().contains("HibernateValidatorProperty"));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            // Since no replacement was provided in the diff, we mark the usage for manual migration.
+            // We avoid duplicate comments if already processed.
+            for (CtComment comment : element.getComments()) {
+                if (comment.getContent().contains("HibernateValidatorProperty")) {
+                    return;
+                }
+            }
+
+            // Add a FIXME comment to the element
+            element.addComment(getFactory().Code().createComment(
+                "FIXME: Verify usage of removed/modified dependency: HibernateValidatorProperty",
+                CtComment.CommentType.BLOCK
+            ));
+            
+            System.out.println("Flagged usage at " + 
+                (element.getPosition().isValidPosition() ? element.getPosition().getLine() : "unknown line"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "/home/kth/Documents/last_transformer/output/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ / Precision preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (Assume libraries are missing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new HibernateValidatorProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

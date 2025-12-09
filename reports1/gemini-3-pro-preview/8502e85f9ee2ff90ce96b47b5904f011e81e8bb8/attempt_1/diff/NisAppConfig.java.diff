@@ -1,0 +1,19 @@
+--- /home/kth/Documents/last_transformer/output/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java	2025-12-08 06:46:53.193878869 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8502e85f9ee2ff90ce96b47b5904f011e81e8bb8/attempt_1/transformed/org/nem/specific/deploy/appconfig/NisAppConfig.java	2025-12-08 06:49:19.017663663 +0100
+@@ -105,11 +105,11 @@
+                 final Properties prop = new Properties();
+                 prop.load(NisAppConfig.class.getClassLoader().getResourceAsStream("db.properties"));
+ 
+-                final org.flywaydb.core.Flyway flyway = new Flyway();
+-                flyway.setDataSource(this.dataSource());
+-                flyway.setClassLoader(NisAppConfig.class.getClassLoader());
+-                flyway.setLocations(prop.getProperty("flyway.locations"));
+-                flyway.setValidateOnMigrate(Boolean.valueOf(prop.getProperty("flyway.validate")));
++                final org.flywaydb.core.Flyway flyway = new Flyway(new org.flywaydb.core.api.configuration.ClassicConfiguration());
++                /* FIXME: Method setDataSource removed in Flyway 6+. Use Flyway.configure() or configure the ClassicConfiguration passed to constructor. */flyway.setDataSource(this.dataSource());
++                /* FIXME: Method setClassLoader removed in Flyway 6+. Use Flyway.configure() or configure the ClassicConfiguration passed to constructor. */flyway.setClassLoader(NisAppConfig.class.getClassLoader());
++                /* FIXME: Method setLocations removed in Flyway 6+. Use Flyway.configure() or configure the ClassicConfiguration passed to constructor. */flyway.setLocations(prop.getProperty("flyway.locations"));
++                /* FIXME: Method setValidateOnMigrate removed in Flyway 6+. Use Flyway.configure() or configure the ClassicConfiguration passed to constructor. */flyway.setValidateOnMigrate(Boolean.valueOf(prop.getProperty("flyway.validate")));
+                 return flyway;
+         }
+ 

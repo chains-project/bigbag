@@ -1,0 +1,2027 @@
+{
+  "project" : "simplelocalize-cli",
+  "breakingCommit" : "741f3b5e20a91b0e9305ae79261e3c5e64971c98",
+  "dependency" : {
+    "groupId" : "com.fasterxml.jackson.core",
+    "artifactId" : "jackson-databind",
+    "previousVersion" : "2.9.10.5",
+    "newVersion" : "2.13.4.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/jackson-databind-2.9.10.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/jackson-databind-2.13.4.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/simplelocalize-cli/741f3b5e20a91b0e9305ae79261e3c5e64971c98.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/741f3b5e20a91b0e9305ae79261e3c5e64971c98/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/simplelocalize-cli/src/main/java/io/simplelocalize/cli/client/SimpleLocalizeClient.java",
+    "errors" : [ {
+      "lineNumber" : 88,
+      "columnNumber" : 49,
+      "message" : "cannot access com.fasterxml.jackson.core.exc.StreamReadException",
+      "details" : [ "class file for com.fasterxml.jackson.core.exc.StreamReadException not found" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/simplelocalize-cli",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/simplelocalize-cli/src/main/java/io/simplelocalize/cli/client/SimpleLocalizeClient.java",
+        "lineNumber" : 88,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/jackson-databind-2.9.10.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/741f3b5e20a91b0e9305ae79261e3c5e64971c98/jackson-databind-2.13.4.1.jar",
+        "generatedAt" : "2025-12-08T05:05:31.615832532Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "io.simplelocalize.cli.client.dto.ExportResponse",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/io/simplelocalize/cli/client/dto/ExportResponse.java"
+          },
+          "lineNumber" : 88,
+          "codeLine" : "    ExportResponse exportResponse = objectMapper.readValue(body, ExportResponse.class);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.fasterxml.jackson.databind.ObjectMapper#readValue(java.lang.String, java.lang.Class)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 88,
+          "codeLine" : "    ExportResponse exportResponse = objectMapper.readValue(body, ExportResponse.class);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@761c6214[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@761c6214[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7cad4651[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7cad4651[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.core.type.ResolvedType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@3e2bfdce[public final readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/ResolvedType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@3e2bfdce[public final readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/ResolvedType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.core.type.ResolvedType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@624e94e9[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@624e94e9[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@490bd24a[public readValue (Ljava/io/File;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@490bd24a[public readValue (Ljava/io/File;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@412f407[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@412f407[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1c1e431f[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@1c1e431f[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@194ba52[public readValue (Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@194ba52[public readValue (Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bb5c1e0f[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@bb5c1e0f[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a3f19327[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@a3f19327[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@9b860f9d[public readValue (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@9b860f9d[public readValue (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@843d5e1a[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@843d5e1a[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7e9a7772[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7e9a7772[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@96158663[public readValue (Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@96158663[public readValue (Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@52e53660[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@52e53660[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fd037c38[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@fd037c38[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7f014cf2[public readValue (Ljava/io/InputStream;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7f014cf2[public readValue (Ljava/io/InputStream;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c77a58af[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@c77a58af[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c77845c7[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@c77845c7[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@874e349a[public readValue ([BLjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@874e349a[public readValue ([BLjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d70040ba[public readValue ([BIILjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@d70040ba[public readValue ([BIILjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@83c6a57[public readValue ([BLcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@83c6a57[public readValue ([BLcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@daea7e77[public readValue ([BIILcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@daea7e77[public readValue ([BIILcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f2b56f[public readValue ([BLcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@f2b56f[public readValue ([BLcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a44a618f[public readValue ([BIILcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@a44a618f[public readValue ([BIILcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@9b860f9d[public readValue (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@9b860f9d[public readValue (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@761c6214[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@761c6214[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7cad4651[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7cad4651[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.core.type.ResolvedType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@3e2bfdce[public final readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/ResolvedType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@3e2bfdce[public final readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/core/type/ResolvedType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.core.type.ResolvedType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@624e94e9[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@624e94e9[public readValue (Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.core.JsonParser", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@490bd24a[public readValue (Ljava/io/File;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@490bd24a[public readValue (Ljava/io/File;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@412f407[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@412f407[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.File, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@1c1e431f[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@1c1e431f[public readValue (Ljava/io/File;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@194ba52[public readValue (Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@194ba52[public readValue (Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bb5c1e0f[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@bb5c1e0f[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.net.URL, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a3f19327[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@a3f19327[public readValue (Ljava/net/URL;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.net.URL", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@843d5e1a[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@843d5e1a[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.lang.String, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7e9a7772[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7e9a7772[public readValue (Ljava/lang/String;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@96158663[public readValue (Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@96158663[public readValue (Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@52e53660[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@52e53660[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.Reader, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fd037c38[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@fd037c38[public readValue (Ljava/io/Reader;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.Reader", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7f014cf2[public readValue (Ljava/io/InputStream;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@7f014cf2[public readValue (Ljava/io/InputStream;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c77a58af[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@c77a58af[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.InputStream, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c77845c7[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@c77845c7[public readValue (Ljava/io/InputStream;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.InputStream", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@874e349a[public readValue ([BLjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@874e349a[public readValue ([BLjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, java.lang.Class)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d70040ba[public readValue ([BIILjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@d70040ba[public readValue ([BIILjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@83c6a57[public readValue ([BLcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@83c6a57[public readValue ([BLcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, com.fasterxml.jackson.core.type.TypeReference)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@daea7e77[public readValue ([BIILcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@daea7e77[public readValue ([BIILcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "com.fasterxml.jackson.core.type.TypeReference" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f2b56f[public readValue ([BLcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@f2b56f[public readValue ([BLcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(byte[], int, int, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a44a618f[public readValue ([BIILcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@a44a618f[public readValue ([BIILcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.DataInput, java.lang.Class)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@3724bd9c[public readValue (Ljava/io/DataInput;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@3724bd9c[public readValue (Ljava/io/DataInput;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.DataInput", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper.readValue(java.io.DataInput, com.fasterxml.jackson.databind.JavaType)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f05ed871[public readValue (Ljava/io/DataInput;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@f05ed871[public readValue (Ljava/io/DataInput;Lcom/fasterxml/jackson/databind/JavaType;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.DataInput", "com.fasterxml.jackson.databind.JavaType" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.lang.String)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            }, {
+              "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a4673f32[public readValue (Ljava/lang/String;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@a4673f32[public readValue (Ljava/lang/String;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.io.InputStream, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7f014cf2[public readValue (Ljava/io/InputStream;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.InputStream", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.io.Reader, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@96158663[public readValue (Ljava/io/Reader;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.Reader", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.lang.String, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9b860f9d[public readValue (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(byte[], java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@874e349a[public readValue ([BLjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "byte[]", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(byte[], int, int, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@d70040ba[public readValue ([BIILjava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "byte[]", "int", "int", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.io.File, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@490bd24a[public readValue (Ljava/io/File;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.net.URL, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@194ba52[public readValue (Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(com.fasterxml.jackson.databind.JsonNode, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@6c708219[public readValue (Lcom/fasterxml/jackson/databind/JsonNode;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.databind.JsonNode", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "readValue",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectReader",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectReader.readValue(java.io.DataInput, java.lang.Class)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3724bd9c[public readValue (Ljava/io/DataInput;Ljava/lang/Class;)Ljava/lang/Object;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.Object",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.io.DataInput", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "declaringType" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "qualifiedSignature" : "com.fasterxml.jackson.databind.ObjectMapper",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 102
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "io.simplelocalize.cli.client.SimpleLocalizeClient::objectMapper",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/io/simplelocalize/cli/client/SimpleLocalizeClient.java"
+          },
+          "lineNumber" : 88,
+          "codeLine" : "    ExportResponse exportResponse = objectMapper.readValue(body, ExportResponse.class);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "io.simplelocalize.cli.client.dto.ExportResponse::class",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/io/simplelocalize/cli/client/dto/ExportResponse.java"
+          },
+          "lineNumber" : 88,
+          "codeLine" : "    ExportResponse exportResponse = objectMapper.readValue(body, ExportResponse.class);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

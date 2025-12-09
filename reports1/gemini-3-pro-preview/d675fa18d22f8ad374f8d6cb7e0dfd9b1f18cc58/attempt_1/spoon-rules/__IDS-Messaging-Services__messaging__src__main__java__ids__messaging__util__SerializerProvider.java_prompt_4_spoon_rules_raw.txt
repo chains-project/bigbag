@@ -1,0 +1,96 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * NOTE: The input diff was not provided in the prompt. 
+ * This generated code serves as a strict TEMPLATE demonstrating the required 
+ * configuration (Sniper Printer, NoClasspath, Defensive Checks).
+ * 
+ * Default Scenario Implemented:
+ * Renaming `TargetClass.deprecatedMethod()` -> `TargetClass.newMethod()`
+ */
+public class TemplateRefactoring {
+
+    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check: Filter by the old method name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"deprecatedMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Owner/Type Check (Defensive for NoClasspath)
+            // We verify if the method belongs to the target class (loosely).
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If declaring type is null or unknown, we might process it safely, 
+            // or strictly require it to contain the class name if known.
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Check if the class name matches our target (e.g., "TargetClass")
+                // Use .contains() to handle fully qualified vs simple names in NoClasspath
+                if (!qualifiedName.contains("TargetClass") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation: Rename the method
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            String oldName = execRef.getSimpleName();
+            
+            // Set the new name
+            execRef.setSimpleName("newMethod");
+
+            System.out.println("Refactored " + oldName + " to newMethod at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL IMPLEMENTATION RULES ---
+        
+        // 1. Enable comments (Crucial for Sniper)
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually (Preserves indentation/formatting)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive Coding (NoClasspath Compatibility)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // -------------------------------------
+
+        launcher.addProcessor(new MethodRenameProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

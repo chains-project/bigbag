@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/867e69e208ff59d1f8baae7ed41d3e163a51bc65/attempt_1/prompts/__singer__singer__src__main__java__com__pinterest__singer__reader__ThriftReader.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/867e69e208ff59d1f8baae7ed41d3e163a51bc65/attempt_1/prompts/__singer__singer__src__main__java__com__pinterest__singer__reader__ThriftReader.java_prompt_4_llm.txt",
+  "timestamp": 1765173139.9352126,
+  "duration_seconds": 65.4418420791626,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Here is the self-contained Java class to handle the refactoring of the removed `TFramedTransport` class by migrating it to its new package location (`org.apache.thrift.transport.layered`), which is the standard migration path for this specific Apache Thrift breaking change.\n\n```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring rule for Apache Thrift: TFramedTransport removed/moved.\n * \n * Breaking Change:\n * - CLASS org.apache.thrift.transport.TFramedTransport [REMOVED]\n * \n * Migration Strategy:\n * - In newer Thrift versions (0.14+), TFramedTransport was moved to the 'layered' subpackage.\n * - Action: Replace usages of 'org.apache.thrift.transport.TFramedTransport' \n *   with 'org.apache.thrift.transport.layered.TFramedTransport'.\n */\npublic class ThriftMigration {\n\n    public static class TransportUpdateProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final String OLD_CLASS_QNAME = \"org.apache.thrift.transport.TFramedTransport\";\n        private static final String NEW_CLASS_QNAME = \"org.apache.thrift.transport.layered.TFramedTransport\";\n        private static final String OLD_SIMPLE_NAME = \"TFramedTransport\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive Check: Ensure candidate is valid\n            if (candidate == null) return false;\n            \n            // 1. Check Simple Name (Fast filter)\n            if (!OLD_SIMPLE_NAME.equals(candidate.getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Qualified Name (Robust check for NoClasspath)\n            // Note: In NoClasspath, getQualifiedName() attempts to resolve via imports.\n            // If resolution fails, it might return the simple name, so we check strictly for the old package\n            // or if it matches the simple name and likely needs migration based on context (omitted for safety).\n            String qName = candidate.getQualifiedName();\n            \n            // We strictly check the fully qualified name to avoid false positives, \n            // but also handle cases where it might already be the new type.\n            if (NEW_CLASS_QNAME.equals(qName)) {\n                return false; // Already migrated\n            }\n\n            // Match exact old qualified name\n            return OLD_CLASS_QNAME.equals(qName);\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            // Transformation: Replace the reference with the new package location.\n            // We create a new reference to ensure imports are updated correctly by Spoon/Sniper.\n            \n            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(NEW_CLASS_QNAME);\n            \n            // Preserve generic arguments if any exist on the old reference\n            if (!candidate.getActualTypeArguments().isEmpty()) {\n                newTypeRef.setActualTypeArguments(candidate.getActualTypeArguments());\n            }\n\n            // Replace the old reference in the AST\n            candidate.replace(newTypeRef);\n            \n            CtElement parent = newTypeRef.getParent();\n            String position = (parent != null && parent.getPosition().isValidPosition()) \n                ? String.valueOf(parent.getPosition().getLine()) \n                : \"unknown\";\n                \n            System.out.println(\"Migrated TFramedTransport at line \" + position);\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args or hardcoded)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // =========================================================\n        // CRITICAL CONFIGURATION: Preservation & NoClasspath Safety\n        // =========================================================\n        \n        // 1. Enable comments to ensure Javadoc/inline comments aren't lost\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Enable NoClasspath mode (Defensive typing)\n        launcher.getEnvironment().setNoClasspath(true);\n        \n        // 3. Force Sniper Printer (Preserve formatting/indentation)\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // Apply the processor\n        launcher.addProcessor(new TransportUpdateProcessor());\n\n        try {\n            System.out.println(\"Starting Thrift Migration...\");\n            launcher.run();\n            System.out.println(\"Migration complete. Check output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Error during migration:\");\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1553,
+      "candidates_token_count": 1145,
+      "total_token_count": 6974,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "project" : "flink-faker",
+  "breakingCommit" : "1ef97ea6c5b6e34151fe6167001b69e003449f95",
+  "dependency" : {
+    "groupId" : "net.datafaker",
+    "artifactId" : "datafaker",
+    "previousVersion" : "1.3.0",
+    "newVersion" : "1.4.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.3.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.4.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker/1ef97ea6c5b6e34151fe6167001b69e003449f95.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/1ef97ea6c5b6e34151fe6167001b69e003449f95/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/flink-faker/src/main/java/com/github/knaufk/flink/faker/DateTime.java",
+    "errors" : [ {
+      "lineNumber" : 43,
+      "columnNumber" : 3,
+      "message" : "method does not override or implement a method from a supertype",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker/src/main/java/com/github/knaufk/flink/faker/DateTime.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.3.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.4.0.jar",
+        "generatedAt" : "2025-12-08T01:44:14.483954581Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "java.lang.Override",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 43,
+          "codeLine" : "  @Override",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 45,
+      "columnNumber" : 40,
+      "message" : "incompatible types: java.util.Date cannot be converted to java.sql.Timestamp",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker/src/main/java/com/github/knaufk/flink/faker/DateTime.java",
+        "lineNumber" : 45,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.3.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/datafaker-1.4.0.jar",
+        "generatedAt" : "2025-12-08T01:44:14.487881580Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "java.util.Date#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "    return new Timestamp(super.between(from, to).getTime());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.sql.Timestamp",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.sql",
+            "version" : null,
+            "coordinates" : "java:java.sql",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "    return new Timestamp(super.between(from, to).getTime());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getTime()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 45,
+          "codeLine" : "    return new Timestamp(super.between(from, to).getTime());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "net.datafaker.DateAndTime#between(java.sql.Timestamp, java.sql.Timestamp)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.datafaker",
+            "artifactId" : "datafaker",
+            "version" : "1.4.0",
+            "coordinates" : "net.datafaker:datafaker:1.4.0",
+            "sourcePath" : "/home/kth/.m2/repository/net/datafaker/datafaker/1.4.0/datafaker-1.4.0.jar"
+          },
+          "lineNumber" : 45,
+          "codeLine" : "    return new Timestamp(super.between(from, to).getTime());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.util.Date, java.util.Date)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af9dbd07[public between (Ljava/util/Date;Ljava/util/Date;)Ljava/util/Date;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Date",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Date", "java.util.Date" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.util.Date, java.util.Date, java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@5128f7bd[public between (Ljava/util/Date;Ljava/util/Date;Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Date", "java.util.Date", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.sql.Timestamp, java.sql.Timestamp)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b3dae0fb[public between (Ljava/sql/Timestamp;Ljava/sql/Timestamp;)Ljava/sql/Timestamp;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.sql.Timestamp",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.sql.Timestamp", "java.sql.Timestamp" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.sql.Timestamp, java.sql.Timestamp, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@f1e886b1[public between (Ljava/sql/Timestamp;Ljava/sql/Timestamp;Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.sql.Timestamp", "java.sql.Timestamp", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.sql.Timestamp, java.sql.Timestamp)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b3dae0fb[public between (Ljava/sql/Timestamp;Ljava/sql/Timestamp;)Ljava/sql/Timestamp;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.sql.Timestamp",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.sql.Timestamp", "java.sql.Timestamp" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.util.Date, java.util.Date)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af9dbd07[public between (Ljava/util/Date;Ljava/util/Date;)Ljava/util/Date;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Date",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Date", "java.util.Date" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.util.Date, java.util.Date, java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@5128f7bd[public between (Ljava/util/Date;Ljava/util/Date;Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Date", "java.util.Date", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "between",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime.between(java.sql.Timestamp, java.sql.Timestamp, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@f1e886b1[public between (Ljava/sql/Timestamp;Ljava/sql/Timestamp;Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.sql.Timestamp", "java.sql.Timestamp", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "between",
+            "declaringType" : "net.datafaker.Time",
+            "qualifiedSignature" : "net.datafaker.Time.between(java.time.LocalTime, java.time.LocalTime)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@51db8089[public between (Ljava/time/LocalTime;Ljava/time/LocalTime;)J]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "long",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.time.LocalTime", "java.time.LocalTime" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "between",
+            "declaringType" : "net.datafaker.Time",
+            "qualifiedSignature" : "net.datafaker.Time.between(java.time.LocalTime, java.time.LocalTime, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@f7219ebf[public between (Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.time.LocalTime", "java.time.LocalTime", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.datafaker.DateAndTime",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "net.datafaker.DateAndTime",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.datafaker",
+            "artifactId" : "datafaker",
+            "version" : "1.4.0",
+            "coordinates" : "net.datafaker:datafaker:1.4.0",
+            "sourcePath" : "/home/kth/.m2/repository/net/datafaker/datafaker/1.4.0/datafaker-1.4.0.jar"
+          },
+          "lineNumber" : 45,
+          "codeLine" : "    return new Timestamp(super.between(from, to).getTime());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.datafaker.DateAndTime",
+            "declaringType" : "net.datafaker.DateAndTime",
+            "qualifiedSignature" : "net.datafaker.DateAndTime",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

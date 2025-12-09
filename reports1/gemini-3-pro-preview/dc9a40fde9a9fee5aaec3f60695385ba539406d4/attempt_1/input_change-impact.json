@@ -1,0 +1,282 @@
+{
+  "project" : "arex-agent-java",
+  "breakingCommit" : "dc9a40fde9a9fee5aaec3f60695385ba539406d4",
+  "dependency" : {
+    "groupId" : "org.apache.dubbo",
+    "artifactId" : "dubbo",
+    "previousVersion" : "2.7.3",
+    "newVersion" : "2.7.21",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/dc9a40fde9a9fee5aaec3f60695385ba539406d4.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/dc9a40fde9a9fee5aaec3f60695385ba539406d4/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+    "errors" : [ {
+      "lineNumber" : 43,
+      "columnNumber" : 47,
+      "message" : "incompatible types: org.apache.dubbo.rpc.AsyncRpcResult cannot be converted to java.util.concurrent.CompletableFuture<?>",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar",
+        "generatedAt" : "2025-12-08T10:20:50.208114713Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.dubbo.rpc.RpcContext#setFuture(java.util.concurrent.CompletableFuture)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "            RpcContext.getContext().setFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setFuture",
+            "declaringType" : "org.apache.dubbo.rpc.RpcContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.RpcContext.setFuture(java.util.concurrent.CompletableFuture)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6a0097e8[public setFuture (Ljava/util/concurrent/CompletableFuture;)V]",
+              "newValue" : "javassist.CtMethod@6a0097e8[public setFuture (Ljava/util/concurrent/CompletableFuture;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.concurrent.CompletableFuture" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.dubbo.rpc.RpcContext",
+            "declaringType" : "org.apache.dubbo.rpc.RpcContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.RpcContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 21
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.dubbo.rpc.RpcContext#getContext()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "            RpcContext.getContext().setFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getContext",
+            "declaringType" : "org.apache.dubbo.rpc.RpcContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.RpcContext.getContext()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e72dfc3a[public static getContext ()Lorg/apache/dubbo/rpc/RpcContext;]",
+              "newValue" : "javassist.CtMethod@e72dfc3a[public static getContext ()Lorg/apache/dubbo/rpc/RpcContext;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.dubbo.rpc.RpcContext",
+              "newValue" : "org.apache.dubbo.rpc.RpcContext",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.dubbo.rpc.RpcContext",
+            "declaringType" : "org.apache.dubbo.rpc.RpcContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.RpcContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 21
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.dubbo.rpc.RpcContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "            RpcContext.getContext().setFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.dubbo.rpc.RpcContext",
+            "declaringType" : "org.apache.dubbo.rpc.RpcContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.RpcContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 21
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 45,
+      "columnNumber" : 60,
+      "message" : "incompatible types: org.apache.dubbo.rpc.AsyncRpcResult cannot be converted to java.util.concurrent.CompletableFuture<?>",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/arex-agent-java/arex-instrumentation/dubbo/arex-dubbo-apache-v2/src/main/java/io/arex/inst/dubbo/apache/v2/DubboConsumerExtractor.java",
+        "lineNumber" : 45,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.21.jar",
+        "generatedAt" : "2025-12-08T10:20:50.210376165Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.dubbo.rpc.FutureContext#setCompatibleFuture(java.util.concurrent.CompletableFuture)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            FutureContext.getContext().setCompatibleFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setCompatibleFuture",
+            "declaringType" : "org.apache.dubbo.rpc.FutureContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.FutureContext.setCompatibleFuture(java.util.concurrent.CompletableFuture)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bc2c845c[public setCompatibleFuture (Ljava/util/concurrent/CompletableFuture;)V]",
+              "newValue" : "javassist.CtMethod@bc2c845c[public setCompatibleFuture (Ljava/util/concurrent/CompletableFuture;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.concurrent.CompletableFuture" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.dubbo.rpc.FutureContext#getContext()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            FutureContext.getContext().setCompatibleFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getContext",
+            "declaringType" : "org.apache.dubbo.rpc.FutureContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.FutureContext.getContext()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e72dfc3a[public static getContext ()Lorg/apache/dubbo/rpc/FutureContext;]",
+              "newValue" : "javassist.CtMethod@e72dfc3a[public static getContext ()Lorg/apache/dubbo/rpc/FutureContext;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.dubbo.rpc.FutureContext",
+              "newValue" : "org.apache.dubbo.rpc.FutureContext",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.dubbo.rpc.FutureContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.dubbo",
+            "artifactId" : "dubbo",
+            "version" : "2.7.3",
+            "coordinates" : "org.apache.dubbo:dubbo:2.7.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/dc9a40fde9a9fee5aaec3f60695385ba539406d4/dubbo-2.7.3.jar"
+          },
+          "lineNumber" : 45,
+          "codeLine" : "            FutureContext.getContext().setCompatibleFuture(asyncRpcResult);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.dubbo.rpc.FutureContext",
+            "declaringType" : "org.apache.dubbo.rpc.FutureContext",
+            "qualifiedSignature" : "org.apache.dubbo.rpc.FutureContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

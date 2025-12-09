@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java	2025-12-08 13:09:21.468264059 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/feb582661e77de66eadaa7550720a8751b266ee4/attempt_1/transformed/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java	2025-12-08 13:11:43.362012421 +0100
+@@ -74,7 +74,7 @@
+       builder.append(" WITH (FILLFACTOR = ").append(statement.getFillFactor()).append(")");
+     }
+     // This block simplified, since we know we have MSSQLDatabase
+-    if (StringUtils.trimToNull(statement.getTablespace()) != null) {
++    if (liquibase.util.StringUtil.trimToNull(statement.getTablespace()) != null) {
+       builder.append(" ON ").append(statement.getTablespace());
+     }
+ 

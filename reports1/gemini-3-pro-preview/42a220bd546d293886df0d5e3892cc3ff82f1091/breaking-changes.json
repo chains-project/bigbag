@@ -1,0 +1,2035 @@
+{
+  "project" : "minfraud-api-java",
+  "breakingCommit" : "42a220bd546d293886df0d5e3892cc3ff82f1091",
+  "dependencyGroupId" : "com.maxmind.geoip2",
+  "dependencyArtifactId" : "geoip2",
+  "previousVersion" : "2.16.1",
+  "newVersion" : "3.0.0",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar",
+  "generatedAt" : "2025-12-08T03:01:55.562452610Z",
+  "totalBreakingChanges" : 83,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.DatabaseReader",
+    "simpleName" : "DatabaseReader",
+    "qualifiedSignature" : "com.maxmind.geoip2.DatabaseReader",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DatabaseReader",
+    "simpleName" : "DatabaseReader",
+    "qualifiedSignature" : "com.maxmind.geoip2.DatabaseReader#DatabaseReader(com.maxmind.geoip2.DatabaseReader$Builder, com.maxmind.geoip2.DatabaseReader$1)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@2173718[ DatabaseReader (Lcom/maxmind/geoip2/DatabaseReader$Builder;Lcom/maxmind/geoip2/DatabaseReader$1;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "com.maxmind.geoip2.DatabaseReader$Builder", "com.maxmind.geoip2.DatabaseReader$1" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.DatabaseReader$1",
+    "simpleName" : "DatabaseReader$1",
+    "qualifiedSignature" : "com.maxmind.geoip2.DatabaseReader$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.WebServiceClient",
+    "simpleName" : "WebServiceClient",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "WebServiceClient",
+    "simpleName" : "WebServiceClient",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#WebServiceClient(com.maxmind.geoip2.WebServiceClient$Builder, com.maxmind.geoip2.WebServiceClient$1)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5bbac309[ WebServiceClient (Lcom/maxmind/geoip2/WebServiceClient$Builder;Lcom/maxmind/geoip2/WebServiceClient$1;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "com.maxmind.geoip2.WebServiceClient$Builder", "com.maxmind.geoip2.WebServiceClient$1" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createUri",
+    "simpleName" : "createUri",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#createUri(java.lang.String, java.net.InetAddress)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5d49d4f9[private createUri (Ljava/lang/String;Ljava/net/InetAddress;)Ljava/net/URL;]",
+      "newValue" : "javassist.CtMethod@5d49d4f9[private createUri (Ljava/lang/String;Ljava/net/InetAddress;)Ljava/net/URI;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.net.URL",
+      "newValue" : "java.net.URI",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "parameterTypes" : [ "java.lang.String", "java.net.InetAddress" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getResponse",
+    "simpleName" : "getResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#getResponse(java.net.URL)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@2e452419[private getResponse (Ljava/net/URL;)Lorg/apache/http/client/methods/HttpGet;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.http.client.methods.HttpGet",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.net.URL" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handle4xxStatus",
+    "simpleName" : "handle4xxStatus",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#handle4xxStatus(org.apache.http.HttpResponse, java.net.URL)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f719a62b[private handle4xxStatus (Lorg/apache/http/HttpResponse;Ljava/net/URL;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.http.HttpResponse", "java.net.URL" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handleErrorWithJsonBody",
+    "simpleName" : "handleErrorWithJsonBody",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#handleErrorWithJsonBody(java.util.Map, java.lang.String, int, java.net.URL)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ff77e1be[private static handleErrorWithJsonBody (Ljava/util/Map;Ljava/lang/String;ILjava/net/URL;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.Map", "java.lang.String", "int", "java.net.URL" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handleResponse",
+    "simpleName" : "handleResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#handleResponse(org.apache.http.client.methods.CloseableHttpResponse, java.net.URL, java.lang.Class)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@20331dc8[private handleResponse (Lorg/apache/http/client/methods/CloseableHttpResponse;Ljava/net/URL;Ljava/lang/Class;)Ljava/lang/Object;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Object",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.http.client.methods.CloseableHttpResponse", "java.net.URL", "java.lang.Class" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "userAgent",
+    "simpleName" : "userAgent",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient#userAgent()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@aec47c7b[private userAgent ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "accountId",
+    "simpleName" : "accountId",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient::accountId",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.WebServiceClient.accountId:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "httpClient",
+    "simpleName" : "httpClient",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient::httpClient",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.WebServiceClient.httpClient:Lorg/apache/http/impl/client/CloseableHttpClient;",
+      "newValue" : "com.maxmind.geoip2.WebServiceClient.httpClient:Ljava/net/http/HttpClient;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.http.impl.client.CloseableHttpClient",
+      "newValue" : "java.net.http.HttpClient",
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "licenseKey",
+    "simpleName" : "licenseKey",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient::licenseKey",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.WebServiceClient.licenseKey:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.WebServiceClient$Builder",
+    "simpleName" : "WebServiceClient$Builder",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient$Builder",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "access$000",
+    "simpleName" : "access$000",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient$Builder#access$000(com.maxmind.geoip2.WebServiceClient$Builder)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7c0d16eb[static access$000 (Lcom/maxmind/geoip2/WebServiceClient$Builder;)Ljava/net/Proxy;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.net.Proxy",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "com.maxmind.geoip2.WebServiceClient$Builder" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "readTimeout",
+    "simpleName" : "readTimeout",
+    "qualifiedSignature" : "com.maxmind.geoip2.WebServiceClient$Builder::readTimeout",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.WebServiceClient$Builder.readTimeout:I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.exception.HttpException",
+    "simpleName" : "HttpException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.HttpException",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "HttpException",
+    "simpleName" : "HttpException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.HttpException#HttpException(java.lang.String, int, java.net.URL)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@66e22707[public HttpException (Ljava/lang/String;ILjava/net/URL;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "int", "java.net.URL" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "HttpException",
+    "simpleName" : "HttpException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.HttpException#HttpException(java.lang.String, int, java.net.URL, java.lang.Throwable)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@57981929[public HttpException (Ljava/lang/String;ILjava/net/URL;Ljava/lang/Throwable;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "int", "java.net.URL", "java.lang.Throwable" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "url",
+    "simpleName" : "url",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.HttpException::url",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.exception.HttpException.url:Ljava/net/URL;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.net.URL",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.exception.InvalidRequestException",
+    "simpleName" : "InvalidRequestException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.InvalidRequestException",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "InvalidRequestException",
+    "simpleName" : "InvalidRequestException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.InvalidRequestException#InvalidRequestException(java.lang.String, java.lang.String, int, java.net.URL, java.lang.Throwable)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@7f8869b0[public InvalidRequestException (Ljava/lang/String;Ljava/lang/String;ILjava/net/URL;Ljava/lang/Throwable;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String", "int", "java.net.URL", "java.lang.Throwable" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "InvalidRequestException",
+    "simpleName" : "InvalidRequestException",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.InvalidRequestException#InvalidRequestException(java.lang.String, java.lang.String, java.net.URL)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@68ce6639[public InvalidRequestException (Ljava/lang/String;Ljava/lang/String;Ljava/net/URL;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String", "java.net.URL" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "url",
+    "simpleName" : "url",
+    "qualifiedSignature" : "com.maxmind.geoip2.exception.InvalidRequestException::url",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.exception.InvalidRequestException.url:Ljava/net/URL;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.net.URL",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.AbstractCityResponse",
+    "simpleName" : "AbstractCityResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AbstractCityResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractCityResponse",
+    "simpleName" : "AbstractCityResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AbstractCityResponse#AbstractCityResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@7327b361[ AbstractCityResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.AbstractCountryResponse",
+    "simpleName" : "AbstractCountryResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AbstractCountryResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractCountryResponse",
+    "simpleName" : "AbstractCountryResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AbstractCountryResponse#AbstractCountryResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1d1e682b[ AbstractCountryResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.AnonymousIpResponse",
+    "simpleName" : "AnonymousIpResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AnonymousIpResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AnonymousIpResponse",
+    "simpleName" : "AnonymousIpResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AnonymousIpResponse#AnonymousIpResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@63dea183[ AnonymousIpResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AnonymousIpResponse",
+    "simpleName" : "AnonymousIpResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AnonymousIpResponse#AnonymousIpResponse(java.lang.String, boolean, boolean, boolean, boolean, boolean)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@380c85e[public AnonymousIpResponse (Ljava/lang/String;ZZZZZ)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AnonymousIpResponse",
+    "simpleName" : "AnonymousIpResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AnonymousIpResponse#AnonymousIpResponse(java.lang.String, boolean, boolean, boolean, boolean, boolean, com.maxmind.db.Network)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1544a314[public AnonymousIpResponse (Ljava/lang/String;ZZZZZLcom/maxmind/db/Network;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean", "com.maxmind.db.Network" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.AsnResponse",
+    "simpleName" : "AsnResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AsnResponse",
+    "simpleName" : "AsnResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse#AsnResponse(java.lang.Integer, java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@27f163d1[public AsnResponse (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AsnResponse",
+    "simpleName" : "AsnResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse#AsnResponse(java.lang.Integer, java.lang.String, java.lang.String, com.maxmind.db.Network)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@50070296[public AsnResponse (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Lcom/maxmind/db/Network;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String", "com.maxmind.db.Network" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AsnResponse",
+    "simpleName" : "AsnResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse#AsnResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@7cc40cac[ AsnResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getAutonomousSystemNumber",
+    "simpleName" : "getAutonomousSystemNumber",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse#getAutonomousSystemNumber()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ce6f225f[public getAutonomousSystemNumber ()Ljava/lang/Integer;]",
+      "newValue" : "javassist.CtMethod@ce6f225f[public getAutonomousSystemNumber ()Ljava/lang/Long;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "java.lang.Long",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "autonomousSystemNumber",
+    "simpleName" : "autonomousSystemNumber",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.AsnResponse::autonomousSystemNumber",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.model.AsnResponse.autonomousSystemNumber:Ljava/lang/Integer;",
+      "newValue" : "com.maxmind.geoip2.model.AsnResponse.autonomousSystemNumber:Ljava/lang/Long;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "java.lang.Long",
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.CityResponse",
+    "simpleName" : "CityResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.CityResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "CityResponse",
+    "simpleName" : "CityResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.CityResponse#CityResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@2ef4baf6[ CityResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.ConnectionTypeResponse",
+    "simpleName" : "ConnectionTypeResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.ConnectionTypeResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ConnectionTypeResponse",
+    "simpleName" : "ConnectionTypeResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.ConnectionTypeResponse#ConnectionTypeResponse(com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@62e16311[public ConnectionTypeResponse (Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ConnectionTypeResponse",
+    "simpleName" : "ConnectionTypeResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.ConnectionTypeResponse#ConnectionTypeResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@469a279c[ ConnectionTypeResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.CountryResponse",
+    "simpleName" : "CountryResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.CountryResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "CountryResponse",
+    "simpleName" : "CountryResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.CountryResponse#CountryResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5cf62b63[ CountryResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.DomainResponse",
+    "simpleName" : "DomainResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.DomainResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DomainResponse",
+    "simpleName" : "DomainResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.DomainResponse#DomainResponse(java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@580c46ff[public DomainResponse (Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "DomainResponse",
+    "simpleName" : "DomainResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.DomainResponse#DomainResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@373ab10e[ DomainResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.InsightsResponse",
+    "simpleName" : "InsightsResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.InsightsResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "InsightsResponse",
+    "simpleName" : "InsightsResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.InsightsResponse#InsightsResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@2c9bde50[ InsightsResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.model.IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse#IspResponse(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.maxmind.db.Network)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@15d33bc3[public IspResponse (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/maxmind/db/Network;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Long", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "com.maxmind.db.Network" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse#IspResponse(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.maxmind.db.Network)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1346e5ce[public IspResponse (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/maxmind/db/Network;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "com.maxmind.db.Network" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse#IspResponse(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.maxmind.db.Network)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@655f8779[public IspResponse (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/maxmind/db/Network;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "com.maxmind.db.Network" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse#IspResponse(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@41136689[public IspResponse (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "IspResponse",
+    "simpleName" : "IspResponse",
+    "qualifiedSignature" : "com.maxmind.geoip2.model.IspResponse#IspResponse()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@76670d4f[ IspResponse ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.AbstractNamedRecord",
+    "simpleName" : "AbstractNamedRecord",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.AbstractNamedRecord",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "AbstractNamedRecord",
+    "simpleName" : "AbstractNamedRecord",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.AbstractNamedRecord#AbstractNamedRecord(java.util.List, java.lang.Integer, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@29007d2b[ AbstractNamedRecord (Ljava/util/List;Ljava/lang/Integer;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.util.Map" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getGeoNameId",
+    "simpleName" : "getGeoNameId",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.AbstractNamedRecord#getGeoNameId()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@de0a41c2[public getGeoNameId ()Ljava/lang/Integer;]",
+      "newValue" : "javassist.CtMethod@de0a41c2[public getGeoNameId ()Ljava/lang/Long;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "java.lang.Long",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "geoNameId",
+    "simpleName" : "geoNameId",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.AbstractNamedRecord::geoNameId",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.maxmind.geoip2.record.AbstractNamedRecord.geoNameId:Ljava/lang/Integer;",
+      "newValue" : "com.maxmind.geoip2.record.AbstractNamedRecord.geoNameId:Ljava/lang/Long;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "java.lang.Long",
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.City",
+    "simpleName" : "City",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.City",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "City",
+    "simpleName" : "City",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.City#City(java.util.List, java.lang.Integer, java.lang.Integer, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@3b3ef74[public City (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.Continent",
+    "simpleName" : "Continent",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Continent",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Continent",
+    "simpleName" : "Continent",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Continent#Continent(java.util.List, java.lang.String, java.lang.Integer, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@54715492[public Continent (Ljava/util/List;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.String", "java.lang.Integer", "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.Country",
+    "simpleName" : "Country",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Country",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Country",
+    "simpleName" : "Country",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Country#Country(java.util.List, java.lang.Integer, java.lang.Integer, java.lang.String, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@13730ee3[public Country (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "java.lang.String", "java.util.Map" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Country",
+    "simpleName" : "Country",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Country#Country(java.util.List, java.lang.Integer, java.lang.Integer, boolean, java.lang.String, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@63bc593c[public Country (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/String;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "boolean", "java.lang.String", "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.RepresentedCountry",
+    "simpleName" : "RepresentedCountry",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.RepresentedCountry",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "RepresentedCountry",
+    "simpleName" : "RepresentedCountry",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.RepresentedCountry#RepresentedCountry(java.util.List, java.lang.Integer, java.lang.Integer, java.lang.String, java.util.Map, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@77828de3[public RepresentedCountry (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "java.lang.String", "java.util.Map", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "RepresentedCountry",
+    "simpleName" : "RepresentedCountry",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.RepresentedCountry#RepresentedCountry(java.util.List, java.lang.Integer, java.lang.Integer, boolean, java.lang.String, java.util.Map, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5ecae4f7[public RepresentedCountry (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/String;Ljava/util/Map;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "boolean", "java.lang.String", "java.util.Map", "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.Subdivision",
+    "simpleName" : "Subdivision",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Subdivision",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Subdivision",
+    "simpleName" : "Subdivision",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Subdivision#Subdivision(java.util.List, java.lang.Integer, java.lang.Integer, java.lang.String, java.util.Map)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@3fa14dae[public Subdivision (Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.List", "java.lang.Integer", "java.lang.Integer", "java.lang.String", "java.util.Map" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.maxmind.geoip2.record.Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Long, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean, java.lang.String, com.maxmind.db.Network, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Double)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@6e40725b[public Traits (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Lcom/maxmind/db/Network;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Long", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.String", "com.maxmind.db.Network", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Double" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, boolean, boolean, java.lang.String, java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@5638c180[public Traits (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "java.lang.String", "java.lang.String", "boolean", "boolean", "java.lang.String", "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String, java.lang.String, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, com.maxmind.db.Network, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Double)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@688d37d1[public Traits (Ljava/lang/Integer;Ljava/lang/String;Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;Ljava/lang/String;ZZZZZZZZZLjava/lang/String;Lcom/maxmind/db/Network;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String", "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "java.lang.String", "com.maxmind.db.Network", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Double" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@7344ea5f[public Traits (Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String, java.lang.String, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1efb9cc6[public Traits (Ljava/lang/Integer;Ljava/lang/String;Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;Ljava/lang/String;ZZZZZZZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String", "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "java.lang.String", "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String, java.lang.String, boolean, boolean, boolean, java.lang.String, java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@e5f6a58[public Traits (Ljava/lang/Integer;Ljava/lang/String;Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;Ljava/lang/String;ZZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String", "java.lang.String", "boolean", "boolean", "boolean", "java.lang.String", "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String, java.lang.String, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, java.lang.String, java.lang.String, com.maxmind.db.Network, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Double)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@f6df7fd[public Traits (Ljava/lang/Integer;Ljava/lang/String;Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;Ljava/lang/String;ZZZZZZZZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/maxmind/db/Network;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String", "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "java.lang.String", "java.lang.String", "java.lang.String", "com.maxmind.db.Network", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Double" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "Traits",
+    "simpleName" : "Traits",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#Traits(java.lang.Integer, java.lang.String, com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType, java.lang.String, java.lang.String, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, java.lang.String, com.maxmind.db.Network, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Double)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "ANNOTATION_REMOVED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "PATCH"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@18cd8340[public Traits (Ljava/lang/Integer;Ljava/lang/String;Lcom/maxmind/geoip2/model/ConnectionTypeResponse$ConnectionType;Ljava/lang/String;Ljava/lang/String;ZZZZZZZZLjava/lang/String;Lcom/maxmind/db/Network;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Integer", "java.lang.String", "com.maxmind.geoip2.model.ConnectionTypeResponse$ConnectionType", "java.lang.String", "java.lang.String", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "boolean", "java.lang.String", "com.maxmind.db.Network", "java.lang.String", "java.lang.String", "java.lang.Integer", "java.lang.Double" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getAutonomousSystemNumber",
+    "simpleName" : "getAutonomousSystemNumber",
+    "qualifiedSignature" : "com.maxmind.geoip2.record.Traits#getAutonomousSystemNumber()",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_RETURN_TYPE_CHANGED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ce6f225f[public getAutonomousSystemNumber ()Ljava/lang/Integer;]",
+      "newValue" : "javassist.CtMethod@ce6f225f[public getAutonomousSystemNumber ()Ljava/lang/Long;]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Integer",
+      "newValue" : "java.lang.Long",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  } ]
+}

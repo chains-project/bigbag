@@ -1,0 +1,438 @@
+{
+  "project" : "camunda-platform-7-mockito",
+  "breakingCommit" : "8881523e12a0890f72ac9fef69821cefba0c7a09",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-context",
+    "previousVersion" : "5.3.23",
+    "newVersion" : "6.0.6",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/8881523e12a0890f72ac9fef69821cefba0c7a09.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/8881523e12a0890f72ac9fef69821cefba0c7a09/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 35,
+      "message" : "cannot access org.springframework.context.ApplicationContext",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar(/org/springframework/context/ApplicationContext.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 5,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.038260569Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.context.ApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 5,
+          "codeLine" : "import org.springframework.context.ApplicationContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ApplicationContext",
+            "declaringType" : "org.springframework.context.ApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ApplicationContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 6,
+      "columnNumber" : 35,
+      "message" : "cannot access org.springframework.context.ConfigurableApplicationContext",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar(/org/springframework/context/ConfigurableApplicationContext.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 6,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.038553159Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.context.ConfigurableApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 6,
+          "codeLine" : "import org.springframework.context.ConfigurableApplicationContext;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ConfigurableApplicationContext",
+            "declaringType" : "org.springframework.context.ConfigurableApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ConfigurableApplicationContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 33,
+      "columnNumber" : 11,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ApplicationContext", "location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.038779768Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.context.ApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "    final ApplicationContext applicationContext) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ApplicationContext",
+            "declaringType" : "org.springframework.context.ApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ApplicationContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 48,
+      "columnNumber" : 73,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ApplicationContext", "location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 48,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.039015995Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 48,
+          "codeLine" : "  public CallActivityMockForSpringContext(final String processId, final ApplicationContext applicationContext) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.context.ApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 48,
+          "codeLine" : "  public CallActivityMockForSpringContext(final String processId, final ApplicationContext applicationContext) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ApplicationContext",
+            "declaringType" : "org.springframework.context.ApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ApplicationContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 52,
+      "columnNumber" : 65,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ApplicationContext", "location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 52,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.039371514Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.beans.factory.config.SingletonBeanRegistry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-beans/5.3.22/spring-beans-5.3.22.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "  private static SingletonBeanRegistry getSingletonBeanRegistry(ApplicationContext applicationContext) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.context.ApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "  private static SingletonBeanRegistry getSingletonBeanRegistry(ApplicationContext applicationContext) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ApplicationContext",
+            "declaringType" : "org.springframework.context.ApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ApplicationContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 41,
+      "columnNumber" : 5,
+      "message" : "reference to CallActivityMockForSpringContext is ambiguous",
+      "details" : [ "both constructor CallActivityMockForSpringContext(java.lang.String,org.camunda.community.mockito.process.CallActivityMock.MockedModelConfigurer,org.springframework.beans.factory.config.SingletonBeanRegistry) in org.camunda.community.mockito.process.CallActivityMockForSpringContext and constructor CallActivityMockForSpringContext(java.lang.String,org.camunda.community.mockito.process.CallActivityMock.MockedModelConfigurer,ApplicationContext) in org.camunda.community.mockito.process.CallActivityMockForSpringContext match" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.039661929Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.camunda.community.mockito.process.CallActivityMockForSpringContext#<init>(java.lang.String, org.camunda.community.mockito.process.CallActivityMock$MockedModelConfigurer, org.springframework.beans.factory.config.SingletonBeanRegistry)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    this(processId, null, springBeanRegistry);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 53,
+      "columnNumber" : 41,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ConfigurableApplicationContext", "location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 53,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.039891267Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.context.ConfigurableApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    if (!(applicationContext instanceof ConfigurableApplicationContext)) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ConfigurableApplicationContext",
+            "declaringType" : "org.springframework.context.ConfigurableApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ConfigurableApplicationContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 56,
+      "columnNumber" : 14,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class ConfigurableApplicationContext", "location: class org.camunda.community.mockito.process.CallActivityMockForSpringContext" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java",
+        "lineNumber" : 56,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8881523e12a0890f72ac9fef69821cefba0c7a09/spring-context-6.0.6.jar",
+        "generatedAt" : "2025-12-08T05:57:46.040147226Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.springframework.context.ConfigurableApplicationContext#getBeanFactory()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 56,
+          "codeLine" : "    return ((ConfigurableApplicationContext) applicationContext).getBeanFactory();",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getBeanFactory",
+            "declaringType" : "org.springframework.context.ConfigurableApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ConfigurableApplicationContext.getBeanFactory()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@9f2a0a05[public abstract getBeanFactory ()Lorg/springframework/beans/factory/config/ConfigurableListableBeanFactory;]",
+              "newValue" : "javassist.CtMethod@9f2a0a05[public abstract getBeanFactory ()Lorg/springframework/beans/factory/config/ConfigurableListableBeanFactory;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.beans.factory.config.ConfigurableListableBeanFactory",
+              "newValue" : "org.springframework.beans.factory.config.ConfigurableListableBeanFactory",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ConfigurableApplicationContext",
+            "declaringType" : "org.springframework.context.ConfigurableApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ConfigurableApplicationContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.context.ConfigurableApplicationContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.6/spring-context-6.0.6.jar"
+          },
+          "lineNumber" : 56,
+          "codeLine" : "    return ((ConfigurableApplicationContext) applicationContext).getBeanFactory();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.context.ConfigurableApplicationContext",
+            "declaringType" : "org.springframework.context.ConfigurableApplicationContext",
+            "qualifiedSignature" : "org.springframework.context.ConfigurableApplicationContext",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

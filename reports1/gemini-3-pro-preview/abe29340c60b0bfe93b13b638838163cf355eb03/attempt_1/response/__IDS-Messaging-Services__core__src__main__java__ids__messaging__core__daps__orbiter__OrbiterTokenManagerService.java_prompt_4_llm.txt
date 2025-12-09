@@ -1,0 +1,129 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Transformation for:
+ * - METHOD org.apache.commons.io.FileUtils.writeStringToFile(java.io.File, java.lang.String) [REMOVED/DEPRECATED]
+ * + REPLACEMENT: writeStringToFile(java.io.File, java.lang.String, java.nio.charset.Charset)
+ *
+ * This processor appends 'StandardCharsets.UTF_8' to calls relying on the default platform encoding.
+ */
+public class FileUtilsMigration {
+
+    public static class FileUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"writeStringToFile".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We are looking for the 2-arg version to migrate to 3-arg
+            if (candidate.getArguments().size() != 2) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive/NoClasspath)
+            // We check if the method belongs to a class named "FileUtils"
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && !declaringType.getQualifiedName().contains("FileUtils")) {
+                // If we are sure it's NOT FileUtils, skip. 
+                // In NoClasspath, getQualifiedName might just be "FileUtils" or "org.apache.commons.io.FileUtils"
+                return false;
+            }
+
+            // 4. Type Check (Defensive)
+            // First arg should be File, Second String.
+            // In NoClasspath, getType() might be null.
+            CtExpression<?> firstArg = candidate.getArguments().get(0);
+            CtTypeReference<?> firstType = firstArg.getType();
+            if (firstType != null && !firstType.getQualifiedName().contains("File")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // We need to add the Charset argument: java.nio.charset.StandardCharsets.UTF_8
+            
+            // 1. Create the reference to the StandardCharsets class
+            CtTypeReference<?> standardCharsetsRef = factory.Type().createReference("java.nio.charset.StandardCharsets");
+            
+            // 2. Create the field access for UTF_8
+            // Using CodeSnippetExpression is risky with Sniper if imports aren't managed perfectly.
+            // Constructing the AST element ensures better safety.
+            CtExpression<?> charsetArg = factory.Code().createFieldRead(
+                factory.Field().createReference(
+                    standardCharsetsRef,
+                    factory.Type().createReference("java.nio.charset.Charset"),
+                    "UTF_8"
+                ),
+                factory.Code().createTypeAccess(standardCharsetsRef)
+            );
+
+            // 3. Modify the invocation
+            // Since we are using Sniper, we should modify the existing argument list rather than replacing the whole invocation
+            // to preserve formatting of existing arguments.
+            List<CtExpression<?>> args = invocation.getArguments();
+            invocation.addArgument(charsetArg);
+            
+            System.out.println("Refactored writeStringToFile at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =========================================================
+        // CRITICAL CONFIGURATION FOR PRESERVING FORMATTING (SNIPER)
+        // =========================================================
+        
+        // 1. Preserve Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Enable Sniper Printer
+        // This forces Spoon to print exactly what was read, modifying only changed AST nodes.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive Mode (NoClasspath)
+        // Ensures the processor runs even if dependencies (like Commons IO) are missing.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new FileUtilsProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

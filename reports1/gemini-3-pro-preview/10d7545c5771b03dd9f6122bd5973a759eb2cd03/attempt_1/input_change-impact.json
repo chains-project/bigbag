@@ -1,0 +1,1996 @@
+{
+  "project" : "lithium",
+  "breakingCommit" : "10d7545c5771b03dd9f6122bd5973a759eb2cd03",
+  "dependency" : {
+    "groupId" : "io.dropwizard",
+    "artifactId" : "dropwizard-client",
+    "previousVersion" : "2.1.5",
+    "newVersion" : "4.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/dropwizard-client-2.1.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/dropwizard-client-4.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/lithium/10d7545c5771b03dd9f6122bd5973a759eb2cd03.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/10d7545c5771b03dd9f6122bd5973a759eb2cd03/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/lithium/src/main/java/com/wire/lithium/Server.java",
+    "errors" : [ {
+      "lineNumber" : 160,
+      "columnNumber" : 16,
+      "message" : "cannot access io.dropwizard.core.setup.Environment",
+      "details" : [ "class file for io.dropwizard.core.setup.Environment not found" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/lithium",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/lithium/src/main/java/com/wire/lithium/Server.java",
+        "lineNumber" : 160,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/dropwizard-client-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/10d7545c5771b03dd9f6122bd5973a759eb2cd03/dropwizard-client-4.0.0.jar",
+        "generatedAt" : "2025-12-08T00:50:32.898041997Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.dropwizard.client.JerseyClientBuilder#build(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "io.dropwizard",
+            "artifactId" : "dropwizard-client",
+            "version" : "4.0.0",
+            "coordinates" : "io.dropwizard:dropwizard-client:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/io/dropwizard/dropwizard-client/4.0.0/dropwizard-client-4.0.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        return new JerseyClientBuilder(env)",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_RETURN_TYPE_CHANGED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Ljavax/ws/rs/client/Client;]",
+              "newValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Ljakarta/ws/rs/client/Client;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.ws.rs.client.Client",
+              "newValue" : "jakarta.ws.rs.client.Client",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String, java.util.concurrent.ExecutorService, com.fasterxml.jackson.databind.ObjectMapper, javax.validation.Validator)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@9ed1a12e[private build (Ljava/lang/String;Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;Ljavax/validation/Validator;)Ljavax/ws/rs/client/Client;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.ws.rs.client.Client",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.concurrent.ExecutorService", "com.fasterxml.jackson.databind.ObjectMapper", "javax.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String, java.util.concurrent.ExecutorService, com.fasterxml.jackson.databind.ObjectMapper, jakarta.validation.Validator)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3358312[private build (Ljava/lang/String;Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;Ljakarta/validation/Validator;)Ljakarta/ws/rs/client/Client;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "jakarta.ws.rs.client.Client",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.concurrent.ExecutorService", "com.fasterxml.jackson.databind.ObjectMapper", "jakarta.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_RETURN_TYPE_CHANGED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Ljavax/ws/rs/client/Client;]",
+              "newValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Ljakarta/ws/rs/client/Client;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.ws.rs.client.Client",
+              "newValue" : "jakarta.ws.rs.client.Client",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String, java.util.concurrent.ExecutorService, com.fasterxml.jackson.databind.ObjectMapper, javax.validation.Validator)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@9ed1a12e[private build (Ljava/lang/String;Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;Ljavax/validation/Validator;)Ljavax/ws/rs/client/Client;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "javax.ws.rs.client.Client",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.concurrent.ExecutorService", "com.fasterxml.jackson.databind.ObjectMapper", "javax.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.build(java.lang.String, java.util.concurrent.ExecutorService, com.fasterxml.jackson.databind.ObjectMapper, jakarta.validation.Validator)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3358312[private build (Ljava/lang/String;Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;Ljakarta/validation/Validator;)Ljakarta/ws/rs/client/Client;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "jakarta.ws.rs.client.Client",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.concurrent.ExecutorService", "com.fasterxml.jackson.databind.ObjectMapper", "jakarta.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "build",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.build(java.lang.String)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_RETURN_TYPE_CHANGED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Lorg/apache/http/impl/client/CloseableHttpClient;]",
+              "newValue" : "javassist.CtMethod@84138a5[public build (Ljava/lang/String;)Lorg/apache/hc/client5/http/impl/classic/CloseableHttpClient;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.http.impl.client.CloseableHttpClient",
+              "newValue" : "org.apache.hc.client5.http.impl.classic.CloseableHttpClient",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "io.dropwizard.client.JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 32
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.dropwizard.client.JerseyClientBuilder#withProvider(java.lang.Class)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "io.dropwizard",
+            "artifactId" : "dropwizard-client",
+            "version" : "4.0.0",
+            "coordinates" : "io.dropwizard:dropwizard-client:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/io/dropwizard/dropwizard-client/4.0.0/dropwizard-client-4.0.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        return new JerseyClientBuilder(env)",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "withProvider",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.withProvider(java.lang.Class)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f2d05777[public withProvider (Ljava/lang/Class;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@f2d05777[public withProvider (Ljava/lang/Class;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "withProvider",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.withProvider(java.lang.Object)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@435a483c[public withProvider (Ljava/lang/Object;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@435a483c[public withProvider (Ljava/lang/Object;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "io.dropwizard.client.JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 32
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.dropwizard.client.JerseyClientBuilder#using(io.dropwizard.client.JerseyClientConfiguration)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "io.dropwizard",
+            "artifactId" : "dropwizard-client",
+            "version" : "4.0.0",
+            "coordinates" : "io.dropwizard:dropwizard-client:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/io/dropwizard/dropwizard-client/4.0.0/dropwizard-client-4.0.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        return new JerseyClientBuilder(env)",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(io.dropwizard.setup.Environment)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@15ed965b[public using (Lio/dropwizard/setup/Environment;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "io.dropwizard.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(javax.validation.Validator)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@acb069ab[public using (Ljavax/validation/Validator;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "javax.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.HttpRequestRetryHandler)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@38a9d44c[public using (Lorg/apache/http/client/HttpRequestRetryHandler;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.HttpRequestRetryHandler" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.conn.DnsResolver)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e5159473[public using (Lorg/apache/http/conn/DnsResolver;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.config.Registry)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ac87c7df[public using (Lorg/apache/http/config/Registry;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(com.codahale.metrics.httpclient.HttpClientMetricNameStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@87dff961[public using (Lcom/codahale/metrics/httpclient/HttpClientMetricNameStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.conn.routing.HttpRoutePlanner)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6b849e12[public using (Lorg/apache/http/conn/routing/HttpRoutePlanner;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.CredentialsProvider)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93814cd0[public using (Lorg/apache/http/client/CredentialsProvider;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.CredentialsProvider" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.ServiceUnavailableRetryStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af6af323[public using (Lorg/apache/http/client/ServiceUnavailableRetryStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.ServiceUnavailableRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(io.dropwizard.core.setup.Environment)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@6e70e393[public using (Lio/dropwizard/core/setup/Environment;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "io.dropwizard.core.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(jakarta.validation.Validator)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@1484204f[public using (Ljakarta/validation/Validator;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "jakarta.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.HttpRequestRetryStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5091a4de[public using (Lorg/apache/hc/client5/http/HttpRequestRetryStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.HttpRequestRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.DnsResolver)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@c1596861[public using (Lorg/apache/hc/client5/http/DnsResolver;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.core5.http.config.Registry)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@48f81d50[public using (Lorg/apache/hc/core5/http/config/Registry;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.core5.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@715c67e6[public using (Lcom/codahale/metrics/httpclient5/HttpClientMetricNameStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.routing.HttpRoutePlanner)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9d811ce4[public using (Lorg/apache/hc/client5/http/routing/HttpRoutePlanner;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.auth.CredentialsStore)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2ae02cde[public using (Lorg/apache/hc/client5/http/auth/CredentialsStore;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.auth.CredentialsStore" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(io.dropwizard.client.JerseyClientConfiguration)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af43a719[public using (Lio/dropwizard/client/JerseyClientConfiguration;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@af43a719[public using (Lio/dropwizard/client/JerseyClientConfiguration;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "io.dropwizard.client.JerseyClientConfiguration" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(io.dropwizard.setup.Environment)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@15ed965b[public using (Lio/dropwizard/setup/Environment;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "io.dropwizard.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(javax.validation.Validator)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@acb069ab[public using (Ljavax/validation/Validator;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "javax.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(java.util.concurrent.ExecutorService, com.fasterxml.jackson.databind.ObjectMapper)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@75caf6a8[public using (Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@75caf6a8[public using (Ljava/util/concurrent/ExecutorService;Lcom/fasterxml/jackson/databind/ObjectMapper;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.concurrent.ExecutorService", "com.fasterxml.jackson.databind.ObjectMapper" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(java.util.concurrent.ExecutorService)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d2a273a0[public using (Ljava/util/concurrent/ExecutorService;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@d2a273a0[public using (Ljava/util/concurrent/ExecutorService;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.concurrent.ExecutorService" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(com.fasterxml.jackson.databind.ObjectMapper)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@50cb09e3[public using (Lcom/fasterxml/jackson/databind/ObjectMapper;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@50cb09e3[public using (Lcom/fasterxml/jackson/databind/ObjectMapper;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.fasterxml.jackson.databind.ObjectMapper" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.glassfish.jersey.client.spi.ConnectorProvider)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ae775896[public using (Lorg/glassfish/jersey/client/spi/ConnectorProvider;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@ae775896[public using (Lorg/glassfish/jersey/client/spi/ConnectorProvider;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.glassfish.jersey.client.spi.ConnectorProvider" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.HttpRequestRetryHandler)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@38a9d44c[public using (Lorg/apache/http/client/HttpRequestRetryHandler;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.HttpRequestRetryHandler" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.conn.DnsResolver)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e5159473[public using (Lorg/apache/http/conn/DnsResolver;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(javax.net.ssl.HostnameVerifier)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@de1c4ead[public using (Ljavax/net/ssl/HostnameVerifier;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : "javassist.CtMethod@de1c4ead[public using (Ljavax/net/ssl/HostnameVerifier;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "javax.net.ssl.HostnameVerifier" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.config.Registry)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ac87c7df[public using (Lorg/apache/http/config/Registry;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(com.codahale.metrics.httpclient.HttpClientMetricNameStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@87dff961[public using (Lcom/codahale/metrics/httpclient/HttpClientMetricNameStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.conn.routing.HttpRoutePlanner)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6b849e12[public using (Lorg/apache/http/conn/routing/HttpRoutePlanner;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.CredentialsProvider)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93814cd0[public using (Lorg/apache/http/client/CredentialsProvider;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.CredentialsProvider" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.http.client.ServiceUnavailableRetryStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af6af323[public using (Lorg/apache/http/client/ServiceUnavailableRetryStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.ServiceUnavailableRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(io.dropwizard.core.setup.Environment)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@6e70e393[public using (Lio/dropwizard/core/setup/Environment;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "io.dropwizard.core.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(jakarta.validation.Validator)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@1484204f[public using (Ljakarta/validation/Validator;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "jakarta.validation.Validator" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.HttpRequestRetryStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5091a4de[public using (Lorg/apache/hc/client5/http/HttpRequestRetryStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.HttpRequestRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.DnsResolver)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@c1596861[public using (Lorg/apache/hc/client5/http/DnsResolver;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.core5.http.config.Registry)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@48f81d50[public using (Lorg/apache/hc/core5/http/config/Registry;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.core5.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@715c67e6[public using (Lcom/codahale/metrics/httpclient5/HttpClientMetricNameStrategy;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.routing.HttpRoutePlanner)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9d811ce4[public using (Lorg/apache/hc/client5/http/routing/HttpRoutePlanner;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.using(org.apache.hc.client5.http.auth.CredentialsStore)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2ae02cde[public using (Lorg/apache/hc/client5/http/auth/CredentialsStore;)Lio/dropwizard/client/JerseyClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.JerseyClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.auth.CredentialsStore" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.conn.DnsResolver)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e5159473[public using (Lorg/apache/http/conn/DnsResolver;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.client.HttpRequestRetryHandler)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@38a9d44c[public using (Lorg/apache/http/client/HttpRequestRetryHandler;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.HttpRequestRetryHandler" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.config.Registry)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ac87c7df[public using (Lorg/apache/http/config/Registry;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.conn.routing.HttpRoutePlanner)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6b849e12[public using (Lorg/apache/http/conn/routing/HttpRoutePlanner;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.conn.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.client.CredentialsProvider)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@93814cd0[public using (Lorg/apache/http/client/CredentialsProvider;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.CredentialsProvider" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(com.codahale.metrics.httpclient.HttpClientMetricNameStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@87dff961[public using (Lcom/codahale/metrics/httpclient/HttpClientMetricNameStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.client.RedirectStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@38226b68[public using (Lorg/apache/http/client/RedirectStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.RedirectStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.protocol.HttpProcessor)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@5d18efba[public using (Lorg/apache/http/protocol/HttpProcessor;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.protocol.HttpProcessor" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.http.client.ServiceUnavailableRetryStrategy)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@af6af323[public using (Lorg/apache/http/client/ServiceUnavailableRetryStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "io.dropwizard.client.HttpClientBuilder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.http.client.ServiceUnavailableRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.client5.http.DnsResolver)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@c1596861[public using (Lorg/apache/hc/client5/http/DnsResolver;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.DnsResolver" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.client5.http.HttpRequestRetryStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5091a4de[public using (Lorg/apache/hc/client5/http/HttpRequestRetryStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.HttpRequestRetryStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.core5.http.config.Registry)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@48f81d50[public using (Lorg/apache/hc/core5/http/config/Registry;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.core5.http.config.Registry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.client5.http.routing.HttpRoutePlanner)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9d811ce4[public using (Lorg/apache/hc/client5/http/routing/HttpRoutePlanner;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.routing.HttpRoutePlanner" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.client5.http.auth.CredentialsStore)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2ae02cde[public using (Lorg/apache/hc/client5/http/auth/CredentialsStore;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.auth.CredentialsStore" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@715c67e6[public using (Lcom/codahale/metrics/httpclient5/HttpClientMetricNameStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.client5.http.protocol.RedirectStrategy)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@6094a198[public using (Lorg/apache/hc/client5/http/protocol/RedirectStrategy;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.client5.http.protocol.RedirectStrategy" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "using",
+            "declaringType" : "io.dropwizard.client.HttpClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.HttpClientBuilder.using(org.apache.hc.core5.http.protocol.HttpProcessor)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@80f3c929[public using (Lorg/apache/hc/core5/http/protocol/HttpProcessor;)Lio/dropwizard/client/HttpClientBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "io.dropwizard.client.HttpClientBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.hc.core5.http.protocol.HttpProcessor" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "io.dropwizard.client.JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 32
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "io.dropwizard.client.JerseyClientBuilder#<init>(io.dropwizard.setup.Environment)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "io.dropwizard",
+            "artifactId" : "dropwizard-client",
+            "version" : "4.0.0",
+            "coordinates" : "io.dropwizard:dropwizard-client:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/io/dropwizard/dropwizard-client/4.0.0/dropwizard-client-4.0.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        return new JerseyClientBuilder(env)",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.JerseyClientBuilder(io.dropwizard.setup.Environment)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@24afeeef[public JerseyClientBuilder (Lio/dropwizard/setup/Environment;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "io.dropwizard.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.JerseyClientBuilder(com.codahale.metrics.MetricRegistry)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@1fa1076d[public JerseyClientBuilder (Lcom/codahale/metrics/MetricRegistry;)V]",
+              "newValue" : "javassist.CtConstructor@6793a15e[public JerseyClientBuilder (Lcom/codahale/metrics/MetricRegistry;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.codahale.metrics.MetricRegistry" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder.JerseyClientBuilder(io.dropwizard.core.setup.Environment)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@4685b7df[public JerseyClientBuilder (Lio/dropwizard/core/setup/Environment;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "io.dropwizard.core.setup.Environment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "io.dropwizard.client.JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 32
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "io.dropwizard.client.JerseyClientBuilder",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "io.dropwizard",
+            "artifactId" : "dropwizard-client",
+            "version" : "4.0.0",
+            "coordinates" : "io.dropwizard:dropwizard-client:4.0.0",
+            "sourcePath" : "/home/kth/.m2/repository/io/dropwizard/dropwizard-client/4.0.0/dropwizard-client-4.0.0.jar"
+          },
+          "lineNumber" : 160,
+          "codeLine" : "        return new JerseyClientBuilder(env)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "io.dropwizard.client.JerseyClientBuilder",
+            "declaringType" : "io.dropwizard.client.JerseyClientBuilder",
+            "qualifiedSignature" : "io.dropwizard.client.JerseyClientBuilder",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 32
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

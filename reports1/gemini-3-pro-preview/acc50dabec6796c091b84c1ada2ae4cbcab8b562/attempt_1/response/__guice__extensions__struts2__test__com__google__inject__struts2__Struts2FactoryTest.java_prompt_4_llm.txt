@@ -1,0 +1,75 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class StrutsFilterRefactoring {
+
+    /**
+     * Processor to handle the relocation of StrutsPrepareAndExecuteFilter.
+     * Old: org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+     * New: org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter
+     */
+    public static class StrutsFilterProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final String OLD_CLASS_NAME = "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter";
+        private static final String NEW_CLASS_NAME = "org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive checks for NoClasspath scenarios
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Check if this reference points to the removed class
+            // We use string comparison to avoid ClassNotFoundException in NoClasspath mode
+            return OLD_CLASS_NAME.equals(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Create a reference to the new class location
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(NEW_CLASS_NAME);
+
+            // Replace the old reference with the new one. 
+            // Spoon/Sniper will handle the rewriting of the source code.
+            candidate.replace(newTypeRef);
+
+            System.out.println("Refactored StrutsPrepareAndExecuteFilter at " 
+                + (candidate.getPosition().isValidPosition() ? "line " + candidate.getPosition().getLine() : "unknown position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Code Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually for precise edits
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Defensive mode for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StrutsFilterProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,860 @@
+{
+  "project" : "flacoco",
+  "breakingCommit" : "b8f92ff37d1aed054d8320283fd6d6a492703a55",
+  "dependency" : {
+    "groupId" : "org.apache.maven.surefire",
+    "artifactId" : "maven-surefire-common",
+    "previousVersion" : "3.0.0-M5",
+    "newVersion" : "3.0.0-M7",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/b8f92ff37d1aed054d8320283fd6d6a492703a55.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/b8f92ff37d1aed054d8320283fd6d6a492703a55/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/flacoco/src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java",
+    "errors" : [ {
+      "lineNumber" : 25,
+      "columnNumber" : 132,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getWildcard()", "location: class org.apache.maven.surefire.api.testset.TestListResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.312570920Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 25,
+      "columnNumber" : 80,
+      "message" : "incompatible types: org.apache.maven.plugin.surefire.util.DirectoryScanner cannot be converted to org.apache.maven.surefire.api.util.DirectoryScanner",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.312920774Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "        org.apache.maven.surefire.api.util.DirectoryScanner directoryScanner = new DirectoryScanner(testSrcFolder, TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 26,
+      "columnNumber" : 32,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method scan()", "location: variable directoryScanner of type org.apache.maven.surefire.api.util.DirectoryScanner" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java",
+        "lineNumber" : 26,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.313105955Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getClasses()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 26,
+          "codeLine" : "        return directoryScanner.scan().getClasses();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#scan()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 26,
+          "codeLine" : "        return directoryScanner.scan().getClasses();",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java",
+    "errors" : [ {
+      "lineNumber" : 199,
+      "columnNumber" : 195,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getWildcard()", "location: class org.apache.maven.surefire.api.testset.TestListResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java",
+        "lineNumber" : 199,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.313851668Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "java.io.File#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 199,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 205,
+      "columnNumber" : 195,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getWildcard()", "location: class org.apache.maven.surefire.api.testset.TestListResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java",
+        "lineNumber" : 205,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.314698524Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "java.io.File#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 205,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* REVIEW: Ensure compatibility with org.apache.maven.plugin.surefire.util.DirectoryScanner */new DirectoryScanner(new File(dir), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java",
+    "errors" : [ {
+      "lineNumber" : 92,
+      "columnNumber" : 214,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getWildcard()", "location: class org.apache.maven.surefire.api.testset.TestListResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java",
+        "lineNumber" : 92,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.315524223Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "java.io.File#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 92,
+          "codeLine" : "            DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 97,
+      "columnNumber" : 222,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getWildcard()", "location: class org.apache.maven.surefire.api.testset.TestListResolver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/flacoco/src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java",
+        "lineNumber" : 97,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/b8f92ff37d1aed054d8320283fd6d6a492703a55/maven-surefire-common-3.0.0-M7.jar",
+        "generatedAt" : "2025-12-08T09:00:15.316208129Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner#<init>(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "maven-surefire-common",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:maven-surefire-common:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/maven-surefire-common/3.0.0-M7/maven-surefire-common-3.0.0-M7.jar"
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "DirectoryScanner",
+            "declaringType" : "org.apache.maven.plugin.surefire.util.DirectoryScanner",
+            "qualifiedSignature" : "org.apache.maven.plugin.surefire.util.DirectoryScanner.DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3ce47e3c[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "newValue" : "javassist.CtConstructor@13b6b45d[public DirectoryScanner (Ljava/io/File;Lorg/apache/maven/surefire/api/testset/TestListResolver;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "org.apache.maven.surefire.api.testset.TestListResolver" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "java.io.File#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.io.File",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getWildcard()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.surefire.api.testset.TestListResolver",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.maven.surefire",
+            "artifactId" : "surefire-api",
+            "version" : "3.0.0-M7",
+            "coordinates" : "org.apache.maven.surefire:surefire-api:3.0.0-M7",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M7/surefire-api-3.0.0-M7.jar"
+          },
+          "lineNumber" : 97,
+          "codeLine" : "                DirectoryScanner directoryScanner = /* CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes. */new DirectoryScanner(new File(directory), TestListResolver.getWildcard());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

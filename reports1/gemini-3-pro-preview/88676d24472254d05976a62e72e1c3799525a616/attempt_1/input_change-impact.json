@@ -1,0 +1,1072 @@
+{
+  "project" : "micronaut-openapi-codegen",
+  "breakingCommit" : "88676d24472254d05976a62e72e1c3799525a616",
+  "dependency" : {
+    "groupId" : "org.springframework",
+    "artifactId" : "spring-context",
+    "previousVersion" : "5.3.23",
+    "newVersion" : "6.0.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/88676d24472254d05976a62e72e1c3799525a616.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/88676d24472254d05976a62e72e1c3799525a616/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+    "errors" : [ {
+      "lineNumber" : 19,
+      "columnNumber" : 45,
+      "message" : "cannot access org.springframework.format.annotation.DateTimeFormat",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar(/org/springframework/format/annotation/DateTimeFormat.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 19,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:16.801808845Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 19,
+          "codeLine" : "import org.springframework.format.annotation.DateTimeFormat;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 77,
+      "columnNumber" : 38,
+      "message" : "cannot access org.springframework.core.io.Resource",
+      "details" : [ "bad class file: /root/.m2/repository/org/springframework/spring-core/6.0.2/spring-core-6.0.2.jar(/org/springframework/core/io/Resource.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 77,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:16.951500282Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.core.io.Resource",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-core/6.0.2/spring-core-6.0.2.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "  private org.springframework.core.io.Resource binary;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 58,
+      "columnNumber" : 4,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class DateTimeFormat", "location: class testmodel.spring.Model" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 58,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.085270074Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 58,
+      "columnNumber" : 39,
+      "message" : "package DateTimeFormat does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 58,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.205889749Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 62,
+      "columnNumber" : 4,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class DateTimeFormat", "location: class testmodel.spring.Model" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 62,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.324596860Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 62,
+      "columnNumber" : 39,
+      "message" : "package DateTimeFormat does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 62,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.447961962Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 62,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 66,
+      "columnNumber" : 4,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class DateTimeFormat", "location: class testmodel.spring.Model" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 66,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.568553330Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE_TIME",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE_TIME",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 66,
+      "columnNumber" : 39,
+      "message" : "package DateTimeFormat does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 66,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.693657078Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE_TIME",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE_TIME",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 66,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 70,
+      "columnNumber" : 4,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class DateTimeFormat", "location: class testmodel.spring.Model" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 70,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.814948839Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE_TIME",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE_TIME",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 70,
+      "columnNumber" : 39,
+      "message" : "package DateTimeFormat does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/micronaut-openapi-codegen/gen/main/java/testmodel/spring/Model.java",
+        "lineNumber" : 70,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-5.3.23.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/88676d24472254d05976a62e72e1c3799525a616/spring-context-6.0.2.jar",
+        "generatedAt" : "2025-12-08T05:55:17.952245645Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO::DATE_TIME",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "DATE_TIME",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO.DATE_TIME:Lorg/springframework/format/annotation/DateTimeFormat$ISO;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "newValue" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/springframework/spring-context/6.0.2/spring-context-6.0.2.jar"
+          },
+          "lineNumber" : 70,
+          "codeLine" : "  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "declaringType" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "qualifiedSignature" : "org.springframework.format.annotation.DateTimeFormat$ISO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

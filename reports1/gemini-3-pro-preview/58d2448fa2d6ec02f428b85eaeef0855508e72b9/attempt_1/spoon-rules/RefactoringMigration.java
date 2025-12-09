@@ -1,0 +1,114 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * NOTE: The input dependency diff was empty. 
+ * This is a TEMPLATE generated to demonstrate the required configuration for:
+ * 1. Sniper Mode (Preserving comments/formatting).
+ * 2. NoClasspath compatibility (Defensive type checking).
+ * 
+ * Placeholder Transformation:
+ * Renames 'oldMethod' to 'newMethod' and warns if the owner type is 'LegacyClass'.
+ */
+public class RefactoringMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Method to be refactored)
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"oldMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Owner/Scope Check (Defensive for NoClasspath)
+            // We want to verify this method belongs to a specific class (e.g., "LegacyClass").
+            // Since classpath might be missing, we check qualified names via String matching.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If owner is null/unknown, we process it to be safe, 
+            // or strict check if we are sure about the scope.
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().equals("<unknown>") &&
+                !declaringType.getQualifiedName().contains("LegacyClass")) {
+                return false;
+            }
+
+            // 3. Argument Type Check (Example of Defensive Pattern)
+            // If the refactoring depends on argument types, use this pattern:
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (!args.isEmpty()) {
+                CtExpression<?> firstArg = args.get(0);
+                CtTypeReference<?> argType = firstArg.getType();
+
+                // NEVER assume argType is not null.
+                // If we are looking for 'int', and type is unknown, we usually process it.
+                // If type is known and does NOT match target, we skip.
+                if (argType != null && !argType.getQualifiedName().equals("int") && !argType.getQualifiedName().equals("<unknown>")) {
+                    // It's definitely not the type we are looking for
+                    // return false; 
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // LOGIC: Rename the method
+            invocation.getExecutable().setSimpleName("newMethod");
+            
+            // OPTIONAL: If the class name also changed, update the declaring type
+            // CtTypeReference<?> newOwner = factory.Type().createReference("com.new.package.NewClass");
+            // invocation.getExecutable().setDeclaringType(newOwner);
+
+            System.out.println("Refactored 'oldMethod' at " + invocation.getPosition().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/58d2448fa2d6ec02f428b85eaeef0855508e72b9/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/58d2448fa2d6ec02f428b85eaeef0855508e72b9/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/58d2448fa2d6ec02f428b85eaeef0855508e72b9/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/58d2448fa2d6ec02f428b85eaeef0855508e72b9/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULE #1: Preserve Source Code (Sniper)
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve exact formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // CRITICAL IMPLEMENTATION RULE #2: Defensive Coding (NoClasspath)
+        // Ensure the processor runs even if dependencies are missing
+        launcher.getEnvironment().setNoClasspath(true);
+        // Ignore missing type errors
+        launcher.getEnvironment().setLevel("OFF");
+
+        launcher.addProcessor(new MigrationProcessor());
+        
+        try { 
+            System.out.println("Starting Refactoring...");
+            launcher.run(); 
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

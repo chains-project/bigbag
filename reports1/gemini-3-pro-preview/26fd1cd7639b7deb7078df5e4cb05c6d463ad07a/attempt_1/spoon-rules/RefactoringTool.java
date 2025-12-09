@@ -1,0 +1,127 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Tool generated based on dependency changes.
+ * 
+ * IMPLEMENTATION NOTES:
+ * 1. Uses SniperJavaPrettyPrinter to preserve comments and formatting.
+ * 2. Runs in NoClasspath mode (defensive type checking).
+ * 3. Handles generic CtInvocation<?> safely.
+ */
+public class RefactoringTool {
+
+    /**
+     * Processor to handle breaking changes.
+     * Since the input diff was empty, this is a TEMPLATE processor designed
+     * to demonstrate the required constraints (Sniper, NoClasspath safety).
+     * 
+     * Template Scenario: Renaming a method 'oldMethod' to 'newMethod'.
+     */
+    public static class RefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Check: Ensure executable reference exists
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            if (executable == null) return false;
+
+            // 2. Name Check (Fast fail)
+            // TODO: Replace "oldMethod" with the actual method name from the Diff
+            if (!"oldMethod".equals(executable.getSimpleName())) {
+                return false;
+            }
+
+            // 3. Owner/Type Check (Defensive for NoClasspath)
+            // We check the declaring type of the method.
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+            
+            // In NoClasspath, declaringType might be null or <unknown>.
+            // We use string matching rather than strict class resolution.
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // TODO: Replace "TargetClassName" with the class owning the method
+                if (!qualifiedName.contains("TargetClassName") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Argument Check (Optional, based on Diff)
+            // Example: If the method signature changed argument types
+            /*
+            if (candidate.getArguments().size() > 0) {
+                 CtTypeReference<?> argType = candidate.getArguments().get(0).getType();
+                 // Defensive check: argType can be null in NoClasspath
+                 if (argType != null && !argType.getQualifiedName().contains("ExpectedType")) {
+                     return false;
+                 }
+            }
+            */
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // TODO: Implement the transformation logic here.
+            
+            // Example Transformation: Rename the method
+            CtExecutableReference<?> executable = invocation.getExecutable();
+            String oldName = executable.getSimpleName();
+            
+            // Mutate the reference directly
+            executable.setSimpleName("newMethod");
+            
+            System.out.println("Refactored: " + oldName + " -> newMethod at line " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Configuration: Input/Output paths
+        String inputPath = "/home/kth/Documents/last_transformer/output/26fd1cd7639b7deb7078df5e4cb05c6d463ad07a/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/26fd1cd7639b7deb7078df5e4cb05c6d463ad07a/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/26fd1cd7639b7deb7078df5e4cb05c6d463ad07a/code-coverage-api-plugin/ui-tests/src/main/java/io/jenkins/plugins/coverage/util/ChartUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/26fd1cd7639b7deb7078df5e4cb05c6d463ad07a/attempt_1/transformed");
+
+        // ========================================================================
+        // CRITICAL: Source Code Preservation Configuration
+        // ========================================================================
+        
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+
+        // 2. Force usage of SniperJavaPrettyPrinter
+        // This is strictly required to preserve indentation and unrelated code.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Configure NoClasspath mode
+        // Allows running without full dependency JARs
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ========================================================================
+        // Processor Registration
+        // ========================================================================
+        launcher.addProcessor(new RefactoringProcessor());
+
+        // Execute
+        try {
+            System.out.println("Starting refactoring with Sniper Printer...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,3415 @@
+{
+  "project" : "quickfixj",
+  "breakingCommit" : "00a7cc31784ac4a9cc27d506a73ae589d6df36d6",
+  "dependencyGroupId" : "org.apache.mina",
+  "dependencyArtifactId" : "mina-core",
+  "previousVersion" : "2.1.5",
+  "newVersion" : "2.2.1",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+  "generatedAt" : "2025-12-08T00:02:04.550939601Z",
+  "totalBreakingChanges" : 142,
+  "breakingChanges" : [ {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.core.service.AbstractIoService",
+    "simpleName" : "AbstractIoService",
+    "qualifiedSignature" : "org.apache.mina.core.service.AbstractIoService",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "stats",
+    "simpleName" : "stats",
+    "qualifiedSignature" : "org.apache.mina.core.service.AbstractIoService::stats",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.core.service.AbstractIoService.stats:Lorg/apache/mina/core/service/IoServiceStatistics;",
+      "newValue" : "org.apache.mina.core.service.AbstractIoService.stats:Lorg/apache/mina/core/service/IoServiceStatistics;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.service.IoServiceStatistics",
+      "newValue" : "org.apache.mina.core.service.IoServiceStatistics",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.core.service.IoServiceStatistics",
+    "simpleName" : "IoServiceStatistics",
+    "qualifiedSignature" : "org.apache.mina.core.service.IoServiceStatistics",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "service",
+    "simpleName" : "service",
+    "qualifiedSignature" : "org.apache.mina.core.service.IoServiceStatistics::service",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_NOW_FINAL",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.core.service.IoServiceStatistics.service:Lorg/apache/mina/core/service/IoService;",
+      "newValue" : "org.apache.mina.core.service.IoServiceStatistics.service:Lorg/apache/mina/core/service/IoService;",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.service.IoService",
+      "newValue" : "org.apache.mina.core.service.IoService",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "throughputCalculationInterval",
+    "simpleName" : "throughputCalculationInterval",
+    "qualifiedSignature" : "org.apache.mina.core.service.IoServiceStatistics::throughputCalculationInterval",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.core.service.IoServiceStatistics.throughputCalculationInterval:Ljava/util/concurrent/atomic/AtomicInteger;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.concurrent.atomic.AtomicInteger",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.core.session.IoSession",
+    "simpleName" : "IoSession",
+    "qualifiedSignature" : "org.apache.mina.core.session.IoSession",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isServer",
+    "simpleName" : "isServer",
+    "qualifiedSignature" : "org.apache.mina.core.session.IoSession#isServer()",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ADDED_TO_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "javassist.CtMethod@22eb16ce[public abstract isServer ()Z]",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "n.a.",
+      "newValue" : "boolean",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.core.write.WriteRejectedException",
+    "simpleName" : "WriteRejectedException",
+    "qualifiedSignature" : "org.apache.mina.core.write.WriteRejectedException",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "INTERFACE_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "serialVersionUID",
+    "simpleName" : "serialVersionUID",
+    "qualifiedSignature" : "org.apache.mina.core.write.WriteRejectedException::serialVersionUID",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_STATIC_AND_OVERRIDES_STATIC",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_LESS_ACCESSIBLE_THAN_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "org.apache.mina.core.write.WriteRejectedException.serialVersionUID:J",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : "long",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.AbstractProtocolDecoderOutput",
+    "simpleName" : "AbstractProtocolDecoderOutput",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolDecoderOutput",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getMessageQueue",
+    "simpleName" : "getMessageQueue",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolDecoderOutput#getMessageQueue()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@48babcc1[public getMessageQueue ()Ljava/util/Queue;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Queue",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput",
+    "simpleName" : "AbstractProtocolEncoderOutput",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getMessageQueue",
+    "simpleName" : "getMessageQueue",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput#getMessageQueue()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@48babcc1[public getMessageQueue ()Ljava/util/Queue;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Queue",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "mergeAll",
+    "simpleName" : "mergeAll",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput#mergeAll()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bd4ce90a[public mergeAll ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "buffersOnly",
+    "simpleName" : "buffersOnly",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput::buffersOnly",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.AbstractProtocolEncoderOutput.buffersOnly:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecFilter",
+    "simpleName" : "ProtocolCodecFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "disposeDecoderOut",
+    "simpleName" : "disposeDecoderOut",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter#disposeDecoderOut(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@13a5942c[private disposeDecoderOut (Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getDecoderOut",
+    "simpleName" : "getDecoderOut",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter#getDecoderOut(org.apache.mina.core.session.IoSession, org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bb9ff4d9[private getDecoderOut (Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)Lorg/apache/mina/filter/codec/ProtocolDecoderOutput;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolDecoderOutput",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession", "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getEncoderOut",
+    "simpleName" : "getEncoderOut",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter#getEncoderOut(org.apache.mina.core.session.IoSession, org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@704fd550[private getEncoderOut (Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/write/WriteRequest;)Lorg/apache/mina/filter/codec/ProtocolEncoderOutput;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolEncoderOutput",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession", "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "DECODER_OUT",
+    "simpleName" : "DECODER_OUT",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter::DECODER_OUT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecFilter.DECODER_OUT:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "ENCODER_OUT",
+    "simpleName" : "ENCODER_OUT",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter::ENCODER_OUT",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecFilter.ENCODER_OUT:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl",
+    "simpleName" : "ProtocolCodecFilter$ProtocolDecoderOutputImpl",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flush",
+    "simpleName" : "flush",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl#flush(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@fe32dafd[public flush (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl",
+    "simpleName" : "ProtocolCodecFilter$ProtocolEncoderOutputImpl",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PRIVATE", "STATIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "ProtocolCodecFilter$ProtocolEncoderOutputImpl",
+    "simpleName" : "ProtocolCodecFilter$ProtocolEncoderOutputImpl",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl#ProtocolCodecFilter$ProtocolEncoderOutputImpl(org.apache.mina.core.session.IoSession, org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@27e5b378[public ProtocolCodecFilter$ProtocolEncoderOutputImpl (Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession", "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flush",
+    "simpleName" : "flush",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl#flush()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d2ad8f05[public flush ()Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "destination",
+    "simpleName" : "destination",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl::destination",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl.destination:Ljava/net/SocketAddress;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.net.SocketAddress",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "nextFilter",
+    "simpleName" : "nextFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl::nextFilter",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl.nextFilter:Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.filterchain.IoFilter$NextFilter",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "session",
+    "simpleName" : "session",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl::session",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolEncoderOutputImpl.session:Lorg/apache/mina/core/session/IoSession;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.IoSession",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecSession",
+    "simpleName" : "ProtocolCodecSession",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "access$000",
+    "simpleName" : "access$000",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession#access$000(org.apache.mina.filter.codec.ProtocolCodecSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@65249338[static access$000 (Lorg/apache/mina/filter/codec/ProtocolCodecSession;)Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.filter.codec.ProtocolCodecSession" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "notWrittenFuture",
+    "simpleName" : "notWrittenFuture",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession::notWrittenFuture",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.codec.ProtocolCodecSession.notWrittenFuture:Lorg/apache/mina/core/future/WriteFuture;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecSession$1",
+    "simpleName" : "ProtocolCodecSession$1",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession$1",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flush",
+    "simpleName" : "flush",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession$1#flush()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d2ad8f05[public flush ()Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolCodecSession$2",
+    "simpleName" : "ProtocolCodecSession$2",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolCodecSession$2",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.codec.ProtocolEncoderOutput",
+    "simpleName" : "ProtocolEncoderOutput",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolEncoderOutput",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flush",
+    "simpleName" : "flush",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolEncoderOutput#flush()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d2ad8f05[public abstract flush ()Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "mergeAll",
+    "simpleName" : "mergeAll",
+    "qualifiedSignature" : "org.apache.mina.filter.codec.ProtocolEncoderOutput#mergeAll()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bd4ce90a[public abstract mergeAll ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.ssl.SslFilter",
+    "simpleName" : "SslFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslFilter",
+    "simpleName" : "SslFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#SslFilter(javax.net.ssl.SSLContext, boolean)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@278667fd[public SslFilter (Ljavax/net/ssl/SSLContext;Z)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "javax.net.ssl.SSLContext", "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "exceptionCaught",
+    "simpleName" : "exceptionCaught",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#exceptionCaught(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession, java.lang.Throwable)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@80d9c6b3[public exceptionCaught (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Ljava/lang/Throwable;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession", "java.lang.Throwable" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "filterClose",
+    "simpleName" : "filterClose",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#filterClose(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@e47dd59[public filterClose (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "filterWrite",
+    "simpleName" : "filterWrite",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#filterWrite(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bce9d1f1[public filterWrite (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "newValue" : "javassist.CtMethod@bce9d1f1[public filterWrite (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSessionInfo",
+    "simpleName" : "getSessionInfo",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#getSessionInfo(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d5c2f931[ getSessionInfo (Lorg/apache/mina/core/session/IoSession;)Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSslSession",
+    "simpleName" : "getSslSession",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#getSslSession(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f4d34263[public getSslSession (Lorg/apache/mina/core/session/IoSession;)Ljavax/net/ssl/SSLSession;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLSession",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSslSessionHandler",
+    "simpleName" : "getSslSessionHandler",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#getSslSessionHandler(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@ec2b734d[private getSslSessionHandler (Lorg/apache/mina/core/session/IoSession;)Lorg/apache/mina/filter/ssl/SslHandler;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handleAppDataRead",
+    "simpleName" : "handleAppDataRead",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#handleAppDataRead(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.filter.ssl.SslHandler)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@15303bc9[private handleAppDataRead (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/filter/ssl/SslHandler;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.filter.ssl.SslHandler" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handleSslData",
+    "simpleName" : "handleSslData",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#handleSslData(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.filter.ssl.SslHandler)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@21b90af4[private handleSslData (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/filter/ssl/SslHandler;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.filter.ssl.SslHandler" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "initiateClosure",
+    "simpleName" : "initiateClosure",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#initiateClosure(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f240d95b[private initiateClosure (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "initiateHandshake",
+    "simpleName" : "initiateHandshake",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#initiateHandshake(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8df7bb61[public initiateHandshake (Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "initiateHandshake",
+    "simpleName" : "initiateHandshake",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#initiateHandshake(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5b7acd57[private initiateHandshake (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isCloseNotify",
+    "simpleName" : "isCloseNotify",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#isCloseNotify(java.lang.Object)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@102f773c[private isCloseNotify (Ljava/lang/Object;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isSecured",
+    "simpleName" : "isSecured",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#isSecured(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1c970306[public isSecured (Lorg/apache/mina/core/session/IoSession;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isSslStarted",
+    "simpleName" : "isSslStarted",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#isSslStarted(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a9076662[public isSslStarted (Lorg/apache/mina/core/session/IoSession;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isUseClientMode",
+    "simpleName" : "isUseClientMode",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#isUseClientMode()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7a3d762c[public isUseClientMode ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "messageReceived",
+    "simpleName" : "messageReceived",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#messageReceived(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession, java.lang.Object)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@65a566e5[public messageReceived (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Ljava/lang/Object;)V]",
+      "newValue" : "javassist.CtMethod@65a566e5[public messageReceived (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Ljava/lang/Object;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession", "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "messageSent",
+    "simpleName" : "messageSent",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#messageSent(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a15107f9[public messageSent (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "newValue" : "javassist.CtMethod@a15107f9[public messageSent (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "onPostAdd",
+    "simpleName" : "onPostAdd",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#onPostAdd(org.apache.mina.core.filterchain.IoFilterChain, java.lang.String, org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4b7237[public onPostAdd (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "newValue" : "javassist.CtMethod@4b7237[public onPostAdd (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilterChain", "java.lang.String", "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "onPreAdd",
+    "simpleName" : "onPreAdd",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#onPreAdd(org.apache.mina.core.filterchain.IoFilterChain, java.lang.String, org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b8898332[public onPreAdd (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "newValue" : "javassist.CtMethod@b8898332[public onPreAdd (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilterChain", "java.lang.String", "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "onPreRemove",
+    "simpleName" : "onPreRemove",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#onPreRemove(org.apache.mina.core.filterchain.IoFilterChain, java.lang.String, org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b1631f9d[public onPreRemove (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "newValue" : "javassist.CtMethod@b1631f9d[public onPreRemove (Lorg/apache/mina/core/filterchain/IoFilterChain;Ljava/lang/String;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilterChain", "java.lang.String", "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "sessionClosed",
+    "simpleName" : "sessionClosed",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#sessionClosed(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_NOW_THROWS_CHECKED_EXCEPTION",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@aad3f9b[public sessionClosed (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : "javassist.CtMethod@aad3f9b[public sessionClosed (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "void",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "setUseClientMode",
+    "simpleName" : "setUseClientMode",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#setUseClientMode(boolean)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@6f5d94a4[public setUseClientMode (Z)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "boolean" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "startSsl",
+    "simpleName" : "startSsl",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#startSsl(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b44c7d4d[public startSsl (Lorg/apache/mina/core/session/IoSession;)Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "stopSsl",
+    "simpleName" : "stopSsl",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter#stopSsl(org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@294a9dad[public stopSsl (Lorg/apache/mina/core/session/IoSession;)Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "CLIENT_HANDSHAKE",
+    "simpleName" : "CLIENT_HANDSHAKE",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::CLIENT_HANDSHAKE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.CLIENT_HANDSHAKE:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "DISABLE_ENCRYPTION_ONCE",
+    "simpleName" : "DISABLE_ENCRYPTION_ONCE",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::DISABLE_ENCRYPTION_ONCE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.DISABLE_ENCRYPTION_ONCE:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "NEXT_FILTER",
+    "simpleName" : "NEXT_FILTER",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::NEXT_FILTER",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.NEXT_FILTER:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "PEER_ADDRESS",
+    "simpleName" : "PEER_ADDRESS",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::PEER_ADDRESS",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.PEER_ADDRESS:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "SSL_SESSION",
+    "simpleName" : "SSL_SESSION",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::SSL_SESSION",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.SSL_SESSION:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "START_HANDSHAKE",
+    "simpleName" : "START_HANDSHAKE",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::START_HANDSHAKE",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.START_HANDSHAKE:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "USE_NOTIFICATION",
+    "simpleName" : "USE_NOTIFICATION",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::USE_NOTIFICATION",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.USE_NOTIFICATION:Lorg/apache/mina/core/session/AttributeKey;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.AttributeKey",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "autoStart",
+    "simpleName" : "autoStart",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::autoStart",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.autoStart:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "client",
+    "simpleName" : "client",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter::client",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter.client:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.ssl.SslFilter$1",
+    "simpleName" : "SslFilter$1",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslFilter$1",
+    "simpleName" : "SslFilter$1",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1#SslFilter$1(org.apache.mina.filter.ssl.SslFilter, org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1a2909ae[ SslFilter$1 (Lorg/apache/mina/filter/ssl/SslFilter;Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.filter.ssl.SslFilter", "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "operationComplete",
+    "simpleName" : "operationComplete",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1#operationComplete(org.apache.mina.core.future.IoFuture)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@20b99a81[public operationComplete (Lorg/apache/mina/core/future/IoFuture;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.future.IoFuture" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "this$0",
+    "simpleName" : "this$0",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1::this$0",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$1.this$0:Lorg/apache/mina/filter/ssl/SslFilter;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$nextFilter",
+    "simpleName" : "val$nextFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1::val$nextFilter",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$1.val$nextFilter:Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.filterchain.IoFilter$NextFilter",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "val$session",
+    "simpleName" : "val$session",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$1::val$session",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$1.val$session:Lorg/apache/mina/core/session/IoSession;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.IoSession",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest",
+    "simpleName" : "SslFilter$EncryptedWriteRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslFilter$EncryptedWriteRequest",
+    "simpleName" : "SslFilter$EncryptedWriteRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest#SslFilter$EncryptedWriteRequest(org.apache.mina.core.write.WriteRequest, org.apache.mina.core.buffer.IoBuffer)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@e042c99[private SslFilter$EncryptedWriteRequest (Lorg/apache/mina/core/write/WriteRequest;Lorg/apache/mina/core/buffer/IoBuffer;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.write.WriteRequest", "org.apache.mina.core.buffer.IoBuffer" ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslFilter$EncryptedWriteRequest",
+    "simpleName" : "SslFilter$EncryptedWriteRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest#SslFilter$EncryptedWriteRequest(org.apache.mina.core.write.WriteRequest, org.apache.mina.core.buffer.IoBuffer, org.apache.mina.filter.ssl.SslFilter$1)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CONSTRUCTOR_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@3f702946[ SslFilter$EncryptedWriteRequest (Lorg/apache/mina/core/write/WriteRequest;Lorg/apache/mina/core/buffer/IoBuffer;Lorg/apache/mina/filter/ssl/SslFilter$1;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "PACKAGE_PROTECTED", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.write.WriteRequest", "org.apache.mina.core.buffer.IoBuffer", "org.apache.mina.filter.ssl.SslFilter$1" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getFuture",
+    "simpleName" : "getFuture",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest#getFuture()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d9636b7a[public getFuture ()Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getMessage",
+    "simpleName" : "getMessage",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest#getMessage()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a9989092[public getMessage ()Ljava/lang/Object;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.Object",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getParentRequest",
+    "simpleName" : "getParentRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest#getParentRequest()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@55339810[public getParentRequest ()Lorg/apache/mina/core/write/WriteRequest;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.write.WriteRequest",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "encryptedMessage",
+    "simpleName" : "encryptedMessage",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest::encryptedMessage",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest.encryptedMessage:Lorg/apache/mina/core/buffer/IoBuffer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "parentRequest",
+    "simpleName" : "parentRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest::parentRequest",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$EncryptedWriteRequest.parentRequest:Lorg/apache/mina/core/write/WriteRequest;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.write.WriteRequest",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage",
+    "simpleName" : "SslFilter$SslFilterMessage",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_SYNTHETIC", "PUBLIC", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslFilter$SslFilterMessage",
+    "simpleName" : "SslFilter$SslFilterMessage",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage#SslFilter$SslFilterMessage(java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@42b6d0cc[private SslFilter$SslFilterMessage (Ljava/lang/String;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "toString",
+    "simpleName" : "toString",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage#toString()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@69cb6c6d[public toString ()Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "name",
+    "simpleName" : "name",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage::name",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter$SslFilterMessage.name:Ljava/lang/String;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CONSTRUCTOR",
+    "name" : "SslHandler",
+    "simpleName" : "SslHandler",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#SslHandler(org.apache.mina.filter.ssl.SslFilter, org.apache.mina.core.session.IoSession)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtConstructor@1000d54d[ SslHandler (Lorg/apache/mina/filter/ssl/SslFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : null,
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.filter.ssl.SslFilter", "org.apache.mina.core.session.IoSession" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "checkStatus",
+    "simpleName" : "checkStatus",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#checkStatus(javax.net.ssl.SSLEngineResult)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@95340dad[private checkStatus (Ljavax/net/ssl/SSLEngineResult;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "javax.net.ssl.SSLEngineResult" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "closeOutbound",
+    "simpleName" : "closeOutbound",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#closeOutbound()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@e36c9809[ closeOutbound ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "copy",
+    "simpleName" : "copy",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#copy(java.nio.ByteBuffer)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@39c01b85[static copy (Ljava/nio/ByteBuffer;)Lorg/apache/mina/core/buffer/IoBuffer;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_SYNTHETIC", "PACKAGE_PROTECTED", "STATIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.nio.ByteBuffer" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "createOutNetBuffer",
+    "simpleName" : "createOutNetBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#createOutNetBuffer(int)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7b6c979d[private createOutNetBuffer (I)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "int" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "destroy",
+    "simpleName" : "destroy",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#destroy()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@766b8e7b[ destroy ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "doTasks",
+    "simpleName" : "doTasks",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#doTasks()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@fcf63e04[private doTasks ()Ljavax/net/ssl/SSLEngineResult$HandshakeStatus;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLEngineResult$HandshakeStatus",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "encrypt",
+    "simpleName" : "encrypt",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#encrypt(java.nio.ByteBuffer)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@e13f4a95[ encrypt (Ljava/nio/ByteBuffer;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.nio.ByteBuffer" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "fetchAppBuffer",
+    "simpleName" : "fetchAppBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#fetchAppBuffer()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@3e4abf68[ fetchAppBuffer ()Lorg/apache/mina/core/buffer/IoBuffer;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "fetchOutNetBuffer",
+    "simpleName" : "fetchOutNetBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#fetchOutNetBuffer()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@91942b2a[ fetchOutNetBuffer ()Lorg/apache/mina/core/buffer/IoBuffer;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flushFilterWrite",
+    "simpleName" : "flushFilterWrite",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#flushFilterWrite()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@f69c51e4[ flushFilterWrite ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flushMessageReceived",
+    "simpleName" : "flushMessageReceived",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#flushMessageReceived()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d50fa765[ flushMessageReceived ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "flushPreHandshakeEvents",
+    "simpleName" : "flushPreHandshakeEvents",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#flushPreHandshakeEvents()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@538e89b2[ flushPreHandshakeEvents ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSession",
+    "simpleName" : "getSession",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#getSession()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@23a7ab61[ getSession ()Lorg/apache/mina/core/session/IoSession;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.IoSession",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "getSslFilter",
+    "simpleName" : "getSslFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#getSslFilter()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@df4d6f6f[ getSslFilter ()Lorg/apache/mina/filter/ssl/SslFilter;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "handshake",
+    "simpleName" : "handshake",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#handshake(org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@4a16c26e[ handshake (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "init",
+    "simpleName" : "init",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#init()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@b96c6611[ init ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isHandshakeComplete",
+    "simpleName" : "isHandshakeComplete",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#isHandshakeComplete()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1cf4a1c7[ isHandshakeComplete ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isInboundDone",
+    "simpleName" : "isInboundDone",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#isInboundDone()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1906efd2[ isInboundDone ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isOutboundDone",
+    "simpleName" : "isOutboundDone",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#isOutboundDone()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@89ebbadd[ isOutboundDone ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "isWritingEncryptedData",
+    "simpleName" : "isWritingEncryptedData",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#isWritingEncryptedData()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@bf63fe5d[ isWritingEncryptedData ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "messageReceived",
+    "simpleName" : "messageReceived",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#messageReceived(org.apache.mina.core.filterchain.IoFilter$NextFilter, java.nio.ByteBuffer)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@2cffa7dc[ messageReceived (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Ljava/nio/ByteBuffer;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "java.nio.ByteBuffer" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "needToCompleteHandshake",
+    "simpleName" : "needToCompleteHandshake",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#needToCompleteHandshake()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@8fe22ce[ needToCompleteHandshake ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "notHandshaking",
+    "simpleName" : "notHandshaking",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#notHandshaking()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@377482e2[ notHandshaking ()Z]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "release",
+    "simpleName" : "release",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#release()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5574748[ release ()V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "renegotiateIfNeeded",
+    "simpleName" : "renegotiateIfNeeded",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#renegotiateIfNeeded(org.apache.mina.core.filterchain.IoFilter$NextFilter, javax.net.ssl.SSLEngineResult)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@1e015b4[private renegotiateIfNeeded (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Ljavax/net/ssl/SSLEngineResult;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "javax.net.ssl.SSLEngineResult" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "scheduleFilterWrite",
+    "simpleName" : "scheduleFilterWrite",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#scheduleFilterWrite(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@5872456a[ scheduleFilterWrite (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "scheduleMessageReceived",
+    "simpleName" : "scheduleMessageReceived",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#scheduleMessageReceived(org.apache.mina.core.filterchain.IoFilter$NextFilter, java.lang.Object)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@edc6800c[ scheduleMessageReceived (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Ljava/lang/Object;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "java.lang.Object" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "schedulePreHandshakeWriteRequest",
+    "simpleName" : "schedulePreHandshakeWriteRequest",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#schedulePreHandshakeWriteRequest(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.write.WriteRequest)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@518dcdf[ schedulePreHandshakeWriteRequest (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/write/WriteRequest;)V]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "void",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.write.WriteRequest" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "unwrap",
+    "simpleName" : "unwrap",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#unwrap()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@65be2a4[private unwrap ()Ljavax/net/ssl/SSLEngineResult;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLEngineResult",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "unwrapHandshake",
+    "simpleName" : "unwrapHandshake",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#unwrapHandshake(org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@6489bc4b[private unwrapHandshake (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)Ljavax/net/ssl/SSLEngineResult$Status;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLEngineResult$Status",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "writeNetBuffer",
+    "simpleName" : "writeNetBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler#writeNetBuffer(org.apache.mina.core.filterchain.IoFilter$NextFilter)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@42c99895[ writeNetBuffer (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;)Lorg/apache/mina/core/future/WriteFuture;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.future.WriteFuture",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PACKAGE_PROTECTED" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter" ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "appBuffer",
+    "simpleName" : "appBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::appBuffer",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.appBuffer:Lorg/apache/mina/core/buffer/IoBuffer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "emptyBuffer",
+    "simpleName" : "emptyBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::emptyBuffer",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.emptyBuffer:Lorg/apache/mina/core/buffer/IoBuffer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "filterWriteEventQueue",
+    "simpleName" : "filterWriteEventQueue",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::filterWriteEventQueue",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.filterWriteEventQueue:Ljava/util/Queue;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Queue",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "firstSSLNegociation",
+    "simpleName" : "firstSSLNegociation",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::firstSSLNegociation",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.firstSSLNegociation:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "handshakeComplete",
+    "simpleName" : "handshakeComplete",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::handshakeComplete",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.handshakeComplete:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "handshakeStatus",
+    "simpleName" : "handshakeStatus",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::handshakeStatus",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.handshakeStatus:Ljavax/net/ssl/SSLEngineResult$HandshakeStatus;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLEngineResult$HandshakeStatus",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "inNetBuffer",
+    "simpleName" : "inNetBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::inNetBuffer",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.inNetBuffer:Lorg/apache/mina/core/buffer/IoBuffer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "messageReceivedEventQueue",
+    "simpleName" : "messageReceivedEventQueue",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::messageReceivedEventQueue",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.messageReceivedEventQueue:Ljava/util/Queue;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Queue",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "outNetBuffer",
+    "simpleName" : "outNetBuffer",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::outNetBuffer",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.outNetBuffer:Lorg/apache/mina/core/buffer/IoBuffer;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.buffer.IoBuffer",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "preHandshakeEventQueue",
+    "simpleName" : "preHandshakeEventQueue",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::preHandshakeEventQueue",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.preHandshakeEventQueue:Ljava/util/Queue;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Queue",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "session",
+    "simpleName" : "session",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::session",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.session:Lorg/apache/mina/core/session/IoSession;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.core.session.IoSession",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "sslEngine",
+    "simpleName" : "sslEngine",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::sslEngine",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.sslEngine:Ljavax/net/ssl/SSLEngine;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "javax.net.ssl.SSLEngine",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "sslFilter",
+    "simpleName" : "sslFilter",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::sslFilter",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.sslFilter:Lorg/apache/mina/filter/ssl/SslFilter;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslFilter",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "writingEncryptedData",
+    "simpleName" : "writingEncryptedData",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler::writingEncryptedData",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler.writingEncryptedData:Z",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "boolean",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.filter.ssl.SslHandler$1",
+    "simpleName" : "SslHandler$1",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler$1",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "CLASS_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "$SwitchMap$javax$net$ssl$SSLEngineResult$HandshakeStatus",
+    "simpleName" : "$SwitchMap$javax$net$ssl$SSLEngineResult$HandshakeStatus",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler$1::$SwitchMap$javax$net$ssl$SSLEngineResult$HandshakeStatus",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler$1.$SwitchMap$javax$net$ssl$SSLEngineResult$HandshakeStatus:[I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "FIELD",
+    "name" : "$SwitchMap$javax$net$ssl$SSLEngineResult$Status",
+    "simpleName" : "$SwitchMap$javax$net$ssl$SSLEngineResult$Status",
+    "qualifiedSignature" : "org.apache.mina.filter.ssl.SslHandler$1::$SwitchMap$javax$net$ssl$SSLEngineResult$Status",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "org.apache.mina.filter.ssl.SslHandler$1.$SwitchMap$javax$net$ssl$SSLEngineResult$Status:[I",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "int[]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_TRANSIENT", "NON_VOLATILE", "PACKAGE_PROTECTED", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "org.apache.mina.util.StackInspector",
+    "simpleName" : "StackInspector",
+    "qualifiedSignature" : "org.apache.mina.util.StackInspector",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "INTERFACE_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "serialVersionUID",
+    "simpleName" : "serialVersionUID",
+    "qualifiedSignature" : "org.apache.mina.util.StackInspector::serialVersionUID",
+    "changeStatus" : "NEW",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_LESS_ACCESSIBLE_THAN_IN_SUPERCLASS",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    }, {
+      "type" : "FIELD_STATIC_AND_OVERRIDES_STATIC",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : null,
+      "newValue" : "org.apache.mina.util.StackInspector.serialVersionUID:J",
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : null,
+      "newValue" : "long",
+      "changed" : true
+    },
+    "oldModifiers" : [ ],
+    "newModifiers" : [ "FINAL", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE", "STATIC" ],
+    "parameterTypes" : [ ]
+  } ]
+}

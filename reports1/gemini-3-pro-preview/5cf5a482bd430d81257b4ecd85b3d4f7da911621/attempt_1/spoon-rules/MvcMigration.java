@@ -1,0 +1,78 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class MvcMigration {
+
+    /**
+     * Processor to migrate javax.mvc types to jakarta.mvc.
+     * This handles the removal of javax.mvc.* classes by migrating them to the Jakarta namespace.
+     */
+    public static class JakartaMvcProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive checks
+            if (candidate == null || candidate.getPackage() == null) {
+                return false;
+            }
+            
+            // Check for primitives or null qualified names to avoid errors
+            if (candidate.isPrimitive()) {
+                return false;
+            }
+
+            String packageName = candidate.getPackage().getQualifiedName();
+            // Check if it belongs to the removed javax.mvc package or subpackages
+            return packageName != null && packageName.startsWith("javax.mvc");
+        }
+
+        @Override
+        public void process(CtTypeReference<?> ref) {
+            CtPackage oldPackage = ref.getPackage();
+            String oldPackageName = oldPackage.getQualifiedName();
+            
+            // Deduce new package name: javax.mvc -> jakarta.mvc
+            // This handles subpackages like javax.mvc.binding -> jakarta.mvc.binding automatically
+            String newPackageName = oldPackageName.replace("javax.mvc", "jakarta.mvc");
+
+            // Update the package reference
+            // We use getOrCreate to ensure the package exists in the factory
+            ref.setPackage(getFactory().Package().getOrCreate(newPackageName));
+            
+            System.out.println("Refactored " + ref.getSimpleName() + " from " + oldPackageName + " to " + newPackageName);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5cf5a482bd430d81257b4ecd85b3d4f7da911621/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/5cf5a482bd430d81257b4ecd85b3d4f7da911621/jakartaee-mvc-sample/src/main/java/com/example/web/TaskController.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5cf5a482bd430d81257b4ecd85b3d4f7da911621/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Sniper Configuration
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Set NoClasspath to true to handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JakartaMvcProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

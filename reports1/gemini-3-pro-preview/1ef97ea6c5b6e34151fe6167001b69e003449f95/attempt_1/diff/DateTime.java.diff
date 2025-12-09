@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/1ef97ea6c5b6e34151fe6167001b69e003449f95/flink-faker/src/main/java/com/github/knaufk/flink/faker/DateTime.java	2025-12-08 02:43:38.111821469 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1ef97ea6c5b6e34151fe6167001b69e003449f95/attempt_1/transformed/com/github/knaufk/flink/faker/DateTime.java	2025-12-08 02:44:58.369366236 +0100
+@@ -42,7 +42,7 @@
+ 
+   @Override
+   public Timestamp between(Date from, Date to) throws IllegalArgumentException {
+-    return new Timestamp(super.between(from, to).getTime());
++    return new Timestamp(super.between(new java.sql.Timestamp(from.getTime()), new java.sql.Timestamp(to.getTime())).getTime());
+   }
+ 
+   @Override

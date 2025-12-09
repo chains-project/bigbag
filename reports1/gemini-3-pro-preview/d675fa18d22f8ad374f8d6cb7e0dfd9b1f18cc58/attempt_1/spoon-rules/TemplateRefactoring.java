@@ -1,0 +1,106 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule.
+ * 
+ * Generated based on input diff: <dependency_change_diff> (Empty/Template)
+ * 
+ * This class establishes the robust environment required for refactoring:
+ * 1. SniperJavaPrettyPrinter: Preserves formatting and comments.
+ * 2. NoClasspath: Runs without requiring full dependency resolution.
+ * 3. Defensive Coding: Handles unknown types safely.
+ */
+public class TemplateRefactoring {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Check: Ensure executable reference exists
+            if (candidate.getExecutable() == null) {
+                return false;
+            }
+
+            // 2. Name Check
+            // TODO: Replace "targetMethod" with the actual method name from the diff
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"targetMethod".equals(methodName)) {
+                return false;
+            }
+
+            // 3. Owner/Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // If declaring type is null (inference failed), we may still want to process based on name.
+            // If it is NOT null, we verify it matches the target class.
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // TODO: Replace "com.example.TargetClass" with the actual class from the diff
+                // We use contains() to handle cases where generic arguments might be part of the string in some versions
+                // or to allow loose matching in NoClasspath mode.
+                if (!qualifiedName.contains("TargetClass") && !qualifiedName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Argument Check (Optional: depending on diff)
+            // if (candidate.getArguments().size() != expectedCount) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // TODO: Implement transformation logic here based on the Diff.
+            // Example: Rename the method
+            // invocation.getExecutable().setSimpleName("newMethodName");
+            
+            System.out.println("Processed invocation at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = "/home/kth/Documents/last_transformer/output/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/d675fa18d22f8ad374f8d6cb7e0dfd9b1f18cc58/attempt_1/transformed");
+
+        // --- CRITICAL CONFIGURATION START ---
+        
+        // 1. Enable comments (Crucial for preserving headers/Javadocs)
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually
+        // This ensures that code NOT modified by the processor remains distinct 
+        // byte-for-byte (indentation, whitespace) as the original source.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Compatibility
+        // Allows running without the full JARs of the project dependencies.
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // --- CRITICAL CONFIGURATION END ---
+
+        launcher.addProcessor(new TemplateProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            System.out.println("Input: " + inputPath);
+            System.out.println("Output: " + outputPath);
+            launcher.run();
+            System.out.println("Done.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

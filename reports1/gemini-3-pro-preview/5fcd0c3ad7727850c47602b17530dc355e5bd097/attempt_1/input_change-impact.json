@@ -1,0 +1,286 @@
+{
+  "project" : "pitest-mutation-testing-elements-plugin",
+  "breakingCommit" : "5fcd0c3ad7727850c47602b17530dc355e5bd097",
+  "dependency" : {
+    "groupId" : "org.pitest",
+    "artifactId" : "pitest-entry",
+    "previousVersion" : "1.9.11",
+    "newVersion" : "1.10.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-entry-1.9.11.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-entry-1.10.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-mutation-testing-elements-plugin/5fcd0c3ad7727850c47602b17530dc355e5bd097.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/5fcd0c3ad7727850c47602b17530dc355e5bd097/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/pitest-mutation-testing-elements-plugin/src/main/java/org/pitest/elements/MutationReportListener.java",
+    "errors" : [ {
+      "lineNumber" : 105,
+      "columnNumber" : 38,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getClassInfo(java.util.Set<org.pitest.classinfo.ClassName>)", "location: variable coverage of type org.pitest.coverage.CoverageDatabase" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-mutation-testing-elements-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-mutation-testing-elements-plugin/src/main/java/org/pitest/elements/MutationReportListener.java",
+        "lineNumber" : 105,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-entry-1.9.11.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5fcd0c3ad7727850c47602b17530dc355e5bd097/pitest-entry-1.10.0.jar",
+        "generatedAt" : "2025-12-08T04:34:24.208135021Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.pitest.elements.models.MutationTestSummaryData#<init>(java.lang.String, java.util.Collection, java.util.Collection)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/pitest/elements/models/MutationTestSummaryData.java"
+          },
+          "lineNumber" : 104,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.pitest.mutationtest.ClassMutationResults#getMutations()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.pitest",
+            "artifactId" : "pitest-entry",
+            "version" : "1.10.0",
+            "coordinates" : "org.pitest:pitest-entry:1.10.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/pitest/pitest-entry/1.10.0/pitest-entry-1.10.0.jar"
+          },
+          "lineNumber" : 105,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getMutations",
+            "declaringType" : "org.pitest.mutationtest.ClassMutationResults",
+            "qualifiedSignature" : "org.pitest.mutationtest.ClassMutationResults.getMutations()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@21eafc35[public getMutations ()Ljava/util/Collection;]",
+              "newValue" : "javassist.CtMethod@21eafc35[public getMutations ()Ljava/util/Collection;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Collection",
+              "newValue" : "java.util.Collection",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getClassInfo(java.lang.Object)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 105,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getClassInfo",
+            "declaringType" : "org.pitest.classinfo.ClassInfoVisitor",
+            "qualifiedSignature" : "org.pitest.classinfo.ClassInfoVisitor.getClassInfo(org.pitest.classinfo.ClassName, byte[], long)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@5d86a16c[public static getClassInfo (Lorg/pitest/classinfo/ClassName;[BJ)Lorg/pitest/classinfo/ClassInfoBuilder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.pitest.classinfo.ClassInfoBuilder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.pitest.classinfo.ClassName", "byte[]", "long" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getClassInfo",
+            "declaringType" : "org.pitest.coverage.CoverageData",
+            "qualifiedSignature" : "org.pitest.coverage.CoverageData.getClassInfo(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a8aff280[public getClassInfo (Ljava/util/Collection;)Ljava/util/Collection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Collection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getClassInfo",
+            "declaringType" : "org.pitest.coverage.LegacyClassCoverage",
+            "qualifiedSignature" : "org.pitest.coverage.LegacyClassCoverage.getClassInfo(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a8aff280[public getClassInfo (Ljava/util/Collection;)Ljava/util/Collection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Collection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getClassInfo",
+            "declaringType" : "org.pitest.coverage.NoCoverage",
+            "qualifiedSignature" : "org.pitest.coverage.NoCoverage.getClassInfo(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a8aff280[public getClassInfo (Ljava/util/Collection;)Ljava/util/Collection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Collection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getClassInfo",
+            "declaringType" : "org.pitest.coverage.ReportCoverage",
+            "qualifiedSignature" : "org.pitest.coverage.ReportCoverage.getClassInfo(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a8aff280[public abstract getClassInfo (Ljava/util/Collection;)Ljava/util/Collection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Collection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Collections#singleton(java.lang.Object)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 105,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Collections",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 105,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.pitest.mutationtest.ClassMutationResults#getMutatedClass()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.pitest",
+            "artifactId" : "pitest-entry",
+            "version" : "1.10.0",
+            "coordinates" : "org.pitest:pitest-entry:1.10.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/pitest/pitest-entry/1.10.0/pitest-entry-1.10.0.jar"
+          },
+          "lineNumber" : 105,
+          "codeLine" : "        data.getMutations(), coverage.getClassInfo(Collections.singleton(data.getMutatedClass())));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getMutatedClass",
+            "declaringType" : "org.pitest.mutationtest.ClassMutationResults",
+            "qualifiedSignature" : "org.pitest.mutationtest.ClassMutationResults.getMutatedClass()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@5d65a5b1[public getMutatedClass ()Lorg/pitest/classinfo/ClassName;]",
+              "newValue" : "javassist.CtMethod@5d65a5b1[public getMutatedClass ()Lorg/pitest/classinfo/ClassName;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.pitest.classinfo.ClassName",
+              "newValue" : "org.pitest.classinfo.ClassName",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

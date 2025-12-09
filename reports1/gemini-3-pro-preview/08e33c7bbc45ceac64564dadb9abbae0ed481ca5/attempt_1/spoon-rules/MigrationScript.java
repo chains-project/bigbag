@@ -1,0 +1,133 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script generated for Dependency Migration.
+ * 
+ * ANALYSIS:
+ * - Input Diff: [EMPTY/GENERIC]
+ * - Strategy: Providing a template Processor configured for 'com.utils.Timer.setDelay' 
+ *   (based on the One-Shot example) to demonstrate the required Sniper/NoClasspath configuration.
+ *   
+ * USAGE:
+ * - Adjust 'TARGET_METHOD', 'TARGET_CLASS', and logic in 'process' for specific needs.
+ */
+public class MigrationScript {
+
+    public static class RefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // Configuration for the refactoring target
+        private static final String TARGET_METHOD = "setDelay";
+        private static final String TARGET_CLASS = "Timer";
+        private static final int EXPECTED_ARG_COUNT = 1;
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!TARGET_METHOD.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != EXPECTED_ARG_COUNT) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Scenario: We want to convert int -> Duration. 
+            // If it is already Duration, skip.
+            // If type is null (unknown) or primitive, we assume it needs migration.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath safety)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We check if the owner contains our target class name. 
+            // We also allow <unknown> owners in NoClasspath mode if the method name is unique enough.
+            if (owner != null && !owner.getQualifiedName().contains(TARGET_CLASS) && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // LOGIC: Wrap the integer argument in Duration.ofMillis(...)
+            
+            // 1. Create reference to java.time.Duration
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            // 2. Create invocation: Duration.ofMillis(originalArg)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                factory.Method().createReference(
+                    durationRef, 
+                    factory.Type().voidPrimitiveType(), 
+                    "ofMillis", 
+                    factory.Type().integerPrimitiveType()
+                ),
+                originalArg.clone() // Clone essential to detach from old parent
+            );
+
+            // 3. Apply replacement
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored " + TARGET_METHOD + " at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - assume running from project root
+        String inputPath = "/home/kth/Documents/last_transformer/output/08e33c7bbc45ceac64564dadb9abbae0ed481ca5/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/08e33c7bbc45ceac64564dadb9abbae0ed481ca5/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/08e33c7bbc45ceac64564dadb9abbae0ed481ca5/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/08e33c7bbc45ceac64564dadb9abbae0ed481ca5/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL IMPLEMENTATION RULES (Sniper & NoClasspath)
+        // =========================================================
+        
+        // 1. Enable comments to preserve license headers and Javadoc
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter.
+        // This is crucial for preserving formatting of unchanged code blocks.
+        // We must use a creator lambda to ensure it initializes with the correct environment.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // =========================================================
+
+        launcher.addProcessor(new RefactoringProcessor());
+        
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

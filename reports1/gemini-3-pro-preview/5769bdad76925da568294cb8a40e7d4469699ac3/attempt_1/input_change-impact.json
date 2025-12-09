@@ -1,0 +1,1170 @@
+{
+  "project" : "incrementals-tools",
+  "breakingCommit" : "5769bdad76925da568294cb8a40e7d4469699ac3",
+  "dependency" : {
+    "groupId" : "org.kohsuke",
+    "artifactId" : "github-api",
+    "previousVersion" : "1.93",
+    "newVersion" : "1.313",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/github-api-1.93.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/github-api-1.313.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/incrementals-tools/5769bdad76925da568294cb8a40e7d4469699ac3.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/5769bdad76925da568294cb8a40e7d4469699ac3/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/incrementals-tools/lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java",
+    "errors" : [ {
+      "lineNumber" : 239,
+      "columnNumber" : 126,
+      "message" : "status has private access in org.kohsuke.github.GHCompare",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/incrementals-tools",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/incrementals-tools/lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java",
+        "lineNumber" : 239,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/github-api-1.93.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/5769bdad76925da568294cb8a40e7d4469699ac3/github-api-1.313.jar",
+        "generatedAt" : "2025-12-08T04:09:32.437749373Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.kohsuke.github.GHCompare$Status",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GHCompare$Status",
+            "declaringType" : "org.kohsuke.github.GHCompare$Status",
+            "qualifiedSignature" : "org.kohsuke.github.GHCompare$Status",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.kohsuke.github.GHCompare",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GHCompare",
+            "declaringType" : "org.kohsuke.github.GHCompare",
+            "qualifiedSignature" : "org.kohsuke.github.GHCompare",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.kohsuke.github.GHCompare::status",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "status",
+            "declaringType" : "org.kohsuke.github.GHCompare",
+            "qualifiedSignature" : "org.kohsuke.github.GHCompare.status",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_LESS_ACCESSIBLE",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.kohsuke.github.GHCompare.status:Lorg/kohsuke/github/GHCompare$Status;",
+              "newValue" : "org.kohsuke.github.GHCompare.status:Lorg/kohsuke/github/GHCompare$Status;",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHCompare$Status",
+              "newValue" : "org.kohsuke.github.GHCompare$Status",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "status",
+            "declaringType" : "org.kohsuke.github.GHCompare",
+            "qualifiedSignature" : "org.kohsuke.github.GHCompare.status",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_LESS_ACCESSIBLE",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.kohsuke.github.GHCompare.status:Lorg/kohsuke/github/GHCompare$Status;",
+              "newValue" : "org.kohsuke.github.GHCompare.status:Lorg/kohsuke/github/GHCompare$Status;",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHCompare$Status",
+              "newValue" : "org.kohsuke.github.GHCompare$Status",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GHCompare",
+            "declaringType" : "org.kohsuke.github.GHCompare",
+            "qualifiedSignature" : "org.kohsuke.github.GHCompare",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.kohsuke.github.GHRepository#getCompare(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getCompare",
+            "declaringType" : "org.kohsuke.github.GHRepository",
+            "qualifiedSignature" : "org.kohsuke.github.GHRepository.getCompare(java.lang.String, java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@772e015c[public getCompare (Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GHCompare;]",
+              "newValue" : "javassist.CtMethod@772e015c[public getCompare (Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GHCompare;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHCompare",
+              "newValue" : "org.kohsuke.github.GHCompare",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "getCompare",
+            "declaringType" : "org.kohsuke.github.GHRepository",
+            "qualifiedSignature" : "org.kohsuke.github.GHRepository.getCompare(org.kohsuke.github.GHCommit, org.kohsuke.github.GHCommit)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6350ca10[public getCompare (Lorg/kohsuke/github/GHCommit;Lorg/kohsuke/github/GHCommit;)Lorg/kohsuke/github/GHCompare;]",
+              "newValue" : "javassist.CtMethod@6350ca10[public getCompare (Lorg/kohsuke/github/GHCommit;Lorg/kohsuke/github/GHCommit;)Lorg/kohsuke/github/GHCompare;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHCompare",
+              "newValue" : "org.kohsuke.github.GHCompare",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.kohsuke.github.GHCommit", "org.kohsuke.github.GHCommit" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "getCompare",
+            "declaringType" : "org.kohsuke.github.GHRepository",
+            "qualifiedSignature" : "org.kohsuke.github.GHRepository.getCompare(org.kohsuke.github.GHBranch, org.kohsuke.github.GHBranch)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@e46e8df0[public getCompare (Lorg/kohsuke/github/GHBranch;Lorg/kohsuke/github/GHBranch;)Lorg/kohsuke/github/GHCompare;]",
+              "newValue" : "javassist.CtMethod@e46e8df0[public getCompare (Lorg/kohsuke/github/GHBranch;Lorg/kohsuke/github/GHBranch;)Lorg/kohsuke/github/GHCompare;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHCompare",
+              "newValue" : "org.kohsuke.github.GHCompare",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.kohsuke.github.GHBranch", "org.kohsuke.github.GHBranch" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getCompare",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Push",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Push.getCompare()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ab390df0[public getCompare ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GHRepository",
+            "declaringType" : "org.kohsuke.github.GHRepository",
+            "qualifiedSignature" : "org.kohsuke.github.GHRepository",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED_IN_SUPERCLASS",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 122
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.kohsuke.github.GitHub#getRepository(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub.getRepository(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fac86877[public getRepository (Ljava/lang/String;)Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : "javassist.CtMethod@fac86877[public getRepository (Ljava/lang/String;)Lorg/kohsuke/github/GHRepository;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHArtifact",
+            "qualifiedSignature" : "org.kohsuke.github.GHArtifact.getRepository()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload.getRepository()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$CommitComment",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$CommitComment.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Create",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Create.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Delete",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Delete.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Deployment",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Deployment.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$DeploymentStatus",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$DeploymentStatus.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Fork",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Fork.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$IssueComment",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$IssueComment.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Ping",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Ping.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Public",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Public.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$PullRequest",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$PullRequest.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$PullRequestReview",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$PullRequestReview.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$PullRequestReviewComment",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$PullRequestReviewComment.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Push",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Push.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHEventPayload$Repository",
+            "qualifiedSignature" : "org.kohsuke.github.GHEventPayload$Repository.getRepository()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GHRepository",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHWorkflow",
+            "qualifiedSignature" : "org.kohsuke.github.GHWorkflow.getRepository()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHWorkflowJob",
+            "qualifiedSignature" : "org.kohsuke.github.GHWorkflowJob.getRepository()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "getRepository",
+            "declaringType" : "org.kohsuke.github.GHWorkflowRun",
+            "qualifiedSignature" : "org.kohsuke.github.GHWorkflowRun.getRepository()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@deefc841[public getRepository ()Lorg/kohsuke/github/GHRepository;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.kohsuke.github.GHRepository",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GitHub",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 64
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.kohsuke.github.GitHub#connect()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub.connect()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dd79eb6b[public static connect ()Lorg/kohsuke/github/GitHub;]",
+              "newValue" : "javassist.CtMethod@dd79eb6b[public static connect ()Lorg/kohsuke/github/GitHub;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GitHub",
+              "newValue" : "org.kohsuke.github.GitHub",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub.connect(java.lang.String, java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dca6fd57[public static connect (Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GitHub;]",
+              "newValue" : "javassist.CtMethod@dca6fd57[public static connect (Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GitHub;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GitHub",
+              "newValue" : "org.kohsuke.github.GitHub",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub.connect(java.lang.String, java.lang.String, java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8ba0c40d[public static connect (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GitHub;]",
+              "newValue" : "javassist.CtMethod@8ba0c40d[public static connect (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/kohsuke/github/GitHub;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.kohsuke.github.GitHub",
+              "newValue" : "org.kohsuke.github.GitHub",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.GitHubBuilder$1",
+            "qualifiedSignature" : "org.kohsuke.github.GitHubBuilder$1.connect(java.net.URL)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4c11854c[public connect (Ljava/net/URL;)Ljava/net/HttpURLConnection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.net.HttpURLConnection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.HttpConnector$1",
+            "qualifiedSignature" : "org.kohsuke.github.HttpConnector$1.connect(java.net.URL)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4c11854c[public connect (Ljava/net/URL;)Ljava/net/HttpURLConnection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.net.HttpURLConnection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.HttpConnector$2",
+            "qualifiedSignature" : "org.kohsuke.github.HttpConnector$2.connect(java.net.URL)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4c11854c[public connect (Ljava/net/URL;)Ljava/net/HttpURLConnection;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.net.HttpURLConnection",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.connector.GitHubConnectorResponseHttpUrlConnectionAdapter",
+            "qualifiedSignature" : "org.kohsuke.github.connector.GitHubConnectorResponseHttpUrlConnectionAdapter.connect()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dd79eb6b[public connect ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.extras.okhttp3.ObsoleteUrlFactory$DelegatingHttpsURLConnection",
+            "qualifiedSignature" : "org.kohsuke.github.extras.okhttp3.ObsoleteUrlFactory$DelegatingHttpsURLConnection.connect()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dd79eb6b[public connect ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.extras.okhttp3.ObsoleteUrlFactory$OkHttpURLConnection",
+            "qualifiedSignature" : "org.kohsuke.github.extras.okhttp3.ObsoleteUrlFactory$OkHttpURLConnection.connect()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dd79eb6b[public connect ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.extras.okhttp3.OkHttpConnector",
+            "qualifiedSignature" : "org.kohsuke.github.extras.okhttp3.OkHttpConnector.connect(java.net.URL)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4c11854c[public connect (Ljava/net/URL;)Ljava/net/HttpURLConnection;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.net.HttpURLConnection",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "connect",
+            "declaringType" : "org.kohsuke.github.internal.GitHubConnectorHttpConnectorAdapter",
+            "qualifiedSignature" : "org.kohsuke.github.internal.GitHubConnectorHttpConnectorAdapter.connect(java.net.URL)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4c11854c[public connect (Ljava/net/URL;)Ljava/net/HttpURLConnection;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.net.HttpURLConnection",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.net.URL" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GitHub",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 64
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.kohsuke.github.GitHub",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.kohsuke",
+            "artifactId" : "github-api",
+            "version" : "1.313",
+            "coordinates" : "org.kohsuke:github-api:1.313",
+            "sourcePath" : "/home/kth/.m2/repository/org/kohsuke/github-api/1.313/github-api-1.313.jar"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.kohsuke.github.GitHub",
+            "declaringType" : "org.kohsuke.github.GitHub",
+            "qualifiedSignature" : "org.kohsuke.github.GitHub",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 64
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "io.jenkins.tools.incrementals.lib.UpdateChecker$GitHubCommit::owner",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "io.jenkins.tools.incrementals.lib.UpdateChecker$GitHubCommit::repo",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "io.jenkins.tools.incrementals.lib.UpdateChecker$GitHubCommit::hash",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "lib/src/main/java/io/jenkins/tools/incrementals/lib/UpdateChecker.java"
+          },
+          "lineNumber" : 239,
+          "codeLine" : "            GHCompare.Status status = GitHub.connect().getRepository(ghc.owner + '/' + ghc.repo).getCompare(branch, ghc.hash).status;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

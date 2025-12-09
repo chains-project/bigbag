@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/36859167815292f279e570d39dd2ddbcf1622dc6/billy/billy-gin/src/main/java/com/premiumminds/billy/gin/services/impl/pdf/FOPPDFTransformer.java	2025-12-08 03:13:34.116780539 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/36859167815292f279e570d39dd2ddbcf1622dc6/attempt_1/transformed/com/premiumminds/billy/gin/services/impl/pdf/FOPPDFTransformer.java	2025-12-08 03:15:08.639798212 +0100
+@@ -112,7 +112,7 @@
+         StreamSource transformSource = new StreamSource(templateStream);
+ 
+         // create an instance of fop factory
+-        FopFactory fopFactory = FopFactory.newInstance();
++        FopFactory fopFactory = FopFactory.newInstance(new java.io.File(".").toURI());
+         // a user agent is needed for transformation
+         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+         // to store output

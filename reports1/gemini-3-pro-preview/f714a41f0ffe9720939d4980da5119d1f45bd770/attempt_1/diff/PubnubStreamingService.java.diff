@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/f714a41f0ffe9720939d4980da5119d1f45bd770/XChange/xchange-stream-service-pubnub/src/main/java/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java	2025-12-08 12:35:07.336941082 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f714a41f0ffe9720939d4980da5119d1f45bd770/attempt_1/transformed/info/bitrich/xchangestream/service/pubnub/PubnubStreamingService.java	2025-12-08 12:37:04.490159571 +0100
+@@ -37,7 +37,7 @@
+   public PubnubStreamingService(String publicKey) {
+     mapper = new ObjectMapper();
+     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+-    PNConfiguration pnConfiguration = new PNConfiguration();
++    PNConfiguration pnConfiguration = new PNConfiguration(new com.pubnub.api.UserId("replace_with_your_user_id"));
+     pnConfiguration.setSubscribeKey(publicKey);
+     pubnub = new PubNub(pnConfiguration);
+     pnStatusCategory = PNStatusCategory.PNDisconnectedCategory;

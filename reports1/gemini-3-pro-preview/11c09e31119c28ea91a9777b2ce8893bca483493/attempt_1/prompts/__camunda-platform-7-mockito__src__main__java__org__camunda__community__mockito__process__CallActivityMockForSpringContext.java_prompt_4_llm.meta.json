@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/11c09e31119c28ea91a9777b2ce8893bca483493/attempt_1/prompts/__camunda-platform-7-mockito__src__main__java__org__camunda__community__mockito__process__CallActivityMockForSpringContext.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/11c09e31119c28ea91a9777b2ce8893bca483493/attempt_1/prompts/__camunda-platform-7-mockito__src__main__java__org__camunda__community__mockito__process__CallActivityMockForSpringContext.java_prompt_4_llm.txt",
+  "timestamp": 1765155491.2880716,
+  "duration_seconds": 86.95812964439392,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtUnaryOperator;\nimport spoon.reflect.code.UnaryOperatorKind;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring rule for Spring's ConfigurableApplicationContext.\n * \n * ANALYSIS:\n * The diff indicates that `ConfigurableApplicationContext` is source-incompatible, \n * despite `getBeanFactory()` being marked as UNCHANGED. \n * A common source of incompatibility in these upgrades involves return type inference \n * or covariant return type changes that confuse the compiler in legacy code.\n * \n * STRATEGY:\n * This processor targets `getBeanFactory()` invocations on `ConfigurableApplicationContext`.\n * To ensure source compatibility (and fix potential ambiguity errors), it explicitly \n * casts the result to `ConfigurableListableBeanFactory`, which is the standard expected return type.\n */\npublic class SpringContextRefactoring {\n\n    public static class ContextProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        private static final String TARGET_CLASS = \"ConfigurableApplicationContext\";\n        private static final String TARGET_METHOD = \"getBeanFactory\";\n        private static final String RETURN_TYPE_Fix = \"org.springframework.beans.factory.config.ConfigurableListableBeanFactory\";\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Method Name Check\n            if (!TARGET_METHOD.equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Check (getBeanFactory takes 0 args)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Owner/Declaring Type Check (Defensive for NoClasspath)\n            // We check if the method belongs to ConfigurableApplicationContext\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType == null || !declaringType.getQualifiedName().contains(TARGET_CLASS)) {\n                // If declaring type is unknown, check the target expression type if available\n                CtExpression<?> target = candidate.getTarget();\n                if (target != null && target.getType() != null) {\n                   if (!target.getType().getQualifiedName().contains(TARGET_CLASS)) {\n                       return false;\n                   }\n                } else {\n                    // If we can't resolve the type, skip to be safe, \n                    // or strictly process only if we are sure.\n                    // Here we skip to avoid false positives on other getBeanFactory methods.\n                    return false;\n                }\n            }\n\n            // 4. Redundancy Check: Is it already cast?\n            // e.g., (ConfigurableListableBeanFactory) ctx.getBeanFactory()\n            if (candidate.getParent() instanceof CtUnaryOperator) {\n                CtUnaryOperator<?> parentOp = (CtUnaryOperator<?>) candidate.getParent();\n                if (parentOp.getKind() == UnaryOperatorKind.CAST) {\n                    CtTypeReference<?> castType = parentOp.getType();\n                    if (castType != null && castType.getQualifiedName().contains(\"ConfigurableListableBeanFactory\")) {\n                        return false;\n                    }\n                }\n            }\n\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            \n            // Create the type reference for the explicit cast\n            CtTypeReference<?> castTypeRef = factory.Type().createReference(RETURN_TYPE_Fix);\n\n            // Create the cast expression: (ConfigurableListableBeanFactory) invocation\n            // Note: We clone the invocation to detach it from the current tree before re-inserting\n            CtExpression<?> castExpression = factory.Code().createTypeCast(castTypeRef, invocation.clone());\n\n            // Replace the original invocation with the casted version\n            invocation.replace(castExpression);\n            \n            System.out.println(\"Refactored: Added explicit cast to getBeanFactory at line \" + \n                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for robust refactoring\n        // 1. Enable comments to prevent loss during parsing\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode (Process without full dependencies)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new ContextProcessor());\n\n        System.out.println(\"Starting Spring ConfigurableApplicationContext Refactoring...\");\n        try { \n            launcher.run(); \n            System.out.println(\"Refactoring complete. Check output in: \" + outputPath);\n        } catch (Exception e) { \n            e.printStackTrace(); \n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1603,
+      "candidates_token_count": 1308,
+      "total_token_count": 8781,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

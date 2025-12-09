@@ -1,0 +1,123 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Migration Tool generated for Breaking Change Refactoring.
+ * 
+ * NOTE: The provided dependency diff was empty. This class contains a 
+ * TEMPLATE implementation for a generic method rename/refactoring.
+ * 
+ * Please adjust the 'isToBeProcessed' and 'process' methods to match 
+ * your specific breaking change (e.g., method rename, argument change).
+ */
+public class BreakingChangeMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // TODO: Define the old method name to look for
+        private static final String OLD_METHOD_NAME = "oldMethodName";
+        // TODO: Define the target class (simple or qualified) to look for
+        private static final String TARGET_CLASS_NAME = "TargetClassName";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!OLD_METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner Check (Defensive/Relaxed for NoClasspath)
+            // We check if the declaring type contains our target class name.
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && 
+                !owner.getQualifiedName().contains(TARGET_CLASS_NAME) && 
+                !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 3. Argument Count Check (Optional: Adjust based on diff)
+            // if (candidate.getArguments().size() != 1) return false;
+
+            // 4. Type Check (Defensive Pattern for NoClasspath)
+            // Example: If the first argument is already the NEW type, skip it.
+            /*
+            if (!candidate.getArguments().isEmpty()) {
+                CtExpression<?> arg = candidate.getArguments().get(0);
+                CtTypeReference<?> type = arg.getType();
+                if (type != null && type.getQualifiedName().contains("NewType")) {
+                    return false; // Already migrated
+                }
+            }
+            */
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation Logic
+            // Example: Renaming the method to "newMethodName"
+            
+            String newMethodName = "newMethodName";
+            invocation.getExecutable().setSimpleName(newMethodName);
+
+            // Example: If you need to wrap an argument (boxing/conversion)
+            /*
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            CtTypeReference<?> wrapperType = factory.Type().createReference("com.new.Wrapper");
+            CtInvocation<?> wrapper = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(wrapperType),
+                factory.Method().createReference(wrapperType, factory.Type().voidPrimitiveType(), "of"),
+                originalArg.clone()
+            );
+            originalArg.replace(wrapper);
+            */
+
+            System.out.println("Refactored " + OLD_METHOD_NAME + " to " + newMethodName + " at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/7cda77e3b9981dba271f866ec727ad9c6af9c709/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/TokenProviderService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/7cda77e3b9981dba271f866ec727ad9c6af9c709/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/7cda77e3b9981dba271f866ec727ad9c6af9c709/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/TokenProviderService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/7cda77e3b9981dba271f866ec727ad9c6af9c709/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES (Do not violate)
+        
+        // 1. Preserve Source Code (Sniper Configuration)
+        // Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 2. Defensive Coding (NoClasspath Compatibility)
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        launcher.addProcessor(new MigrationProcessor());
+
+        try {
+            System.out.println("Starting Spoon Migration...");
+            launcher.run();
+            System.out.println("Migration complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

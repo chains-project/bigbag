@@ -1,0 +1,239 @@
+{
+  "project" : "bval",
+  "breakingCommit" : "2dfaa41bfb97674d11f09a5885011f19808548a3",
+  "dependency" : {
+    "groupId" : "org.mockito",
+    "artifactId" : "mockito-core",
+    "previousVersion" : "1.10.19",
+    "newVersion" : "5.1.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/mockito-core-1.10.19.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/mockito-core-5.1.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/bval/2dfaa41bfb97674d11f09a5885011f19808548a3.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/2dfaa41bfb97674d11f09a5885011f19808548a3/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/bval/bval-jsr/src/test/java/org/apache/bval/jsr/DefaultMessageInterpolatorTest.java",
+    "errors" : [ {
+      "lineNumber" : 318,
+      "columnNumber" : 49,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getArgumentAt(int,java.lang.Class<java.lang.Class>)", "location: variable invocation of type org.mockito.invocation.InvocationOnMock" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/bval",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/bval/bval-jsr/src/test/java/org/apache/bval/jsr/DefaultMessageInterpolatorTest.java",
+        "lineNumber" : 318,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/mockito-core-1.10.19.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/2dfaa41bfb97674d11f09a5885011f19808548a3/mockito-core-5.1.1.jar",
+        "generatedAt" : "2025-12-08T02:07:35.415698080Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mockito.stubbing.OngoingStubbing#thenAnswer(org.mockito.stubbing.Answer)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/mockito/mockito-core/5.1.1/mockito-core-5.1.1.jar"
+          },
+          "lineNumber" : 317,
+          "codeLine" : "            .thenAnswer(invocation -> invocation.getArgumentAt(0, Class.class).cast(result));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "thenAnswer",
+            "declaringType" : "org.mockito.stubbing.OngoingStubbing",
+            "qualifiedSignature" : "org.mockito.stubbing.OngoingStubbing.thenAnswer(org.mockito.stubbing.Answer)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@c91d190e[public abstract thenAnswer (Lorg/mockito/stubbing/Answer;)Lorg/mockito/stubbing/OngoingStubbing;]",
+              "newValue" : "javassist.CtMethod@c91d190e[public abstract thenAnswer (Lorg/mockito/stubbing/Answer;)Lorg/mockito/stubbing/OngoingStubbing;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.mockito.stubbing.OngoingStubbing",
+              "newValue" : "org.mockito.stubbing.OngoingStubbing",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.mockito.stubbing.Answer" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mockito.stubbing.OngoingStubbing",
+            "declaringType" : "org.mockito.stubbing.OngoingStubbing",
+            "qualifiedSignature" : "org.mockito.stubbing.OngoingStubbing",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "org.mockito.stubbing.Answer",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/mockito/mockito-core/5.1.1/mockito-core-5.1.1.jar"
+          },
+          "lineNumber" : 318,
+          "codeLine" : "            .thenAnswer(invocation -> invocation.getArgumentAt(0, Class.class).cast(result));",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mockito.stubbing.Answer",
+            "declaringType" : "org.mockito.stubbing.Answer",
+            "qualifiedSignature" : "org.mockito.stubbing.Answer",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#cast(org.apache.bval.jsr.ApacheMessageContext)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 318,
+          "codeLine" : "            .thenAnswer(invocation -> invocation.getArgumentAt(0, Class.class).cast(result));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "cast",
+            "declaringType" : "org.mockito.internal.creation.cglib.CglibMockMaker",
+            "qualifiedSignature" : "org.mockito.internal.creation.cglib.CglibMockMaker.cast(org.mockito.invocation.MockHandler)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@30e670d2[private cast (Lorg/mockito/invocation/MockHandler;)Lorg/mockito/internal/InternalMockHandler;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.mockito.internal.InternalMockHandler",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.mockito.invocation.MockHandler" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getArgumentAt(int, java.lang.Class)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 318,
+          "codeLine" : "            .thenAnswer(invocation -> invocation.getArgumentAt(0, Class.class).cast(result));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getArgumentAt",
+            "declaringType" : "org.mockito.internal.invocation.InvocationImpl",
+            "qualifiedSignature" : "org.mockito.internal.invocation.InvocationImpl.getArgumentAt(int, java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff079f2d[public getArgumentAt (ILjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int", "java.lang.Class" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getArgumentAt",
+            "declaringType" : "org.mockito.invocation.InvocationOnMock",
+            "qualifiedSignature" : "org.mockito.invocation.InvocationOnMock.getArgumentAt(int, java.lang.Class)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ff079f2d[public abstract getArgumentAt (ILjava/lang/Class;)Ljava/lang/Object;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "int", "java.lang.Class" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "java.lang.Class::class",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 318,
+          "codeLine" : "            .thenAnswer(invocation -> invocation.getArgumentAt(0, Class.class).cast(result));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

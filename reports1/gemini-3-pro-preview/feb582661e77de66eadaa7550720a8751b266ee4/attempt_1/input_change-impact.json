@@ -1,0 +1,2565 @@
+{
+  "project" : "liquibase-mssql",
+  "breakingCommit" : "feb582661e77de66eadaa7550720a8751b266ee4",
+  "dependency" : {
+    "groupId" : "org.liquibase",
+    "artifactId" : "liquibase-core",
+    "previousVersion" : "3.4.2",
+    "newVersion" : "4.8.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/feb582661e77de66eadaa7550720a8751b266ee4.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/feb582661e77de66eadaa7550720a8751b266ee4/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java",
+    "errors" : [ {
+      "lineNumber" : 12,
+      "columnNumber" : 22,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class StringUtils", "location: package liquibase.util" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar",
+        "generatedAt" : "2025-12-08T12:09:51.791032456Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "liquibase.util.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import liquibase.util.StringUtils;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 77,
+      "columnNumber" : 9,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable StringUtils", "location: class liquibase.ext.mssql.sqlgenerator.CreateIndexGeneratorMSSQL" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/CreateIndexGeneratorMSSQL.java",
+        "lineNumber" : 77,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar",
+        "generatedAt" : "2025-12-08T12:09:51.792133224Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.util.StringUtils#trimToNull(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.StringUtils",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtil",
+            "qualifiedSignature" : "liquibase.util.StringUtil.trimToNull(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "liquibase.util.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.statement.core.CreateIndexStatement#getTablespace()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 77,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getTablespace",
+            "declaringType" : "liquibase.statement.core.CreateIndexStatement",
+            "qualifiedSignature" : "liquibase.statement.core.CreateIndexStatement.getTablespace()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "java.lang.String",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getTablespace",
+            "declaringType" : "com.datical.liquibase.ext.diff.FormattedDiffObject",
+            "qualifiedSignature" : "com.datical.liquibase.ext.diff.FormattedDiffObject.getTablespace()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getTablespace",
+            "declaringType" : "liquibase.structure.core.Table",
+            "qualifiedSignature" : "liquibase.structure.core.Table.getTablespace()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.statement.core.CreateIndexStatement",
+            "declaringType" : "liquibase.statement.core.CreateIndexStatement",
+            "qualifiedSignature" : "liquibase.statement.core.CreateIndexStatement",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+    "errors" : [ {
+      "lineNumber" : 12,
+      "columnNumber" : 22,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class StringUtils", "location: package liquibase.util" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+        "lineNumber" : 12,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar",
+        "generatedAt" : "2025-12-08T12:09:51.792578552Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "liquibase.util.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 12,
+          "codeLine" : "import liquibase.util.StringUtils;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 67,
+      "columnNumber" : 9,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable StringUtils", "location: class liquibase.ext.mssql.sqlgenerator.AddPrimaryKeyGeneratorMSSQL" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/sqlgenerator/AddPrimaryKeyGeneratorMSSQL.java",
+        "lineNumber" : 67,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar",
+        "generatedAt" : "2025-12-08T12:09:51.793148855Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.util.StringUtils#trimToNull(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null && database.supportsTablespaces()) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.StringUtils",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.StringUtils.trimToNull(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "trimToNull",
+            "declaringType" : "liquibase.util.StringUtil",
+            "qualifiedSignature" : "liquibase.util.StringUtil.trimToNull(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@b5f42c9b[public static trimToNull (Ljava/lang/String;)Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "liquibase.util.StringUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.liquibase",
+            "artifactId" : "liquibase-core",
+            "version" : "3.4.2",
+            "coordinates" : "org.liquibase:liquibase-core:3.4.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null && database.supportsTablespaces()) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.util.StringUtils",
+            "declaringType" : "liquibase.util.StringUtils",
+            "qualifiedSignature" : "liquibase.util.StringUtils",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.statement.core.AddPrimaryKeyStatement#getTablespace()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null && database.supportsTablespaces()) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getTablespace",
+            "declaringType" : "liquibase.statement.core.AddPrimaryKeyStatement",
+            "qualifiedSignature" : "liquibase.statement.core.AddPrimaryKeyStatement.getTablespace()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "java.lang.String",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getTablespace",
+            "declaringType" : "com.datical.liquibase.ext.diff.FormattedDiffObject",
+            "qualifiedSignature" : "com.datical.liquibase.ext.diff.FormattedDiffObject.getTablespace()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getTablespace",
+            "declaringType" : "liquibase.structure.core.Table",
+            "qualifiedSignature" : "liquibase.structure.core.Table.getTablespace()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dcfcdf6f[public getTablespace ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.statement.core.AddPrimaryKeyStatement",
+            "declaringType" : "liquibase.statement.core.AddPrimaryKeyStatement",
+            "qualifiedSignature" : "liquibase.statement.core.AddPrimaryKeyStatement",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 8
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.database.Database#supportsTablespaces()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 67,
+          "codeLine" : "    if (StringUtils.trimToNull(statement.getTablespace()) != null && database.supportsTablespaces()) {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.Database",
+            "qualifiedSignature" : "liquibase.database.Database.supportsTablespaces()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4f945798[public abstract supportsTablespaces ()Z]",
+              "newValue" : "javassist.CtMethod@4f945798[public abstract supportsTablespaces ()Z]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "boolean",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.core.AbstractDb2Database",
+            "qualifiedSignature" : "liquibase.database.core.AbstractDb2Database.supportsTablespaces()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "boolean",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.core.CockroachDatabase",
+            "qualifiedSignature" : "liquibase.database.core.CockroachDatabase.supportsTablespaces()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "boolean",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.core.DB2Database",
+            "qualifiedSignature" : "liquibase.database.core.DB2Database.supportsTablespaces()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.core.Ingres9Database",
+            "qualifiedSignature" : "liquibase.database.core.Ingres9Database.supportsTablespaces()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "boolean",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.database.core.MockDatabase",
+            "qualifiedSignature" : "liquibase.database.core.MockDatabase.supportsTablespaces()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "boolean",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "supportsTablespaces",
+            "declaringType" : "liquibase.sdk.database.MockDatabase",
+            "qualifiedSignature" : "liquibase.sdk.database.MockDatabase.supportsTablespaces()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@4f945798[public supportsTablespaces ()Z]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "boolean",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.database.Database",
+            "declaringType" : "liquibase.database.Database",
+            "qualifiedSignature" : "liquibase.database.Database",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/liquibase-mssql/src/java/liquibase/ext/mssql/database/MSSQLDatabase.java",
+    "errors" : [ {
+      "lineNumber" : 18,
+      "columnNumber" : 24,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getInstance()", "location: class liquibase.executor.ExecutorService" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-mssql/src/java/liquibase/ext/mssql/database/MSSQLDatabase.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-3.4.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/feb582661e77de66eadaa7550720a8751b266ee4/liquibase-core-4.8.0.jar",
+        "generatedAt" : "2025-12-08T12:09:51.801886982Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#execute(liquibase.ext.mssql.statement.DropStoredProcedureStatement)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.rules.api.Action",
+            "qualifiedSignature" : "com.datical.liquibase.ext.rules.api.Action.execute(com.datical.liquibase.ext.rules.api.Facts)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@19475b2a[public abstract execute (Lcom/datical/liquibase/ext/rules/api/Facts;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.datical.liquibase.ext.rules.api.Facts" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.rules.api.Rule",
+            "qualifiedSignature" : "com.datical.liquibase.ext.rules.api.Rule.execute(com.datical.liquibase.ext.rules.api.Facts)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@19475b2a[public abstract execute (Lcom/datical/liquibase/ext/rules/api/Facts;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.datical.liquibase.ext.rules.api.Facts" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.rules.core.AbstractLiquibaseRule",
+            "qualifiedSignature" : "com.datical.liquibase.ext.rules.core.AbstractLiquibaseRule.execute(com.datical.liquibase.ext.rules.api.Facts)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@19475b2a[public execute (Lcom/datical/liquibase/ext/rules/api/Facts;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.datical.liquibase.ext.rules.api.Facts" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.rules.core.BasicRule",
+            "qualifiedSignature" : "com.datical.liquibase.ext.rules.core.BasicRule.execute(com.datical.liquibase.ext.rules.api.Facts)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@19475b2a[public execute (Lcom/datical/liquibase/ext/rules/api/Facts;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.datical.liquibase.ext.rules.api.Facts" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.rules.core.DefaultRule",
+            "qualifiedSignature" : "com.datical.liquibase.ext.rules.core.DefaultRule.execute(com.datical.liquibase.ext.rules.api.Facts)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@19475b2a[public execute (Lcom/datical/liquibase/ext/rules/api/Facts;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.datical.liquibase.ext.rules.api.Facts" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.tools.MssqlSqlcmdExecutor",
+            "qualifiedSignature" : "com.datical.liquibase.ext.tools.MssqlSqlcmdExecutor.execute(liquibase.statement.SqlStatement, java.util.List)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@feb8f36d[public execute (Lliquibase/statement/SqlStatement;Ljava/util/List;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.statement.SqlStatement", "java.util.List" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "com.datical.liquibase.ext.tools.OracleSqlPlusExecutor",
+            "qualifiedSignature" : "com.datical.liquibase.ext.tools.OracleSqlPlusExecutor.execute(liquibase.statement.SqlStatement, java.util.List)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@feb8f36d[public execute (Lliquibase/statement/SqlStatement;Ljava/util/List;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.statement.SqlStatement", "java.util.List" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.command.AbstractCommand",
+            "qualifiedSignature" : "liquibase.command.AbstractCommand.execute()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bef8f336[public final execute ()Ljava/lang/Object;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.command.CommandFactory",
+            "qualifiedSignature" : "liquibase.command.CommandFactory.execute(liquibase.command.LiquibaseCommand)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9168c1f3[public execute (Lliquibase/command/LiquibaseCommand;)Lliquibase/command/CommandResult;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.command.CommandResult",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.command.LiquibaseCommand" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.command.CommandScope",
+            "qualifiedSignature" : "liquibase.command.CommandScope.execute()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@bef8f336[public execute ()Lliquibase/command/CommandResults;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.command.CommandResults",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.command.LiquibaseCommand",
+            "qualifiedSignature" : "liquibase.command.LiquibaseCommand.execute()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bef8f336[public abstract execute ()Ljava/lang/Object;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.command.LiquibaseCommandFactory",
+            "qualifiedSignature" : "liquibase.command.LiquibaseCommandFactory.execute(liquibase.command.LiquibaseCommand)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9168c1f3[public execute (Lliquibase/command/LiquibaseCommand;)Lliquibase/command/CommandResult;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.command.CommandResult",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.command.LiquibaseCommand" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.database.core.MockDatabase",
+            "qualifiedSignature" : "liquibase.database.core.MockDatabase.execute(liquibase.statement.SqlStatement[], java.util.List)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@bb012138[public execute ([Lliquibase/statement/SqlStatement;Ljava/util/List;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.statement.SqlStatement[]", "java.util.List" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.integration.commandline.LiquibaseCommandLine",
+            "qualifiedSignature" : "liquibase.integration.commandline.LiquibaseCommandLine.execute(java.lang.String[])",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@db84b9f7[public execute ([Ljava/lang/String;)I]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "int",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.Closure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.Closure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public abstract execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.CatchAndRethrowClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.CatchAndRethrowClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.ChainedClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.ChainedClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.ExceptionClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.ExceptionClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.ForClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.ForClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.IfClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.IfClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.NOPClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.NOPClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.SwitchClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.SwitchClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.TransformerClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.TransformerClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.collections4.functors.WhileClosure",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.collections4.functors.WhileClosure.execute(java.lang.Object)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ad11cfda[public execute (Ljava/lang/Object;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "execute",
+            "declaringType" : "liquibase.sdk.database.MockDatabase",
+            "qualifiedSignature" : "liquibase.sdk.database.MockDatabase.execute(liquibase.statement.SqlStatement[], java.util.List)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@bb012138[public execute ([Lliquibase/statement/SqlStatement;Ljava/util/List;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "liquibase.statement.SqlStatement[]", "java.util.List" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getExecutor(liquibase.ext.mssql.database.MSSQLDatabase)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getExecutor",
+            "declaringType" : "liquibase.executor.ExecutorService",
+            "qualifiedSignature" : "liquibase.executor.ExecutorService.getExecutor(java.lang.String, liquibase.database.Database)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@fdbb4e4[public getExecutor (Ljava/lang/String;Lliquibase/database/Database;)Lliquibase/executor/Executor;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.executor.Executor",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "liquibase.database.Database" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#getInstance()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.command.CommandFactory",
+            "qualifiedSignature" : "liquibase.command.CommandFactory.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/command/CommandFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.command.CommandFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.database.ConnectionServiceFactory",
+            "qualifiedSignature" : "liquibase.database.ConnectionServiceFactory.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static synchronized getInstance ()Lliquibase/database/ConnectionServiceFactory;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.database.ConnectionServiceFactory",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.executor.ExecutorService",
+            "qualifiedSignature" : "liquibase.executor.ExecutorService.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/executor/ExecutorService;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.executor.ExecutorService",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.pro.packaged.aZ",
+            "qualifiedSignature" : "liquibase.pro.packaged.aZ.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            }, {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/pro/packaged/aZ;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.pro.packaged.aZ",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.pro.packaged.fq",
+            "qualifiedSignature" : "liquibase.pro.packaged.fq.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/pro/packaged/fq;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.pro.packaged.fq",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.pro.packaged.fr",
+            "qualifiedSignature" : "liquibase.pro.packaged.fr.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/pro/packaged/fr;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.pro.packaged.fr",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.pro.packaged.iD",
+            "qualifiedSignature" : "liquibase.pro.packaged.iD.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/pro/packaged/iD;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.pro.packaged.iD",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.pro.packaged.iI",
+            "qualifiedSignature" : "liquibase.pro.packaged.iI.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/pro/packaged/iI;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.pro.packaged.iI",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.CharSet",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.CharSet.getInstance(java.lang.String[])",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@97947921[public static transient getInstance ([Ljava/lang/String;)Lliquibase/repackaged/org/apache/commons/lang3/CharSet;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.CharSet",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/repackaged/org/apache/commons/lang3/time/FastDateFormat;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat.getInstance(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ef7153c2[public static getInstance (Ljava/lang/String;)Lliquibase/repackaged/org/apache/commons/lang3/time/FastDateFormat;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat.getInstance(java.lang.String, java.util.TimeZone)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@99897aec[public static getInstance (Ljava/lang/String;Ljava/util/TimeZone;)Lliquibase/repackaged/org/apache/commons/lang3/time/FastDateFormat;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.TimeZone" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat.getInstance(java.lang.String, java.util.Locale)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4b08ee2d[public static getInstance (Ljava/lang/String;Ljava/util/Locale;)Lliquibase/repackaged/org/apache/commons/lang3/time/FastDateFormat;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.Locale" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat.getInstance(java.lang.String, java.util.TimeZone, java.util.Locale)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@51f95ed7[public static getInstance (Ljava/lang/String;Ljava/util/TimeZone;Ljava/util/Locale;)Lliquibase/repackaged/org/apache/commons/lang3/time/FastDateFormat;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "liquibase.repackaged.org.apache.commons.lang3.time.FastDateFormat",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.TimeZone", "java.util.Locale" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FormatCache",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FormatCache.getInstance()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@2404804c[public getInstance ()Ljava/text/Format;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.text.Format",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.repackaged.org.apache.commons.lang3.time.FormatCache",
+            "qualifiedSignature" : "liquibase.repackaged.org.apache.commons.lang3.time.FormatCache.getInstance(java.lang.String, java.util.TimeZone, java.util.Locale)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@51f95ed7[public getInstance (Ljava/lang/String;Ljava/util/TimeZone;Ljava/util/Locale;)Ljava/text/Format;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.text.Format",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.util.TimeZone", "java.util.Locale" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.sdk.Context",
+            "qualifiedSignature" : "liquibase.sdk.Context.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/sdk/Context;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.sdk.Context",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.sdk.TemplateService",
+            "qualifiedSignature" : "liquibase.sdk.TemplateService.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/sdk/TemplateService;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.sdk.TemplateService",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.sdk.supplier.database.ConnectionConfigurationFactory",
+            "qualifiedSignature" : "liquibase.sdk.supplier.database.ConnectionConfigurationFactory.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/sdk/supplier/database/ConnectionConfigurationFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.sdk.supplier.database.ConnectionConfigurationFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.sdk.verifytest.VerifiedTestFactory",
+            "qualifiedSignature" : "liquibase.sdk.verifytest.VerifiedTestFactory.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/sdk/verifytest/VerifiedTestFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.sdk.verifytest.VerifiedTestFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.servicelocator.ServiceLocator",
+            "qualifiedSignature" : "liquibase.servicelocator.ServiceLocator.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/servicelocator/ServiceLocator;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.servicelocator.ServiceLocator",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.util.beans.PropertyUtils",
+            "qualifiedSignature" : "liquibase.util.beans.PropertyUtils.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/util/beans/PropertyUtils;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.util.beans.PropertyUtils",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getInstance",
+            "declaringType" : "liquibase.util.ui.UIFactory",
+            "qualifiedSignature" : "liquibase.util.ui.UIFactory.getInstance()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2404804c[public static getInstance ()Lliquibase/util/ui/UIFactory;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "liquibase.util.ui.UIFactory",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "liquibase.executor.ExecutorService",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.executor.ExecutorService",
+            "declaringType" : "liquibase.executor.ExecutorService",
+            "qualifiedSignature" : "liquibase.executor.ExecutorService",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "liquibase.ext.mssql.database.MSSQLDatabase",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/java/liquibase/ext/mssql/database/MSSQLDatabase.java"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "liquibase.ext.mssql.statement.DropStoredProcedureStatement#<init>(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/java/liquibase/ext/mssql/statement/DropStoredProcedureStatement.java"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "liquibase.ext.mssql.statement.DropStoredProcedureStatement",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/java/liquibase/ext/mssql/statement/DropStoredProcedureStatement.java"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.database.AbstractJdbcDatabase#getLiquibaseCatalogName()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getLiquibaseCatalogName",
+            "declaringType" : "liquibase.database.AbstractJdbcDatabase",
+            "qualifiedSignature" : "liquibase.database.AbstractJdbcDatabase.getLiquibaseCatalogName()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ce4d92c2[public getLiquibaseCatalogName ()Ljava/lang/String;]",
+              "newValue" : "javassist.CtMethod@ce4d92c2[public getLiquibaseCatalogName ()Ljava/lang/String;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "java.lang.String",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLiquibaseCatalogName",
+            "declaringType" : "liquibase.database.core.MockDatabase",
+            "qualifiedSignature" : "liquibase.database.core.MockDatabase.getLiquibaseCatalogName()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ce4d92c2[public getLiquibaseCatalogName ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLiquibaseCatalogName",
+            "declaringType" : "liquibase.sdk.database.MockDatabase",
+            "qualifiedSignature" : "liquibase.sdk.database.MockDatabase.getLiquibaseCatalogName()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ce4d92c2[public getLiquibaseCatalogName ()Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.database.AbstractJdbcDatabase",
+            "declaringType" : "liquibase.database.AbstractJdbcDatabase",
+            "qualifiedSignature" : "liquibase.database.AbstractJdbcDatabase",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "liquibase.database.AbstractJdbcDatabase#getLiquibaseSchemaName()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/liquibase/liquibase-core/4.8.0/liquibase-core-4.8.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "        ExecutorService.getInstance().getExecutor(this).execute(new DropStoredProcedureStatement(this.getLiquibaseCatalogName(), this.getLiquibaseSchemaName()));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getLiquibaseSchemaName",
+            "declaringType" : "liquibase.database.AbstractJdbcDatabase",
+            "qualifiedSignature" : "liquibase.database.AbstractJdbcDatabase.getLiquibaseSchemaName()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a90f35b0[public getLiquibaseSchemaName ()Ljava/lang/String;]",
+              "newValue" : "javassist.CtMethod@a90f35b0[public getLiquibaseSchemaName ()Ljava/lang/String;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "java.lang.String",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLiquibaseSchemaName",
+            "declaringType" : "liquibase.database.core.MockDatabase",
+            "qualifiedSignature" : "liquibase.database.core.MockDatabase.getLiquibaseSchemaName()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@a90f35b0[public getLiquibaseSchemaName ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getLiquibaseSchemaName",
+            "declaringType" : "liquibase.sdk.database.MockDatabase",
+            "qualifiedSignature" : "liquibase.sdk.database.MockDatabase.getLiquibaseSchemaName()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a90f35b0[public getLiquibaseSchemaName ()Ljava/lang/String;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.lang.String",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "liquibase.database.AbstractJdbcDatabase",
+            "declaringType" : "liquibase.database.AbstractJdbcDatabase",
+            "qualifiedSignature" : "liquibase.database.AbstractJdbcDatabase",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 33
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

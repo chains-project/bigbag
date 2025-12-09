@@ -1,0 +1,151 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Migration Tool generated for Empty Diff.
+ * 
+ * Since no specific dependency diff was provided in the input, this class implements 
+ * a generic TEMPLATE migration:
+ * 
+ * Scenario: Migrating a static method call from:
+ * - com.legacy.OldUtils.doSomething(String)
+ * to:
+ * - com.modern.NewUtils.doSomething(String)
+ */
+public class GenericMigrationTool {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        // Configuration: Define targets here
+        private static final String OLD_METHOD_NAME = "doSomething";
+        private static final String OLD_CLASS_PARTIAL = "OldUtils";
+        private static final String NEW_CLASS_QUALIFIED = "com.modern.NewUtils";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Fastest check first)
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!OLD_METHOD_NAME.equals(methodName)) {
+                return false;
+            }
+
+            // 2. Owner/Scope Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // Check for null or <unknown> which happens in NoClasspath
+            if (declaringType == null) {
+                return false;
+            }
+            
+            // Loose matching to handle unresolved types
+            String ownerName = declaringType.getQualifiedName();
+            if (ownerName.equals("<unknown>") || !ownerName.contains(OLD_CLASS_PARTIAL)) {
+                return false;
+            }
+
+            // 3. Argument Check (Optional/Defensive)
+            // Example: Ensure it has exactly 1 argument
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // Defensive Type Check on Argument
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+            // If we can resolve the type and it's definitely NOT what we expect, skip.
+            // In NoClasspath, argType might be null, so we usually process it to be safe.
+            if (argType != null && argType.isPrimitive() && !"int".equals(argType.getSimpleName())) {
+                // Example: If we only accept Objects, skip primitives (unless it's the specific primitive we want)
+                return false; 
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Create reference to the New Class
+            CtTypeReference<?> newClassRef = factory.Type().createReference(NEW_CLASS_QUALIFIED);
+
+            // Strategy: Update the Target of the invocation (for static methods)
+            // Current: OldUtils.doSomething(...)
+            // Target:  NewUtils.doSomething(...)
+            
+            CtExpression<?> target = invocation.getTarget();
+            if (target instanceof CtTypeAccess) {
+                // It is a static call (Class.method)
+                ((CtTypeAccess<?>) target).setAccessedType(newClassRef);
+                
+                // Update the executable reference to point to the new type as well
+                CtExecutableReference<?> execRef = invocation.getExecutable();
+                execRef.setDeclaringType(newClassRef);
+                
+                System.out.println("Refactored " + OLD_CLASS_PARTIAL + "." + OLD_METHOD_NAME 
+                    + " at line " + invocation.getPosition().getLine());
+            } else {
+                // It might be a static import or instance call. 
+                // For static import, we replace the implicit target.
+                CtTypeAccess<?> newTypeAccess = factory.Code().createTypeAccess(newClassRef);
+                invocation.setTarget(newTypeAccess);
+                invocation.getExecutable().setDeclaringType(newClassRef);
+                
+                System.out.println("Refactored (Static Import/Implicit) " + OLD_METHOD_NAME 
+                    + " at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/58d2448fa2d6ec02f428b85eaeef0855508e72b9/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/58d2448fa2d6ec02f428b85eaeef0855508e72b9/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/58d2448fa2d6ec02f428b85eaeef0855508e72b9/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/58d2448fa2d6ec02f428b85eaeef0855508e72b9/attempt_1/transformed");
+
+        // ==========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING & COMMENTS
+        // ==========================================================
+        
+        // 1. Enable comments to prevent them from being stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter. 
+        // DO NOT use setPrettyPrintingMode(Environment.PRETTY_PRINTING_MODE.SNIPER) as it is deprecated/flaky.
+        // We inject the creator manually.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (Assume libraries are missing)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // ==========================================================
+
+        launcher.addProcessor(new MigrationProcessor());
+        
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: ");
+            e.printStackTrace();
+        }
+    }
+}

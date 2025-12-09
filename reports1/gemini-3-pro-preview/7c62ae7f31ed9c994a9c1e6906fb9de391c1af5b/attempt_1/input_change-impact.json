@@ -1,0 +1,126 @@
+{
+  "project" : "onebusaway-gtfs-modules",
+  "breakingCommit" : "7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b",
+  "dependency" : {
+    "groupId" : "org.hibernate",
+    "artifactId" : "hibernate-core",
+    "previousVersion" : "4.0.1.Final",
+    "newVersion" : "5.4.24.Final",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-4.0.1.Final.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-5.4.24.Final.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/onebusaway-gtfs-modules/onebusaway-gtfs-hibernate/src/main/java/org/onebusaway/gtfs/impl/ServiceDateUserType.java",
+    "errors" : [ {
+      "lineNumber" : 31,
+      "columnNumber" : 8,
+      "message" : "org.onebusaway.gtfs.impl.ServiceDateUserType is not abstract and does not override abstract method nullSafeSet(java.sql.PreparedStatement,java.lang.Object,int,org.hibernate.engine.spi.SharedSessionContractImplementor) in org.hibernate.usertype.UserType",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules/onebusaway-gtfs-hibernate/src/main/java/org/onebusaway/gtfs/impl/ServiceDateUserType.java",
+        "lineNumber" : 31,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-4.0.1.Final.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-5.4.24.Final.jar",
+        "generatedAt" : "2025-12-08T05:11:24.596989501Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.hibernate.usertype.UserType",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-4.0.1.Final.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "public class ServiceDateUserType implements UserType {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.hibernate.usertype.UserType",
+            "declaringType" : "org.hibernate.usertype.UserType",
+            "qualifiedSignature" : "org.hibernate.usertype.UserType",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 68,
+      "columnNumber" : 3,
+      "message" : "method does not override or implement a method from a supertype",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules/onebusaway-gtfs-hibernate/src/main/java/org/onebusaway/gtfs/impl/ServiceDateUserType.java",
+        "lineNumber" : 68,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-4.0.1.Final.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-5.4.24.Final.jar",
+        "generatedAt" : "2025-12-08T05:11:24.597730449Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "java.lang.Override",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 68,
+          "codeLine" : "  @Override",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 84,
+      "columnNumber" : 3,
+      "message" : "method does not override or implement a method from a supertype",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/onebusaway-gtfs-modules/onebusaway-gtfs-hibernate/src/main/java/org/onebusaway/gtfs/impl/ServiceDateUserType.java",
+        "lineNumber" : 84,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-4.0.1.Final.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/7c62ae7f31ed9c994a9c1e6906fb9de391c1af5b/hibernate-core-5.4.24.Final.jar",
+        "generatedAt" : "2025-12-08T05:11:24.598035916Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "java.lang.Override",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 84,
+          "codeLine" : "  @Override",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,71 @@
+{
+  "project" : "open-pdf-sign",
+  "breakingCommit" : "4a3efad6e00824e5814b9c8f571c9c98aad40281",
+  "dependency" : {
+    "groupId" : "eu.europa.ec.joinup.sd-dss",
+    "artifactId" : "dss-pades",
+    "previousVersion" : "5.9",
+    "newVersion" : "5.10.2",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/dss-pades-5.9.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/dss-pades-5.10.2.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/open-pdf-sign/4a3efad6e00824e5814b9c8f571c9c98aad40281.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/4a3efad6e00824e5814b9c8f571c9c98aad40281/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/open-pdf-sign/src/main/java/org/openpdfsign/Signer.java",
+    "errors" : [ {
+      "lineNumber" : 7,
+      "columnNumber" : 32,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class CertificationPermission", "location: package eu.europa.esig.dss.pades" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/open-pdf-sign",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/open-pdf-sign/src/main/java/org/openpdfsign/Signer.java",
+        "lineNumber" : 7,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/dss-pades-5.9.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/dss-pades-5.10.2.jar",
+        "generatedAt" : "2025-12-08T03:48:25.414125488Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "eu.europa.esig.dss.pades.CertificationPermission",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "eu.europa.ec.joinup.sd-dss",
+            "artifactId" : "dss-pades",
+            "version" : "5.9",
+            "coordinates" : "eu.europa.ec.joinup.sd-dss:dss-pades:5.9",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/4a3efad6e00824e5814b9c8f571c9c98aad40281/dss-pades-5.9.jar"
+          },
+          "lineNumber" : 7,
+          "codeLine" : "import eu.europa.esig.dss.pades.CertificationPermission;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "eu.europa.esig.dss.pades.CertificationPermission",
+            "declaringType" : "eu.europa.esig.dss.pades.CertificationPermission",
+            "qualifiedSignature" : "eu.europa.esig.dss.pades.CertificationPermission",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 10
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

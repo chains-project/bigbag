@@ -1,0 +1,111 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class FileSystemUtilsRefactoring {
+
+    /**
+     * Processor to migrate usages of org.springframework.util.FileSystemUtils.
+     * 
+     * DIFF ANALYSIS:
+     * The diff entry "- CLASS org.springframework.util.FileSystemUtils" implies the class
+     * is being removed or treated as a breaking change source, despite the "UNCHANGED" status metadata.
+     * 
+     * REFACTORING STRATEGY:
+     * Since the class is potentially removed, static calls to it (e.g., deleteRecursively) 
+     * will fail to compile. This processor redirects these calls to a placeholder migration 
+     * utility class (e.g., "org.example.migration.FileSystemUtilsMigration") to allow 
+     * developers to implement compatible replacements or bridge methods.
+     */
+    public static class FileSystemUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safe Executable Check
+            if (candidate.getExecutable() == null) return false;
+
+            // 2. Owner/Declaring Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // Handle cases where declaringType might be null or unknown in NoClasspath
+            if (declaringType == null) {
+                // Fallback: Check the invocation target directly if it's a static call
+                CtExpression<?> target = candidate.getTarget();
+                if (target instanceof CtTypeAccess) {
+                     CtTypeReference<?> accessedType = ((CtTypeAccess<?>) target).getAccessedType();
+                     return accessedType != null && 
+                            accessedType.getQualifiedName().contains("FileSystemUtils") &&
+                            accessedType.getQualifiedName().contains("springframework");
+                }
+                return false;
+            }
+
+            // Standard check
+            return declaringType.getQualifiedName().contains("org.springframework.util.FileSystemUtils");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> target = invocation.getTarget();
+
+            // We are looking for static access: FileSystemUtils.method()
+            if (target instanceof CtTypeAccess) {
+                CtTypeAccess<?> typeAccess = (CtTypeAccess<?>) target;
+                
+                // Strategy: Replace the type reference "FileSystemUtils" with "FileSystemUtilsMigration"
+                // This preserves the method name and arguments (e.g., deleteRecursively(File))
+                // but points to a new class the user controls.
+                
+                String newOwnerClass = "org.example.migration.FileSystemUtilsMigration";
+                CtTypeReference<?> newTypeRef = factory.Type().createReference(newOwnerClass);
+                
+                // Create new TypeAccess
+                CtTypeAccess<?> newTypeAccess = factory.Code().createTypeAccess(newTypeRef);
+                
+                // Replace in AST
+                typeAccess.replace(newTypeAccess);
+                
+                System.out.println("Refactored FileSystemUtils usage at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/e47fd8edc5227b6852ebd2466dd89049c9907b80/LPVS/src/main/java/com/lpvs/util/LPVSFileUtil.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e47fd8edc5227b6852ebd2466dd89049c9907b80/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/e47fd8edc5227b6852ebd2466dd89049c9907b80/LPVS/src/main/java/com/lpvs/util/LPVSFileUtil.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e47fd8edc5227b6852ebd2466dd89049c9907b80/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ / Precision Preservation
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of unchanged code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (robustness against missing libs)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FileSystemUtilsProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,1078 @@
+{
+  "project" : "files-adapter",
+  "breakingCommit" : "e36118e158965251089da1446777bd699d7473c1",
+  "dependency" : {
+    "groupId" : "com.artipie",
+    "artifactId" : "http",
+    "previousVersion" : "v0.26.1",
+    "newVersion" : "v1.0.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/e36118e158965251089da1446777bd699d7473c1.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/e36118e158965251089da1446777bd699d7473c1/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+    "errors" : [ {
+      "lineNumber" : 52,
+      "columnNumber" : 23,
+      "message" : "package org.cactoos.map does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+        "lineNumber" : 52,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+        "generatedAt" : "2025-12-08T10:48:17.301212126Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.cactoos.map.MapEntry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 52,
+          "codeLine" : "import org.cactoos.map.MapEntry;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 136,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MapEntry", "location: class com.artipie.files.FileProxySliceTest" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+        "lineNumber" : 136,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+        "generatedAt" : "2025-12-08T10:48:17.303124314Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.SliceHasResponse#<init>(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 132,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@cf44dd[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "newValue" : "javassist.CtConstructor@2408e226[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine, com.artipie.http.Headers, com.artipie.asto.Content)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@475707a2[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "newValue" : "javassist.CtConstructor@57ace8a6[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine", "com.artipie.http.Headers", "com.artipie.asto.Content" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.hm.SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.Matchers#allOf(org.hamcrest.Matcher, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 133,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.RsHasHeaders#<init>(java.util.Map$Entry[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 135,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.util.Map$Entry[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@46e85213[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "newValue" : "javassist.CtConstructor@7589022e[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Map$Entry[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2ba09a72[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@19855aea[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@27eff79f[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@69b4265d[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.lang.Iterable)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2d82500f[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "newValue" : "javassist.CtConstructor@65cc1d2c[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.files.MapEntry<>#<init>(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 136,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.map.MapEntry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 136,
+          "codeLine" : "                        new MapEntry<>(\"header\", \"value\"),",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 137,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MapEntry", "location: class com.artipie.files.FileProxySliceTest" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+        "lineNumber" : 137,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+        "generatedAt" : "2025-12-08T10:48:17.304080202Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.SliceHasResponse#<init>(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 132,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@cf44dd[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "newValue" : "javassist.CtConstructor@2408e226[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine, com.artipie.http.Headers, com.artipie.asto.Content)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@475707a2[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "newValue" : "javassist.CtConstructor@57ace8a6[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine", "com.artipie.http.Headers", "com.artipie.asto.Content" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.hm.SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.Matchers#allOf(org.hamcrest.Matcher, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 133,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.RsHasHeaders#<init>(java.util.Map$Entry[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 135,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.util.Map$Entry[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@46e85213[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "newValue" : "javassist.CtConstructor@7589022e[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Map$Entry[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2ba09a72[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@19855aea[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@27eff79f[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@69b4265d[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.lang.Iterable)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2d82500f[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "newValue" : "javassist.CtConstructor@65cc1d2c[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.files.MapEntry<>#<init>(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 137,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.map.MapEntry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 137,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\"),",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 138,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MapEntry", "location: class com.artipie.files.FileProxySliceTest" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+        "lineNumber" : 138,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+        "generatedAt" : "2025-12-08T10:48:17.305076163Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.SliceHasResponse#<init>(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 132,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@cf44dd[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "newValue" : "javassist.CtConstructor@2408e226[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine, com.artipie.http.Headers, com.artipie.asto.Content)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@475707a2[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "newValue" : "javassist.CtConstructor@57ace8a6[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine", "com.artipie.http.Headers", "com.artipie.asto.Content" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.hm.SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.Matchers#allOf(org.hamcrest.Matcher, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 133,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.RsHasHeaders#<init>(java.util.Map$Entry[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 135,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.util.Map$Entry[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@46e85213[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "newValue" : "javassist.CtConstructor@7589022e[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Map$Entry[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2ba09a72[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@19855aea[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@27eff79f[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@69b4265d[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.lang.Iterable)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2d82500f[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "newValue" : "javassist.CtConstructor@65cc1d2c[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.files.MapEntry<>#<init>(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 138,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.map.MapEntry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 138,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", \"4\")",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 166,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MapEntry", "location: class com.artipie.files.FileProxySliceTest" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/files-adapter/src/test/java/com/artipie/files/FileProxySliceTest.java",
+        "lineNumber" : 166,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v0.26.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/e36118e158965251089da1446777bd699d7473c1/http-v1.0.1.jar",
+        "generatedAt" : "2025-12-08T10:48:17.314272317Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.MatcherAssert#assertThat(java.lang.String, java.lang.Object, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 156,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.SliceHasResponse#<init>(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@cf44dd[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "newValue" : "javassist.CtConstructor@2408e226[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse.SliceHasResponse(org.hamcrest.Matcher, com.artipie.http.rq.RequestLine, com.artipie.http.Headers, com.artipie.asto.Content)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@475707a2[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "newValue" : "javassist.CtConstructor@57ace8a6[public SliceHasResponse (Lorg/hamcrest/Matcher;Lcom/artipie/http/rq/RequestLine;Lcom/artipie/http/Headers;Lcom/artipie/asto/Content;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher", "com.artipie.http.rq.RequestLine", "com.artipie.http.Headers", "com.artipie.asto.Content" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.hm.SliceHasResponse",
+            "declaringType" : "com.artipie.http.hm.SliceHasResponse",
+            "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.hamcrest.Matchers#allOf(org.hamcrest.Matcher, org.hamcrest.Matcher, org.hamcrest.Matcher)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar"
+          },
+          "lineNumber" : 163,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.hm.RsHasHeaders#<init>(java.util.Map$Entry[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.0.1",
+            "coordinates" : "com.artipie:http:v1.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.0.1/http-v1.0.1.jar"
+          },
+          "lineNumber" : 165,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.util.Map$Entry[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@46e85213[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "newValue" : "javassist.CtConstructor@7589022e[public transient RsHasHeaders ([Ljava/util/Map$Entry;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.util.Map$Entry[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher[])",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2ba09a72[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@19855aea[public transient RsHasHeaders ([Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(org.hamcrest.Matcher)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@27eff79f[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "newValue" : "javassist.CtConstructor@69b4265d[public RsHasHeaders (Lorg/hamcrest/Matcher;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.hamcrest.Matcher" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "RsHasHeaders",
+            "declaringType" : "com.artipie.http.hm.RsHasHeaders",
+            "qualifiedSignature" : "com.artipie.http.hm.RsHasHeaders.RsHasHeaders(java.lang.Iterable)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2d82500f[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "newValue" : "javassist.CtConstructor@65cc1d2c[public RsHasHeaders (Ljava/lang/Iterable;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Iterable" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.files.MapEntry<>#<init>(java.lang.String, java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 166,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.map.MapEntry",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 166,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.lang.String#valueOf(int)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 166,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 166,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "byte[]::length",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 166,
+          "codeLine" : "                        new MapEntry<>(\"Content-Length\", String.valueOf(body.length))",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

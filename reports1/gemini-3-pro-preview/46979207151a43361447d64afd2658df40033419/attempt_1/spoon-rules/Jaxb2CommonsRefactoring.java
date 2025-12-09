@@ -1,0 +1,118 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Jaxb2CommonsRefactoring {
+
+    /**
+     * Processor to replace static .getInstance() calls with constructor calls new ClassName().
+     * Handles the removal of singleton accessors in JAXB2 Commons strategies.
+     */
+    public static class GetInstanceToConstructorProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // List of classes where .getInstance() was removed
+        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(
+            "JAXBToStringStrategy",
+            "DefaultCopyStrategy",
+            "DefaultEqualsStrategy",
+            "DefaultHashCodeStrategy",
+            "DefaultMergeStrategy",
+            "DefaultToStringStrategy",
+            "JAXBCopyStrategy",
+            "JAXBEqualsStrategy",
+            "JAXBHashCodeStrategy",
+            "JAXBMergeCollectionsStrategy",
+            "JAXBMergeStrategy"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // The method removed is "getInstance"
+            if (!"getInstance".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // getInstance() typically takes no arguments
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Type/Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // In NoClasspath, types might not be fully resolved. 
+            // We check if the declared type name matches any of our target strategies.
+            if (declaringType != null) {
+                String qName = declaringType.getQualifiedName();
+                // Check if the qualified name ends with one of our target classes (to handle packages)
+                // or exactly matches (if used with simple name and imports aren't fully resolved)
+                return TARGET_CLASSES.stream().anyMatch(target -> 
+                    qName.equals(target) || qName.endsWith("." + target)
+                );
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Strategy: Replace `Strategy.getInstance()` with `new Strategy()`
+            
+            // 1. Get the type being accessed (e.g., JAXBToStringStrategy)
+            CtTypeReference<?> typeRef = invocation.getExecutable().getDeclaringType();
+
+            // 2. Create the constructor call: new JAXBToStringStrategy()
+            CtConstructorCall<?> constructorCall = getFactory().Code().createConstructorCall(typeRef);
+
+            // 3. Replace the original invocation
+            invocation.replace(constructorCall);
+            
+            System.out.println("Refactored: " + typeRef.getSimpleName() + ".getInstance() -> new " 
+                + typeRef.getSimpleName() + "() at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args if expanded)
+        String inputPath = "/home/kth/Documents/last_transformer/output/46979207151a43361447d64afd2658df40033419/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Header.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/46979207151a43361447d64afd2658df40033419/billy/billy-portugal/src-generated/main/java/com/premiumminds/billy/portugal/services/export/saftpt/v1_03_01/schema/Header.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/transformed");
+
+        // CRITICAL: Configure Environment for Source Preservation
+        // 1. Enable comments to prevent loss during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Set SniperJavaPrettyPrinter to allow precise modification of only changed AST nodes
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new GetInstanceToConstructorProcessor());
+
+        // Run the transformation
+        try {
+            System.out.println("Starting JAXB2 Commons Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

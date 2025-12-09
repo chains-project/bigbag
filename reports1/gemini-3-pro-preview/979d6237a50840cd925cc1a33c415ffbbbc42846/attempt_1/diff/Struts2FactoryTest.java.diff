@@ -1,0 +1,14 @@
+--- /home/kth/Documents/last_transformer/output/979d6237a50840cd925cc1a33c415ffbbbc42846/guice/extensions/struts2/test/com/google/inject/struts2/Struts2FactoryTest.java	2025-12-08 07:40:52.414539255 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/979d6237a50840cd925cc1a33c415ffbbbc42846/attempt_1/transformed/com/google/inject/struts2/Struts2FactoryTest.java	2025-12-08 07:42:16.923091188 +0100
+@@ -52,9 +52,9 @@
+             @Override
+             protected void configureServlets() {
+               // Struts 2 setup
+-              bind(StrutsPrepareAndExecuteFilter.class)
++              bind(org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter.class)
+                   .in(com.google.inject.Singleton.class);
+-              filter("/*").through(StrutsPrepareAndExecuteFilter.class);
++              filter("/*").through(org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter.class);
+             }
+           },
+           module);

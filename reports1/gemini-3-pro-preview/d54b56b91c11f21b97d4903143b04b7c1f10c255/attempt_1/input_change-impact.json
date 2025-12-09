@@ -1,0 +1,1437 @@
+{
+  "project" : "java-pubsub-group-kafka-connector",
+  "breakingCommit" : "d54b56b91c11f21b97d4903143b04b7c1f10c255",
+  "dependency" : {
+    "groupId" : "com.google.cloud",
+    "artifactId" : "google-cloud-pubsublite",
+    "previousVersion" : "0.6.0",
+    "newVersion" : "0.18.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/d54b56b91c11f21b97d4903143b04b7c1f10c255.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/d54b56b91c11f21b97d4903143b04b7c1f10c255/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java",
+    "errors" : [ {
+      "lineNumber" : 20,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java",
+        "lineNumber" : 20,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.250884758Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 20,
+          "codeLine" : "import com.google.cloud.pubsublite.PublishMetadata;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: class com.google.pubsublite.kafka.sink.PublisherFactoryImpl" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java",
+        "lineNumber" : 36,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.262448659Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.internal.Publisher",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "  public Publisher<PublishMetadata> newPublisher(Map<String, String> params) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.internal.Publisher",
+            "declaringType" : "com.google.cloud.pubsublite.internal.Publisher",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.Publisher",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "  public Publisher<PublishMetadata> newPublisher(Map<String, String> params) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "  public Publisher<PublishMetadata> newPublisher(Map<String, String> params) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "  public Publisher<PublishMetadata> newPublisher(Map<String, String> params) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 53,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)", "location: class com.google.cloud.pubsublite.internal.wire.SinglePartitionPublisherBuilder.Builder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java",
+        "lineNumber" : 53,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.263603745Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.google.cloud.pubsublite.internal.wire.RoutingPublisherBuilder$Builder#setPublisherFactory(com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 48,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setPublisherFactory",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.RoutingPublisherBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.RoutingPublisherBuilder$Builder.setPublisherFactory(com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8dcc327e[public abstract setPublisherFactory (Lcom/google/cloud/pubsublite/internal/wire/PartitionPublisherFactory;)Lcom/google/cloud/pubsublite/internal/wire/RoutingPublisherBuilder$Builder;]",
+              "newValue" : "javassist.CtMethod@8dcc327e[public abstract setPublisherFactory (Lcom/google/cloud/pubsublite/internal/wire/PartitionPublisherFactory;)Lcom/google/cloud/pubsublite/internal/wire/RoutingPublisherBuilder$Builder;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.RoutingPublisherBuilder$Builder",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.RoutingPublisherBuilder$Builder",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setPublisherFactory",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PartitionCountWatchingPublisherSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PartitionCountWatchingPublisherSettings$Builder.setPublisherFactory(com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@8dcc327e[public setPublisherFactory (Lcom/google/cloud/pubsublite/internal/wire/PartitionPublisherFactory;)Lcom/google/cloud/pubsublite/internal/wire/PartitionCountWatchingPublisherSettings$Builder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "setPublisherFactory",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder.setPublisherFactory(com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@8dcc327e[public abstract setPublisherFactory (Lcom/google/cloud/pubsublite/internal/wire/PartitionPublisherFactory;)Lcom/google/cloud/pubsublite/internal/wire/PartitionCountWatchingPublisherSettings$Builder;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PartitionPublisherFactory",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#build()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.AutoValue_ReservationPath$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.AutoValue_ReservationPath$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/ReservationPath;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.ReservationPath",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.ReservationPath$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.ReservationPath$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lcom/google/cloud/pubsublite/ReservationPath;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.ReservationPath",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.cloudpubsub.AutoValue_SubscriberSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.cloudpubsub.AutoValue_SubscriberSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/cloudpubsub/SubscriberSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.cloudpubsub.SubscriberSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.cloudpubsub.SubscriberSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.cloudpubsub.SubscriberSettings$Builder.build()",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_NOW_ABSTRACT",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/cloudpubsub/SubscriberSettings;]",
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lcom/google/cloud/pubsublite/cloudpubsub/SubscriberSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.cloudpubsub.SubscriberSettings",
+              "newValue" : "com.google.cloud.pubsublite.cloudpubsub.SubscriberSettings",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AssignerBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AssignerBuilder$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/internal/wire/Assigner;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.Assigner",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AssignerSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AssignerSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lcom/google/cloud/pubsublite/internal/wire/AssignerSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.AssignerSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_AssignerSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_AssignerSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/internal/wire/AssignerSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.AssignerSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_CommitterSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_CommitterSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/internal/wire/CommitterSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.CommitterSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PartitionCountWatchingPublisherSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PartitionCountWatchingPublisherSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/internal/wire/PartitionCountWatchingPublisherSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.CommitterBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.CommitterBuilder$Builder.build()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@dc3e7ef[public build ()Lcom/google/cloud/pubsublite/internal/wire/Committer;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.Committer",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.CommitterSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.CommitterSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lcom/google/cloud/pubsublite/internal/wire/CommitterSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.CommitterSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public abstract build ()Lcom/google/cloud/pubsublite/internal/wire/PartitionCountWatchingPublisherSettings;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PartitionCountWatchingPublisherSettings",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PublisherBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_PublisherBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/PublisherBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.PublisherBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_SinglePartitionPublisherBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_SinglePartitionPublisherBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/SinglePartitionPublisherBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.SinglePartitionPublisherBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.AutoValue_SubscriberBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.AutoValue_SubscriberBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/SubscriberBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.SubscriberBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PublisherBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PublisherBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public abstract setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/PublisherBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.PublisherBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.SinglePartitionPublisherBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.SinglePartitionPublisherBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public abstract setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/SinglePartitionPublisherBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.SinglePartitionPublisherBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.SubscriberBuilder$Builder",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.SubscriberBuilder$Builder.setContext(com.google.cloud.pubsublite.internal.wire.PubsubContext)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8b38bf5[public abstract setContext (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;)Lcom/google/cloud/pubsublite/internal/wire/SubscriberBuilder$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.SubscriberBuilder$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.google.cloud.pubsublite.internal.wire.PubsubContext#of(com.google.cloud.pubsublite.internal.wire.PubsubContext$Framework)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PubsubContext.of(com.google.cloud.pubsublite.internal.wire.PubsubContext$Framework)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8a4c3e45[public static of (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext$Framework;)Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;]",
+              "newValue" : "javassist.CtMethod@8a4c3e45[public static of (Lcom/google/cloud/pubsublite/internal/wire/PubsubContext$Framework;)Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.internal.wire.PubsubContext$Framework" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PubsubContext.of()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@33f918[public static of ()Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;]",
+              "newValue" : "javassist.CtMethod@33f918[public static of ()Lcom/google/cloud/pubsublite/internal/wire/PubsubContext;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.CloudRegion",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.CloudRegion.of(java.lang.String)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7f78b18e[public static of (Ljava/lang/String;)Lcom/google/cloud/pubsublite/CloudRegion;]",
+              "newValue" : "javassist.CtMethod@7f78b18e[public static of (Ljava/lang/String;)Lcom/google/cloud/pubsublite/CloudRegion;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.CloudRegion",
+              "newValue" : "com.google.cloud.pubsublite.CloudRegion",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.CloudRegionOrZone",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.CloudRegionOrZone.of(com.google.cloud.pubsublite.CloudRegion)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7c84de80[public static of (Lcom/google/cloud/pubsublite/CloudRegion;)Lcom/google/cloud/pubsublite/CloudRegionOrZone;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.CloudRegionOrZone",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.CloudRegion" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.CloudRegionOrZone",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.CloudRegionOrZone.of(com.google.cloud.pubsublite.CloudZone)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@ac0bc4b8[public static of (Lcom/google/cloud/pubsublite/CloudZone;)Lcom/google/cloud/pubsublite/CloudRegionOrZone;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.CloudRegionOrZone",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.CloudZone" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.MessageMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.MessageMetadata.of(com.google.cloud.pubsublite.Partition, com.google.cloud.pubsublite.Offset)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@3a7c89e1[public static of (Lcom/google/cloud/pubsublite/Partition;Lcom/google/cloud/pubsublite/Offset;)Lcom/google/cloud/pubsublite/MessageMetadata;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.MessageMetadata",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.Partition", "com.google.cloud.pubsublite.Offset" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata.of(com.google.cloud.pubsublite.Partition, com.google.cloud.pubsublite.Offset)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@3a7c89e1[public static of (Lcom/google/cloud/pubsublite/Partition;Lcom/google/cloud/pubsublite/Offset;)Lcom/google/cloud/pubsublite/PublishMetadata;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "com.google.cloud.pubsublite.PublishMetadata",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.Partition", "com.google.cloud.pubsublite.Offset" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.ReservationName",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.ReservationName.of(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@7f78b18e[public static of (Ljava/lang/String;)Lcom/google/cloud/pubsublite/ReservationName;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.ReservationName",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.SeekTarget",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.SeekTarget.of(com.google.cloud.pubsublite.BacklogLocation)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@d8ac7609[public static of (Lcom/google/cloud/pubsublite/BacklogLocation;)Lcom/google/cloud/pubsublite/SeekTarget;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.cloud.pubsublite.SeekTarget",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.BacklogLocation" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata.of(com.google.cloud.pubsublite.TopicPath, com.google.cloud.pubsublite.Partition)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@82f3a92e[static of (Lcom/google/cloud/pubsublite/TopicPath;Lcom/google/cloud/pubsublite/Partition;)Ljava/util/Map;]",
+              "newValue" : "javassist.CtMethod@82f3a92e[public static of (Lcom/google/cloud/pubsublite/TopicPath;Lcom/google/cloud/pubsublite/Partition;)Lcom/google/cloud/pubsublite/internal/wire/RoutingMetadata;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Map",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.TopicPath", "com.google.cloud.pubsublite.Partition" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "of",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata.of(com.google.cloud.pubsublite.SubscriptionPath, com.google.cloud.pubsublite.Partition)",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@2a900b2[static of (Lcom/google/cloud/pubsublite/SubscriptionPath;Lcom/google/cloud/pubsublite/Partition;)Ljava/util/Map;]",
+              "newValue" : "javassist.CtMethod@2a900b2[public static of (Lcom/google/cloud/pubsublite/SubscriptionPath;Lcom/google/cloud/pubsublite/Partition;)Lcom/google/cloud/pubsublite/internal/wire/RoutingMetadata;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Map",
+              "newValue" : "com.google.cloud.pubsublite.internal.wire.RoutingMetadata",
+              "changed" : true
+            },
+            "parameterTypes" : [ "com.google.cloud.pubsublite.SubscriptionPath", "com.google.cloud.pubsublite.Partition" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+            "declaringType" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.wire.PubsubContext",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.google.pubsublite.kafka.sink.PublisherFactoryImpl::FRAMEWORK",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/google/pubsublite/kafka/sink/PublisherFactoryImpl.java"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                .setContext(PubsubContext.of(FRAMEWORK))",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactory.java",
+    "errors" : [ {
+      "lineNumber" : 18,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactory.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.266924934Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "import com.google.cloud.pubsublite.PublishMetadata;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: interface com.google.pubsublite.kafka.sink.PublisherFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PublisherFactory.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.267132722Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.internal.Publisher",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "  Publisher<PublishMetadata> newPublisher(Map<String, String> params);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.internal.Publisher",
+            "declaringType" : "com.google.cloud.pubsublite.internal.Publisher",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.Publisher",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "  Publisher<PublishMetadata> newPublisher(Map<String, String> params);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 24,
+          "codeLine" : "  Publisher<PublishMetadata> newPublisher(Map<String, String> params);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 24,
+          "codeLine" : "  Publisher<PublishMetadata> newPublisher(Map<String, String> params);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PubSubLiteSinkTask.java",
+    "errors" : [ {
+      "lineNumber" : 22,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: package com.google.cloud.pubsublite" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PubSubLiteSinkTask.java",
+        "lineNumber" : 22,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.267757943Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 22,
+          "codeLine" : "import com.google.cloud.pubsublite.PublishMetadata;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 31,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class PublishMetadata", "location: class com.google.pubsublite.kafka.sink.PubSubLiteSinkTask" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/java-pubsub-group-kafka-connector/src/main/java/com/google/pubsublite/kafka/sink/PubSubLiteSinkTask.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.18.0.jar",
+        "generatedAt" : "2025-12-08T09:56:20.268403891Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.annotation.Nullable",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.code.findbugs",
+            "artifactId" : "jsr305",
+            "version" : "3.0.2",
+            "coordinates" : "com.google.code.findbugs:jsr305:3.0.2",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "  private @Nullable Publisher<PublishMetadata> publisher;",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.internal.Publisher",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.18.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.18.0",
+            "sourcePath" : "/home/kth/.m2/repository/com/google/cloud/google-cloud-pubsublite/0.18.0/google-cloud-pubsublite-0.18.0.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "  private @Nullable Publisher<PublishMetadata> publisher;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.internal.Publisher",
+            "declaringType" : "com.google.cloud.pubsublite.internal.Publisher",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.internal.Publisher",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.google.cloud.pubsublite.PublishMetadata",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.google.cloud",
+            "artifactId" : "google-cloud-pubsublite",
+            "version" : "0.6.0",
+            "coordinates" : "com.google.cloud:google-cloud-pubsublite:0.6.0",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/d54b56b91c11f21b97d4903143b04b7c1f10c255/google-cloud-pubsublite-0.6.0.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "  private @Nullable Publisher<PublishMetadata> publisher;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.google.cloud.pubsublite.PublishMetadata",
+            "declaringType" : "com.google.cloud.pubsublite.PublishMetadata",
+            "qualifiedSignature" : "com.google.cloud.pubsublite.PublishMetadata",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 6
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

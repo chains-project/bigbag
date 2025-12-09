@@ -1,0 +1,108 @@
+{
+  "project" : "ci-sauce",
+  "breakingCommit" : "dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869",
+  "dependency" : {
+    "groupId" : "org.codehaus.plexus",
+    "artifactId" : "plexus-archiver",
+    "previousVersion" : "4.2.7",
+    "newVersion" : "4.4.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.2.7.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.4.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/ci-sauce/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/ci-sauce/src/main/java/com/saucelabs/ci/sauceconnect/SauceConnectFourManager.java",
+    "errors" : [ {
+      "lineNumber" : 307,
+      "columnNumber" : 19,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method enableLogging(org.codehaus.plexus.logging.console.ConsoleLogger)", "location: variable unArchiver of type org.codehaus.plexus.archiver.AbstractUnArchiver" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/ci-sauce",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/ci-sauce/src/main/java/com/saucelabs/ci/sauceconnect/SauceConnectFourManager.java",
+        "lineNumber" : 307,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.2.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869/plexus-archiver-4.4.0.jar",
+        "generatedAt" : "2025-12-08T10:18:40.741880478Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#enableLogging(org.codehaus.plexus.logging.console.ConsoleLogger)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 307,
+          "codeLine" : "        unArchiver.enableLogging(new ConsoleLogger(Logger.LEVEL_DEBUG, \"Sauce\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.codehaus.plexus.logging.console.ConsoleLogger#<init>(int, java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.codehaus.plexus",
+            "artifactId" : "plexus-container-default",
+            "version" : "2.1.0",
+            "coordinates" : "org.codehaus.plexus:plexus-container-default:2.1.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/codehaus/plexus/plexus-container-default/2.1.0/plexus-container-default-2.1.0.jar"
+          },
+          "lineNumber" : 307,
+          "codeLine" : "        unArchiver.enableLogging(new ConsoleLogger(Logger.LEVEL_DEBUG, \"Sauce\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.codehaus.plexus.logging.console.ConsoleLogger",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.codehaus.plexus",
+            "artifactId" : "plexus-container-default",
+            "version" : "2.1.0",
+            "coordinates" : "org.codehaus.plexus:plexus-container-default:2.1.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/codehaus/plexus/plexus-container-default/2.1.0/plexus-container-default-2.1.0.jar"
+          },
+          "lineNumber" : 307,
+          "codeLine" : "        unArchiver.enableLogging(new ConsoleLogger(Logger.LEVEL_DEBUG, \"Sauce\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.codehaus.plexus.logging.Logger::LEVEL_DEBUG",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.codehaus.plexus",
+            "artifactId" : "plexus-container-default",
+            "version" : "2.1.0",
+            "coordinates" : "org.codehaus.plexus:plexus-container-default:2.1.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/codehaus/plexus/plexus-container-default/2.1.0/plexus-container-default-2.1.0.jar"
+          },
+          "lineNumber" : 307,
+          "codeLine" : "        unArchiver.enableLogging(new ConsoleLogger(Logger.LEVEL_DEBUG, \"Sauce\"));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.codehaus.plexus.logging.Logger",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.codehaus.plexus",
+            "artifactId" : "plexus-container-default",
+            "version" : "2.1.0",
+            "coordinates" : "org.codehaus.plexus:plexus-container-default:2.1.0",
+            "sourcePath" : "/home/kth/.m2/repository/org/codehaus/plexus/plexus-container-default/2.1.0/plexus-container-default-2.1.0.jar"
+          },
+          "lineNumber" : 307,
+          "codeLine" : "        unArchiver.enableLogging(new ConsoleLogger(Logger.LEVEL_DEBUG, \"Sauce\"));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

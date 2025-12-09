@@ -1,0 +1,119 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Set;
+
+public class SqlSessionRefactoring {
+
+    /**
+     * Processor to re-introduce @Autowired on setSqlSessionFactory methods.
+     * This fixes runtime DI failures caused by MyBatis-Spring removing the annotation 
+     * from the base class in newer versions.
+     */
+    public static class SqlSessionProcessor extends AbstractProcessor<CtMethod<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtMethod<?> candidate) {
+            // 1. Name Check
+            if (!"setSqlSessionFactory".equals(candidate.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Setter must have exactly 1 argument)
+            if (candidate.getParameters().size() != 1) {
+                return false;
+            }
+
+            // 3. Argument Type Check (Defensive for NoClasspath)
+            CtParameter<?> param = candidate.getParameters().get(0);
+            CtTypeReference<?> type = param.getType();
+            // We check for "SqlSessionFactory" in the name to handle simple or qualified names
+            if (type == null || !type.getQualifiedName().contains("SqlSessionFactory")) {
+                return false;
+            }
+
+            // 4. Inheritance Check
+            // We only care if the class extends SqlSessionDaoSupport (MyBatis Spring support class)
+            if (candidate.getDeclaringType() instanceof CtClass) {
+                CtClass<?> declaringClass = (CtClass<?>) candidate.getDeclaringType();
+                CtTypeReference<?> superClass = declaringClass.getSuperclass();
+                
+                // Defensive check: Superclass might be unknown or null
+                if (superClass == null || !superClass.getQualifiedName().contains("SqlSessionDaoSupport")) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+            // 5. Existing Annotation Check
+            // If the user already added @Autowired, @Resource, or @Inject, do not touch it.
+            for (CtAnnotation<?> ann : candidate.getAnnotations()) {
+                String annName = ann.getAnnotationType().getQualifiedName();
+                if (annName.contains("Autowired") || 
+                    annName.contains("Resource") || 
+                    annName.contains("Inject")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtMethod<?> method) {
+            Factory factory = getFactory();
+
+            // Transformation: Add @Autowired annotation
+            // We create the reference by string to avoid classpath dependency on Spring JARs during refactoring
+            CtTypeReference<Object> autowiredRef = factory.Type().createReference("org.springframework.beans.factory.annotation.Autowired");
+            
+            // Add the annotation to the method
+            factory.Annotation().annotate(method, autowiredRef);
+
+            System.out.println("Refactoring: Added @Autowired to " + 
+                method.getDeclaringType().getQualifiedName() + "#" + method.getSimpleName() + 
+                " at line " + method.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ / Sniper
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+        // 4. Try to manage imports automatically when we add types
+        launcher.getEnvironment().setAutoImports(true);
+
+        launcher.addProcessor(new SqlSessionProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

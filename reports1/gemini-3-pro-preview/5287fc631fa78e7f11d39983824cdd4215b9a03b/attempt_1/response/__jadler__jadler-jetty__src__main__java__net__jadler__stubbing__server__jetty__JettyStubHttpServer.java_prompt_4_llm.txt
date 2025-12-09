@@ -1,0 +1,163 @@
+Here is the self-contained Java class to perform the Jetty refactoring using Spoon.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtLocalVariable;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class JettyMigration {
+
+    /**
+     * Processor to handle Jetty 8 to 9 migrations based on the provided diff.
+     * 1. Replaces SelectChannelConnector with ServerConnector.
+     * 2. Comments out removed Server configuration methods.
+     * 3. Upgrades variable declarations to preserve setPort/getLocalPort compatibility.
+     */
+    public static class JettyProcessor extends AbstractProcessor<CtElement> {
+
+        @Override
+        public boolean isToBeProcessed(CtElement element) {
+            return element instanceof CtInvocation ||
+                   element instanceof CtConstructorCall ||
+                   element instanceof CtTypeReference ||
+                   element instanceof CtLocalVariable;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtInvocation) {
+                processInvocation((CtInvocation<?>) element);
+            } else if (element instanceof CtLocalVariable) {
+                processLocalVariable((CtLocalVariable<?>) element);
+            } else if (element instanceof CtConstructorCall) {
+                processConstructor((CtConstructorCall<?>) element);
+            } else if (element instanceof CtTypeReference) {
+                processTypeReference((CtTypeReference<?>) element);
+            }
+        }
+
+        private void processInvocation(CtInvocation<?> invocation) {
+            String name = invocation.getExecutable().getSimpleName();
+
+            // Rule: METHOD org.eclipse.jetty.server.Server.setSendServerVersion(boolean) [REMOVED]
+            // Rule: METHOD org.eclipse.jetty.server.Server.setSendDateHeader(boolean) [REMOVED]
+            // These moved to HttpConfiguration, which requires complex restructuring.
+            // We comment them out to allow compilation and alert the user.
+            if ("setSendServerVersion".equals(name) || "setSendDateHeader".equals(name)) {
+                CtTypeReference<?> owner = invocation.getExecutable().getDeclaringType();
+                if (owner != null && owner.getQualifiedName().contains("Server")) {
+                    Factory factory = getFactory();
+                    String methodCall = invocation.toString();
+                    CtComment comment = factory.Code().createComment(
+                        "TODO (Migration): " + name + " moved to HttpConfiguration. " + methodCall,
+                        CtComment.CommentType.BLOCK
+                    );
+
+                    // Only replace if it is a statement (stand-alone call)
+                    if (invocation.getParent() instanceof CtBlock || invocation.getParent() instanceof CtStatement) {
+                        invocation.replace(comment);
+                    }
+                }
+            }
+        }
+
+        private void processLocalVariable(CtLocalVariable<?> var) {
+            // Rule: Handle variable types for SelectChannelConnector replacement.
+            // If we have: Connector c = new SelectChannelConnector();
+            // We must change 'c' to ServerConnector, otherwise c.setPort() becomes invalid
+            // (setPort was removed from Connector interface).
+            if (var.getDefaultExpression() instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) var.getDefaultExpression();
+                CtTypeReference<?> ctorType = ctor.getType();
+                
+                if (ctorType != null && ctorType.getQualifiedName().contains("SelectChannelConnector")) {
+                    CtTypeReference<?> varType = var.getType();
+                    // If the variable is defined as the interface 'Connector'
+                    if (varType != null && varType.getQualifiedName().endsWith("Connector")) {
+                        // Change the variable definition to the concrete ServerConnector
+                        CtTypeReference<?> newType = getFactory().Type().createReference("org.eclipse.jetty.server.ServerConnector");
+                        var.setType((CtTypeReference) newType);
+                    }
+                }
+            }
+        }
+
+        private void processConstructor(CtConstructorCall<?> ctor) {
+            // Rule: SelectChannelConnector removed. Replaced by ServerConnector.
+            // Old: new SelectChannelConnector()
+            // New: new ServerConnector(server)
+            CtTypeReference<?> type = ctor.getType();
+            if (type != null && type.getQualifiedName().contains("SelectChannelConnector")) {
+                Factory factory = getFactory();
+                
+                // 1. Prepare new type
+                CtTypeReference<?> newType = factory.Type().createReference("org.eclipse.jetty.server.ServerConnector");
+                
+                // 2. Update the constructor call type
+                ctor.setType((CtTypeReference) newType);
+                ctor.getExecutable().setType((CtTypeReference) newType);
+                ctor.getExecutable().setDeclaringType((CtTypeReference) newType);
+
+                // 3. Handle arguments. ServerConnector requires a Server instance (or similar).
+                // SelectChannelConnector was often no-arg.
+                if (ctor.getArguments().isEmpty()) {
+                    // Inject "null" with a TODO comment so the user knows to pass the Server object
+                    CtLiteral<?> nullArg = factory.Code().createLiteral(null);
+                    nullArg.addComment(factory.Code().createComment("TODO: Pass Server instance", CtComment.CommentType.INLINE));
+                    ctor.addArgument(nullArg);
+                }
+            }
+        }
+
+        private void processTypeReference(CtTypeReference<?> ref) {
+            // Rule: Rename class usage in imports, fields, throws, etc.
+            // CLASS org.eclipse.jetty.server.nio.SelectChannelConnector [REMOVED]
+            if ("org.eclipse.jetty.server.nio.SelectChannelConnector".equals(ref.getQualifiedName())) {
+                ref.setPackage(getFactory().Package().getOrCreate("org.eclipse.jetty.server"));
+                ref.setSimpleName("ServerConnector");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ and robust processing
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Disable classpath requirements (NoClasspath mode)
+        launcher.getEnvironment().setNoClasspath(true);
+        // 3. Enable auto-imports to handle the package change (nio -> server)
+        launcher.getEnvironment().setAutoImports(true);
+        // 4. Force Sniper Printer to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        launcher.addProcessor(new JettyProcessor());
+
+        System.out.println("Starting Jetty Migration Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

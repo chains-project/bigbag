@@ -1,0 +1,87 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class BouncyCastleRefactoring {
+
+    /**
+     * Processor to migrate moved Bouncy Castle TLS classes.
+     * 
+     * Changes:
+     * - org.bouncycastle.crypto.tls.AlertDescription -> org.bouncycastle.tls.AlertDescription
+     * - org.bouncycastle.crypto.tls.TlsFatalAlert -> org.bouncycastle.tls.TlsFatalAlert
+     * 
+     * This handles:
+     * - Variable declarations
+     * - Return types
+     * - Constructor invocations (new TlsFatalAlert(...))
+     * - Static field access (AlertDescription.bad_record_mac)
+     */
+    public static class TlsMigrationProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: check for null names
+            String qName = candidate.getQualifiedName();
+            if (qName == null) {
+                return false;
+            }
+
+            // Target only the specific classes mentioned in the diff
+            // We use simple string matching to be robust in NoClasspath mode
+            return qName.equals("org.bouncycastle.crypto.tls.AlertDescription") ||
+                   qName.equals("org.bouncycastle.crypto.tls.TlsFatalAlert");
+        }
+
+        @Override
+        public void process(CtTypeReference<?> reference) {
+            // The logic implies a package move from 'org.bouncycastle.crypto.tls' to 'org.bouncycastle.tls'
+            String newPackageName = "org.bouncycastle.tls";
+
+            // Create or retrieve the new package reference
+            CtPackage newPackage = getFactory().Package().getOrCreate(newPackageName);
+
+            // Update the package of the existing reference
+            // This effectively changes the FQN to the new location
+            reference.setPackage(newPackage);
+
+            System.out.println("Refactored usage at line " + 
+                (reference.getPosition().isValidPosition() ? reference.getPosition().getLine() : "unknown") + 
+                ": " + reference.getSimpleName() + " moved to " + newPackageName);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified or passed as args)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Robust Sniper Configuration to preserve formatting
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Set NoClasspath to true to avoid dependency resolution errors
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TlsMigrationProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

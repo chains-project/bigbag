@@ -1,0 +1,76 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class TaskExecutorRefactoring {
+
+    /**
+     * Processor regarding: org.springframework.core.task.TaskExecutor
+     * Diff Status: UNCHANGED
+     * 
+     * Strategy:
+     * Since the diff explicitly states the class is UNCHANGED, binary compatible, and source compatible,
+     * no AST transformations (renaming, wrapping, etc.) are required.
+     * 
+     * This processor is implemented to scan for usages to verify the presence of the dependency
+     * without modifying the source code, serving as a placeholder for the migration pipeline.
+     */
+    public static class TaskExecutorProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding for NoClasspath
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Target the specific class from the diff
+            // Using equals check on qualified name for precision, or contains if packages might vary loosely
+            return "org.springframework.core.task.TaskExecutor".equals(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> element) {
+            // Logic: The dependency indicates [status=UNCHANGED].
+            // We do not modify the AST. We simply log the finding.
+            // This ensures the file is touched/parsed by Spoon but preserved exactly via Sniper.
+            System.out.println("Verified usage of TaskExecutor at line " + 
+                (element.getPosition().isValidPosition() ? element.getPosition().getLine() : "unknown") + 
+                " - No refactoring required.");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES: PRESERVE SOURCE CODE
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Compatibility
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TaskExecutorProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Processing complete. Output generated in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

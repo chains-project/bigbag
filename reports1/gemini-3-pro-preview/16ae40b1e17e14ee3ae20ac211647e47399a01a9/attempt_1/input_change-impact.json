@@ -1,0 +1,71 @@
+{
+  "project" : "allure-maven",
+  "breakingCommit" : "16ae40b1e17e14ee3ae20ac211647e47399a01a9",
+  "dependency" : {
+    "groupId" : "net.lingala.zip4j",
+    "artifactId" : "zip4j",
+    "previousVersion" : "1.3.2",
+    "newVersion" : "2.11.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/zip4j-1.3.2.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/zip4j-2.11.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/allure-maven/16ae40b1e17e14ee3ae20ac211647e47399a01a9.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/16ae40b1e17e14ee3ae20ac211647e47399a01a9/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/allure-maven/src/main/java/io/qameta/allure/maven/AllureCommandline.java",
+    "errors" : [ {
+      "lineNumber" : 18,
+      "columnNumber" : 30,
+      "message" : "package net.lingala.zip4j.core does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/allure-maven",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/allure-maven/src/main/java/io/qameta/allure/maven/AllureCommandline.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/zip4j-1.3.2.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/zip4j-2.11.1.jar",
+        "generatedAt" : "2025-12-08T01:17:09.856363682Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "net.lingala.zip4j.core.ZipFile",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.lingala.zip4j",
+            "artifactId" : "zip4j",
+            "version" : "1.3.2",
+            "coordinates" : "net.lingala.zip4j:zip4j:1.3.2",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/16ae40b1e17e14ee3ae20ac211647e47399a01a9/zip4j-1.3.2.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "import net.lingala.zip4j.core.ZipFile;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.lingala.zip4j.core.ZipFile",
+            "declaringType" : "net.lingala.zip4j.core.ZipFile",
+            "qualifiedSignature" : "net.lingala.zip4j.core.ZipFile",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 52
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

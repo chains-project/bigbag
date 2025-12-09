@@ -1,0 +1,177 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLocalVariable;
+import spoon.reflect.code.CtVariableRead;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DropwizardClientRefactoring {
+
+    public static class ClientBuilderProcessor extends AbstractProcessor<CtElement> {
+
+        private static final Map<String, String> TYPE_MIGRATIONS = new HashMap<>();
+
+        static {
+            // Dropwizard Core 2.x -> 3.x/4.x
+            TYPE_MIGRATIONS.put("io.dropwizard.setup.Environment", "io.dropwizard.core.setup.Environment");
+            
+            // Java EE -> Jakarta EE
+            TYPE_MIGRATIONS.put("javax.validation.Validator", "jakarta.validation.Validator");
+            
+            // Apache HttpClient 4 -> Apache HttpClient 5
+            TYPE_MIGRATIONS.put("org.apache.http.client.HttpRequestRetryHandler", "org.apache.hc.client5.http.HttpRequestRetryStrategy");
+            TYPE_MIGRATIONS.put("org.apache.http.conn.DnsResolver", "org.apache.hc.client5.http.DnsResolver");
+            TYPE_MIGRATIONS.put("org.apache.http.config.Registry", "org.apache.hc.core5.http.config.Registry");
+            TYPE_MIGRATIONS.put("com.codahale.metrics.httpclient.HttpClientMetricNameStrategy", "com.codahale.metrics.httpclient5.HttpClientMetricNameStrategy");
+            TYPE_MIGRATIONS.put("org.apache.http.conn.routing.HttpRoutePlanner", "org.apache.hc.client5.http.routing.HttpRoutePlanner");
+            TYPE_MIGRATIONS.put("org.apache.http.client.CredentialsProvider", "org.apache.hc.client5.http.auth.CredentialsStore");
+            TYPE_MIGRATIONS.put("org.apache.http.client.RedirectStrategy", "org.apache.hc.client5.http.protocol.RedirectStrategy");
+            TYPE_MIGRATIONS.put("org.apache.http.protocol.HttpProcessor", "org.apache.hc.core5.http.protocol.HttpProcessor");
+            
+            // Best effort for removed strategies
+            TYPE_MIGRATIONS.put("org.apache.http.client.ServiceUnavailableRetryStrategy", "org.apache.hc.client5.http.HttpRequestRetryStrategy");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) candidate;
+                String methodName = inv.getExecutable().getSimpleName();
+                return "using".equals(methodName) || "build".equals(methodName);
+            }
+            if (candidate instanceof CtConstructorCall) {
+                CtConstructorCall<?> ctor = (CtConstructorCall<?>) candidate;
+                CtTypeReference<?> type = ctor.getType();
+                return type != null && type.getQualifiedName().contains("JerseyClientBuilder");
+            }
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtInvocation) {
+                processInvocation((CtInvocation<?>) element);
+            } else if (element instanceof CtConstructorCall) {
+                processConstructor((CtConstructorCall<?>) element);
+            }
+        }
+
+        private void processInvocation(CtInvocation<?> invocation) {
+            CtTypeReference<?> declaringType = invocation.getExecutable().getDeclaringType();
+            if (declaringType == null) return;
+            
+            String ownerName = declaringType.getQualifiedName();
+            boolean isClientBuilder = ownerName.contains("JerseyClientBuilder") || ownerName.contains("HttpClientBuilder");
+            
+            if (!isClientBuilder) return;
+
+            // 1. Process Arguments (Migration of types passed to .using() or .build())
+            for (CtExpression<?> arg : invocation.getArguments()) {
+                migrateArgumentType(arg);
+            }
+
+            // 2. Process Return Type Assignment (specifically for .build())
+            // Old: javax.ws.rs.client.Client -> New: jakarta.ws.rs.client.Client
+            if ("build".equals(invocation.getExecutable().getSimpleName())) {
+                migrateReturnValue(invocation);
+            }
+        }
+
+        private void processConstructor(CtConstructorCall<?> ctor) {
+            // Process arguments passed to new JerseyClientBuilder(...)
+            for (CtExpression<?> arg : ctor.getArguments()) {
+                migrateArgumentType(arg);
+            }
+        }
+
+        private void migrateArgumentType(CtExpression<?> arg) {
+            CtTypeReference<?> typeRef = arg.getType();
+            if (typeRef == null) return;
+
+            String oldType = typeRef.getQualifiedName();
+            
+            // Check if we have a mapping for this type (or if it contains the old type string)
+            // We iterate keys to handle potential generics or exact matches
+            String targetNewType = null;
+            for (Map.Entry<String, String> entry : TYPE_MIGRATIONS.entrySet()) {
+                if (oldType.equals(entry.getKey()) || oldType.startsWith(entry.getKey())) {
+                    targetNewType = entry.getValue();
+                    break;
+                }
+            }
+
+            if (targetNewType != null) {
+                Factory factory = getFactory();
+                CtTypeReference<?> newTypeRef = factory.Type().createReference(targetNewType);
+
+                // Strategy 1: If it's a direct constructor call (e.g. using(new OldType())), update it.
+                if (arg instanceof CtConstructorCall) {
+                    CtConstructorCall<?> ctorArg = (CtConstructorCall<?>) arg;
+                    ctorArg.setType((CtTypeReference) newTypeRef);
+                    ctorArg.getExecutable().setType((CtTypeReference) newTypeRef);
+                    System.out.println("Refactored Constructor Call arg at line " + arg.getPosition().getLine());
+                } 
+                // Strategy 2: If it's a variable read (e.g. using(myVar)), update the variable declaration.
+                else if (arg instanceof CtVariableRead) {
+                    CtVariable<?> decl = ((CtVariableRead<?>) arg).getVariable().getDeclaration();
+                    if (decl != null) {
+                        decl.setType((CtTypeReference) newTypeRef);
+                        System.out.println("Refactored Variable Declaration '" + decl.getSimpleName() + "' at line " + decl.getPosition().getLine());
+                    }
+                }
+            }
+        }
+
+        private void migrateReturnValue(CtInvocation<?> invocation) {
+            // If the result of .build() is assigned to a variable, that variable must migrate 
+            // from javax.ws.rs.client.Client to jakarta.ws.rs.client.Client
+            if (invocation.getParent() instanceof CtLocalVariable) {
+                CtLocalVariable<?> var = (CtLocalVariable<?>) invocation.getParent();
+                CtTypeReference<?> varType = var.getType();
+                if (varType != null && varType.getQualifiedName().equals("javax.ws.rs.client.Client")) {
+                    var.setType(getFactory().Type().createReference("jakarta.ws.rs.client.Client"));
+                    System.out.println("Refactored Client return type variable at line " + var.getPosition().getLine());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Sniper Printer for preserving formatting
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // Defensive: NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ClientBuilderProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

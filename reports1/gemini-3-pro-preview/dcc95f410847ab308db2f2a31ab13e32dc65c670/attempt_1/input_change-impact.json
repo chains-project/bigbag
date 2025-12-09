@@ -1,0 +1,225 @@
+{
+  "project" : "pay-adminusers",
+  "breakingCommit" : "dcc95f410847ab308db2f2a31ab13e32dc65c670",
+  "dependency" : {
+    "groupId" : "ch.qos.logback",
+    "artifactId" : "logback-classic",
+    "previousVersion" : "1.2.11",
+    "newVersion" : "1.4.5",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/logback-classic-1.2.11.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/logback-classic-1.4.5.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/pay-adminusers/dcc95f410847ab308db2f2a31ab13e32dc65c670.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/dcc95f410847ab308db2f2a31ab13e32dc65c670/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/pay-adminusers/src/test/java/uk/gov/pay/adminusers/queue/event/EventMessageHandlerTest.java",
+    "errors" : [ {
+      "lineNumber" : 112,
+      "columnNumber" : 15,
+      "message" : "cannot access org.slf4j.spi.LoggingEventAware",
+      "details" : [ "class file for org.slf4j.spi.LoggingEventAware not found" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/pay-adminusers",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/pay-adminusers/src/test/java/uk/gov/pay/adminusers/queue/event/EventMessageHandlerTest.java",
+        "lineNumber" : 112,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/logback-classic-1.2.11.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/dcc95f410847ab308db2f2a31ab13e32dc65c670/logback-classic-1.4.5.jar",
+        "generatedAt" : "2025-12-08T10:28:35.911442571Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "ch.qos.logback.classic.Logger#setLevel(ch.qos.logback.classic.Level)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 112,
+          "codeLine" : "        logger.setLevel(Level.INFO);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setLevel",
+            "declaringType" : "ch.qos.logback.classic.Logger",
+            "qualifiedSignature" : "ch.qos.logback.classic.Logger.setLevel(ch.qos.logback.classic.Level)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8acdab13[public synchronized setLevel (Lch/qos/logback/classic/Level;)V]",
+              "newValue" : "javassist.CtMethod@8acdab13[public synchronized setLevel (Lch/qos/logback/classic/Level;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "ch.qos.logback.classic.Level" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setLevel",
+            "declaringType" : "ch.qos.logback.classic.model.LoggerModel",
+            "qualifiedSignature" : "ch.qos.logback.classic.model.LoggerModel.setLevel(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9019c79[public setLevel (Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setLevel",
+            "declaringType" : "ch.qos.logback.classic.model.RootLoggerModel",
+            "qualifiedSignature" : "ch.qos.logback.classic.model.RootLoggerModel.setLevel(java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@9019c79[public setLevel (Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "ch.qos.logback.classic.Logger",
+            "declaringType" : "ch.qos.logback.classic.Logger",
+            "qualifiedSignature" : "ch.qos.logback.classic.Logger",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "ch.qos.logback.classic.Level::INFO",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 112,
+          "codeLine" : "        logger.setLevel(Level.INFO);",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "INFO",
+            "declaringType" : "ch.qos.logback.classic.Level",
+            "qualifiedSignature" : "ch.qos.logback.classic.Level.INFO",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "ch.qos.logback.classic.Level.INFO:Lch/qos/logback/classic/Level;",
+              "newValue" : "ch.qos.logback.classic.Level.INFO:Lch/qos/logback/classic/Level;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "ch.qos.logback.classic.Level",
+              "newValue" : "ch.qos.logback.classic.Level",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "ch.qos.logback.classic.Level",
+            "declaringType" : "ch.qos.logback.classic.Level",
+            "qualifiedSignature" : "ch.qos.logback.classic.Level",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "ch.qos.logback.classic.Level",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 112,
+          "codeLine" : "        logger.setLevel(Level.INFO);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "ch.qos.logback.classic.Level",
+            "declaringType" : "ch.qos.logback.classic.Level",
+            "qualifiedSignature" : "ch.qos.logback.classic.Level",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

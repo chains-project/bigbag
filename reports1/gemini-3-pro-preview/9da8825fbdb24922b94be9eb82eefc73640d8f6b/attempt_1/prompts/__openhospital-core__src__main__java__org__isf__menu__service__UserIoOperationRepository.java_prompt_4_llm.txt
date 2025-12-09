@@ -1,0 +1,170 @@
+Based on the provided diff, the `JpaRepository` class has been modified in a binary and source-incompatible way. This corresponds to the major Spring Data JPA 2.x migration where several CrudRepository methods were renamed or had their return types changed (most notably `findOne` returning `Optional` and iterable-based methods being renamed).
+
+Here is the refactoring strategy implemented below:
+1.  **`findOne(ID)` → `findById(ID).orElse(null)`**: The old method returned an Entity or null. The new method returns `Optional`. To maintain behavior, we wrap the call.
+2.  **`save(Iterable)` → `saveAll(Iterable)`**: Overloaded methods taking collections were renamed to distinct names.
+3.  **`delete(Iterable)` → `deleteAll(Iterable)`**: Similar renaming for collection-based deletion.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+public class JpaRepositoryRefactoring {
+
+    public static class SpringDataProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        private static final Set<String> TARGET_METHODS = Set.of("findOne", "save", "delete");
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String name = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(name)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (All target migrations are 1-arity)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Heuristic for NoClasspath)
+            // We check if the method belongs to a type that looks like a Repository.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // Skip if we are sure it is NOT a repository
+                if (!typeName.contains("Repository") && !typeName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+            CtExpression<?> argument = invocation.getArguments().get(0);
+            CtTypeReference<?> argType = argument.getType();
+
+            // Strategy 1: findOne(ID) -> findById(ID).orElse(null)
+            if ("findOne".equals(methodName)) {
+                // Defensive: Skip findOne(Example) which is a different feature (QueryByExample)
+                if (argType != null && argType.getQualifiedName().contains("Example")) {
+                    return;
+                }
+
+                refactorFindOne(invocation);
+            }
+            
+            // Strategy 2: save(Iterable) -> saveAll(Iterable)
+            else if ("save".equals(methodName)) {
+                if (isCollectionType(argType)) {
+                    invocation.getExecutable().setSimpleName("saveAll");
+                    System.out.println("Refactored save() to saveAll() at line " + invocation.getPosition().getLine());
+                }
+            }
+            
+            // Strategy 3: delete(Iterable) -> deleteAll(Iterable)
+            else if ("delete".equals(methodName)) {
+                // distinct from delete(Entity) or delete(ID)
+                if (isCollectionType(argType)) {
+                    invocation.getExecutable().setSimpleName("deleteAll");
+                    System.out.println("Refactored delete() to deleteAll() at line " + invocation.getPosition().getLine());
+                }
+            }
+        }
+
+        private void refactorFindOne(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // 1. Rename method to findById
+            invocation.getExecutable().setSimpleName("findById");
+
+            // 2. Create the .orElse(null) wrapper to handle Optional return type
+            // Target: The original invocation (now renamed)
+            // Method: orElse
+            // Arg: null
+            
+            CtInvocation<?> wrappedInvocation = factory.Code().createInvocation(
+                invocation.clone(), // We wrap the modified invocation
+                factory.Method().createReference(
+                    factory.Type().createReference("java.util.Optional"),
+                    factory.Type().nullType(), // return type of orElse is T (inferred)
+                    "orElse",
+                    factory.Type().objectType()
+                ),
+                factory.Code().createLiteral(null)
+            );
+
+            // 3. Replace the original node in the AST
+            invocation.replace(wrappedInvocation);
+            System.out.println("Refactored findOne() to findById().orElse(null) at line " + invocation.getPosition().getLine());
+        }
+
+        /**
+         * Defensive check to see if type is a Collection/Iterable.
+         * Safe for NoClasspath (uses string matching if type hierarchy is missing).
+         */
+        private boolean isCollectionType(CtTypeReference<?> typeRef) {
+            if (typeRef == null) return false;
+
+            // Strict check if classpath is available
+            try {
+                CtTypeReference<?> iterableRef = getFactory().Type().createReference(Iterable.class);
+                if (typeRef.isSubtypeOf(iterableRef)) {
+                    return true;
+                }
+            } catch (Exception ignored) {
+                // Classpath resolution failed, fall back to heuristic
+            }
+
+            // Heuristic check
+            String name = typeRef.getQualifiedName();
+            return name.contains("List") || 
+                   name.contains("Set") || 
+                   name.contains("Collection") || 
+                   name.contains("Iterable");
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Robust Sniper Configuration for preserving source format
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: Assume NoClasspath to prevent hard crashes on missing types
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new SpringDataProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

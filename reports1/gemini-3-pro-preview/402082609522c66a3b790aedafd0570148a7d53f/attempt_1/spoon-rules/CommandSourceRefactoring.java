@@ -1,0 +1,91 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class CommandSourceRefactoring {
+
+    /**
+     * Processor to handle the removal of org.spongepowered.api.command.CommandSource.
+     * It replaces usages with net.kyori.adventure.audience.Audience, which serves
+     * as the modern replacement for messaging capabilities in the target API (Sponge 8+).
+     */
+    public static class CommandSourceProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: Ensure candidate is not null
+            if (candidate == null) {
+                return false;
+            }
+
+            // check for parent import to avoid double processing or modifying import statements directly
+            // (Spoon handles imports automatically when types change in the body)
+            if (candidate.getParent() instanceof CtImport) {
+                return false;
+            }
+
+            // 1. Qualified Name Check (Defensive for NoClasspath)
+            // We use string comparison because type resolution might fail without classpath.
+            String qualifiedName = candidate.getQualifiedName();
+            return "org.spongepowered.api.command.CommandSource".equals(qualifiedName);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> oldTypeRef) {
+            // 2. Create the replacement type reference
+            // 'Audience' is the standard replacement for CommandSource in newer API versions for messaging.
+            // Note: Context-specific replacements (like CommandCause) might be needed for execution logic,
+            // but Audience is the safest structural supertype replacement for compilation.
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference("net.kyori.adventure.audience.Audience");
+
+            // 3. Replace the old reference with the new one
+            // We use replace() instead of mutating the existing reference to ensure 
+            // the AST is updated cleanly for the Sniper printer.
+            try {
+                oldTypeRef.replace(newTypeRef);
+                System.out.println("Refactored CommandSource to Audience at line " 
+                    + (oldTypeRef.getPosition().isValidPosition() ? oldTypeRef.getPosition().getLine() : "unknown"));
+            } catch (Exception e) {
+                System.err.println("Failed to replace reference at " + oldTypeRef.toString());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded)
+        String inputPath = "/home/kth/Documents/last_transformer/output/402082609522c66a3b790aedafd0570148a7d53f/ChangeSkin/sponge/src/main/java/com/github/games647/changeskin/sponge/task/SkinUploader.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/402082609522c66a3b790aedafd0570148a7d53f/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/402082609522c66a3b790aedafd0570148a7d53f/ChangeSkin/sponge/src/main/java/com/github/games647/changeskin/sponge/task/SkinUploader.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/402082609522c66a3b790aedafd0570148a7d53f/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Refactoring
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve code formatting and whitespace
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode to allow running without full dependency resolution
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // 4. Register the processor
+        launcher.addProcessor(new CommandSourceProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

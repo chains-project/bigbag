@@ -1,0 +1,229 @@
+{
+  "project" : "qa-catalogue",
+  "breakingCommit" : "43c824a24b09efd8b4b00449ce31cd121a6b23eb",
+  "dependency" : {
+    "groupId" : "de.gwdg.metadataqa",
+    "artifactId" : "metadata-qa-api",
+    "previousVersion" : "0.8.1",
+    "newVersion" : "0.9.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.8.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.9.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue/43c824a24b09efd8b4b00449ce31cd121a6b23eb.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/43c824a24b09efd8b4b00449ce31cd121a6b23eb/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/qa-catalogue/src/main/java/de/gwdg/metadataqa/marc/MarcFactory.java",
+    "errors" : [ {
+      "lineNumber" : 3,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class JsonBranch", "location: package de.gwdg.metadataqa.api.json" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue/src/main/java/de/gwdg/metadataqa/marc/MarcFactory.java",
+        "lineNumber" : 3,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.8.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.9.0.jar",
+        "generatedAt" : "2025-12-08T03:11:33.087872338Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "de.gwdg.metadataqa.api.json.JsonBranch",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "de.gwdg.metadataqa",
+            "artifactId" : "metadata-qa-api",
+            "version" : "0.8.1",
+            "coordinates" : "de.gwdg.metadataqa:metadata-qa-api:0.8.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.8.1.jar"
+          },
+          "lineNumber" : 3,
+          "codeLine" : "import de.gwdg.metadataqa.api.json.JsonBranch;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "de.gwdg.metadataqa.api.json.JsonBranch",
+            "declaringType" : "de.gwdg.metadataqa.api.json.JsonBranch",
+            "qualifiedSignature" : "de.gwdg.metadataqa.api.json.JsonBranch",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 58
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 313,
+      "columnNumber" : 64,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class JsonBranch_REMOVED", "location: class de.gwdg.metadataqa.marc.MarcFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue/src/main/java/de/gwdg/metadataqa/marc/MarcFactory.java",
+        "lineNumber" : 313,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.8.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.9.0.jar",
+        "generatedAt" : "2025-12-08T03:11:33.096487015Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.List",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 313,
+          "codeLine" : "  private static List<String> extractList(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 313,
+          "codeLine" : "  private static List<String> extractList(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "de.gwdg.metadataqa",
+            "artifactId" : "metadata-qa-api",
+            "version" : "0.9.0",
+            "coordinates" : "de.gwdg.metadataqa:metadata-qa-api:0.9.0",
+            "sourcePath" : "/home/kth/.m2/repository/de/gwdg/metadataqa/metadata-qa-api/0.9.0/metadata-qa-api-0.9.0.jar"
+          },
+          "lineNumber" : 313,
+          "codeLine" : "  private static List<String> extractList(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "declaringType" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "qualifiedSignature" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "JsonBranch_REMOVED",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 313,
+          "codeLine" : "  private static List<String> extractList(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 322,
+      "columnNumber" : 59,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class JsonBranch_REMOVED", "location: class de.gwdg.metadataqa.marc.MarcFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/qa-catalogue/src/main/java/de/gwdg/metadataqa/marc/MarcFactory.java",
+        "lineNumber" : 322,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.8.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/43c824a24b09efd8b4b00449ce31cd121a6b23eb/metadata-qa-api-0.9.0.jar",
+        "generatedAt" : "2025-12-08T03:11:33.097730098Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 322,
+          "codeLine" : "  private static String extractFirst(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "de.gwdg.metadataqa",
+            "artifactId" : "metadata-qa-api",
+            "version" : "0.9.0",
+            "coordinates" : "de.gwdg.metadataqa:metadata-qa-api:0.9.0",
+            "sourcePath" : "/home/kth/.m2/repository/de/gwdg/metadataqa/metadata-qa-api/0.9.0/metadata-qa-api-0.9.0.jar"
+          },
+          "lineNumber" : 322,
+          "codeLine" : "  private static String extractFirst(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "declaringType" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "qualifiedSignature" : "de.gwdg.metadataqa.api.model.pathcache.JsonPathCache",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "JsonBranch_REMOVED",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 322,
+          "codeLine" : "  private static String extractFirst(JsonPathCache cache, JsonBranch_REMOVED branch) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

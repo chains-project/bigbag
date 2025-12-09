@@ -1,0 +1,229 @@
+{
+  "project" : "minfraud-api-java",
+  "breakingCommit" : "42a220bd546d293886df0d5e3892cc3ff82f1091",
+  "dependency" : {
+    "groupId" : "com.maxmind.geoip2",
+    "artifactId" : "geoip2",
+    "previousVersion" : "2.16.1",
+    "newVersion" : "3.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java/42a220bd546d293886df0d5e3892cc3ff82f1091.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/42a220bd546d293886df0d5e3892cc3ff82f1091/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Email.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 39,
+      "message" : "package org.apache.commons.codec.digest does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Email.java",
+        "lineNumber" : 5,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar",
+        "generatedAt" : "2025-12-08T03:02:00.769278036Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 5,
+          "codeLine" : "import org.apache.commons.codec.digest.DigestUtils;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 153,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable DigestUtils", "location: class com.maxmind.minfraud.request.Email" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Email.java",
+        "lineNumber" : 153,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar",
+        "generatedAt" : "2025-12-08T03:02:00.770094131Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils#md5Hex(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 153,
+          "codeLine" : "            return DigestUtils.md5Hex(cleanAddress(address));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 153,
+          "codeLine" : "            return DigestUtils.md5Hex(cleanAddress(address));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.maxmind.minfraud.request.Email#cleanAddress(java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/maxmind/minfraud/request/Email.java"
+          },
+          "lineNumber" : 153,
+          "codeLine" : "            return DigestUtils.md5Hex(cleanAddress(address));",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.maxmind.minfraud.request.Email::address",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/maxmind/minfraud/request/Email.java"
+          },
+          "lineNumber" : 153,
+          "codeLine" : "            return DigestUtils.md5Hex(cleanAddress(address));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Account.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 39,
+      "message" : "package org.apache.commons.codec.digest does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Account.java",
+        "lineNumber" : 5,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar",
+        "generatedAt" : "2025-12-08T03:02:00.770443412Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 5,
+          "codeLine" : "import org.apache.commons.codec.digest.DigestUtils;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 49,
+      "columnNumber" : 32,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable DigestUtils", "location: class com.maxmind.minfraud.request.Account.Builder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/minfraud-api-java/src/main/java/com/maxmind/minfraud/request/Account.java",
+        "lineNumber" : 49,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-2.16.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/42a220bd546d293886df0d5e3892cc3ff82f1091/geoip2-3.0.0.jar",
+        "generatedAt" : "2025-12-08T03:02:00.770926585Z",
+        "constructs" : [ {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "com.maxmind.minfraud.request.Account$Builder::usernameMd5",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/maxmind/minfraud/request/Account.java"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            this.usernameMd5 = DigestUtils.md5Hex(username);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.maxmind.minfraud.request.Account$Builder",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/maxmind/minfraud/request/Account.java"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            this.usernameMd5 = DigestUtils.md5Hex(username);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils#md5Hex(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            this.usernameMd5 = DigestUtils.md5Hex(username);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.commons.codec.digest.DigestUtils",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "            this.usernameMd5 = DigestUtils.md5Hex(username);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

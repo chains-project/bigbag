@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b8f92ff37d1aed054d8320283fd6d6a492703a55/attempt_1/prompts/__flacoco__src__main__java__fr__spoonlabs__flacoco__core__test__strategies__classloader__finder__classes__impl__SourceFolderFinder.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b8f92ff37d1aed054d8320283fd6d6a492703a55/attempt_1/prompts/__flacoco__src__main__java__fr__spoonlabs__flacoco__core__test__strategies__classloader__finder__classes__impl__SourceFolderFinder.java_prompt_4_llm.txt",
+  "timestamp": 1765184259.9299912,
+  "duration_seconds": 87.2342791557312,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\n/**\n * Refactoring script to handle the migration of DirectoryScanner.\n * Based on the diff, the class org.apache.maven.plugin.surefire.util.DirectoryScanner\n * is identified for removal/change. In the context of Maven Surefire 3.x, \n * this class was moved to org.apache.maven.surefire.api.util.DirectoryScanner.\n */\npublic class DirectoryScannerRefactoring {\n\n    public static class DirectoryScannerProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final String OLD_QUALIFIED_NAME = \"org.apache.maven.plugin.surefire.util.DirectoryScanner\";\n        private static final String NEW_QUALIFIED_NAME = \"org.apache.maven.surefire.api.util.DirectoryScanner\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive coding for NoClasspath mode\n            if (candidate == null) return false;\n            \n            String qName = candidate.getQualifiedName();\n            // Handle potential nulls in incomplete ASTs\n            if (qName == null) return false;\n\n            // Strictly match the old fully qualified name\n            return qName.equals(OLD_QUALIFIED_NAME);\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            Factory factory = getFactory();\n            \n            // Strategy: Replace the TypeReference. This handles imports, variable declarations, \n            // and constructor invocations (new DirectoryScanner(...)) simultaneously.\n            \n            CtTypeReference<?> newTypeRef = factory.Type().createReference(NEW_QUALIFIED_NAME);\n            \n            // Preserve generic type arguments if they exist (though unlikely for this specific class)\n            if (!candidate.getActualTypeArguments().isEmpty()) {\n                newTypeRef.setActualTypeArguments(candidate.getActualTypeArguments());\n            }\n\n            // Perform replacement\n            candidate.replace(newTypeRef);\n            \n            System.out.println(\"Refactored DirectoryScanner usage at line \" + \n                (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden or hardcoded as needed)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS FOR SOURCE PRESERVATION\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting and indentation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Defensive mode for missing dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new DirectoryScannerProcessor());\n        \n        try {\n            launcher.run();\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1611,
+      "candidates_token_count": 774,
+      "total_token_count": 8167,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

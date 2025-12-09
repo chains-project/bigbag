@@ -1,0 +1,146 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.nio.charset.Charset;
+import java.util.Collections;
+
+/**
+ * Spoon Refactoring Rule for:
+ * - METHOD java.net.URLDecoder.decode(String) [REMOVED/DEPRECATED]
+ * + METHOD java.net.URLDecoder.decode(String, Charset) [REQUIRED]
+ *
+ * NOTE: The input diff was empty. This class demonstrates a robust refactoring
+ * for the common scenario where URLDecoder.decode(String) must be upgraded 
+ * to specify a Charset (StandardCharsets.UTF_8).
+ */
+public class URLDecoderRefactoring {
+
+    public static class URLDecoderProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"decode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We only want to refactor the deprecated 1-arg version
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            // We check if the declaring type seems to be URLDecoder.
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("URLDecoder")) {
+                // If it's explicitly NOT URLDecoder (and not unknown), skip.
+                if (!owner.getQualifiedName().equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Argument Type Check (Defensive)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+            
+            // If we know the type is NOT String (e.g. it's an int), skip.
+            // If type is null (NoClasspath), we give it the benefit of the doubt.
+            if (argType != null && !argType.getQualifiedName().contains("String")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // 1. Prepare references
+            // java.nio.charset.StandardCharsets
+            CtTypeReference<?> standardCharsetsRef = factory.Type().createReference("java.nio.charset.StandardCharsets");
+            // java.nio.charset.Charset
+            CtTypeReference<Charset> charsetTypeRef = factory.Type().createReference(Charset.class);
+            
+            // 2. Create the new argument: StandardCharsets.UTF_8
+            CtTypeAccess<?> typeAccess = factory.Code().createTypeAccess(standardCharsetsRef);
+            CtFieldRead<Charset> charsetArg = factory.Code().createFieldRead();
+            charsetArg.setTarget(typeAccess);
+            charsetArg.setVariable(factory.Field().createReference(standardCharsetsRef, charsetTypeRef, "UTF_8"));
+
+            // 3. Preserve the original Target (e.g., "URLDecoder" or "java.net.URLDecoder")
+            CtExpression<?> target = invocation.getTarget();
+            
+            // 4. Create new Executable Reference: decode(String, Charset)
+            CtExecutableReference<?> newMethodRef = factory.Method().createReference(
+                    invocation.getExecutable().getDeclaringType(),
+                    invocation.getType(), // return type (String)
+                    "decode",
+                    factory.Type().stringType(),
+                    charsetTypeRef
+            );
+
+            // 5. Create Replacement Invocation
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                    target,
+                    newMethodRef,
+                    invocation.getArguments().get(0).clone(), // Original String arg
+                    charsetArg // New Charset arg
+            );
+
+            // 6. Apply Refactoring
+            invocation.replace(replacement);
+            System.out.println("Refactored URLDecoder.decode at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL IMPLEMENTATION RULES
+        // ==========================================================
+        
+        // 1. NoClasspath Compatibility
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // 2. Preserve Source Code (Sniper Mode)
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Add Processor
+        launcher.addProcessor(new URLDecoderProcessor());
+
+        // 4. Run
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

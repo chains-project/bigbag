@@ -1,0 +1,150 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldAccess;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
+public class LogbackRefactoring {
+
+    /**
+     * Processor to migrate ch.qos.logback.classic.Logger.setLevel(Level) 
+     * to setLevel(String) as implied by the addition of setLevel(String) 
+     * in the LoggerModel hierarchy.
+     */
+    public static class LevelProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        private static final Set<String> STANDARD_LEVELS = new HashSet<>(Arrays.asList(
+            "OFF", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"setLevel".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (Must be 1)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Analyze Argument Type
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            // Defensive Check: If we already have a String, skip (already migrated or unrelated)
+            if (argType != null && "java.lang.String".equals(argType.getQualifiedName())) {
+                return false;
+            }
+
+            // 4. Target Specific Type: ch.qos.logback.classic.Level
+            // In NoClasspath, we rely on String matching or heuristic
+            boolean isLevelType = false;
+            if (argType != null) {
+                String qualifiedName = argType.getQualifiedName();
+                if (qualifiedName.contains("ch.qos.logback.classic.Level")) {
+                    isLevelType = true;
+                }
+            }
+            
+            // Heuristic for NoClasspath: Check if code looks like "Level.INFO"
+            if (!isLevelType) {
+                String argString = arg.toString();
+                if (argString.startsWith("Level.") || argString.contains(".Level.")) {
+                    isLevelType = true;
+                }
+            }
+
+            return isLevelType;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            CtExpression<?> replacement = null;
+
+            // Strategy 1: Constant Replacement (Level.INFO -> "INFO")
+            if (originalArg instanceof CtFieldAccess) {
+                CtFieldAccess<?> fieldAccess = (CtFieldAccess<?>) originalArg;
+                CtTypeReference<?> declaringType = fieldAccess.getVariable().getDeclaringType();
+
+                // Check if the field belongs to a type named "Level"
+                boolean isLevelClass = declaringType != null && declaringType.getQualifiedName().contains("Level");
+                // Fallback check on text if type resolution fails
+                if (!isLevelClass && fieldAccess.getTarget() != null && fieldAccess.getTarget().toString().endsWith("Level")) {
+                    isLevelClass = true;
+                }
+
+                if (isLevelClass) {
+                    String levelName = fieldAccess.getVariable().getSimpleName();
+                    if (STANDARD_LEVELS.contains(levelName)) {
+                        replacement = factory.Code().createLiteral(levelName);
+                    }
+                }
+            }
+
+            // Strategy 2: Dynamic Replacement (arg -> arg.toString())
+            // Used for variables or complex expressions (e.g. setLevel(myLevel))
+            if (replacement == null) {
+                CtInvocation<?> toStringInvocation = factory.Core().createInvocation();
+                toStringInvocation.setTarget(originalArg.clone());
+                toStringInvocation.setExecutable(
+                    factory.Method().createReference(
+                        factory.Type().objectType(), 
+                        factory.Type().stringType(), 
+                        "toString"
+                    )
+                );
+                replacement = toStringInvocation;
+            }
+
+            // Apply replacement
+            originalArg.replace(replacement);
+            System.out.println("Refactored setLevel(Level) to setLevel(String) at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Configuration paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Robust Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Use Sniper Printer to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode to handle missing dependencies gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add Processor
+        launcher.addProcessor(new LevelProcessor());
+
+        // Execute
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,105 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtLiteral;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Refactoring Rule Generated for Hypothetical Diff (since input was empty):
+ * - METHOD com.http.Client.get(String) [REMOVED]
+ * + METHOD com.http.Client.get(String, int) [ADDED]
+ * 
+ * Strategy:
+ * Add default timeout argument (5000) to 'get' calls.
+ */
+public class HttpClientRefactoring {
+
+    public static class ClientGetProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"get".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (We are looking for the old signature with 1 arg)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we assume the first arg is String. 
+            // If type is known (not null) and is NOT String, skip.
+            // If type is null (unknown), we assume it might be our target and process carefully.
+            if (type != null && !type.getQualifiedName().equals("java.lang.String")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // If owner is known, check if it looks like our Client. If unknown, process anyway to be safe.
+            if (owner != null && !owner.getQualifiedName().contains("Client") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Get existing argument
+            CtExpression<?> urlArg = invocation.getArguments().get(0);
+
+            // Transformation: Add second argument (int timeout = 5000)
+            CtLiteral<Integer> timeoutArg = factory.Code().createLiteral(5000);
+            
+            // We can simply add the argument to the invocation's argument list.
+            // Spoon's Sniper printer handles the comma insertion and preserving formatting of the first arg.
+            invocation.addArgument(timeoutArg);
+
+            System.out.println("Refactored Client.get() at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/handler/request/RequestMessageHandlerService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation strictly
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ClientGetProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

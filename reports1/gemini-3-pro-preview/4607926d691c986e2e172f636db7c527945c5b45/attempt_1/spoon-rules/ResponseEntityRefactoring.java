@@ -1,0 +1,130 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtTypedElement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class ResponseEntityRefactoring {
+
+    /**
+     * Processor to handle the breaking change in Spring 6 / Spring Boot 3 where
+     * ResponseEntity.getStatusCode() changed return type from HttpStatus (enum) to HttpStatusCode (interface).
+     * 
+     * Strategy:
+     * Identify calls to getStatusCode() where the result is explicitly expected to be of type 'HttpStatus'.
+     * Inject a cast: (HttpStatus) response.getStatusCode().
+     */
+    public static class StatusCodeProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            if (!"getStatusCode".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (getStatusCode() takes no args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Defensive Context Check for NoClasspath
+            // We only refactor if the result is explicitly being used as 'HttpStatus'.
+            // If the code uses 'var' or 'HttpStatusCode', no refactoring is required/safe to do blindly.
+            CtElement parent = candidate.getParent();
+            
+            // Check if already casted (Idempotency)
+            if (parent instanceof CtTypeCast) {
+                return false;
+            }
+
+            CtTypeReference<?> expectedType = null;
+
+            if (parent instanceof CtLocalVariable) {
+                // Case: HttpStatus status = response.getStatusCode();
+                expectedType = ((CtLocalVariable<?>) parent).getType();
+            } else if (parent instanceof CtAssignment) {
+                // Case: status = response.getStatusCode();
+                CtExpression<?> assigned = ((CtAssignment<?, ?>) parent).getAssigned();
+                expectedType = assigned.getType();
+            } else if (parent instanceof CtReturn) {
+                // Case: public HttpStatus foo() { return response.getStatusCode(); }
+                CtMethod<?> method = candidate.getParent(CtMethod.class);
+                if (method != null) {
+                    expectedType = method.getType();
+                }
+            }
+
+            // If we couldn't determine expectation or expectation is not HttpStatus, skip.
+            if (expectedType == null) {
+                return false;
+            }
+
+            // Loose check for "HttpStatus" to handle FQN or SimpleName in NoClasspath
+            String typeName = expectedType.getQualifiedName();
+            return typeName.endsWith("HttpStatus") || typeName.equals("HttpStatus");
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // Create reference to org.springframework.http.HttpStatus
+            // We use the simple name "HttpStatus" initially to respect existing imports,
+            // but rely on Spoon to handle FQN if necessary.
+            CtTypeReference<Object> httpStatusRef = factory.Type().createReference("org.springframework.http.HttpStatus");
+
+            // Create the cast: (HttpStatus) invocation
+            CtTypeCast<?> cast = factory.Code().createTypeCast(httpStatusRef, invocation.clone());
+
+            // Replace the original invocation with the casted version
+            invocation.replace(cast);
+
+            System.out.println("Refactored: Injected (HttpStatus) cast at " 
+                + (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown line"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/4607926d691c986e2e172f636db7c527945c5b45/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4607926d691c986e2e172f636db7c527945c5b45/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/4607926d691c986e2e172f636db7c527945c5b45/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/endpoint/MessageController.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4607926d691c986e2e172f636db7c527945c5b45/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments to preserve Javadoc/inline comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StatusCodeProcessor());
+        
+        try {
+            System.out.println("Starting Refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring Complete. Output: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

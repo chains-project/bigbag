@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/a80dac86d1caa3958c45c036d93a7d9231d88fbf/attempt_1/prompts/__pay-adminusers__src__test__java__uk__gov__pay__adminusers__queue__event__EventMessageHandlerTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/a80dac86d1caa3958c45c036d93a7d9231d88fbf/attempt_1/prompts/__pay-adminusers__src__test__java__uk__gov__pay__adminusers__queue__event__EventMessageHandlerTest.java_prompt_4_llm.txt",
+  "timestamp": 1765179530.4812071,
+  "duration_seconds": 117.68191266059875,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtFieldAccess;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Set;\nimport java.util.HashSet;\nimport java.util.Arrays;\n\npublic class LogbackRefactoring {\n\n    /**\n     * Processor to migrate ch.qos.logback.classic.Logger.setLevel(Level) \n     * to setLevel(String) as implied by the addition of setLevel(String) \n     * in the LoggerModel hierarchy.\n     */\n    public static class LevelProcessor extends AbstractProcessor<CtInvocation<?>> {\n        \n        private static final Set<String> STANDARD_LEVELS = new HashSet<>(Arrays.asList(\n            \"OFF\", \"ERROR\", \"WARN\", \"INFO\", \"DEBUG\", \"TRACE\", \"ALL\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            if (!\"setLevel\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Argument Count (Must be 1)\n            if (candidate.getArguments().size() != 1) {\n                return false;\n            }\n\n            // 3. Analyze Argument Type\n            CtExpression<?> arg = candidate.getArguments().get(0);\n            CtTypeReference<?> argType = arg.getType();\n\n            // Defensive Check: If we already have a String, skip (already migrated or unrelated)\n            if (argType != null && \"java.lang.String\".equals(argType.getQualifiedName())) {\n                return false;\n            }\n\n            // 4. Target Specific Type: ch.qos.logback.classic.Level\n            // In NoClasspath, we rely on String matching or heuristic\n            boolean isLevelType = false;\n            if (argType != null) {\n                String qualifiedName = argType.getQualifiedName();\n                if (qualifiedName.contains(\"ch.qos.logback.classic.Level\")) {\n                    isLevelType = true;\n                }\n            }\n            \n            // Heuristic for NoClasspath: Check if code looks like \"Level.INFO\"\n            if (!isLevelType) {\n                String argString = arg.toString();\n                if (argString.startsWith(\"Level.\") || argString.contains(\".Level.\")) {\n                    isLevelType = true;\n                }\n            }\n\n            return isLevelType;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            CtExpression<?> originalArg = invocation.getArguments().get(0);\n            CtExpression<?> replacement = null;\n\n            // Strategy 1: Constant Replacement (Level.INFO -> \"INFO\")\n            if (originalArg instanceof CtFieldAccess) {\n                CtFieldAccess<?> fieldAccess = (CtFieldAccess<?>) originalArg;\n                CtTypeReference<?> declaringType = fieldAccess.getVariable().getDeclaringType();\n\n                // Check if the field belongs to a type named \"Level\"\n                boolean isLevelClass = declaringType != null && declaringType.getQualifiedName().contains(\"Level\");\n                // Fallback check on text if type resolution fails\n                if (!isLevelClass && fieldAccess.getTarget() != null && fieldAccess.getTarget().toString().endsWith(\"Level\")) {\n                    isLevelClass = true;\n                }\n\n                if (isLevelClass) {\n                    String levelName = fieldAccess.getVariable().getSimpleName();\n                    if (STANDARD_LEVELS.contains(levelName)) {\n                        replacement = factory.Code().createLiteral(levelName);\n                    }\n                }\n            }\n\n            // Strategy 2: Dynamic Replacement (arg -> arg.toString())\n            // Used for variables or complex expressions (e.g. setLevel(myLevel))\n            if (replacement == null) {\n                CtInvocation<?> toStringInvocation = factory.Core().createInvocation();\n                toStringInvocation.setTarget(originalArg.clone());\n                toStringInvocation.setExecutable(\n                    factory.Method().createReference(\n                        factory.Type().objectType(), \n                        factory.Type().stringType(), \n                        \"toString\"\n                    )\n                );\n                replacement = toStringInvocation;\n            }\n\n            // Apply replacement\n            originalArg.replace(replacement);\n            System.out.println(\"Refactored setLevel(Level) to setLevel(String) at line \" + invocation.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Configuration paths\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL: Configure Environment for Robust Source Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Use Sniper Printer to preserve formatting of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Enable NoClasspath mode to handle missing dependencies gracefully\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Add Processor\n        launcher.addProcessor(new LevelProcessor());\n\n        // Execute\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1756,
+      "candidates_token_count": 1318,
+      "total_token_count": 11029,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

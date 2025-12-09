@@ -1,0 +1,125 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+/**
+ * Spoon Transformation Rule.
+ * 
+ * HYPOTHETICAL DIFF (Since input was empty):
+ * - METHOD com.example.API.process(int) [REMOVED]
+ * + METHOD com.example.API.process(String) [ADDED]
+ * 
+ * Strategy: Wrap the integer argument in String.valueOf(...).
+ */
+public class APIRefactoring {
+
+    public static class ProcessMethodProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"process".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we detect it is ALREADY a String, skip it.
+            if (type != null && "java.lang.String".equals(type.getQualifiedName())) {
+                return false;
+            }
+            
+            // If it is explicitly NOT an int (and not null/unknown), skip it.
+            // In NoClasspath, null types are common, so we treat null as "potential candidate".
+            if (type != null && !type.getQualifiedName().equals("int") && !type.getQualifiedName().equals("java.lang.Integer")) {
+                // It might be a complex expression where type resolution failed, 
+                // but if it resolved to something else (e.g. boolean), skip.
+                return false;
+            }
+
+            // 4. Owner/Scope Check
+            // We only want to refactor methods belonging to "com.example.API"
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && !declaringType.getQualifiedName().contains("API") && !declaringType.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation strategy: String.valueOf(originalArg)
+            
+            // 1. Create reference to java.lang.String
+            CtTypeReference<String> stringRef = factory.Type().createReference(String.class);
+
+            // 2. Create invocation: String.valueOf(...)
+            CtInvocation<?> valueOfInvocation = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(stringRef),
+                factory.Method().createReference(
+                    stringRef, 
+                    stringRef, // return type
+                    "valueOf", 
+                    factory.Type().objectType() // arg type (generic object/int)
+                ),
+                originalArg.clone() // Clone the original argument to move it into the new wrapper
+            );
+
+            // 3. Replace the old argument with the new wrapper
+            originalArg.replace(valueOfInvocation);
+            
+            System.out.println("Refactored API.process(int) at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve indentation/formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ProcessMethodProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__UploadEntityRequestTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9836e07e553e29f16ee35b5d7e4d0370e1789ecd/attempt_1/prompts/__docker-adapter__src__test__java__com__artipie__docker__http__UploadEntityRequestTest.java_prompt_4_llm.txt",
+  "timestamp": 1765176433.8806615,
+  "duration_seconds": 80.88260006904602,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.List;\n\n/**\n * Refactoring Script generated for:\n * - METHOD com.utils.Timer.setDelay(int) [REMOVED]\n * + METHOD com.utils.Timer.setDelay(java.time.Duration) [ADDED]\n * \n * Note: No specific diff was provided in the input block. \n * This code implements the migration logic for the example scenario provided in the system prompt.\n */\npublic class TimerRefactoring {\n\n    /**\n     * Processor to migrate Timer.setDelay(int) to Timer.setDelay(Duration.ofMillis(int)).\n     */\n    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            String methodName = candidate.getExecutable().getSimpleName();\n            if (!\"setDelay\".equals(methodName)) {\n                return false;\n            }\n\n            // 2. Check Argument Count\n            List<CtExpression<?>> args = candidate.getArguments();\n            if (args.size() != 1) {\n                return false;\n            }\n\n            // 3. Check Owner Type (Defensive for NoClasspath)\n            // We use simple string matching on the qualified name to avoid resolution errors.\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType != null && !declaringType.getQualifiedName().contains(\"Timer\")) {\n                // If we are sure it's NOT a Timer (and not unknown), skip it.\n                // If it's unknown/null, we proceed cautiously.\n                return false;\n            }\n\n            // 4. Check Argument Type\n            CtExpression<?> arg = args.get(0);\n            CtTypeReference<?> type = arg.getType();\n\n            // If the type is explicitly known to be 'Duration', it's already migrated.\n            if (type != null && type.getQualifiedName().contains(\"Duration\")) {\n                return false;\n            }\n\n            // If type is null (NoClasspath cannot resolve) or is primitive int, we process it.\n            return true;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            Factory factory = getFactory();\n            CtExpression<?> originalArg = invocation.getArguments().get(0);\n\n            // Create reference to java.time.Duration\n            CtTypeReference<?> durationRef = factory.Type().createReference(\"java.time.Duration\");\n\n            // Create invocation: Duration.ofMillis(originalArg)\n            CtInvocation<?> wrappingInvocation = factory.Code().createInvocation(\n                factory.Code().createTypeAccess(durationRef),\n                factory.Method().createReference(\n                    durationRef,\n                    durationRef, // return type\n                    \"ofMillis\",\n                    factory.Type().integerPrimitiveType() // param type\n                ),\n                originalArg.clone() // Clone the original argument to move it\n            );\n\n            // Replace the original argument with the wrapped invocation\n            originalArg.replace(wrappingInvocation);\n\n            System.out.println(\"Refactored Timer.setDelay at \" + \n                (invocation.getPosition().isValidPosition() ? invocation.getPosition().toString() : \"unknown position\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        String inputPath = args.length > 0 ? args[0] : \"src/main/java\";\n        String outputPath = args.length > 1 ? args[1] : \"target/spoon-refactored\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // --- CRITICAL CONFIGURATION FOR SOURCE PRESERVATION ---\n        \n        // 1. Enable NoClasspath mode (Defensive coding assumption)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // 2. Preserve Comments\n        launcher.getEnvironment().setCommentEnabled(true);\n\n        // 3. Force SniperJavaPrettyPrinter for high-fidelity source reproduction\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n\n        // --- ADD PROCESSOR ---\n        launcher.addProcessor(new TimerProcessor());\n\n        System.out.println(\"Starting refactoring...\");\n        try {\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1512,
+      "candidates_token_count": 1121,
+      "total_token_count": 7600,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

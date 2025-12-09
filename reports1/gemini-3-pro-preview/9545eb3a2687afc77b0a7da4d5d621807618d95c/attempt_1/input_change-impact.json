@@ -1,0 +1,1409 @@
+{
+  "project" : "openfire-hazelcast-plugin",
+  "breakingCommit" : "9545eb3a2687afc77b0a7da4d5d621807618d95c",
+  "dependency" : {
+    "groupId" : "com.hazelcast",
+    "artifactId" : "hazelcast",
+    "previousVersion" : "3.12.5",
+    "newVersion" : "5.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/9545eb3a2687afc77b0a7da4d5d621807618d95c.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/9545eb3a2687afc77b0a7da4d5d621807618d95c/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+    "errors" : [ {
+      "lineNumber" : 22,
+      "columnNumber" : 28,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MaxSizeConfig", "location: package com.hazelcast.config" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 22,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.858290015Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.config.MaxSizeConfig",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 22,
+          "codeLine" : "import com.hazelcast.config.MaxSizeConfig;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.config.MaxSizeConfig",
+            "declaringType" : "com.hazelcast.config.MaxSizeConfig",
+            "qualifiedSignature" : "com.hazelcast.config.MaxSizeConfig",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 17
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 27,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Cluster", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.860644040Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.Cluster",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "import com.hazelcast.core.Cluster;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Cluster",
+            "declaringType" : "com.hazelcast.core.Cluster",
+            "qualifiedSignature" : "com.hazelcast.core.Cluster",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 30,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 30,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.862977098Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "import com.hazelcast.core.Member;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 149,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Cluster", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusteredCacheFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 149,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.865692470Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Cluster",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 149,
+          "codeLine" : "    private static Cluster cluster = null;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Cluster",
+            "declaringType" : "com.hazelcast.core.Cluster",
+            "qualifiedSignature" : "com.hazelcast.core.Cluster",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 501,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusteredCacheFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 501,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.868369568Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 501,
+          "codeLine" : "    private Member getMember(final byte[] nodeID) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        }, {
+          "constructType" : "ARRAY_TYPE_REFERENCE",
+          "signature" : "byte[]",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 501,
+          "codeLine" : "    private Member getMember(final byte[] nodeID) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 655,
+      "columnNumber" : 42,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusteredCacheFactory" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCacheFactory.java",
+        "lineNumber" : 655,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.870747703Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.jivesoftware.openfire.cluster.NodeID",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.igniterealtime.openfire",
+            "artifactId" : "xmppserver",
+            "version" : "4.7.0-beta",
+            "coordinates" : "org.igniterealtime.openfire:xmppserver:4.7.0-beta",
+            "sourcePath" : "/home/kth/.m2/repository/org/igniterealtime/openfire/xmppserver/4.7.0-beta/xmppserver-4.7.0-beta.jar"
+          },
+          "lineNumber" : 655,
+          "codeLine" : "    public static NodeID getNodeID(final Member member) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 655,
+          "codeLine" : "    public static NodeID getNodeID(final Member member) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+    "errors" : [ {
+      "lineNumber" : 18,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Cluster", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 18,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.871587932Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.Cluster",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 18,
+          "codeLine" : "import com.hazelcast.core.Cluster;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Cluster",
+            "declaringType" : "com.hazelcast.core.Cluster",
+            "qualifiedSignature" : "com.hazelcast.core.Cluster",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 23,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 23,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.872361473Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 23,
+          "codeLine" : "import com.hazelcast.core.Member;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 24,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MemberAttributeEvent", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.873275002Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.MemberAttributeEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "import com.hazelcast.core.MemberAttributeEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MemberAttributeEvent",
+            "declaringType" : "com.hazelcast.core.MemberAttributeEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MemberAttributeEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 25,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MembershipEvent", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 25,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.874127845Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.MembershipEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 25,
+          "codeLine" : "import com.hazelcast.core.MembershipEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MembershipEvent",
+            "declaringType" : "com.hazelcast.core.MembershipEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MembershipEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 26,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MembershipListener", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 26,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.874974398Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.MembershipListener",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 26,
+          "codeLine" : "import com.hazelcast.core.MembershipListener;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MembershipListener",
+            "declaringType" : "com.hazelcast.core.MembershipListener",
+            "qualifiedSignature" : "com.hazelcast.core.MembershipListener",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 52,
+      "columnNumber" : 41,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class MembershipListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 52,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.879024202Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.MembershipListener",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "public class ClusterListener implements MembershipListener, LifecycleListener {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MembershipListener",
+            "declaringType" : "com.hazelcast.core.MembershipListener",
+            "qualifiedSignature" : "com.hazelcast.core.MembershipListener",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 3
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.LifecycleListener",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.fasterxml.jackson.core",
+            "artifactId" : "jackson-core",
+            "version" : "2.12.6",
+            "coordinates" : "com.fasterxml.jackson.core:jackson-core:2.12.6",
+            "sourcePath" : "/home/kth/.m2/repository/com/hazelcast/hazelcast/5.1/hazelcast-5.1.jar"
+          },
+          "lineNumber" : 52,
+          "codeLine" : "public class ClusterListener implements MembershipListener, LifecycleListener {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.LifecycleListener",
+            "declaringType" : "com.hazelcast.core.LifecycleListener",
+            "qualifiedSignature" : "com.hazelcast.core.LifecycleListener",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 60,
+      "columnNumber" : 19,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Cluster", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusterListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 60,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.879878748Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Cluster",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "    private final Cluster cluster;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Cluster",
+            "declaringType" : "com.hazelcast.core.Cluster",
+            "qualifiedSignature" : "com.hazelcast.core.Cluster",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 75,
+      "columnNumber" : 27,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Cluster", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusterListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 75,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.880712331Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Cluster",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 75,
+          "codeLine" : "    ClusterListener(final Cluster cluster) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Cluster",
+            "declaringType" : "com.hazelcast.core.Cluster",
+            "qualifiedSignature" : "com.hazelcast.core.Cluster",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 15
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 155,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MembershipEvent", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusterListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 155,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.881566280Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 155,
+          "codeLine" : "    public void memberAdded(final MembershipEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.MembershipEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 155,
+          "codeLine" : "    public void memberAdded(final MembershipEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MembershipEvent",
+            "declaringType" : "com.hazelcast.core.MembershipEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MembershipEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 228,
+      "columnNumber" : 37,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MembershipEvent", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusterListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 228,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.882424956Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 228,
+          "codeLine" : "    public void memberRemoved(final MembershipEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.MembershipEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 228,
+          "codeLine" : "    public void memberRemoved(final MembershipEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MembershipEvent",
+            "declaringType" : "com.hazelcast.core.MembershipEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MembershipEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 13
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 271,
+      "columnNumber" : 46,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MemberAttributeEvent", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusterListener" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusterListener.java",
+        "lineNumber" : 271,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.883272631Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "void",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 271,
+          "codeLine" : "    public void memberAttributeChanged(final MemberAttributeEvent event) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.MemberAttributeEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 271,
+          "codeLine" : "    public void memberAttributeChanged(final MemberAttributeEvent event) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MemberAttributeEvent",
+            "declaringType" : "com.hazelcast.core.MemberAttributeEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MemberAttributeEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 12
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+    "errors" : [ {
+      "lineNumber" : 20,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class IMap", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+        "lineNumber" : 20,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.884521363Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.IMap",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 20,
+          "codeLine" : "import com.hazelcast.core.IMap;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.IMap",
+            "declaringType" : "com.hazelcast.core.IMap",
+            "qualifiedSignature" : "com.hazelcast.core.IMap",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 99
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 21,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class MapEvent", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+        "lineNumber" : 21,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.885602494Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.MapEvent",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 21,
+          "codeLine" : "import com.hazelcast.core.MapEvent;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.MapEvent",
+            "declaringType" : "com.hazelcast.core.MapEvent",
+            "qualifiedSignature" : "com.hazelcast.core.MapEvent",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 23,
+      "columnNumber" : 29,
+      "message" : "package com.hazelcast.monitor does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+        "lineNumber" : 23,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.886664316Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.monitor.LocalMapStats",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 23,
+          "codeLine" : "import com.hazelcast.monitor.LocalMapStats;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.monitor.LocalMapStats",
+            "declaringType" : "com.hazelcast.monitor.LocalMapStats",
+            "qualifiedSignature" : "com.hazelcast.monitor.LocalMapStats",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 29
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 58,
+      "columnNumber" : 11,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class IMap", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusteredCache<K,V>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+        "lineNumber" : 58,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.887893223Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.IMap",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 58,
+          "codeLine" : "    final IMap<K, V> map;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.IMap",
+            "declaringType" : "com.hazelcast.core.IMap",
+            "qualifiedSignature" : "com.hazelcast.core.IMap",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 99
+          } ]
+        }, {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "K extends java.io.Serializable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 58,
+          "codeLine" : "    final IMap<K, V> map;",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "V extends java.io.Serializable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 58,
+          "codeLine" : "    final IMap<K, V> map;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 74,
+      "columnNumber" : 55,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class IMap", "location: class org.jivesoftware.openfire.plugin.util.cache.ClusteredCache<K,V>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cache/ClusteredCache.java",
+        "lineNumber" : 74,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.896600744Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 74,
+          "codeLine" : "    protected ClusteredCache(final String name, final IMap<K, V> cache) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.IMap",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 74,
+          "codeLine" : "    protected ClusteredCache(final String name, final IMap<K, V> cache) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.IMap",
+            "declaringType" : "com.hazelcast.core.IMap",
+            "qualifiedSignature" : "com.hazelcast.core.IMap",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 99
+          } ]
+        }, {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "K extends java.io.Serializable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 74,
+          "codeLine" : "    protected ClusteredCache(final String name, final IMap<K, V> cache) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_PARAMETER_REFERENCE",
+          "signature" : "V extends java.io.Serializable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 74,
+          "codeLine" : "    protected ClusteredCache(final String name, final IMap<K, V> cache) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cluster/HazelcastClusterNodeInfo.java",
+    "errors" : [ {
+      "lineNumber" : 24,
+      "columnNumber" : 26,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: package com.hazelcast.core" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cluster/HazelcastClusterNodeInfo.java",
+        "lineNumber" : 24,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.896918843Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 24,
+          "codeLine" : "import com.hazelcast.core.Member;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 41,
+      "columnNumber" : 43,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Member", "location: class org.jivesoftware.openfire.plugin.util.cluster.HazelcastClusterNodeInfo" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/openfire-hazelcast-plugin/src/java/org/jivesoftware/openfire/plugin/util/cluster/HazelcastClusterNodeInfo.java",
+        "lineNumber" : 41,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-5.1.jar",
+        "generatedAt" : "2025-12-08T06:26:48.897155732Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.hazelcast.core.Member",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.hazelcast",
+            "artifactId" : "hazelcast",
+            "version" : "3.12.5",
+            "coordinates" : "com.hazelcast:hazelcast:3.12.5",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9545eb3a2687afc77b0a7da4d5d621807618d95c/hazelcast-3.12.5.jar"
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    public HazelcastClusterNodeInfo(final Member member, final long joinedTime) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.hazelcast.core.Member",
+            "declaringType" : "com.hazelcast.core.Member",
+            "qualifiedSignature" : "com.hazelcast.core.Member",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 28
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "long",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "JDK",
+            "sourcePath" : null
+          },
+          "lineNumber" : 41,
+          "codeLine" : "    public HazelcastClusterNodeInfo(final Member member, final long joinedTime) {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

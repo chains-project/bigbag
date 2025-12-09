@@ -1,0 +1,87 @@
+Based on the dependency diff, the class `com.google.cloud.pubsublite.PublishMetadata` has been removed. In the context of the Google Cloud Pub/Sub Lite library, this class was replaced by `com.google.cloud.pubsublite.MessageMetadata`. The modification to `Publisher` implies that methods which previously returned `PublishMetadata` (wrapped in futures) now return `MessageMetadata`.
+
+The refactoring strategy is to identify all references to the old class (including in imports, variable declarations, and generic type arguments) and rename them to the new class. Since both classes reside in the same package (`com.google.cloud.pubsublite`), a simple name replacement on the `CtTypeReference` is sufficient.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class PubSubLiteRefactoring {
+
+    /**
+     * Processor to handle the removal of PublishMetadata by renaming references 
+     * to its successor, MessageMetadata.
+     */
+    public static class PublishMetadataRenamer extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final String OLD_CLASS = "com.google.cloud.pubsublite.PublishMetadata";
+        private static final String NEW_SIMPLE_NAME = "MessageMetadata";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding for NoClasspath: Check for nulls
+            if (candidate == null) {
+                return false;
+            }
+
+            // In NoClasspath, getQualifiedName() is generally reliable if imports are present.
+            // We match strictly to avoid replacing unrelated classes with the same name.
+            String qName = candidate.getQualifiedName();
+            return qName != null && qName.equals(OLD_CLASS);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> ref) {
+            // Update the simple name.
+            // Since both the old and new classes are in 'com.google.cloud.pubsublite',
+            // changing the simple name is sufficient to update the Qualified Name effectively
+            // and preserve the existing package structure in imports.
+            ref.setSimpleName(NEW_SIMPLE_NAME);
+
+            // Log the change
+            String position = ref.getPosition().isValidPosition() 
+                ? "line " + ref.getPosition().getLine() 
+                : "unknown position";
+            System.out.println("Refactored: PublishMetadata -> MessageMetadata at " + position);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Robust Sniper Printing
+        // 1. Enable comments to prevent loss during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Manually inject SniperJavaPrettyPrinter to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Set NoClasspath to true (Defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new PublishMetadataRenamer());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("An error occurred during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

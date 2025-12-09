@@ -1,0 +1,396 @@
+{
+  "project" : "docker-adapter",
+  "breakingCommit" : "d38182a8a0fe1ec039aed97e103864fce717a0be",
+  "dependency" : {
+    "groupId" : "com.artipie",
+    "artifactId" : "http",
+    "previousVersion" : "v1.1.4",
+    "newVersion" : "v1.2.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.1.4.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.2.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/docker-adapter/d38182a8a0fe1ec039aed97e103864fce717a0be.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/d38182a8a0fe1ec039aed97e103864fce717a0be/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/AuthTest.java",
+    "errors" : [ {
+      "lineNumber" : 353,
+      "columnNumber" : 60,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class User", "location: interface com.artipie.http.auth.Authentication" ],
+      "status" : "FAILED",
+      "errorMessage" : "com.artipie.http.auth.Authentication and com.artipie.http.auth.Authentication$User disagree on InnerClasses attribute",
+      "changeImpact" : null
+    }, {
+      "lineNumber" : 350,
+      "columnNumber" : 63,
+      "message" : "incompatible types: bad return type in lambda expression",
+      "details" : [ "inference variable U has incompatible bounds", "equality constraints: java.util.Optional<com.artipie.http.auth.AuthUser>", "lower bounds: java.util.Optional<java.lang.Object>" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/docker-adapter/src/test/java/com/artipie/docker/http/AuthTest.java",
+        "lineNumber" : 350,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.1.4.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.2.1.jar",
+        "generatedAt" : "2025-12-08T09:49:37.397811432Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.http.DockerSlice#<init>(com.artipie.docker.Docker, com.artipie.http.auth.Permissions, com.artipie.http.auth.AuthScheme)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/http/DockerSlice.java"
+          },
+          "lineNumber" : 346,
+          "codeLine" : "                    token -> CompletableFuture.completedFuture(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.http.auth.BearerAuthScheme#<init>(com.artipie.http.auth.TokenAuthentication, java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.2.1",
+            "coordinates" : "com.artipie:http:v1.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.2.1/http-v1.2.1.jar"
+          },
+          "lineNumber" : 349,
+          "codeLine" : "                    token -> CompletableFuture.completedFuture(",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "BearerAuthScheme",
+            "declaringType" : "com.artipie.http.auth.BearerAuthScheme",
+            "qualifiedSignature" : "com.artipie.http.auth.BearerAuthScheme.BearerAuthScheme(com.artipie.http.auth.TokenAuthentication, java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@2208b425[public BearerAuthScheme (Lcom/artipie/http/auth/TokenAuthentication;Ljava/lang/String;)V]",
+              "newValue" : "javassist.CtConstructor@67863ab6[public BearerAuthScheme (Lcom/artipie/http/auth/TokenAuthentication;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.artipie.http.auth.TokenAuthentication", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.auth.BearerAuthScheme",
+            "declaringType" : "com.artipie.http.auth.BearerAuthScheme",
+            "qualifiedSignature" : "com.artipie.http.auth.BearerAuthScheme",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "com.artipie.http.auth.TokenAuthentication",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.2.1",
+            "coordinates" : "com.artipie:http:v1.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.2.1/http-v1.2.1.jar"
+          },
+          "lineNumber" : 350,
+          "codeLine" : "                    token -> CompletableFuture.completedFuture(",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.auth.TokenAuthentication",
+            "declaringType" : "com.artipie.http.auth.TokenAuthentication",
+            "qualifiedSignature" : "com.artipie.http.auth.TokenAuthentication",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#completedFuture(java.lang.Object)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 350,
+          "codeLine" : "                    token -> CompletableFuture.completedFuture(",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.concurrent.CompletableFuture",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 350,
+          "codeLine" : "                    token -> CompletableFuture.completedFuture(",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/test/java/com/artipie/docker/http/AuthScopeSliceTest.java",
+    "errors" : [ {
+      "lineNumber" : 56,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class User", "location: interface com.artipie.http.auth.Authentication" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/docker-adapter/src/test/java/com/artipie/docker/http/AuthScopeSliceTest.java",
+        "lineNumber" : 56,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.1.4.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/d38182a8a0fe1ec039aed97e103864fce717a0be/http-v1.2.1.jar",
+        "generatedAt" : "2025-12-08T09:49:37.399364414Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#join()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletionStage#toCompletableFuture()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 36,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.artipie.http.Response#send(com.artipie.http.Connection)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.2.1",
+            "coordinates" : "com.artipie:http:v1.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.2.1/http-v1.2.1.jar"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "send",
+            "declaringType" : "com.artipie.http.Response",
+            "qualifiedSignature" : "com.artipie.http.Response.send(com.artipie.http.Connection)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@d4ae8650[public abstract send (Lcom/artipie/http/Connection;)Ljava/util/concurrent/CompletionStage;]",
+              "newValue" : "javassist.CtMethod@d4ae8650[public abstract send (Lcom/artipie/http/Connection;)Ljava/util/concurrent/CompletionStage;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.concurrent.CompletionStage",
+              "newValue" : "java.util.concurrent.CompletionStage",
+              "changed" : false
+            },
+            "parameterTypes" : [ "com.artipie.http.Connection" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.artipie.docker.http.AuthScopeSlice#response(java.lang.String, java.lang.Iterable, org.reactivestreams.Publisher)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/http/AuthScopeSlice.java"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "response",
+            "declaringType" : "com.artipie.http.auth.AuthzSlice",
+            "qualifiedSignature" : "com.artipie.http.auth.AuthzSlice.response(java.lang.String, java.lang.Iterable, org.reactivestreams.Publisher)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@1aa30898[public response (Ljava/lang/String;Ljava/lang/Iterable;Lorg/reactivestreams/Publisher;)Lcom/artipie/http/Response;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.artipie.http.Response",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String", "java.lang.Iterable", "org.reactivestreams.Publisher" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.http.AuthScopeSlice#<init>(com.artipie.docker.http.ScopeSlice, com.artipie.http.auth.AuthScheme, com.artipie.http.auth.Permissions)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/http/AuthScopeSlice.java"
+          },
+          "lineNumber" : 36,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "com.artipie.http.auth.AuthScheme",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.artipie",
+            "artifactId" : "http",
+            "version" : "v1.2.1",
+            "coordinates" : "com.artipie:http:v1.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/com/artipie/http/v1.2.1/http-v1.2.1.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.artipie.http.auth.AuthScheme",
+            "declaringType" : "com.artipie.http.auth.AuthScheme",
+            "qualifiedSignature" : "com.artipie.http.auth.AuthScheme",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletableFuture#completedFuture(java.lang.Object)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 53,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.http.AuthScopeSliceTest$2#<init>()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/test/java/com/artipie/docker/http/AuthScopeSliceTest.java"
+          },
+          "lineNumber" : 54,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Optional",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.http.Authentication.User",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                    public Optional<Authentication.User> user() {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 57,
+      "columnNumber" : 62,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class User", "location: interface com.artipie.http.auth.Authentication" ],
+      "status" : "FAILED",
+      "errorMessage" : "com.artipie.http.auth.Authentication and com.artipie.http.auth.Authentication$User disagree on InnerClasses attribute",
+      "changeImpact" : null
+    } ]
+  } ]
+}

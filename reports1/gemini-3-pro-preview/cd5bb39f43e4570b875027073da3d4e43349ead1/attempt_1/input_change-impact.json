@@ -1,0 +1,134 @@
+{
+  "project" : "pgpverify-maven-plugin",
+  "breakingCommit" : "cd5bb39f43e4570b875027073da3d4e43349ead1",
+  "dependency" : {
+    "groupId" : "org.codehaus.plexus",
+    "artifactId" : "plexus-utils",
+    "previousVersion" : "3.5.1",
+    "newVersion" : "4.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-3.5.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-4.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin/cd5bb39f43e4570b875027073da3d4e43349ead1.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/cd5bb39f43e4570b875027073da3d4e43349ead1/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/pgpverify-maven-plugin/src/main/java/org/simplify4u/plugins/utils/MavenCompilerUtils.java",
+    "errors" : [ {
+      "lineNumber" : 21,
+      "columnNumber" : 36,
+      "message" : "package org.codehaus.plexus.util.xml does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin/src/main/java/org/simplify4u/plugins/utils/MavenCompilerUtils.java",
+        "lineNumber" : 21,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-3.5.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-4.0.0.jar",
+        "generatedAt" : "2025-12-08T09:47:25.251853759Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 21,
+          "codeLine" : "import org.codehaus.plexus.util.xml.Xpp3Dom;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "declaringType" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "qualifiedSignature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 52
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 99,
+      "columnNumber" : 45,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Xpp3Dom", "location: class org.simplify4u.plugins.utils.MavenCompilerUtils" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/pgpverify-maven-plugin/src/main/java/org/simplify4u/plugins/utils/MavenCompilerUtils.java",
+        "lineNumber" : 99,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-3.5.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/cd5bb39f43e4570b875027073da3d4e43349ead1/plexus-utils-4.0.0.jar",
+        "generatedAt" : "2025-12-08T09:47:25.263534576Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 99,
+          "codeLine" : "    private static String extractChildValue(Xpp3Dom node, String name) {",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "    private static String extractChildValue(Xpp3Dom node, String name) {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "declaringType" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "qualifiedSignature" : "org.codehaus.plexus.util.xml.Xpp3Dom",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 52
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

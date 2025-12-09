@@ -1,0 +1,105 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Spoon Refactoring Processor for Redis Jedis 4.x/5.x Migration.
+ * 
+ * Handles the removal of specific Pipeline interfaces in favor of the concrete
+ * `redis.clients.jedis.Pipeline` class.
+ */
+public class JedisPipelineRefactoring {
+
+    public static class PipelineTypeProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        // Set of fully qualified names of the removed interfaces
+        private static final Set<String> REMOVED_PIPELINE_INTERFACES = new HashSet<>(Arrays.asList(
+            "redis.clients.jedis.commands.BasicRedisPipeline",
+            "redis.clients.jedis.commands.BinaryRedisPipeline",
+            "redis.clients.jedis.commands.BinaryScriptingCommandsPipeline",
+            "redis.clients.jedis.commands.ClusterPipeline",
+            "redis.clients.jedis.commands.MultiKeyBinaryRedisPipeline",
+            "redis.clients.jedis.commands.MultiKeyCommandsPipeline",
+            "redis.clients.jedis.commands.RedisPipeline",
+            "redis.clients.jedis.commands.ScriptingCommandsPipeline"
+        ));
+
+        private static final String NEW_PIPELINE_CLASS = "redis.clients.jedis.Pipeline";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive Check: Null safety
+            if (candidate == null) return false;
+
+            // 1. Get Qualified Name safely (NoClasspath mode compatible)
+            String qName = candidate.getQualifiedName();
+            if (qName == null) return false;
+
+            // 2. Filter: Only match the specific removed interfaces
+            return REMOVED_PIPELINE_INTERFACES.contains(qName);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Log the detection
+            String location = candidate.getPosition().isValidPosition() 
+                ? "line " + candidate.getPosition().getLine() 
+                : "unknown location";
+            System.out.println("Refactoring obsolete pipeline interface [" + candidate.getSimpleName() + "] at " + location);
+
+            // 3. Transformation: Replace the old interface reference with the new concrete class reference
+            // Spoon's Sniper printer combined with createReference handles imports if configured,
+            // or uses FQN if necessary.
+            CtTypeReference<?> replacement = getFactory().Type().createReference(NEW_PIPELINE_CLASS);
+            
+            // Perform replacement
+            candidate.replace(replacement);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Refactoring
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for precise source code preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Configure for NoClasspath environment (resilient to missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // 4. Enable AutoImports to prefer simple names (e.g. Pipeline) over FQN where possible
+        launcher.getEnvironment().setAutoImports(true);
+
+        // Add the processor
+        launcher.addProcessor(new PipelineTypeProcessor());
+
+        try {
+            System.out.println("Starting Jedis Pipeline Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

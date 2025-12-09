@@ -1,0 +1,92 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring rule for:
+ * - CLASS org.hamcrest.Matchers [REMOVED]
+ *
+ * Strategy:
+ * The class `org.hamcrest.Matchers` acts as a facade for various matchers.
+ * When removed/migrated, the standard replacement for core functionality is `org.hamcrest.CoreMatchers`.
+ * This processor scans for references to `org.hamcrest.Matchers` (in imports and code)
+ * and renames them to `org.hamcrest.CoreMatchers`.
+ */
+public class HamcrestRefactoring {
+
+    public static class MatchersProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive check for nulls
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Target the removed class specifically
+            // We use string comparison for NoClasspath compatibility
+            return "org.hamcrest.Matchers".equals(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // We are renaming the type reference.
+            // Since both classes reside in the same package 'org.hamcrest',
+            // we only need to update the SimpleName.
+            // This handles:
+            // 1. Explicit usage: Matchers.is(...) -> CoreMatchers.is(...)
+            // 2. Imports: import org.hamcrest.Matchers; -> import org.hamcrest.CoreMatchers;
+            // 3. Static Imports: import static org.hamcrest.Matchers.*; -> import static org.hamcrest.CoreMatchers.*;
+            
+            String oldName = candidate.getSimpleName();
+            candidate.setSimpleName("CoreMatchers");
+            
+            // Log the change for feedback
+            CtElement parent = candidate.getParent();
+            int line = (parent != null && parent.getPosition().isValidPosition()) 
+                ? parent.getPosition().getLine() 
+                : -1;
+            
+            System.out.println("Refactored 'org.hamcrest.Matchers' to 'CoreMatchers' at line " + line);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Sniper compatibility
+        // 1. Enable comments to ensure they are preserved
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive mode: Do not require full classpath of the project
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new MatchersProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

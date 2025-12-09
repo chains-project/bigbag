@@ -1,0 +1,462 @@
+{
+  "project" : "scoverage-maven-plugin",
+  "breakingCommit" : "c7c9590a206d4fb77dd05b9df391d888e6181667",
+  "dependency" : {
+    "groupId" : "org.apache.maven.doxia",
+    "artifactId" : "doxia-site-renderer",
+    "previousVersion" : "1.0",
+    "newVersion" : "1.11.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.0.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.11.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/c7c9590a206d4fb77dd05b9df391d888e6181667.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/c7c9590a206d4fb77dd05b9df391d888e6181667/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java",
+    "errors" : [ {
+      "lineNumber" : 32,
+      "columnNumber" : 61,
+      "message" : "package org.apache.maven.doxia.module.xhtml.decoration.render does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java",
+        "lineNumber" : 32,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.11.1.jar",
+        "generatedAt" : "2025-12-08T09:33:14.543453368Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 32,
+          "codeLine" : "import org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 385,
+      "columnNumber" : 13,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class RenderingContext", "location: class org.scoverage.plugin.SCoverageReportMojo" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java",
+        "lineNumber" : 385,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.11.1.jar",
+        "generatedAt" : "2025-12-08T09:33:14.545657905Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@441460ae[public RenderingContext (Ljava/io/File;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@30f76adc[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@57086f78[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "boolean", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@116b841b[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@769d8788[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "boolean" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.scoverage.plugin.SCoverageReportMojo#getOutputName()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/scoverage/plugin/SCoverageReportMojo.java"
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getOutputName",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.getOutputName()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f971ba3[public getOutputName ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 385,
+      "columnNumber" : 44,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class RenderingContext", "location: class org.scoverage.plugin.SCoverageReportMojo" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java",
+        "lineNumber" : 385,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.0.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/doxia-site-renderer-1.11.1.jar",
+        "generatedAt" : "2025-12-08T09:33:14.547342188Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.apache.maven.doxia.module.xhtml.decoration.render.RenderingContext#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@441460ae[public RenderingContext (Ljava/io/File;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "ANNOTATION_DEPRECATED_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@30f76adc[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@57086f78[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "boolean", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@116b841b[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "RenderingContext",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.RenderingContext(java.io.File, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@769d8788[public RenderingContext (Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.io.File", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "boolean" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.scoverage.plugin.SCoverageReportMojo#getOutputName()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/org/scoverage/plugin/SCoverageReportMojo.java"
+          },
+          "lineNumber" : 385,
+          "codeLine" : "            RenderingContext context = new RenderingContext( getOutputName() + \".html\" );",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "getOutputName",
+            "declaringType" : "org.apache.maven.doxia.siterenderer.RenderingContext",
+            "qualifiedSignature" : "org.apache.maven.doxia.siterenderer.RenderingContext.getOutputName()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@4f971ba3[public getOutputName ()Ljava/lang/String;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "java.lang.String",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

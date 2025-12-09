@@ -1,0 +1,116 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class TimerRefactoring {
+
+    /**
+     * Processor to handle the migration of Timer.setDelay(int) to Timer.setDelay(Duration).
+     */
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we can resolve the type and it is already a Duration, we skip it.
+            // If type is null (unknown due to NoClasspath) or primitive, we proceed.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath compatibility)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // If owner is known and is NOT Timer, skip.
+            // If owner is null or <unknown>, we assume it might be our target and process it.
+            if (owner != null && !owner.getQualifiedName().contains("Timer") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Logic: Wrap the original int argument in Duration.ofMillis(...)
+            
+            // 1. Create reference to java.time.Duration
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            // 2. Create the invocation Duration.ofMillis(originalArg)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                factory.Method().createReference(
+                    durationRef,
+                    factory.Type().voidPrimitiveType(),
+                    "ofMillis",
+                    factory.Type().integerPrimitiveType()
+                ),
+                originalArg.clone() // Clone to ensure it is detached from previous parent
+            );
+
+            // 3. Replace the argument
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored setDelay at " + invocation.getPosition().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Paths - meant to be configured by the user or passed as args
+        String inputPath = "/home/kth/Documents/last_transformer/output/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/aisec/AisecTokenManagerService.java"; 
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/daps/aisec/AisecTokenManagerService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe31c5e11259881e9dce66d325d1b8b8ed8afc81/attempt_1/transformed");
+
+        // --- CRITICAL IMPLEMENTATION RULES ---
+        
+        // 1. Preserve Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Robust Sniper Configuration (Preserve formatting/indentation strictly)
+        // We do NOT use the Environment enum; we inject the Creator manually.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Compatibility (Defensive coding mode)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register Processor
+        launcher.addProcessor(new TimerProcessor());
+
+        // Execute
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

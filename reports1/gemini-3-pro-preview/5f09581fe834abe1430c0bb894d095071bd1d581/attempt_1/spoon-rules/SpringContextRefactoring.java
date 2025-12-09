@@ -1,0 +1,131 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtThisAccess;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SpringContextRefactoring {
+
+    /**
+     * Processor to handle changes in ConfigurableApplicationContext.
+     * 
+     * Analysis of Diff:
+     * - ConfigurableApplicationContext is marked SourceCompatible=False.
+     * - getBeanFactory() is marked UNCHANGED, but associated with the modified class.
+     * 
+     * Refactoring Strategy:
+     * The source incompatibility implies that `getBeanFactory()` calls might fail resolution
+     * if invoked on super-types (like ApplicationContext) or sub-types that had hierarchy changes.
+     * To ensure source compatibility/compilation, we enforce an explicit cast to 
+     * `ConfigurableApplicationContext` whenever `getBeanFactory()` is called.
+     */
+    public static class ContextCastProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final String METHOD_NAME = "getBeanFactory";
+        private static final String TARGET_TYPE = "org.springframework.context.ConfigurableApplicationContext";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            if (!METHOD_NAME.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (getBeanFactory takes 0 args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Target Analysis
+            CtExpression<?> target = candidate.getTarget();
+            
+            // If target is null (unlikely for getBeanFactory unless inside the class), 
+            // or if it's a TypeAccess (static call), ignore.
+            if (target instanceof CtTypeAccess) {
+                return false;
+            }
+
+            // 4. Check if already cast or typed correctly (Defensive for NoClasspath)
+            if (target != null) {
+                CtTypeReference<?> typeRef = target.getType();
+                // If we know the type is already ConfigurableApplicationContext, skip.
+                if (typeRef != null && typeRef.getQualifiedName().contains("ConfigurableApplicationContext")) {
+                    return false;
+                }
+                
+                // If the target is strictly an explicit cast to the target type, skip.
+                // (e.g., ((ConfigurableApplicationContext) ctx).getBeanFactory())
+                if (target.toString().contains("(ConfigurableApplicationContext)")) {
+                     return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalTarget = invocation.getTarget();
+            
+            // Handle implicit 'this' (e.g., getBeanFactory() called inside a class)
+            if (originalTarget == null || originalTarget.isImplicit()) {
+                CtTypeReference<?> enclosingType = invocation.getParent(CtClass.class).getReference();
+                originalTarget = factory.Code().createThisAccess(enclosingType);
+            }
+
+            // Create the Type Reference for the Cast
+            CtTypeReference<?> configContextRef = factory.Type().createReference(TARGET_TYPE);
+
+            // Perform the Cast: ((ConfigurableApplicationContext) target)
+            CtExpression<?> castedTarget = factory.Code().createTypeCast(
+                configContextRef, 
+                originalTarget.clone()
+            );
+
+            // Replace the target in the invocation
+            // Logic: ctx.getBeanFactory() -> ((ConfigurableApplicationContext) ctx).getBeanFactory()
+            invocation.setTarget((CtExpression) castedTarget);
+            
+            System.out.println("Refactored getBeanFactory call at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "/home/kth/Documents/last_transformer/output/5f09581fe834abe1430c0bb894d095071bd1d581/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5f09581fe834abe1430c0bb894d095071bd1d581/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/5f09581fe834abe1430c0bb894d095071bd1d581/camunda-platform-7-mockito/src/main/java/org/camunda/community/mockito/process/CallActivityMockForSpringContext.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5f09581fe834abe1430c0bb894d095071bd1d581/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Preserve Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer (Preserve indentation/formatting)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ContextCastProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

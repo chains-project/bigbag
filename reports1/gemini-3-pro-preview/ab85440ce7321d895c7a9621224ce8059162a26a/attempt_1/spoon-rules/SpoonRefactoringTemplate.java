@@ -1,0 +1,96 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Template
+ * 
+ * NOTE: No specific dependency diff was provided in the input. 
+ * This class serves as a template implementing the Critical Implementation Rules
+ * (Sniper Printer, NoClasspath, Defensive Coding) ready for customization.
+ */
+public class SpoonRefactoringTemplate {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (TODO: Replace with actual method name)
+            String targetMethodName = "placeholderMethodName";
+            if (!targetMethodName.equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Example: expecting 1 argument)
+            // if (candidate.getArguments().size() != 1) return false;
+
+            // 3. Type Check (Defensive for NoClasspath - Rule #2)
+            // Example: If first argument is required to be an int
+            if (!candidate.getArguments().isEmpty()) {
+                CtExpression<?> arg = candidate.getArguments().get(0);
+                CtTypeReference<?> type = arg.getType();
+                
+                // NEVER assume type is non-null in NoClasspath.
+                // If type is null (unknown) OR matches target, we might process.
+                // If type definitely matches the 'new/fixed' type, we skip.
+                if (type != null && type.getQualifiedName().contains("NewType")) {
+                    return false;
+                }
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("TargetClassName") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // TODO: Implement transformation logic based on the diff
+            // Example: invocation.getExecutable().setSimpleName("newMethodName");
+            
+            System.out.println("Refactored usage at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/ab85440ce7321d895c7a9621224ce8059162a26a/docker-adapter/src/test/java/com/artipie/docker/http/LargeImageITCase.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/ab85440ce7321d895c7a9621224ce8059162a26a/docker-adapter/src/test/java/com/artipie/docker/http/LargeImageITCase.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ab85440ce7321d895c7a9621224ce8059162a26a/attempt_1/transformed");
+
+        // CRITICAL SETTINGS (Rule #1)
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // CRITICAL SETTINGS (Rule #2)
+        // 3. NoClasspath mode for robustness
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TemplateProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}

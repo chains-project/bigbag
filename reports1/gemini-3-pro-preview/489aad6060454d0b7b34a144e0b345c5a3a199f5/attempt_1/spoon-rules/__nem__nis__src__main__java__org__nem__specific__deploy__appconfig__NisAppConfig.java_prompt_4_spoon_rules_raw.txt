@@ -1,0 +1,208 @@
+```java
+package org.flywaydb.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Spoon Processor to migrate Flyway 5.x code to Flyway 6.x+
+ * Based on the removal of new Flyway() and setters.
+ */
+public class FlywayRefactoring {
+
+    public static class FlywayProcessor extends AbstractProcessor<CtElement> {
+        
+        private static final Set<String> LIFECYCLE_METHODS = new HashSet<>(Arrays.asList(
+            "migrate", "clean", "info", "validate", "baseline", "repair"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // We are interested in Constructor Calls (new Flyway()) and Method Invocations
+            return candidate instanceof CtConstructorCall 
+                || candidate instanceof CtInvocation;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtConstructorCall) {
+                processConstructor((CtConstructorCall<?>) element);
+            } else if (element instanceof CtInvocation) {
+                processInvocation((CtInvocation<?>) element);
+            }
+        }
+
+        /**
+         * Transforms 'new Flyway()' into 'Flyway.configure()'
+         * and updates the variable type from 'Flyway' to 'FluentConfiguration'.
+         */
+        private void processConstructor(CtConstructorCall<?> ctor) {
+            CtTypeReference<?> type = ctor.getType();
+            if (type == null || !type.getQualifiedName().equals("org.flywaydb.core.Flyway")) {
+                return;
+            }
+            // Only handle the no-arg constructor which was removed
+            if (!ctor.getArguments().isEmpty()) {
+                return;
+            }
+
+            Factory factory = getFactory();
+            
+            // 1. Prepare References
+            CtTypeReference<?> flywayRef = factory.Type().createReference("org.flywaydb.core.Flyway");
+            CtTypeReference<?> fluentConfigRef = factory.Type().createReference("org.flywaydb.core.api.configuration.FluentConfiguration");
+            
+            // 2. Create 'Flyway.configure()' invocation
+            CtInvocation<?> configureCall = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(flywayRef),
+                factory.Method().createReference(flywayRef, fluentConfigRef, "configure")
+            );
+
+            // 3. Update declaration type if possible (Local Variable or Field)
+            CtElement parent = ctor.getParent();
+            if (parent instanceof CtVariable) {
+                ((CtVariable<?>) parent).setType(fluentConfigRef);
+            }
+
+            // 4. Replace 'new Flyway()' with 'Flyway.configure()'
+            ctor.replace(configureCall);
+        }
+
+        /**
+         * Handles method renaming (setDataSource -> dataSource)
+         * and lifecycle injection (.migrate() -> .load().migrate())
+         * and static enum moves (MigrationType -> CoreMigrationType).
+         */
+        private void processInvocation(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+            CtExpression<?> target = invocation.getTarget();
+
+            // --- 1. Static Method Refactoring: MigrationType.valueOf -> CoreMigrationType.valueOf ---
+            if ("valueOf".equals(methodName) && target instanceof CtTypeAccess) {
+                CtTypeAccess<?> typeAccess = (CtTypeAccess<?>) target;
+                CtTypeReference<?> accessedType = typeAccess.getAccessedType();
+                if (accessedType != null && accessedType.getQualifiedName().equals("org.flywaydb.core.api.MigrationType")) {
+                    accessedType.setSimpleName("CoreMigrationType");
+                    accessedType.setPackage("org.flywaydb.core.api");
+                    return;
+                }
+            }
+
+            // For the rest, we need a valid target expression
+            if (target == null) return;
+            
+            // --- 2. Identify Flyway/Configuration Usage ---
+            // In NoClasspath, types might be missing, so we check Names and TypeRefs defensively.
+            CtTypeReference<?> targetType = target.getType();
+            boolean isFlywayRelated = false;
+            
+            if (targetType != null) {
+                String qName = targetType.getQualifiedName();
+                if (qName.contains("Flyway") || qName.contains("FluentConfiguration") || qName.contains("Configuration")) {
+                    isFlywayRelated = true;
+                }
+            }
+            // Heuristic: If we are chaining from 'configure', 'dataSource', 'locations', treat as Flyway config
+            if (!isFlywayRelated && target instanceof CtInvocation) {
+                String targetMethod = ((CtInvocation<?>) target).getExecutable().getSimpleName();
+                if (targetMethod.equals("configure") || targetMethod.equals("dataSource") || targetMethod.equals("locations")) {
+                    isFlywayRelated = true;
+                }
+            }
+
+            if (!isFlywayRelated) return;
+
+            // --- 3. Rename Setters to Fluent Builders ---
+            if (methodName.startsWith("set")) {
+                String newName = null;
+                switch (methodName) {
+                    case "setDataSource": newName = "dataSource"; break;
+                    case "setLocations": newName = "locations"; break;
+                    case "setValidateOnMigrate": newName = "validateOnMigrate"; break;
+                    case "setSchemas": newName = "schemas"; break;
+                    case "setTable": newName = "table"; break;
+                    case "setBaselineOnMigrate": newName = "baselineOnMigrate"; break;
+                }
+
+                if (newName != null) {
+                    invocation.getExecutable().setSimpleName(newName);
+                    // We don't update arguments here; we assume arguments are compatible 
+                    // or user will fix overloading issues manually (e.g. 4-arg setDataSource vs 3-arg dataSource).
+                }
+            }
+
+            // --- 4. Inject .load() before Lifecycle Methods ---
+            // If we are calling migrate() on a FluentConfiguration object, we must call .load() first.
+            if (LIFECYCLE_METHODS.contains(methodName)) {
+                // Determine if target is likely a Configuration object (not yet a Flyway object)
+                boolean isConfigObject = false;
+                
+                if (targetType != null && targetType.getQualifiedName().contains("FluentConfiguration")) {
+                    isConfigObject = true;
+                } else if (target instanceof CtInvocation) {
+                    String targetMethod = ((CtInvocation<?>) target).getExecutable().getSimpleName();
+                    if (targetMethod.equals("configure") || targetMethod.equals("dataSource")) {
+                        isConfigObject = true;
+                    }
+                }
+
+                if (isConfigObject) {
+                    Factory factory = getFactory();
+                    CtTypeReference<?> flywayType = factory.Type().createReference("org.flywaydb.core.Flyway");
+                    CtTypeReference<?> fluentType = factory.Type().createReference("org.flywaydb.core.api.configuration.FluentConfiguration");
+
+                    // Create .load() invocation wrapping the current target
+                    // Old Target: Flyway.configure().dataSource(...)
+                    // New Target: Flyway.configure().dataSource(...).load()
+                    CtInvocation<?> loadCall = factory.Code().createInvocation(
+                        target.clone(),
+                        factory.Method().createReference(fluentType, flywayType, "load")
+                    );
+
+                    // Update the invocation to use the new loaded target
+                    invocation.setTarget(loadCall);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // User configuration
+        String inputPath = "src/main/java";
+        String outputPath = "src/main/generated";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually for high-fidelity preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FlywayProcessor());
+        
+        try {
+            System.out.println("Starting Flyway Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

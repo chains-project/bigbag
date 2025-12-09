@@ -1,0 +1,91 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class JedisPipelineRefactoring {
+
+    /**
+     * Processor to replace removed Pipeline interfaces/classes with the consolidated 'redis.clients.jedis.Pipeline'.
+     * The removed classes (RedisPipeline, BasicRedisPipeline, etc.) were consolidated in newer Jedis versions.
+     */
+    public static class PipelineTypeReplacementProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final Set<String> REMOVED_TYPES = new HashSet<>();
+
+        static {
+            // Populate the set with the fully qualified names of the removed classes from the diff
+            REMOVED_TYPES.add("redis.clients.jedis.commands.BasicRedisPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.BinaryRedisPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.BinaryScriptingCommandsPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.ClusterPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.MultiKeyBinaryRedisPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.MultiKeyCommandsPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.RedisPipeline");
+            REMOVED_TYPES.add("redis.clients.jedis.commands.ScriptingCommandsPipeline");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding: Ensure candidate is not null
+            if (candidate == null) return false;
+            
+            String qName = candidate.getQualifiedName();
+            if (qName == null) return false;
+
+            // In NoClasspath mode, Spoon resolves qualified names based on imports and full usage.
+            // We match strictly against the removed types to avoid false positives.
+            return REMOVED_TYPES.contains(qName);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Define the replacement type: redis.clients.jedis.Pipeline
+            // This is the standard concrete implementation used in newer Jedis versions.
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference("redis.clients.jedis.Pipeline");
+
+            // Replace the occurrence of the old type with the new type.
+            // This handles variable declarations, method parameters, return types, etc.
+            candidate.replace(newTypeRef);
+
+            System.out.println("Refactored type " + candidate.getQualifiedName() + 
+                             " to redis.clients.jedis.Pipeline at line " + 
+                             (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified or passed as args in a real CLI)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Preservation (Sniper Mode)
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve original formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode to allow running without full dependency JARs
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new PipelineTypeReplacementProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

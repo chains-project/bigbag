@@ -1,0 +1,443 @@
+# SYSTEM PROMPT: Spoon Refactoring Rule Generator
+
+**Role:**
+You are a Senior Java Tooling Engineer and an expert in the **Spoon** library (AST transformation).
+
+**Task:**
+You will receive a `<dependency_change_diff>` describing changes between two library versions (e.g., Methods Removed, Classes Modified). Your task is to:
+1. Analyze the diff to identify breaking changes (e.g., method signature changes, type changes, removals).
+2. Deduce the necessary refactoring strategy (e.g., Boxing primitives, renaming methods, wrapping arguments).
+3. Generate a **single, self-contained Java class** (containing both a `Processor` and a `Main` launcher) that automates this refactoring using Spoon.
+
+## CRITICAL IMPLEMENTATION RULES (Do not violate)
+
+### 1. Preserve Source Code (Robust Sniper Configuration)
+To ensure comments, indentation, and unrelated code are preserved strictly (especially in Spoon 11+), you **MUST NOT** rely on the `Environment` enum. Instead, you must manually inject the `SniperJavaPrettyPrinter`.
+
+*   **Required Import:**
+    ```java
+    import spoon.support.sniper.SniperJavaPrettyPrinter;
+    ```
+*   **Required Configuration in Main:**
+    ```java
+    // 1. Enable comments
+    launcher.getEnvironment().setCommentEnabled(true);
+    // 2. Force Sniper Printer manually
+    launcher.getEnvironment().setPrettyPrinterCreator(
+        () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+    );
+    ```
+
+### 2. Defensive Coding (NoClasspath Compatibility)
+Assume the user runs this without the full library JARs (NoClasspath mode). Spoon will fail to resolve types.
+*   **NEVER** assume `expression.getType()` returns a non-null value.
+*   **NEVER** rely solely on `isSubtypeOf()`.
+*   **Pattern to use:**
+    ```java
+    CtTypeReference<?> type = arg.getType();
+    // If type is NULL (unknown) OR matches the old type (primitive), process it.
+    // If type matches the NEW type (already fixed), skip it.
+    if (type != null && !type.isPrimitive()) { return false; }
+    ```
+*   **Class Matching:** Use `getQualifiedName().contains("ClassName")` instead of strict class resolution.
+
+### 3. Java Generics Safety
+Spoon's `CtInvocation` is generic. To avoid Java compiler errors (like "Incompatible equality constraint"), always use wildcards:
+*   Use `CtInvocation<?>` instead of `CtInvocation<SomeType>`.
+*   Use `CtExpression<?>`.
+
+## ONE-SHOT LEARNING EXAMPLE
+
+**Input Diff:**
+```text
+- METHOD com.utils.Timer.setDelay(int) [REMOVED]
++ METHOD com.utils.Timer.setDelay(java.time.Duration) [ADDED]
+```
+
+**Reasoning:** The method `setDelay` changed from accepting an `int` (ms) to a `Duration`. Existing code `setDelay(500)` must become `setDelay(Duration.ofMillis(500))`.
+
+**Required Output Code:**
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.List;
+
+public class TimerRefactoring {
+
+    public static class TimerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setDelay".equals(candidate.getExecutable().getSimpleName())) return false;
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) return false;
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we know it's already a Duration, skip.
+            // If it's null (unknown) or primitive int, we process it.
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("Timer") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation: Wrap originalArg inside Duration.ofMillis(...)
+            CtTypeReference<?> durationRef = factory.Type().createReference("java.time.Duration");
+
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(durationRef),
+                factory.Method().createReference(durationRef, factory.Type().voidPrimitiveType(), "ofMillis", factory.Type().integerPrimitiveType()),
+                originalArg.clone()
+            );
+
+            originalArg.replace(replacement);
+            System.out.println("Refactored setDelay at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TimerProcessor());
+        try { launcher.run(); } catch (Exception e) { e.printStackTrace(); }
+    }
+}
+```
+
+## YOUR ASSIGNMENT
+
+Analyze the following API Diff and generate the corresponding Java Spoon code.
+
+**Dependency Diff:**
+<dependency_change_diff>
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR)
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassLoadingStrategy [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingInstrumentation.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingJna.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingJna$Dispatcher.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingJna$Dispatcher$Enabled.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingJna$Dispatcher$Unavailable.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingLookup.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$Direct.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$Initializable.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$Initializable$Unavailable.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$UsingUnsafeInjection.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$UsingUnsafeOverride.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$Enabled.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$Initializable.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$Unavailable.isAvailable() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Factory.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaType.isAvailable() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingReflection [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- FIELD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassLoadingStrategy$Default.INJECTION [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=FIELD_REMOVED(MAJOR)
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassLoadingStrategy$Default [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR)
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingLookup [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassLoadingStrategy$UsingLookup.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.ClassFileVersion.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.ClassFileVersion.of(java.lang.Class, org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.ClassFileVersion.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.build.Plugin[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.build.EntryPoint, org.assertj.core.internal.bytebuddy.build.Plugin[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.build.EntryPoint, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.ClassFileVersion, org.assertj.core.internal.bytebuddy.build.Plugin[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.ClassFileVersion, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.build.EntryPoint, org.assertj.core.internal.bytebuddy.ClassFileVersion, org.assertj.core.internal.bytebuddy.build.Plugin[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default.of(org.assertj.core.internal.bytebuddy.build.EntryPoint, org.assertj.core.internal.bytebuddy.ClassFileVersion, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Default$NativeMethodStrategy$ForPrefix.of(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$LambdaInstrumentationStrategy.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$LambdaInstrumentationStrategy$LambdaInstanceFactory$LambdaMethodImplementation$Appender.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType, java.util.List, org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle$HandleType, org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$Listener$ModuleReadEdgeCompleting.of(java.lang.instrument.Instrumentation, boolean, java.lang.Class[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$RedefinitionStrategy$BatchAllocator$Partitioning.of(int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$RedefinitionStrategy$Listener$Pausing.of(long, java.util.concurrent.TimeUnit) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$AssignReturned$DefaultValueSkip.of(org.assertj.core.internal.bytebuddy.implementation.bytecode.StackManipulation, org.assertj.core.internal.bytebuddy.asm.Advice$StackMapFrameHandler$ForPostProcessor, int, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Delegator$ForDynamicInvocation.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$Delegating$Resolved$ForMethodEnter.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.asm.Advice$PostProcessor, org.assertj.core.internal.bytebuddy.asm.Advice$Delegator, java.util.List, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition, boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$Delegating$Resolved$ForMethodExit.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.asm.Advice$PostProcessor, org.assertj.core.internal.bytebuddy.asm.Advice$Delegator, java.util.Map, java.util.List, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$Inlining$Resolved$ForMethodEnter.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.asm.Advice$PostProcessor, java.util.Map, java.util.List, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition, org.assertj.core.internal.bytebuddy.jar.asm.ClassReader, boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$Inlining$Resolved$ForMethodExit.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.asm.Advice$PostProcessor, java.util.Map, java.util.Map, java.util.List, org.assertj.core.internal.bytebuddy.jar.asm.ClassReader, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$RelocationHandler$ForType.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$RelocationHandler$ForValue.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition, boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$Dispatcher$SuppressionHandler$Suppressing.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$MethodSizeHandler$Default.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, java.util.List, java.util.List, java.util.List, boolean, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForEnterValue$Factory.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForExitValue$Factory.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForSerializedValue$Factory.of(java.lang.Class, java.io.Serializable, java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForStackManipulation$Factory.of(java.lang.Class, java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForStackManipulation$OfAnnotationProperty.of(java.lang.Class, java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$ForThrowable$Factory.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$Target$ForStackManipulation.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$Target$ForStackManipulation.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$OffsetMapping$Target$ForStackManipulation.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.Advice$StackMapFrameHandler$Default.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, java.util.List, java.util.List, java.util.List, java.util.List, boolean, boolean, org.assertj.core.internal.bytebuddy.ClassFileVersion, int, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.MemberSubstitution$Replacement$ForElementMatchers$Factory.of(org.assertj.core.internal.bytebuddy.matcher.ElementMatcher, org.assertj.core.internal.bytebuddy.asm.MemberSubstitution$Substitution$Factory) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.MemberSubstitution$Replacement$InvocationType.of(int, org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.asm.MemberSubstitution$TypePoolResolver$ForClassFileLocator.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.build.Plugin$Engine$Default.of(org.assertj.core.internal.bytebuddy.build.EntryPoint, org.assertj.core.internal.bytebuddy.ClassFileVersion, org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.MethodNameTransformer) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.build.Plugin$Factory$UsingReflection$ArgumentResolver$ForType.of(java.lang.Class, java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationDescription$AnnotationInvocationHandler.of(java.lang.ClassLoader, java.lang.Class, java.util.Map) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationDescription$ForLoadedAnnotation.of(java.lang.annotation.Annotation) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForAnnotationDescription.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, java.util.Map) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(byte) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(short) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(char) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(long) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(float) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(double) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(boolean[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(byte[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(short[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(char[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(int[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(long[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(float[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(double[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(java.lang.String[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForConstant.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForDescriptionArray.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.enumeration.EnumerationDescription[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForDescriptionArray.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.annotation.AnnotationDescription[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForDescriptionArray.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForEnumerationDescription.of(org.assertj.core.internal.bytebuddy.description.enumeration.EnumerationDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$ForTypeDescription.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationValue$Sort.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.method.ParameterList$ForLoadedExecutable.of(java.lang.reflect.Constructor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.method.ParameterList$ForLoadedExecutable.of(java.lang.reflect.Constructor, org.assertj.core.internal.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$ParameterAnnotationSource) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.method.ParameterList$ForLoadedExecutable.of(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.method.ParameterList$ForLoadedExecutable.of(java.lang.reflect.Method, org.assertj.core.internal.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$ParameterAnnotationSource) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$Resolver.of(org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$ForType[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$Resolver.of(org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$ForField[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$Resolver.of(org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$ForMethod[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$Resolver.of(org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$ForParameter[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$Resolver.of(java.util.Collection) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.RecordComponentDescription$ForLoadedRecordComponent.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$ArrayProjection.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$ArrayProjection.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$ForLoadedType.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Builder.of(java.lang.reflect.Type) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Builder.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$LazyProjection$ForLoadedSuperClass.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$LazyProjection$WithLazyNavigation$LazyInterfaceList.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$LazyProjection) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$LazyProjection$WithLazyNavigation$LazySuperClass.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$LazyProjection) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$OfNonGenericType$ForLoadedType.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$OfNonGenericType$ForReifiedErasure.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$OfParameterizedType$ForGenerifiedErasure.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForAttachment.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForAttachment.of(org.assertj.core.internal.bytebuddy.description.field.FieldDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForAttachment.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForAttachment.of(org.assertj.core.internal.bytebuddy.description.method.ParameterDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForAttachment.of(org.assertj.core.internal.bytebuddy.description.type.RecordComponentDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor$Substitutor$ForDetachment.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeList$Explicit.of(java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeList$Generic$ForLoadedTypes$OfTypeVariables.of(java.lang.reflect.GenericDeclaration) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.type.TypeVariableToken.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic, org.assertj.core.internal.bytebuddy.matcher.ElementMatcher) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForClassLoader.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForClassLoader$WeaklyReferenced.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForInstrumentation.of(java.lang.instrument.Instrumentation, java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForInstrumentation$ClassLoadingDelegate$Default.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForInstrumentation$ClassLoadingDelegate$Explicit.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForJarFile.of(java.io.File) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForModule.of(org.assertj.core.internal.bytebuddy.utility.JavaModule) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForModule$WeaklyReferenced.of(org.assertj.core.internal.bytebuddy.utility.JavaModule) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$ForModuleFile.of(java.io.File) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$Simple.of(java.lang.String, byte[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$Simple.of(org.assertj.core.internal.bytebuddy.dynamic.DynamicType) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator$Simple.of(java.util.Map) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingInstrumentation.of(java.io.File, org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingInstrumentation$Target, java.lang.instrument.Instrumentation) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassInjector$UsingLookup.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.loading.ClassReloadingStrategy.of(java.lang.instrument.Instrumentation) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.InstrumentedType$Default.of(java.lang.String, org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic, org.assertj.core.internal.bytebuddy.description.modifier.ModifierContributor$ForType[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.InstrumentedType$Default.of(java.lang.String, org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default.of(org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Harmonizer, org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Merger) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default.of(org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Harmonizer, org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Merger, org.assertj.core.internal.bytebuddy.description.type.TypeDescription$Generic$Visitor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Detached.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$SignatureToken) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Harmonized.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Harmonizer) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Store$Entry$Ambiguous.of(org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Harmonized, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.modifier.Visibility) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Store$Entry$Resolved.of(org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler$Default$Key$Harmonized, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.modifier.Visibility) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Simple.of(java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeValidation.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining$WithFullProcessing$InitializationHandler$Appending.of(boolean, org.assertj.core.internal.bytebuddy.jar.asm.MethodVisitor, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$MethodPool, org.assertj.core.internal.bytebuddy.implementation.attribute.AnnotationValueFilter$Factory, boolean, boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$Default$ValidatingClassVisitor.of(org.assertj.core.internal.bytebuddy.jar.asm.ClassVisitor, org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeValidation) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$MethodPool$Record$AccessBridgeWrapper.of(org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$MethodPool$Record, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, java.util.Set, org.assertj.core.internal.bytebuddy.implementation.attribute.MethodAttributeAppender) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.TypeWriter$MethodPool$Record$ForDefinedMethod$OfVisibilityBridge.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.implementation.attribute.MethodAttributeAppender) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.InliningImplementationMatcher.of(org.assertj.core.internal.bytebuddy.matcher.LatentMatcher, org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.MethodRebaseResolver$Resolution$ForRebasedConstructor.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.MethodRebaseResolver$Resolution$ForRebasedMethod.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape, org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.MethodNameTransformer) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.RebaseImplementationTarget.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Linked, org.assertj.core.internal.bytebuddy.ClassFileVersion, org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.MethodRebaseResolver) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.dynamic.scaffold.inline.RebaseImplementationTarget$RebasedMethodInvocation.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.type.TypeList) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.EqualsMethod$ValueComparator.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.FieldAccessor.of(org.assertj.core.internal.bytebuddy.implementation.FieldAccessor$FieldNameExtractor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.FieldAccessor.of(java.lang.reflect.Field) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.FieldAccessor.of(org.assertj.core.internal.bytebuddy.description.field.FieldDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.HashCodeMethod$ValueTransformer.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple.of(org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple$Dispatcher) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple.of(org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple$Dispatcher, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple.of(org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple$Dispatcher, org.assertj.core.internal.bytebuddy.dynamic.scaffold.InstrumentedType$Prepareable) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple.of(org.assertj.core.internal.bytebuddy.implementation.Implementation$Simple$Dispatcher, org.assertj.core.internal.bytebuddy.dynamic.scaffold.InstrumentedType$Prepareable, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$SpecialMethodInvocation$Simple.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.Implementation$Target$AbstractBase$DefaultMethodInvocation.of(org.assertj.core.internal.bytebuddy.ClassFileVersion) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvocationHandlerAdapter.of(java.lang.reflect.InvocationHandler) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvocationHandlerAdapter.of(java.lang.reflect.InvocationHandler, java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$InvocationProvider$ArgumentProvider$ConstantPoolWrapper.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$InvocationProvider$ArgumentProvider$ForInstance.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall$ArgumentLoader$ForStackManipulation.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$ForConstruction.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodList, org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$ForStaticMethod.of(org.assertj.core.internal.bytebuddy.description.method.MethodList, org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.SuperMethodCall$Appender$TerminationHandler.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.SuperMethodCall$Appender$TerminationHandler$1.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.SuperMethodCall$Appender$TerminationHandler$2.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.ToStringMethod$ValueConsumer.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.attribute.AnnotationRetention.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.attribute.MethodAttributeAppender$Explicit.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.auxiliary.PrivilegedMemberLookupAction.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder$ParameterBinding$Unique.of(org.assertj.core.internal.bytebuddy.implementation.bytecode.StackManipulation, java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.Default$Binder$TypeLocator$ForType.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.Super$Binder$TypeLocator$ForType.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.TargetMethodAnnotationDrivenBinder.of(java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.TargetMethodAnnotationDrivenBinder$DelegationProcessor.of(java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.TargetMethodAnnotationDrivenBinder$DelegationProcessor$Handler$Bound.of(org.assertj.core.internal.bytebuddy.description.method.ParameterDescription, org.assertj.core.internal.bytebuddy.implementation.bind.annotation.TargetMethodAnnotationDrivenBinder$ParameterBinder, org.assertj.core.internal.bytebuddy.description.annotation.AnnotationDescription, org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.Assigner$Typing) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.annotation.TargetMethodAnnotationDrivenBinder$ParameterBinder$ForFixedValue$OfConstant.of(java.lang.Class, java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.Duplication.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.Removal.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.StackSize.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.StackSize.of(int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.StackSize.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.StackSize.of(java.util.Collection) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.TypeCreation.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.Assigner$Typing.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.assign.InstanceCheck.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.collection.ArrayAccess.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.constant.ClassConstant.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.constant.DefaultValue.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.constant.MethodConstant.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.constant.SerializedConstant.of(java.io.Serializable) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.FieldAccess$OfGenericField.of(org.assertj.core.internal.bytebuddy.description.field.FieldDescription, org.assertj.core.internal.bytebuddy.implementation.bytecode.member.FieldAccess$Defined) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodInvocation$OfGenericMethod.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription, org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodInvocation$WithImplicitInvocationTargetType) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodReturn.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodVariableAccess.of(org.assertj.core.internal.bytebuddy.description.type.TypeDefinition) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.matcher.BooleanMatcher.of(boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.matcher.MethodSortMatcher.of(org.assertj.core.internal.bytebuddy.matcher.MethodSortMatcher$Sort) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.matcher.ModifierMatcher.of(org.assertj.core.internal.bytebuddy.matcher.ModifierMatcher$Mode) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$AbstractBase$ArrayTypeResolution.of(org.assertj.core.internal.bytebuddy.pool.TypePool$Resolution, int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$ClassLoading.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$ClassLoading.of(java.lang.ClassLoader, org.assertj.core.internal.bytebuddy.pool.TypePool) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default.of(org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$LazyTypeDescription$GenericTypeToken$ForPrimitiveType.of(char) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$LazyTypeDescription$GenericTypeToken$Resolution$Raw$RawAnnotatedType.of(org.assertj.core.internal.bytebuddy.pool.TypePool, java.util.Map, java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$LazyTypeDescription$GenericTypeToken$Resolution$Raw$RawAnnotatedType$LazyRawAnnotatedTypeList.of(org.assertj.core.internal.bytebuddy.pool.TypePool, java.util.Map, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$LazyTypeDescription$TokenizedGenericType.of(org.assertj.core.internal.bytebuddy.pool.TypePool, org.assertj.core.internal.bytebuddy.pool.TypePool$Default$LazyTypeDescription$GenericTypeToken, java.lang.String, java.util.Map, org.assertj.core.internal.bytebuddy.description.TypeVariableSource) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$WithLazyResolution.of(java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.pool.TypePool$Default$WithLazyResolution.of(org.assertj.core.internal.bytebuddy.dynamic.ClassFileLocator) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.CompoundList.of(java.lang.Object, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.CompoundList.of(java.util.List, java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.CompoundList.of(java.util.List, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.CompoundList.of(java.util.List, java.util.List, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle.of(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle.of(java.lang.reflect.Constructor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle$HandleType.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodHandle$HandleType.of(int) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(java.lang.Class, java.lang.Class[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.type.TypeDescription[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription, java.util.List) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(java.lang.reflect.Constructor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$MethodType.of(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$Simple.of(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$Simple$Dispatcher$OfMethodHandleDesc.of(java.lang.Object, java.lang.Object, java.lang.String, java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaConstant$Simple$Dispatcher$OfMethodTypeDesc.of(java.lang.Object, java.lang.Object[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.JavaModule.of(java.lang.Object) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.OpenedClassReader.of(byte[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher.of(java.lang.Class, java.lang.ClassLoader) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher.of(java.lang.Class, java.lang.ClassLoader, boolean) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue$OfNonPrimitiveArray.of(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- CLASS org.assertj.core.internal.bytebuddy.dynamic.loading.ClassLoadingStrategy$UsingLookup [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=CLASS_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$LambdaInstrumentationStrategy$LambdaInstanceFactory$LambdaMethodImplementation$Appender$Dispatcher.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$LambdaInstrumentationStrategy$LambdaInstanceFactory$LambdaMethodImplementation$Appender$Dispatcher$UsingDirectInvocation.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder$LambdaInstrumentationStrategy$LambdaInstanceFactory$LambdaMethodImplementation$Appender$Dispatcher$UsingMethodHandle.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.agent.builder.LambdaFactory.invoke(java.lang.Object, java.lang.String, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, boolean, java.util.List, java.util.List, java.util.Collection) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.description.annotation.AnnotationDescription$AnnotationInvocationHandler.invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$WithImplicitTarget.invoke(java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$WithImplicitTarget.invoke(org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$WithImplicitTarget.invoke(java.lang.String) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$WithImplicitTarget.invoke(java.lang.String, java.lang.Class) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.InvokeDynamic$WithImplicitTarget.invoke(java.lang.String, org.assertj.core.internal.bytebuddy.description.type.TypeDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(java.lang.reflect.Method) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(java.lang.reflect.Constructor) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(org.assertj.core.internal.bytebuddy.matcher.ElementMatcher) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(org.assertj.core.internal.bytebuddy.matcher.ElementMatcher, org.assertj.core.internal.bytebuddy.dynamic.scaffold.MethodGraph$Compiler) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodCall.invoke(org.assertj.core.internal.bytebuddy.implementation.MethodCall$MethodLocator$Factory) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$Compiled.invoke() [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$Compiled$ForConstruction.invoke() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$Compiled$ForField.invoke() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$Compiled$ForMethodReturn.invoke() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.MethodDelegation$ImplementationDelegate$Compiled$ForStaticCall.invoke() [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.auxiliary.TypeProxy$InvocationFactory.invoke(org.assertj.core.internal.bytebuddy.implementation.Implementation$Target, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.auxiliary.TypeProxy$InvocationFactory$Default$1.invoke(org.assertj.core.internal.bytebuddy.implementation.Implementation$Target, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.auxiliary.TypeProxy$InvocationFactory$Default$2.invoke(org.assertj.core.internal.bytebuddy.implementation.Implementation$Target, org.assertj.core.internal.bytebuddy.description.type.TypeDescription, org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder$MethodInvoker.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder$MethodInvoker$Simple.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bind.MethodDelegationBinder$MethodInvoker$Virtual.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodInvocation.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription$InDefinedShape) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodInvocation.invoke(org.assertj.core.internal.bytebuddy.description.method.MethodDescription) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR)
+- METHOD org.assertj.core.internal.bytebuddy.utility.Invoker.invoke(java.lang.reflect.Method, java.lang.Object, java.lang.Object[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$DirectInvoker.invoke(java.lang.reflect.Method, java.lang.Object, java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForConstructor.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForContainerCreation.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true] changes=ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue$OfNonPrimitiveArray.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue$OfPrimitiveArray.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForInstanceCheck.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForNonStaticMethod.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForStaticMethod.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true] changes=ANNOTATION_REMOVED(PATCH)
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForUnresolvedMethod.invoke(java.lang.Object[]) [status=REMOVED, binaryCompatible=true, sourceCompatible=true]
+- METHOD org.assertj.core.internal.bytebuddy.utility.dispatcher.JavaDispatcher$ProxiedInvocationHandler.invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[]) [status=REMOVED, binaryCompatible=false, sourceCompatible=false] changes=METHOD_REMOVED(MAJOR), ANNOTATION_REMOVED(PATCH)
+</dependency_change_diff>
+
+**Output:** Provide ONLY the Java code.

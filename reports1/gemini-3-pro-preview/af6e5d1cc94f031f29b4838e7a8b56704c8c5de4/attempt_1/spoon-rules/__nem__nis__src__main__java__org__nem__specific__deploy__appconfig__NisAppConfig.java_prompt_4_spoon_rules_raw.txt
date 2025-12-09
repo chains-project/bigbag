@@ -1,0 +1,177 @@
+```java
+package org.flywaydb.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Refactors Flyway V5 style initialization to V6+ Fluent Configuration style.
+ * 
+ * Changes:
+ * - new Flyway() -> Flyway.configure()...load()
+ * - setDataSource(...) -> .dataSource(...)
+ * - setLocations(...) -> .locations(...)
+ * - setValidateOnMigrate(...) -> .validateOnMigrate(...)
+ * - setClassLoader(...) -> .classLoader(...)
+ */
+public class FlywayRefactoring {
+
+    public static class FlywayInitProcessor extends AbstractProcessor<CtLocalVariable<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtLocalVariable<?> candidate) {
+            // 1. Check Variable Type: org.flywaydb.core.Flyway
+            CtTypeReference<?> type = candidate.getType();
+            if (type == null || !type.getQualifiedName().equals("org.flywaydb.core.Flyway")) {
+                return false;
+            }
+
+            // 2. Check Initializer: must be 'new Flyway()' (empty constructor)
+            CtExpression<?> defaultExpr = candidate.getDefaultExpression();
+            if (!(defaultExpr instanceof CtConstructorCall)) {
+                return false;
+            }
+            CtConstructorCall<?> ctorCall = (CtConstructorCall<?>) defaultExpr;
+            // The diff indicates Flyway() empty constructor is removed.
+            return ctorCall.getArguments().isEmpty();
+        }
+
+        @Override
+        public void process(CtLocalVariable<?> variable) {
+            Factory factory = getFactory();
+            CtBlock<?> parentBlock = variable.getParent(CtBlock.class);
+            if (parentBlock == null) return;
+
+            List<CtStatement> statements = parentBlock.getStatements();
+            int varIndex = statements.indexOf(variable);
+            if (varIndex == -1) return;
+
+            // Start building the new Fluent chain: Flyway.configure()
+            // We reuse the type reference from the variable to ensure imports are respected/qualified correctly.
+            CtExpression<?> chain = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(variable.getType()),
+                "configure"
+            );
+
+            // Track statements that we merge into the chain to delete them later
+            List<CtStatement> toRemove = new ArrayList<>();
+
+            // Scan contiguous statements immediately following the declaration
+            for (int i = varIndex + 1; i < statements.size(); i++) {
+                CtStatement stmt = statements.get(i);
+
+                // Stop if we hit non-invocation code (preserving logic order)
+                if (!(stmt instanceof CtInvocation)) {
+                    break;
+                }
+
+                CtInvocation<?> invocation = (CtInvocation<?>) stmt;
+                CtExpression<?> target = invocation.getTarget();
+
+                // Ensure the invocation is on our specific 'flyway' variable
+                if (!(target instanceof CtVariableAccess)) {
+                    break;
+                }
+                if (((CtVariableAccess<?>) target).getVariable().getDeclaration() != variable) {
+                    break;
+                }
+
+                String methodName = invocation.getExecutable().getSimpleName();
+                String newMethodName = null;
+                boolean compatibleArgs = false;
+
+                // Map removed setters to Fluent API methods
+                // Note: We check arg counts to avoid mapping signatures that don't exist in Fluent API
+                switch (methodName) {
+                    case "setDataSource":
+                        // Diff: setDataSource(DataSource) and setDataSource(String, String, String, String[]) removed.
+                        // Fluent: dataSource(DataSource) and dataSource(String, String, String) added.
+                        // We map 1-arg and 3-arg versions. 4-arg is likely incompatible.
+                        int count = invocation.getArguments().size();
+                        if (count == 1 || count == 3) {
+                            newMethodName = "dataSource";
+                            compatibleArgs = true;
+                        }
+                        break;
+                    case "setLocations":
+                        newMethodName = "locations";
+                        compatibleArgs = true;
+                        break;
+                    case "setValidateOnMigrate":
+                        newMethodName = "validateOnMigrate";
+                        compatibleArgs = true;
+                        break;
+                    case "setClassLoader":
+                        newMethodName = "classLoader";
+                        compatibleArgs = true;
+                        break;
+                }
+
+                if (newMethodName != null && compatibleArgs) {
+                    // Clone arguments from the old setter
+                    List<CtExpression<?>> newArgs = new ArrayList<>();
+                    for (CtExpression<?> arg : invocation.getArguments()) {
+                        newArgs.add(arg.clone());
+                    }
+
+                    // Append to the fluent chain
+                    chain = factory.Code().createInvocation(
+                        chain,
+                        newMethodName,
+                        newArgs.toArray(new CtExpression[0])
+                    );
+
+                    toRemove.add(stmt);
+                } else {
+                    // Encountered a method call on 'flyway' that isn't a known configuration setter.
+                    // Stop processing to ensure we don't move configuration past this point.
+                    break;
+                }
+            }
+
+            // Finish the chain with .load() to return a Flyway instance
+            chain = factory.Code().createInvocation(chain, "load");
+
+            // Apply transformation
+            variable.setDefaultExpression(chain);
+            for (CtStatement s : toRemove) {
+                s.delete();
+            }
+
+            System.out.println("Refactored Flyway instantiation at line " + variable.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // User-configurable paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Robust Sniper Configuration for Source Fidelity
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // Defensive: Handle missing classpath gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FlywayInitProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

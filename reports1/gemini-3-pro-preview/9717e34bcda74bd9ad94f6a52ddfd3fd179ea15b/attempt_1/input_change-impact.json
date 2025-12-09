@@ -1,0 +1,71 @@
+{
+  "project" : "jcabi-github",
+  "breakingCommit" : "9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b",
+  "dependency" : {
+    "groupId" : "com.jcabi",
+    "artifactId" : "jcabi-aspects",
+    "previousVersion" : "0.24.1",
+    "newVersion" : "0.25.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-aspects-0.24.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-aspects-0.25.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-github/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/jcabi-github/src/main/java/com/jcabi/github/mock/MkGithub.java",
+    "errors" : [ {
+      "lineNumber" : 34,
+      "columnNumber" : 25,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class Tv", "location: package com.jcabi.aspects" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-github",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-github/src/main/java/com/jcabi/github/mock/MkGithub.java",
+        "lineNumber" : 34,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-aspects-0.24.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-aspects-0.25.1.jar",
+        "generatedAt" : "2025-12-08T06:30:29.337637631Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "com.jcabi.aspects.Tv",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.jcabi",
+            "artifactId" : "jcabi-aspects",
+            "version" : "0.24.1",
+            "coordinates" : "com.jcabi:jcabi-aspects:0.24.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b/jcabi-aspects-0.24.1.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "import com.jcabi.aspects.Tv;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.jcabi.aspects.Tv",
+            "declaringType" : "com.jcabi.aspects.Tv",
+            "qualifiedSignature" : "com.jcabi.aspects.Tv",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 22
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,430 @@
+{
+  "project" : "quickfixj",
+  "breakingCommit" : "00a7cc31784ac4a9cc27d506a73ae589d6df36d6",
+  "dependency" : {
+    "groupId" : "org.apache.mina",
+    "artifactId" : "mina-core",
+    "previousVersion" : "2.1.5",
+    "newVersion" : "2.2.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/00a7cc31784ac4a9cc27d506a73ae589d6df36d6.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/quickfixj/quickfixj-core/src/main/java/quickfix/mina/acceptor/AbstractSocketAcceptor.java",
+    "errors" : [ {
+      "lineNumber" : 136,
+      "columnNumber" : 18,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method setUseClientMode(boolean)", "location: variable sslFilter of type quickfix.mina.ssl.SSLFilter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/quickfixj-core/src/main/java/quickfix/mina/acceptor/AbstractSocketAcceptor.java",
+        "lineNumber" : 136,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+        "generatedAt" : "2025-12-08T00:04:00.331988858Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setUseClientMode(boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 136,
+          "codeLine" : "        sslFilter.setUseClientMode(false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setUseClientMode",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter.setUseClientMode(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6f5d94a4[public setUseClientMode (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/quickfixj/quickfixj-core/src/main/java/quickfix/mina/initiator/IoSessionInitiator.java",
+    "errors" : [ {
+      "lineNumber" : 195,
+      "columnNumber" : 22,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method setUseClientMode(boolean)", "location: variable sslFilter of type quickfix.mina.ssl.SSLFilter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/quickfixj-core/src/main/java/quickfix/mina/initiator/IoSessionInitiator.java",
+        "lineNumber" : 195,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+        "generatedAt" : "2025-12-08T00:04:00.344596715Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setUseClientMode(boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 195,
+          "codeLine" : "            sslFilter.setUseClientMode(true);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "setUseClientMode",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter.setUseClientMode(boolean)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6f5d94a4[public setUseClientMode (Z)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "boolean" ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/quickfixj/quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java",
+    "errors" : [ {
+      "lineNumber" : 43,
+      "columnNumber" : 9,
+      "message" : "constructor SslFilter in class org.apache.mina.filter.ssl.SslFilter cannot be applied to given types;",
+      "details" : [ "required: javax.net.ssl.SSLContext", "found: javax.net.ssl.SSLContext,boolean", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+        "generatedAt" : "2025-12-08T00:04:00.354846572Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.mina.filter.ssl.SslFilter#<init>(javax.net.ssl.SSLContext)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.mina",
+            "artifactId" : "mina-core",
+            "version" : "2.2.1",
+            "coordinates" : "org.apache.mina:mina-core:2.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/mina/mina-core/2.2.1/mina-core-2.2.1.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "        super(sslContext, autoStart);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.mina.filter.ssl.SslFilter",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 49
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 78,
+      "columnNumber" : 38,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable PEER_ADDRESS", "location: class quickfix.mina.ssl.SSLFilter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/quickfixj-core/src/main/java/quickfix/mina/ssl/SSLFilter.java",
+        "lineNumber" : 78,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+        "generatedAt" : "2025-12-08T00:04:00.379101249Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.mina.core.session.IoSession#setAttribute(java.lang.Object, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.apache.mina",
+            "artifactId" : "mina-core",
+            "version" : "2.2.1",
+            "coordinates" : "org.apache.mina:mina-core:2.2.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/apache/mina/mina-core/2.2.1/mina-core-2.2.1.jar"
+          },
+          "lineNumber" : 78,
+          "codeLine" : "                session.setAttribute(PEER_ADDRESS, remoteAddress);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setAttribute",
+            "declaringType" : "org.apache.mina.core.session.IoSession",
+            "qualifiedSignature" : "org.apache.mina.core.session.IoSession.setAttribute(java.lang.Object, java.lang.Object)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ec545ca3[public abstract setAttribute (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@ec545ca3[public abstract setAttribute (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Object", "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "setAttribute",
+            "declaringType" : "org.apache.mina.core.session.IoSession",
+            "qualifiedSignature" : "org.apache.mina.core.session.IoSession.setAttribute(java.lang.Object)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6a3b503f[public abstract setAttribute (Ljava/lang/Object;)Ljava/lang/Object;]",
+              "newValue" : "javassist.CtMethod@6a3b503f[public abstract setAttribute (Ljava/lang/Object;)Ljava/lang/Object;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.lang.Object",
+              "newValue" : "java.lang.Object",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Object" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.apache.mina.core.session.IoSession",
+            "declaringType" : "org.apache.mina.core.session.IoSession",
+            "qualifiedSignature" : "org.apache.mina.core.session.IoSession",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "quickfix.mina.ssl.PEER_ADDRESS",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 78,
+          "codeLine" : "                session.setAttribute(PEER_ADDRESS, remoteAddress);",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT_CROSS_CLASS",
+            "name" : "PEER_ADDRESS",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter.PEER_ADDRESS",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.apache.mina.filter.ssl.SslFilter.PEER_ADDRESS:Lorg/apache/mina/core/session/AttributeKey;",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.apache.mina.core.session.AttributeKey",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/quickfixj/quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java",
+    "errors" : [ {
+      "lineNumber" : 65,
+      "columnNumber" : 27,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method initiateHandshake(org.apache.mina.core.session.IoSession)", "location: variable sslFilter of type quickfix.mina.ssl.SSLFilter" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/quickfixj/quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java",
+        "lineNumber" : 65,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.1.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/00a7cc31784ac4a9cc27d506a73ae589d6df36d6/mina-core-2.2.1.jar",
+        "generatedAt" : "2025-12-08T00:04:00.383383762Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#initiateHandshake(org.apache.mina.core.session.IoSession)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 65,
+          "codeLine" : "            this.sslFilter.initiateHandshake(ioSession);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "initiateHandshake",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter.initiateHandshake(org.apache.mina.core.session.IoSession)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@8df7bb61[public initiateHandshake (Lorg/apache/mina/core/session/IoSession;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.mina.core.session.IoSession" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "initiateHandshake",
+            "declaringType" : "org.apache.mina.filter.ssl.SslFilter",
+            "qualifiedSignature" : "org.apache.mina.filter.ssl.SslFilter.initiateHandshake(org.apache.mina.core.filterchain.IoFilter$NextFilter, org.apache.mina.core.session.IoSession)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@5b7acd57[private initiateHandshake (Lorg/apache/mina/core/filterchain/IoFilter$NextFilter;Lorg/apache/mina/core/session/IoSession;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.apache.mina.core.filterchain.IoFilter$NextFilter", "org.apache.mina.core.session.IoSession" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "quickfix.mina.initiator.InitiatorProxyIoHandler::sslFilter",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java"
+          },
+          "lineNumber" : 65,
+          "codeLine" : "            this.sslFilter.initiateHandshake(ioSession);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "quickfix.mina.initiator.InitiatorProxyIoHandler",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "quickfixj-core/src/main/java/quickfix/mina/initiator/InitiatorProxyIoHandler.java"
+          },
+          "lineNumber" : 65,
+          "codeLine" : "            this.sslFilter.initiateHandshake(ioSession);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

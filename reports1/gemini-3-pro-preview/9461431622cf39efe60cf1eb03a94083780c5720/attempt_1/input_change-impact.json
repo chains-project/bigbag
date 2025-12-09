@@ -1,0 +1,218 @@
+{
+  "project" : "snmpman",
+  "breakingCommit" : "9461431622cf39efe60cf1eb03a94083780c5720",
+  "dependency" : {
+    "groupId" : "org.snmp4j",
+    "artifactId" : "snmp4j-agent",
+    "previousVersion" : "3.0.3",
+    "newVersion" : "3.6.5",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmp4j-agent-3.0.3.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmp4j-agent-3.6.5.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmpman/9461431622cf39efe60cf1eb03a94083780c5720.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/9461431622cf39efe60cf1eb03a94083780c5720/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/snmpman/snmpman/src/main/java/com/oneandone/snmpman/SnmpmanAgent.java",
+    "errors" : [ {
+      "lineNumber" : 389,
+      "columnNumber" : 77,
+      "message" : "incompatible types: java.util.SortedMap<org.snmp4j.agent.MOScope,org.snmp4j.agent.ManagedObject<?>> cannot be converted to java.util.SortedMap<org.snmp4j.agent.MOScope,org.snmp4j.agent.ManagedObject>",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmpman",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmpman/snmpman/src/main/java/com/oneandone/snmpman/SnmpmanAgent.java",
+        "lineNumber" : 389,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmp4j-agent-3.0.3.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/9461431622cf39efe60cf1eb03a94083780c5720/snmp4j-agent-3.6.5.jar",
+        "generatedAt" : "2025-12-08T06:24:56.859372452Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.SortedMap",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 389,
+          "codeLine" : "            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.snmp4j.agent.MOScope",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.snmp4j",
+            "artifactId" : "snmp4j-agent",
+            "version" : "3.6.5",
+            "coordinates" : "org.snmp4j:snmp4j-agent:3.6.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/snmp4j/snmp4j-agent/3.6.5/snmp4j-agent-3.6.5.jar"
+          },
+          "lineNumber" : 389,
+          "codeLine" : "            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.snmp4j.agent.MOScope",
+            "declaringType" : "org.snmp4j.agent.MOScope",
+            "qualifiedSignature" : "org.snmp4j.agent.MOScope",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.snmp4j.agent.ManagedObject",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.snmp4j",
+            "artifactId" : "snmp4j-agent",
+            "version" : "3.6.5",
+            "coordinates" : "org.snmp4j:snmp4j-agent:3.6.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/snmp4j/snmp4j-agent/3.6.5/snmp4j-agent-3.6.5.jar"
+          },
+          "lineNumber" : 389,
+          "codeLine" : "            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.snmp4j.agent.ManagedObject",
+            "declaringType" : "org.snmp4j.agent.ManagedObject",
+            "qualifiedSignature" : "org.snmp4j.agent.ManagedObject",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_GENERIC_TEMPLATE_CHANGED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.snmp4j.agent.DefaultMOServer#getRegistry()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.snmp4j",
+            "artifactId" : "snmp4j-agent",
+            "version" : "3.6.5",
+            "coordinates" : "org.snmp4j:snmp4j-agent:3.6.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/snmp4j/snmp4j-agent/3.6.5/snmp4j-agent-3.6.5.jar"
+          },
+          "lineNumber" : 389,
+          "codeLine" : "            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getRegistry",
+            "declaringType" : "org.snmp4j.agent.DefaultMOServer",
+            "qualifiedSignature" : "org.snmp4j.agent.DefaultMOServer.getRegistry()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@7ed1d1f4[public getRegistry ()Ljava/util/SortedMap;]",
+              "newValue" : "javassist.CtMethod@7ed1d1f4[public getRegistry ()Ljava/util/SortedMap;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.SortedMap",
+              "newValue" : "java.util.SortedMap",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.snmp4j.agent.DefaultMOServer",
+            "declaringType" : "org.snmp4j.agent.DefaultMOServer",
+            "qualifiedSignature" : "org.snmp4j.agent.DefaultMOServer",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 9
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.snmp4j.agent.BaseAgent::server",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.snmp4j",
+            "artifactId" : "snmp4j-agent",
+            "version" : "3.6.5",
+            "coordinates" : "org.snmp4j:snmp4j-agent:3.6.5",
+            "sourcePath" : "/home/kth/.m2/repository/org/snmp4j/snmp4j-agent/3.6.5/snmp4j-agent-3.6.5.jar"
+          },
+          "lineNumber" : 389,
+          "codeLine" : "            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "server",
+            "declaringType" : "org.snmp4j.agent.BaseAgent",
+            "qualifiedSignature" : "org.snmp4j.agent.BaseAgent.server",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "org.snmp4j.agent.BaseAgent.server:Lorg/snmp4j/agent/DefaultMOServer;",
+              "newValue" : "org.snmp4j.agent.BaseAgent.server:Lorg/snmp4j/agent/DefaultMOServer;",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.snmp4j.agent.DefaultMOServer",
+              "newValue" : "org.snmp4j.agent.DefaultMOServer",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.snmp4j.agent.BaseAgent",
+            "declaringType" : "org.snmp4j.agent.BaseAgent",
+            "qualifiedSignature" : "org.snmp4j.agent.BaseAgent",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

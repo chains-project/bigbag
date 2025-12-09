@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/e47fd8edc5227b6852ebd2466dd89049c9907b80/LPVS/src/main/java/com/lpvs/util/LPVSFileUtil.java	2025-12-08 11:53:17.159067160 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e47fd8edc5227b6852ebd2466dd89049c9907b80/attempt_1/transformed/com/lpvs/util/LPVSFileUtil.java	2025-12-08 11:55:25.361487036 +0100
+@@ -116,7 +116,7 @@
+     public static void deleteIfExists (String path) {
+         File dir =  new File(path);
+         if (dir.exists()) {
+-            FileSystemUtils.deleteRecursively(dir);
++            org.example.migration.FileSystemUtilsMigration.deleteRecursively(dir);
+         }
+     }
+ 

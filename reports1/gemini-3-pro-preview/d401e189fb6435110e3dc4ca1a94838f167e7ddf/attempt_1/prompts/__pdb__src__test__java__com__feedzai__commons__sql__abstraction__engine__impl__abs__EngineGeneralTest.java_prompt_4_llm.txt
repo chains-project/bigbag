@@ -1,0 +1,151 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldRead;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtType;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class LogbackSetLevelRefactoring {
+
+    /**
+     * Processor to migrate ch.qos.logback.classic.Logger.setLevel(Level) calls
+     * to setLevel(String), matching the new LoggerModel signature.
+     */
+    public static class SetLevelProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"setLevel".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Argument Count
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Check Owner Type (Defensive for NoClasspath)
+            // We want to target Logger, but also be careful not to break unrelated setLevel calls.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String ownerName = declaringType.getQualifiedName();
+                // Loose match for Logger or LoggerModel to be safe in NoClasspath
+                if (!ownerName.contains("Logger") && !ownerName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // 4. Check Argument Type
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            // If we know it's a String, it's already migrated -> Skip
+            if (argType != null && "java.lang.String".equals(argType.getQualifiedName())) {
+                return false;
+            }
+
+            // If we know it is NOT a Level (and not null/unknown), skip
+            // We target ch.qos.logback.classic.Level
+            if (argType != null && !argType.getQualifiedName().contains("Level")) {
+                // It might be unknown in NoClasspath, so we only return false if we are sure it's something else
+                // e.g., primitive int
+                if (argType.isPrimitive()) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            CtExpression<?> replacementArg;
+
+            // Strategy:
+            // 1. If it's a direct field access like Level.INFO, convert to literal "INFO"
+            // 2. Otherwise, wrap it in .toString()
+            
+            boolean isLevelConstant = false;
+            String levelName = null;
+
+            if (originalArg instanceof CtFieldRead) {
+                CtFieldRead<?> fieldRead = (CtFieldRead<?>) originalArg;
+                CtTypeReference<?> declaringType = fieldRead.getVariable().getDeclaringType();
+                
+                // Verify it comes from Level class
+                if (declaringType != null && declaringType.getQualifiedName().contains("Level")) {
+                    isLevelConstant = true;
+                    levelName = fieldRead.getVariable().getSimpleName();
+                } 
+                // Handle static import case where declaring type might be inferred or the variable name is standard
+                else if (fieldRead.getVariable().getSimpleName().matches("OFF|ERROR|WARN|INFO|DEBUG|TRACE|ALL")) {
+                     // Heuristic for static imports of standard logback levels
+                     isLevelConstant = true;
+                     levelName = fieldRead.getVariable().getSimpleName();
+                }
+            }
+
+            if (isLevelConstant && levelName != null) {
+                // Transformation: Level.INFO -> "INFO"
+                replacementArg = factory.Code().createLiteral(levelName);
+            } else {
+                // Transformation: someVar -> someVar.toString()
+                // This covers Level.toLevel("...") results or variables holding Level objects
+                replacementArg = factory.Code().createInvocation(
+                        originalArg.clone(),
+                        "toString"
+                );
+            }
+
+            // Perform replacement
+            originalArg.replace(replacementArg);
+            System.out.println("Refactored setLevel call at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Source Preservation (Sniper)
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: Handle missing libraries
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add Processor
+        launcher.addProcessor(new SetLevelProcessor());
+
+        System.out.println("Starting Logback Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

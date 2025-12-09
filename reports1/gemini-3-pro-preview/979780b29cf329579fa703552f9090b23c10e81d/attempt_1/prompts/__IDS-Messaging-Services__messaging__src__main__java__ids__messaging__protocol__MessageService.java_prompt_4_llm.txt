@@ -1,0 +1,92 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Processor
+ * 
+ * Generated based on the provided dependency diff.
+ * Since the input diff was empty, this class demonstrates a generic refactoring pattern
+ * (renaming a method) adhering to all critical implementation rules (Sniper, NoClasspath, Generics).
+ * 
+ * HYPOTHETICAL DIFF:
+ * - METHOD com.legacy.Service.oldOperation() [REMOVED]
+ * + METHOD com.legacy.Service.newOperation() [ADDED]
+ */
+public class ServiceRefactoring {
+
+    public static class MethodRenameProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Target the removed method name)
+            if (!"oldOperation".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Type Check (Defensive for NoClasspath)
+            // We use string matching instead of strict type resolution to handle missing JARs.
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // If owner is known, ensure it matches the target class name.
+            // If owner is null or <unknown>, we might process it aggressively or skip based on preference.
+            // Here we skip only if we are sure it is NOT the target class.
+            if (owner != null 
+                && !owner.getQualifiedName().contains("Service") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation: Rename the method call
+            invocation.getExecutable().setSimpleName("newOperation");
+            
+            System.out.println("Refactored 'oldOperation' to 'newOperation' at line " 
+                + (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - assume running from project root
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION FOR SPOON 11+ ---
+        
+        // 1. Preserve Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer for Exact Source Preservation
+        // We use the lambda creator to inject the SniperJavaPrettyPrinter manually.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath Mode (Process without dependency JARs)
+        launcher.getEnvironment().setNoClasspath(true);
+        // --------------------------------------------
+
+        launcher.addProcessor(new MethodRenameProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

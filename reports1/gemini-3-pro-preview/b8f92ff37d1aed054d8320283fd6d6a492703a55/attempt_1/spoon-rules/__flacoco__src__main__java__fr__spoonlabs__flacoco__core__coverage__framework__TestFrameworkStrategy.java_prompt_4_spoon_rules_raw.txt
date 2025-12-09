@@ -1,0 +1,126 @@
+Based on the provided dependency diff, the class `org.apache.maven.plugin.surefire.util.DirectoryScanner` and its constructor appear in the diff with a leading `-` (indicating removal/processing) but explicitly state `[status=UNCHANGED]`.
+
+However, assuming the intent is to migrate usages of this specific constructor (perhaps because the class is being deprecated, removed in a future version, or moved), the following Spoon rule matches the specific signature:
+`new DirectoryScanner(java.io.File, org.apache.maven.surefire.api.testset.TestListResolver)`.
+
+Since no replacement API is provided in the diff (no `+` lines), this processor implements a **defensive detection strategy**: it locates the constructor calls and attaches a `/* FIXME */` comment to alert the developer, rather than guessing a replacement method that might not exist.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class DirectoryScannerRefactoring {
+
+    /**
+     * Processor to handle 'org.apache.maven.plugin.surefire.util.DirectoryScanner' constructor.
+     * 
+     * Diff Analysis:
+     * - Class: org.apache.maven.plugin.surefire.util.DirectoryScanner
+     * - Args: java.io.File, org.apache.maven.surefire.api.testset.TestListResolver
+     * - Status: The diff shows this item with a '-' (Removed/Changed context), 
+     *   so we identify usages to allow for manual intervention or deprecation handling.
+     */
+    public static class DirectoryScannerProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Check if the constructed type matches DirectoryScanner
+            CtTypeReference<?> typeRef = candidate.getType();
+            if (typeRef == null) return false;
+            
+            // Loose matching for NoClasspath safety
+            if (!typeRef.getQualifiedName().contains("DirectoryScanner")) {
+                return false;
+            }
+            
+            // Check specific package if available to avoid false positives
+            if (!typeRef.getQualifiedName().contains("org.apache.maven.plugin.surefire.util") 
+                && !typeRef.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            // 2. Argument Count Check (Expects 2 arguments)
+            if (candidate.getArguments().size() != 2) return false;
+
+            // 3. Argument Type Checks (Defensive)
+            CtExpression<?> arg0 = candidate.getArguments().get(0);
+            CtExpression<?> arg1 = candidate.getArguments().get(1);
+
+            // Check Arg 0: Should be compatible with java.io.File
+            CtTypeReference<?> type0 = arg0.getType();
+            if (type0 != null && !type0.getQualifiedName().contains("File") && !type0.getQualifiedName().equals("<unknown>")) {
+                // If we know for sure it's NOT a File (and not null/unknown), skip it.
+                return false;
+            }
+
+            // Check Arg 1: Should be compatible with TestListResolver
+            CtTypeReference<?> type1 = arg1.getType();
+            if (type1 != null && !type1.getQualifiedName().contains("TestListResolver") && !type1.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            Factory factory = getFactory();
+            
+            // Strategy: Since the diff provided no replacement (replacement was UNCHANGED/Missing),
+            // we flag this code for manual review or deprecation.
+            
+            // Avoid adding the comment multiple times if re-running
+            for (CtComment comment : candidate.getComments()) {
+                if (comment.getContent().contains("CHECK_MIGRATION")) {
+                    return;
+                }
+            }
+
+            // Create a block comment
+            CtComment fixme = factory.Code().createComment(
+                "CHECK_MIGRATION: DirectoryScanner(File, TestListResolver) appeared in dependency changes.",
+                CtComment.CommentType.BLOCK
+            );
+            
+            candidate.addComment(fixme);
+            
+            System.out.println("Flagged DirectoryScanner usage at: " + candidate.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Source Preservation (Sniper)
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // CRITICAL: Defensive NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new DirectoryScannerProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

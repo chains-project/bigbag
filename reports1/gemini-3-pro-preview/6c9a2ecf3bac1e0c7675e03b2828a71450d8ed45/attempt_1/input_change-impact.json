@@ -1,0 +1,52 @@
+{
+  "project" : "poc-multi-module-arch-hexagonal-springboot",
+  "breakingCommit" : "6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45",
+  "dependency" : {
+    "groupId" : "org.mapstruct",
+    "artifactId" : "mapstruct-processor",
+    "previousVersion" : "1.4.2.Final",
+    "newVersion" : "1.5.0.Final",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/mapstruct-processor-1.4.2.Final.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/mapstruct-processor-1.5.0.Final.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/poc-multi-module-arch-hexagonal-springboot/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/poc-multi-module-arch-hexagonal-springboot/application/src/main/java/io/github/wesleyosantos91/api/v1/mapper/PersonHttpMapper.java",
+    "errors" : [ {
+      "lineNumber" : 11,
+      "columnNumber" : 1,
+      "message" : "Couldn't retrieve @Mapper annotation",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/poc-multi-module-arch-hexagonal-springboot",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/poc-multi-module-arch-hexagonal-springboot/application/src/main/java/io/github/wesleyosantos91/api/v1/mapper/PersonHttpMapper.java",
+        "lineNumber" : 11,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/mapstruct-processor-1.4.2.Final.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45/mapstruct-processor-1.5.0.Final.jar",
+        "generatedAt" : "2025-12-08T04:58:05.447084846Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "org.mapstruct.Mapper",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mapstruct",
+            "artifactId" : "mapstruct",
+            "version" : "1.4.2.Final",
+            "coordinates" : "org.mapstruct:mapstruct:1.4.2.Final",
+            "sourcePath" : "/home/kth/.m2/repository/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar"
+          },
+          "lineNumber" : 11,
+          "codeLine" : "@Mapper",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,233 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.*;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Spoon Processor to handle breaking changes in Jackson's ObjectMapper.readValue methods.
+ * 
+ * CHANGE ANALYSIS:
+ * The diff indicates that `readValue` methods in `ObjectMapper` have modified their exception signatures:
+ * - METHOD_NO_LONGER_THROWS_CHECKED_EXCEPTION
+ * - METHOD_NOW_THROWS_CHECKED_EXCEPTION
+ * 
+ * This usually implies a change in the specific checked exceptions declared (e.g., swapping 
+ * JsonGenerationException for StreamWriteException, or standardizing on IOException).
+ * 
+ * STRATEGY:
+ * Since the exact new exception type cannot be guaranteed from the diff alone, and Jackson 
+ * methods heavily rely on IOException, the safest automated refactoring is to ensure that 
+ * `readValue` calls are guarded by a catch block for `java.io.IOException`.
+ * 
+ * 1. Locate `ObjectMapper.readValue(...)` invocations.
+ * 2. Check if the invocation is already enclosed in a try-catch block handling `IOException`, 
+ *    `Exception`, or `Throwable`, or if the enclosing method throws these.
+ * 3. If not handled, wrap the invocation in a `try { ... } catch (IOException e) { ... }` block.
+ *    - Handle Local Variable Declarations by splitting declaration and assignment.
+ *    - Handle standalone assignments and statements.
+ */
+public class JacksonRefactoring {
+
+    public static class ObjectMapperReadValueProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            if (!"readValue".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Target Check (Defensive for NoClasspath)
+            CtExpression<?> target = candidate.getTarget();
+            if (target == null) return false;
+            
+            // Heuristic to identify ObjectMapper without full type resolution
+            CtTypeReference<?> targetType = target.getType();
+            boolean isMapper = false;
+            if (targetType != null && targetType.getQualifiedName().contains("ObjectMapper")) {
+                isMapper = true;
+            } else if (target.toString().toLowerCase().contains("mapper")) {
+                // Fallback: check variable name if type is unavailable
+                isMapper = true;
+            }
+            
+            if (!isMapper) return false;
+
+            // 3. Argument Check (Basic validation)
+            // readValue must have at least one argument (source)
+            if (candidate.getArguments().isEmpty()) return false;
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // If the exception is already handled by surrounding code, do nothing
+            if (isExceptionHandled(invocation)) {
+                return;
+            }
+
+            Factory factory = getFactory();
+            CtElement parent = invocation.getParent();
+
+            // Prepare the Catch Block: catch (IOException e) { throw new RuntimeException(e); }
+            CtCatch catchBlock = factory.Core().createCatch();
+            CtTypeReference<java.io.IOException> ioExceptionRef = factory.Type().createReference(java.io.IOException.class);
+            CtLocalVariable<java.io.IOException> catchVar = factory.Code().createCatchVariable(ioExceptionRef, "e");
+            catchBlock.setParameter(catchVar);
+            
+            CtBlock<?> catchBody = factory.Core().createBlock();
+            CtConstructorCall<RuntimeException> runtimeEx = factory.Code().createConstructorCall(
+                factory.Type().createReference(RuntimeException.class),
+                factory.Code().createVariableRead(catchVar.getReference(), false)
+            );
+            catchBody.addStatement(factory.Code().createThrow(runtimeEx));
+            catchBlock.setBody(catchBody);
+
+            // Strategy depends on the context of the invocation
+            if (parent instanceof CtLocalVariable && parent.getParent() instanceof CtBlock) {
+                // Scenario A: Local Variable Declaration -> "Type res = mapper.readValue(...);"
+                // Transformation: "Type res; try { res = mapper.readValue(...); } catch..."
+                
+                CtLocalVariable<?> localVar = (CtLocalVariable<?>) parent;
+                
+                // 1. Create independent declaration (Type res;)
+                CtLocalVariable<?> separatedDecl = localVar.clone();
+                separatedDecl.setDefaultExpression(null);
+                
+                // 2. Create assignment (res = mapper.readValue(...))
+                CtAssignment<?,?> assignment = factory.Code().createVariableAssignment(
+                    factory.Code().createVariableWrite(separatedDecl.getReference(), false),
+                    false,
+                    invocation.clone()
+                );
+                
+                // 3. Create Try-Catch block containing the assignment
+                CtTry tryStmt = factory.Core().createTry();
+                tryStmt.setBody(factory.Code().createBlock());
+                tryStmt.getBody().addStatement(assignment);
+                tryStmt.addCatcher(catchBlock);
+                
+                // 4. Modify AST: Insert declaration before, replace original with try-catch
+                localVar.insertBefore(separatedDecl);
+                localVar.replace(tryStmt);
+                
+                System.out.println("Refactored Local Variable Declaration at line " + invocation.getPosition().getLine());
+
+            } else if (parent instanceof CtAssignment && parent.getParent() instanceof CtBlock) {
+                // Scenario B: Assignment -> "res = mapper.readValue(...);"
+                // Transformation: Wrap in Try-Catch
+                
+                CtAssignment<?,?> assignment = (CtAssignment<?,?>) parent;
+                
+                CtTry tryStmt = factory.Core().createTry();
+                tryStmt.setBody(factory.Code().createBlock());
+                tryStmt.getBody().addStatement(assignment.clone());
+                tryStmt.addCatcher(catchBlock);
+                
+                assignment.replace(tryStmt);
+                System.out.println("Refactored Assignment at line " + invocation.getPosition().getLine());
+
+            } else if (parent instanceof CtBlock) {
+                // Scenario C: Statement -> "mapper.readValue(...);" (return value ignored)
+                // Transformation: Wrap in Try-Catch
+                
+                CtTry tryStmt = factory.Core().createTry();
+                tryStmt.setBody(factory.Code().createBlock());
+                tryStmt.getBody().addStatement(invocation.clone());
+                tryStmt.addCatcher(catchBlock);
+                
+                invocation.replace(tryStmt);
+                System.out.println("Refactored Statement at line " + invocation.getPosition().getLine());
+
+            } else {
+                // Scenario D: Complex Expression (e.g., inside method call arguments)
+                // "process(mapper.readValue(...))"
+                // Safely extracting this in NoClasspath mode is risky. We log a warning.
+                System.err.println("[WARN] Skipping complex usage of readValue at line " + invocation.getPosition().getLine() + ". Manual intervention required.");
+            }
+        }
+
+        /**
+         * Checks if the invocation is already guarded by a try-catch for IOException/Exception,
+         * or if the enclosing method declares it.
+         */
+        private boolean isExceptionHandled(CtInvocation<?> invocation) {
+            CtElement current = invocation;
+            while (current != null) {
+                // 1. Check enclosing Try-Catch
+                if (current instanceof CtTry) {
+                    CtTry tryStmt = (CtTry) current;
+                    for (CtCatch catcher : tryStmt.getCatchers()) {
+                        CtTypeReference<?> caughtType = catcher.getParameter().getType();
+                        if (caughtType != null) {
+                            String name = caughtType.getQualifiedName();
+                            // If Exception, Throwable or IOException is caught, we consider it handled.
+                            if ("java.lang.Exception".equals(name) || 
+                                "java.lang.Throwable".equals(name) ||
+                                "java.io.IOException".equals(name)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                // 2. Check enclosing Method throws clause
+                if (current instanceof CtMethod) {
+                    CtMethod<?> method = (CtMethod<?>) current;
+                    for (CtTypeReference<?> thrown : method.getThrownTypes()) {
+                        String name = thrown.getQualifiedName();
+                        if ("java.lang.Exception".equals(name) || 
+                            "java.lang.Throwable".equals(name) ||
+                            "java.io.IOException".equals(name)) {
+                            return true;
+                        }
+                    }
+                    // Do not check outside the method boundary
+                    return false;
+                }
+                current = current.getParent();
+            }
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for robust transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ObjectMapperReadValueProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,94 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class ClassPathResourceRefactoring {
+
+    /**
+     * Processor to handle the source incompatibility of ClassPathResource.
+     * Strategy: Explicitly inject the Context ClassLoader into single-argument constructors.
+     */
+    public static class ClassPathResourceProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> typeRef = candidate.getType();
+            if (typeRef == null) {
+                return false;
+            }
+
+            // Use relaxed matching to handle cases where fully qualified name resolution fails in NoClasspath
+            String qualifiedName = typeRef.getQualifiedName();
+            if (!qualifiedName.contains("ClassPathResource")) {
+                return false;
+            }
+
+            // Ensure it targets the specific Spring class if package info is available
+            if (qualifiedName.contains(".") && !qualifiedName.contains("org.springframework.core.io")) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We only want to refactor the single-argument constructor: new ClassPathResource(path)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            // Transformation: Add Thread.currentThread().getContextClassLoader() as the second argument.
+            // Old: new ClassPathResource("path/to/file.xml")
+            // New: new ClassPathResource("path/to/file.xml", Thread.currentThread().getContextClassLoader())
+
+            CtExpression<?> classLoaderArg = getFactory().Code().createCodeSnippetExpression(
+                "Thread.currentThread().getContextClassLoader()"
+            );
+
+            candidate.addArgument(classLoaderArg);
+
+            System.out.println("Refactored ClassPathResource instantiation at line " + candidate.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/2b3054325e9e55e1af6056b604048fc328dbb2dd/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/2b3054325e9e55e1af6056b604048fc328dbb2dd/IDS-Messaging-Services/core/src/main/java/ids/messaging/core/config/ssl/keystore/KeyStoreManager.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/2b3054325e9e55e1af6056b604048fc328dbb2dd/attempt_1/transformed");
+
+        // CRITICAL: Configure Environment for Non-Destructive Refactoring
+        // 1. Enable comments to preserve documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to preserve original formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new ClassPathResourceProcessor());
+
+        try {
+            System.out.println("Starting refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

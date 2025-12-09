@@ -1,0 +1,79 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class StrutsFilterMigration {
+
+    /**
+     * Processor to handle the relocation of StrutsPrepareAndExecuteFilter.
+     * Use Case: Struts 2.5 removed the 'ng' package segment.
+     * Old: org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+     * New: org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter
+     */
+    public static class StrutsFilterProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        private static final String OLD_CLASS_NAME = "org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter";
+        private static final String NEW_PACKAGE_NAME = "org.apache.struts2.dispatcher.filter";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive Check: Ensure candidate and its name are not null
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Check if this reference points to the old removed class
+            return candidate.getQualifiedName().equals(OLD_CLASS_NAME);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            // Create the new package reference
+            CtPackage newPackage = getFactory().Package().getOrCreate(NEW_PACKAGE_NAME);
+
+            // Update the package of the type reference. 
+            // This handles both explicit imports and fully qualified usages.
+            candidate.setPackage(newPackage);
+            
+            System.out.println("Refactored StrutsPrepareAndExecuteFilter reference at line " 
+                + (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/6c53cd904bd66fc79af8687571e607c259226b81/guice/extensions/struts2/test/com/google/inject/struts2/Struts2FactoryTest.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6c53cd904bd66fc79af8687571e607c259226b81/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/6c53cd904bd66fc79af8687571e607c259226b81/guice/extensions/struts2/test/com/google/inject/struts2/Struts2FactoryTest.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/6c53cd904bd66fc79af8687571e607c259226b81/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Source Code Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer for precise modification (indentation/formatting preservation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode allows running without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new StrutsFilterProcessor());
+
+        try {
+            System.out.println("Starting Struts refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

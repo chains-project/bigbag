@@ -1,0 +1,3085 @@
+{
+  "project" : "nldi-services",
+  "breakingCommit" : "8f757321e48d7ffb117cbc8fb13d316e23d0f58f",
+  "dependency" : {
+    "groupId" : "org.mybatis",
+    "artifactId" : "mybatis-spring",
+    "previousVersion" : "2.0.7",
+    "newVersion" : "3.0.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "JAVA_VERSION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/8f757321e48d7ffb117cbc8fb13d316e23d0f58f.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java",
+    "errors" : [ {
+      "lineNumber" : 4,
+      "columnNumber" : 34,
+      "message" : "cannot access org.mybatis.spring.support.SqlSessionDaoSupport",
+      "details" : [ "bad class file: /root/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar(/org/mybatis/spring/support/SqlSessionDaoSupport.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java",
+        "lineNumber" : 4,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.889826806Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 4,
+          "codeLine" : "import org.mybatis.spring.support.SqlSessionDaoSupport;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 8,
+      "columnNumber" : 39,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class SqlSessionDaoSupport" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java",
+        "lineNumber" : 8,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.889997774Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 8,
+          "codeLine" : "public abstract class BaseDao extends SqlSessionDaoSupport {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 27,
+      "columnNumber" : 15,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getClass()", "location: class gov.usgs.owi.nldi.dao.BaseDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.898499589Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.slf4j.Logger#trace(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "    LOG.trace(getClass().getName());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.BaseDao::LOG",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "    LOG.trace(getClass().getName());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.lang.Class#getName()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 27,
+          "codeLine" : "    LOG.trace(getClass().getName());",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.lang.Object#getClass()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 27,
+          "codeLine" : "    LOG.trace(getClass().getName());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 28,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method setSqlSessionFactory(org.apache.ibatis.session.SqlSessionFactory)", "location: class gov.usgs.owi.nldi.dao.BaseDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java",
+        "lineNumber" : 28,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.898725920Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#setSqlSessionFactory(org.apache.ibatis.session.SqlSessionFactory)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 28,
+          "codeLine" : "    setSqlSessionFactory(sqlSessionFactory);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setSqlSessionFactory",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.setSqlSessionFactory(org.apache.ibatis.session.SqlSessionFactory)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@82e284f0[public setSqlSessionFactory (Lorg/apache/ibatis/session/SqlSessionFactory;)V]",
+              "newValue" : "javassist.CtMethod@82e284f0[public setSqlSessionFactory (Lorg/apache/ibatis/session/SqlSessionFactory;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.apache.ibatis.session.SqlSessionFactory" ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/springinit/MybatisConfig.java",
+    "errors" : [ {
+      "lineNumber" : 9,
+      "columnNumber" : 26,
+      "message" : "cannot access org.mybatis.spring.SqlSessionFactoryBean",
+      "details" : [ "bad class file: /root/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar(/org/mybatis/spring/SqlSessionFactoryBean.class)", "class file has wrong version 61.0, should be 55.0", "Please remove or make sure it appears in the correct subdirectory of the classpath." ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/springinit/MybatisConfig.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.899065228Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import org.mybatis.spring.SqlSessionFactoryBean;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 42,
+      "columnNumber" : 10,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class SqlSessionFactoryBean", "location: class gov.usgs.owi.nldi.springinit.MybatisConfig" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/springinit/MybatisConfig.java",
+        "lineNumber" : 42,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.899472805Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 42,
+          "codeLine" : "  public SqlSessionFactoryBean sqlSessionFactory() throws Exception {",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Exception",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 42,
+          "codeLine" : "  public SqlSessionFactoryBean sqlSessionFactory() throws Exception {",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class SqlSessionFactoryBean", "location: class gov.usgs.owi.nldi.springinit.MybatisConfig" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/springinit/MybatisConfig.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.899763883Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "    SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "    SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean.SqlSessionFactoryBean()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@7609df59[public SqlSessionFactoryBean ()V]",
+              "newValue" : "javassist.CtConstructor@22bbe9a8[public SqlSessionFactoryBean ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 43,
+      "columnNumber" : 51,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class SqlSessionFactoryBean", "location: class gov.usgs.owi.nldi.springinit.MybatisConfig" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/springinit/MybatisConfig.java",
+        "lineNumber" : 43,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.899970086Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "    SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 0
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.mybatis.spring.SqlSessionFactoryBean#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 43,
+          "codeLine" : "    SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "SqlSessionFactoryBean",
+            "declaringType" : "org.mybatis.spring.SqlSessionFactoryBean",
+            "qualifiedSignature" : "org.mybatis.spring.SqlSessionFactoryBean.SqlSessionFactoryBean()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@7609df59[public SqlSessionFactoryBean ()V]",
+              "newValue" : "javassist.CtConstructor@22bbe9a8[public SqlSessionFactoryBean ()V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java",
+    "errors" : [ {
+      "lineNumber" : 33,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.NavigationDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java",
+        "lineNumber" : 33,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.902344952Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "    return getSqlSession().selectOne(NS + NAVIGATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "    return getSqlSession().selectOne(NS + NAVIGATE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.NavigationDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "    return getSqlSession().selectOne(NS + NAVIGATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.NavigationDao::NAVIGATE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java"
+          },
+          "lineNumber" : 33,
+          "codeLine" : "    return getSqlSession().selectOne(NS + NAVIGATE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 37,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.NavigationDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java",
+        "lineNumber" : 37,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.902638811Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "    return getSqlSession().selectOne(NS + GET_CACHE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "    return getSqlSession().selectOne(NS + GET_CACHE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.NavigationDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "    return getSqlSession().selectOne(NS + GET_CACHE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.NavigationDao::GET_CACHE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java"
+          },
+          "lineNumber" : 37,
+          "codeLine" : "    return getSqlSession().selectOne(NS + GET_CACHE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 53,
+      "columnNumber" : 5,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.NavigationDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java",
+        "lineNumber" : 53,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.902883339Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#select(java.lang.String, java.lang.Object, org.apache.ibatis.session.ResultHandler)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    getSqlSession().select(NS + \"features\", parameters, resultHandler);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    getSqlSession().select(NS + \"features\", parameters, resultHandler);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.NavigationDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/NavigationDao.java"
+          },
+          "lineNumber" : 53,
+          "codeLine" : "    getSqlSession().select(NS + \"features\", parameters, resultHandler);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LogDao.java",
+    "errors" : [ {
+      "lineNumber" : 30,
+      "columnNumber" : 24,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LogDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LogDao.java",
+        "lineNumber" : 30,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.903140595Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "        return getSqlSession().selectOne(NS + START, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "        return getSqlSession().selectOne(NS + START, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LogDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LogDao.java"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "        return getSqlSession().selectOne(NS + START, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LogDao::START",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LogDao.java"
+          },
+          "lineNumber" : 30,
+          "codeLine" : "        return getSqlSession().selectOne(NS + START, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 34,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LogDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LogDao.java",
+        "lineNumber" : 34,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.903285962Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        getSqlSession().selectOne(NS + END, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        getSqlSession().selectOne(NS + END, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LogDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LogDao.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        getSqlSession().selectOne(NS + END, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LogDao::END",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LogDao.java"
+          },
+          "lineNumber" : 34,
+          "codeLine" : "        getSqlSession().selectOne(NS + END, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+    "errors" : [ {
+      "lineNumber" : 50,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 50,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.910606537Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::FEATURE_SOURCE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 64,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 64,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.911429042Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::FEATURE_SOURCE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 64,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + FEATURE_SOURCE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 80,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 80,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.912499404Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Boolean",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 80,
+          "codeLine" : "    Boolean featureExists = getSqlSession().selectOne(DOES_FEATURE_ID_EXIST, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 80,
+          "codeLine" : "    Boolean featureExists = getSqlSession().selectOne(DOES_FEATURE_ID_EXIST, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 80,
+          "codeLine" : "    Boolean featureExists = getSqlSession().selectOne(DOES_FEATURE_ID_EXIST, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::DOES_FEATURE_ID_EXIST",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 80,
+          "codeLine" : "    Boolean featureExists = getSqlSession().selectOne(DOES_FEATURE_ID_EXIST, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 90,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 90,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.913358831Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectList(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "    return getSqlSession().selectList(NS + BaseDao.DATA_SOURCES, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "    return getSqlSession().selectList(NS + BaseDao.DATA_SOURCES, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "    return getSqlSession().selectList(NS + BaseDao.DATA_SOURCES, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.BaseDao::DATA_SOURCES",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "    return getSqlSession().selectList(NS + BaseDao.DATA_SOURCES, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "gov.usgs.owi.nldi.dao.BaseDao",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java"
+          },
+          "lineNumber" : 90,
+          "codeLine" : "    return getSqlSession().selectList(NS + BaseDao.DATA_SOURCES, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 99,
+      "columnNumber" : 14,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 99,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.914082454Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "    result = getSqlSession().selectOne(NS + \"fancyFeature\", parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "    result = getSqlSession().selectOne(NS + \"fancyFeature\", parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 99,
+          "codeLine" : "    result = getSqlSession().selectOne(NS + \"fancyFeature\", parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 104,
+      "columnNumber" : 20,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 104,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.914823600Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "gov.usgs.owi.nldi.model.Comid",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/model/Comid.java"
+          },
+          "lineNumber" : 104,
+          "codeLine" : "    Comid result = getSqlSession().selectOne(NS + \"fancyComid\", comid);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 104,
+          "codeLine" : "    Comid result = getSqlSession().selectOne(NS + \"fancyComid\", comid);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 104,
+          "codeLine" : "    Comid result = getSqlSession().selectOne(NS + \"fancyComid\", comid);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 104,
+          "codeLine" : "    Comid result = getSqlSession().selectOne(NS + \"fancyComid\", comid);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 119,
+      "columnNumber" : 29,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 119,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.915523817Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Boolean",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 119,
+          "codeLine" : "      Boolean comidExists = getSqlSession().selectOne(DOES_COMID_EXIST, comid);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 119,
+          "codeLine" : "      Boolean comidExists = getSqlSession().selectOne(DOES_COMID_EXIST, comid);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 119,
+          "codeLine" : "      Boolean comidExists = getSqlSession().selectOne(DOES_COMID_EXIST, comid);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::DOES_COMID_EXIST",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 119,
+          "codeLine" : "      Boolean comidExists = getSqlSession().selectOne(DOES_COMID_EXIST, comid);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 128,
+      "columnNumber" : 15,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 128,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.916310429Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 128,
+          "codeLine" : "      comid = getSqlSession().selectOne(FEATURE_COMID, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 128,
+          "codeLine" : "      comid = getSqlSession().selectOne(FEATURE_COMID, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::FEATURE_COMID",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 128,
+          "codeLine" : "      comid = getSqlSession().selectOne(FEATURE_COMID, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 144,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 144,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.917199074Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.BaseDao::FEATURE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java"
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "gov.usgs.owi.nldi.dao.BaseDao",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/BaseDao.java"
+          },
+          "lineNumber" : 144,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + BaseDao.FEATURE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 151,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 151,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.918663971Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 151,
+          "codeLine" : "      feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 151,
+          "codeLine" : "      feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 151,
+          "codeLine" : "      feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::MEASURE_ESTIMATE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 151,
+          "codeLine" : "      feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 167,
+      "columnNumber" : 35,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 167,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.919425873Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::MEASURE_ESTIMATE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 167,
+          "codeLine" : "    Map<String, Object> feature = getSqlSession().selectOne(NS + MEASURE_ESTIMATE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 180,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 180,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.920174828Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 180,
+          "codeLine" : "    return getSqlSession().selectOne(NS + REACH_CODE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 180,
+          "codeLine" : "    return getSqlSession().selectOne(NS + REACH_CODE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 180,
+          "codeLine" : "    return getSqlSession().selectOne(NS + REACH_CODE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::REACH_CODE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 180,
+          "codeLine" : "    return getSqlSession().selectOne(NS + REACH_CODE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 187,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 187,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.920937641Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 187,
+          "codeLine" : "    return getSqlSession().selectOne(NS + COMID_LAT_LON, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 187,
+          "codeLine" : "    return getSqlSession().selectOne(NS + COMID_LAT_LON, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 187,
+          "codeLine" : "    return getSqlSession().selectOne(NS + COMID_LAT_LON, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::COMID_LAT_LON",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 187,
+          "codeLine" : "    return getSqlSession().selectOne(NS + COMID_LAT_LON, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 191,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 191,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.921667907Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectList(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 191,
+          "codeLine" : "    return getSqlSession().selectList(NS + objectType, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 191,
+          "codeLine" : "    return getSqlSession().selectList(NS + objectType, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 191,
+          "codeLine" : "    return getSqlSession().selectList(NS + objectType, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 202,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 202,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.922391453Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 202,
+          "codeLine" : "    return getSqlSession().selectOne(NS + ST_DISTANCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 202,
+          "codeLine" : "    return getSqlSession().selectOne(NS + ST_DISTANCE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 202,
+          "codeLine" : "    return getSqlSession().selectOne(NS + ST_DISTANCE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::ST_DISTANCE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 202,
+          "codeLine" : "    return getSqlSession().selectOne(NS + ST_DISTANCE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 215,
+      "columnNumber" : 34,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 215,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.924034130Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Double",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::ST_CLOSEST_POINT",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 215,
+          "codeLine" : "    Map<String, Double> result = getSqlSession().selectOne(NS + ST_CLOSEST_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 232,
+      "columnNumber" : 34,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 232,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.924820165Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::POINT_ON_FLOWLINE",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 232,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(POINT_ON_FLOWLINE, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 256,
+      "columnNumber" : 34,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 256,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.925730608Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.util.Map",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.String",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "java.lang.Object",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::FEATURE_LOCATION",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 256,
+          "codeLine" : "    Map<String, Object> result = getSqlSession().selectOne(NS + FEATURE_LOCATION, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 275,
+      "columnNumber" : 12,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.LookupDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java",
+        "lineNumber" : 275,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.926401343Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#selectOne(java.lang.String, java.lang.Object)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 275,
+          "codeLine" : "    return getSqlSession().selectOne(FEATURE_IS_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 275,
+          "codeLine" : "    return getSqlSession().selectOne(FEATURE_IS_POINT, parameterMap);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.LookupDao::FEATURE_IS_POINT",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/LookupDao.java"
+          },
+          "lineNumber" : 275,
+          "codeLine" : "    return getSqlSession().selectOne(FEATURE_IS_POINT, parameterMap);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/StreamingDao.java",
+    "errors" : [ {
+      "lineNumber" : 26,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method getSqlSession()", "location: class gov.usgs.owi.nldi.dao.StreamingDao" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/nldi-services/src/main/java/gov/usgs/owi/nldi/dao/StreamingDao.java",
+        "lineNumber" : 26,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-2.0.7.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/8f757321e48d7ffb117cbc8fb13d316e23d0f58f/mybatis-spring-3.0.1.jar",
+        "generatedAt" : "2025-12-08T06:10:50.926708066Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.apache.ibatis.session.SqlSession#select(java.lang.String, java.lang.Object, org.apache.ibatis.session.ResultHandler)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis",
+            "version" : "3.5.11",
+            "coordinates" : "org.mybatis:mybatis:3.5.11",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar"
+          },
+          "lineNumber" : 26,
+          "codeLine" : "        getSqlSession().select(NS + featureType, parameterMap, handler);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.mybatis.spring.support.SqlSessionDaoSupport#getSqlSession()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.mybatis",
+            "artifactId" : "mybatis-spring",
+            "version" : "3.0.1",
+            "coordinates" : "org.mybatis:mybatis-spring:3.0.1",
+            "sourcePath" : "/home/kth/.m2/repository/org/mybatis/mybatis-spring/3.0.1/mybatis-spring-3.0.1.jar"
+          },
+          "lineNumber" : 26,
+          "codeLine" : "        getSqlSession().select(NS + featureType, parameterMap, handler);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getSqlSession",
+            "declaringType" : "org.mybatis.spring.support.SqlSessionDaoSupport",
+            "qualifiedSignature" : "org.mybatis.spring.support.SqlSessionDaoSupport.getSqlSession()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "newValue" : "javassist.CtMethod@395ad65f[public getSqlSession ()Lorg/apache/ibatis/session/SqlSession;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "org.apache.ibatis.session.SqlSession",
+              "newValue" : "org.apache.ibatis.session.SqlSession",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "gov.usgs.owi.nldi.dao.StreamingDao::NS",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/gov/usgs/owi/nldi/dao/StreamingDao.java"
+          },
+          "lineNumber" : 26,
+          "codeLine" : "        getSqlSession().select(NS + featureType, parameterMap, handler);",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

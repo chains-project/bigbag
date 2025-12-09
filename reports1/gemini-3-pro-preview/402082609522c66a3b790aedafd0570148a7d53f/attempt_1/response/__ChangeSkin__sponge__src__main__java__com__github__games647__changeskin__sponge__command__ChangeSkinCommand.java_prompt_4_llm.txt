@@ -1,0 +1,98 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtTypeMember;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class SpongeCommandSpecMigration {
+
+    /**
+     * Processor to identify usages of the removed 'CommandSpec' class.
+     * Since the class is removed, we cannot automatically rewrite the logic without
+     * knowing the specific replacement pattern (which varies in SpongeAPI v8).
+     * 
+     * Strategy: Identify references and tag the containing statement/member with a FIXME comment.
+     */
+    public static class CommandSpecRemovalProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        // To avoid adding duplicate comments if a line has multiple references
+        private final Set<CtElement> processedParents = new HashSet<>();
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive Check: NoClasspath safety
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Check for the specific removed class
+            // Using .contains() to handle potential generic wrappings or resolution issues
+            return candidate.getQualifiedName().contains("org.spongepowered.api.command.spec.CommandSpec");
+        }
+
+        @Override
+        public void process(CtTypeReference<?> ref) {
+            // Find the nearest meaningful container (Statement, Field, Method)
+            CtElement parent = ref.getParent(e -> 
+                e instanceof CtStatement || e instanceof CtTypeMember
+            );
+
+            if (parent != null && !processedParents.contains(parent)) {
+                // Check if we already tagged this manually to avoid spam
+                boolean alreadyTagged = parent.getComments().stream()
+                    .anyMatch(c -> c.getContent().contains("CommandSpec was removed"));
+
+                if (!alreadyTagged) {
+                    getFactory().Code().addComment(
+                        parent,
+                        "FIXME: 'org.spongepowered.api.command.spec.CommandSpec' was removed. Logic requires manual migration to the new Command API.",
+                        CtComment.CommentType.INLINE
+                    );
+                    System.out.println("Tagged removed CommandSpec usage at line " + ref.getPosition().getLine());
+                }
+                
+                processedParents.add(parent);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for high-fidelity source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Set NoClasspath to true (Defensive mode)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new CommandSpecRemovalProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

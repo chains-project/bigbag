@@ -1,0 +1,2433 @@
+{
+  "project" : "WorldwideChat",
+  "breakingCommit" : "832e0f184efdad0fcf15d14cb7af5e30239ff454",
+  "dependency" : {
+    "groupId" : "com.github.cryptomorin",
+    "artifactId" : "XSeries",
+    "previousVersion" : "8.5.0.1",
+    "newVersion" : "8.6.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/832e0f184efdad0fcf15d14cb7af5e30239ff454.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/832e0f184efdad0fcf15d14cb7af5e30239ff454/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/configuration/ConfigurationMessagesOverridePossibleListGUI.java",
+    "errors" : [ {
+      "lineNumber" : 72,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/configuration/ConfigurationMessagesOverridePossibleListGUI.java",
+        "lineNumber" : 72,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.267838510Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 72,
+          "codeLine" : "                    currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 72,
+          "codeLine" : "                    currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 72,
+          "codeLine" : "                    currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 72,
+          "codeLine" : "                    currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/WWCInventoryManager.java",
+    "errors" : [ {
+      "lineNumber" : 79,
+      "columnNumber" : 98,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/WWCInventoryManager.java",
+        "lineNumber" : 79,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.268333864Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 79,
+          "codeLine" : "                pageMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 79,
+          "codeLine" : "                pageMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 79,
+          "codeLine" : "                pageMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 79,
+          "codeLine" : "                pageMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+    "errors" : [ {
+      "lineNumber" : 86,
+      "columnNumber" : 105,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 86,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.269305778Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 86,
+          "codeLine" : "                translationMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 86,
+          "codeLine" : "                translationMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 86,
+          "codeLine" : "                translationMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 86,
+          "codeLine" : "                translationMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 127,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 127,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.270170767Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 127,
+          "codeLine" : "                        rateMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "                        rateMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 127,
+          "codeLine" : "                        rateMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 127,
+          "codeLine" : "                        rateMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 149,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 149,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.271056228Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 149,
+          "codeLine" : "                        bookMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 149,
+          "codeLine" : "                        bookMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 149,
+          "codeLine" : "                        bookMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 149,
+          "codeLine" : "                        bookMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 173,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 173,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.271929538Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 173,
+          "codeLine" : "                        signMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 173,
+          "codeLine" : "                        signMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 173,
+          "codeLine" : "                        signMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 173,
+          "codeLine" : "                        signMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 196,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 196,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.272779952Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 196,
+          "codeLine" : "                        itemMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 196,
+          "codeLine" : "                        itemMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 196,
+          "codeLine" : "                        itemMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 196,
+          "codeLine" : "                        itemMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 217,
+      "columnNumber" : 116,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 217,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.273625882Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 217,
+          "codeLine" : "                        entityMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 217,
+          "codeLine" : "                        entityMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 217,
+          "codeLine" : "                        entityMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 217,
+          "codeLine" : "                        entityMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 241,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIMainMenu.java",
+        "lineNumber" : 241,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.274534791Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 241,
+          "codeLine" : "                        chatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 241,
+          "codeLine" : "                        chatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 241,
+          "codeLine" : "                        chatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 241,
+          "codeLine" : "                        chatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUISourceLanguage.java",
+    "errors" : [ {
+      "lineNumber" : 73,
+      "columnNumber" : 113,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUISourceLanguage.java",
+        "lineNumber" : 73,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.275212366Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 73,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 76,
+      "columnNumber" : 113,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUISourceLanguage.java",
+        "lineNumber" : 76,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.276008440Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 76,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 76,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 76,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 76,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 122,
+      "columnNumber" : 112,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUISourceLanguage.java",
+        "lineNumber" : 122,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.276686238Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 122,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 125,
+      "columnNumber" : 112,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUISourceLanguage.java",
+        "lineNumber" : 125,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.277240114Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 125,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 125,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 125,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 125,
+          "codeLine" : "                    skipSourceMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIChatMenu.java",
+    "errors" : [ {
+      "lineNumber" : 71,
+      "columnNumber" : 114,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIChatMenu.java",
+        "lineNumber" : 71,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.277722111Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 71,
+          "codeLine" : "                    outgoingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 71,
+          "codeLine" : "                    outgoingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 71,
+          "codeLine" : "                    outgoingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 71,
+          "codeLine" : "                    outgoingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 93,
+      "columnNumber" : 106,
+      "message" : "no suitable method found for matchXEnchantment(no arguments)",
+      "details" : [ "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String) is not applicable", "(actual and formal argument lists differ in length)", "method com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment) is not applicable", "(actual and formal argument lists differ in length)" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUIChatMenu.java",
+        "lineNumber" : 93,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.278124987Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 93,
+          "codeLine" : "                    incomingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 93,
+          "codeLine" : "                    incomingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 93,
+          "codeLine" : "                    incomingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 93,
+          "codeLine" : "                    incomingChatMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().matchXEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUITargetLanguage.java",
+    "errors" : [ {
+      "lineNumber" : 81,
+      "columnNumber" : 113,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method parseEnchantment()", "location: class com.cryptomorin.xseries.XEnchantment" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/wwctranslategui/WWCTranslateGUITargetLanguage.java",
+        "lineNumber" : 81,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.6.0.jar",
+        "generatedAt" : "2025-12-08T05:43:28.278637545Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.bukkit.inventory.meta.ItemMeta#addEnchant(org.bukkit.enchantments.Enchantment, int, boolean)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 81,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().parseEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#parseEnchantment()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 81,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().parseEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "parseEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.parseEnchantment()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6fe87085[public parseEnchantment ()Lorg/bukkit/enchantments/Enchantment;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.bukkit.enchantments.Enchantment",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "parseEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.parseEnchantment()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@6fe87085[public parseEnchantment ()Lorg/bukkit/enchantments/Enchantment;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.bukkit.enchantments.Enchantment",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Optional#get()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 81,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().parseEnchantment(), 1, false);",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "com.cryptomorin.xseries.XEnchantment#matchXEnchantment(java.lang.String)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 81,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().parseEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(java.lang.String)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "newValue" : "javassist.CtMethod@f86b333b[public static matchXEnchantment (Ljava/lang/String;)Ljava/util/Optional;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Optional",
+              "newValue" : "java.util.Optional",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.String" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "matchXEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment.matchXEnchantment(org.bukkit.enchantments.Enchantment)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "newValue" : "javassist.CtMethod@67d2bfb0[public static matchXEnchantment (Lorg/bukkit/enchantments/Enchantment;)Lcom/cryptomorin/xseries/XEnchantment;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "com.cryptomorin.xseries.XEnchantment",
+              "newValue" : "com.cryptomorin.xseries.XEnchantment",
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.bukkit.enchantments.Enchantment" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.cryptomorin.xseries.XEnchantment",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.github.cryptomorin",
+            "artifactId" : "XSeries",
+            "version" : "8.5.0.1",
+            "coordinates" : "com.github.cryptomorin:XSeries:8.5.0.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/XSeries-8.5.0.1.jar"
+          },
+          "lineNumber" : 81,
+          "codeLine" : "                    currentLangMeta.addEnchant(XEnchantment.matchXEnchantment(\"power\").get().parseEnchantment(), 1, false);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "com.cryptomorin.xseries.XEnchantment",
+            "declaringType" : "com.cryptomorin.xseries.XEnchantment",
+            "qualifiedSignature" : "com.cryptomorin.xseries.XEnchantment",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

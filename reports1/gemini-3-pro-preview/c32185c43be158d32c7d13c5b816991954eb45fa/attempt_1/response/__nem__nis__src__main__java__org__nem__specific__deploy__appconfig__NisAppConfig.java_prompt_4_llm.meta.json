@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c32185c43be158d32c7d13c5b816991954eb45fa/attempt_1/prompts/__nem__nis__src__main__java__org__nem__specific__deploy__appconfig__NisAppConfig.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c32185c43be158d32c7d13c5b816991954eb45fa/attempt_1/prompts/__nem__nis__src__main__java__org__nem__specific__deploy__appconfig__NisAppConfig.java_prompt_4_llm.txt",
+  "timestamp": 1765185912.5209396,
+  "duration_seconds": 80.53917908668518,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.declaration.CtElement;\nimport spoon.reflect.factory.Factory;\nimport spoon.reflect.reference.CtExecutableReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.List;\n\npublic class FlywayRefactoring {\n\n    /**\n     * Processor to handle Flyway 5/6 -> 7+ migration:\n     * 1. Replaces 'new Flyway()' with 'Flyway.configure().load()'.\n     * 2. Renames 'MigrationType' to 'CoreMigrationType'.\n     */\n    public static class FlywayProcessor extends AbstractProcessor<CtElement> {\n\n        @Override\n        public boolean isToBeProcessed(CtElement candidate) {\n            // Process Constructor Calls to Flyway\n            if (candidate instanceof CtConstructorCall) {\n                CtConstructorCall<?> ctor = (CtConstructorCall<?>) candidate;\n                CtTypeReference<?> type = ctor.getType();\n                return type != null \n                       && type.getQualifiedName().equals(\"org.flywaydb.core.Flyway\")\n                       && ctor.getArguments().isEmpty();\n            }\n            \n            // Process Type References to MigrationType (Rename)\n            if (candidate instanceof CtTypeReference) {\n                CtTypeReference<?> typeRef = (CtTypeReference<?>) candidate;\n                return \"org.flywaydb.core.api.MigrationType\".equals(typeRef.getQualifiedName());\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtElement element) {\n            if (element instanceof CtConstructorCall) {\n                processFlywayConstructor((CtConstructorCall<?>) element);\n            } else if (element instanceof CtTypeReference) {\n                processMigrationTypeRename((CtTypeReference<?>) element);\n            }\n        }\n\n        /**\n         * Refactors: new Flyway() -> Flyway.configure().load()\n         */\n        private void processFlywayConstructor(CtConstructorCall<?> ctor) {\n            Factory factory = getFactory();\n            \n            // 1. Create reference to Flyway class\n            CtTypeReference<?> flywayType = factory.Type().createReference(\"org.flywaydb.core.Flyway\");\n            \n            // 2. Create 'Flyway.configure()' invocation\n            CtExecutableReference<?> configureRef = factory.Method().createReference(\n                    flywayType, \n                    null, // Return type unknown in NoClasspath, inferred later or ignored\n                    \"configure\"\n            );\n            configureRef.setStatic(true);\n            \n            CtInvocation<?> configureCall = factory.Code().createInvocation(\n                    factory.Code().createTypeAccess(flywayType),\n                    configureRef\n            );\n\n            // 3. Create '.load()' invocation on the result of configure()\n            // Note: configure() returns FluentConfiguration, but we chain .load() immediately\n            CtExecutableReference<?> loadRef = factory.Method().createReference(\n                    null, // Target type inferred\n                    flywayType, // Return type is Flyway\n                    \"load\"\n            );\n\n            CtInvocation<?> loadCall = factory.Code().createInvocation(\n                    configureCall,\n                    loadRef\n            );\n\n            // 4. Replace\n            ctor.replace(loadCall);\n            System.out.println(\"Refactored 'new Flyway()' to 'Flyway.configure().load()' at line \" + ctor.getPosition().getLine());\n        }\n\n        /**\n         * Refactors: org.flywaydb.core.api.MigrationType -> org.flywaydb.core.api.CoreMigrationType\n         */\n        private void processMigrationTypeRename(CtTypeReference<?> typeRef) {\n            // Simply update the package and simple name\n            typeRef.setPackage(getFactory().Package().getOrCreate(\"org.flywaydb.core.api\"));\n            typeRef.setSimpleName(\"CoreMigrationType\");\n            System.out.println(\"Renamed 'MigrationType' to 'CoreMigrationType' at line \" + typeRef.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ / Robust Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually for strict source preservation\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode (defensive)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new FlywayProcessor());\n        \n        try {\n            System.out.println(\"Starting Flyway Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 3700,
+      "candidates_token_count": 1250,
+      "total_token_count": 10021,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

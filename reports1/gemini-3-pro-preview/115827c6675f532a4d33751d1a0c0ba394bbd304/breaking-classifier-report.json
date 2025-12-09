@@ -1,0 +1,38 @@
+{
+  "originalFailurePath" : "/home/kth/Documents/last_transformer/output/115827c6675f532a4d33751d1a0c0ba394bbd304/dropwizard-pac4j/115827c6675f532a4d33751d1a0c0ba394bbd304.log",
+  "failureCategory" : "COMPILATION_FAILURE",
+  "errorsByFile" : [ {
+    "filePath" : "/dropwizard-pac4j/src/main/java/org/pac4j/dropwizard/J2EHelper.java",
+    "errors" : [ {
+      "lineNumber" : 5,
+      "columnNumber" : 21,
+      "message" : "package javax.servlet does not exist",
+      "details" : [ ]
+    }, {
+      "lineNumber" : 6,
+      "columnNumber" : 21,
+      "message" : "package javax.servlet does not exist",
+      "details" : [ ]
+    }, {
+      "lineNumber" : 37,
+      "columnNumber" : 15,
+      "message" : "cannot access javax.servlet.Filter",
+      "details" : [ "class file for javax.servlet.Filter not found" ]
+    }, {
+      "lineNumber" : 76,
+      "columnNumber" : 33,
+      "message" : "package FilterRegistration does not exist",
+      "details" : [ ]
+    }, {
+      "lineNumber" : 77,
+      "columnNumber" : 28,
+      "message" : "no suitable method found for addFilter(java.lang.String,org.pac4j.jee.filter.AbstractConfigFilter)",
+      "details" : [ "method io.dropwizard.jetty.setup.ServletEnvironment.addFilter(java.lang.String,javax.servlet.Filter) is not applicable", "(argument mismatch; org.pac4j.jee.filter.AbstractConfigFilter cannot be converted to javax.servlet.Filter)", "method io.dropwizard.jetty.setup.ServletEnvironment.addFilter(java.lang.String,java.lang.Class<? extends javax.servlet.Filter>) is not applicable", "(argument mismatch; org.pac4j.jee.filter.AbstractConfigFilter cannot be converted to java.lang.Class<? extends javax.servlet.Filter>)", "method io.dropwizard.jetty.setup.ServletEnvironment.addFilter(java.lang.String,org.eclipse.jetty.servlet.FilterHolder) is not applicable", "(argument mismatch; org.pac4j.jee.filter.AbstractConfigFilter cannot be converted to org.eclipse.jetty.servlet.FilterHolder)" ]
+    }, {
+      "lineNumber" : 80,
+      "columnNumber" : 28,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable DispatcherType", "location: class org.pac4j.dropwizard.J2EHelper" ]
+    } ]
+  } ]
+}

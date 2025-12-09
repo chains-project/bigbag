@@ -1,0 +1,103 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Transformation Script.
+ * Generated based on the provided dependency diff (Empty input detected - providing robust template).
+ * 
+ * Strategy:
+ * 1. Detect calls to specific methods.
+ * 2. Apply SniperPrinter to preserve original formatting.
+ * 3. Handle NoClasspath environments defensively.
+ */
+public class SpoonMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            
+            // 1. Name Check (Placeholder: Replace 'deprecatedMethod' with actual target)
+            if (!"deprecatedMethod".equals(executable.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner Check (Defensive for NoClasspath)
+            // We use loose matching on the qualified name to handle cases where 
+            // the classpath is incomplete and types are not fully resolved.
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+            if (declaringType != null 
+                && !declaringType.getQualifiedName().equals("<unknown>") 
+                && !declaringType.getQualifiedName().contains("TargetOwnerClass")) { // Replace with actual class
+                return false;
+            }
+
+            // 3. Argument Type Check (Defensive Pattern per Rule #2)
+            // Example: If we only care if the first arg is NOT already the new type.
+            if (!candidate.getArguments().isEmpty()) {
+                CtTypeReference<?> argType = candidate.getArguments().get(0).getType();
+                // If type is explicitly known and is already the new type, skip processing
+                if (argType != null && argType.getQualifiedName().contains("NewType")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation Logic (Placeholder)
+            // Example: Rename method to 'newMethod'
+            invocation.getExecutable().setSimpleName("newMethod");
+            
+            System.out.println("Refactored method call at: " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================
+        // CRITICAL CONFIGURATION (Do not modify)
+        // ==========================================
+        
+        // 1. Enable comments to ensure they are preserved
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer for precise source code preservation
+        // This is essential to keep formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ==========================================
+
+        launcher.addProcessor(new MigrationProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```

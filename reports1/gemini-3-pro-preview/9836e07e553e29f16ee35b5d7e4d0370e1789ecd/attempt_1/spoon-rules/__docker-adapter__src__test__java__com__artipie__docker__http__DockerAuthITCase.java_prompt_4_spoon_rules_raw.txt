@@ -1,0 +1,161 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Refactoring Rule Generator
+ * 
+ * Generated based on the provided System Prompt constraints.
+ * Since the input <dependency_change_diff> was empty, this class implements a 
+ * ROBUST TEMPLATE for a common breaking change pattern:
+ * 
+ * Scenario: Primitive Argument to Wrapper Object
+ * Change:   void configure(int milliseconds) -> void configure(java.time.Duration duration)
+ * Strategy: Wrap original argument in Duration.ofMillis(...)
+ *
+ * This template strictly adheres to:
+ * 1. Sniper Mode (Preserves formatting/comments)
+ * 2. NoClasspath Compatibility (Defensive null checks)
+ * 3. Java Generics Safety (Wildcards)
+ */
+public class RefactoringTemplate {
+
+    public static class ConfigurationProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        // CONFIGURATION: Adjust these constants for the specific API change
+        private static final String METHOD_NAME = "configure";
+        private static final String TARGET_OWNER_PARTIAL = "Service"; // Partial match for NoClasspath safety
+        private static final String NEW_WRAPPER_TYPE = "java.time.Duration";
+        private static final String WRAPPER_METHOD = "ofMillis";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // We check the method name first as it's the cheapest operation
+            String name = candidate.getExecutable().getSimpleName();
+            if (!METHOD_NAME.equals(name)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We expect exactly 1 argument (int) that needs to be wrapped
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Defensive Type Check (Critical for NoClasspath)
+            // Spoon may return null for types if classpath is missing. 
+            // We assume null types *might* be our target (best effort), 
+            // but we skip if we are certain it is already the new type.
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            if (argType != null) {
+                // If it's already the new type, skip it to avoid double-wrapping
+                if (argType.getQualifiedName().contains(NEW_WRAPPER_TYPE)) {
+                    return false;
+                }
+                // If we know strictly it's not a primitive/number (e.g. it's a String), skip it
+                if (!argType.isPrimitive() && !"java.lang.Integer".equals(argType.getQualifiedName())) {
+                    // Logic allows int, Integer, or Unknown (null)
+                    // You might want to skip here, but in NoClasspath, be careful filtering too aggressively.
+                }
+            }
+            
+            // Check if it already looks like the replacement (structural check for NoClasspath)
+            if (arg instanceof CtInvocation) {
+                CtInvocation<?> argInv = (CtInvocation<?>) arg;
+                if (WRAPPER_METHOD.equals(argInv.getExecutable().getSimpleName())) {
+                    return false;
+                }
+            }
+
+            // 4. Owner Check (Relaxed)
+            // In NoClasspath, declaring type might be null or <unknown>.
+            // We only filter OUT if we are sure it matches a different class.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                if (!declaringType.getQualifiedName().contains(TARGET_OWNER_PARTIAL)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Create reference to the new wrapper type (e.g., java.time.Duration)
+            CtTypeReference<?> wrapperRef = factory.Type().createReference(NEW_WRAPPER_TYPE);
+
+            // Create the wrapper invocation: Duration.ofMillis(originalArg)
+            // Note: We use createTypeAccess for static method calls
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(wrapperRef),
+                factory.Method().createReference(
+                    wrapperRef,
+                    factory.Type().voidPrimitiveType(), // return type of 'ofMillis' is actually Duration, but void is safe for ref creation
+                    WRAPPER_METHOD,
+                    factory.Type().integerPrimitiveType() // arg type
+                ),
+                originalArg.clone() // Clone the original argument to move it
+            );
+
+            // Replace the original argument with the wrapped version
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored " + METHOD_NAME + " at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = args.length > 0 ? args[0] : "src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Robust Sniper Configuration
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Set the PrettyPrinter to Sniper manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // CRITICAL: NoClasspath Configuration
+        // Ensures the processor runs even if dependencies are missing
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // Add the processor
+        launcher.addProcessor(new ConfigurationProcessor());
+
+        System.out.println("Starting Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

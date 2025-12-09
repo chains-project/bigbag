@@ -1,0 +1,170 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Refactors Spring Framework 5.x / Boot 2.x code to Spring 6 / Boot 3.
+ * 
+ * Addressed Changes:
+ * 1. ResponseEntity.getStatusCodeValue() [REMOVED] -> Replace with ResponseEntity.getStatusCode().value()
+ * 2. ResponseEntity.getStatusCode() [RET_TYPE_CHANGED] -> Returns HttpStatusCode instead of HttpStatus.
+ *    If assigned to a variable of type HttpStatus, we inject a cast: (HttpStatus) response.getStatusCode().
+ */
+public class SpringResponseEntityRefactoring {
+
+    public static class ResponseEntityProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            String methodName = candidate.getExecutable().getSimpleName();
+
+            // Filter 1: Only interested in these two methods
+            if (!"getStatusCodeValue".equals(methodName) && !"getStatusCode".equals(methodName)) {
+                return false;
+            }
+
+            // Filter 2: Owner Check (Defensive for NoClasspath)
+            // We check if the method is being called on something that looks like a ResponseEntity
+            CtExpression<?> target = candidate.getTarget();
+            if (target != null) {
+                CtTypeReference<?> targetType = target.getType();
+                if (targetType != null) {
+                    String typeName = targetType.getQualifiedName();
+                    // Match standard Spring ResponseEntity or common subclasses
+                    if (!typeName.contains("ResponseEntity") && !typeName.contains("HttpEntity")) {
+                        return false;
+                    }
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+            
+            if ("getStatusCodeValue".equals(methodName)) {
+                refactorGetStatusCodeValue(invocation);
+            } else if ("getStatusCode".equals(methodName)) {
+                refactorGetStatusCode(invocation);
+            }
+        }
+
+        /**
+         * Strategy: Method Removed.
+         * Old: response.getStatusCodeValue()
+         * New: response.getStatusCode().value()
+         */
+        private void refactorGetStatusCodeValue(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // 1. Create reference to "value" method
+            // We don't need strict declaring type in NoClasspath, just the name and return type int
+            CtTypeReference<Integer> intType = factory.Type().integerPrimitiveType();
+            
+            // 2. Create the intermediate call: .getStatusCode()
+            // We clone the original target (e.g., 'response' in 'response.getStatusCodeValue()')
+            CtInvocation<?> getStatusCodeCall = factory.Code().createInvocation(
+                    invocation.getTarget().clone(),
+                    factory.Method().createReference(null, null, "getStatusCode")
+            );
+
+            // 3. Create the final call: .value()
+            CtInvocation<Integer> valueCall = factory.Code().createInvocation(
+                    getStatusCodeCall,
+                    factory.Method().createReference(null, intType, "value")
+            );
+
+            // 4. Replace
+            invocation.replace(valueCall);
+            System.out.println("Refactored getStatusCodeValue() -> getStatusCode().value() at line " + invocation.getPosition().getLine());
+        }
+
+        /**
+         * Strategy: Return Type Mismatch.
+         * Old: HttpStatus s = response.getStatusCode();
+         * New: HttpStatus s = (HttpStatus) response.getStatusCode();
+         * 
+         * Context: In Spring 6, getStatusCode() returns HttpStatusCode (interface).
+         * If the user code expects the Enum (HttpStatus), we must downcast.
+         */
+        private void refactorGetStatusCode(CtInvocation<?> invocation) {
+            CtElement parent = invocation.getParent();
+            CtTypeReference<?> expectedType = null;
+
+            // Scenario A: Variable Declaration: HttpStatus s = ...
+            if (parent instanceof CtLocalVariable) {
+                expectedType = ((CtLocalVariable<?>) parent).getType();
+            } 
+            // Scenario B: Assignment: s = ...
+            else if (parent instanceof CtAssignment) {
+                expectedType = ((CtAssignment<?, ?>) parent).getAssigned().getType();
+            }
+            // Scenario C: Return statement: return ... (where method returns HttpStatus)
+            else if (parent instanceof CtReturn) {
+                 // Finding the enclosing method's return type requires traversing up
+                 // For safety/simplicity in this snippet, we focus on assignments.
+            }
+
+            // Check if we found a type constraint and if it is strictly 'HttpStatus'
+            if (expectedType != null && expectedType.getQualifiedName().endsWith("HttpStatus")) {
+                // We assume getStatusCode() now returns HttpStatusCode (interface), 
+                // so we cast to the expected Enum type.
+                
+                Factory factory = getFactory();
+                CtTypeReference<?> httpStatusRef = factory.Type().createReference("org.springframework.http.HttpStatus");
+                
+                CtUnaryOperator<?> castExpression = factory.Code().createTypeCast(
+                        httpStatusRef,
+                        invocation.clone()
+                );
+                
+                invocation.replace(castExpression);
+                System.out.println("Injected (HttpStatus) cast at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ / Source preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive mode (NoClasspath)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ResponseEntityProcessor());
+        
+        try {
+            System.out.println("Starting Spring ResponseEntity Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

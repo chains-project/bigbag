@@ -1,0 +1,85 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtType;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule Generator
+ * 
+ * Generated based on the provided dependency diff.
+ * Since the input diff was empty, this class provides a robust skeleton 
+ * configured with Sniper mode (preserves formatting) and NoClasspath compatibility.
+ */
+public class SpoonMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtElement> {
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // TODO: Implement filtering logic based on the dependency diff.
+            // Example Defensive Checks for NoClasspath mode:
+            // 
+            // if (!(candidate instanceof CtInvocation)) return false;
+            // CtInvocation<?> invocation = (CtInvocation<?>) candidate;
+            // 
+            // 1. Check Name
+            // if (!"targetMethodName".equals(invocation.getExecutable().getSimpleName())) return false;
+            //
+            // 2. Check Type (Defensive)
+            // CtTypeReference<?> declaringType = invocation.getExecutable().getDeclaringType();
+            // if (declaringType != null && !declaringType.getQualifiedName().contains("TargetClassName")) {
+            //     return false;
+            // }
+            
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            // TODO: Implement transformation logic here.
+            // Factory factory = getFactory();
+            // element.replace(...);
+            System.out.println("Processed element at: " + element.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/requests/builder/IdsRequestBuilderService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed");
+
+        // ========================================================================
+        // CRITICAL: Sniper Mode Configuration (Preserves formatting & comments)
+        // ========================================================================
+        
+        // 1. Enable comments to prevent them from being stripped
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Register the SniperJavaPrettyPrinter manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // ========================================================================
+        // CRITICAL: NoClasspath Configuration (Defensive coding required)
+        // ========================================================================
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        System.out.println("Starting Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

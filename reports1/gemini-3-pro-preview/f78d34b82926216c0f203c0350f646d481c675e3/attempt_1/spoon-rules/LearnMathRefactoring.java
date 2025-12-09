@@ -1,0 +1,90 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class LearnMathRefactoring {
+
+    /**
+     * Processor to handle the relocation of the LearnMath class.
+     * The Class moved from 'develop.p2p.lib' to 'tokyo.peya.lib'.
+     * The method 'sigmoid(double)' remains compatible but now resides in the new package.
+     */
+    public static class LearnMathProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final String OLD_CLASS_FQN = "develop.p2p.lib.LearnMath";
+        private static final String NEW_CLASS_FQN = "tokyo.peya.lib.LearnMath";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding for NoClasspath: Check for nulls
+            if (candidate == null) return false;
+
+            // In NoClasspath mode, getQualifiedName() relies on imports or explicit FQN usage.
+            // If the code uses a simple name "LearnMath" relying on an import, the import itself
+            // contains the FQN we want to catch. The usage site might just report "LearnMath",
+            // which is fine because fixing the import fixes the usage.
+            String fqn = candidate.getQualifiedName();
+            
+            // Check if this reference points to the old class location
+            return fqn != null && fqn.equals(OLD_CLASS_FQN);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> oldRef) {
+            Factory factory = getFactory();
+            
+            // Create a reference to the new class location
+            CtTypeReference<?> newRef = factory.Type().createReference(NEW_CLASS_FQN);
+            
+            // Use replace to ensure the Sniper printer detects the AST change and modifies the source text.
+            // This handles imports (import develop.p2p.lib.LearnMath) and FQN usages in code.
+            oldRef.replace(newRef);
+            
+            // Logging for verification
+            CtElement parent = oldRef.getParent();
+            int line = (parent != null && parent.getPosition().isValidPosition()) 
+                ? parent.getPosition().getLine() 
+                : -1;
+            System.out.println("Migrated LearnMath reference at line " + line);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration - can be adjusted by the user
+        String inputPath = "/home/kth/Documents/last_transformer/output/f78d34b82926216c0f203c0350f646d481c675e3/PeyangSuperbAntiCheat/src/main/java/ml/peya/plugins/Learn/Neuron.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f78d34b82926216c0f203c0350f646d481c675e3/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/f78d34b82926216c0f203c0350f646d481c675e3/PeyangSuperbAntiCheat/src/main/java/ml/peya/plugins/Learn/Neuron.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f78d34b82926216c0f203c0350f646d481c675e3/attempt_1/transformed");
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually for high-fidelity source transformation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Set NoClasspath mode (defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new LearnMathProcessor());
+
+        // Run the transformation
+        try {
+            System.out.println("Starting refactoring: " + inputPath + " -> " + outputPath);
+            launcher.run();
+            System.out.println("Refactoring complete.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

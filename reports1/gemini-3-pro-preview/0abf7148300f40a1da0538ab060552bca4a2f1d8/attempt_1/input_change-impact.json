@@ -1,0 +1,278 @@
+{
+  "project" : "biapi",
+  "breakingCommit" : "0abf7148300f40a1da0538ab060552bca4a2f1d8",
+  "dependency" : {
+    "groupId" : "net.sf.jasperreports",
+    "artifactId" : "jasperreports",
+    "previousVersion" : "6.18.1",
+    "newVersion" : "6.19.1",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.18.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.19.1.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/biapi/0abf7148300f40a1da0538ab060552bca4a2f1d8.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/0abf7148300f40a1da0538ab060552bca4a2f1d8/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/biapi/src/main/java/xdev/tableexport/export/ReportBuilder.java",
+    "errors" : [ {
+      "lineNumber" : 369,
+      "columnNumber" : 81,
+      "message" : "incompatible types: int cannot be converted to java.lang.Float",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/biapi",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/biapi/src/main/java/xdev/tableexport/export/ReportBuilder.java",
+        "lineNumber" : 369,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.18.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/0abf7148300f40a1da0538ab060552bca4a2f1d8/jasperreports-6.19.1.jar",
+        "generatedAt" : "2025-12-08T00:32:34.600224696Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "net.sf.jasperreports.engine.JRPen#setLineWidth(java.lang.Float)",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.sf.jasperreports",
+            "artifactId" : "jasperreports",
+            "version" : "6.19.1",
+            "coordinates" : "net.sf.jasperreports:jasperreports:6.19.1",
+            "sourcePath" : "/home/kth/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar"
+          },
+          "lineNumber" : 369,
+          "codeLine" : "        textField.getLineBox().getPen().setLineWidth(border.getLineWidth());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setLineWidth",
+            "declaringType" : "net.sf.jasperreports.engine.JRPen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRPen.setLineWidth(float)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fb4c0db[public abstract setLineWidth (F)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "float" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setLineWidth",
+            "declaringType" : "net.sf.jasperreports.engine.JRPen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRPen.setLineWidth(java.lang.Float)",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@792393a2[public abstract setLineWidth (Ljava/lang/Float;)V]",
+              "newValue" : "javassist.CtMethod@792393a2[public abstract setLineWidth (Ljava/lang/Float;)V]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "void",
+              "changed" : false
+            },
+            "parameterTypes" : [ "java.lang.Float" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY",
+            "name" : "setLineWidth",
+            "declaringType" : "net.sf.jasperreports.engine.JRPen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRPen.setLineWidth(float)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fb4c0db[public abstract setLineWidth (F)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "float" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setLineWidth",
+            "declaringType" : "net.sf.jasperreports.engine.base.JRBasePen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.base.JRBasePen.setLineWidth(float)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@fb4c0db[public setLineWidth (F)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "float" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.sf.jasperreports.engine.JRPen",
+            "declaringType" : "net.sf.jasperreports.engine.JRPen",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRPen",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 2
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "net.sf.jasperreports.engine.JRLineBox#getPen()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.sf.jasperreports",
+            "artifactId" : "jasperreports",
+            "version" : "6.19.1",
+            "coordinates" : "net.sf.jasperreports:jasperreports:6.19.1",
+            "sourcePath" : "/home/kth/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar"
+          },
+          "lineNumber" : 369,
+          "codeLine" : "        textField.getLineBox().getPen().setLineWidth(border.getLineWidth());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getPen",
+            "declaringType" : "net.sf.jasperreports.engine.JRLineBox",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRLineBox.getPen()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@74f77a24[public abstract getPen ()Lnet/sf/jasperreports/engine/base/JRBoxPen;]",
+              "newValue" : "javassist.CtMethod@74f77a24[public abstract getPen ()Lnet/sf/jasperreports/engine/base/JRBoxPen;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "net.sf.jasperreports.engine.base.JRBoxPen",
+              "newValue" : "net.sf.jasperreports.engine.base.JRBoxPen",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.sf.jasperreports.engine.JRLineBox",
+            "declaringType" : "net.sf.jasperreports.engine.JRLineBox",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.JRLineBox",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "net.sf.jasperreports.engine.design.JRDesignTextElement#getLineBox()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "net.sf.jasperreports",
+            "artifactId" : "jasperreports",
+            "version" : "6.19.1",
+            "coordinates" : "net.sf.jasperreports:jasperreports:6.19.1",
+            "sourcePath" : "/home/kth/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar"
+          },
+          "lineNumber" : 369,
+          "codeLine" : "        textField.getLineBox().getPen().setLineWidth(border.getLineWidth());",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getLineBox",
+            "declaringType" : "net.sf.jasperreports.engine.design.JRDesignTextElement",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.design.JRDesignTextElement.getLineBox()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@92c4e5c2[public getLineBox ()Lnet/sf/jasperreports/engine/JRLineBox;]",
+              "newValue" : "javassist.CtMethod@92c4e5c2[public getLineBox ()Lnet/sf/jasperreports/engine/JRLineBox;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "net.sf.jasperreports.engine.JRLineBox",
+              "newValue" : "net.sf.jasperreports.engine.JRLineBox",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "net.sf.jasperreports.engine.design.JRDesignTextElement",
+            "declaringType" : "net.sf.jasperreports.engine.design.JRDesignTextElement",
+            "qualifiedSignature" : "net.sf.jasperreports.engine.design.JRDesignTextElement",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 5
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "xdev.tableexport.config.ColumnBorder#getLineWidth()",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/xdev/tableexport/config/ColumnBorder.java"
+          },
+          "lineNumber" : 369,
+          "codeLine" : "        textField.getLineBox().getPen().setLineWidth(border.getLineWidth());",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

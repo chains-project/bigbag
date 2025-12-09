@@ -1,0 +1,658 @@
+{
+  "project" : "sorald",
+  "breakingCommit" : "c0f6ab75784dbc13ae8ff47298704c0756cf3a2c",
+  "dependency" : {
+    "groupId" : "org.sonarsource.sonarlint.core",
+    "artifactId" : "sonarlint-core",
+    "previousVersion" : "8.15.0.65216",
+    "newVersion" : "8.19.0.72745",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sonarlint-core-8.15.0.65216.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sonarlint-core-8.19.0.72745.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sorald/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java",
+    "errors" : [ {
+      "lineNumber" : 163,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   method addEnabledLanguages(java.util.Set<org.sonarsource.sonarlint.core.commons.Language>)", "location: class org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration.Builder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sorald",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java",
+        "lineNumber" : 163,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sonarlint-core-8.15.0.65216.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sonarlint-core-8.19.0.72745.jar",
+        "generatedAt" : "2025-12-08T09:16:13.782445744Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#build()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$HotspotLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotLite$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$HotspotPullQueryTimestamp;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$HotspotPullQueryTimestamp$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Hotspots$TextRange;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Hotspots$TextRange$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverapi/proto/sonarqube/ws/Issues$Transitions;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverapi.proto.sonarqube.ws.Issues$Transitions$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public build ()Lorg/sonarsource/sonarlint/core/serverconnection/proto/Sonarlint$LastEventPolling;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/Message;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.Message",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE_CROSS_CLASS",
+            "name" : "build",
+            "declaringType" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.serverconnection.proto.Sonarlint$LastEventPolling$Builder.build()",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@dc3e7ef[public volatile build ()Lcom/google/protobuf/MessageLite;]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "com.google.protobuf.MessageLite",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setModulesProvider(org.sonarsource.sonarlint.core.analysis.api.ClientModulesProvider)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setWorkDir(java.nio.file.Path)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setExtraProperties(java.util.Map)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#setClientPid(long)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#addEnabledLanguages(java.util.Set)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 162,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "addEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder.addEnabledLanguages(org.sonarsource.sonarlint.core.commons.Language[])",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@ec13c09a[public transient addEnabledLanguages ([Lorg/sonarsource/sonarlint/core/commons/Language;)Lorg/sonarsource/sonarlint/core/analysis/api/AnalysisEngineConfiguration$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.sonarsource.sonarlint.core.commons.Language[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_CROSS_CLASS",
+            "name" : "addEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder.addEnabledLanguages(java.util.Collection)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@a02aa8b[public addEnabledLanguages (Ljava/util/Collection;)Lorg/sonarsource/sonarlint/core/analysis/api/AnalysisEngineConfiguration$Builder;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration$Builder",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.Collection" ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration#getEnabledLanguages()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.sonarsource.sonarlint.core",
+            "artifactId" : "sonarlint-core",
+            "version" : "8.19.0.72745",
+            "coordinates" : "org.sonarsource.sonarlint.core:sonarlint-core:8.19.0.72745",
+            "sourcePath" : "/home/kth/.m2/repository/org/sonarsource/sonarlint/core/sonarlint-core/8.19.0.72745/sonarlint-core-8.19.0.72745.jar"
+          },
+          "lineNumber" : 163,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "getEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.client.api.common.AbstractGlobalConfiguration.getEnabledLanguages()",
+            "changeStatus" : "UNCHANGED",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "newValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "changed" : false
+            },
+            "value" : {
+              "oldValue" : "java.util.Set",
+              "newValue" : "java.util.Set",
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_AND_PARAMS_OTHER_CLASS",
+            "name" : "getEnabledLanguages",
+            "declaringType" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration",
+            "qualifiedSignature" : "org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration.getEnabledLanguages()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@aa26de51[public getEnabledLanguages ()Ljava/util/Set;]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "java.util.Set",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "sorald.sonar.SonarLintEngine::globalConfig",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "sorald/src/main/java/sorald/sonar/SonarLintEngine.java"
+          },
+          "lineNumber" : 163,
+          "codeLine" : "                .addEnabledLanguages(globalConfig.getEnabledLanguages())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

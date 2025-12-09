@@ -1,0 +1,150 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class RefactoringTemplate {
+
+    /**
+     * Processor to handle the migration:
+     * FROM: com.legacy.OldClass.action(String arg)
+     * TO:   com.modern.NewClass.action(String arg)
+     */
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            // We are looking for a method named "action"
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"action".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // We expect exactly 1 argument
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            // NEVER assume getType() is non-null. 
+            // We want to process it if it's String, or if we can't tell (null).
+            CtExpression<?> arg = args.get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            if (argType != null) {
+                String argTypeName = argType.getQualifiedName();
+                // If we definitely know it is NOT a String, skip it.
+                // We use .contains to be safe against fully qualified vs simple names
+                if (!argTypeName.contains("String") && !argTypeName.equals("java.lang.String")) {
+                    return false;
+                }
+            }
+
+            // 4. Owner/Class Check (Defensive)
+            // We want to ensure we are modifying the correct class, e.g., "OldClass"
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+            CtTypeReference<?> declaringType = execRef.getDeclaringType();
+
+            // If the declaring type is known, check it.
+            // If it is unknown (null or <unknown>), we might still process it if strict mode is off,
+            // but usually, we look for the specific class name.
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                if (!declaringType.getQualifiedName().contains("OldClass")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // 1. Prepare the new class reference: com.modern.NewClass
+            CtTypeReference<?> newClassRef = factory.Type().createReference("com.modern.NewClass");
+            
+            // 2. Create the target access (NewClass)
+            CtTypeAccess<?> newClassAccess = factory.Code().createTypeAccess(newClassRef);
+
+            // 3. Prepare the new method reference
+            // We are calling NewClass.action(String)
+            CtTypeReference<?> stringType = factory.Type().stringType();
+            CtTypeReference<?> voidType = factory.Type().voidType();
+            
+            CtExecutableReference<?> newMethodRef = factory.Method().createReference(
+                    newClassRef,
+                    voidType,
+                    "action",
+                    stringType
+            );
+
+            // 4. Create the new invocation: NewClass.action(originalArg)
+            // We clone the original argument to preserve its formatting/comments if possible
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            CtInvocation<?> newInvocation = factory.Code().createInvocation(
+                    newClassAccess,
+                    newMethodRef,
+                    originalArg.clone()
+            );
+
+            // 5. Replace the old invocation with the new one
+            invocation.replace(newInvocation);
+            
+            System.out.println("Refactored 'action' at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Configuration paths (Adjust as needed)
+        String inputPath = "/home/kth/Documents/last_transformer/output/fe57fca108ccd8ea9b98666075fbc3237874c314/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe57fca108ccd8ea9b98666075fbc3237874c314/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/fe57fca108ccd8ea9b98666075fbc3237874c314/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/protocol/http/IdsHttpService.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fe57fca108ccd8ea9b98666075fbc3237874c314/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL: Robust Sniper Configuration for Spoon 11+
+        // =========================================================
+        
+        // 1. Enable comments so they are preserved in the AST
+        launcher.getEnvironment().setCommentEnabled(true);
+
+        // 2. Manually set the PrettyPrinter to SniperJavaPrettyPrinter
+        // This is essential to preserve formatting of untouched code.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Set NoClasspath to true to handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // =========================================================
+
+        // Add the processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,101 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule generated for:
+ * - METHOD com.library.Widgets.create(int) [REMOVED]
+ * + METHOD com.library.Widgets.build(int) [ADDED]
+ * 
+ * Strategy: Rename method 'create' to 'build' on invocations belonging to 'Widgets'.
+ */
+public class WidgetsRefactoring {
+
+    public static class WidgetsProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"create".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+
+            // If type is explicitly known as NOT int/Integer (and not null/unknown), skip.
+            if (argType != null && !argType.getQualifiedName().equals("int") 
+                && !argType.getQualifiedName().equals("java.lang.Integer")) {
+                // However, in NoClasspath, types are often null or <unknown>.
+                // We proceed if it matches or if it is unknown.
+            }
+
+            // 4. Owner/Scope Check
+            // We check if the method is declared in a type containing "Widgets"
+            CtExecutableReference<?> execRef = candidate.getExecutable();
+            CtTypeReference<?> declaringType = execRef.getDeclaringType();
+
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // Loose check for NoClasspath safety
+                if (!typeName.contains("Widgets") && !typeName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Modification: Rename the executable reference from 'create' to 'build'
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            execRef.setSimpleName("build");
+            
+            System.out.println("Refactored 'create' to 'build' at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args)
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 11+ and Precision
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new WidgetsProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

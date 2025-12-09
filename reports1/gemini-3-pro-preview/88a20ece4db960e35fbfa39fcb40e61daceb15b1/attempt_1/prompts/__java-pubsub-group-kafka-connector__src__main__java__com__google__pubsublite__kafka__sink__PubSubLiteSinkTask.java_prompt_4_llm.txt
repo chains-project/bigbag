@@ -1,0 +1,95 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import spoon.reflect.factory.Factory;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class PublishMetadataRefactoring {
+
+    /**
+     * Processor to handle the removal of com.google.cloud.pubsublite.PublishMetadata.
+     * Strategy:
+     * 1. Identify all references to the removed class.
+     * 2. Replace them with the successor class `com.google.cloud.pubsublite.MessageMetadata`.
+     *    (Duced from standard Google Cloud Pub/Sub Lite migration patterns where PublishMetadata
+     *    was replaced by MessageMetadata).
+     */
+    public static class PublishMetadataProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final String OLD_CLASS = "com.google.cloud.pubsublite.PublishMetadata";
+        private static final String NEW_CLASS = "com.google.cloud.pubsublite.MessageMetadata";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive checks
+            if (candidate == null) return false;
+            
+            // In NoClasspath, we rely on the qualified name available in the source (via imports)
+            // or the simple name if it matches what we expect.
+            String qName = candidate.getQualifiedName();
+            
+            // Check for exact match of the removed class
+            return qName != null && qName.equals(OLD_CLASS);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            Factory factory = getFactory();
+            
+            // Create the reference to the new class
+            // We use the Fully Qualified Name to ensure safety in NoClasspath mode
+            // where imports might not be resolved perfectly during simple replacement.
+            CtTypeReference<?> newTypeRef = factory.Type().createReference(NEW_CLASS);
+            
+            // In Sniper mode, we want to be careful. 
+            // Replacing the TypeReference updates:
+            // 1. Import statements (if candidate is part of CtImport)
+            // 2. Variable declarations, return types, generic arguments.
+            
+            candidate.replace(newTypeRef);
+            
+            System.out.println("Refactored: " + OLD_CLASS + " -> " + NEW_CLASS + 
+                             " at line " + candidate.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments to preserve Javadoc and inline comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation strictness
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new PublishMetadataProcessor());
+
+        try {
+            System.out.println("Starting Refactoring: " + PublishMetadataProcessor.OLD_CLASS + " Removal...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

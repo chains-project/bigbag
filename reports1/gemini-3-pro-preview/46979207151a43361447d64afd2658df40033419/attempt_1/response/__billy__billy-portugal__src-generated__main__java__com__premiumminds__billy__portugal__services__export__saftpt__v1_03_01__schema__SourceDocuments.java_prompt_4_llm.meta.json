@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__SourceDocuments.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_03_01__schema__SourceDocuments.java_prompt_4_llm.txt",
+  "timestamp": 1765164615.4146156,
+  "duration_seconds": 49.27260637283325,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtFieldRead;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtFieldReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JAXBStrategyRefactoring {\n\n    public static class JAXBStrategyProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        // List of classes where getInstance() was removed and should likely be replaced by .INSTANCE\n        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(\n            \"org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultMergeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeCollectionsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Argument Count (getInstance() usually has 0 args in this context)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Check Owner Type (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            \n            // If we can't determine the type, we skip to avoid false positives (like Calendar.getInstance)\n            if (declaringType == null) {\n                return false;\n            }\n\n            String qualifiedName = declaringType.getQualifiedName();\n            String simpleName = declaringType.getSimpleName();\n\n            // Check against full names or simple names (for robustness in NoClasspath)\n            boolean isTarget = TARGET_CLASSES.contains(qualifiedName) || \n                               TARGET_CLASSES.stream().anyMatch(t -> t.endsWith(\".\" + simpleName));\n            \n            return isTarget;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            CtTypeReference<?> ownerType = invocation.getExecutable().getDeclaringType();\n            \n            // Defensive: ensure we have a valid reference to build the replacement\n            if (ownerType == null) {\n                return;\n            }\n\n            // Transformation: Replace ClassName.getInstance() with ClassName.INSTANCE\n            // 1. Create reference to the 'INSTANCE' field\n            // Note: We assume the field type is the same as the owner type (Singleton pattern)\n            CtFieldReference<?> instanceFieldRef = getFactory().Field().createReference(\n                ownerType,\n                ownerType,\n                \"INSTANCE\"\n            );\n\n            // 2. Create the field read access: ClassName.INSTANCE\n            CtFieldRead<?> fieldRead = getFactory().Code().createFieldRead(\n                getFactory().Code().createTypeAccess(ownerType),\n                instanceFieldRef\n            );\n\n            // 3. Replace the invocation\n            invocation.replace(fieldRead);\n            \n            System.out.println(\"Refactored \" + ownerType.getSimpleName() + \".getInstance() to .INSTANCE at line \" \n                + (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Allow user to provide input path via args, default to standard Maven layout\n        String inputPath = args.length > 0 ? args[0] : \"./src/main/java\";\n        String outputPath = args.length > 1 ? args[1] : \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL: Preserve formatting and comments using Sniper\n        launcher.getEnvironment().setCommentEnabled(true);\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // Defensive: Handle missing libraries\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new JAXBStrategyProcessor());\n\n        try {\n            System.out.println(\"Starting JAXB Strategy Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Error during refactoring:\");\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1253,
+      "total_token_count": 6778,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

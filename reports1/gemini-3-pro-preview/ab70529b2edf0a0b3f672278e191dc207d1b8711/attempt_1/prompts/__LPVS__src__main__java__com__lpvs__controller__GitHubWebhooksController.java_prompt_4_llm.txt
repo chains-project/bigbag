@@ -1,0 +1,113 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.UnaryOperatorKind;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class StringUtilsRefactoring {
+
+    /**
+     * Processor to handle breaking changes in org.springframework.util.StringUtils.
+     * 
+     * Analysis of Diff:
+     * The diff indicates 'org.springframework.util.StringUtils' was modified incompatibly.
+     * In Spring Framework migrations (specifically 5.x to 6.x), a common breaking change 
+     * is the removal/deprecation of 'StringUtils.isEmpty(Object)' in favor of 'StringUtils.hasLength(String)'.
+     * 
+     * Refactoring Logic:
+     * Old: StringUtils.isEmpty(str)
+     * New: !StringUtils.hasLength(str)
+     */
+    public static class StringUtilsProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"isEmpty".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            
+            // If owner is unknown (null) or does not match "StringUtils", skip.
+            // We use contains() to handle both fully qualified names and simple names (NoClasspath).
+            if (owner != null && !owner.getQualifiedName().contains("StringUtils")) {
+                return false;
+            }
+            
+            // 4. Type Check (Optional Defensive)
+            // If we can resolve the type and it is NOT a String or Object, we might be cautious, 
+            // but usually StringUtils.isEmpty accepts Object in older versions.
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            // Get a reference to the owning class (StringUtils) to preserve import style if possible
+            CtTypeReference<?> stringUtilsRef = invocation.getExecutable().getDeclaringType();
+
+            // Construction: StringUtils.hasLength(arg)
+            // We define the method 'hasLength' which returns boolean and takes a String.
+            CtInvocation<?> hasLengthInvocation = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(stringUtilsRef),
+                factory.Method().createReference(stringUtilsRef, factory.Type().booleanPrimitiveType(), "hasLength", factory.Type().stringType()),
+                originalArg.clone()
+            );
+
+            // Construction: !StringUtils.hasLength(arg)
+            CtExpression<?> replacement = factory.Code().createUnaryOperator(
+                UnaryOperatorKind.NOT,
+                hasLengthInvocation
+            );
+
+            // Replace the original 'isEmpty' call with the negated 'hasLength' call
+            invocation.replace(replacement);
+            
+            System.out.println("Refactored StringUtils.isEmpty at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode to run without full dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new StringUtilsProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

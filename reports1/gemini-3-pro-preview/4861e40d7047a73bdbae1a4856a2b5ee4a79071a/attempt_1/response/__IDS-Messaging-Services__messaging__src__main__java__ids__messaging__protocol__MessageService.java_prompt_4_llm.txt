@@ -1,0 +1,142 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+/**
+ * Spoon Refactoring Rule Generator
+ * 
+ * Generated based on the provided dependency diff.
+ * Note: Input diff was empty, utilizing a generic "Method Rename and Move" template 
+ * (OldClass.oldMethod -> NewClass.newMethod) to demonstrate strict compliance 
+ * with Sniper and NoClasspath requirements.
+ */
+public class BreakingChangeMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        // Target definitions (Placeholder based on missing diff)
+        private static final String OLD_METHOD_NAME = "oldMethod";
+        private static final String NEW_METHOD_NAME = "newMethod";
+        private static final String OLD_CLASS_TOKEN = "OldClass";
+        private static final String NEW_CLASS_QUALIFIED = "com.api.NewClass";
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Fast fail)
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!OLD_METHOD_NAME.equals(methodName)) {
+                return false;
+            }
+
+            // 2. Owner/Scope Check (Defensive for NoClasspath)
+            CtExecutableReference<?> executable = candidate.getExecutable();
+            CtTypeReference<?> declaringType = executable.getDeclaringType();
+
+            // If declaring type is null (common in NoClasspath for static imports sometimes) or unknown
+            if (declaringType == null) {
+                return false; 
+            }
+
+            // Loose matching to handle NoClasspath (can't rely on full resolution)
+            String ownerName = declaringType.getQualifiedName();
+            if (!ownerName.contains(OLD_CLASS_TOKEN) && !ownerName.equals("<unknown>")) {
+                return false;
+            }
+
+            // 3. Already Migrated Check (Optional, depends on signature uniqueness)
+            // If the code is already running against the new lib, types might resolve to the new class 
+            // if available on classpath, so we ensure we aren't touching the new one.
+            if (ownerName.contains(NEW_CLASS_QUALIFIED)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // Logic: Replace `OldClass.oldMethod(args)` with `NewClass.newMethod(args)`
+            
+            // 1. Create reference to the new class
+            CtTypeReference<?> newClassRef = factory.Type().createReference(NEW_CLASS_QUALIFIED);
+
+            // 2. Create reference to the new method
+            // Note: We use the same argument types as the original invocation to preserve signatures
+            // In a real scenario with type changes, we would transform arguments here.
+            CtExecutableReference<?> newMethodRef = factory.Method().createReference(
+                newClassRef,
+                invocation.getType(), // Return type (assumed same)
+                NEW_METHOD_NAME,
+                invocation.getExecutable().getParameterTypes().toArray(new CtTypeReference[0])
+            );
+
+            // 3. Create the new Invocation
+            // We clone arguments to detach them from the old tree
+            List<CtExpression<?>> args = invocation.getArguments();
+            CtExpression<?>[] newArgs = args.stream()
+                .map(CtExpression::clone)
+                .toArray(CtExpression[]::new);
+
+            CtInvocation<?> newInvocation = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(newClassRef), // Static call target
+                newMethodRef,
+                newArgs
+            );
+
+            // 4. Preserve comments from the original node
+            newInvocation.setComments(invocation.getComments());
+
+            // 5. Apply replacement
+            invocation.replace(newInvocation);
+            
+            System.out.println("Refactored " + OLD_METHOD_NAME + " at " + invocation.getPosition().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Defensive Mode (NoClasspath)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new MigrationProcessor());
+        
+        try {
+            System.out.println("Starting refactoring on: " + inputPath);
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

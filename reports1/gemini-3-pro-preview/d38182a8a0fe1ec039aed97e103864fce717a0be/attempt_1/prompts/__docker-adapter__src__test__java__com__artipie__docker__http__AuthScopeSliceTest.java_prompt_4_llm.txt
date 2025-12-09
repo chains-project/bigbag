@@ -1,0 +1,114 @@
+Based on the provided diff, **no breaking changes** are explicitly listed (Items are marked `UNCHANGED` or `NEW` with `sourceCompatible=true`).
+
+However, the addition of a static factory method (`AuthzSlice.response`) in a library often implies a shift away from public constructors or suggests a new preferred instantiation pattern.
+
+The following Java code provides a robust **Spoon Template** ready for this migration. It is configured to:
+1.  **Scan** for usages of `AuthzSlice` (specifically constructor calls that might need to become `AuthzSlice.response(...)`).
+2.  **Preserve formatting** strictly using `SniperJavaPrettyPrinter`.
+3.  **Handle missing classpath** issues defensively.
+
+Since no method was removed, this script performs a **safe annotation/logging** refactoring (adding a `TODO` comment) rather than destructively changing code, ensuring it fulfills the request to generate a Spoon script without violating the source compatibility shown in the diff.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class ArtipieRefactoring {
+
+    /**
+     * Processor to analyze usages of AuthzSlice.
+     * Based on Diff: AuthzSlice.response(...) was ADDED.
+     * Strategy: Identify constructor calls to AuthzSlice. Since the constructor was not removed,
+     * we do not force a replacement, but we flag them for review (e.g., adding a TODO).
+     */
+    public static class AuthzSliceProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Defensive Type Check (NoClasspath safety)
+            CtTypeReference<?> typeRef = candidate.getType();
+            if (typeRef == null) {
+                return false;
+            }
+
+            // 2. Check Class Name (Relaxed string matching for robustness)
+            String qualifiedName = typeRef.getQualifiedName();
+            if (!qualifiedName.contains("com.artipie.http.auth.AuthzSlice") &&
+                !qualifiedName.endsWith("AuthzSlice")) {
+                return false;
+            }
+
+            // 3. Skip if already analyzed/commented (prevent infinite loops or duplicate comments)
+            for (CtComment comment : candidate.getComments()) {
+                if (comment.getContent().contains("Check if AuthzSlice.response")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> ctorCall) {
+            // Since the API change is additive (NEW method), we strictly preserve behavior.
+            // We inject a comment to suggest checking the new factory method.
+            
+            getFactory().Code().createComment(
+                ctorCall, 
+                "TODO: Check if AuthzSlice.response(...) should be used here (New API available)", 
+                CtComment.CommentType.INLINE
+            );
+
+            System.out.println("Flagged AuthzSlice constructor at: " + 
+                (ctorCall.getPosition().isValidPosition() ? ctorCall.getPosition().toString() : "Unknown Position"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // 1. Configuration
+        String inputPath = "./src/main/java"; // Default input
+        String outputPath = "./src/main/gen"; // Default output
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // 2. CRITICAL: Sniper Printer Configuration for strict source preservation
+        // Enable comments to ensure they are parsed and printed
+        launcher.getEnvironment().setCommentEnabled(true);
+        // Manually inject the SniperJavaPrettyPrinter
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive Configuration for NoClasspath execution
+        launcher.getEnvironment().setNoClasspath(true);
+        // Ignore missing types to prevent crashes
+        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+
+        // 4. Register Processor
+        launcher.addProcessor(new AuthzSliceProcessor());
+
+        // 5. Run
+        System.out.println("Starting Artipie Refactoring Scan...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

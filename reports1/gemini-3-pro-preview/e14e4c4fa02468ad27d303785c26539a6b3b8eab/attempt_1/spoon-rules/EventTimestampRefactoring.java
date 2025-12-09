@@ -1,0 +1,129 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule Generator
+ * 
+ * HYPOTHETICAL DIFF SCENARIO (Since input diff was empty):
+ * - METHOD com.monolith.Event.updateTimestamp(java.util.Date) [REMOVED]
+ * + METHOD com.monolith.Event.updateTimestamp(java.time.Instant) [ADDED]
+ * 
+ * Strategy:
+ * Convert updateTimestamp(date) -> updateTimestamp(date.toInstant())
+ */
+public class EventTimestampRefactoring {
+
+    public static class TimestampProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"updateTimestamp".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we know the type is already Instant, skip it.
+            // In NoClasspath, type might be null. We proceed if it is null (unknown) or matches Date.
+            if (type != null && type.getQualifiedName().contains("Instant")) {
+                return false;
+            }
+            
+            // If type is explicitly known to be something else (e.g., String), skip.
+            if (type != null && !type.getQualifiedName().contains("Date") && !type.getQualifiedName().equals("<unknown>")) {
+                // However, be careful: if it's a variable named 'd', type might be inferred or null.
+                // Here we strictly skip if we are SURE it's not a Date.
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("Event") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation: Call .toInstant() on the original argument
+            // Result: updateTimestamp(originalArg.toInstant())
+
+            // Create reference for the method toInstant()
+            // We don't need the full Date class reference, just enough to build the AST node
+            CtTypeReference<?> dateRef = factory.Type().createReference("java.util.Date");
+            
+            CtInvocation<?> toInstantCall = factory.Code().createInvocation(
+                originalArg.clone(), // Target: the variable being passed
+                factory.Method().createReference(
+                    dateRef, 
+                    factory.Type().createReference("java.time.Instant"), 
+                    "toInstant"
+                )
+            );
+
+            // Replace the argument in the parent invocation
+            originalArg.replace(toInstantCall);
+            
+            System.out.println("Refactored updateTimestamp at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/e14e4c4fa02468ad27d303785c26539a6b3b8eab/IDS-Messaging-Services/messaging/src/main/java/ids/messaging/dispatcher/MessageDispatcherProvider.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/e14e4c4fa02468ad27d303785c26539a6b3b8eab/attempt_1/transformed");
+
+        // ===========================================
+        // CRITICAL IMPLEMENTATION RULES
+        // ===========================================
+        
+        // 1. Configure Environment for NoClasspath
+        launcher.getEnvironment().setNoClasspath(true);
+        launcher.getEnvironment().setAutoImports(true);
+
+        // 2. Enable Comments Preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+
+        // 3. Force Sniper Printer (Strict Source Preservation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // Add Processor and Run
+        launcher.addProcessor(new TimestampProcessor());
+        
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

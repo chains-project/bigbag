@@ -1,0 +1,142 @@
+Based on the dependency diff provided, we are dealing with breaking changes in **Spring Data JPA** (likely the transition to version 3.0+ / Spring Boot 3).
+
+**Analysis of Changes:**
+1.  **`org.springframework.data.jpa.repository.JpaRepository` [MODIFIED]**:
+    *   **Breaking Change:** The method `getOne(ID id)` was deprecated in 2.x and **removed** in 3.x. It has been replaced by `getReferenceById(ID id)` (or `getReference(ID id)`).
+    *   **Refactoring Strategy:** Rename invocations of `getOne` to `getReferenceById` when called on a Repository.
+    *   **Secondary Change:** The method `deleteInBatch(Iterable)` was removed in favor of `deleteAllInBatch(Iterable)`. We will handle this as well to ensure a robust migration.
+2.  **`org.springframework.data.jpa.repository.Query` [MODIFIED]**:
+    *   While listed as modified, changes here are often internal or related to strictness in JPQL validation which are hard to refactor automatically (e.g., changes in how count queries are derived). The most impactful source-code change is usually strictly tied to `JpaRepository` method removals. We will focus on the high-impact method renames in `JpaRepository`.
+
+**Generated Refactoring Code:**
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.declaration.CtElement;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
+public class SpringDataJpaRefactoring {
+
+    /**
+     * Processor to handle breaking changes in JpaRepository.
+     * 1. Replaces .getOne(id) -> .getReferenceById(id)
+     * 2. Replaces .deleteInBatch(entities) -> .deleteAllInBatch(entities)
+     */
+    public static class JpaRepositoryProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> TARGET_METHODS = new HashSet<>(Arrays.asList("getOne", "deleteInBatch"));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // getOne takes 1 arg, deleteInBatch takes 1 arg
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type/Context Check (Defensive for NoClasspath)
+            // We want to verify if the method is called on a Repository.
+            CtExpression<?> target = candidate.getTarget();
+            if (target != null) {
+                CtTypeReference<?> targetType = target.getType();
+                // Heuristic: If type name contains "Repository" or is explicitly "JpaRepository"
+                if (targetType != null) {
+                    String typeName = targetType.getQualifiedName();
+                    if (!typeName.contains("Repository") && !typeName.contains("JpaRepository")) {
+                        // If strict type is known and doesn't look like a repository, skip.
+                        // However, in NoClasspath, often types are unknown or inferred. 
+                        // If it's effectively unknown, we might lean towards processing if the name matches strongly.
+                        if (!typeName.equals("<unknown>")) {
+                            return false; 
+                        }
+                    }
+                } else {
+                    // If target type is null, we can check the variable name as a heuristic
+                    // e.g. userRepository.getOne(...)
+                    String varName = target.toString();
+                    if (!varName.toLowerCase().contains("repository") && !varName.toLowerCase().contains("repo")) {
+                        return false;
+                    }
+                }
+            } else {
+                // Implicit this. check enclosing class
+                CtTypeReference<?> parent = candidate.getParent(spoon.reflect.declaration.CtType.class).getReference();
+                if (parent != null && !parent.getQualifiedName().contains("Repository")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String originalName = invocation.getExecutable().getSimpleName();
+            String newName = null;
+
+            if ("getOne".equals(originalName)) {
+                newName = "getReferenceById";
+            } else if ("deleteInBatch".equals(originalName)) {
+                newName = "deleteAllInBatch";
+            }
+
+            if (newName != null) {
+                // Mutate the executable reference directly to rename the method call
+                invocation.getExecutable().setSimpleName(newName);
+                
+                System.out.println("Refactored " + originalName + " to " + newName + 
+                                   " at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Source Code Preservation
+        // 1. Preserve comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Use SniperJavaPrettyPrinter to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+        // 4. Ignore syntax errors to keep going
+        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+
+        launcher.addProcessor(new JpaRepositoryProcessor());
+
+        try {
+            System.out.println("Starting Spring Data JPA Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

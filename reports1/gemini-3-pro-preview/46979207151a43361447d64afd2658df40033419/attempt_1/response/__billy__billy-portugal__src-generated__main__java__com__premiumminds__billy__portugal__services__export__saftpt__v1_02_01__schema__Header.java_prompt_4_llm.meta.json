@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_02_01__schema__Header.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_02_01__schema__Header.java_prompt_4_llm.txt",
+  "timestamp": 1765164349.6383262,
+  "duration_seconds": 37.54199481010437,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtExpression;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.code.CtTypeAccess;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JaxbStrategyRefactoring {\n\n    /**\n     * Processor to handle the removal of .getInstance() methods from JAXB2 Commons Strategy classes.\n     * Strategy: Replace static Singleton calls (e.g., Strategy.getInstance()) with constructor calls (e.g., new Strategy()).\n     */\n    public static class StrategyInstantiationProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        private static final Set<String> AFFECTED_CLASSES = new HashSet<>(Arrays.asList(\n            \"org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultMergeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeCollectionsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Method Name Check\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Argument Count Check (getInstance() took no args)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Resolve the Type on which getInstance is called\n            CtTypeReference<?> typeRef = resolveTargetType(candidate);\n\n            // 4. Check if the type is one of the affected strategies\n            if (typeRef != null && typeRef.getQualifiedName() != null) {\n                String qName = typeRef.getQualifiedName();\n                // Check exact match or if the class name is contained (handling imports in NoClasspath)\n                for (String affected : AFFECTED_CLASSES) {\n                    if (qName.equals(affected) || (qName.contains(affected.substring(affected.lastIndexOf('.') + 1)))) {\n                        return true;\n                    }\n                }\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            CtTypeReference<?> typeRef = resolveTargetType(invocation);\n\n            if (typeRef != null) {\n                // Transformation: Replace Type.getInstance() with new Type()\n                CtConstructorCall<?> constructorCall = getFactory().Code().createConstructorCall(typeRef);\n                \n                invocation.replace(constructorCall);\n                \n                System.out.println(\"Refactored \" + typeRef.getSimpleName() + \".getInstance() at line \" + \n                    (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n            }\n        }\n\n        /**\n         * Helper to determine the type invoking the static method.\n         * Handles explicit TypeAccess (Strategy.getInstance()) and inferred/imported contexts.\n         */\n        private CtTypeReference<?> resolveTargetType(CtInvocation<?> invocation) {\n            CtExpression<?> target = invocation.getTarget();\n\n            // Case 1: Explicit static call: Strategy.getInstance()\n            if (target instanceof CtTypeAccess) {\n                return ((CtTypeAccess<?>) target).getAccessedType();\n            }\n\n            // Case 2: Implicit static call (static import or within class): getInstance()\n            // In NoClasspath, getDeclaringType might be incomplete, but useful if imports exist.\n            if (invocation.getExecutable() != null) {\n                return invocation.getExecutable().getDeclaringType();\n            }\n\n            return null;\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Robust Refactoring\n        // 1. Enable comments to preserve license headers and Javadocs\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve original formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode to run without full dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new StrategyInstantiationProcessor());\n\n        try {\n            System.out.println(\"Starting JAXB Strategy Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1326,
+      "total_token_count": 5953,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

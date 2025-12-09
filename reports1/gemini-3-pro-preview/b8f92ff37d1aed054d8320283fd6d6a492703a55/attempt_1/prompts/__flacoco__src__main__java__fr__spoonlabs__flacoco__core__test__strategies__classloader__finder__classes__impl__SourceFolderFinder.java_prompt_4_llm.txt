@@ -1,0 +1,86 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring script to handle the migration of DirectoryScanner.
+ * Based on the diff, the class org.apache.maven.plugin.surefire.util.DirectoryScanner
+ * is identified for removal/change. In the context of Maven Surefire 3.x, 
+ * this class was moved to org.apache.maven.surefire.api.util.DirectoryScanner.
+ */
+public class DirectoryScannerRefactoring {
+
+    public static class DirectoryScannerProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final String OLD_QUALIFIED_NAME = "org.apache.maven.plugin.surefire.util.DirectoryScanner";
+        private static final String NEW_QUALIFIED_NAME = "org.apache.maven.surefire.api.util.DirectoryScanner";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive coding for NoClasspath mode
+            if (candidate == null) return false;
+            
+            String qName = candidate.getQualifiedName();
+            // Handle potential nulls in incomplete ASTs
+            if (qName == null) return false;
+
+            // Strictly match the old fully qualified name
+            return qName.equals(OLD_QUALIFIED_NAME);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            Factory factory = getFactory();
+            
+            // Strategy: Replace the TypeReference. This handles imports, variable declarations, 
+            // and constructor invocations (new DirectoryScanner(...)) simultaneously.
+            
+            CtTypeReference<?> newTypeRef = factory.Type().createReference(NEW_QUALIFIED_NAME);
+            
+            // Preserve generic type arguments if they exist (though unlikely for this specific class)
+            if (!candidate.getActualTypeArguments().isEmpty()) {
+                newTypeRef.setActualTypeArguments(candidate.getActualTypeArguments());
+            }
+
+            // Perform replacement
+            candidate.replace(newTypeRef);
+            
+            System.out.println("Refactored DirectoryScanner usage at line " + 
+                (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded as needed)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS FOR SOURCE PRESERVATION
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting and indentation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Defensive mode for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new DirectoryScannerProcessor());
+        
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

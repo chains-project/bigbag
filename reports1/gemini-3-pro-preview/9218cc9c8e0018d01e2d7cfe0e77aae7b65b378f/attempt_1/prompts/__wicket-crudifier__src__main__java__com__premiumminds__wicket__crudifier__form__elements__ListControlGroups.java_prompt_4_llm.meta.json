@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/attempt_1/prompts/__wicket-crudifier__src__main__java__com__premiumminds__wicket__crudifier__form__elements__ListControlGroups.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9218cc9c8e0018d01e2d7cfe0e77aae7b65b378f/attempt_1/prompts/__wicket-crudifier__src__main__java__com__premiumminds__wicket__crudifier__form__elements__ListControlGroups.java_prompt_4_llm.txt",
+  "timestamp": 1765174878.1481168,
+  "duration_seconds": 138.14890360832214,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.declaration.CtImport;\nimport spoon.reflect.reference.CtPackageReference;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class JakartaValidationRefactoring {\n\n    /**\n     * Processor to migrate javax.validation types to jakarta.validation.\n     * This handles variable declarations, return types, parameters, and annotations.\n     */\n    public static class JavaxToJakartaProcessor extends AbstractProcessor<CtTypeReference<?>> {\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive coding: Ensure package exists (NoClasspath safety)\n            if (candidate.getPackage() == null) {\n                return false;\n            }\n\n            String packName = candidate.getPackage().getQualifiedName();\n            // Check if package name is javax.validation or a subpackage\n            return packName != null && (packName.equals(\"javax.validation\") || packName.startsWith(\"javax.validation.\"));\n        }\n\n        @Override\n        public void process(CtTypeReference<?> ref) {\n            CtPackageReference oldPackage = ref.getPackage();\n            String oldName = oldPackage.getQualifiedName();\n\n            // Calculate new package name (javax -> jakarta)\n            String newName = oldName.replace(\"javax.validation\", \"jakarta.validation\");\n\n            // Create new package reference\n            CtPackageReference newPackage = getFactory().Core().createPackageReference();\n            newPackage.setSimpleName(newName);\n\n            // Update the reference to point to the new package\n            ref.setPackage(newPackage);\n        }\n    }\n\n    /**\n     * Processor specifically for Imports.\n     * Ensures that import statements (e.g., import javax.validation.NotNull;) are updated.\n     */\n    public static class ImportProcessor extends AbstractProcessor<CtImport> {\n        @Override\n        public void process(CtImport ctImport) {\n            // Handle imports that reference types\n            if (ctImport.getReference() instanceof CtTypeReference) {\n                CtTypeReference<?> ref = (CtTypeReference<?>) ctImport.getReference();\n                if (ref.getPackage() != null) {\n                    String packName = ref.getPackage().getQualifiedName();\n                    if (packName != null && packName.startsWith(\"javax.validation\")) {\n                        // Calculate new package name\n                        String newName = packName.replace(\"javax.validation\", \"jakarta.validation\");\n                        \n                        // Create and set new package\n                        CtPackageReference newPackage = getFactory().Core().createPackageReference();\n                        newPackage.setSimpleName(newName);\n                        ref.setPackage(newPackage);\n                    }\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Robust Sniper\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve original formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath Compatibility (Defensive mode)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Add Processors\n        launcher.addProcessor(new JavaxToJakartaProcessor());\n        // Add ImportProcessor to handle import statements explicitly\n        launcher.addProcessor(new ImportProcessor());\n\n        try {\n            // Run the transformation\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2642,
+      "candidates_token_count": 910,
+      "total_token_count": 12769,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

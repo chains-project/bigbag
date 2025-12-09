@@ -1,0 +1,229 @@
+{
+  "project" : "docker-adapter",
+  "breakingCommit" : "fab0f8d4f7322fa6da914c8c9f30baf740d46b99",
+  "dependencyGroupId" : "com.artipie",
+  "dependencyArtifactId" : "http",
+  "previousVersion" : "v0.25",
+  "newVersion" : "v1.1.0",
+  "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+  "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+  "generatedAt" : "2025-12-08T11:45:27.762551373Z",
+  "totalBreakingChanges" : 10,
+  "breakingChanges" : [ {
+    "elementType" : "METHOD",
+    "name" : "lambda$user$2",
+    "simpleName" : "lambda$user$2",
+    "qualifiedSignature" : "com.artipie.http.auth.BasicIdentities#lambda$user$2(org.cactoos.text.Base64Decoded)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@a1fc0ec3[private static lambda$user$2 (Lorg/cactoos/text/Base64Decoded;)[Ljava/lang/String;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.lang.String[]",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "org.cactoos.text.Base64Decoded" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$user$3",
+    "simpleName" : "lambda$user$3",
+    "qualifiedSignature" : "com.artipie.http.auth.BasicIdentities#lambda$user$3(java.lang.String[])",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@23a43d95[private lambda$user$3 ([Ljava/lang/String;)Ljava/util/Optional;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.Optional",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "PRIVATE", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String[]" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.artipie.http.hm.SliceHasResponse",
+    "simpleName" : "SliceHasResponse",
+    "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "FIELD",
+    "name" : "target",
+    "simpleName" : "target",
+    "qualifiedSignature" : "com.artipie.http.hm.SliceHasResponse::target",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : false,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "FIELD_REMOVED",
+      "binaryCompatible" : false,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MAJOR"
+    } ],
+    "signature" : {
+      "oldValue" : "com.artipie.http.hm.SliceHasResponse.target:Lorg/cactoos/func/UncheckedFunc;",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "org.cactoos.func.UncheckedFunc",
+      "newValue" : null,
+      "changed" : true
+    },
+    "oldModifiers" : [ "FINAL", "NON_STATIC", "NON_SYNTHETIC", "NON_TRANSIENT", "NON_VOLATILE", "PRIVATE" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.artipie.http.rq.RqHeaders",
+    "simpleName" : "RqHeaders",
+    "qualifiedSignature" : "com.artipie.http.rq.RqHeaders",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "METHOD_ABSTRACT_ADDED_IN_IMPLEMENTED_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : false,
+      "semanticVersionImpact" : "MINOR"
+    }, {
+      "type" : "METHOD_DEFAULT_ADDED_IN_IMPLEMENTED_INTERFACE",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$value$0",
+    "simpleName" : "lambda$value$0",
+    "qualifiedSignature" : "com.artipie.http.rq.RqParams#lambda$value$0(java.lang.String, java.lang.String)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@148905cd[private static lambda$value$0 (Ljava/lang/String;Ljava/lang/String;)Ljava/util/stream/Stream;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "java.util.stream.Stream",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.lang.String", "java.lang.String" ]
+  }, {
+    "elementType" : "CLASS",
+    "name" : "com.artipie.http.rq.multipart.RqMultipart",
+    "simpleName" : "RqMultipart",
+    "qualifiedSignature" : "com.artipie.http.rq.multipart.RqMultipart",
+    "changeStatus" : "MODIFIED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ ],
+    "signature" : null,
+    "value" : null,
+    "oldModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "FINAL", "NON_ABSTRACT", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : null
+  }, {
+    "elementType" : "METHOD",
+    "name" : "filter",
+    "simpleName" : "filter",
+    "qualifiedSignature" : "com.artipie.http.rq.multipart.RqMultipart#filter(java.util.function.Predicate)",
+    "changeStatus" : "UNCHANGED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : false,
+    "compatibilityChanges" : [ {
+      "type" : "ANNOTATION_DEPRECATED_ADDED",
+      "binaryCompatible" : true,
+      "sourceCompatible" : true,
+      "semanticVersionImpact" : "MINOR"
+    } ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@d3302b4a[public filter (Ljava/util/function/Predicate;)Lorg/reactivestreams/Publisher;]",
+      "newValue" : "javassist.CtMethod@d3302b4a[public filter (Ljava/util/function/Predicate;)Lorg/reactivestreams/Publisher;]",
+      "changed" : false
+    },
+    "value" : {
+      "oldValue" : "org.reactivestreams.Publisher",
+      "newValue" : "org.reactivestreams.Publisher",
+      "changed" : false
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "newModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "NON_STATIC", "NON_SYNTHETIC", "PUBLIC" ],
+    "parameterTypes" : [ "java.util.function.Predicate" ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$boundary$1",
+    "simpleName" : "lambda$boundary$1",
+    "qualifiedSignature" : "com.artipie.http.rq.multipart.RqMultipart#lambda$boundary$1()",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@6f160f35[private static lambda$boundary$1 ()Lcom/artipie/http/ArtipieHttpException;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "com.artipie.http.ArtipieHttpException",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ ]
+  }, {
+    "elementType" : "METHOD",
+    "name" : "lambda$filter$0",
+    "simpleName" : "lambda$filter$0",
+    "qualifiedSignature" : "com.artipie.http.rq.multipart.RqMultipart#lambda$filter$0(java.util.function.Predicate, com.artipie.http.rq.multipart.RqMultipart$Part)",
+    "changeStatus" : "REMOVED",
+    "binaryCompatible" : true,
+    "sourceCompatible" : true,
+    "compatibilityChanges" : [ ],
+    "signature" : {
+      "oldValue" : "javassist.CtMethod@7ffe5bb1[private static lambda$filter$0 (Ljava/util/function/Predicate;Lcom/artipie/http/rq/multipart/RqMultipart$Part;)Lcom/artipie/http/rq/multipart/RqMultipart$Part;]",
+      "newValue" : null,
+      "changed" : true
+    },
+    "value" : {
+      "oldValue" : "com.artipie.http.rq.multipart.RqMultipart$Part",
+      "newValue" : "n.a.",
+      "changed" : true
+    },
+    "oldModifiers" : [ "NON_ABSTRACT", "NON_BRIDGE", "NON_FINAL", "PRIVATE", "STATIC", "SYNTHETIC" ],
+    "newModifiers" : [ ],
+    "parameterTypes" : [ "java.util.function.Predicate", "com.artipie.http.rq.multipart.RqMultipart$Part" ]
+  } ]
+}

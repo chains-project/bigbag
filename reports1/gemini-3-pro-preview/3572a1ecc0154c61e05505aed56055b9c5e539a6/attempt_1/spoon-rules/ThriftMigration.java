@@ -1,0 +1,89 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script for Apache Thrift Migration.
+ * 
+ * Addressed Changes:
+ * 1. TFastFramedTransport moved from 'org.apache.thrift.transport' to 'org.apache.thrift.transport.layered'.
+ *    - Strategy: Update package reference on usages of TFastFramedTransport.
+ * 
+ * Note: TIOStreamTransport constructors now throw checked exceptions. 
+ * This script does not automatically wrap code in try-catch blocks as it requires semantic knowledge 
+ * of the surrounding control flow, but the TFastFramedTransport fix is automated.
+ */
+public class ThriftMigration {
+
+    public static class TransportMoveProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final String OLD_CLASS = "org.apache.thrift.transport.TFastFramedTransport";
+        private static final String NEW_PACKAGE = "org.apache.thrift.transport.layered";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive Null Checks
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // Check if this reference points to the old class
+            // We use string comparison for NoClasspath compatibility
+            return OLD_CLASS.equals(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> ref) {
+            Factory factory = getFactory();
+
+            // Refactoring: Update the package of the type reference.
+            // In Sniper mode, this forces the printer to output the new package (often fully qualified).
+            ref.setPackage(factory.Package().getOrCreate(NEW_PACKAGE));
+
+            // Log the change
+            String position = ref.getPosition().isValidPosition() 
+                ? "line " + ref.getPosition().getLine() 
+                : "unknown position";
+            System.out.println("Refactored TFastFramedTransport to layered package at " + position);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user or passed via args)
+        String inputPath = "/home/kth/Documents/last_transformer/output/3572a1ecc0154c61e05505aed56055b9c5e539a6/singer/thrift-logger/src/main/java/com/pinterest/singer/client/logback/AppenderUtils.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/3572a1ecc0154c61e05505aed56055b9c5e539a6/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/3572a1ecc0154c61e05505aed56055b9c5e539a6/singer/thrift-logger/src/main/java/com/pinterest/singer/client/logback/AppenderUtils.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/3572a1ecc0154c61e05505aed56055b9c5e539a6/attempt_1/transformed");
+
+        // CRITICAL CONFIGURATION for Source Preservation
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer to rewrite only changed parts
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Enable NoClasspath mode (robustness against missing libs)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new TransportMoveProcessor());
+
+        try {
+            System.out.println("Starting Thrift Migration...");
+            launcher.run();
+            System.out.println("Migration completed. Source generated in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Migration failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

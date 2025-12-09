@@ -1,0 +1,87 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class MavenGraphBuilderMigration {
+
+    /**
+     * Processor to migrate from the removed 'Maven31DependencyGraphBuilder' 
+     * to the 'DefaultDependencyGraphBuilder'.
+     */
+    public static class Maven31Processor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final String OLD_CLASS_SIMPLE = "Maven31DependencyGraphBuilder";
+        private static final String NEW_CLASS_QUALIFIED = "org.apache.maven.shared.dependency.graph.internal.DefaultDependencyGraphBuilder";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // 1. Safety check
+            if (candidate == null) return false;
+
+            // 2. Simple Name Check (Fast fail)
+            // We check strict equality on simple name to avoid matching partial strings accidentally
+            if (!OLD_CLASS_SIMPLE.equals(candidate.getSimpleName())) {
+                return false;
+            }
+
+            // 3. Qualified Name / Context Check (Defensive)
+            // In NoClasspath, getQualifiedName() relies on imports or local context. 
+            // We ensure it matches the target class or is an unqualified reference to it.
+            String qName = candidate.getQualifiedName();
+            return qName != null && qName.contains(OLD_CLASS_SIMPLE);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> oldRef) {
+            // Transformation: Replace the reference to the removed class with the Default implementation.
+            // This handles:
+            // - Variable declarations: Maven31DependencyGraphBuilder var;
+            // - Instantiations: new Maven31DependencyGraphBuilder();
+            // - Method return types/arguments.
+            
+            CtTypeReference<?> newRef = getFactory().Type().createReference(NEW_CLASS_QUALIFIED);
+            
+            // Replace the AST node
+            oldRef.replace(newRef);
+            
+            // Logging
+            int line = (oldRef.getPosition().isValidPosition()) ? oldRef.getPosition().getLine() : -1;
+            System.out.println("Refactored " + OLD_CLASS_SIMPLE + " to DefaultDependencyGraphBuilder at line " + line);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args if expanded)
+        String inputPath = "/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/license-maven-plugin/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/dependencies/MavenProjectLicenses.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1c0972fc3d905b9f2a305a78f8a158a0b3fd8639/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Robust Transformation
+        // 1. Enable comments to preserve existing documentation
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting/indentation of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath mode to allow running without full dependency resolution
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new Maven31Processor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

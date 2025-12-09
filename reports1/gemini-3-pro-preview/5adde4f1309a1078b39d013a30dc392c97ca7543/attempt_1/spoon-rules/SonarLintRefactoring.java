@@ -1,0 +1,113 @@
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtBlock;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class SonarLintRefactoring {
+
+    /**
+     * Processor to handle the removal of 'addEnabledLanguages' from AnalysisEngineConfiguration$Builder.
+     * Strategy:
+     * 1. If part of a fluent chain (e.g., builder.setA().addEnabledLanguages(..).build()), remove the call but keep the chain link.
+     * 2. If a standalone statement (e.g., builder.addEnabledLanguages(..);), delete the statement and add a warning comment.
+     */
+    public static class EnabledLanguagesRemovalProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!"addEnabledLanguages".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Owner Type (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType == null) {
+                // Try to guess from the target's type if executable declaring type is unavailable
+                CtExpression<?> target = candidate.getTarget();
+                if (target != null && target.getType() != null) {
+                    declaringType = target.getType();
+                }
+            }
+
+            if (declaringType != null) {
+                String qualifiedName = declaringType.getQualifiedName();
+                // Match the Builder class where the method was removed
+                return qualifiedName.contains("AnalysisEngineConfiguration") 
+                    && (qualifiedName.contains("Builder") || qualifiedName.endsWith("Builder"));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            CtElement parent = invocation.getParent();
+            CtExpression<?> target = invocation.getTarget();
+
+            // Scenario A: The method is called as a statement (e.g., "builder.addEnabledLanguages(x);")
+            // We should remove the line entirely.
+            if (parent instanceof CtBlock || parent instanceof CtStatement) {
+                // Add a comment explaining the removal
+                invocation.addComment(getFactory().Code().createComment(
+                    "TODO: [Refactoring] 'addEnabledLanguages' was removed in the new version. Languages are likely auto-detected.",
+                    spoon.reflect.code.CtComment.CommentType.INLINE
+                ));
+                
+                // If it's a statement, we can try to delete it. 
+                // However, Spoon's delete() on an element in a list sometimes behaves oddly with comments in Sniper.
+                // A safer bet to preserve the "Target" if it was a constructor call is tricky, 
+                // but usually this is "var.method()", so deleting the invocation is correct.
+                invocation.delete();
+                System.out.println("Removed standalone call to addEnabledLanguages at line " + invocation.getPosition().getLine());
+            } 
+            // Scenario B: The method is part of a fluent chain (e.g., "new Builder().addEnabledLanguages(x).build()")
+            // We must replace "target.method()" with just "target".
+            else if (target != null) {
+                // We clone the target to detach it from the current invocation
+                invocation.replace(target.clone());
+                System.out.println("Removed chained call to addEnabledLanguages at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - adjust as needed
+        String inputPath = "/home/kth/Documents/last_transformer/output/5adde4f1309a1078b39d013a30dc392c97ca7543/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java"; 
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5adde4f1309a1078b39d013a30dc392c97ca7543/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/5adde4f1309a1078b39d013a30dc392c97ca7543/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/5adde4f1309a1078b39d013a30dc392c97ca7543/attempt_1/transformed");
+
+        // CRITICAL: Configure Environment for Source Preservation (Sniper)
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // Defensive: Handle missing libraries gracefully
+        launcher.getEnvironment().setNoClasspath(true);
+        // Ignore missing type errors during model building
+        launcher.getEnvironment().setLevel("OFF");
+
+        launcher.addProcessor(new EnabledLanguagesRemovalProcessor());
+
+        System.out.println("Starting refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}

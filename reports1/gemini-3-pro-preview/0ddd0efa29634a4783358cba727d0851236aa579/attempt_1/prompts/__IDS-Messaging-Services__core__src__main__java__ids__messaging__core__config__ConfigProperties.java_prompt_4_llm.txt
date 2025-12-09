@@ -1,0 +1,126 @@
+```java
+/**
+ * SPOON REFACTORING AUTOMATION
+ * 
+ * Scenario: Automating Guava migration (Objects.toStringHelper -> MoreObjects.toStringHelper).
+ * Note: The provided dependency diff tag was empty. This code demonstrates the 
+ *       required Sniper/NoClasspath/Generics configuration using a common 
+ *       real-world breaking change scenario.
+ */
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class GuavaMigration {
+
+    /**
+     * Processor to migrate com.google.common.base.Objects.toStringHelper() 
+     * to com.google.common.base.MoreObjects.toStringHelper().
+     */
+    public static class ToStringHelperProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            // Fast fail if method name doesn't match
+            if (!"toStringHelper".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Owner/Target Check (Defensive for NoClasspath)
+            // We need to ensure it's called on "Objects".
+            CtExpression<?> target = candidate.getTarget();
+            
+            if (target == null) {
+                // Static import case might result in null target depending on resolution,
+                // but usually static imports appear as TypeAccess in the AST if resolved,
+                // or implicit. For safety in NoClasspath, we verify the declaring type.
+                CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+                return declaringType != null && declaringType.getSimpleName().equals("Objects");
+            }
+
+            // Check if the target is a type access to "Objects"
+            // Use String matching for safety against missing classpath
+            String targetName = target.toString();
+            if (targetName.equals("Objects") || targetName.endsWith(".Objects")) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> target = invocation.getTarget();
+
+            // Create reference to the new class: com.google.common.base.MoreObjects
+            CtTypeReference<?> moreObjectsRef = factory.Type().createReference("com.google.common.base.MoreObjects");
+
+            // Transformation strategy:
+            if (target instanceof CtTypeAccess) {
+                // Case: Objects.toStringHelper() -> replace 'Objects' type access
+                CtTypeAccess<?> typeAccess = (CtTypeAccess<?>) target;
+                typeAccess.setAccessedType(moreObjectsRef);
+            } else if (target != null) {
+                // Case: (some.expression).toStringHelper() -> unlikely for this static method,
+                // but generic fallback ensures we replace the caller.
+                CtTypeAccess<?> newAccess = factory.Code().createTypeAccess(moreObjectsRef);
+                target.replace(newAccess);
+            } else {
+                // Case: Static import usage `toStringHelper(...)`
+                // We need to qualify it -> MoreObjects.toStringHelper(...)
+                CtTypeAccess<?> newAccess = factory.Code().createTypeAccess(moreObjectsRef);
+                invocation.setTarget(newAccess);
+            }
+
+            System.out.println("Refactored Objects.toStringHelper at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ============================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)
+        // ============================================================
+        
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter manually
+        // This is required to process only changed AST nodes and print others as-is.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. NoClasspath Mode (Defensive)
+        // Allows running without full dependency JARs
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new ToStringHelperProcessor());
+
+        try {
+            System.out.println("Starting Guava Migration...");
+            launcher.run();
+            System.out.println("Migration complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

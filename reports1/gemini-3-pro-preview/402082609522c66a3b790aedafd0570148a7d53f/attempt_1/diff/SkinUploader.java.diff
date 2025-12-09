@@ -1,0 +1,14 @@
+--- /home/kth/Documents/last_transformer/output/402082609522c66a3b790aedafd0570148a7d53f/ChangeSkin/sponge/src/main/java/com/github/games647/changeskin/sponge/task/SkinUploader.java	2025-12-08 03:45:15.541826384 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/402082609522c66a3b790aedafd0570148a7d53f/attempt_1/transformed/com/github/games647/changeskin/sponge/task/SkinUploader.java	2025-12-08 03:47:38.986174727 +0100
+@@ -12,9 +12,9 @@
+ public class SkinUploader extends SharedUploader {
+ 
+     private final ChangeSkinSponge plugin;
+-    private final CommandSource invoker;
++    private final net.kyori.adventure.audience.Audience invoker;
+ 
+-    public SkinUploader(ChangeSkinSponge plugin, CommandSource invoker, Account owner, String url) {
++    public SkinUploader(ChangeSkinSponge plugin, net.kyori.adventure.audience.Audience invoker, Account owner, String url) {
+         super(plugin.getCore(), owner, url);
+ 
+         this.plugin = plugin;

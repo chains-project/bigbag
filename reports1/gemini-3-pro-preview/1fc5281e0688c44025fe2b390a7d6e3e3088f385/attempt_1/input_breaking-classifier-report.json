@@ -1,0 +1,51 @@
+{
+  "originalFailurePath" : "/home/kth/Documents/last_transformer/output/1fc5281e0688c44025fe2b390a7d6e3e3088f385/jadler/1fc5281e0688c44025fe2b390a7d6e3e3088f385.log",
+  "failureCategory" : "COMPILATION_FAILURE",
+  "errorsByFile" : [ {
+    "filePath" : "/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java",
+    "errors" : [ {
+      "lineNumber" : 12,
+      "columnNumber" : 35,
+      "message" : "error: package org.eclipse.jetty.server.nio does not exist",
+      "details" : [ ]
+    }, {
+      "lineNumber" : 33,
+      "columnNumber" : 19,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setSendServerVersion(boolean)", "location: variable server of type Server" ]
+    }, {
+      "lineNumber" : 34,
+      "columnNumber" : 19,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setSendDateHeader(boolean)", "location: variable server of type Server" ]
+    }, {
+      "lineNumber" : 36,
+      "columnNumber" : 33,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   class SelectChannelConnector", "location: class JettyStubHttpServer" ]
+    }, {
+      "lineNumber" : 37,
+      "columnNumber" : 26,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method setPort(int)", "location: variable httpConnector of type Connector" ]
+    }, {
+      "lineNumber" : 80,
+      "columnNumber" : 28,
+      "message" : "error: cannot find symbol",
+      "details" : [ "symbol:   method getLocalPort()", "location: variable httpConnector of type Connector" ]
+    } ]
+  }, {
+    "filePath" : "/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JadlerHandler.java",
+    "errors" : [ {
+      "lineNumber" : 25,
+      "columnNumber" : null,
+      "message" : "error: JadlerHandler is not abstract and does not override abstract method handle(String,Request,HttpServletRequest,HttpServletResponse) in AbstractHandler",
+      "details" : [ ]
+    }, {
+      "lineNumber" : 39,
+      "columnNumber" : 4,
+      "message" : "error: method does not override or implement a method from a supertype",
+      "details" : [ ]
+    } ]
+  } ]
+}

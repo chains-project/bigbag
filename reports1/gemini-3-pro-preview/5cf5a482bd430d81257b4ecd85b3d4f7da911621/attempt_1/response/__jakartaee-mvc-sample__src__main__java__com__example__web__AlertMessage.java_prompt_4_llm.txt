@@ -1,0 +1,92 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.declaration.CtAnnotation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Refactoring Rule for:
+ * - CLASS javax.mvc.RedirectScoped [REMOVED]
+ * 
+ * Strategy:
+ * This indicates a migration from the javax.mvc namespace (legacy) to jakarta.mvc.
+ * The processor identifies annotations of type `javax.mvc.RedirectScoped` and 
+ * updates them to `jakarta.mvc.RedirectScoped`.
+ */
+public class MvcRefactoring {
+
+    public static class RedirectScopedProcessor extends AbstractProcessor<CtAnnotation<?>> {
+        
+        private static final String OLD_CLASS = "javax.mvc.RedirectScoped";
+        private static final String NEW_CLASS = "jakarta.mvc.RedirectScoped";
+
+        @Override
+        public boolean isToBeProcessed(CtAnnotation<?> annotation) {
+            // Defensive coding: Check if annotation has a valid type reference
+            CtTypeReference<?> typeRef = annotation.getAnnotationType();
+            if (typeRef == null) {
+                return false;
+            }
+
+            // Check qualified name safely (NoClasspath friendly)
+            // We use string comparison rather than class loading
+            return OLD_CLASS.equals(typeRef.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtAnnotation<?> annotation) {
+            // Create a reference to the new Jakarta class
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(NEW_CLASS);
+
+            // Replace the annotation type
+            // Note: In NoClasspath mode with Sniper, this will update the AST. 
+            // The printer will likely output the Fully Qualified Name (jakarta.mvc.RedirectScoped)
+            // if imports are not explicitly managed, ensuring the code compiles.
+            annotation.setAnnotationType((CtTypeReference) newTypeRef);
+
+            System.out.println("Refactored @RedirectScoped at line " + annotation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration (can be adjusted by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ---------------------------------------------------------
+        // CRITICAL: Robust Sniper Configuration for Source Preservation
+        // ---------------------------------------------------------
+        
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to preserve original formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive: Enable NoClasspath mode (types are not resolved from JARs)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // ---------------------------------------------------------
+
+        launcher.addProcessor(new RedirectScopedProcessor());
+
+        try {
+            System.out.println("Starting Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring Complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Refactoring failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```

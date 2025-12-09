@@ -1,0 +1,81 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Transformation Template.
+ * 
+ * NOTE: The input dependency diff was empty. This class provides the 
+ * required boilerplate configuration (Sniper Printer, NoClasspath) 
+ * ready for specific logic insertion.
+ */
+public class SpoonMigration {
+
+    public static class TemplateProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Example)
+            // if (!"targetMethodName".equals(candidate.getExecutable().getSimpleName())) return false;
+
+            // 2. Defensive NoClasspath Check
+            // In NoClasspath mode, types might be null or unknown.
+            // Always check for null before accessing type properties.
+            // CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            // if (declaringType != null && !declaringType.getQualifiedName().contains("TargetClassName")) {
+            //     return false;
+            // }
+
+            return false; // Default to false until logic is implemented
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Transformation Logic
+            // getFactory().Code()...
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ===================================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)
+        // ===================================================================
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter. 
+        // This instructs Spoon to only print changes to the AST, preserving
+        // original white-space and formatting for untouched code.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // ===================================================================
+        // DEFENSIVE CONFIGURATION: NO CLASSPATH
+        // ===================================================================
+        // Allows running without full dependency resolution.
+        // Processors must handle unknown/null types gracefully.
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new TemplateProcessor());
+        
+        try {
+            launcher.run();
+            System.out.println("Migration finished. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

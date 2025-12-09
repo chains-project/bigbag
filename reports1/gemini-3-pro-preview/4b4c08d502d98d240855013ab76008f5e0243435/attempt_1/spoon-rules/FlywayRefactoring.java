@@ -1,0 +1,242 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.*;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtLocalVariable;
+import spoon.reflect.declaration.CtVariable;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtVariableReference;
+import spoon.reflect.visitor.filter.TypeFilter;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.*;
+
+public class FlywayRefactoring {
+
+    /**
+     * Processor to handle Flyway 5 -> 6 migration.
+     * 1. Renames MigrationType -> CoreMigrationType.
+     * 2. Refactors 'new Flyway()' and its setters to 'Flyway.configure()...load()'.
+     */
+    public static class FlywayProcessor extends AbstractProcessor<CtElement> {
+
+        private static final String OLD_FLYWAY_CLASS = "org.flywaydb.core.Flyway";
+        private static final String NEW_CONFIG_CLASS = "org.flywaydb.core.api.configuration.FluentConfiguration";
+        private static final String OLD_MIGRATION_TYPE = "org.flywaydb.core.api.MigrationType";
+        private static final String NEW_MIGRATION_TYPE = "org.flywaydb.core.api.CoreMigrationType";
+
+        private static final Set<String> EXECUTION_METHODS = new HashSet<>(Arrays.asList(
+            "migrate", "clean", "info", "validate", "baseline", "repair", "undo"
+        ));
+
+        private static final Map<String, String> SETTER_MAPPING = new HashMap<>();
+        static {
+            SETTER_MAPPING.put("setDataSource", "dataSource");
+            SETTER_MAPPING.put("setLocations", "locations");
+            SETTER_MAPPING.put("setSchemas", "schemas");
+            SETTER_MAPPING.put("setTable", "table");
+            SETTER_MAPPING.put("setValidateOnMigrate", "validateOnMigrate");
+            SETTER_MAPPING.put("setClassLoader", "classLoader");
+            SETTER_MAPPING.put("setBaselineOnMigrate", "baselineOnMigrate");
+            SETTER_MAPPING.put("setEncoding", "encoding");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // Process LocalVariables (for Flyway refactoring) and TypeAccess (for MigrationType)
+            if (candidate instanceof CtLocalVariable) {
+                CtTypeReference<?> type = ((CtLocalVariable<?>) candidate).getType();
+                return type != null && type.getQualifiedName().equals(OLD_FLYWAY_CLASS);
+            }
+            if (candidate instanceof CtTypeAccess) {
+                CtTypeReference<?> type = ((CtTypeAccess<?>) candidate).getAccessedType();
+                return type != null && type.getQualifiedName().equals(OLD_MIGRATION_TYPE);
+            }
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtTypeAccess) {
+                processTypeRename((CtTypeAccess<?>) element);
+            } else if (element instanceof CtLocalVariable) {
+                processFlywayVariable((CtLocalVariable<?>) element);
+            }
+        }
+
+        /**
+         * Handles MigrationType -> CoreMigrationType
+         */
+        private void processTypeRename(CtTypeAccess<?> typeAccess) {
+            CtTypeReference<?> newType = getFactory().Type().createReference(NEW_MIGRATION_TYPE);
+            typeAccess.getAccessedType().replace(newType);
+        }
+
+        /**
+         * Refactors:
+         * Flyway f = new Flyway();
+         * f.setDataSource(ds);
+         * f.migrate();
+         *
+         * To:
+         * FluentConfiguration f = Flyway.configure();
+         * f.dataSource(ds);
+         * f.load().migrate();
+         */
+        private void processFlywayVariable(CtLocalVariable<?> var) {
+            CtExpression<?> defaultExp = var.getDefaultExpression();
+            if (!(defaultExp instanceof CtConstructorCall)) {
+                return;
+            }
+
+            CtConstructorCall<?> constructorCall = (CtConstructorCall<?>) defaultExp;
+            if (!constructorCall.getType().getQualifiedName().equals(OLD_FLYWAY_CLASS)) {
+                return;
+            }
+
+            if (constructorCall.getArguments().size() > 0) {
+                // If it's new Flyway(Configuration), we might need different handling,
+                // but for now we focus on the removed no-arg constructor.
+                // If arguments exist, we skip to avoid breaking custom config logic.
+                return;
+            }
+
+            Factory factory = getFactory();
+
+            // 1. Change Variable Type: Flyway -> FluentConfiguration
+            CtTypeReference<?> fluentConfigType = factory.Type().createReference(NEW_CONFIG_CLASS);
+            var.setType((CtTypeReference) fluentConfigType);
+
+            // 2. Change Initializer: new Flyway() -> Flyway.configure()
+            CtTypeReference<?> flywayType = factory.Type().createReference(OLD_FLYWAY_CLASS);
+            CtInvocation<?> configureCall = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(flywayType),
+                factory.Method().createReference(flywayType, fluentConfigType, "configure")
+            );
+            constructorCall.replace(configureCall);
+
+            // 3. Process usages of this variable
+            List<CtVariableReference<?>> references = elementReferences(var);
+            for (CtVariableReference<?> ref : references) {
+                handleUsage(ref, fluentConfigType, flywayType);
+            }
+
+            System.out.println("Refactored Flyway instantiation at line " + var.getPosition().getLine());
+        }
+
+        private void handleUsage(CtVariableReference<?> ref, CtTypeReference<?> fluentConfigType, CtTypeReference<?> flywayType) {
+            CtElement parent = ref.getParent();
+
+            // Case A: Method Invocation on the variable (e.g., flyway.setDataSource(...))
+            if (parent instanceof CtInvocation) {
+                CtInvocation<?> invocation = (CtInvocation<?>) parent;
+                
+                // Ensure the variable is the Target (receiver) of the call
+                if (invocation.getTarget() != null && invocation.getTarget().equals(ref)) {
+                    String methodName = invocation.getExecutable().getSimpleName();
+
+                    if (SETTER_MAPPING.containsKey(methodName)) {
+                        // Case A1: It's a configuration setter -> Rename to fluent method
+                        invocation.getExecutable().setSimpleName(SETTER_MAPPING.get(methodName));
+                        // The return type of fluent methods is FluentConfiguration, update if possible
+                        // (Not strictly required for source gen, but good for model consistency)
+                    } else if (EXECUTION_METHODS.contains(methodName)) {
+                        // Case A2: It's an execution method (migrate, clean) -> Needs .load()
+                        injectLoadCall(invocation, fluentConfigType, flywayType);
+                    }
+                } else {
+                    // Variable is passed as an argument to another method
+                    // e.g. helper(flyway) -> helper(flyway.load())
+                    wrapWithLoad(ref, fluentConfigType, flywayType);
+                }
+            } 
+            // Case B: Variable is returned or assigned
+            else if (parent instanceof CtReturn || parent instanceof CtAssignment) {
+                wrapWithLoad(ref, fluentConfigType, flywayType);
+            }
+        }
+
+        /**
+         * Transforms: flyway.migrate() -> flyway.load().migrate()
+         */
+        private void injectLoadCall(CtInvocation<?> invocation, CtTypeReference<?> fluentConfigType, CtTypeReference<?> flywayType) {
+            Factory factory = getFactory();
+            
+            // Current target is the variable reference (which is now FluentConfiguration)
+            CtExpression<?> target = invocation.getTarget();
+            
+            // Create .load() invocation
+            CtInvocation<?> loadCall = factory.Code().createInvocation(
+                target.clone(),
+                factory.Method().createReference(fluentConfigType, flywayType, "load")
+            );
+
+            invocation.setTarget(loadCall);
+        }
+
+        /**
+         * Transforms: return flyway; -> return flyway.load();
+         */
+        private void wrapWithLoad(CtVariableReference<?> ref, CtTypeReference<?> fluentConfigType, CtTypeReference<?> flywayType) {
+            // We need to replace the reference expression with reference.load()
+            // But we must be careful not to trigger infinite recursion if we visit the new nodes.
+            // Using replace directly.
+            
+            if (!(ref.getParent() instanceof CtExpression)) return;
+            
+            Factory factory = getFactory();
+            CtInvocation<?> loadCall = factory.Code().createInvocation(
+                (CtExpression<?>) ref.clone(), // Clone to detach from parent
+                factory.Method().createReference(fluentConfigType, flywayType, "load")
+            );
+            
+            ref.replace(loadCall);
+        }
+
+        // Helper to find all references to a variable
+        private List<CtVariableReference<?>> elementReferences(CtVariable<?> var) {
+            return var.getFactory().getModel().filterChildren(new TypeFilter<CtVariableReference<?>>(CtVariableReference.class) {
+                @Override
+                public boolean matches(CtVariableReference<?> element) {
+                    try {
+                        return super.matches(element) && element.getDeclaration().equals(var);
+                    } catch (Exception e) {
+                        // In NoClasspath, getDeclaration might fail or return null
+                        return false;
+                    }
+                }
+            }).list();
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputPath = "/home/kth/Documents/last_transformer/output/4b4c08d502d98d240855013ab76008f5e0243435/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4b4c08d502d98d240855013ab76008f5e0243435/attempt_1/transformed";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/4b4c08d502d98d240855013ab76008f5e0243435/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/4b4c08d502d98d240855013ab76008f5e0243435/attempt_1/transformed");
+
+        // CRITICAL: Configure Environment for Source Preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new FlywayProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Flyway migration completed.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

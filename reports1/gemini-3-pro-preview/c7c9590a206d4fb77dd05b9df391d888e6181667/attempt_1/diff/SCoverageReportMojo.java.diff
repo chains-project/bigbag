@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/c7c9590a206d4fb77dd05b9df391d888e6181667/scoverage-maven-plugin/src/main/java/org/scoverage/plugin/SCoverageReportMojo.java	2025-12-08 10:31:15.608032493 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c7c9590a206d4fb77dd05b9df391d888e6181667/attempt_1/transformed/org/scoverage/plugin/SCoverageReportMojo.java	2025-12-08 10:33:04.490074810 +0100
+@@ -382,7 +382,7 @@
+ 
+         try
+         {
+-            RenderingContext context = new RenderingContext( outputDirectory, getOutputName() + ".html" );
++            RenderingContext context = new RenderingContext( getOutputName() + ".html" );
+             SiteRendererSink sink = new SiteRendererSink( context );
+             Locale locale = Locale.getDefault();
+             generate( sink, locale );

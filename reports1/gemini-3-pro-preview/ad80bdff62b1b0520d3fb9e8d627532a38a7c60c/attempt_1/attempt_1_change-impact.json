@@ -1,0 +1,363 @@
+{
+  "project" : "nem",
+  "breakingCommit" : "ad80bdff62b1b0520d3fb9e8d627532a38a7c60c",
+  "dependency" : {
+    "groupId" : "org.flywaydb",
+    "artifactId" : "flyway-core",
+    "previousVersion" : "3.2.1",
+    "newVersion" : "9.16.3",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/attempt_1/attempt_1_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+    "errors" : [ {
+      "lineNumber" : 108,
+      "columnNumber" : 89,
+      "message" : "constructor Flyway in class org.flywaydb.core.Flyway cannot be applied to given types;",
+      "details" : [ "required: org.flywaydb.core.api.configuration.Configuration", "found: no arguments", "reason: actual and formal argument lists differ in length" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+        "lineNumber" : 108,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar",
+        "generatedAt" : "2025-12-08T08:05:53.515567524Z",
+        "constructs" : [ {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.flywaydb",
+            "artifactId" : "flyway-core",
+            "version" : "9.16.3",
+            "coordinates" : "org.flywaydb:flyway-core:9.16.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar"
+          },
+          "lineNumber" : 108,
+          "codeLine" : "        final org.flywaydb.core.api.configuration.ClassicConfiguration flyway = new Flyway();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "declaringType" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "qualifiedSignature" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 189
+          } ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.flywaydb.core.Flyway#<init>()",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.flywaydb",
+            "artifactId" : "flyway-core",
+            "version" : "3.2.1",
+            "coordinates" : "org.flywaydb:flyway-core:3.2.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar"
+          },
+          "lineNumber" : 108,
+          "codeLine" : "        final org.flywaydb.core.api.configuration.ClassicConfiguration flyway = new Flyway();",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "Flyway",
+            "declaringType" : "org.flywaydb.core.Flyway",
+            "qualifiedSignature" : "org.flywaydb.core.Flyway.Flyway()",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@3c9d281c[public Flyway ()V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "NAME_ONLY",
+            "name" : "Flyway",
+            "declaringType" : "org.flywaydb.core.Flyway",
+            "qualifiedSignature" : "org.flywaydb.core.Flyway.Flyway(org.flywaydb.core.api.configuration.Configuration)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtConstructor@123bb03f[public Flyway (Lorg/flywaydb/core/api/configuration/Configuration;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "org.flywaydb.core.api.configuration.Configuration" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.flywaydb.core.Flyway",
+            "declaringType" : "org.flywaydb.core.Flyway",
+            "qualifiedSignature" : "org.flywaydb.core.Flyway",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 132
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.flywaydb.core.Flyway",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.flywaydb",
+            "artifactId" : "flyway-core",
+            "version" : "3.2.1",
+            "coordinates" : "org.flywaydb:flyway-core:3.2.1",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar"
+          },
+          "lineNumber" : 108,
+          "codeLine" : "        final org.flywaydb.core.api.configuration.ClassicConfiguration flyway = new Flyway();",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.flywaydb.core.Flyway",
+            "declaringType" : "org.flywaydb.core.Flyway",
+            "qualifiedSignature" : "org.flywaydb.core.Flyway",
+            "changeStatus" : "MODIFIED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 132
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 111,
+      "columnNumber" : 23,
+      "message" : "method setLocations in class org.flywaydb.core.api.configuration.ClassicConfiguration cannot be applied to given types;",
+      "details" : [ "required: org.flywaydb.core.api.Location[]", "found: java.lang.String", "reason: varargs mismatch; java.lang.String cannot be converted to org.flywaydb.core.api.Location" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+        "lineNumber" : 111,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar",
+        "generatedAt" : "2025-12-08T08:05:53.517533105Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "org.flywaydb.core.api.configuration.ClassicConfiguration#setLocations(org.flywaydb.core.api.Location[])",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "org.flywaydb",
+            "artifactId" : "flyway-core",
+            "version" : "9.16.3",
+            "coordinates" : "org.flywaydb:flyway-core:9.16.3",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar"
+          },
+          "lineNumber" : 111,
+          "codeLine" : "        flyway.setLocations(prop.getProperty(\"flyway.locations\"));",
+          "apiChanges" : [ {
+            "elementType" : "METHOD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "setLocations",
+            "declaringType" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "qualifiedSignature" : "org.flywaydb.core.api.configuration.ClassicConfiguration.setLocations(org.flywaydb.core.api.Location[])",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@e93c511b[public transient setLocations ([Lorg/flywaydb/core/api/Location;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.flywaydb.core.api.Location[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "setLocations",
+            "declaringType" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "qualifiedSignature" : "org.flywaydb.core.api.configuration.ClassicConfiguration.setLocations(org.flywaydb.core.api.Location[])",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@e93c511b[public transient setLocations ([Lorg/flywaydb/core/api/Location;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "org.flywaydb.core.api.Location[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setLocations",
+            "declaringType" : "org.flywaydb.core.Flyway",
+            "qualifiedSignature" : "org.flywaydb.core.Flyway.setLocations(java.lang.String[])",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtMethod@97e986b0[public transient setLocations ([Ljava/lang/String;)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "void",
+              "newValue" : "n.a.",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.lang.String[]" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "METHOD",
+            "matchType" : "NAME_ONLY_OTHER_CLASS",
+            "name" : "setLocations",
+            "declaringType" : "org.flywaydb.core.internal.configuration.models.FlywayModel",
+            "qualifiedSignature" : "org.flywaydb.core.internal.configuration.models.FlywayModel.setLocations(java.util.List)",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "METHOD_ADDED_TO_PUBLIC_CLASS",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : {
+              "oldValue" : null,
+              "newValue" : "javassist.CtMethod@f2285a0c[public setLocations (Ljava/util/List;)V]",
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "n.a.",
+              "newValue" : "void",
+              "changed" : true
+            },
+            "parameterTypes" : [ "java.util.List" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "declaringType" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "qualifiedSignature" : "org.flywaydb.core.api.configuration.ClassicConfiguration",
+            "changeStatus" : "NEW",
+            "binaryCompatible" : true,
+            "sourceCompatible" : true,
+            "compatibilityChanges" : [ {
+              "type" : "INTERFACE_ADDED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "MINOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 189
+          } ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.Properties#getProperty(java.lang.String)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 111,
+          "codeLine" : "        flyway.setLocations(prop.getProperty(\"flyway.locations\"));",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 113,
+      "columnNumber" : 24,
+      "message" : "incompatible types: org.flywaydb.core.api.configuration.ClassicConfiguration cannot be converted to org.flywaydb.core.Flyway",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/nem/nis/src/main/java/org/nem/specific/deploy/appconfig/NisAppConfig.java",
+        "lineNumber" : 113,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-3.2.1.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/ad80bdff62b1b0520d3fb9e8d627532a38a7c60c/flyway-core-9.16.3.jar",
+        "generatedAt" : "2025-12-08T08:05:53.519304747Z",
+        "constructs" : [ ]
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,125 @@
+package org.springframework.data.jpa.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Set;
+
+public class JpaRepositoryMigration {
+
+    /**
+     * Processor to handle JpaRepository breaking changes from Spring Data JPA 2.x to 3.x.
+     * <p>
+     * Addressed Changes:
+     * 1. `getOne(ID)` -> `getReference(ID)`
+     * 2. `deleteInBatch(Iterable)` -> `deleteAllInBatch(Iterable)`
+     */
+    public static class JpaRepositoryProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> TARGET_METHODS = Set.of("getOne", "deleteInBatch");
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check method name
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Check Owner/Declaring Type (Heuristics for NoClasspath)
+            // We want to ensure this method belongs to a Repository.
+            CtExecutableReference<?> exec = candidate.getExecutable();
+            CtTypeReference<?> declaringType = exec.getDeclaringType();
+            
+            boolean isRepository = false;
+
+            // Check A: Declaring type explicitly contains "Repository" or "JpaRepository"
+            if (declaringType != null && !declaringType.getQualifiedName().equals("<unknown>")) {
+                String typeName = declaringType.getQualifiedName();
+                if (typeName.contains("Repository")) {
+                    isRepository = true;
+                }
+            }
+            
+            // Check B: The target variable name ends with "Repository" or "Repo" (e.g., userRepository.getOne(1))
+            if (!isRepository && candidate.getTarget() != null) {
+                String targetName = candidate.getTarget().toString();
+                if (targetName.matches(".*[Rr]epository$") || targetName.matches(".*[Rr]epo$")) {
+                    isRepository = true;
+                }
+            }
+
+            // Check C: If target is implicit ('this'), assume yes if we are inside a service/impl context 
+            // (Relaxed check to catch valid usages in NoClasspath mode)
+            if (candidate.getTarget() == null || candidate.getTarget().isImplicit()) {
+                // If implicit, we might be inside a custom repository implementation
+                isRepository = true; 
+            }
+
+            return isRepository;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+
+            if ("getOne".equals(methodName)) {
+                renameMethod(invocation, "getReference");
+            } else if ("deleteInBatch".equals(methodName)) {
+                renameMethod(invocation, "deleteAllInBatch");
+            }
+        }
+
+        private void renameMethod(CtInvocation<?> invocation, String newName) {
+            CtExecutableReference<?> executable = invocation.getExecutable();
+            String oldName = executable.getSimpleName();
+            
+            // Mutate the executable reference directly
+            executable.setSimpleName(newName);
+            
+            System.out.println("Refactored: " + oldName + " -> " + newName + 
+                               " at " + invocation.getPosition().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - can be overridden by arguments or environment variables in a real generic runner
+        String inputPath = "/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/menu/service/UserGroupIoOperationRepository.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/9da8825fbdb24922b94be9eb82eefc73640d8f6b/openhospital-core/src/main/java/org/isf/menu/service/UserGroupIoOperationRepository.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/9da8825fbdb24922b94be9eb82eefc73640d8f6b/attempt_1/transformed");
+
+        // ---------------------------------------------------------
+        // CRITICAL: Robust Sniper Configuration for Source Preservation
+        // ---------------------------------------------------------
+        
+        // 1. Preserve comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer for high-fidelity source reproduction
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (defensive processing)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add Processor
+        launcher.addProcessor(new JpaRepositoryProcessor());
+
+        try {
+            System.out.println("Starting JpaRepository migration...");
+            launcher.run();
+            System.out.println("Migration complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Migration failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

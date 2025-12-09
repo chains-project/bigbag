@@ -1,0 +1,177 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class SpringDataJpaRefactoring {
+
+    /**
+     * Processor to handle breaking changes in Spring Data JPA's JpaRepository.
+     * 
+     * Addressed Changes:
+     * 1. findOne(ID) -> findById(ID)
+     * 2. save(Iterable) -> saveAll(Iterable)
+     * 3. delete(Iterable) -> deleteAll(Iterable)
+     */
+    public static class JpaRepositoryProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> TARGET_METHODS = new HashSet<>(Arrays.asList("findOne", "save", "delete"));
+        private static final Set<String> COLLECTION_TYPES = new HashSet<>(Arrays.asList("List", "Set", "Collection", "Iterable"));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!TARGET_METHODS.contains(methodName)) {
+                return false;
+            }
+
+            // 2. Argument Count Check (All target methods take exactly 1 argument)
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            // We are looking for invocations on objects implementing *Repository
+            CtExecutableReference<?> exec = candidate.getExecutable();
+            CtTypeReference<?> declaringType = exec.getDeclaringType();
+
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // Match standard Spring Data naming conventions or generic Repository interface
+                // unknown type is allowed to proceed to heuristics
+                if (!typeName.contains("Repository") && !typeName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+            CtExpression<?> argument = invocation.getArguments().get(0);
+            
+            // Refactoring Strategy based on method name
+            switch (methodName) {
+                case "findOne":
+                    handleFindOne(invocation);
+                    break;
+                case "save":
+                    handleSave(invocation, argument);
+                    break;
+                case "delete":
+                    handleDelete(invocation, argument);
+                    break;
+            }
+        }
+
+        /**
+         * Refactoring Rule: findOne(ID) -> findById(ID)
+         */
+        private void handleFindOne(CtInvocation<?> invocation) {
+            // In Spring Data 2.0+, findOne(ID) was removed in favor of findById(ID).
+            // Note: findById returns Optional<T>, whereas old findOne returned T.
+            // This structural change (adding .get() or .orElse(null)) is complex 
+            // without full type resolution, so we perform the safe rename first.
+            invocation.getExecutable().setSimpleName("findById");
+            System.out.println("Refactored: findOne -> findById at line " + invocation.getPosition().getLine());
+        }
+
+        /**
+         * Refactoring Rule: save(Iterable) -> saveAll(Iterable)
+         * We must distinguish between save(Entity) and save(Iterable<Entity>).
+         */
+        private void handleSave(CtInvocation<?> invocation, CtExpression<?> arg) {
+            if (isCollectionType(arg.getType())) {
+                invocation.getExecutable().setSimpleName("saveAll");
+                System.out.println("Refactored: save(Iterable) -> saveAll(Iterable) at line " + invocation.getPosition().getLine());
+            }
+        }
+
+        /**
+         * Refactoring Rule: delete(Iterable) -> deleteAll(Iterable)
+         */
+        private void handleDelete(CtInvocation<?> invocation, CtExpression<?> arg) {
+            if (isCollectionType(arg.getType())) {
+                invocation.getExecutable().setSimpleName("deleteAll");
+                System.out.println("Refactored: delete(Iterable) -> deleteAll(Iterable) at line " + invocation.getPosition().getLine());
+            }
+        }
+
+        /**
+         * Helper to determine if a type reference looks like a Collection in NoClasspath mode.
+         */
+        private boolean isCollectionType(CtTypeReference<?> typeRef) {
+            if (typeRef == null) return false;
+
+            // Check array types
+            if (typeRef.isArray()) return true;
+
+            String typeName = typeRef.getQualifiedName();
+            
+            // 1. Direct match for java.util interfaces
+            for (String col : COLLECTION_TYPES) {
+                if (typeName.contains("java.util." + col)) return true;
+            }
+
+            // 2. Simple name match (heuristics for NoClasspath)
+            String simpleName = typeRef.getSimpleName();
+            for (String col : COLLECTION_TYPES) {
+                if (simpleName.startsWith(col)) return true;
+            }
+            
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Spoon 10/11+
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Enable NoClasspath mode (defensive coding)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new JpaRepositoryProcessor());
+
+        System.out.println("Starting Spring Data JPA Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

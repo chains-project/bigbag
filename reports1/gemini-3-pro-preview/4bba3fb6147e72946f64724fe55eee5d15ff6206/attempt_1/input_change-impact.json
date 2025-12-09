@@ -1,0 +1,130 @@
+{
+  "project" : "cdi-test",
+  "breakingCommit" : "4bba3fb6147e72946f64724fe55eee5d15ff6206",
+  "dependency" : {
+    "groupId" : "jakarta.annotation",
+    "artifactId" : "jakarta.annotation-api",
+    "previousVersion" : "1.3.5",
+    "newVersion" : "2.0.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-1.3.5.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-2.0.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/cdi-test/4bba3fb6147e72946f64724fe55eee5d15ff6206.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/4bba3fb6147e72946f64724fe55eee5d15ff6206/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/cdi-test/cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/GlobalTestImplementation.java",
+    "errors" : [ {
+      "lineNumber" : 6,
+      "columnNumber" : 24,
+      "message" : "package javax.annotation does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/cdi-test/cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/GlobalTestImplementation.java",
+        "lineNumber" : 6,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-1.3.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T03:59:12.296087022Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "javax.annotation.Priority",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 6,
+          "codeLine" : "import javax.annotation.Priority;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.annotation.Priority",
+            "declaringType" : "javax.annotation.Priority",
+            "qualifiedSignature" : "javax.annotation.Priority",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 27,
+      "columnNumber" : 2,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol: class Priority" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/cdi-test",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/cdi-test/cdi-test-api/src/main/java/de/hilling/junit/cdi/annotations/GlobalTestImplementation.java",
+        "lineNumber" : 27,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-1.3.5.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/4bba3fb6147e72946f64724fe55eee5d15ff6206/jakarta.annotation-api-2.0.0.jar",
+        "generatedAt" : "2025-12-08T03:59:12.296272113Z",
+        "constructs" : [ {
+          "constructType" : "ANNOTATION_USAGE",
+          "signature" : "javax.annotation.Priority",
+          "dependency" : {
+            "origin" : "MAVEN_DEPENDENCY",
+            "groupId" : "com.example",
+            "artifactId" : "core",
+            "version" : "1.0.0-SNAPSHOT",
+            "coordinates" : "com.example:core:1.0.0-SNAPSHOT",
+            "sourcePath" : "/home/kth/Documents/last_transformer/transformer-agent/core/target/core-cli-1.0.0-SNAPSHOT.jar"
+          },
+          "lineNumber" : 27,
+          "codeLine" : "@Priority(100)",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "javax.annotation.Priority",
+            "declaringType" : "javax.annotation.Priority",
+            "qualifiedSignature" : "javax.annotation.Priority",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            }, {
+              "type" : "ANNOTATION_REMOVED",
+              "binaryCompatible" : true,
+              "sourceCompatible" : true,
+              "semanticVersionImpact" : "PATCH"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 1
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

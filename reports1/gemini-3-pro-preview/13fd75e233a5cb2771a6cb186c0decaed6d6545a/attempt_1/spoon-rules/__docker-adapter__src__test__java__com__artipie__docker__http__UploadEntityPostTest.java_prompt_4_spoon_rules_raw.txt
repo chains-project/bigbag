@@ -1,0 +1,111 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Script.
+ * 
+ * NOTE: No specific Dependency Diff was provided in the input. 
+ * This script provides a production-ready TEMPLATE implementing all 
+ * required constraints (Sniper printer, NoClasspath safety, Generics).
+ * 
+ * Default Behavior: Renames invocations of "deprecatedMethod" to "newMethod".
+ */
+public class SpoonMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Check: Ensure executable reference exists
+            CtExecutableReference<?> exec = candidate.getExecutable();
+            if (exec == null) return false;
+
+            // 2. Name Check: Target specific method name
+            // REPLACE "deprecatedMethod" with the actual method name from your diff
+            if (!"deprecatedMethod".equals(exec.getSimpleName())) {
+                return false;
+            }
+
+            // 3. Argument Count Check (Optional but recommended)
+            // Example: Filter only if it has 0 arguments
+            // if (candidate.getArguments().size() != 0) return false;
+
+            // 4. Owner/Type Check (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = exec.getDeclaringType();
+            
+            // In NoClasspath, declaringType might be null or <unknown>.
+            // Use relaxed string matching instead of strict class resolution.
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // REPLACE "TargetClass" with the class name owning the method
+                if (!typeName.contains("TargetClass") && !typeName.equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // 5. Apply Transformation
+            // Example: Renaming the method
+            CtExecutableReference<?> execRef = invocation.getExecutable();
+            
+            // Store old name for logging
+            String oldName = execRef.getSimpleName();
+            
+            // Set new name
+            // REPLACE "newMethod" with the new method name from your diff
+            execRef.setSimpleName("newMethod");
+
+            System.out.println("Refactored: " + oldName + " -> newMethod at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // =========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)
+        // =========================================================
+        
+        // 1. Enable comments to prevent loss
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve original indentation/formatting
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (robustness against missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Register the processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        System.out.println("Starting Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring Complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            System.err.println("Error during refactoring:");
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__Supplier.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/46979207151a43361447d64afd2658df40033419/attempt_1/prompts/__billy__billy-portugal__src-generated__main__java__com__premiumminds__billy__portugal__services__export__saftpt__v1_04_01__schema__Supplier.java_prompt_4_llm.txt",
+  "timestamp": 1765164274.219348,
+  "duration_seconds": 48.65135955810547,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.code.CtConstructorCall;\nimport spoon.reflect.code.CtInvocation;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n\npublic class JaxbStrategyRefactoring {\n\n    /**\n     * Processor to replace static .getInstance() calls with constructor calls new ClassName().\n     * Handles the removal of Singleton patterns in jaxb2-commons strategies.\n     */\n    public static class StrategyInstanceProcessor extends AbstractProcessor<CtInvocation<?>> {\n\n        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(\n            \"org.jvnet.jaxb2_commons.lang.JAXBToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultMergeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.DefaultToStringStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBCopyStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeCollectionsStrategy\",\n            \"org.jvnet.jaxb2_commons.lang.JAXBMergeStrategy\"\n        ));\n\n        @Override\n        public boolean isToBeProcessed(CtInvocation<?> candidate) {\n            // 1. Check Method Name\n            if (!\"getInstance\".equals(candidate.getExecutable().getSimpleName())) {\n                return false;\n            }\n\n            // 2. Check Argument Count (Must be 0)\n            if (!candidate.getArguments().isEmpty()) {\n                return false;\n            }\n\n            // 3. Check Declaring Type (Defensive for NoClasspath)\n            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();\n            if (declaringType == null) {\n                return false;\n            }\n\n            String qualifiedName = declaringType.getQualifiedName();\n            if (qualifiedName == null) {\n                return false;\n            }\n\n            // Robust matching:\n            // 1. Exact match (full qualified name)\n            // 2. Simple name match (if imports obscure package in NoClasspath mode)\n            // 3. Suffix match (to catch FullyQualified.ClassName usages)\n            for (String target : TARGET_CLASSES) {\n                if (qualifiedName.equals(target)) return true;\n                \n                String simpleName = target.substring(target.lastIndexOf('.') + 1);\n                if (qualifiedName.equals(simpleName)) return true;\n                if (qualifiedName.endsWith(\".\" + simpleName)) return true;\n            }\n\n            return false;\n        }\n\n        @Override\n        public void process(CtInvocation<?> invocation) {\n            // Identify the Strategy class\n            CtTypeReference<?> strategyType = invocation.getExecutable().getDeclaringType();\n\n            // Create replacement: new StrategyClass()\n            CtConstructorCall<?> newInstance = getFactory().Code().createConstructorCall(strategyType);\n\n            // Replace invocation\n            invocation.replace(newInstance);\n            \n            System.out.println(\"Refactored \" + strategyType.getSimpleName() + \".getInstance() at line \" + \n                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ and Source Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Handle missing dependencies gracefully\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new StrategyInstanceProcessor());\n        \n        try { \n            launcher.run(); \n        } catch (Exception e) { \n            e.printStackTrace(); \n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 2167,
+      "candidates_token_count": 1119,
+      "total_token_count": 6057,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

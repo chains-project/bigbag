@@ -1,0 +1,119 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor to handle Jetty 9+ API changes based on the diff:
+     * 1. Replaces removed SelectChannelConnector with ServerConnector.
+     * 2. Comments out removed Server setters (setSendServerVersion, setSendDateHeader).
+     */
+    public static class JettyUpdateProcessor extends AbstractProcessor<CtElement> {
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // Strategy 1: Type Migration
+            if (candidate instanceof CtTypeReference) {
+                CtTypeReference<?> ref = (CtTypeReference<?>) candidate;
+                // Defensive check against null names
+                if (ref.getQualifiedName() == null) return false;
+                
+                // Match the removed class
+                return "org.eclipse.jetty.server.nio.SelectChannelConnector".equals(ref.getQualifiedName());
+            }
+
+            // Strategy 2: Method Removals
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> inv = (CtInvocation<?>) candidate;
+                String methodName = inv.getExecutable().getSimpleName();
+                
+                // Match removed methods
+                if ("setSendServerVersion".equals(methodName) || "setSendDateHeader".equals(methodName)) {
+                    CtTypeReference<?> declaringType = inv.getExecutable().getDeclaringType();
+                    // Check if the method belongs to 'Server' (using relaxed matching for NoClasspath)
+                    return declaringType != null && declaringType.getQualifiedName().contains("Server");
+                }
+            }
+            
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtTypeReference) {
+                refactorType((CtTypeReference<?>) element);
+            } else if (element instanceof CtInvocation) {
+                refactorMethodRemoval((CtInvocation<?>) element);
+            }
+        }
+
+        /**
+         * Migrates SelectChannelConnector (Removed) to ServerConnector (New Standard).
+         */
+        private void refactorType(CtTypeReference<?> ref) {
+            // Change Package: org.eclipse.jetty.server.nio -> org.eclipse.jetty.server
+            ref.setPackage(getFactory().Package().getOrCreate("org.eclipse.jetty.server"));
+            // Change Class Name
+            ref.setSimpleName("ServerConnector");
+        }
+
+        /**
+         * Handles removed methods by commenting them out and adding a FIXME.
+         * These methods were moved to HttpConfiguration, but automatic migration is complex
+         * without object context.
+         */
+        private void refactorMethodRemoval(CtInvocation<?> inv) {
+            String methodName = inv.getExecutable().getSimpleName();
+            String msg = " FIXME: Method " + methodName + " was removed from Server in Jetty 9. " +
+                         "Configure this via HttpConfiguration instead.";
+            
+            // Create a block comment explaining the removal
+            CtComment comment = getFactory().Code().createComment(msg, CtComment.CommentType.BLOCK);
+            
+            // If the invocation is a statement (typical for void setters), replace it with the comment.
+            // Note: This leaves the original code commented out or replaced by the comment block depending on strategy.
+            // Here we replace the AST node with the comment to prevent compilation errors.
+            inv.replace(comment);
+            
+            System.out.println("Refactored removed method " + methodName + " at line " + inv.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Input/Output directories
+        String inputPath = "./src/main/java"; 
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // 1. Enable comments (Crucial for Sniper)
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Configure Sniper Printer for high-fidelity source preservation
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Defensive mode (assume missing dependencies)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JettyUpdateProcessor());
+
+        try {
+            System.out.println("Starting Jetty Migration Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output in " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

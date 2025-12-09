@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/wicket-crudifier/src/main/java/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java	2025-12-08 03:55:09.062067995 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/41ec14e7e0ccf28476905eb28b2155b11d8a55f5/attempt_1/transformed/com/premiumminds/wicket/crudifier/form/elements/ListControlGroups.java	2025-12-08 03:56:55.577009810 +0100
+@@ -120,7 +120,7 @@
+ 
+                 Set<String> properties = getPropertiesByOrder(modelClass);
+ 
+-                Validator validator = HibernateValidatorProperty.validatorFactory.getValidator();
++                Validator validator = com.premiumminds.webapp.wicket.validators.HibernateValidatorProperty.validatorFactory.getValidator();
+                 BeanDescriptor constraintDescriptors = validator.getConstraintsForClass(modelClass);
+                 for(String property : properties){
+                         PropertyDescriptor descriptor;

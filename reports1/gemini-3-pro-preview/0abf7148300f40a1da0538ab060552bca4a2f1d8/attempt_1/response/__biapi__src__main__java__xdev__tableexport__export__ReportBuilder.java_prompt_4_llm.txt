@@ -1,0 +1,123 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class JRPenRefactoring {
+
+    public static class JRPenLineWidthProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            // The method setLineWidth(float) was removed, setLineWidth(Float) remains.
+            if (!"setLineWidth".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // We check for JRPen or JRBasePen as indicated in the diff.
+            // Using string containment to handle fully qualified names or simple names in NoClasspath.
+            if (owner != null && !owner.getQualifiedName().equals("<unknown>")) {
+                String ownerName = owner.getQualifiedName();
+                boolean isJRPen = ownerName.contains("JRPen") || ownerName.contains("JRBasePen");
+                if (!isJRPen) {
+                    return false;
+                }
+            }
+
+            // 4. Type Check
+            // We need to identify if the argument is a primitive that needs boxing.
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Defensive: In NoClasspath, type might be null.
+            // If type is known and is NOT primitive (i.e., it's already an Object/Float), we skip.
+            // We only want to process primitives (int, float, etc.) which might fail 
+            // strictly against the new signature or require explicit boxing.
+            if (type != null && !type.isPrimitive()) {
+                return false;
+            }
+
+            // If type is null (unknown), we generally skip to avoid breaking valid code 
+            // (e.g., passing a variable that is already a Float), unless we are sure.
+            // However, literals (e.g. 1.0f) usually have types even in NoClasspath.
+            if (type == null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Refactoring Strategy:
+            // The method setLineWidth(float) is removed. The method setLineWidth(Float) remains.
+            // To ensure compatibility and correct overload resolution, we explicitly box the argument.
+            // Transformation: arg -> Float.valueOf(arg)
+
+            CtTypeReference<?> floatClass = factory.Type().createReference("java.lang.Float");
+            CtTypeReference<?> floatPrimitive = factory.Type().floatPrimitiveType();
+
+            // Construct: Float.valueOf(...)
+            CtInvocation<?> boxingInvocation = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(floatClass),
+                factory.Method().createReference(
+                    floatClass, 
+                    floatClass, 
+                    "valueOf", 
+                    floatPrimitive // Float.valueOf takes a float
+                ),
+                originalArg.clone()
+            );
+
+            originalArg.replace(boxingInvocation);
+            System.out.println("Refactored setLineWidth at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be modified by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL IMPLEMENTATION RULES
+        // 1. Enable comments to preserve license headers and Javadoc
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Compatibility
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JRPenLineWidthProcessor());
+        
+        try { 
+            launcher.run(); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```

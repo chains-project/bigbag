@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/f6659d758a437f8b676481fe70671a68a6ee1cde/billy/billy-core/src/test/java/com/premiumminds/billy/core/test/AbstractTest.java	2025-12-08 12:32:57.489471753 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/f6659d758a437f8b676481fe70671a68a6ee1cde/attempt_1/transformed/com/premiumminds/billy/core/test/AbstractTest.java	2025-12-08 12:34:46.397543685 +0100
+@@ -63,7 +63,7 @@
+ 
+     public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
+         final LoaderOptions loadingConfig = new LoaderOptions();
+-        loadingConfig.setTagInspector(new TrustedTagInspector());
++        loadingConfig.setTagInspector(tag -> true);
+ 
+         final Representer representer = new Representer(new DumperOptions());
+         final Tag zoneIdTag = new Tag("!ZoneId");

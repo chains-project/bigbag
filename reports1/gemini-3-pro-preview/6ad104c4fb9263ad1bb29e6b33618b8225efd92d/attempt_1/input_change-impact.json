@@ -1,0 +1,578 @@
+{
+  "project" : "HAP-Java",
+  "breakingCommit" : "6ad104c4fb9263ad1bb29e6b33618b8225efd92d",
+  "dependency" : {
+    "groupId" : "org.bouncycastle",
+    "artifactId" : "bcprov-jdk15on",
+    "previousVersion" : "1.51",
+    "newVersion" : "1.67",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.67.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java/6ad104c4fb9263ad1bb29e6b33618b8225efd92d.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/HAP-Java/src/main/java/io/github/hapjava/server/impl/crypto/ChachaDecoder.java",
+    "errors" : [ {
+      "lineNumber" : 8,
+      "columnNumber" : 35,
+      "message" : "package org.bouncycastle.crypto.tls does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java/src/main/java/io/github/hapjava/server/impl/crypto/ChachaDecoder.java",
+        "lineNumber" : 8,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.67.jar",
+        "generatedAt" : "2025-12-08T04:54:52.471258219Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.bouncycastle.crypto.tls.AlertDescription",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 8,
+          "codeLine" : "import org.bouncycastle.crypto.tls.AlertDescription;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 31
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 9,
+      "columnNumber" : 35,
+      "message" : "package org.bouncycastle.crypto.tls does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java/src/main/java/io/github/hapjava/server/impl/crypto/ChachaDecoder.java",
+        "lineNumber" : 9,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.67.jar",
+        "generatedAt" : "2025-12-08T04:54:52.471779094Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 9,
+          "codeLine" : "import org.bouncycastle.crypto.tls.TlsFatalAlert;",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 31,
+      "columnNumber" : 17,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class TlsFatalAlert", "location: class io.github.hapjava.server.impl.crypto.ChachaDecoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java/src/main/java/io/github/hapjava/server/impl/crypto/ChachaDecoder.java",
+        "lineNumber" : 31,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.67.jar",
+        "generatedAt" : "2025-12-08T04:54:52.472552053Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.bouncycastle.crypto.tls.TlsFatalAlert#<init>(short)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert.TlsFatalAlert(short)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@13a3fd9f[public TlsFatalAlert (S)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "short" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.bouncycastle.crypto.tls.AlertDescription::bad_record_mac",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "bad_record_mac",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac:S",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "short",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "bad_record_mac",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac:S",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "short",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 31
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.bouncycastle.crypto.tls.AlertDescription",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 31
+          } ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 31,
+      "columnNumber" : 31,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   variable AlertDescription", "location: class io.github.hapjava.server.impl.crypto.ChachaDecoder" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/HAP-Java/src/main/java/io/github/hapjava/server/impl/crypto/ChachaDecoder.java",
+        "lineNumber" : 31,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.67.jar",
+        "generatedAt" : "2025-12-08T04:54:52.473141237Z",
+        "constructs" : [ {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.bouncycastle.crypto.tls.TlsFatalAlert#<init>(short)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CONSTRUCTOR",
+            "matchType" : "EXACT_SIGNATURE",
+            "name" : "TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert.TlsFatalAlert(short)",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CONSTRUCTOR_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "javassist.CtConstructor@13a3fd9f[public TlsFatalAlert (S)V]",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : null,
+              "newValue" : null,
+              "changed" : false
+            },
+            "parameterTypes" : [ "short" ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "declaringType" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.TlsFatalAlert",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 4
+          } ]
+        }, {
+          "constructType" : "FIELD_ACCESS",
+          "signature" : "org.bouncycastle.crypto.tls.AlertDescription::bad_record_mac",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "FIELD",
+            "matchType" : "QUALIFIED_FQN",
+            "name" : "bad_record_mac",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac:S",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "short",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "FIELD",
+            "matchType" : "FIELD_EXACT",
+            "name" : "bad_record_mac",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "FIELD_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : {
+              "oldValue" : "org.bouncycastle.crypto.tls.AlertDescription.bad_record_mac:S",
+              "newValue" : null,
+              "changed" : true
+            },
+            "value" : {
+              "oldValue" : "short",
+              "newValue" : null,
+              "changed" : true
+            },
+            "parameterTypes" : [ ],
+            "changedMemberCount" : null
+          }, {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 31
+          } ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.bouncycastle.crypto.tls.AlertDescription",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/Documents/last_transformer/output/6ad104c4fb9263ad1bb29e6b33618b8225efd92d/bcprov-jdk15on-1.51.jar"
+          },
+          "lineNumber" : 31,
+          "codeLine" : "      throw new TlsFatalAlert(AlertDescription.bad_record_mac);",
+          "apiChanges" : [ {
+            "elementType" : "CLASS",
+            "matchType" : "CLASS",
+            "name" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "declaringType" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "qualifiedSignature" : "org.bouncycastle.crypto.tls.AlertDescription",
+            "changeStatus" : "REMOVED",
+            "binaryCompatible" : false,
+            "sourceCompatible" : false,
+            "compatibilityChanges" : [ {
+              "type" : "CLASS_REMOVED",
+              "binaryCompatible" : false,
+              "sourceCompatible" : false,
+              "semanticVersionImpact" : "MAJOR"
+            } ],
+            "signature" : null,
+            "value" : null,
+            "parameterTypes" : null,
+            "changedMemberCount" : 31
+          } ]
+        } ]
+      }
+    } ]
+  } ]
+}

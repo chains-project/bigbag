@@ -1,0 +1,11 @@
+--- /home/kth/Documents/last_transformer/output/832e0f184efdad0fcf15d14cb7af5e30239ff454/WorldwideChat/src/main/java/com/expl0itz/worldwidechat/inventory/configuration/ConfigurationMessagesOverridePossibleListGUI.java	2025-12-08 06:38:17.722941791 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/832e0f184efdad0fcf15d14cb7af5e30239ff454/attempt_1/transformed/com/expl0itz/worldwidechat/inventory/configuration/ConfigurationMessagesOverridePossibleListGUI.java	2025-12-08 06:39:35.041445635 +0100
+@@ -69,7 +69,7 @@
+                                 if (messagesConfig.getString("Overrides." + entry.getKey()) != null) {
+                                         lore.add(ChatColor.YELLOW + "" + ChatColor.ITALIC + CommonDefinitions.getMessage("wwcConfigGUIMessagesAlreadyOverriden"));
+                                         currentEntryMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+-                                        currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment("power").get().parseEnchantment(), 1, false);
++                                        currentEntryMeta.addEnchant(XEnchantment.matchXEnchantment("power").get().matchXEnchantment(), 1, false);
+                                 }
+                                 lore.add(CommonDefinitions.getMessage("wwcConfigGUIMessagesOverrideOriginalLabel") + ": " + messagesConfig.getString("Messages." + entry.getKey()));
+                                 currentEntryMeta.setLore(lore);

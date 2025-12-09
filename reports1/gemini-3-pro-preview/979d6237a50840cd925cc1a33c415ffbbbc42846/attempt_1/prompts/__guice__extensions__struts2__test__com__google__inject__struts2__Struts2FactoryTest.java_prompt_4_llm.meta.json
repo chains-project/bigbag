@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/979d6237a50840cd925cc1a33c415ffbbbc42846/attempt_1/prompts/__guice__extensions__struts2__test__com__google__inject__struts2__Struts2FactoryTest.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/979d6237a50840cd925cc1a33c415ffbbbc42846/attempt_1/prompts/__guice__extensions__struts2__test__com__google__inject__struts2__Struts2FactoryTest.java_prompt_4_llm.txt",
+  "timestamp": 1765176133.9694774,
+  "duration_seconds": 45.2198007106781,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class StrutsRefactoring {\n\n    /**\n     * Processor to handle the relocation of StrutsPrepareAndExecuteFilter.\n     * Old: org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter\n     * New: org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter\n     */\n    public static class StrutsFilterProcessor extends AbstractProcessor<CtTypeReference<?>> {\n\n        private static final String OLD_CLASS = \"org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter\";\n        private static final String NEW_PACKAGE = \"org.apache.struts2.dispatcher.filter\";\n        private static final String CLASS_NAME = \"StrutsPrepareAndExecuteFilter\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive coding: handle nulls in NoClasspath mode\n            if (candidate == null || candidate.getQualifiedName() == null) {\n                return false;\n            }\n\n            // Check if this reference points to the removed class\n            return OLD_CLASS.equals(candidate.getQualifiedName());\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            Factory factory = getFactory();\n\n            // Create reference to the new location\n            CtTypeReference<?> newTypeRef = factory.Type().createReference(NEW_PACKAGE + \".\" + CLASS_NAME);\n\n            // Replace the old reference with the new one\n            // This ensures that imports and usages are updated according to Spoon's model\n            candidate.replace(newTypeRef);\n\n            System.out.println(\"Refactored StrutsPrepareAndExecuteFilter at line \" \n                + (candidate.getPosition().isValidPosition() ? candidate.getPosition().getLine() : \"unknown\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Spoon 11+ / Robust Refactoring\n        \n        // 1. Enable comments to ensure they aren't stripped\n        launcher.getEnvironment().setCommentEnabled(true);\n        \n        // 2. Force Sniper Printer manually to preserve formatting of untouched code\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        \n        // 3. Enable NoClasspath mode (defensive assumption)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Register the processor\n        launcher.addProcessor(new StrutsFilterProcessor());\n\n        try {\n            System.out.println(\"Starting Struts refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Error during refactoring:\");\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1562,
+      "candidates_token_count": 806,
+      "total_token_count": 4859,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

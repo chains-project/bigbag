@@ -1,0 +1,102 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtCodeSnippetExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SonarLintMigration {
+
+    /**
+     * Processor to handle breaking changes in AnalysisEngineConfiguration.
+     * 1. Removes invocations of addEnabledLanguages(...) from Builder chains.
+     * 2. Replaces getEnabledLanguages() with an empty set and a TODO comment.
+     */
+    public static class AnalysisEngineConfigurationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            String name = candidate.getExecutable().getSimpleName();
+            if (!"addEnabledLanguages".equals(name) && !"getEnabledLanguages".equals(name)) {
+                return false;
+            }
+
+            // 2. Check Owner Type (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType == null) return false;
+
+            String qualifiedName = declaringType.getQualifiedName();
+            // We look for 'AnalysisEngineConfiguration' which covers both the class and the inner $Builder
+            // e.g. org.sonarsource.sonarlint.core.analysis.api.AnalysisEngineConfiguration
+            if (qualifiedName == null || !qualifiedName.contains("AnalysisEngineConfiguration")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String name = invocation.getExecutable().getSimpleName();
+
+            if ("addEnabledLanguages".equals(name)) {
+                // REMOVAL STRATEGY: Unwrap the builder chain.
+                // The method was removed without a direct replacement, implying configuration changes.
+                // Existing: builder.setBaseDir(dir).addEnabledLanguages(args).build();
+                // New:      builder.setBaseDir(dir).build();
+                
+                CtExpression<?> target = invocation.getTarget();
+                // If target exists (chained call), replace the invocation with the target expression
+                if (target != null) {
+                    invocation.replace(target);
+                    System.out.println("Refactoring: Removed 'addEnabledLanguages' call at line " + invocation.getPosition().getLine());
+                }
+            } 
+            else if ("getEnabledLanguages".equals(name)) {
+                // REPLACEMENT STRATEGY: Replace with empty collection + TODO
+                // Since the method is removed, we cannot retrieve the data. We replace it with a safe default.
+                Factory factory = getFactory();
+                
+                // Using CodeSnippet for NoClasspath safety and simplicity
+                CtCodeSnippetExpression<?> replacement = factory.Code().createCodeSnippetExpression(
+                    "java.util.Collections.emptySet() /* TODO: Method AnalysisEngineConfiguration.getEnabledLanguages() was removed */"
+                );
+                
+                invocation.replace(replacement);
+                System.out.println("Refactoring: Replaced 'getEnabledLanguages' at line " + invocation.getPosition().getLine());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/sorald/sorald/src/main/java/sorald/sonar/SonarLintEngine.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c0f6ab75784dbc13ae8ff47298704c0756cf3a2c/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Spoon 11+ and Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new AnalysisEngineConfigurationProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

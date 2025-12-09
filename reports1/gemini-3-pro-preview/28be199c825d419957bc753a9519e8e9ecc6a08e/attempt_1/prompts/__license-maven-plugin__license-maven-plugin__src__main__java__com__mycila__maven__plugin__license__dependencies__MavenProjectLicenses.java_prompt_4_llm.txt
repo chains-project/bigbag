@@ -1,0 +1,175 @@
+```java
+package org.apache.maven.shared.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.List;
+
+public class MavenGraphMigration {
+
+    /**
+     * Processor to handle API changes in maven-dependency-tree/graph.
+     * 1. Updates DependencyGraphBuilder.buildDependencyGraph(MavenProject, ...) 
+     *    to buildDependencyGraph(ProjectBuildingRequest, ...)
+     * 2. Flags removed DependencyNode.getChildren() calls.
+     */
+    public static class DependencyGraphProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            String methodName = candidate.getExecutable().getSimpleName();
+            
+            // Check for buildDependencyGraph
+            if ("buildDependencyGraph".equals(methodName)) {
+                return isDependencyGraphBuilder(candidate);
+            }
+            
+            // Check for getChildren (DependencyNode)
+            if ("getChildren".equals(methodName)) {
+                return isDependencyNode(candidate);
+            }
+
+            return false;
+        }
+
+        private boolean isDependencyGraphBuilder(CtInvocation<?> candidate) {
+            // Check Owner
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && !declaringType.getQualifiedName().contains("DependencyGraphBuilder")) {
+                // If type is known and not matching, skip. If unknown (NoClasspath), we continue cautiously.
+                if (!declaringType.getQualifiedName().equals("<unknown>")) {
+                    return false;
+                }
+            }
+
+            // Check Arguments (Must have at least 2: Project/Request and Filter)
+            List<CtExpression<?>> args = candidate.getArguments();
+            if (args.size() < 2) return false;
+
+            // Check First Argument Type
+            CtExpression<?> firstArg = args.get(0);
+            CtTypeReference<?> argType = firstArg.getType();
+
+            // If we know strictly it is ALREADY a ProjectBuildingRequest, skip it.
+            if (argType != null && argType.getQualifiedName().contains("ProjectBuildingRequest")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        private boolean isDependencyNode(CtInvocation<?> candidate) {
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String qName = declaringType.getQualifiedName();
+                return qName.contains("DependencyNode") || qName.equals("<unknown>");
+            }
+            return false;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            String methodName = invocation.getExecutable().getSimpleName();
+
+            if ("buildDependencyGraph".equals(methodName)) {
+                refactorBuildGraph(invocation);
+            } else if ("getChildren".equals(methodName)) {
+                flagGetChildren(invocation);
+            }
+        }
+
+        private void refactorBuildGraph(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> oldArg = invocation.getArguments().get(0);
+
+            // Strategy: The API changed from MavenProject to ProjectBuildingRequest.
+            // In a typical Maven plugin context, 'session' (MavenSession) is available.
+            // We replace the argument with 'session.getProjectBuildingRequest()'.
+            // If 'session' is not available, this code will need manual adjustment, 
+            // but this is the standard migration path.
+
+            CtExpression<?> replacement = factory.Code().createCodeSnippetExpression("session.getProjectBuildingRequest()");
+            
+            // Add a comment explaining the change
+            invocation.addComment(factory.Code().createComment(
+                "FIXME: Refactored by Spoon. Ensure 'session' (MavenSession) is available in scope.",
+                CtComment.CommentType.INLINE
+            ));
+            
+            // If the old argument was just a variable named 'request', we might be overwriting valid code
+            // in NoClasspath mode, but the isToBeProcessed check attempts to filter known types.
+            // We proceed with replacement.
+            oldArg.replace(replacement);
+            
+            System.out.println("Refactored buildDependencyGraph at line " + invocation.getPosition().getLine());
+        }
+
+        private void flagGetChildren(CtInvocation<?> invocation) {
+            // getChildren() was removed in some versions of shared-dependency-tree/graph
+            // We cannot automatically infer the replacement without deeper context (e.g. is it a GraphNode or TreeNode?)
+            // We simply attach a FIXME warning.
+            
+            Factory factory = getFactory();
+            CtComment comment = factory.Code().createComment(
+                "FIXME: DependencyNode.getChildren() was removed in the new API. Verify this invocation.",
+                CtComment.CommentType.BLOCK
+            );
+            
+            // Avoid adding duplicate comments if run multiple times
+            for (CtComment c : invocation.getComments()) {
+                if (c.getContent().contains("DependencyNode.getChildren()")) return;
+            }
+
+            // Attach comment to the parent statement to be visible
+            CtElement parent = invocation.getParent();
+            if (parent != null) {
+                parent.addComment(comment);
+            } else {
+                invocation.addComment(comment);
+            }
+            
+            System.out.println("Flagged getChildren removal at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration
+        String inputPath = "src/main/java";
+        String outputPath = "target/spoon-refactoring";
+
+        if (args.length > 0) inputPath = args[0];
+        if (args.length > 1) outputPath = args[1];
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL: Configure Environment for Preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // NoClasspath mode for robustness against missing libs
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new DependencyGraphProcessor());
+
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

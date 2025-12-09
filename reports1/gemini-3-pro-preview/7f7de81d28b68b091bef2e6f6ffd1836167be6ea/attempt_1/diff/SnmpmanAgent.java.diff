@@ -1,0 +1,56 @@
+--- /home/kth/Documents/last_transformer/output/7f7de81d28b68b091bef2e6f6ffd1836167be6ea/snmpman/snmpman/src/main/java/com/oneandone/snmpman/SnmpmanAgent.java	2025-12-08 06:34:58.876075404 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/7f7de81d28b68b091bef2e6f6ffd1836167be6ea/attempt_1/transformed/com/oneandone/snmpman/SnmpmanAgent.java	2025-12-08 06:36:40.983050538 +0100
+@@ -59,7 +59,7 @@
+     /**
+      * The list of managed object groups.
+      */
+-    private final List<ManagedObject> groups = new ArrayList<>();
++    private final List<ManagedObject<org.snmp4j.agent.MOScope>> groups = new ArrayList<>();
+ 
+     /**
+      * Initializes a new instance of an SNMP agent.
+@@ -263,7 +263,7 @@
+                     MOGroup group = createGroup(root, variableBindings);
+                     final Iterable<VariableBinding> subtree = generateSubtreeBindings(variableBindings, root);
+                     DefaultMOContextScope scope = new DefaultMOContextScope(context, root, true, root.nextPeer(), false);
+-                    ManagedObject mo = server.lookup(new DefaultMOQuery(scope, false));
++                    ManagedObject<org.snmp4j.agent.MOScope> mo = server.lookup(new DefaultMOQuery(scope, false));
+                     if (mo != null) {
+                         for (final VariableBinding variableBinding : subtree) {
+                             group = new MOGroup(variableBinding.getOid(), variableBinding.getOid(), variableBinding.getVariable());
+@@ -354,7 +354,7 @@
+         try {
+             if (context == null || context.toString().equals("")) {
+                 MOContextScope contextScope = new DefaultMOContextScope(new OctetString(), group.getScope());
+-                ManagedObject other = server.lookup(new DefaultMOQuery(contextScope, false));
++                ManagedObject<org.snmp4j.agent.MOScope> other = server.lookup(new DefaultMOQuery(contextScope, false));
+                 if (other != null) {
+                     log.warn("group {} already existed", group);
+                     return;
+@@ -386,7 +386,7 @@
+         try {
+             final Field registry = server.getClass().getDeclaredField("registry");
+             registry.setAccessible(true);
+-            final SortedMap<MOScope, ManagedObject> reg = server.getRegistry();
++            final SortedMap<MOScope, ManagedObject<org.snmp4j.agent.MOScope>> reg = server.getRegistry();
+             DefaultMOContextScope contextScope = new DefaultMOContextScope(new OctetString(""), group.getScope());
+             reg.put(contextScope, group);
+             registry.set(server, reg);
+@@ -437,7 +437,7 @@
+     private void unregisterDefaultManagedObjects(final OctetString ctx) {
+         final OID startOID = new OID(".1");
+         final DefaultMOContextScope hackScope = new DefaultMOContextScope(ctx, startOID, true, startOID.nextPeer(), false);
+-        ManagedObject query;
++        ManagedObject<org.snmp4j.agent.MOScope> query;
+         while ((query = server.lookup(new DefaultMOQuery(hackScope, false))) != null) {
+             server.unregister(query, ctx);
+         }
+@@ -486,7 +486,7 @@
+     @Override
+     protected void unregisterManagedObjects() {
+         log.trace("unregistered managed objects for agent \"{}\"", agent);
+-        for (final ManagedObject mo : groups) {
++        for (final ManagedObject<org.snmp4j.agent.MOScope> mo : groups) {
+             server.unregister(mo, null);
+         }
+     }

@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b554e03428f2ba877c33a0fece7f0f00fb38a5fa/attempt_1/prompts/__license-maven-plugin__license-maven-plugin__src__main__java__com__mycila__maven__plugin__license__dependencies__MavenProjectLicenses.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b554e03428f2ba877c33a0fece7f0f00fb38a5fa/attempt_1/prompts/__license-maven-plugin__license-maven-plugin__src__main__java__com__mycila__maven__plugin__license__dependencies__MavenProjectLicenses.java_prompt_4_llm.txt",
+  "timestamp": 1765183794.144592,
+  "duration_seconds": 29.158955812454224,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\n\npublic class MavenGraphBuilderRefactoring {\n\n    /**\n     * Processor to replace usage of the removed internal class Maven31DependencyGraphBuilder\n     * with the standard DefaultDependencyGraphBuilder.\n     */\n    public static class BuilderProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final String REMOVED_CLASS = \"org.apache.maven.shared.dependency.graph.internal.Maven31DependencyGraphBuilder\";\n        private static final String REPLACEMENT_SIMPLE_NAME = \"DefaultDependencyGraphBuilder\";\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive check for null\n            if (candidate == null) return false;\n\n            // Check using qualified name to avoid resolution issues in NoClasspath mode\n            // We use string comparison to identify the specific removed class.\n            String qName = candidate.getQualifiedName();\n            return qName != null && qName.equals(REMOVED_CLASS);\n        }\n\n        @Override\n        public void process(CtTypeReference<?> typeRef) {\n            // Transformation: Rename the type reference.\n            // Since the package 'org.apache.maven.shared.dependency.graph.internal' is shared \n            // by both the old and new class, changing the simple name is sufficient.\n            // Spoon will handle imports and constructor calls (new Maven31DependencyGraphBuilder()) \n            // automatically by updating the reference.\n            \n            String oldName = typeRef.getSimpleName();\n            typeRef.setSimpleName(REPLACEMENT_SIMPLE_NAME);\n            \n            System.out.println(\"Refactored: \" + oldName + \" -> \" + REPLACEMENT_SIMPLE_NAME + \n                               \" at \" + (typeRef.getPosition().isValidPosition() ? typeRef.getPosition().getLine() : \"unknown line\"));\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (editable by user)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        if (args.length > 0) inputPath = args[0];\n        if (args.length > 1) outputPath = args[1];\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL SETTINGS for Source Preservation\n        // 1. Enable comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Force Sniper Printer manually to preserve formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. NoClasspath mode to run without full dependencies\n        launcher.getEnvironment().setNoClasspath(true);\n\n        launcher.addProcessor(new BuilderProcessor());\n        \n        System.out.println(\"Starting refactoring...\");\n        try { \n            launcher.run(); \n            System.out.println(\"Refactoring complete. Check output in: \" + outputPath);\n        } catch (Exception e) { \n            e.printStackTrace(); \n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1572,
+      "candidates_token_count": 759,
+      "total_token_count": 3815,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

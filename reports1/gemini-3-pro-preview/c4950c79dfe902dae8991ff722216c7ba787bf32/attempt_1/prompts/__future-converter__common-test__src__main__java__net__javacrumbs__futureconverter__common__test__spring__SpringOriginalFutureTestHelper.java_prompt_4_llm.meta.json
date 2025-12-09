@@ -1,0 +1,37 @@
+{
+  "provider": "google",
+  "model": "gemini-3-pro-preview",
+  "prompt_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c4950c79dfe902dae8991ff722216c7ba787bf32/attempt_1/prompts/__future-converter__common-test__src__main__java__net__javacrumbs__futureconverter__common__test__spring__SpringOriginalFutureTestHelper.java_prompt_4_prompt.txt",
+  "output_file": "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/c4950c79dfe902dae8991ff722216c7ba787bf32/attempt_1/prompts/__future-converter__common-test__src__main__java__net__javacrumbs__futureconverter__common__test__spring__SpringOriginalFutureTestHelper.java_prompt_4_llm.txt",
+  "timestamp": 1765186051.1386256,
+  "duration_seconds": 62.51219940185547,
+  "success": true,
+  "error": null,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```java\npackage org.example.migration;\n\nimport spoon.Launcher;\nimport spoon.processing.AbstractProcessor;\nimport spoon.reflect.reference.CtTypeReference;\nimport spoon.reflect.factory.Factory;\nimport spoon.support.sniper.SniperJavaPrettyPrinter;\nimport java.util.HashMap;\nimport java.util.Map;\n\npublic class SpringFutureRefactoring {\n\n    /**\n     * Processor to migrate deprecated Spring Future types and TaskExecutors\n     * to their modern Java/Spring equivalents.\n     * \n     * Mappings:\n     * - org.springframework.util.concurrent.ListenableFuture -> java.util.concurrent.CompletableFuture\n     * - org.springframework.util.concurrent.SettableListenableFuture -> java.util.concurrent.CompletableFuture\n     * - org.springframework.core.task.AsyncListenableTaskExecutor -> org.springframework.core.task.AsyncTaskExecutor\n     */\n    public static class SpringFutureProcessor extends AbstractProcessor<CtTypeReference<?>> {\n        \n        private static final Map<String, String> REPLACEMENTS = new HashMap<>();\n        \n        static {\n            REPLACEMENTS.put(\"org.springframework.util.concurrent.ListenableFuture\", \"java.util.concurrent.CompletableFuture\");\n            REPLACEMENTS.put(\"org.springframework.util.concurrent.SettableListenableFuture\", \"java.util.concurrent.CompletableFuture\");\n            REPLACEMENTS.put(\"org.springframework.core.task.AsyncListenableTaskExecutor\", \"org.springframework.core.task.AsyncTaskExecutor\");\n        }\n\n        @Override\n        public boolean isToBeProcessed(CtTypeReference<?> candidate) {\n            // Defensive check for null\n            if (candidate == null) return false;\n\n            // In NoClasspath, we rely on string analysis of the qualified name.\n            // We strip generics for the match (e.g. ListenableFuture<String> -> ListenableFuture)\n            String qName = candidate.getQualifiedName();\n            \n            // Check if any key is contained in the qName (handling potential generic suffix issues in raw strings)\n            // However, candidate.getQualifiedName() on a TypeReference usually returns the erased type name \n            // or the full name. We check against our map keys.\n            for (String key : REPLACEMENTS.keySet()) {\n                if (qName.equals(key)) {\n                    return true;\n                }\n            }\n            return false;\n        }\n\n        @Override\n        public void process(CtTypeReference<?> candidate) {\n            Factory factory = getFactory();\n            String oldName = candidate.getQualifiedName();\n            String newName = REPLACEMENTS.get(oldName);\n\n            if (newName == null) return;\n\n            // Create the new TypeReference\n            CtTypeReference<?> newTypeRef = factory.Type().createReference(newName);\n\n            // Preserve Generic Type Arguments (e.g., <String>)\n            // If the original had ListenableFuture<String>, we want CompletableFuture<String>\n            if (!candidate.getActualTypeArguments().isEmpty()) {\n                newTypeRef.setActualTypeArguments(candidate.getActualTypeArguments());\n            }\n\n            // Perform the replacement\n            candidate.replace(newTypeRef);\n            \n            System.out.println(\"Refactored: \" + oldName + \" -> \" + newName + \" at line \" + candidate.getPosition().getLine());\n        }\n    }\n\n    public static void main(String[] args) {\n        // Default paths (can be overridden by args if needed)\n        String inputPath = \"./src/main/java\";\n        String outputPath = \"./src/main/gen\";\n\n        Launcher launcher = new Launcher();\n        launcher.addInputResource(inputPath);\n        launcher.setSourceOutputDirectory(outputPath);\n\n        // CRITICAL: Configure Environment for Robust Sniper Mode\n        // 1. Preserve Comments\n        launcher.getEnvironment().setCommentEnabled(true);\n        // 2. Use SniperJavaPrettyPrinter to preserve original formatting\n        launcher.getEnvironment().setPrettyPrinterCreator(\n            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())\n        );\n        // 3. Defensive NoClasspath mode (User might not have all deps)\n        launcher.getEnvironment().setNoClasspath(true);\n\n        // Add the processor\n        launcher.addProcessor(new SpringFutureProcessor());\n\n        try {\n            System.out.println(\"Starting Spring Future Refactoring...\");\n            launcher.run();\n            System.out.println(\"Refactoring complete. Output in: \" + outputPath);\n        } catch (Exception e) {\n            System.err.println(\"Refactoring failed: \" + e.getMessage());\n            e.printStackTrace();\n        }\n    }\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": 1,
+        "index": 0,
+        "safety_ratings": [],
+        "token_count": 0,
+        "grounding_attributions": [],
+        "avg_logprobs": 0.0
+      }
+    ],
+    "usage_metadata": {
+      "prompt_token_count": 1786,
+      "candidates_token_count": 1056,
+      "total_token_count": 6733,
+      "cached_content_token_count": 0
+    },
+    "model_version": "gemini-3-pro-preview"
+  }
+}

@@ -1,0 +1,120 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFieldAccess;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class PlexusRefactoring {
+
+    /**
+     * Processor to handle the removal of PlexusContainer.getLoggerManager().
+     * Strategy: Replace `container.getLoggerManager()` with `container.lookup(LoggerManager.class)`.
+     */
+    public static class LoggerManagerProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Check Method Name
+            if (!"getLoggerManager".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Check Argument Count (getLoggerManager took 0 args)
+            if (!candidate.getArguments().isEmpty()) {
+                return false;
+            }
+
+            // 3. Check Owner Type (Defensive for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null) {
+                String typeName = declaringType.getQualifiedName();
+                // We are looking for PlexusContainer or implementations of it.
+                // In NoClasspath, subtypes might not be resolvable, so we check string contents 
+                // or if it's strictly unknown (best effort).
+                if (!typeName.contains("PlexusContainer") && !typeName.equals("<unknown>")) {
+                    // If we know for sure it's NOT PlexusContainer, skip it.
+                    // (e.g. some other class has getLoggerManager)
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // The object on which the method is called (e.g., 'container')
+            CtExpression<?> target = invocation.getTarget();
+
+            // Prepare the type reference for the argument: org.codehaus.plexus.logging.LoggerManager
+            CtTypeReference<?> loggerManagerType = factory.Type().createReference("org.codehaus.plexus.logging.LoggerManager");
+            
+            // Create the class literal: LoggerManager.class
+            CtFieldAccess<?> classArg = factory.Code().createClassAccess(loggerManagerType);
+
+            // Create the 'lookup' method reference: lookup(Class<T>)
+            CtTypeReference<?> classTypeRef = factory.Type().createReference(Class.class);
+            
+            // Construct replacement: target.lookup(LoggerManager.class)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                target,
+                factory.Method().createReference(
+                    invocation.getExecutable().getDeclaringType(), // owner
+                    loggerManagerType,                             // return type
+                    "lookup",                                      // name
+                    classTypeRef                                   // parameter type
+                ),
+                classArg
+            );
+
+            // Replace the original invocation
+            invocation.replace(replacement);
+            
+            System.out.println("Refactored getLoggerManager() to lookup() at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden or hardcoded for specific runs)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL: Configure Sniper Printer for Source Preservation
+        // ==========================================================
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Inject SniperJavaPrettyPrinter manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. Enable NoClasspath mode (robustness against missing deps)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new LoggerManagerProcessor());
+
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Check output at: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

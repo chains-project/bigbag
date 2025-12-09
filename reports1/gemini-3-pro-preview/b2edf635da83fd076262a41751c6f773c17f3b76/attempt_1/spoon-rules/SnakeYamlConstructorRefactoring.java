@@ -1,0 +1,136 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtConstructorCall;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class SnakeYamlConstructorRefactoring {
+
+    /**
+     * Processor to handle the removal of constructors in org.yaml.snakeyaml.constructor.Constructor
+     * by appending a default 'new LoaderOptions()' argument where necessary.
+     */
+    public static class ConstructorProcessor extends AbstractProcessor<CtConstructorCall<?>> {
+
+        private static final String TARGET_CLASS = "org.yaml.snakeyaml.constructor.Constructor";
+        private static final String LOADER_OPTIONS_CLASS = "org.yaml.snakeyaml.LoaderOptions";
+
+        @Override
+        public boolean isToBeProcessed(CtConstructorCall<?> candidate) {
+            // 1. Check Target Class Name
+            // Defensive check for null executable or declaring type
+            if (candidate.getExecutable() == null) return false;
+            CtTypeReference<?> typeRef = candidate.getExecutable().getDeclaringType();
+            
+            // Check for match (using contains to handle potential raw types or subtle resolution issues in NoClasspath)
+            if (typeRef == null || !TARGET_CLASS.equals(typeRef.getQualifiedName())) {
+                return false;
+            }
+
+            // 2. Analyze Arguments to determine if refactoring is needed
+            int argCount = candidate.getArguments().size();
+
+            // Case A: new Constructor() [Removed]
+            // Target: new Constructor(new LoaderOptions()) [Existing]
+            if (argCount == 0) {
+                return true;
+            }
+
+            // Case B: new Constructor(Class), new Constructor(String), etc. [Removed]
+            // Target: new Constructor(..., new LoaderOptions())
+            // Exclusion: new Constructor(LoaderOptions) [Unchanged] should NOT be processed.
+            if (argCount == 1) {
+                CtExpression<?> arg = candidate.getArguments().get(0);
+                return !isLoaderOptions(arg);
+            }
+
+            // Case C: new Constructor(TypeDescription, Collection) [Removed]
+            // Target: new Constructor(TypeDescription, Collection, new LoaderOptions())
+            // Exclusion: new Constructor(String, LoaderOptions) [Unchanged] should NOT be processed.
+            // We check the LAST argument. If it's NOT LoaderOptions, we assume it's one of the removed signatures.
+            if (argCount == 2) {
+                CtExpression<?> lastArg = candidate.getArguments().get(1);
+                return !isLoaderOptions(lastArg);
+            }
+
+            return false;
+        }
+
+        @Override
+        public void process(CtConstructorCall<?> candidate) {
+            Factory factory = getFactory();
+
+            // create: new org.yaml.snakeyaml.LoaderOptions()
+            CtTypeReference<?> loaderOptionsType = factory.Type().createReference(LOADER_OPTIONS_CLASS);
+            CtConstructorCall<?> newLoaderOptionsExpr = factory.Code().createConstructorCall(loaderOptionsType);
+
+            // Append the new argument
+            candidate.addArgument(newLoaderOptionsExpr);
+
+            System.out.println("Refactored SnakeYAML Constructor at line " + candidate.getPosition().getLine());
+        }
+
+        /**
+         * Checks if an expression appears to be of type LoaderOptions.
+         * Designed to be robust in NoClasspath environments.
+         */
+        private boolean isLoaderOptions(CtExpression<?> expression) {
+            if (expression == null) return false;
+
+            CtTypeReference<?> type = expression.getType();
+            
+            // 1. Try to check resolved type
+            if (type != null) {
+                String qName = type.getQualifiedName();
+                if (qName != null && qName.contains("LoaderOptions")) {
+                    return true;
+                }
+                String simpleName = type.getSimpleName();
+                if (simpleName != null && simpleName.contains("LoaderOptions")) {
+                    return true;
+                }
+            }
+
+            // 2. Fallback: Check if the expression code itself looks like a LoaderOptions constructor call
+            // e.g. "new LoaderOptions()" or "new org.yaml.snakeyaml.LoaderOptions()"
+            String code = expression.toString();
+            if (code.contains("new LoaderOptions") || code.contains("new org.yaml.snakeyaml.LoaderOptions")) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - can be modified or passed as args
+        String inputPath = "/home/kth/Documents/last_transformer/output/b2edf635da83fd076262a41751c6f773c17f3b76/jclouds/apis/byon/src/main/java/org/jclouds/byon/functions/NodesFromYamlStream.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b2edf635da83fd076262a41751c6f773c17f3b76/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/b2edf635da83fd076262a41751c6f773c17f3b76/jclouds/apis/byon/src/main/java/org/jclouds/byon/functions/NodesFromYamlStream.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/b2edf635da83fd076262a41751c6f773c17f3b76/attempt_1/transformed");
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer for high-fidelity transformations
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. Robustness for missing dependencies
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ConstructorProcessor());
+
+        try {
+            launcher.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

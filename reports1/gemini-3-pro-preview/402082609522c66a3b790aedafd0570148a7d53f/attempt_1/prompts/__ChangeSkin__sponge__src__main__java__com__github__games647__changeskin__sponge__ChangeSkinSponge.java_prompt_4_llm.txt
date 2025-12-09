@@ -1,0 +1,132 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SpongeMigration {
+
+    /**
+     * Processor to handle the renaming of Class types, Annotations, and Imports.
+     * This handles the removal of SpongeAPI 7 classes and maps them to their 
+     * SpongeAPI 8+ (or Adventure) equivalents.
+     */
+    public static class SpongeTypeRenamingProcessor extends AbstractProcessor<CtTypeReference<?>> {
+
+        private static final Map<String, String> MAPPINGS = new HashMap<>();
+
+        static {
+            // 1. Plugin Annotation migration (Package change)
+            MAPPINGS.put("org.spongepowered.api.plugin.Plugin", 
+                         "org.spongepowered.plugin.builtin.jvm.Plugin");
+
+            // 2. Lifecycle Events migration (Approximate mapping to new Lifecycle)
+            MAPPINGS.put("org.spongepowered.api.event.game.state.GamePreInitializationEvent", 
+                         "org.spongepowered.api.event.lifecycle.ConstructPluginEvent");
+            
+            // Note: These often require Generic types <Server> in the new API, 
+            // but we map to the raw type to ensure compilation structure is fixed first.
+            MAPPINGS.put("org.spongepowered.api.event.game.state.GameInitializationEvent", 
+                         "org.spongepowered.api.event.lifecycle.StartingEngineEvent");
+            
+            MAPPINGS.put("org.spongepowered.api.event.game.state.GameStoppingServerEvent", 
+                         "org.spongepowered.api.event.lifecycle.StoppingEngineEvent");
+
+            // 3. CommandSource -> Adventure Audience (Common super-interface replacement)
+            MAPPINGS.put("org.spongepowered.api.command.CommandSource", 
+                         "net.kyori.adventure.audience.Audience");
+
+            // 4. TextSerializers -> Adventure LegacyComponentSerializer
+            MAPPINGS.put("org.spongepowered.api.text.serializer.TextSerializers", 
+                         "net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer");
+        }
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive check for nulls in NoClasspath mode
+            if (candidate == null || candidate.getQualifiedName() == null) {
+                return false;
+            }
+
+            // We only process types that match our specific removal list
+            return MAPPINGS.containsKey(candidate.getQualifiedName());
+        }
+
+        @Override
+        public void process(CtTypeReference<?> candidate) {
+            String oldName = candidate.getQualifiedName();
+            String newName = MAPPINGS.get(oldName);
+
+            // Create the new reference
+            // Spoon factory handles looking up the type or creating a reference stub
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(newName);
+
+            // Preserve array dimensions (e.g., CommandSource[] -> Audience[])
+            if (candidate.isArray()) {
+                // If original was an array, we must ensure the replacement is also an array.
+                // However, createReference(newName) usually returns a scalar.
+                // We recreate the array logic if necessary, though simpler to just replace the base type
+                // if Spoon's model allows it. 
+                // In Spoon, replacing the declaration type usually handles it, but let's be safe:
+                // If candidate is `CommandSource[]`, `candidate` is an ArrayTypeReference.
+                // Its component type is `CommandSource`. We should process the component type instead?
+                // Actually, isToBeProcessed visits all nodes, including component types of arrays.
+                // So `CommandSource` inside `CommandSource[]` will be visited separately.
+                // We return here to let the visitor reach the component type.
+                return;
+            }
+
+            // Perform the replacement
+            // This updates variable declarations, method parameters, extends clauses, and annotations.
+            candidate.replace(newTypeRef);
+            
+            System.out.println("Migrated: " + oldName + " -> " + newName + 
+                             " at " + candidate.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (can be overridden by args or hardcoded)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // ==========================================================
+        // CRITICAL: Robust Sniper Configuration for Source Preservation
+        // ==========================================================
+        
+        // 1. Enable comments to ensure they are parsed
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath mode (Defensive coding assumption)
+        launcher.getEnvironment().setNoClasspath(true);
+        // Ignore duplicate declarations if running on partial source
+        launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);
+
+        // Add the processor
+        launcher.addProcessor(new SpongeTypeRenamingProcessor());
+
+        System.out.println("Starting SpongeAPI Migration Refactoring...");
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            System.err.println("Refactoring encountered an error:");
+            e.printStackTrace(); 
+        }
+    }
+}
+```

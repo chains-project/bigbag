@@ -1,0 +1,143 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtCodeSnippetStatement;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtStatement;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor to handle Jetty 8 -> 9 breaking changes detected in the diff.
+     * 1. Replaces `SelectChannelConnector` (Removed) with `ServerConnector`.
+     * 2. Disables `Server.setSendServerVersion` and `Server.setSendDateHeader` (Removed/Moved to HttpConfiguration).
+     */
+    public static class JettyProcessor extends AbstractProcessor<CtElement> {
+
+        private static final String OLD_CONNECTOR = "SelectChannelConnector";
+        private static final String OLD_CONNECTOR_PKG = "org.eclipse.jetty.server.nio";
+        private static final String NEW_CONNECTOR = "ServerConnector";
+        private static final String NEW_CONNECTOR_PKG = "org.eclipse.jetty.server";
+
+        private static final Set<String> REMOVED_SERVER_METHODS = new HashSet<>(Arrays.asList(
+            "setSendServerVersion",
+            "setSendDateHeader"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtElement candidate) {
+            // 1. Handle Type References (for Class Renaming)
+            if (candidate instanceof CtTypeReference) {
+                CtTypeReference<?> ref = (CtTypeReference<?>) candidate;
+                return OLD_CONNECTOR.equals(ref.getSimpleName()) &&
+                       (ref.getPackage() == null || ref.getPackage().getQualifiedName().equals(OLD_CONNECTOR_PKG) || ref.getQualifiedName().contains(OLD_CONNECTOR_PKG));
+            }
+
+            // 2. Handle Invocations (for Method Removal)
+            if (candidate instanceof CtInvocation) {
+                CtInvocation<?> invocation = (CtInvocation<?>) candidate;
+                String methodName = invocation.getExecutable().getSimpleName();
+                
+                if (REMOVED_SERVER_METHODS.contains(methodName)) {
+                    // Check owner type strictly to avoid false positives on other classes
+                    CtTypeReference<?> declaringType = invocation.getExecutable().getDeclaringType();
+                    // Defensive check for NoClasspath
+                    if (declaringType != null && declaringType.getQualifiedName().contains("org.eclipse.jetty.server.Server")) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public void process(CtElement element) {
+            if (element instanceof CtTypeReference) {
+                processTypeReference((CtTypeReference<?>) element);
+            } else if (element instanceof CtInvocation) {
+                processInvocation((CtInvocation<?>) element);
+            }
+        }
+
+        private void processTypeReference(CtTypeReference<?> ref) {
+            // Strategy: Rename class and update package.
+            // Old: org.eclipse.jetty.server.nio.SelectChannelConnector
+            // New: org.eclipse.jetty.server.ServerConnector
+            ref.setSimpleName(NEW_CONNECTOR);
+            if (ref.getPackage() != null) {
+                ref.getPackage().setSimpleName("server"); 
+                // We rely on Spoon's model consistency; explicitly setting package qname can be safer
+                // provided we construct the package reference correctly.
+                // However, just updating the simple name is often sufficient if imports are managed,
+                // but strictly speaking the package changed from 'nio' to 'server'.
+                // If the package reference is shared, this might affect others, but usually TypeRefs are distinct.
+            }
+            
+            // Explicitly updating the package reference to point to the new location
+            ref.setPackage(getFactory().Package().getOrCreate(NEW_CONNECTOR_PKG));
+            
+            System.out.println("Refactored Type: " + OLD_CONNECTOR + " -> " + NEW_CONNECTOR + " at " + ref.getPosition());
+        }
+
+        private void processInvocation(CtInvocation<?> invocation) {
+            // Strategy: The methods are removed from Server and moved to HttpConfiguration.
+            // Automating the creation of HttpConfiguration is complex and context-dependent.
+            // Best safe action: Comment out the line with a FIXME directive.
+            
+            CtStatement parentStmt = invocation.getParent(CtStatement.class);
+            if (parentStmt != null) {
+                // We attempt to capture the original source. If source is unavailable (NoClasspath synthesized),
+                // we reconstruct a string representation.
+                String originalCode = parentStmt.toString().trim();
+                
+                // Remove trailing semicolon if present in toString to avoid double punctuation in comment
+                if (originalCode.endsWith(";")) {
+                    originalCode = originalCode.substring(0, originalCode.length() - 1);
+                }
+
+                String replacementCode = "/* FIXME: Method removed. Moved to HttpConfiguration. Original: " + originalCode + "; */";
+                
+                CtCodeSnippetStatement snippet = getFactory().Code().createCodeSnippetStatement(replacementCode);
+                
+                parentStmt.replace(snippet);
+                System.out.println("Refactored Method: Commented out " + invocation.getExecutable().getSimpleName() + " at " + invocation.getPosition());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Input/Output directories
+        String inputPath = "/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ae16b526695fe275ab5e6a1992916875d26da860/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/ae16b526695fe275ab5e6a1992916875d26da860/jadler/jadler-jetty/src/main/java/net/jadler/stubbing/server/jetty/JettyStubHttpServer.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/ae16b526695fe275ab5e6a1992916875d26da860/attempt_1/transformed");
+
+        // CRITICAL: Robust Sniper Configuration for Source Preservation
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // CRITICAL: Defensive mode for missing libraries
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new JettyProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Check " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,106 @@
+Since the `<dependency_change_diff>` provided is empty, I cannot generate specific refactoring logic (e.g., specific method names or argument transformations).
+
+However, I will provide a **Robust Refactoring Template** that strictly adheres to your Critical Implementation Rules (Sniper Printer, NoClasspath compatibility, and Defensive Type Checking). You can fill in the `isToBeProcessed` and `process` methods with your specific logic once the diff is known.
+
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+public class RefactoringTemplate {
+
+    /**
+     * Processor Implementation
+     * TODO: Customize checks based on your specific API Diff.
+     */
+    public static class GenericRefactoringProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check (Fastest filter)
+            // Replace "targetMethod" with the actual method name from your diff
+            if (!"targetMethod".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // Example: if (candidate.getArguments().size() != 1) return false;
+
+            // 3. Type Check (CRITICAL: Defensive for NoClasspath)
+            // DO NOT assume types are resolved.
+            /*
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // Example: If we are migrating int -> Duration
+            // If type is explicitly the NEW type, skip it (already migrated).
+            if (type != null && type.getQualifiedName().contains("Duration")) {
+                return false;
+            }
+            */
+
+            // 4. Owner/Scope Check
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            // Use contains() for string matching in NoClasspath mode
+            if (owner != null && !owner.getQualifiedName().contains("TargetClassName") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // TODO: Implement transformation logic
+            // Example: Wrapping an argument
+            // CtExpression<?> originalArg = invocation.getArguments().get(0);
+            // CtInvocation<?> replacement = ...
+            // originalArg.replace(replacement);
+
+            System.out.println("Refactored invocation at " + invocation.getPosition());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL CONFIGURATION START ---
+        
+        // 1. Enable comments to preserve license headers and Javadoc
+        launcher.getEnvironment().setCommentEnabled(true);
+
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Defensive Mode (assume libraries are missing)
+        launcher.getEnvironment().setNoClasspath(true);
+        
+        // --- CRITICAL CONFIGURATION END ---
+
+        launcher.addProcessor(new GenericRefactoringProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Verified output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

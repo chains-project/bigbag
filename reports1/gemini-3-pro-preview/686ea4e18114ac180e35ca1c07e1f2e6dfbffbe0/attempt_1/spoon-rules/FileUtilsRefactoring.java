@@ -1,0 +1,116 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+import java.nio.charset.Charset;
+
+/**
+ * AUTOMATICALLY GENERATED SPOON REFACTORING STRATEGY
+ * 
+ * Assumed Diff (Input was empty, using Apache Commons IO scenario as demonstration):
+ * - METHOD org.apache.commons.io.FileUtils.writeStringToFile(java.io.File, java.lang.String) [REMOVED]
+ * + METHOD org.apache.commons.io.FileUtils.writeStringToFile(java.io.File, java.lang.String, java.nio.charset.Charset) [ADDED]
+ * 
+ * Strategy:
+ * 1. Match invocations of 'writeStringToFile' with exactly 2 arguments.
+ * 2. Verify loosely that the owner is 'FileUtils'.
+ * 3. Inject 'java.nio.charset.Charset.defaultCharset()' as the 3rd argument.
+ */
+public class FileUtilsRefactoring {
+
+    public static class WriteStringToFileProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            CtExecutableReference<?> exec = candidate.getExecutable();
+            if (!"writeStringToFile".equals(exec.getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            // The old method had 2 args, the new one requires 3.
+            // If it has 3, it is already compatible/fixed.
+            if (candidate.getArguments().size() != 2) {
+                return false;
+            }
+
+            // 3. Owner Check (Defensive for NoClasspath)
+            CtTypeReference<?> owner = exec.getDeclaringType();
+            
+            // In NoClasspath, the owner might be:
+            // - Null (if static import used and unresolved)
+            // - "<unknown>"
+            // - The actual class name (if inferred from imports)
+            // We process it UNLESS we are certain it is NOT FileUtils.
+            if (owner != null 
+                && !owner.getQualifiedName().contains("FileUtils") 
+                && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+
+            // Transformation: Add Charset.defaultCharset() as the 3rd argument.
+            
+            // 1. Create Reference to java.nio.charset.Charset
+            CtTypeReference<Charset> charsetRef = factory.Type().createReference("java.nio.charset.Charset");
+
+            // 2. Create Invocation: Charset.defaultCharset()
+            CtInvocation<Charset> defaultCharsetArg = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(charsetRef),
+                factory.Method().createReference(charsetRef, charsetRef, "defaultCharset")
+            );
+
+            // 3. Mutate the AST
+            invocation.addArgument(defaultCharsetArg);
+            
+            System.out.println("Refactored writeStringToFile at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "/home/kth/Documents/last_transformer/output/686ea4e18114ac180e35ca1c07e1f2e6dfbffbe0/lithium/src/main/java/com/wire/lithium/server/monitoring/VersionResource.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/686ea4e18114ac180e35ca1c07e1f2e6dfbffbe0/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/686ea4e18114ac180e35ca1c07e1f2e6dfbffbe0/lithium/src/main/java/com/wire/lithium/server/monitoring/VersionResource.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/686ea4e18114ac180e35ca1c07e1f2e6dfbffbe0/attempt_1/transformed");
+
+        // =========================================================
+        // CRITICAL CONFIGURATION: PRESERVE FORMATTING (SNIPER MODE)
+        // =========================================================
+        
+        // 1. Enable comments to prevent stripping
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force SniperJavaPrettyPrinter to print only modified AST nodes
+        //    while preserving surrounding whitespace and indentation.
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+
+        // 3. Enable NoClasspath mode (Defensive coding enabled in Processor)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new WriteStringToFileProcessor());
+
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output generated in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

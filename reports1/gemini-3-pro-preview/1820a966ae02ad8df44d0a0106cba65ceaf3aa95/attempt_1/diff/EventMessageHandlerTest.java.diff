@@ -1,0 +1,21 @@
+--- /home/kth/Documents/last_transformer/output/1820a966ae02ad8df44d0a0106cba65ceaf3aa95/pay-adminusers/src/test/java/uk/gov/pay/adminusers/queue/event/EventMessageHandlerTest.java	2025-12-08 02:24:52.028181189 +0100
++++ /home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/1820a966ae02ad8df44d0a0106cba65ceaf3aa95/attempt_1/transformed/uk/gov/pay/adminusers/queue/event/EventMessageHandlerTest.java	2025-12-08 02:26:35.725169816 +0100
+@@ -57,8 +57,7 @@
+ import static uk.gov.pay.adminusers.model.Service.DEFAULT_NAME_VALUE;
+ import static uk.gov.pay.adminusers.service.UserServicesTest.aUserEntityWithRoleForService;
+ 
+-@ExtendWith(MockitoExtension.class)
+-class EventMessageHandlerTest {
++@ExtendWith(MockitoExtension.class) EventMessageHandlerTest {
+ 
+     @Mock
+     private EventSubscriberQueue mockEventSubscriberQueue;
+@@ -109,7 +108,7 @@
+         );
+ 
+         Logger logger = (Logger) LoggerFactory.getLogger(EventMessageHandler.class);
+-        logger.setLevel(Level.INFO);
++        logger.setLevel("INFO");
+         logger.addAppender(mockLogAppender);
+     }
+ 

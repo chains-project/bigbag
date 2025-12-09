@@ -1,0 +1,167 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtComment;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.visitor.filter.TypeFilter;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class JettyRefactoring {
+
+    /**
+     * Processor to migrate removed Connector classes to ServerConnector.
+     * Handles: SelectChannelConnector, SocketConnector, BlockingChannelConnector -> ServerConnector
+     */
+    public static class ConnectorMigrationProcessor extends AbstractProcessor<CtTypeReference<?>> {
+        
+        private static final Set<String> TARGET_CLASSES = new HashSet<>(Arrays.asList(
+            "org.eclipse.jetty.server.nio.SelectChannelConnector",
+            "org.eclipse.jetty.server.bio.SocketConnector",
+            "org.eclipse.jetty.server.nio.BlockingChannelConnector"
+        ));
+
+        private static final String REPLACEMENT_CLASS = "org.eclipse.jetty.server.ServerConnector";
+
+        @Override
+        public boolean isToBeProcessed(CtTypeReference<?> candidate) {
+            // Defensive: Check for null
+            if (candidate == null) return false;
+            
+            // Skip if it's inside an import (Spoon handles imports via usage replacement usually, 
+            // but in NoClasspath, we might want to catch usages directly).
+            // We want to replace variable types, object instantiations, etc.
+            
+            String qName = candidate.getQualifiedName();
+            // Check against targets
+            return TARGET_CLASSES.contains(qName);
+        }
+
+        @Override
+        public void process(CtTypeReference<?> typeRef) {
+            // Create the new reference
+            CtTypeReference<?> newTypeRef = getFactory().Type().createReference(REPLACEMENT_CLASS);
+            
+            // We need to be careful not to break the AST if the reference is part of a complex structure.
+            // However, replacing the TypeReference object usually propagates correctly.
+            
+            // Note: In Sniper mode, we want to ensure only the name changes. 
+            // Replacing the reference node is the standard Spoon way.
+            typeRef.replace(newTypeRef);
+            
+            // Manually check if the parent is an import and update it if necessary 
+            // (though replacing usages usually suffices, strictly maintaining imports in NoClasspath 
+            // can be tricky if we don't force auto-imports).
+            // A safer bet in a raw processor is that replacing the reference in code 
+            // will trigger Spoon to rewrite the import if the PrettyPrinter sees the new type.
+        }
+    }
+
+    /**
+     * Processor to handle methods removed from Server class.
+     * Strategies:
+     * 1. Detect `setSendServerVersion` and `setSendDateHeader`.
+     * 2. Since these moved to HttpConfiguration and require structural changes, 
+     *    we comment them out with a FIXME to allow compilation.
+     */
+    public static class ServerMethodRemovalProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        private static final Set<String> REMOVED_METHODS = new HashSet<>(Arrays.asList(
+            "setSendServerVersion",
+            "setSendDateHeader"
+        ));
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Method Name Check
+            String methodName = candidate.getExecutable().getSimpleName();
+            if (!REMOVED_METHODS.contains(methodName)) return false;
+
+            // 2. Owner Type Check (Defensive)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            
+            // In NoClasspath, declaringType might be null or incomplete. 
+            // We rely on "Server" being in the name or variable type.
+            boolean isServer = false;
+            if (declaringType != null && declaringType.getQualifiedName().contains("Server")) {
+                isServer = true;
+            } else {
+                // Fallback: Check the target expression's type
+                if (candidate.getTarget() != null && candidate.getTarget().getType() != null) {
+                    String targetType = candidate.getTarget().getType().getQualifiedName();
+                    if (targetType.contains("org.eclipse.jetty.server.Server")) {
+                        isServer = true;
+                    }
+                }
+            }
+
+            return isServer;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            // Strategy: Replace the invocation statement with a comment.
+            // We assume the invocation is a statement (void return). 
+            // If it is part of an expression, this might be invalid, but setters usually are statements.
+            
+            String methodName = invocation.getExecutable().getSimpleName();
+            String message = String.format(" FIXME: %s removed. Moved to HttpConfiguration.", methodName);
+            
+            CtComment comment = getFactory().Code().createComment(message, CtComment.CommentType.BLOCK);
+            
+            // If the parent is a Block, we can replace the statement.
+            // If it's a single line if/loop body without braces, we need to be careful.
+            // Spoon's replace usually handles this by ensuring the context is valid.
+            
+            try {
+                invocation.replace(comment);
+                System.out.println("Commented out removed method: " + methodName + " at line " + invocation.getPosition().getLine());
+            } catch (Exception e) {
+                System.err.println("Failed to replace invocation at line " + invocation.getPosition().getLine() + ": " + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration
+        String inputPath = args.length > 0 ? args[0] : "./src/main/java";
+        String outputPath = args.length > 1 ? args[1] : "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS for Source Preservation
+        // 1. Enable comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        // 2. Force Sniper Printer manually
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        // 3. NoClasspath mode
+        launcher.getEnvironment().setNoClasspath(true);
+        // 4. Auto-imports (attempts to fix imports for new types)
+        launcher.getEnvironment().setAutoImports(true);
+
+        // Add Processors
+        launcher.addProcessor(new ConnectorMigrationProcessor());
+        launcher.addProcessor(new ServerMethodRemovalProcessor());
+
+        System.out.println("Starting Jetty Refactoring...");
+        try {
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

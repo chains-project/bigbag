@@ -1,0 +1,113 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Migration Tool.
+ * 
+ * AUTOMATED RESPONSE:
+ * No specific dependency diff was provided in the <dependency_change_diff> tags.
+ * This class provides the required boilerplate implementing the CRITICAL RULES:
+ * 1. SniperJavaPrettyPrinter for source code preservation.
+ * 2. NoClasspath mode configuration.
+ * 3. Defensive coding patterns for generic types.
+ * 
+ * Users can fill in the logic inside 'isToBeProcessed' and 'process'.
+ */
+public class SpoonMigration {
+
+    public static class MigrationProcessor extends AbstractProcessor<CtInvocation<?>> {
+        
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // --- CRITICAL: Defensive Coding (NoClasspath) ---
+            
+            // 1. Check Executable/Method Name
+            String methodName = candidate.getExecutable().getSimpleName();
+            // TODO: Replace "targetMethodName" with the actual method name from the Diff
+            if (!"targetMethodName".equals(methodName)) {
+                return false;
+            }
+
+            // 2. Check Argument Count
+            // TODO: Update expected argument count
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Check Declaring Type (Relaxed String Matching for NoClasspath)
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            // TODO: Replace "TargetClassName" with the actual class name
+            if (declaringType != null && !declaringType.getQualifiedName().contains("TargetClassName")) {
+                // If the type is known and doesn't match, skip. 
+                // If it is <unknown> (null type in NoClasspath), we might still process it based on heuristics.
+                return false;
+            }
+
+            // 4. Check Argument Types (Defensive)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> argType = arg.getType();
+            
+            // Example Defensive Check:
+            // If we are looking for an 'int', and we see a 'String', skip.
+            // If argType is null (unknown), we assume it might be valid and process it to be safe.
+            if (argType != null && argType.getQualifiedName().contains("String")) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // TODO: Implement the transformation logic based on the Diff.
+            // Example: Wrap argument, rename method, or change arguments.
+            
+            System.out.println("Processing match at line " + invocation.getPosition().getLine());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default configuration
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // --- CRITICAL IMPLEMENTATION RULES ---
+        
+        // 1. Enable Comments
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer (Preserves formatting/indentation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Mode (Robustness)
+        launcher.getEnvironment().setNoClasspath(true);
+
+        // Add the processor
+        launcher.addProcessor(new MigrationProcessor());
+
+        System.out.println("Starting Spoon Migration...");
+        try {
+            launcher.run();
+            System.out.println("Migration finished. Check output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

@@ -1,0 +1,132 @@
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * Spoon Refactoring Rule Generator.
+ * 
+ * SCENARIO (Template):
+ * - OLD: com.example.LegacyService.processData(int value)
+ * - NEW: com.example.LegacyService.handleData(long value)
+ * 
+ * REFACTORING:
+ * 1. Rename method `processData` -> `handleData`
+ * 2. Cast argument `int` -> `long` (if not already compatible)
+ */
+public class LegacyServiceRefactoring {
+
+    public static class MethodUpdateProcessor extends AbstractProcessor<CtInvocation<?>> {
+
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Safety Checks (Defensive coding for NoClasspath)
+            if (candidate.getExecutable() == null) return false;
+
+            // 2. Name Check
+            // Target method name: "processData"
+            if (!"processData".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 3. Owner/Class Check (Relaxed string matching)
+            // We check if the declaring type contains "LegacyService".
+            // We handle nulls in case the classpath is incomplete.
+            CtTypeReference<?> declaringType = candidate.getExecutable().getDeclaringType();
+            if (declaringType != null && 
+                !declaringType.getQualifiedName().equals("<unknown>") &&
+                !declaringType.getQualifiedName().contains("LegacyService")) {
+                return false;
+            }
+
+            // 4. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 5. Type Check (Defensive)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If we are running NoClasspath, type might be null.
+            // If it is null, we assume it *might* be a match and process it carefully.
+            // If it is NOT null, we verify it is an 'int' or 'Integer'.
+            if (type != null) {
+                boolean isInt = type.getSimpleName().equalsIgnoreCase("int") || 
+                                type.getSimpleName().equals("Integer");
+                if (!isInt) {
+                    return false; // Skip if we are sure it's not an int
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            
+            // --- Transformation 1: Rename Method ---
+            // We update the invocation's executable reference directly.
+            invocation.getExecutable().setSimpleName("handleData");
+
+            // --- Transformation 2: Handle Argument (int -> long) ---
+            // In source code, int auto-promotes to long, but if we wanted to be explicit
+            // or if the types were incompatible (e.g. String -> wrapper), we would replace the arg.
+            // Here, we demonstrate wrapping the argument in a cast for safety.
+            
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+            
+            // Create (long) originalArg
+            CtExpression<?> replacement = factory.Code().createTypeCast(
+                factory.Type().longPrimitiveType(),
+                originalArg.clone()
+            );
+
+            // Replace the argument in the AST
+            originalArg.replace(replacement);
+
+            System.out.println("Refactored 'processData' to 'handleData' at line " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths - adjust as necessary
+        String inputPath = "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java";
+        String outputPath = "/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/attempt_1/transformed";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java");
+        launcher.setSourceOutputDirectory("/home/kth/Documents/last_transformer/transformer-agent/reports1/gemini-3-pro-preview/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/attempt_1/transformed");
+
+        // --- CRITICAL IMPLEMENTATION RULES ---
+        
+        // 1. Enable Comments (Essential for preserving headers/javadocs)
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer (Essential for preserving formatting/indentation)
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath Mode (Ensures tool runs even with missing deps)
+        launcher.getEnvironment().setNoClasspath(true);
+        // -------------------------------------
+
+        launcher.addProcessor(new MethodUpdateProcessor());
+
+        try {
+            System.out.println("Starting Spoon Refactoring...");
+            launcher.run();
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

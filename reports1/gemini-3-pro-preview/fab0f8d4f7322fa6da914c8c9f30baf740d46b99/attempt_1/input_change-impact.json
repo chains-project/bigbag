@@ -1,0 +1,965 @@
+{
+  "project" : "docker-adapter",
+  "breakingCommit" : "fab0f8d4f7322fa6da914c8c9f30baf740d46b99",
+  "dependency" : {
+    "groupId" : "com.artipie",
+    "artifactId" : "http",
+    "previousVersion" : "v0.25",
+    "newVersion" : "v1.1.0",
+    "previousJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+    "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar"
+  },
+  "classification" : {
+    "datasetCategory" : "COMPILATION_FAILURE",
+    "inferredCategory" : "COMPILATION_FAILURE",
+    "logFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/fab0f8d4f7322fa6da914c8c9f30baf740d46b99.log",
+    "classifierReport" : "reports1/gemini-3-pro-preview/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/attempt_1/input_breaking-classifier-report.json"
+  },
+  "files" : [ {
+    "filePath" : "/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java",
+    "errors" : [ {
+      "lineNumber" : 15,
+      "columnNumber" : 22,
+      "message" : "package org.cactoos.io does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java",
+        "lineNumber" : 15,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.740888992Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 15,
+          "codeLine" : "import org.cactoos.io.BytesOf;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 16,
+      "columnNumber" : 24,
+      "message" : "package org.cactoos.text does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java",
+        "lineNumber" : 16,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.741155174Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 16,
+          "codeLine" : "import org.cactoos.text.HexOf;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 57,
+      "columnNumber" : 39,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HexOf", "location: class com.artipie.docker.misc.DigestedFlowable" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java",
+        "lineNumber" : 57,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.742662345Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Flowable#subscribe(org.reactivestreams.Subscriber)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Flowable#doOnComplete(io.reactivex.functions.Action)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "io.reactivex.functions.Action",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.atomic.AtomicReference#set(java.lang.Object)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.Digest$Sha256#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest$Sha256",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#asString()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.text.HexOf#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.io.BytesOf#<init>(byte[])",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.security.MessageDigest#digest()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 57,
+      "columnNumber" : 49,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BytesOf", "location: class com.artipie.docker.misc.DigestedFlowable" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestedFlowable.java",
+        "lineNumber" : 57,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.743028069Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Flowable#subscribe(org.reactivestreams.Subscriber)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Flowable#doOnComplete(io.reactivex.functions.Action)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 50,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "io.reactivex.functions.Action",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.atomic.AtomicReference#set(java.lang.Object)",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 56,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.Digest$Sha256#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest$Sha256",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#asString()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.text.HexOf#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.io.BytesOf#<init>(byte[])",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.security.MessageDigest#digest()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 57,
+          "codeLine" : "                new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  }, {
+    "filePath" : "/docker-adapter/src/main/java/com/artipie/docker/misc/DigestFromContent.java",
+    "errors" : [ {
+      "lineNumber" : 16,
+      "columnNumber" : 22,
+      "message" : "package org.cactoos.io does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestFromContent.java",
+        "lineNumber" : 16,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.743417310Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 16,
+          "codeLine" : "import org.cactoos.io.BytesOf;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 17,
+      "columnNumber" : 24,
+      "message" : "package org.cactoos.text does not exist",
+      "details" : [ ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestFromContent.java",
+        "lineNumber" : 17,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.743711394Z",
+        "constructs" : [ {
+          "constructType" : "IMPORT",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 17,
+          "codeLine" : "import org.cactoos.text.HexOf;",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 61,
+      "columnNumber" : 49,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class HexOf", "location: class com.artipie.docker.misc.DigestFromContent" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestFromContent.java",
+        "lineNumber" : 61,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.744227460Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletionStage#toCompletableFuture()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Single#to(io.reactivex.functions.Function)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Completable#andThen(io.reactivex.SingleSource)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Single#fromCallable(java.util.concurrent.Callable)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "java.util.concurrent.Callable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.Digest$Sha256#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest$Sha256",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#asString()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.text.HexOf#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.io.BytesOf#<init>(byte[])",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.security.MessageDigest#digest()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    }, {
+      "lineNumber" : 61,
+      "columnNumber" : 59,
+      "message" : "cannot find symbol",
+      "details" : [ "symbol:   class BytesOf", "location: class com.artipie.docker.misc.DigestFromContent" ],
+      "status" : "SUCCESS",
+      "errorMessage" : null,
+      "changeImpact" : {
+        "projectPath" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter",
+        "sourceFile" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/docker-adapter/src/main/java/com/artipie/docker/misc/DigestFromContent.java",
+        "lineNumber" : 61,
+        "oldJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v0.25.jar",
+        "newJar" : "/home/kth/Documents/last_transformer/output/fab0f8d4f7322fa6da914c8c9f30baf740d46b99/http-v1.1.0.jar",
+        "generatedAt" : "2025-12-08T11:45:32.744492292Z",
+        "constructs" : [ {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.util.concurrent.CompletionStage#toCompletableFuture()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Single#to(io.reactivex.functions.Function)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Completable#andThen(io.reactivex.SingleSource)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 49,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "io.reactivex.Single#fromCallable(java.util.concurrent.Callable)",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : "/home/kth/.m2/repository/io/reactivex/rxjava2/rxjava/2.2.10/rxjava-2.2.10.jar"
+          },
+          "lineNumber" : 60,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "LAMBDA",
+          "signature" : "java.util.concurrent.Callable",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "com.artipie.docker.Digest$Sha256#<init>(java.lang.String)",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest$Sha256",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "com.artipie.docker.Digest",
+          "dependency" : {
+            "origin" : "PROJECT_SOURCE",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "PROJECT_SOURCE",
+            "sourcePath" : "src/main/java/com/artipie/docker/Digest.java"
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "<unknown type>#asString()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.text.HexOf#<init>()",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.text.HexOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "CONSTRUCTOR_CALL",
+          "signature" : "org.cactoos.io.BytesOf#<init>(byte[])",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "TYPE_REFERENCE",
+          "signature" : "org.cactoos.io.BytesOf",
+          "dependency" : {
+            "origin" : "UNKNOWN",
+            "groupId" : null,
+            "artifactId" : null,
+            "version" : null,
+            "coordinates" : "UNKNOWN",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        }, {
+          "constructType" : "METHOD_INVOCATION",
+          "signature" : "java.security.MessageDigest#digest()",
+          "dependency" : {
+            "origin" : "JDK",
+            "groupId" : "java",
+            "artifactId" : "java.base",
+            "version" : null,
+            "coordinates" : "java:java.base",
+            "sourcePath" : null
+          },
+          "lineNumber" : 61,
+          "codeLine" : "                    () -> new Digest.Sha256(new HexOf(new BytesOf(sha.digest())).asString())",
+          "apiChanges" : [ ]
+        } ]
+      }
+    } ]
+  } ]
+}

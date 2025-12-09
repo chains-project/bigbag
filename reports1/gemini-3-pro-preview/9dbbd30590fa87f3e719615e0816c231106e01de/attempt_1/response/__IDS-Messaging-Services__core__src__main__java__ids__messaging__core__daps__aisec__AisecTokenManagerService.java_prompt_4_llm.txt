@@ -1,0 +1,121 @@
+```java
+package org.example.migration;
+
+import spoon.Launcher;
+import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.reference.CtTypeReference;
+import spoon.reflect.factory.Factory;
+import spoon.support.sniper.SniperJavaPrettyPrinter;
+
+/**
+ * AUTOMATICALLY GENERATED SPOON REFACTORING SCRIPT
+ * 
+ * NOTE: The input diff was empty. This script demonstrates a hypothetical refactoring:
+ * FROM: widget.setColor(String hex) 
+ * TO:   widget.setColor(Color.parse(String hex))
+ */
+public class WidgetRefactoring {
+
+    public static class ColorProcessor extends AbstractProcessor<CtInvocation<?>> {
+        @Override
+        public boolean isToBeProcessed(CtInvocation<?> candidate) {
+            // 1. Name Check
+            if (!"setColor".equals(candidate.getExecutable().getSimpleName())) {
+                return false;
+            }
+
+            // 2. Argument Count Check
+            if (candidate.getArguments().size() != 1) {
+                return false;
+            }
+
+            // 3. Type Check (Defensive for NoClasspath)
+            CtExpression<?> arg = candidate.getArguments().get(0);
+            CtTypeReference<?> type = arg.getType();
+
+            // If the argument is already of type 'Color', we skip it.
+            // We only process if type is String, null (unknown), or compatible.
+            if (type != null && type.getQualifiedName().contains("Color")) {
+                return false;
+            }
+            
+            // Optional: Check if argument is likely a String (if type resolution works)
+            // If type is null (common in NoClasspath), we assume it might be a candidate and rely on method name/owner.
+            if (type != null && !type.getQualifiedName().equals("java.lang.String") && !type.getQualifiedName().equals("<unknown>")) {
+                // If we know for sure it's NOT a string (e.g. it's an int), skip.
+                return false;
+            }
+
+            // 4. Owner Check (Relaxed string matching)
+            CtTypeReference<?> owner = candidate.getExecutable().getDeclaringType();
+            if (owner != null && !owner.getQualifiedName().contains("Widget") && !owner.getQualifiedName().equals("<unknown>")) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        @Override
+        public void process(CtInvocation<?> invocation) {
+            Factory factory = getFactory();
+            CtExpression<?> originalArg = invocation.getArguments().get(0);
+
+            // Transformation Strategy: Wrap the original String argument in Color.parse(...)
+            
+            // 1. Create reference to the new type/helper
+            CtTypeReference<?> colorType = factory.Type().createReference("org.example.Color");
+
+            // 2. Create the wrapper invocation: Color.parse(originalArg)
+            CtInvocation<?> replacement = factory.Code().createInvocation(
+                factory.Code().createTypeAccess(colorType),
+                factory.Method().createReference(
+                    colorType, 
+                    colorType, // Return type of parse matches the Class
+                    "parse", 
+                    factory.Type().stringType() // Argument type
+                ),
+                originalArg.clone() // Clone the original expression to move it
+            );
+
+            // 3. Apply replacement
+            originalArg.replace(replacement);
+            
+            System.out.println("Refactored setColor at " + 
+                (invocation.getPosition().isValidPosition() ? invocation.getPosition().getLine() : "unknown line"));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Default paths (editable by user)
+        String inputPath = "./src/main/java";
+        String outputPath = "./src/main/gen";
+
+        Launcher launcher = new Launcher();
+        launcher.addInputResource(inputPath);
+        launcher.setSourceOutputDirectory(outputPath);
+
+        // CRITICAL SETTINGS FOR PRESERVATION
+        // 1. Enable comments to prevent loss during parsing
+        launcher.getEnvironment().setCommentEnabled(true);
+        
+        // 2. Force Sniper Printer manually to preserve formatting of untouched code
+        launcher.getEnvironment().setPrettyPrinterCreator(
+            () -> new SniperJavaPrettyPrinter(launcher.getEnvironment())
+        );
+        
+        // 3. NoClasspath mode to allow running without full dependency resolution
+        launcher.getEnvironment().setNoClasspath(true);
+
+        launcher.addProcessor(new ColorProcessor());
+        
+        try { 
+            launcher.run(); 
+            System.out.println("Refactoring complete. Output in: " + outputPath);
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+    }
+}
+```
