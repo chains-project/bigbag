@@ -7,6 +7,8 @@ import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.model.UpdatedDependency;
+import com.example.core.parser.Materializer;
+import com.example.core.parser.MaterializerFactory;
 import com.example.core.service.ChangeImpactReportService.FileImpact;
 import com.example.core.service.ChangeImpactReportService.ErrorImpact;
 import com.example.japicmp.JapicmpDiffTool;
@@ -394,9 +396,10 @@ public class PromptGenerationService {
             log.warn("Failed to copy original source {} to {}: {}", originalSource, originalCopyTarget, copyEx.getMessage());
         }
 
-        // 3) Use SpoonRulesMaterializer to extract rules and generate driver
+        // 3) Use appropriate materializer to extract rules and generate driver
         String rawBaseName = sanitizedFileName + "_" + kind.id();
-        Path spoonApplyFile = SpoonRulesMaterializer.materialize(llmOutput, originalSource, commitReportDir, rawBaseName);
+        Materializer materializer = MaterializerFactory.getMaterializer(kind.id());
+        Path spoonApplyFile = materializer.materialize(llmOutput, originalSource, commitReportDir, rawBaseName);
 
         // Also copy LLM output and driver into the response directory for this commit
         Path responseLlmOutput = responseDir.resolve(baseName + "_llm.txt");
