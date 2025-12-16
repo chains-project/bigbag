@@ -118,13 +118,13 @@ public class TransformedFileBuildService {
 
             // If no differences found, return NO_DIFF result
             if (!hasDiff) {
-                log.info("No differences found between transformed and original files. All {} files are identical.", 
+                log.info("No differences found between transformed and original files. All {} files are identical.",
                         transformedFiles.size());
                 Path logFile = outputReportDir.resolve("attempt_" + attemptNumber + "_build.log");
-                Attempt attempt = new Attempt(attemptNumber, FailureCategory.UNKNOWN_FAILURE, 
+                Attempt attempt = new Attempt(attemptNumber, FailureCategory.NO_DIFF,
                         outputReportDir.toString(), false);
-                // Note: We use UNKNOWN_FAILURE to represent NO_DIFF since the enum doesn't have that category
-                return new BuildResult(logFile, FailureCategory.UNKNOWN_FAILURE, attempt, false);
+                // Explicit category for no-diff so it is not reported as UNKNOWN
+                return new BuildResult(logFile, FailureCategory.NO_DIFF, attempt, false);
             }
 
             log.info("Found differences in {}/{} files. Proceeding with replacement.", 
@@ -208,9 +208,15 @@ public class TransformedFileBuildService {
                         inferredCategory = convertCategory(breakingReport.failureCategory());
                         log.info("Transformed build category determined (attempt {}): {}", attemptNumber, inferredCategory);
                     }
+                    // If classifier could not infer, try a lightweight log-based heuristic
+                    if (inferredCategory == FailureCategory.UNKNOWN_FAILURE) {
+                        inferredCategory = inferCategoryFromLog(buildLogFile);
+                        log.info("Heuristic category for unknown classifier result (attempt {}): {}", attemptNumber, inferredCategory);
+                    }
                 } catch (Exception e) {
                     log.error("Error running breaking-classifier on transformed build log (attempt {}): {}", 
                             attemptNumber, e.getMessage(), e);
+                    inferredCategory = inferCategoryFromLog(buildLogFile);
                 }
 
                 // 7. Create Attempt from result or inferred category
@@ -388,6 +394,32 @@ public class TransformedFileBuildService {
             };
         } catch (Exception e) {
             log.warn("Failed to convert category: {}", classifierCategory, e);
+            return FailureCategory.UNKNOWN_FAILURE;
+        }
+    }
+
+    /**
+     * Lightweight heuristics to infer a more precise category from the build log
+     * when the classifier cannot determine it.
+     */
+    private FailureCategory inferCategoryFromLog(Path buildLogFile) {
+        if (buildLogFile == null || !Files.exists(buildLogFile)) {
+            return FailureCategory.UNKNOWN_FAILURE;
+        }
+        try {
+            String content = Files.readString(buildLogFile);
+            String lower = content.toLowerCase();
+            if (lower.contains("spoon") || lower.contains("launcher") || lower.contains("ctclass")) {
+                return FailureCategory.SPOON_FAILURE;
+            }
+            if (lower.contains("no changes detected") || lower.contains("nothing to compile") ||
+                    lower.contains("files are identical")) {
+                return FailureCategory.NO_DIFF;
+            }
+            // fallback to generic unknown when no heuristic applies
+            return FailureCategory.UNKNOWN_FAILURE;
+        } catch (IOException e) {
+            log.warn("Could not read build log for heuristic classification: {}", e.getMessage());
             return FailureCategory.UNKNOWN_FAILURE;
         }
     }

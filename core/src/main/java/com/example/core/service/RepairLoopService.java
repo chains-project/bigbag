@@ -257,8 +257,9 @@ public class RepairLoopService {
 
             // If this is NO_DIFF, stop
             Path logFile = buildResult.getLogFile();
-            if (buildResult.getCategory() == FailureCategory.UNKNOWN_FAILURE && 
-                (!Files.exists(logFile) || logFile.toFile().length() == 0)) {
+            if (buildResult.getCategory() == FailureCategory.NO_DIFF ||
+                (buildResult.getCategory() == FailureCategory.UNKNOWN_FAILURE &&
+                        (!Files.exists(logFile) || logFile.toFile().length() == 0))) {
                 log.info("No differences found in transformed files (NO_DIFF). Stopping repair loop.");
                 break;
             }

@@ -586,9 +586,9 @@ public class DockerBuild {
                 storeLogFile(startedContainers.get("postContainer%s".formatted(attemptCount)), client, logFile);
                 // stop the process and store the log file
                 log.info("Breaking commit failed in the {} attempt.", attemptCount);
-                // TODO why faliure category is unknown failure
+                // Use the requested failure category instead of UNKNOWN to reflect cause
                 breakingUpdateReproductionResult.getAttempts()
-                        .add(new Attempt(attemptCount, FailureCategory.UNKNOWN_FAILURE, logFile.getParent().toString(),
+                        .add(new Attempt(attemptCount, failureCategory, logFile.getParent().toString(),
                                 false));
             } else {
                 log.info("Breaking commit did not fail in the {} attempt.", attemptCount);
@@ -654,21 +654,59 @@ public class DockerBuild {
             // The log file is created inside the container at containerProjectPath/mavenLog.log
             // Since we mounted the project folder, it's directly accessible on the host
             Path containerLogPath = client.resolve("mavenLog.log");
+            boolean logCopied = false;
+            
             if (Files.exists(containerLogPath)) {
                 try {
                     Files.copy(containerLogPath, logFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                     log.info("Log file copied from mounted volume to {}", logFile);
+                    logCopied = true;
                 } catch (IOException e) {
                     log.error("Could not copy log file from mounted volume", e);
                 }
             } else {
-                log.warn("Log file not found at expected location: {}", containerLogPath);
+                log.warn("Log file not found at expected location: {}. Attempting fallback copy from container...", containerLogPath);
+            }
+            
+            // Fallback: If log file doesn't exist in mounted volume, try to copy from container
+            // This handles cases where the command failed before creating the log file,
+            // or if there were permission issues writing to the mounted volume
+            if (!logCopied) {
+                try {
+                    // Use the containerProjectPath to construct the correct log path in container
+                    String normalizedContainerPath = containerProjectPath.startsWith("/") 
+                        ? containerProjectPath 
+                        : "/" + containerProjectPath;
+                    String logLocationInContainer = normalizedContainerPath + "/mavenLog.log";
+                    
+                    // Try to copy log directly from container using the correct path
+                    try (InputStream logStream = dockerClient.copyArchiveFromContainerCmd(containerId, logLocationInContainer).exec()) {
+                        byte[] fileContent = logStream.readAllBytes();
+                        Files.createDirectories(logFile.getParent());
+                        Files.write(logFile, fileContent);
+                        log.info("Log file copied from container (fallback) to {}", logFile);
+                        logCopied = true;
+                    }
+                } catch (Exception e) {
+                    log.error("Could not copy log file from container (fallback): {}", e.getMessage());
+                    // Create a placeholder log file to indicate the attempt was made but log is unavailable
+                    try {
+                        Files.createDirectories(logFile.getParent());
+                        Files.write(logFile, ("[ERROR] Log file could not be retrieved from container or mounted volume.\n" +
+                                "Container ID: " + containerId + "\n" +
+                                "Container path: " + containerProjectPath + "\n" +
+                                "Exit code: " + exitCode + "\n" +
+                                "Error: " + e.getMessage() + "\n").getBytes());
+                    } catch (IOException ioException) {
+                        log.error("Could not create placeholder log file", ioException);
+                    }
+                }
             }
 
             if (!success) {
                 log.info("Breaking commit failed in the {} attempt.", attemptCount);
                 breakingUpdateReproductionResult.getAttempts()
-                        .add(new Attempt(attemptCount, FailureCategory.UNKNOWN_FAILURE, 
+                        .add(new Attempt(attemptCount, failureCategory,
                                 logFile.getParent().toString(), false));
             } else {
                 log.info("Breaking commit succeeded in the {} attempt.", attemptCount);
@@ -703,7 +741,7 @@ public class DockerBuild {
                 // stop the process and store the log file
                 log.info("Breaking commit failed in the {} attempt.", attemptCount);
                 breakingUpdateReproductionResult.getAttempts()
-                        .add(new Attempt(attemptCount, FailureCategory.UNKNOWN_FAILURE, logFile.getParent().toString(),
+                        .add(new Attempt(attemptCount, failureCategory, logFile.getParent().toString(),
                                 false));
             } else {
                 log.info("Breaking commit did not fail in the {} attempt.", attemptCount);

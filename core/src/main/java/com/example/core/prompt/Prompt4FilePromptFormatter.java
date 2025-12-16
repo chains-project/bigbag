@@ -38,8 +38,22 @@ public class Prompt4FilePromptFormatter implements FilePromptFormatter {
             You will receive a `<dependency_change_diff>` describing changes between two library versions (e.g., Methods Removed, Classes Modified). Your task is to:
             1. Analyze the diff to identify breaking changes (e.g., method signature changes, type changes, removals).
             2. Deduce the necessary refactoring strategy (e.g., Boxing primitives, renaming methods, wrapping arguments).
-            3. Generate a **single, self-contained Java class** (containing both a `Processor` and a `Main` launcher) that automates this refactoring using Spoon.
-            
+            Generate a **single, self-contained Java class** that automates this refactoring using Spoon, including:
+            - Replacement of type references (`CtTypeReference`) for removed classes
+            - Replacement of all constructor calls (`CtConstructorCall`) that instantiate the removed classes
+            - Update of imports (`CtImport`) if needed
+            - Console output for each refactoring action, showing line numbers if available
+                        
+
+            ### CRITICAL RULES ADDITIONAL FOR CONSTRUCTORS:
+            - When replacing constructor calls, always use `CtConstructorCall<?>`
+            - Check `constructorCall.getType() != null` before processing
+            - Replace type reference with the new class:
+                CtTypeReference<?> replacement = factory.Type().createReference("NewClassName");
+                constructorCall.setType(replacement);
+            - Do not assume `getType().getQualifiedName()` is never null
+
+
             ## CRITICAL IMPLEMENTATION RULES (Do not violate)
             
             ### 1. Preserve Source Code (Robust Sniper Configuration)
