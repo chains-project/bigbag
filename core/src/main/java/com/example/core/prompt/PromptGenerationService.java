@@ -1151,6 +1151,7 @@ public class PromptGenerationService {
             case "anthropic_spoon_rules" -> new AnthropicSpoonRulesFilePromptFormatter();
             case "v2_in_context", "v2-in-context" -> new V2InContextFilePromptFormatter();
             case "baseline", "base_line", "base-line" -> new BaseLineFilePromptFormatter();
+            case "baseline_spoon", "baseline-spoon", "baseline_spoon_rules" -> new BaselineSpoonFilePromptFormatter();
             case "prompt_4", "prompt4", "prompt-4" -> new Prompt4FilePromptFormatter();
             case "prompt_5", "prompt5", "prompt-5" -> new Prompt5FilePromptFormatter();
             case "default" -> new DefaultFilePromptFormatter();
@@ -1210,6 +1211,7 @@ public class PromptGenerationService {
             case FINAL_SPOON_RULES -> new FinalSpoonRulesFilePromptFormatter();
             case V2_IN_CONTEXT -> new V2InContextFilePromptFormatter();
             case BASELINE -> new BaseLineFilePromptFormatter();
+            case BASELINE_SPOON -> new BaselineSpoonFilePromptFormatter();
             case PROMPT_4 -> new Prompt4FilePromptFormatter();
             case PROMPT_5 -> new Prompt5FilePromptFormatter();
             case DEFAULT -> new DefaultFilePromptFormatter();
