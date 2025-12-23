@@ -275,20 +275,59 @@ def call_dummy(prompt: str, model: str) -> Dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generic LLM client for transformer-agent.")
-    parser.add_argument("--prompt-file", required=True, help="Path to the prompt text file.")
-    parser.add_argument("--output-file", required=True, help="Path where the completion will be written.")
-    parser.add_argument("--meta-file", required=True, help="Path where the JSON metadata will be written.")
-    args = parser.parse_args()
+    import sys
+    
+    try:
+        parser = argparse.ArgumentParser(description="Generic LLM client for transformer-agent.")
+        parser.add_argument("--prompt-file", required=True, help="Path to the prompt text file.")
+        parser.add_argument("--output-file", required=True, help="Path where the completion will be written.")
+        parser.add_argument("--meta-file", required=True, help="Path where the JSON metadata will be written.")
+        args = parser.parse_args()
 
-    # Load .env configuration before reading any LLM_* or provider-specific keys
-    load_dotenv()
+        # Load .env configuration before reading any LLM_* or provider-specific keys
+        load_dotenv()
 
-    prompt_path = Path(args.prompt_file)
-    output_path = Path(args.output_file)
-    meta_path = Path(args.meta_file)
+        prompt_path = Path(args.prompt_file)
+        output_path = Path(args.output_file)
+        meta_path = Path(args.meta_file)
 
-    prompt = prompt_path.read_text(encoding="utf-8")
+        # Validate that prompt file exists
+        if not prompt_path.exists():
+            error_msg = f"Prompt file does not exist: {prompt_path}"
+            print(error_msg, file=sys.stderr)
+            write_error_meta(meta_path, prompt_path, output_path, error_msg)
+            sys.exit(2)
+
+        if not prompt_path.is_file():
+            error_msg = f"Prompt path is not a file: {prompt_path}"
+            print(error_msg, file=sys.stderr)
+            write_error_meta(meta_path, prompt_path, output_path, error_msg)
+            sys.exit(2)
+
+        try:
+            prompt = prompt_path.read_text(encoding="utf-8")
+        except Exception as e:
+            error_msg = f"Failed to read prompt file {prompt_path}: {e}"
+            print(error_msg, file=sys.stderr)
+            write_error_meta(meta_path, prompt_path, output_path, error_msg)
+            sys.exit(2)
+    except SystemExit:
+        raise
+    except Exception as e:
+        error_msg = f"Fatal error in argument parsing or file setup: {e}"
+        print(error_msg, file=sys.stderr)
+        import traceback
+        traceback.print_exc()
+        # Try to write error meta if we have the paths
+        try:
+            if 'meta_path' in locals() and 'prompt_path' in locals() and 'output_path' in locals():
+                write_error_meta(meta_path, prompt_path, output_path, error_msg)
+            elif 'meta_path' in locals():
+                # Fallback: try to extract paths from args if available
+                write_error_meta(meta_path, None, None, error_msg)
+        except Exception:
+            pass
+        sys.exit(2)
 
     provider = read_env("LLM_PROVIDER", "dummy").lower()
     model = read_env("LLM_MODEL", "dummy-model")
@@ -348,7 +387,57 @@ def main() -> None:
     meta_path.write_text(json.dumps(meta_payload, indent=2, default=str), encoding="utf-8")
 
 
+def write_error_meta(meta_path: Path, prompt_path: Optional[Path], output_path: Optional[Path], error_msg: str) -> None:
+    """Write a minimal error metadata file when something goes wrong early."""
+    try:
+        meta_path.parent.mkdir(parents=True, exist_ok=True)
+        error_meta = {
+            "provider": "unknown",
+            "model": "unknown",
+            "prompt_file": str(prompt_path) if prompt_path is not None else "unknown",
+            "output_file": str(output_path) if output_path is not None else "unknown",
+            "timestamp": time.time(),
+            "duration_seconds": 0,
+            "success": False,
+            "error": error_msg,
+            "response": {}
+        }
+        meta_path.write_text(json.dumps(error_meta, indent=2, default=str), encoding="utf-8")
+    except Exception:
+        pass  # If we can't write error meta, at least stderr was printed
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Interrupted by user", file=sys.stderr)
+        sys.exit(130)
+    except Exception as e:
+        error_msg = f"Unhandled exception in main: {e}"
+        print(error_msg, file=sys.stderr)
+        import traceback
+        traceback.print_exc()
+        # Try to write error meta if we can determine the paths
+        if len(sys.argv) >= 6 and "--meta-file" in sys.argv:
+            meta_idx = sys.argv.index("--meta-file") + 1
+            if meta_idx < len(sys.argv):
+                try:
+                    meta_path = Path(sys.argv[meta_idx])
+                    prompt_path = None
+                    output_path = None
+                    if "--prompt-file" in sys.argv:
+                        prompt_idx = sys.argv.index("--prompt-file") + 1
+                        if prompt_idx < len(sys.argv):
+                            prompt_path = Path(sys.argv[prompt_idx])
+                    if "--output-file" in sys.argv:
+                        output_idx = sys.argv.index("--output-file") + 1
+                        if output_idx < len(sys.argv):
+                            output_path = Path(sys.argv[output_idx])
+                    write_error_meta(meta_path, prompt_path, output_path, error_msg)
+                except Exception:
+                    pass
+        sys.exit(2)
 
 

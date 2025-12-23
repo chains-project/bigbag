@@ -7,6 +7,8 @@ import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.model.UpdatedDependency;
+import com.example.core.parser.Materializer;
+import com.example.core.parser.MaterializerFactory;
 import com.example.core.service.ChangeImpactReportService.FileImpact;
 import com.example.core.service.ChangeImpactReportService.ErrorImpact;
 import com.example.japicmp.JapicmpDiffTool;
@@ -394,9 +396,10 @@ public class PromptGenerationService {
             log.warn("Failed to copy original source {} to {}: {}", originalSource, originalCopyTarget, copyEx.getMessage());
         }
 
-        // 3) Use SpoonRulesMaterializer to extract rules and generate driver
+        // 3) Use appropriate materializer to extract rules and generate driver
         String rawBaseName = sanitizedFileName + "_" + kind.id();
-        Path spoonApplyFile = SpoonRulesMaterializer.materialize(llmOutput, originalSource, commitReportDir, rawBaseName);
+        Materializer materializer = MaterializerFactory.getMaterializer(kind.id());
+        Path spoonApplyFile = materializer.materialize(llmOutput, originalSource, commitReportDir, rawBaseName);
 
         // Also copy LLM output and driver into the response directory for this commit
         Path responseLlmOutput = responseDir.resolve(baseName + "_llm.txt");
@@ -778,11 +781,16 @@ public class PromptGenerationService {
         Process process = pb.start();
         
         // Read output in real-time to avoid blocking issues
+        StringBuilder output = new StringBuilder();
         try (var reader = new java.io.BufferedReader(
                 new java.io.InputStreamReader(process.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
                 // Log LLM output if verbose (optional)
+                if (log.isDebugEnabled()) {
+                    log.debug("LLM client output: {}", line);
+                }
             }
         }
         
@@ -790,8 +798,24 @@ public class PromptGenerationService {
         long duration = System.currentTimeMillis() - startTime;
         
         if (exitCode != 0) {
+            String errorOutput = output.toString();
             log.error("LLM client exited with code {} after {}ms", exitCode, duration);
-            throw new IOException("LLM client exited with code " + exitCode);
+            log.error("LLM client error output:\n{}", errorOutput);
+            log.error("Prompt file: {}", promptFile);
+            log.error("Output file: {}", outputFile);
+            log.error("Meta file: {}", metaFile);
+            log.error("Working directory: {}", projectRoot);
+            // Check if meta file exists and contains error info
+            if (Files.exists(metaFile)) {
+                try {
+                    String metaContent = Files.readString(metaFile);
+                    log.error("Meta file contents:\n{}", metaContent);
+                } catch (Exception e) {
+                    log.warn("Could not read meta file: {}", e.getMessage());
+                }
+            }
+            throw new IOException("LLM client exited with code " + exitCode + ". Error: " + 
+                    (errorOutput.length() > 500 ? errorOutput.substring(0, 500) + "..." : errorOutput));
         }
         
         log.info("LLM call completed in {}ms for {}", duration, promptFile.getFileName());
@@ -1151,6 +1175,7 @@ public class PromptGenerationService {
             case "anthropic_spoon_rules" -> new AnthropicSpoonRulesFilePromptFormatter();
             case "v2_in_context", "v2-in-context" -> new V2InContextFilePromptFormatter();
             case "baseline", "base_line", "base-line" -> new BaseLineFilePromptFormatter();
+            case "baseline_spoon", "baseline-spoon", "baseline_spoon_rules" -> new BaselineSpoonFilePromptFormatter();
             case "prompt_4", "prompt4", "prompt-4" -> new Prompt4FilePromptFormatter();
             case "prompt_5", "prompt5", "prompt-5" -> new Prompt5FilePromptFormatter();
             case "default" -> new DefaultFilePromptFormatter();
@@ -1210,6 +1235,7 @@ public class PromptGenerationService {
             case FINAL_SPOON_RULES -> new FinalSpoonRulesFilePromptFormatter();
             case V2_IN_CONTEXT -> new V2InContextFilePromptFormatter();
             case BASELINE -> new BaseLineFilePromptFormatter();
+            case BASELINE_SPOON -> new BaselineSpoonFilePromptFormatter();
             case PROMPT_4 -> new Prompt4FilePromptFormatter();
             case PROMPT_5 -> new Prompt5FilePromptFormatter();
             case DEFAULT -> new DefaultFilePromptFormatter();

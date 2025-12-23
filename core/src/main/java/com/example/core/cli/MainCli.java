@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,6 +52,73 @@ import java.util.stream.Collectors;
 public class MainCli implements Callable<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(MainCli.class);
+
+    // Filter: only process these commits
+    public static final List<String> HASHES = Arrays.asList(
+        "00a7cc31784ac4a9cc27d506a73ae589d6df36d6",
+        "067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9",
+        "07fad972bb884e9fa6143b4f870d08305811607d",
+        "0abf7148300f40a1da0538ab060552bca4a2f1d8",
+        "13fd75e233a5cb2771a6cb186c0decaed6d6545a",
+        "165381d26b2c3d2278fde88c16f95807506451fe",
+        "17f2bcaaba4805b218743f575919360c5aec5da4",
+        "1820a966ae02ad8df44d0a0106cba65ceaf3aa95",
+        "1c0972fc3d905b9f2a305a78f8a158a0b3fd8639",
+        "1cc7071371953a7880c2c2c3a5a32c36af7f88f9",
+        "1ef97ea6c5b6e34151fe6167001b69e003449f95",
+        "249c3b394540fde4fcb72f66172af5e02b9c637e",
+        "24d4a90ec1b375751e71f33d18949405c9529d77",
+        "3572a1ecc0154c61e05505aed56055b9c5e539a6",
+        "38c9915f0cfdf0c1a2b17c3c6f283c23a0aac0cf",
+        "40feecdd9c649644668d7c84bb87b73a2b2723ca",
+        "43b3a858b77ec27fc8946aba292001c3de465012",
+        "43c824a24b09efd8b4b00449ce31cd121a6b23eb",
+        "4a3efad6e00824e5814b9c8f571c9c98aad40281",
+        "4aab2869639226035c999c282f31efba15648ea3",
+        "54abbbde6a1233e1523a9b5f811ea100efb5dead",
+        "5769bdad76925da568294cb8a40e7d4469699ac3",
+        "5fcd0c3ad7727850c47602b17530dc355e5bd097",
+        "61e96bfe3a32d6ef2e5d7912a518c78bd5474e74",
+        "65200df71d5f6ab1c5502f74a5dc7bcbda459563",
+        "6ad104c4fb9263ad1bb29e6b33618b8225efd92d",
+        "6c53cd904bd66fc79af8687571e607c259226b81",
+        "6c9a2ecf3bac1e0c7675e03b2828a71450d8ed45",
+        "741f3b5e20a91b0e9305ae79261e3c5e64971c98",
+        "7d97e1c7331f6722eb1d8192bf0a2686f5a33798",
+        "7f7de81d28b68b091bef2e6f6ffd1836167be6ea",
+        "832e0f184efdad0fcf15d14cb7af5e30239ff454",
+        "867e69e208ff59d1f8baae7ed41d3e163a51bc65",
+        "874ed893a4e46ea5182be2be054715967e58f08f",
+        "90ffd2cd31edecf778d14d0015da9ceab7e53081",
+        "9461431622cf39efe60cf1eb03a94083780c5720",
+        "9717e34bcda74bd9ad94f6a52ddfd3fd179ea15b",
+        "979d6237a50840cd925cc1a33c415ffbbbc42846",
+        "9836e07e553e29f16ee35b5d7e4d0370e1789ecd",
+        "9a8b6fc7847a0782ae4c48d0e4f7056507c0397d",
+        "a26797cdeeecaa3b900ea1e0d5ec0cec66bf03ff",
+        "a4c360001134c2e3a9f7fbde88a07a9fd767e78e",
+        "a80dac86d1caa3958c45c036d93a7d9231d88fbf",
+        "a9df7b2235224fcabefa1d62e8956911aa5bb825",
+        "ab85440ce7321d895c7a9621224ce8059162a26a",
+        "acc50dabec6796c091b84c1ada2ae4cbcab8b562",
+        "ae0a0bd1311451e4a5a185a8d96405cfe3e049c5",
+        "b554e03428f2ba877c33a0fece7f0f00fb38a5fa",
+        "b5b64613a1a650a5784ff39386b4e00e05e5c21c",
+        "bd3ce213e2771c6ef7817c80818807a757d4e94a",
+        "c09896887acf0fe59320e01145a7034cd8d4e326",
+        "c0f6ab75784dbc13ae8ff47298704c0756cf3a2c",
+        "c311ee0a84b72b15ba64da3514181c2347912225",
+        "c7c9590a206d4fb77dd05b9df391d888e6181667",
+        "cbcafe129e143ef09401470e9d11de9758f298d0",
+        "d38182a8a0fe1ec039aed97e103864fce717a0be",
+        "d401e189fb6435110e3dc4ca1a94838f167e7ddf",
+        "d54b56b91c11f21b97d4903143b04b7c1f10c255",
+        "db02c6bcb989a5b0f08861c3344b532769530467",
+        "dbdc7d2c4a28a8d65edcd0cdece91c0bc357b869",
+        "dcc95f410847ab308db2f2a31ab13e32dc65c670",
+        "f5bc873a4b68e87761a65064ebea9ad8c3fb085f",
+        "f6659d758a437f8b676481fe70671a68a6ee1cde"
+    );
 
     // Default configuration values
     private static final String DEFAULT_CATEGORY = "COMPILATION_FAILURE";
@@ -238,16 +306,31 @@ public class MainCli implements Callable<Integer> {
 
             log.info("Found {} breaking update records", records.size());
 
+            // Filter by commit hash - only process commits in HASHES list
+            // This filter is only applied when no specific file is specified
+            if (fileToProcess == null) {
+                int originalSize = records.size();
+                records = records.stream()
+                        .filter(record -> record.breakingCommit() != null && HASHES.contains(record.breakingCommit()))
+                        .collect(Collectors.toList());
+                log.info("Filtered to {} records matching commit hashes (from {} total)", records.size(), originalSize);
+                if (originalSize != records.size()) {
+                    System.out.println("Filtered to " + records.size() + " records matching commit hashes (from " + originalSize + " total)");
+                }
+            } else {
+                log.info("Processing specific file, skipping HASHES filter");
+            }
+
             // Filter by category if specified
             if (filterCategory != null) {
                 final FailureCategory finalFilterCategory = filterCategory;
-                int originalSize = records.size();
+                int sizeBeforeCategoryFilter = records.size();
                 records = records.stream()
                         .filter(record -> FailureCategoryUtils.matchesFailureCategory(record, finalFilterCategory))
                         .collect(Collectors.toList());
                 log.info("Filtered to {} records matching category: {}", records.size(), filterCategory);
                 System.out.println("\n=== Breaking Update Records ===");
-                System.out.println("Total records found: " + originalSize);
+                System.out.println("Total records found: " + sizeBeforeCategoryFilter);
                 System.out.println("Records matching category '" + filterCategory + "': " + records.size());
             } else {
                 System.out.println("\n=== Breaking Update Records ===");
