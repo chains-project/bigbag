@@ -307,13 +307,18 @@ public class MainCli implements Callable<Integer> {
             log.info("Found {} breaking update records", records.size());
 
             // Filter by commit hash - only process commits in HASHES list
-            int originalSize = records.size();
-            records = records.stream()
-                    .filter(record -> record.breakingCommit() != null && HASHES.contains(record.breakingCommit()))
-                    .collect(Collectors.toList());
-            log.info("Filtered to {} records matching commit hashes (from {} total)", records.size(), originalSize);
-            if (originalSize != records.size()) {
-                System.out.println("Filtered to " + records.size() + " records matching commit hashes (from " + originalSize + " total)");
+            // This filter is only applied when no specific file is specified
+            if (fileToProcess == null) {
+                int originalSize = records.size();
+                records = records.stream()
+                        .filter(record -> record.breakingCommit() != null && HASHES.contains(record.breakingCommit()))
+                        .collect(Collectors.toList());
+                log.info("Filtered to {} records matching commit hashes (from {} total)", records.size(), originalSize);
+                if (originalSize != records.size()) {
+                    System.out.println("Filtered to " + records.size() + " records matching commit hashes (from " + originalSize + " total)");
+                }
+            } else {
+                log.info("Processing specific file, skipping HASHES filter");
             }
 
             // Filter by category if specified
