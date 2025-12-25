@@ -4,12 +4,14 @@ import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.pipeline.FailureCategoryUtils;
+import com.example.core.pipeline.RepairPipeline;
+import com.example.core.pipeline.ModelRepairPipeline;
+import com.example.core.pipeline.AgentRepairPipeline;
 import com.example.core.prompt.PromptGenerationService;
 import com.example.core.report.JsonReportReader;
 import com.example.core.service.BreakingUpdateExtractionService;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
-import com.example.core.service.RepairLoopService;
 import com.example.core.util.FileSystemUtils;
 import com.example.core.util.ProjectPaths;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -126,55 +128,16 @@ public class MainCli implements Callable<Integer> {
     private static final boolean DEFAULT_EXTRACT_JARS_AND_CLASSIFY = true;
     private static final boolean DEFAULT_CLEAN_EXISTING = true;
 
-    @CommandLine.Option(names = { "-i",
-            "--input" }, description = "Input directory containing BreakingUpdateRecord JSON files")
-    private String inputDirStr;
-
-    @CommandLine.Option(names = { "-o",
-            "--output" }, description = "Output directory where extracted projects will be saved")
-    private String outputDirStr;
-
-    @CommandLine.Option(names = { "-c",
-            "--category" }, description = "Filter by failure category (COMPILATION_FAILURE, TEST_FAILURE, etc.)")
-    private String category;
-
-    @CommandLine.Option(names = { "-f",
-            "--file" }, description = "Process only the specified JSON file (name without .json extension)")
-    private String singleJsonFile;
-
-    @CommandLine.Option(names = { "-e", "--extract" }, description = "Extract projects from Docker images")
-    private Boolean extractProjects;
-
-    @CommandLine.Option(names = { "--no-extract" }, description = "Do not extract projects from Docker images")
-    private boolean noExtract;
-
-    @CommandLine.Option(names = { "-k", "--classify" }, description = "Extract JARs and run breaking-classifier")
-    private Boolean extractJarsAndClassify;
-
-    @CommandLine.Option(names = { "--no-classify" }, description = "Do not extract JARs or run breaking-classifier")
-    private boolean noClassify;
-
-    @CommandLine.Option(names = {
-            "--clean" }, description = "Remove existing {breakingCommit} folders before extraction")
-    private Boolean cleanExisting;
-
-    @CommandLine.Option(names = {
-            "--no-clean" }, description = "Keep existing {breakingCommit} folders (skip if exists)")
-    private boolean noClean;
-
-    @CommandLine.Option(names = { "-v", "--verbose" }, description = "Show detailed information for each record")
-    private boolean verbose;
-
-    @CommandLine.Option(names = { "-j",
-            "--json-output" }, description = "Path to store a JSON summary with dataset and inferred categories")
-    private Path jsonOutput;
+    @CommandLine.Mixin
+    private MainCliOptions options;
 
     private final EnvConfig envConfig;
+    private boolean verbose;
     private BreakingUpdateExtractionService extractionService;
     private final ChangeImpactReportService changeImpactReportService;
     private final PromptGenerationService promptGenerationService;
     private final GitWorkflowService gitWorkflowService;
-    private RepairLoopService repairLoopService;
+    private RepairPipeline repairPipeline;
     private DockerBuild dockerBuild;
     
 
@@ -186,7 +149,9 @@ public class MainCli implements Callable<Integer> {
         this.promptGenerationService = new PromptGenerationService(envConfig);
         this.gitWorkflowService = new GitWorkflowService();
         this.dockerBuild = new DockerBuild(false, false);
-        this.repairLoopService = new RepairLoopService(gitWorkflowService, dockerBuild, envConfig, false);
+        // Pipeline will be reinitialized in call() after determining verbose flag and pipeline type
+        // Initialize with default model pipeline for safety
+        this.repairPipeline = new ModelRepairPipeline(gitWorkflowService, dockerBuild, envConfig, false);
     }
 
     public static void main(String[] args) {
@@ -198,8 +163,8 @@ public class MainCli implements Callable<Integer> {
     public Integer call() {
         try {
             // Merge CLI arguments with .env values
-            String resolvedInputDir = inputDirStr != null ? inputDirStr : envConfig.require("INPUT_DIR");
-            String resolvedOutputDir = outputDirStr != null ? outputDirStr : envConfig.require("OUTPUT_DIR");
+            String resolvedInputDir = options.getInputDirStr() != null ? options.getInputDirStr() : envConfig.require("INPUT_DIR");
+            String resolvedOutputDir = options.getOutputDirStr() != null ? options.getOutputDirStr() : envConfig.require("OUTPUT_DIR");
 
             Path inputDir = Paths.get(resolvedInputDir);
             Path outputDir = Paths.get(resolvedOutputDir);
@@ -209,26 +174,31 @@ public class MainCli implements Callable<Integer> {
             boolean envClean = envConfig.getBoolean("CLEAN").orElse(DEFAULT_CLEAN_EXISTING);
             boolean envVerbose = envConfig.getBoolean("VERBOSE").orElse(false);
 
-            if (!this.verbose) {
-                this.verbose = envVerbose;
-            }
+            // Set verbose from options or environment
+            this.verbose = options.isVerbose() || envVerbose;
 
             // Reinitialize services with verbose flag to control logging (especially Docker image pull)
             this.extractionService = new BreakingUpdateExtractionService(this.verbose);
             this.dockerBuild = new DockerBuild(false, this.verbose);
-            this.repairLoopService = new RepairLoopService(gitWorkflowService, dockerBuild, envConfig, this.verbose);
+            
+            // Determine pipeline type from CLI argument or environment variable
+            String selectedPipelineType = determinePipelineType();
+            this.repairPipeline = createRepairPipeline(selectedPipelineType);
+            log.info("Using repair pipeline: {}", selectedPipelineType);
             
             // Configure external library loggers based on verbose flag
-            configureExternalLibraryLogging();
+            configureExternalLibraryLogging(this.verbose);
 
-            boolean shouldExtract = (extractProjects != null ? extractProjects : envExtract) && !noExtract;
-            boolean shouldClassify = (extractJarsAndClassify != null ? extractJarsAndClassify : envClassify)
-                    && !noClassify;
-            boolean shouldClean = (cleanExisting != null ? cleanExisting : envClean) && !noClean;
+            boolean shouldExtract = (options.getExtractProjects() != null ? options.getExtractProjects() : envExtract) && !options.isNoExtract();
+            boolean shouldClassify = (options.getExtractJarsAndClassify() != null ? options.getExtractJarsAndClassify() : envClassify)
+                    && !options.isNoClassify();
+            boolean shouldClean = (options.getCleanExisting() != null ? options.getCleanExisting() : envClean) && !options.isNoClean();
 
+            String singleJsonFile = options.getSingleJsonFile();
             if (singleJsonFile == null) {
                 singleJsonFile = envConfig.get("FILE").orElse(null);
             }
+            Path jsonOutput = options.getJsonOutput();
             if (jsonOutput == null) {
                 jsonOutput = envConfig.getPath("JSON_OUTPUT").orElse(null);
             }
@@ -259,6 +229,7 @@ public class MainCli implements Callable<Integer> {
             String fileToProcess = singleJsonFile != null ? singleJsonFile
                     : envConfig.get("SPECIFIC_FILE").filter(s -> !s.isBlank()).orElse(null);
 
+            String category = options.getCategory();
             if (category == null) {
                 category = envConfig.get("CATEGORY").orElse(DEFAULT_CATEGORY);
             }
@@ -645,7 +616,7 @@ public class MainCli implements Callable<Integer> {
                 try {
                     // This generates:
                     // - breaking-changes.json (once per commit, based on japicmp)
-                    // Note: change-impact.json is generated within each attempt in RepairLoopService
+                    // Note: change-impact.json is generated within each attempt in the repair pipeline
                     // Note: prompts and transformed files are generated within each attempt based on previous attempt's log
                     changeImpactReportService.copyAndGenerate(record, summary, outputBaseDir, commitDir,
                             initialClassifierReport);
@@ -671,7 +642,7 @@ public class MainCli implements Callable<Integer> {
             List<se.kth.models.Attempt> attempts = null;
             if (summary.dockerImage() != null) {
                 try {
-                    attempts = repairLoopService.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
+                    attempts = repairPipeline.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
                             record, commitDir, summary, outputBaseDir, initialLogFile);
                     
                     // Update summary with attempts from repair loop
@@ -848,10 +819,81 @@ public class MainCli implements Callable<Integer> {
     }
 
     /**
+     * Determines which pipeline type to use based on CLI argument, environment variable, or .env file.
+     * Order of precedence:
+     * 1. CLI argument (-p/--pipeline)
+     * 2. System environment variable (REPAIR_PIPELINE)
+     * 3. .env file (REPAIR_PIPELINE)
+     * 4. Default: "model"
+     *
+     * @return the pipeline type to use ("model" or "agent")
+     */
+    private String determinePipelineType() {
+        // First check CLI argument (highest priority)
+        String pipelineType = options.getPipelineType();
+        if (pipelineType != null && !pipelineType.trim().isEmpty()) {
+            String normalized = pipelineType.trim().toLowerCase();
+            if (normalized.equals("model") || normalized.equals("agent")) {
+                return normalized;
+            } else {
+                log.warn("Invalid pipeline type '{}'. Valid options are 'model' or 'agent'. Using default 'model'.", pipelineType);
+                return "model";
+            }
+        }
+        
+        // Then check system environment variable (second priority)
+        String systemEnvPipelineType = System.getenv("REPAIR_PIPELINE");
+        if (systemEnvPipelineType != null && !systemEnvPipelineType.trim().isEmpty()) {
+            String normalized = systemEnvPipelineType.trim().toLowerCase();
+            if (normalized.equals("model") || normalized.equals("agent")) {
+                log.info("Using pipeline type from system environment variable: {}", normalized);
+                return normalized;
+            } else {
+                log.warn("Invalid pipeline type in system environment variable REPAIR_PIPELINE '{}'. Valid options are 'model' or 'agent'. Checking .env file...", systemEnvPipelineType);
+            }
+        }
+        
+        // Then check .env file (third priority)
+        String envFilePipelineType = envConfig.get("REPAIR_PIPELINE").orElse(null);
+        if (envFilePipelineType != null && !envFilePipelineType.trim().isEmpty()) {
+            String normalized = envFilePipelineType.trim().toLowerCase();
+            if (normalized.equals("model") || normalized.equals("agent")) {
+                log.info("Using pipeline type from .env file: {}", normalized);
+                return normalized;
+            } else {
+                log.warn("Invalid pipeline type in .env file REPAIR_PIPELINE '{}'. Valid options are 'model' or 'agent'. Using default 'model'.", envFilePipelineType);
+                return "model";
+            }
+        }
+        
+        // Default to model pipeline
+        return "model";
+    }
+
+    /**
+     * Creates the appropriate repair pipeline instance based on the type.
+     *
+     * @param pipelineType the type of pipeline to create ("model" or "agent")
+     * @return an instance of RepairPipeline
+     * @throws IllegalArgumentException if pipelineType is not recognized
+     */
+    private RepairPipeline createRepairPipeline(String pipelineType) {
+        switch (pipelineType.toLowerCase()) {
+            case "model":
+                return new ModelRepairPipeline(gitWorkflowService, dockerBuild, envConfig, this.verbose);
+            case "agent":
+                return new AgentRepairPipeline(dockerBuild, envConfig, this.verbose);
+            default:
+                log.warn("Unknown pipeline type '{}'. Defaulting to model pipeline.", pipelineType);
+                return new ModelRepairPipeline(gitWorkflowService, dockerBuild, envConfig, this.verbose);
+        }
+    }
+
+    /**
      * Configures external library loggers (JGit, docker-java, Spoon) to respect the verbose flag.
      * When verbose is false, DEBUG logs from these libraries are suppressed.
      */
-    private void configureExternalLibraryLogging() {
+    private void configureExternalLibraryLogging(boolean verbose) {
         try {
             LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
             
