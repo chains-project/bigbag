@@ -781,16 +781,11 @@ public class PromptGenerationService {
         Process process = pb.start();
         
         // Read output in real-time to avoid blocking issues
-        StringBuilder output = new StringBuilder();
         try (var reader = new java.io.BufferedReader(
                 new java.io.InputStreamReader(process.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
                 // Log LLM output if verbose (optional)
-                if (log.isDebugEnabled()) {
-                    log.debug("LLM client output: {}", line);
-                }
             }
         }
         
@@ -798,24 +793,8 @@ public class PromptGenerationService {
         long duration = System.currentTimeMillis() - startTime;
         
         if (exitCode != 0) {
-            String errorOutput = output.toString();
             log.error("LLM client exited with code {} after {}ms", exitCode, duration);
-            log.error("LLM client error output:\n{}", errorOutput);
-            log.error("Prompt file: {}", promptFile);
-            log.error("Output file: {}", outputFile);
-            log.error("Meta file: {}", metaFile);
-            log.error("Working directory: {}", projectRoot);
-            // Check if meta file exists and contains error info
-            if (Files.exists(metaFile)) {
-                try {
-                    String metaContent = Files.readString(metaFile);
-                    log.error("Meta file contents:\n{}", metaContent);
-                } catch (Exception e) {
-                    log.warn("Could not read meta file: {}", e.getMessage());
-                }
-            }
-            throw new IOException("LLM client exited with code " + exitCode + ". Error: " + 
-                    (errorOutput.length() > 500 ? errorOutput.substring(0, 500) + "..." : errorOutput));
+            throw new IOException("LLM client exited with code " + exitCode);
         }
         
         log.info("LLM call completed in {}ms for {}", duration, promptFile.getFileName());

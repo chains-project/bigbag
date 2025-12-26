@@ -308,14 +308,22 @@ public class BreakingUpdateExtractionService {
         for (BreakingUpdateRecord record : records) {
             ClassificationOutcome outcome = null;
             Path commitDir = outputBaseDir.resolve(record.breakingCommit());
+            String dockerImage = null;
 
             try {
+                // Extract Docker image from reproduction command (needed for repair pipeline)
+                // Only parse the command string, don't perform actual Docker extraction
+                if (record.breakingUpdateReproductionCommand() != null && 
+                    !record.breakingUpdateReproductionCommand().trim().isEmpty()) {
+                    dockerImage = dockerBuild.extractDockerImageFromCommand(record.breakingUpdateReproductionCommand());
+                }
+
                 if (!Files.exists(commitDir) || !Files.isDirectory(commitDir)) {
                     log.warn("Commit directory does not exist for {}: {}", record.descriptor(), commitDir);
                     if (verbose) {
                         System.out.println("  ⚠ Missing directory for " + record.breakingCommit());
                     }
-                    summaries.add(buildSummary(record, null, outcome));
+                    summaries.add(buildSummary(record, dockerImage, outcome));
                     continue;
                 }
 
@@ -334,7 +342,7 @@ public class BreakingUpdateExtractionService {
                     System.out.println("  ✗ Error: " + e.getMessage());
                 }
             } finally {
-                ClassificationSummary summary = buildSummary(record, null, outcome);
+                ClassificationSummary summary = buildSummary(record, dockerImage, outcome);
                 summaries.add(summary);
                 if (summaryConsumer != null) {
                     summaryConsumer.accept(summary);

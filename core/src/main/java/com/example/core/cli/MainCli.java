@@ -58,6 +58,7 @@ public class MainCli implements Callable<Integer> {
     // Filter: only process these commits
     public static final List<String> HASHES = Arrays.asList(
         "00a7cc31784ac4a9cc27d506a73ae589d6df36d6",
+        "de20387b7a373cf20daa590247a1b65876ebca38",
         "067f5d2c81ff87c90755f4ed48f62eb5faa8ecf9",
         "07fad972bb884e9fa6143b4f870d08305811607d",
         "0abf7148300f40a1da0538ab060552bca4a2f1d8",
@@ -842,7 +843,7 @@ public class MainCli implements Callable<Integer> {
         }
         
         // Then check system environment variable (second priority)
-        String systemEnvPipelineType = System.getenv("REPAIR_PIPELINE");
+        String systemEnvPipelineType = envConfig.get("REPAIR_PIPELINE").orElse(null);
         if (systemEnvPipelineType != null && !systemEnvPipelineType.trim().isEmpty()) {
             String normalized = systemEnvPipelineType.trim().toLowerCase();
             if (normalized.equals("model") || normalized.equals("agent")) {

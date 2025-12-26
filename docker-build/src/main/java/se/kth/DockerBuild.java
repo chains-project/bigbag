@@ -8,6 +8,7 @@ import com.github.dockerjava.api.exception.NotFoundException;
 import com.github.dockerjava.api.exception.NotModifiedException;
 import com.github.dockerjava.api.model.AccessMode;
 import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.BuildResponseItem;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.StreamType;
@@ -20,6 +21,7 @@ import com.github.dockerjava.okhttp.OkDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
@@ -28,6 +30,7 @@ import se.kth.models.FailureCategory;
 import se.kth.models.Result;
 import se.kth.models.Attempt;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +58,7 @@ public class DockerBuild {
     private Boolean isBump = false;
 
     private int max_attempts = 1;
-    
+
     private boolean verbose = false;
 
     public DockerBuild(Boolean isBump, int max_attempts) {
@@ -68,13 +71,13 @@ public class DockerBuild {
         this.isBump = isBump;
         createDockerClient();
     }
-    
+
     public DockerBuild(Boolean isBump, boolean verbose) {
         this.isBump = isBump;
         this.verbose = verbose;
         createDockerClient();
     }
-    
+
     public DockerBuild(Boolean isBump, int max_attempts, boolean verbose) {
         this.isBump = isBump;
         this.verbose = verbose;
@@ -101,7 +104,8 @@ public class DockerBuild {
 
     /**
      * Helper method to safely stop and remove a Docker container.
-     * This method handles exceptions gracefully and logs warnings instead of throwing exceptions.
+     * This method handles exceptions gracefully and logs warnings instead of
+     * throwing exceptions.
      *
      * @param containerId the container ID to clean up
      */
@@ -123,11 +127,13 @@ public class DockerBuild {
 
     /**
      * Helper method to execute an operation within a temporary Docker container.
-     * The container is automatically cleaned up after the operation completes (success or failure).
+     * The container is automatically cleaned up after the operation completes
+     * (success or failure).
      *
      * @param dockerImage the Docker image to use for the container
-     * @param operation a function that receives the container ID and returns a result
-     * @param <T> the type of result returned by the operation
+     * @param operation   a function that receives the container ID and returns a
+     *                    result
+     * @param <T>         the type of result returned by the operation
      * @return the result of the operation, or null if the operation fails
      */
     private <T> T executeInContainer(String dockerImage, java.util.function.Function<String, T> operation) {
@@ -175,7 +181,7 @@ public class DockerBuild {
     }
 
     public Optional<String> createImageForRepositoryAtVersion(String baseImage, URL gitUrl, String versionTag,
-                                                              String imageName, Path outputPath) {
+            String imageName, Path outputPath) {
         String projectDirectoryName = "project";
         log.info("Creating container for {} with version {} in {}", gitUrl, versionTag, baseImage);
 
@@ -183,7 +189,7 @@ public class DockerBuild {
                 .withCmd("/bin/sh", "-c",
                         ("git clone --branch %s %s %s && cd %s && mvn test -B -l output.log -DtestFailureIgnore=true " +
                                 "-Dmaven.test.failure.ignore=true").formatted(versionTag,
-                                gitUrl, projectDirectoryName, projectDirectoryName))
+                                        gitUrl, projectDirectoryName, projectDirectoryName))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -406,11 +412,11 @@ public class DockerBuild {
                 .build();
 
         dockerClient = DockerClientImpl.getInstance(clientConfig, httpClient);
-        
+
         // Configure docker-java logger level based on verbose flag
         configureDockerJavaLogging();
     }
-    
+
     private void configureDockerJavaLogging() {
         try {
             LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -458,11 +464,12 @@ public class DockerBuild {
 
     /**
      * Starts a container with the project folder mounted as a volume.
-     * This allows file modifications on the host to be immediately available in the container.
+     * This allows file modifications on the host to be immediately available in the
+     * container.
      *
-     * @param cmd     the command to execute
-     * @param image   the Docker image to use
-     * @param client  the local project path to mount
+     * @param cmd    the command to execute
+     * @param image  the Docker image to use
+     * @param client the local project path to mount
      * @return the container ID
      */
     private String startContainerWithMount(String cmd, String image, Path client) {
@@ -471,22 +478,25 @@ public class DockerBuild {
     }
 
     /**
-     * Starts a container with the project folder mounted at the original container path.
-     * This ensures that changes made to the project are reflected inside the container.
+     * Starts a container with the project folder mounted at the original container
+     * path.
+     * This ensures that changes made to the project are reflected inside the
+     * container.
      *
-     * @param cmd the command to execute in the container
-     * @param image the Docker image to use
-     * @param client the local path to the project folder
-     * @param containerProjectPath the original path where the project was located in the container (e.g., "/project")
+     * @param cmd                  the command to execute in the container
+     * @param image                the Docker image to use
+     * @param client               the local path to the project folder
+     * @param containerProjectPath the original path where the project was located
+     *                             in the container (e.g., "/project")
      * @return the container ID
      */
     private String startContainerWithMount(String cmd, String image, Path client, String containerProjectPath) {
         Path absoluteClientPath = client.toAbsolutePath().normalize();
-        
+
         // Normalize container path (ensure it starts with /)
-        String normalizedContainerPath = containerProjectPath.startsWith("/") 
-            ? containerProjectPath 
-            : "/" + containerProjectPath;
+        String normalizedContainerPath = containerProjectPath.startsWith("/")
+                ? containerProjectPath
+                : "/" + containerProjectPath;
 
         HostConfig hostConfig = HostConfig.newHostConfig()
                 .withBinds(new Bind(
@@ -522,7 +532,7 @@ public class DockerBuild {
 
         String command = reproductionCommand.trim();
         String[] parts = command.split("\\s+");
-        
+
         // Look for docker run and find the image after it
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equals("docker") && i + 1 < parts.length && parts[i + 1].equals("run")) {
@@ -540,21 +550,21 @@ public class DockerBuild {
                 }
             }
         }
-        
+
         // If no "docker run" found, look for image-like strings
         for (String part : parts) {
             if ((part.contains("/") || part.contains(":")) && !part.startsWith("-") && !part.startsWith("/")) {
                 return part;
             }
         }
-        
+
         // Fallback: return the last non-flag token
         for (int i = parts.length - 1; i >= 0; i--) {
             if (!parts[i].startsWith("-") && !parts[i].startsWith("--")) {
                 return parts[i];
             }
         }
-        
+
         return null;
     }
 
@@ -625,17 +635,21 @@ public class DockerBuild {
     }
 
     /**
-     * Reproduces a breaking update by building the project in a container with volume mount.
-     * The project folder is mounted at the original container path to ensure changes are reflected.
+     * Reproduces a breaking update by building the project in a container with
+     * volume mount.
+     * The project folder is mounted at the original container path to ensure
+     * changes are reflected.
      *
-     * @param image the Docker image to use
-     * @param failureCategory the expected failure category
-     * @param client the local path to the project folder
-     * @param logFile the path where the build log will be saved
-     * @param containerProjectPath the original path where the project was located in the container (e.g., "/project")
+     * @param image                the Docker image to use
+     * @param failureCategory      the expected failure category
+     * @param client               the local path to the project folder
+     * @param logFile              the path where the build log will be saved
+     * @param containerProjectPath the original path where the project was located
+     *                             in the container (e.g., "/project")
      * @return the build result
      */
-    public Result reproduceWithMount(String image, FailureCategory failureCategory, Path client, Path logFile, String containerProjectPath) {
+    public Result reproduceWithMount(String image, FailureCategory failureCategory, Path client, Path logFile,
+            String containerProjectPath) {
         Result breakingUpdateReproductionResult = new Result(failureCategory);
         Map<String, String> startedContainers = new HashMap<>();
 
@@ -651,11 +665,12 @@ public class DockerBuild {
             boolean success = exitCode != null && exitCode.intValue() == EXIT_CODE_OK;
 
             // Copy log file from mounted volume (it's already on the host)
-            // The log file is created inside the container at containerProjectPath/mavenLog.log
+            // The log file is created inside the container at
+            // containerProjectPath/mavenLog.log
             // Since we mounted the project folder, it's directly accessible on the host
             Path containerLogPath = client.resolve("mavenLog.log");
             boolean logCopied = false;
-            
+
             if (Files.exists(containerLogPath)) {
                 try {
                     Files.copy(containerLogPath, logFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
@@ -665,22 +680,25 @@ public class DockerBuild {
                     log.error("Could not copy log file from mounted volume", e);
                 }
             } else {
-                log.warn("Log file not found at expected location: {}. Attempting fallback copy from container...", containerLogPath);
+                log.warn("Log file not found at expected location: {}. Attempting fallback copy from container...",
+                        containerLogPath);
             }
-            
-            // Fallback: If log file doesn't exist in mounted volume, try to copy from container
+
+            // Fallback: If log file doesn't exist in mounted volume, try to copy from
+            // container
             // This handles cases where the command failed before creating the log file,
             // or if there were permission issues writing to the mounted volume
             if (!logCopied) {
                 try {
                     // Use the containerProjectPath to construct the correct log path in container
-                    String normalizedContainerPath = containerProjectPath.startsWith("/") 
-                        ? containerProjectPath 
-                        : "/" + containerProjectPath;
+                    String normalizedContainerPath = containerProjectPath.startsWith("/")
+                            ? containerProjectPath
+                            : "/" + containerProjectPath;
                     String logLocationInContainer = normalizedContainerPath + "/mavenLog.log";
-                    
+
                     // Try to copy log directly from container using the correct path
-                    try (InputStream logStream = dockerClient.copyArchiveFromContainerCmd(containerId, logLocationInContainer).exec()) {
+                    try (InputStream logStream = dockerClient
+                            .copyArchiveFromContainerCmd(containerId, logLocationInContainer).exec()) {
                         byte[] fileContent = logStream.readAllBytes();
                         Files.createDirectories(logFile.getParent());
                         Files.write(logFile, fileContent);
@@ -689,14 +707,16 @@ public class DockerBuild {
                     }
                 } catch (Exception e) {
                     log.error("Could not copy log file from container (fallback): {}", e.getMessage());
-                    // Create a placeholder log file to indicate the attempt was made but log is unavailable
+                    // Create a placeholder log file to indicate the attempt was made but log is
+                    // unavailable
                     try {
                         Files.createDirectories(logFile.getParent());
-                        Files.write(logFile, ("[ERROR] Log file could not be retrieved from container or mounted volume.\n" +
-                                "Container ID: " + containerId + "\n" +
-                                "Container path: " + containerProjectPath + "\n" +
-                                "Exit code: " + exitCode + "\n" +
-                                "Error: " + e.getMessage() + "\n").getBytes());
+                        Files.write(logFile,
+                                ("[ERROR] Log file could not be retrieved from container or mounted volume.\n" +
+                                        "Container ID: " + containerId + "\n" +
+                                        "Container path: " + containerProjectPath + "\n" +
+                                        "Exit code: " + exitCode + "\n" +
+                                        "Error: " + e.getMessage() + "\n").getBytes());
                     } catch (IOException ioException) {
                         log.error("Could not create placeholder log file", ioException);
                     }
@@ -711,7 +731,7 @@ public class DockerBuild {
             } else {
                 log.info("Breaking commit succeeded in the {} attempt.", attemptCount);
                 breakingUpdateReproductionResult.getAttempts()
-                        .add(new Attempt(attemptCount, FailureCategory.BUILD_SUCCESS, 
+                        .add(new Attempt(attemptCount, FailureCategory.BUILD_SUCCESS,
                                 logFile.getParent().toString(), true));
             }
         }
@@ -849,18 +869,19 @@ public class DockerBuild {
 
     /**
      * Copies only the JAR file from a TAR archive, ignoring directory structure.
-     * This method extracts only the specific JAR file and writes it directly to the output path.
+     * This method extracts only the specific JAR file and writes it directly to the
+     * output path.
      *
-     * @param outputPath the path where the JAR file should be written
+     * @param outputPath  the path where the JAR file should be written
      * @param jarFileName the expected JAR file name (e.g., "artifact-version.jar")
-     * @param tarStream the TAR archive input stream from Docker
+     * @param tarStream   the TAR archive input stream from Docker
      * @throws IOException if there's an error reading or writing the file
      */
     private void copyJarFile(Path outputPath, String jarFileName, InputStream tarStream) throws IOException {
         try (TarArchiveInputStream archiveStream = new TarArchiveInputStream(tarStream)) {
             TarArchiveEntry entry;
             boolean jarFound = false;
-            
+
             while ((entry = archiveStream.getNextTarEntry()) != null) {
                 if (!entry.isDirectory()) {
                     String entryName = entry.getName();
@@ -872,18 +893,19 @@ public class DockerBuild {
                         if (outputPath.getParent() != null) {
                             Files.createDirectories(outputPath.getParent());
                         }
-                        
+
                         // Read the JAR file content and write it to the output path
                         // Only copy this specific JAR file, not the directory structure
                         byte[] fileContent = archiveStream.readAllBytes();
-                        Files.write(outputPath, fileContent, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                        Files.write(outputPath, fileContent, StandardOpenOption.CREATE,
+                                StandardOpenOption.TRUNCATE_EXISTING);
                         jarFound = true;
                         log.debug("Extracted JAR file: {} -> {}", entryName, outputPath);
                         break; // Found the JAR, no need to continue
                     }
                 }
             }
-            
+
             if (!jarFound) {
                 throw new IOException("JAR file " + jarFileName + " not found in TAR archive");
             }
@@ -983,32 +1005,42 @@ public class DockerBuild {
     }
 
     /**
-     * Extracts project and m2 folder from a Docker image and saves them to a local directory.
+     * Extracts project and m2 folder from a Docker image and saves them to a local
+     * directory.
      * Creates a folder named after the breakingCommit.
-     * If the directory already exists and contains content, skips extraction (unless force is true).
+     * If the directory already exists and contains content, skips extraction
+     * (unless force is true).
      *
-     * @param dockerImage the Docker image to extract from
-     * @param projectPath the path to the project inside the container (e.g., "/project")
-     * @param outputBaseDir the base directory where the breakingCommit folder will be created
+     * @param dockerImage    the Docker image to extract from
+     * @param projectPath    the path to the project inside the container (e.g.,
+     *                       "/project")
+     * @param outputBaseDir  the base directory where the breakingCommit folder will
+     *                       be created
      * @param breakingCommit the breaking commit hash (used as folder name)
      * @return the path to the created directory containing the project and m2
      */
-    public Path extractProjectAndM2FromImage(String dockerImage, String projectPath, Path outputBaseDir, String breakingCommit) {
+    public Path extractProjectAndM2FromImage(String dockerImage, String projectPath, Path outputBaseDir,
+            String breakingCommit) {
         return extractProjectAndM2FromImage(dockerImage, projectPath, outputBaseDir, breakingCommit, false);
     }
 
     /**
-     * Extracts project and m2 folder from a Docker image and saves them to a local directory.
+     * Extracts project and m2 folder from a Docker image and saves them to a local
+     * directory.
      * Creates a folder named after the breakingCommit.
      *
-     * @param dockerImage the Docker image to extract from
-     * @param projectPath the path to the project inside the container (e.g., "/project")
-     * @param outputBaseDir the base directory where the breakingCommit folder will be created
+     * @param dockerImage    the Docker image to extract from
+     * @param projectPath    the path to the project inside the container (e.g.,
+     *                       "/project")
+     * @param outputBaseDir  the base directory where the breakingCommit folder will
+     *                       be created
      * @param breakingCommit the breaking commit hash (used as folder name)
-     * @param force if true, overwrites existing directory; if false, skips if directory exists and has content
+     * @param force          if true, overwrites existing directory; if false, skips
+     *                       if directory exists and has content
      * @return the path to the created directory containing the project and m2
      */
-    public Path extractProjectAndM2FromImage(String dockerImage, String projectPath, Path outputBaseDir, String breakingCommit, boolean force) {
+    public Path extractProjectAndM2FromImage(String dockerImage, String projectPath, Path outputBaseDir,
+            String breakingCommit, boolean force) {
         try {
             // Create output directory with breakingCommit name
             Path outputDir = outputBaseDir.resolve(breakingCommit);
@@ -1046,16 +1078,18 @@ public class DockerBuild {
                     Files.createDirectories(projectOutputDir);
                     log.info("Extracting project from {} to {}", projectPath, projectOutputDir);
 
-                    try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, projectPath).exec()) {
+                    try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, projectPath)
+                            .exec()) {
                         copyFiles(projectOutputDir, projectStream);
                         log.info("Project extracted successfully");
                     } catch (Exception e) {
                         log.warn("Could not extract project from {}, trying common paths", projectPath, e);
                         // Try common project paths
-                        String[] commonPaths = {"/project", "/app", "/workspace", "/code", "/src"};
+                        String[] commonPaths = { "/project", "/app", "/workspace", "/code", "/src" };
                         boolean extracted = false;
                         for (String commonPath : commonPaths) {
-                            try (InputStream projectStream = dockerClient.copyArchiveFromContainerCmd(containerId, commonPath).exec()) {
+                            try (InputStream projectStream = dockerClient
+                                    .copyArchiveFromContainerCmd(containerId, commonPath).exec()) {
                                 copyFiles(projectOutputDir, projectStream);
                                 log.info("Project extracted from {}", commonPath);
                                 extracted = true;
@@ -1075,16 +1109,18 @@ public class DockerBuild {
                     Files.createDirectories(m2OutputDir);
                     log.info("Extracting m2 folder to {}", m2OutputDir);
 
-                    try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, "/root/.m2").exec()) {
+                    try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, "/root/.m2")
+                            .exec()) {
                         copyFiles(m2OutputDir, m2Stream);
                         log.info("M2 folder extracted successfully");
                     } catch (Exception e) {
                         log.warn("Could not extract m2 from /root/.m2, trying alternative locations", e);
                         // Try alternative m2 locations
-                        String[] m2Paths = {"/home/user/.m2", "/.m2"};
+                        String[] m2Paths = { "/home/user/.m2", "/.m2" };
                         boolean extracted = false;
                         for (String m2Path : m2Paths) {
-                            try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, m2Path).exec()) {
+                            try (InputStream m2Stream = dockerClient.copyArchiveFromContainerCmd(containerId, m2Path)
+                                    .exec()) {
                                 copyFiles(m2OutputDir, m2Stream);
                                 log.info("M2 folder extracted from {}", m2Path);
                                 extracted = true;
@@ -1121,13 +1157,14 @@ public class DockerBuild {
      * Extracts a specific JAR file from a Docker container's Maven repository.
      *
      * @param containerId the container ID
-     * @param groupId the Maven group ID
-     * @param artifactId the Maven artifact ID
-     * @param version the version of the artifact
-     * @param outputPath the local path where the JAR should be saved
+     * @param groupId     the Maven group ID
+     * @param artifactId  the Maven artifact ID
+     * @param version     the version of the artifact
+     * @param outputPath  the local path where the JAR should be saved
      * @return true if extraction was successful, false otherwise
      */
-    public boolean extractJarFromContainer(String containerId, String groupId, String artifactId, String version, Path outputPath) {
+    public boolean extractJarFromContainer(String containerId, String groupId, String artifactId, String version,
+            Path outputPath) {
         try {
             // Check if JAR already exists before downloading
             if (Files.exists(outputPath)) {
@@ -1135,10 +1172,12 @@ public class DockerBuild {
                 return true;
             }
 
-            // Build Maven repository path: /root/.m2/repository/group/artifact/version/artifact-version.jar
+            // Build Maven repository path:
+            // /root/.m2/repository/group/artifact/version/artifact-version.jar
             String groupPath = groupId.replace(".", "/");
             String jarFileName = "%s-%s.jar".formatted(artifactId, version);
-            String jarPathInContainer = "/root/.m2/repository/%s/%s/%s/%s".formatted(groupPath, artifactId, version, jarFileName);
+            String jarPathInContainer = "/root/.m2/repository/%s/%s/%s/%s".formatted(groupPath, artifactId, version,
+                    jarFileName);
 
             log.info("Extracting JAR from container: {}", jarPathInContainer);
 
@@ -1147,17 +1186,20 @@ public class DockerBuild {
                 Files.createDirectories(outputPath.getParent());
             }
 
-            try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, jarPathInContainer).exec()) {
+            try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, jarPathInContainer)
+                    .exec()) {
                 copyJarFile(outputPath, jarFileName, jarStream);
                 log.info("JAR extracted successfully to: {}", outputPath);
                 return true;
             } catch (Exception e) {
                 log.warn("Could not extract JAR from {}, trying alternative locations", jarPathInContainer, e);
                 // Try alternative Maven repository locations
-                String[] m2BasePaths = {"/root/.m2", "/home/user/.m2", "/.m2"};
+                String[] m2BasePaths = { "/root/.m2", "/home/user/.m2", "/.m2" };
                 for (String m2Base : m2BasePaths) {
-                    String altJarPath = "%s/repository/%s/%s/%s/%s".formatted(m2Base, groupPath, artifactId, version, jarFileName);
-                    try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, altJarPath).exec()) {
+                    String altJarPath = "%s/repository/%s/%s/%s/%s".formatted(m2Base, groupPath, artifactId, version,
+                            jarFileName);
+                    try (InputStream jarStream = dockerClient.copyArchiveFromContainerCmd(containerId, altJarPath)
+                            .exec()) {
                         copyJarFile(outputPath, jarFileName, jarStream);
                         log.info("JAR extracted from alternative location: {}", altJarPath);
                         return true;
@@ -1176,16 +1218,18 @@ public class DockerBuild {
 
     /**
      * Extracts a single JAR file from a Docker image's m2 repository.
-     * This is a convenience method for extracting a single JAR without needing to handle both previous and new versions.
+     * This is a convenience method for extracting a single JAR without needing to
+     * handle both previous and new versions.
      *
-     * @param dockerImage the Docker image containing the JAR
-     * @param groupId the Maven group ID
-     * @param artifactId the Maven artifact ID
-     * @param version the version of the JAR to extract
+     * @param dockerImage   the Docker image containing the JAR
+     * @param groupId       the Maven group ID
+     * @param artifactId    the Maven artifact ID
+     * @param version       the version of the JAR to extract
      * @param outputBaseDir the base directory where JAR will be saved
      * @return the path to the extracted JAR, or null if extraction failed
      */
-    public Path extractJarFromImage(String dockerImage, String groupId, String artifactId, String version, Path outputBaseDir) {
+    public Path extractJarFromImage(String dockerImage, String groupId, String artifactId, String version,
+            Path outputBaseDir) {
         if (version == null || version.trim().isEmpty()) {
             log.warn("Version is null or empty, cannot extract JAR");
             return null;
@@ -1205,26 +1249,29 @@ public class DockerBuild {
     }
 
     /**
-     * Extracts specific dependency JARs (previous and new versions) from Docker images.
+     * Extracts specific dependency JARs (previous and new versions) from Docker
+     * images.
      * Useful for API diff analysis.
      *
-     * @param dockerImage the Docker image containing the JARs
-     * @param groupId the Maven group ID
-     * @param artifactId the Maven artifact ID
+     * @param dockerImage     the Docker image containing the JARs
+     * @param groupId         the Maven group ID
+     * @param artifactId      the Maven artifact ID
      * @param previousVersion the previous version
-     * @param newVersion the new version
-     * @param outputBaseDir the base directory where JARs will be saved
-     * @return a map with keys "previous" and "new" containing the paths to extracted JARs, or null if extraction failed
+     * @param newVersion      the new version
+     * @param outputBaseDir   the base directory where JARs will be saved
+     * @return a map with keys "previous" and "new" containing the paths to
+     *         extracted JARs, or null if extraction failed
      */
-    public Map<String, Path> extractDependencyJars(String dockerImage, String groupId, String artifactId, 
-                                                     String previousVersion, String newVersion, Path outputBaseDir) {
+    public Map<String, Path> extractDependencyJars(String dockerImage, String groupId, String artifactId,
+            String previousVersion, String newVersion, Path outputBaseDir) {
         Map<String, Path> result = executeInContainer(dockerImage, containerId -> {
             Map<String, Path> jarPaths = new HashMap<>();
-            
+
             // Extract previous version JAR
             if (previousVersion != null && !previousVersion.trim().isEmpty()) {
                 Path previousJarPath = outputBaseDir.resolve("%s-%s.jar".formatted(artifactId, previousVersion));
-                boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, previousVersion, previousJarPath);
+                boolean extracted = extractJarFromContainer(containerId, groupId, artifactId, previousVersion,
+                        previousJarPath);
                 if (extracted) {
                     jarPaths.put("previous", previousJarPath);
                 }
@@ -1244,5 +1291,406 @@ public class DockerBuild {
 
         return (result != null && !result.isEmpty()) ? result : null;
     }
-}
 
+    /**
+     * Ensures that a Docker image exists, building it from Dockerfile if it doesn't
+     * exist.
+     * 
+     * @param imageName      the name of the Docker image (e.g.,
+     *                       "agent-base:latest")
+     * @param dockerfilePath path to the Dockerfile
+     * @throws InterruptedException if the build process is interrupted
+     * @throws IOException          if there's an error reading the Dockerfile
+     */
+    public void ensureImageExistsOrBuildFromDockerfile(String imageName, Path dockerfilePath)
+            throws InterruptedException, IOException {
+        try {
+            dockerClient.inspectImageCmd(imageName).exec();
+            if (verbose) {
+                log.info("Docker image {} already exists, skipping build", imageName);
+            }
+        } catch (NotFoundException e) {
+            // Image doesn't exist, build from Dockerfile
+            if (verbose) {
+                log.info("Docker image {} not found, building from Dockerfile: {}", imageName, dockerfilePath);
+            }
+
+            if (!Files.exists(dockerfilePath)) {
+                throw new IOException("Dockerfile not found at: " + dockerfilePath);
+            }
+
+            Path dockerfileDir = dockerfilePath.getParent();
+
+            // Parse image name to extract tag
+            String[] imageParts = imageName.split(":");
+            String repository = imageParts[0];
+            String tag = imageParts.length > 1 ? imageParts[1] : "latest";
+
+            // Build image from Dockerfile
+            BuildImageResultCallback callback = new BuildImageResultCallback() {
+                @Override
+                public void onNext(BuildResponseItem item) {
+                    if (item.getStream() != null && verbose) {
+                        log.debug("Build output: {}", item.getStream().trim());
+                    }
+                    super.onNext(item);
+                }
+            };
+
+            try (InputStream dockerfileTar = buildTarInputStream(dockerfileDir)) {
+                String imageId = dockerClient.buildImageCmd(dockerfileTar)
+                        .withTag(imageName)
+                        .exec(callback)
+                        .awaitImageId();
+
+                if (verbose) {
+                    log.info("Successfully built Docker image {} with ID: {}", imageName, imageId);
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a TAR input stream containing the Dockerfile for building.
+     */
+    private InputStream buildTarInputStream(Path dockerfileDir) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (TarArchiveOutputStream tarOut = new TarArchiveOutputStream(baos)) {
+            tarOut.setLongFileMode(TarArchiveOutputStream.LONGFILE_POSIX);
+
+            // Add Dockerfile
+            Path dockerfile = dockerfileDir.resolve("Dockerfile");
+            if (Files.exists(dockerfile)) {
+                TarArchiveEntry entry = new TarArchiveEntry(dockerfile.toFile(), "Dockerfile");
+                tarOut.putArchiveEntry(entry);
+                Files.copy(dockerfile, tarOut);
+                tarOut.closeArchiveEntry();
+            }
+
+            tarOut.finish();
+        }
+        return new ByteArrayInputStream(baos.toByteArray());
+    }
+
+    /**
+     * Finds the m2 folder path relative to the project directory.
+     * When extractProjectAndM2FromImage extracts, it saves m2 to extractedDir/m2.
+     * This method looks for m2 in the parent directory of projectDir.
+     * 
+     * @param projectDir the project directory path
+     * @return the path to the m2 folder if found, null otherwise
+     */
+    public Path findM2Folder(Path projectDir) {
+        if (projectDir == null) {
+            return null;
+        }
+        
+        Path parentDir = projectDir.getParent();
+        if (parentDir != null) {
+            Path m2Direct = parentDir.resolve("m2");
+            
+            // Check if m2 directory exists (this contains the .m2 repository content)
+            if (Files.exists(m2Direct) && Files.isDirectory(m2Direct)) {
+                log.info("M2 folder found at: {}", m2Direct);
+                return m2Direct;
+            }
+        }
+        
+        log.debug("M2 folder not found at {}", parentDir != null ? parentDir.resolve("m2") : "unknown");
+        return null;
+    }
+    
+    /**
+     * Adds m2 folder mount to the list of binds if the m2 folder exists.
+     * Handles multiple possible structures when copying from container:
+     * 1. m2Folder/.m2/repository/... (when TAR contains .m2/repository/...)
+     * 2. m2Folder/root/.m2/repository/... (when TAR contains root/.m2/repository/...)
+     * 3. m2Folder/repository/... (when TAR contains repository/... directly)
+     * 
+     * @param binds the list of binds to add to
+     * @param m2Folder the path to the m2 folder (can be null)
+     */
+    public void addM2MountIfExists(List<Bind> binds, Path m2Folder) {
+        if (m2Folder != null && Files.exists(m2Folder) && Files.isDirectory(m2Folder)) {
+            Path mountPath = null;
+            
+            // Check for m2Folder/.m2/repository (most common case)
+            Path m2DotM2 = m2Folder.resolve(".m2");
+            if (Files.exists(m2DotM2) && Files.isDirectory(m2DotM2)) {
+                mountPath = m2DotM2;
+                log.info("Found .m2 subdirectory in m2 folder");
+            } else {
+                // Check for m2Folder/root/.m2/repository (when TAR preserves root/.m2 path)
+                Path rootDotM2 = m2Folder.resolve("root/.m2");
+                if (Files.exists(rootDotM2) && Files.isDirectory(rootDotM2)) {
+                    mountPath = rootDotM2;
+                    log.info("Found root/.m2 subdirectory in m2 folder");
+                } else {
+                    // Check if m2Folder contains repository directly
+                    Path repository = m2Folder.resolve("repository");
+                    if (Files.exists(repository) && Files.isDirectory(repository)) {
+                        mountPath = m2Folder;
+                        log.info("Found repository directory directly in m2 folder");
+                    }
+                }
+            }
+            
+            if (mountPath != null) {
+                binds.add(new Bind(
+                        mountPath.toAbsolutePath().toString(),
+                        new Volume("/root/.m2"),
+                        AccessMode.rw));
+                log.info("M2 folder will be mounted: {} -> /root/.m2", mountPath);
+            } else {
+                log.warn("M2 folder structure not recognized at {}. Expected one of: .m2/, root/.m2/, or repository/. Maven will use default repository.", m2Folder);
+            }
+        } else {
+            log.info("M2 folder not provided or does not exist. Maven will use default repository.");
+        }
+    }
+
+    /**
+     * Executes a Maven command (e.g., 'mvn compile') in a Docker container by mounting
+     * the project as a volume and running the command with environment variables.
+     * The console output (stdout and stderr) is exported to a log file.
+     * 
+     * This is similar to running: gemini --yolo "execute 'mvn compile'"
+     * 
+     * IMPORTANT: This method creates a NEW container for each execution and cleans it up afterwards.
+     * If you need to execute multiple commands in the same container, consider using
+     * startSpinningContainer() + executeInContainer() + manual cleanup, or use reproduceWithMount()
+     * which is designed for iterative build workflows.
+     * 
+     * @param dockerImage          the Docker image to use for the container
+     * @param projectDir           the local path to the project directory to mount
+     * @param containerWorkDir     the working directory path inside the container (e.g., "/workspace")
+     * @param mavenCommand         the Maven command to execute (e.g., "mvn compile")
+     * @param logFile              the local path where the log file should be saved
+     * @param environmentVariables map of environment variables to set in the container (can be null)
+     * @param m2Folder             optional path to the m2 folder to mount (can be null)
+     * @return true if the command executed successfully (exit code 0), false otherwise
+     */
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
+                                                   String containerWorkDir, String mavenCommand, 
+                                                   Path logFile, Map<String, String> environmentVariables,
+                                                   Path m2Folder) {
+        String containerId = null;
+        try {
+            // Ensure base image exists
+            ensureBaseMavenImageExists(dockerImage);
+            
+            // Normalize container work directory (ensure it starts with /)
+            String normalizedWorkDir = containerWorkDir.startsWith("/") 
+                    ? containerWorkDir 
+                    : "/" + containerWorkDir;
+            
+            Path absoluteProjectPath = projectDir.toAbsolutePath().normalize();
+            
+            // Prepare volume binds - always mount the project
+            List<Bind> binds = new ArrayList<>();
+            binds.add(new Bind(
+                    absoluteProjectPath.toString(),
+                    new Volume(normalizedWorkDir),
+                    AccessMode.rw));
+            
+            // Add m2 folder mount if provided
+            addM2MountIfExists(binds, m2Folder);
+            
+            // Create host config with volume mounts
+            HostConfig hostConfig = HostConfig.newHostConfig()
+                    .withBinds(binds);
+            
+            // Build container creation command
+            // Use sleep infinity to keep container alive indefinitely until we explicitly stop it
+            // This prevents the container from stopping before the exec command completes
+            CreateContainerCmd createCmd = dockerClient.createContainerCmd(dockerImage)
+                    .withHostConfig(hostConfig)
+                    .withWorkingDir("/")  // Set working dir to root initially
+                    .withCmd("sh", "-c", "sleep infinity");  // Keep container alive indefinitely
+            
+            // Add environment variables if provided
+            if (environmentVariables != null && !environmentVariables.isEmpty()) {
+                List<String> envList = new ArrayList<>();
+                for (Map.Entry<String, String> entry : environmentVariables.entrySet()) {
+                    envList.add(entry.getKey() + "=" + entry.getValue());
+                }
+                createCmd.withEnv(envList);
+                log.info("Setting {} environment variables in container", environmentVariables.size());
+            }
+            
+            // Create container
+            CreateContainerResponse container = createCmd.exec();
+            containerId = container.getId();
+            log.info("Created container {} for Maven command execution (project mounted at {})", 
+                    containerId, normalizedWorkDir);
+            
+            // Start the container
+            dockerClient.startContainerCmd(containerId).exec();
+            log.info("Started container {}", containerId);
+            
+            // Execute maven command in the work directory (project folder)
+            // The command will cd to the work directory (which contains the project) and run maven, capturing output to log file
+            String setupAndRunCommand = String.format(
+                "cd %s && %s 2>&1 | tee mavenCompile.log",
+                normalizedWorkDir,
+                mavenCommand
+            );
+            
+            log.info("Will execute command in directory: {}", normalizedWorkDir);
+            
+            log.info("Executing Maven command: {} in container", mavenCommand);
+            ExecCreateCmdResponse execResponse = dockerClient.execCreateCmd(containerId)
+                    .withCmd("sh", "-c", setupAndRunCommand)
+                    .withAttachStdout(true)
+                    .withAttachStderr(true)
+                    .exec();
+            
+            // Capture output
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            dockerClient.execStartCmd(execResponse.getId())
+                    .exec(new ResultCallback.Adapter<Frame>() {
+                        @Override
+                        public void onNext(Frame item) {
+                            if (item.getStreamType() == StreamType.STDOUT || 
+                                item.getStreamType() == StreamType.STDERR) {
+                                try {
+                                    outputStream.write(item.getPayload());
+                                } catch (Exception e) {
+                                    log.error("Error capturing output", e);
+                                }
+                            }
+                        }
+                    })
+                    .awaitCompletion();
+            
+            // Wait for the exec command to complete and get exit code
+            InspectExecResponse execInspect = dockerClient.inspectExecCmd(execResponse.getId()).exec();
+            Integer exitCode = execInspect.getExitCode();
+            boolean success = exitCode != null && exitCode == EXIT_CODE_OK;
+            
+            log.info("Maven command execution completed with exit code: {}", exitCode);
+            
+            // Copy the log file from container (or read from mounted volume)
+            String logPathInContainer = normalizedWorkDir + "/mavenCompile.log";
+            boolean logCopied = false;
+            
+            // Try to read log from mounted volume first (faster and more reliable)
+            Path logFileOnHost = absoluteProjectPath.resolve("mavenCompile.log");
+            if (Files.exists(logFileOnHost)) {
+                try {
+                    // Only create parent directories if logFile has a parent (i.e., is not a relative path)
+                    if (logFile.getParent() != null) {
+                        Files.createDirectories(logFile.getParent());
+                    }
+                    Files.copy(logFileOnHost, logFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    log.info("Log file copied from mounted volume to {}", logFile);
+                    logCopied = true;
+                } catch (IOException e) {
+                    log.warn("Could not copy log file from mounted volume: {}", e.getMessage());
+                }
+            }
+            
+            // Fallback: try to copy log file from container
+            if (!logCopied) {
+                try {
+                    try (InputStream logStream = dockerClient
+                            .copyArchiveFromContainerCmd(containerId, logPathInContainer).exec()) {
+                        
+                        // Only create parent directories if logFile has a parent (i.e., is not a relative path)
+                        if (logFile.getParent() != null) {
+                            Files.createDirectories(logFile.getParent());
+                        }
+                        
+                        // Extract the log file from the TAR archive
+                        try (TarArchiveInputStream tarStream = new TarArchiveInputStream(logStream)) {
+                            TarArchiveEntry entry;
+                            while ((entry = tarStream.getNextTarEntry()) != null) {
+                                if (!entry.isDirectory()) {
+                                    String entryName = entry.getName();
+                                    // Check if this is the log file (could be at various paths in TAR)
+                                    if (entryName.endsWith("mavenCompile.log") || 
+                                        entryName.equals("mavenCompile.log") ||
+                                        entryName.endsWith(normalizedWorkDir + "/mavenCompile.log")) {
+                                        byte[] logContent = tarStream.readAllBytes();
+                                        Files.write(logFile, logContent, StandardOpenOption.CREATE, 
+                                                   StandardOpenOption.TRUNCATE_EXISTING);
+                                        log.info("Log file copied from container to {}", logFile);
+                                        logCopied = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    log.warn("Could not copy log file from container: {}. Using captured output instead.", 
+                            e.getMessage());
+                }
+            }
+            
+            // Final fallback: if log file couldn't be copied, write the captured output
+            if (!logCopied) {
+                try {
+                    // Only create parent directories if logFile has a parent (i.e., is not a relative path)
+                    if (logFile.getParent() != null) {
+                        Files.createDirectories(logFile.getParent());
+                    }
+                    String output = outputStream.toString(StandardCharsets.UTF_8);
+                    Files.write(logFile, output.getBytes(StandardCharsets.UTF_8), 
+                               StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                    log.info("Log file created from captured output at {}", logFile);
+                } catch (IOException e) {
+                    log.error("Could not write log file", e);
+                }
+            }
+            
+            return success;
+            
+        } catch (Exception e) {
+            log.error("Error executing Maven command in container", e);
+            // Try to save error to log file
+            try {
+                // Only create parent directories if logFile has a parent (i.e., is not a relative path)
+                if (logFile != null && logFile.getParent() != null) {
+                    Files.createDirectories(logFile.getParent());
+                }
+                if (logFile != null) {
+                    String errorMsg = String.format("[ERROR] Failed to execute Maven command: %s%nError: %s%n", 
+                                                   mavenCommand, e.getMessage());
+                    Files.write(logFile, errorMsg.getBytes(StandardCharsets.UTF_8), 
+                               StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                }
+            } catch (IOException ioException) {
+                log.error("Could not write error log file", ioException);
+            }
+            return false;
+        } finally {
+            // Clean up container
+            if (containerId != null) {
+                // cleanupContainer(containerId);
+            }
+        }
+    }
+    
+    /**
+     * Overload version without m2 folder for backward compatibility.
+     */
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
+                                                   String containerWorkDir, String mavenCommand, 
+                                                   Path logFile, Map<String, String> environmentVariables) {
+        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir, 
+                                             mavenCommand, logFile, environmentVariables, null);
+    }
+    
+    /**
+     * Overload version without environment variables and m2 folder for backward compatibility.
+     */
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
+                                                   String containerWorkDir, String mavenCommand, 
+                                                   Path logFile) {
+        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir, 
+                                             mavenCommand, logFile, null, null);
+    }
+
+    
+}
