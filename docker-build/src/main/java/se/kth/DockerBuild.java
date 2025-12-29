@@ -40,6 +40,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
@@ -1929,6 +1930,186 @@ public class DockerBuild {
             Path logFile) {
         return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir,
                 mavenCommand, logFile, null, null, this.verbose);
+    }
+
+    /**
+     * Executes a Maven command in a container with a workspace structure.
+     * Mounts:
+     * - Workspace directory at /workspace (contains spoon-base-template)
+     * - Project directory at /workspace/{projectName}/ (mounted directly from branch)
+     * - Spoon API docs at /workspace/api-docs/ (if provided)
+     * - M2 folder at /root/.m2 (if provided)
+     *
+     * @param dockerImage the Docker image to use
+     * @param workspaceDir the workspace directory (contains spoon-base-template)
+     * @param projectDir the project directory (already in correct branch)
+     * @param projectName the project name (used for mount path)
+     * @param containerWorkDir the base working directory in container (e.g., /workspace)
+     * @param mavenCommand the command to execute
+     * @param logFile the log file path on host
+     * @param environmentVariables environment variables to set
+     * @param m2Folder the M2 folder to mount (optional)
+     * @param spoonDocsFolder the Spoon API docs folder to mount (optional)
+     * @param verbose whether to enable verbose logging
+     * @return true if command succeeded, false otherwise
+     */
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            boolean verbose) {
+        String containerId = null;
+        try {
+            ensureBaseMavenImageExists(dockerImage);
+
+            String normalizedWorkDir = containerWorkDir.startsWith("/") ? containerWorkDir : "/" + containerWorkDir;
+            Path absoluteWorkspacePath = workspaceDir.toAbsolutePath().normalize();
+            Path absoluteProjectPath = projectDir.toAbsolutePath().normalize();
+
+            // 1. Configure volume mounts
+            List<Bind> binds = new ArrayList<>();
+            
+            // Mount workspace at /workspace (contains spoon-base-template)
+            binds.add(new Bind(absoluteWorkspacePath.toString(), new Volume(normalizedWorkDir), AccessMode.rw));
+            
+            // Mount project at /workspace/{projectName}/ (nested mount inside workspace)
+            String projectMountPath = normalizedWorkDir + "/" + projectName;
+            binds.add(new Bind(absoluteProjectPath.toString(), new Volume(projectMountPath), AccessMode.rw));
+            
+            // Add M2 mount if provided
+            addM2MountIfExists(binds, m2Folder);
+            
+            // Add Spoon documentation mount if provided (mount it in the workspace/api-docs)
+            if (spoonDocsFolder != null && Files.exists(spoonDocsFolder) && Files.isDirectory(spoonDocsFolder)) {
+                String spoonDocsMountPath = normalizedWorkDir + "/api-docs";
+                binds.add(new Bind(
+                        spoonDocsFolder.toAbsolutePath().toString(),
+                        new Volume(spoonDocsMountPath),
+                        AccessMode.ro)); // Read-only mount for documentation
+                log.info("Spoon documentation will be mounted: {} -> {}", spoonDocsFolder, spoonDocsMountPath);
+            }
+
+            HostConfig hostConfig = HostConfig.newHostConfig().withBinds(binds);
+
+            // 2. Create container (sleep infinity strategy)
+            CreateContainerCmd createCmd = dockerClient.createContainerCmd(dockerImage)
+                    .withHostConfig(hostConfig)
+                    .withWorkingDir("/")
+                    .withCmd("sh", "-c", "sleep infinity");
+
+            if (environmentVariables != null && !environmentVariables.isEmpty()) {
+                List<String> envList = new ArrayList<>();
+                for (Map.Entry<String, String> entry : environmentVariables.entrySet()) {
+                    envList.add(entry.getKey() + "=" + entry.getValue());
+                }
+                createCmd.withEnv(envList);
+            }
+
+            CreateContainerResponse container = createCmd.exec();
+            containerId = container.getId();
+            log.info("Created container {} for execution with workspace structure", containerId);
+
+            dockerClient.startContainerCmd(containerId).exec();
+
+            // 3. Prepare command
+            String setupAndRunCommand = String.format(
+                    "cd %s && (%s) 2>&1 | tee mavenCompile.log",
+                    normalizedWorkDir,
+                    mavenCommand);
+
+            log.info("Executing command in container: {}", mavenCommand);
+
+            // 4. Execute with TTY (critical for agents)
+            ExecCreateCmdResponse execResponse = dockerClient.execCreateCmd(containerId)
+                    .withCmd("sh", "-c", setupAndRunCommand)
+                    .withAttachStdout(true)
+                    .withAttachStderr(true)
+                    .withTty(true)
+                    .exec();
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+            try {
+                dockerClient.execStartCmd(execResponse.getId())
+                        .exec(new ResultCallback.Adapter<Frame>() {
+                            @Override
+                            public void onNext(Frame item) {
+                                try {
+                                    outputStream.write(item.getPayload());
+                                    if (verbose) {
+                                        System.out.print(new String(item.getPayload(), StandardCharsets.UTF_8));
+                                    }
+                                } catch (Exception e) {
+                                    log.error("Error capturing output", e);
+                                }
+                            }
+                        })
+                        .awaitCompletion();
+            } catch (InterruptedException e) {
+                log.error("Interrupted while waiting for command", e);
+                Thread.currentThread().interrupt();
+            }
+
+            // 5. Check exit code
+            InspectExecResponse execInspect = dockerClient.inspectExecCmd(execResponse.getId()).exec();
+            Integer exitCode = execInspect.getExitCode();
+            boolean success = exitCode != null && exitCode == EXIT_CODE_OK;
+
+            log.info("Execution completed. Exit code: {}", exitCode);
+
+            // 6. Retrieve logs
+            // Try to copy log from workspace (project might have written it there)
+            Path logFileInWorkspace = absoluteWorkspacePath.resolve("mavenCompile.log");
+            Path logFileInProject = absoluteProjectPath.resolve("mavenCompile.log");
+            boolean logSaved = false;
+
+            // Try workspace first
+            if (Files.exists(logFileInWorkspace)) {
+                try {
+                    if (logFile.getParent() != null)
+                        Files.createDirectories(logFile.getParent());
+                    Files.copy(logFileInWorkspace, logFile, StandardCopyOption.REPLACE_EXISTING);
+                    logSaved = true;
+                } catch (IOException e) {
+                    log.warn("Failed to copy log from workspace: {}", e.getMessage());
+                }
+            }
+            
+            // Try project directory
+            if (!logSaved && Files.exists(logFileInProject)) {
+                try {
+                    if (logFile.getParent() != null)
+                        Files.createDirectories(logFile.getParent());
+                    Files.copy(logFileInProject, logFile, StandardCopyOption.REPLACE_EXISTING);
+                    logSaved = true;
+                } catch (IOException e) {
+                    log.warn("Failed to copy log from project: {}", e.getMessage());
+                }
+            }
+
+            // Fallback: save from captured stream
+            if (!logSaved) {
+                try {
+                    if (logFile.getParent() != null)
+                        Files.createDirectories(logFile.getParent());
+                    Files.write(logFile, outputStream.toByteArray(), StandardOpenOption.CREATE,
+                            StandardOpenOption.TRUNCATE_EXISTING);
+                    log.info("Log saved from captured stream (fallback).");
+                } catch (IOException e) {
+                    log.error("Failed to write log file", e);
+                }
+            }
+
+            return success;
+
+        } catch (Exception e) {
+            log.error("Error executing command in container", e);
+            return false;
+        } finally {
+            // Cleanup
+            if (containerId != null) {
+                // cleanupContainer(containerId);
+            }
+        }
     }
 
 }

@@ -50,7 +50,6 @@ public class AgentRepairPipeline implements RepairPipeline {
                 projectName, record.breakingCommit());
 
         Path projectDir = ProjectPaths.resolveProjectDir(extractedPath, projectName);
-        String containerProjectPath = FailureCategoryUtils.normalizeContainerProjectPath(projectName);
 
         String agentImage = envConfig.get("AGENT_NAME").orElse("null");
 
@@ -67,9 +66,6 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.error("Error ensuring agent image exists", e);
         }
 
-        String baseBranch = envConfig.get("BASE_BRANCH").orElse("main");
-        String previousBranch = baseBranch; // Start from base branch
-
         // Find and prepare m2 folder for mounting
         // The m2 folder is typically at extractedPath/m2 (where extractedPath contains
         // both project and m2)
@@ -81,9 +77,13 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("M2 folder not found at {}. Maven will use default repository.", extractedPath.resolve("m2"));
         }
 
-        // Create a workspace directory structure
+        // The project is already in a dedicated branch (e.g., repair/{failureCategory})
+        // created by BreakingUpdateExtractionService. We mount it directly without copying.
+        log.info("Project directory {} is already in a dedicated branch for agent modifications", projectDir);
+
+        // Create workspace directory structure for spoon-base-template (copied)
         // Structure: workspace/
-        //   - {projectName}/  (project)
+        //   - {projectName}/  (mounted from projectDir - already in correct branch)
         //   - spoon-base-template/  (copied)
         //   - api-docs/  (mounted)
         Path workspaceDir = null;
@@ -92,12 +92,7 @@ public class AgentRepairPipeline implements RepairPipeline {
             workspaceDir = Files.createTempDirectory("agent-workspace-");
             log.info("Created workspace directory at: {}", workspaceDir);
             
-            // Copy project to workspace/{projectName}
-            Path projectInWorkspace = workspaceDir.resolve(projectName);
-            copyDirectory(projectDir, projectInWorkspace);
-            log.info("Copied project from {} to {}", projectDir, projectInWorkspace);
-            
-            // Copy Spoon base template to workspace/spoon-base-template
+            // Copy Spoon base template to workspace/spoon-base-template (project is mounted directly)
             if (spoonBaseTemplate != null && Files.exists(spoonBaseTemplate)) {
                 Path spoonBaseTarget = workspaceDir.resolve("spoon-base-template");
                 copyDirectory(spoonBaseTemplate, spoonBaseTarget);
@@ -126,7 +121,7 @@ public class AgentRepairPipeline implements RepairPipeline {
         // Format the command: gemini expects the format: gemini --debug --yolo " execute in /path/ 'command'"
         // The inner command is in single quotes, wrapped in double quotes
         String mavenCommand = String.format(
-            "gemini --debug --yolo \" 'Project /%s/ does not compile. Plan: "
+            "gemini --model gemini-3-pro-preview --debug --yolo \" 'Project /%s/ does not compile. Plan: "
           + "1) Run `mvn compile` in the project /%s/ to get the compilation errors only. "
           + "2) Generate a Spoon source code transformation to fix the errors. "
           + "   - Use the project in folder %s/ as the base project. "
@@ -162,21 +157,28 @@ public class AgentRepairPipeline implements RepairPipeline {
             return new ArrayList<>();
         }
 
-        log.info("Executing '{}' in agent container {} (workspace: {}, workDir: {}, env vars: {}, m2: {}, spoon docs: {})",
-                mavenCommand, dockerImageAgentName, workspaceDir, containerWorkDir, envVars.size(),
+        log.info("Executing '{}' in agent container {} (project: {} -> /workspace/{}, workspace: {}, workDir: {}, env vars: {}, m2: {}, spoon docs: {})",
+                mavenCommand, dockerImageAgentName, projectDir, projectName, workspaceDir, containerWorkDir, envVars.size(),
                 m2Folder != null ? "mounted" : "not mounted",
                 spoonApiDocs != null ? "mounted" : "not mounted");
 
-        boolean compileSuccess = dockerBuild.executeMavenCommandInContainer(
+        // Use executeMavenCommandInContainerWithWorkspace to mount:
+        // 1. Workspace (with spoon-base-template copied) at /workspace
+        // 2. Project (already in correct branch) at /workspace/{projectName}/
+        // 3. Spoon docs at /workspace/api-docs/
+        // 4. M2 at /root/.m2
+        boolean compileSuccess = dockerBuild.executeMavenCommandInContainerWithWorkspace(
                 dockerImageAgentName,
-                workspaceDir, // Pass workspace directory instead of project directory
+                workspaceDir, // Workspace with spoon-base-template
+                projectDir, // Project directory (already in correct branch) - mounted directly
+                projectName, // Project name for mount path
                 containerWorkDir,
                 mavenCommand,
                 compileLogFile,
-                envVars.isEmpty() ? null : envVars, // Pass null if no env vars, or the map
-                m2Folder, // Pass m2 folder path for mounting
-                spoonApiDocs, // Pass Spoon API docs path for mounting (will be mounted in workspace/api-docs)
-                this.verbose // Pass verbose flag
+                envVars.isEmpty() ? null : envVars,
+                m2Folder,
+                spoonApiDocs,
+                this.verbose
         );
 
         log.info("Maven compile execution completed. Success: {}. Log saved to: {}",
