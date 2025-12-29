@@ -64,6 +64,17 @@ public class ModelRepairPipeline implements RepairPipeline {
             log.warn("Git repository initialization failed or already exists: {}", e.getMessage());
         }
 
+        // Create repair branch based on failure category
+        String repairBranchName = "repair/"
+                + (record.failureCategory() != null ? record.failureCategory().toLowerCase() : "unknown");
+        try {
+            gitWorkflowService.createAndCheckoutBranch(projectDir, repairBranchName);
+            log.info("Created and checked out repair branch: {}", repairBranchName);
+        } catch (Exception e) {
+            log.error("Failed to create/checkout repair branch {}: {}", repairBranchName, e.getMessage(), e);
+            return attempts;
+        }
+
         // Get max attempts from environment or use default
         int maxAttempts = envConfig.get("MAX_REPAIR_ATTEMPTS")
                 .map(Integer::parseInt)
@@ -75,7 +86,7 @@ public class ModelRepairPipeline implements RepairPipeline {
         ChangeImpactReportService changeImpactService = new ChangeImpactReportService(verbose, envConfig);
         
         Path previousAttemptLogFile = initialLogFile; // For attempt 1, use initial log
-        String previousBranch = "master"; // Start from master branch
+        String previousBranch = repairBranchName; // Start from repair branch
 
         // Process each attempt
         for (int attemptNumber = 1; attemptNumber <= maxAttempts; attemptNumber++) {

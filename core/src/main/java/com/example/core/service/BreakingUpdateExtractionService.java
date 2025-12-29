@@ -220,14 +220,10 @@ public class BreakingUpdateExtractionService {
                         System.out.println((i + 1) + ". ✓ Extracted: " + projectName + " (" + breakingCommit + ")");
                     }
 
-                    // Initialize Git repo and create branch
+                    // Initialize Git repo (branch will be created by repair pipeline)
                     try {
                         Path projectDir = ProjectPaths.resolveProjectDir(extractedPath, projectName);
                         gitWorkflowService.initAndCommit(projectDir, "Initial extraction from " + dockerImage);
-                        String branchName = "repair/"
-                                + (record.failureCategory() != null ? record.failureCategory().toLowerCase()
-                                        : "unknown");
-                        gitWorkflowService.createAndCheckoutBranch(projectDir, branchName);
                     } catch (Exception e) {
                         log.warn("Failed to initialize git repo for {}: {}", projectName, e.getMessage());
                         if (verbose) {

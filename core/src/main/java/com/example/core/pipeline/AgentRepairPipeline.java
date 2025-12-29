@@ -4,6 +4,7 @@ import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.service.ChangeImpactReportService;
+import com.example.core.service.GitWorkflowService;
 import com.example.core.util.ProjectPaths;
 
 import org.slf4j.Logger;
@@ -33,12 +34,14 @@ public class AgentRepairPipeline implements RepairPipeline {
     private final EnvConfig envConfig;
     private final boolean verbose;
     private final ChangeImpactReportService changeImpactService;
+    private final GitWorkflowService gitWorkflowService;
 
     public AgentRepairPipeline(DockerBuild dockerBuild, EnvConfig envConfig, boolean verbose) {
         this.dockerBuild = dockerBuild;
         this.envConfig = envConfig;
         this.verbose = verbose;
         this.changeImpactService = new ChangeImpactReportService(verbose, envConfig);
+        this.gitWorkflowService = new GitWorkflowService();
     }
 
     @Override
@@ -51,7 +54,27 @@ public class AgentRepairPipeline implements RepairPipeline {
 
         Path projectDir = ProjectPaths.resolveProjectDir(extractedPath, projectName);
 
-        String agentImage = envConfig.get("AGENT_NAME").orElse("null");
+        // Initialize Git repository if not already initialized
+        try {
+            gitWorkflowService.initAndCommit(projectDir, "Initial commit - extracted project");
+        } catch (Exception e) {
+            log.warn("Git repository initialization failed or already exists: {}", e.getMessage());
+        }
+
+        // Get agent name from environment variable
+        String agentName = envConfig.get("AGENT_NAME").orElse("unknown");
+        
+        // Create agent branch: agent-{AGENT_NAME}
+        String agentBranchName = "agent-" + agentName;
+        try {
+            gitWorkflowService.createAndCheckoutBranch(projectDir, agentBranchName);
+            log.info("Created and checked out agent branch: {}", agentBranchName);
+        } catch (Exception e) {
+            log.error("Failed to create/checkout agent branch {}: {}", agentBranchName, e.getMessage(), e);
+            return new ArrayList<>();
+        }
+
+        String agentImage = agentName;
 
         Path dockerfileDir = Path.of("images/" + agentImage + "/Dockerfile");
 
@@ -77,9 +100,8 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("M2 folder not found at {}. Maven will use default repository.", extractedPath.resolve("m2"));
         }
 
-        // The project is already in a dedicated branch (e.g., repair/{failureCategory})
-        // created by BreakingUpdateExtractionService. We mount it directly without copying.
-        log.info("Project directory {} is already in a dedicated branch for agent modifications", projectDir);
+        // The project is now in the agent branch created above. We mount it directly without copying.
+        log.info("Project directory {} is in agent branch {} for agent modifications", projectDir, agentBranchName);
 
         // Create workspace directory structure for spoon-base-template (copied)
         // Structure: workspace/
