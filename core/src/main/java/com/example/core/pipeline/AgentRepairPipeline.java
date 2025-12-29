@@ -100,6 +100,20 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("M2 folder not found at {}. Maven will use default repository.", extractedPath.resolve("m2"));
         }
 
+        // Copy original project (estado con errores) al directorio del commit (reports/{model}/{commit}/original)
+        if (commitReportDir != null) {
+            Path commitOriginalDir = commitReportDir.resolve("original");
+            try {
+                if (Files.exists(commitOriginalDir)) {
+                    deleteDirectory(commitOriginalDir);
+                }
+                copyDirectory(projectDir, commitOriginalDir);
+                log.info("Copied original project to commit report directory {}", commitOriginalDir);
+            } catch (IOException e) {
+                log.warn("Could not copy original project to commit report directory {}: {}", commitOriginalDir, e.getMessage());
+            }
+        }
+
         // The project is now in the agent branch created above. We mount it directly without copying.
         log.info("Project directory {} is in agent branch {} for agent modifications", projectDir, agentBranchName);
 
@@ -206,6 +220,53 @@ public class AgentRepairPipeline implements RepairPipeline {
         log.info("Maven compile execution completed. Success: {}. Log saved to: {}",
                 compileSuccess, compileLogFile);
 
+        // After compile command, run mvn test inside /workspace/{projectName} and export log to commit folder
+        Path testLogFile = commitReportDir != null
+                ? commitReportDir.resolve("mvn-test.log")
+                : outputBaseDir.resolve("mvn-test.log");
+
+        // For tests, use the project directory inside workspace as working dir
+        String containerProjectWorkDir = containerWorkDir.endsWith("/")
+                ? containerWorkDir + projectName
+                : containerWorkDir + "/" + projectName;
+
+        boolean testSuccess = dockerBuild.executeMavenCommandInContainerWithWorkspace(
+                dockerImageAgentName,
+                workspaceDir,
+                projectDir,
+                projectName,
+                containerProjectWorkDir,
+                "mvn test",
+                testLogFile,
+                envVars.isEmpty() ? null : envVars,
+                m2Folder,
+                spoonApiDocs,
+                this.verbose
+        );
+
+        log.info("Maven test execution completed. Success: {}. Log saved to: {}", testSuccess, testLogFile);
+
+        // Copy both logs to commit report directory with distinct names
+        if (commitReportDir != null) {
+            try {
+                Path compileLogTarget = commitReportDir.resolve("maven_compile.log");
+                Files.createDirectories(commitReportDir);
+                Files.copy(compileLogFile, compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
+                log.info("Copied compile log to {}", compileLogTarget);
+            } catch (IOException e) {
+                log.warn("Failed to copy compile log to commit directory: {}", e.getMessage());
+            }
+
+            try {
+                Path testLogTarget = commitReportDir.resolve("maven_test.log");
+                Files.createDirectories(commitReportDir);
+                Files.copy(testLogFile, testLogTarget, StandardCopyOption.REPLACE_EXISTING);
+                log.info("Copied test log to {}", testLogTarget);
+            } catch (IOException e) {
+                log.warn("Failed to copy test log to commit directory: {}", e.getMessage());
+            }
+        }
+
         // Return empty list - this is a stub implementation
         return new ArrayList<>();
     }
@@ -230,6 +291,25 @@ public class AgentRepairPipeline implements RepairPipeline {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 Path targetFile = target.resolve(source.relativize(file));
                 Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    private void deleteDirectory(Path target) throws IOException {
+        if (target == null || !Files.exists(target)) {
+            return;
+        }
+        Files.walkFileTree(target, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.deleteIfExists(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                Files.deleteIfExists(dir);
                 return FileVisitResult.CONTINUE;
             }
         });
