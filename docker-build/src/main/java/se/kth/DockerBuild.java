@@ -1384,313 +1384,551 @@ public class DockerBuild {
         if (projectDir == null) {
             return null;
         }
-        
+
         Path parentDir = projectDir.getParent();
         if (parentDir != null) {
             Path m2Direct = parentDir.resolve("m2");
-            
+
             // Check if m2 directory exists (this contains the .m2 repository content)
             if (Files.exists(m2Direct) && Files.isDirectory(m2Direct)) {
                 log.info("M2 folder found at: {}", m2Direct);
                 return m2Direct;
             }
         }
-        
+
         log.debug("M2 folder not found at {}", parentDir != null ? parentDir.resolve("m2") : "unknown");
         return null;
     }
-    
+
     /**
      * Adds m2 folder mount to the list of binds if the m2 folder exists.
      * Handles multiple possible structures when copying from container:
      * 1. m2Folder/.m2/repository/... (when TAR contains .m2/repository/...)
-     * 2. m2Folder/root/.m2/repository/... (when TAR contains root/.m2/repository/...)
+     * 2. m2Folder/root/.m2/repository/... (when TAR contains
+     * root/.m2/repository/...)
      * 3. m2Folder/repository/... (when TAR contains repository/... directly)
      * 
-     * @param binds the list of binds to add to
+     * @param binds    the list of binds to add to
      * @param m2Folder the path to the m2 folder (can be null)
      */
     public void addM2MountIfExists(List<Bind> binds, Path m2Folder) {
-        if (m2Folder != null && Files.exists(m2Folder) && Files.isDirectory(m2Folder)) {
-            Path mountPath = null;
+        if (m2Folder != null) {
+            // Normalize the m2Folder path first
+            Path normalizedM2Folder = m2Folder.toAbsolutePath().normalize();
+            if (!Files.exists(normalizedM2Folder) || !Files.isDirectory(normalizedM2Folder)) {
+                log.info("M2 folder not provided or does not exist: {}. Maven will use default repository.", normalizedM2Folder);
+                return;
+            }
             
+            Path mountPath = null;
+
             // Check for m2Folder/.m2/repository (most common case)
-            Path m2DotM2 = m2Folder.resolve(".m2");
+            Path m2DotM2 = normalizedM2Folder.resolve(".m2");
             if (Files.exists(m2DotM2) && Files.isDirectory(m2DotM2)) {
                 mountPath = m2DotM2;
                 log.info("Found .m2 subdirectory in m2 folder");
             } else {
                 // Check for m2Folder/root/.m2/repository (when TAR preserves root/.m2 path)
-                Path rootDotM2 = m2Folder.resolve("root/.m2");
+                Path rootDotM2 = normalizedM2Folder.resolve("root/.m2");
                 if (Files.exists(rootDotM2) && Files.isDirectory(rootDotM2)) {
                     mountPath = rootDotM2;
                     log.info("Found root/.m2 subdirectory in m2 folder");
                 } else {
                     // Check if m2Folder contains repository directly
-                    Path repository = m2Folder.resolve("repository");
+                    Path repository = normalizedM2Folder.resolve("repository");
                     if (Files.exists(repository) && Files.isDirectory(repository)) {
-                        mountPath = m2Folder;
+                        mountPath = normalizedM2Folder;
                         log.info("Found repository directory directly in m2 folder");
                     }
                 }
             }
-            
+
             if (mountPath != null) {
-                binds.add(new Bind(
-                        mountPath.toAbsolutePath().toString(),
-                        new Volume("/root/.m2"),
-                        AccessMode.rw));
-                log.info("M2 folder will be mounted: {} -> /root/.m2", mountPath);
+                // Normalize and verify the path exists before mounting
+                Path normalizedMountPath = mountPath.toAbsolutePath().normalize();
+                if (!Files.exists(normalizedMountPath) || !Files.isDirectory(normalizedMountPath)) {
+                    log.warn("M2 mount path does not exist or is not a directory: {}. Skipping m2 mount.", normalizedMountPath);
+                } else {
+                    binds.add(new Bind(
+                            normalizedMountPath.toString(),
+                            new Volume("/root/.m2"),
+                            AccessMode.rw));
+                    log.info("M2 folder will be mounted: {} -> /root/.m2", normalizedMountPath);
+                }
             } else {
-                log.warn("M2 folder structure not recognized at {}. Expected one of: .m2/, root/.m2/, or repository/. Maven will use default repository.", m2Folder);
+                log.warn(
+                        "M2 folder structure not recognized at {}. Expected one of: .m2/, root/.m2/, or repository/. Maven will use default repository.",
+                        normalizedM2Folder);
             }
-        } else {
-            log.info("M2 folder not provided or does not exist. Maven will use default repository.");
         }
     }
 
     /**
-     * Executes a Maven command (e.g., 'mvn compile') in a Docker container by mounting
+     * Executes a Maven command (e.g., 'mvn compile') in a Docker container by
+     * mounting
      * the project as a volume and running the command with environment variables.
      * The console output (stdout and stderr) is exported to a log file.
      * 
      * This is similar to running: gemini --yolo "execute 'mvn compile'"
      * 
-     * IMPORTANT: This method creates a NEW container for each execution and cleans it up afterwards.
-     * If you need to execute multiple commands in the same container, consider using
-     * startSpinningContainer() + executeInContainer() + manual cleanup, or use reproduceWithMount()
+     * IMPORTANT: This method creates a NEW container for each execution and cleans
+     * it up afterwards.
+     * If you need to execute multiple commands in the same container, consider
+     * using
+     * startSpinningContainer() + executeInContainer() + manual cleanup, or use
+     * reproduceWithMount()
      * which is designed for iterative build workflows.
      * 
      * @param dockerImage          the Docker image to use for the container
      * @param projectDir           the local path to the project directory to mount
-     * @param containerWorkDir     the working directory path inside the container (e.g., "/workspace")
-     * @param mavenCommand         the Maven command to execute (e.g., "mvn compile")
+     * @param containerWorkDir     the working directory path inside the container
+     *                             (e.g., "/workspace")
+     * @param mavenCommand         the Maven command to execute (e.g., "mvn
+     *                             compile")
      * @param logFile              the local path where the log file should be saved
-     * @param environmentVariables map of environment variables to set in the container (can be null)
-     * @param m2Folder             optional path to the m2 folder to mount (can be null)
-     * @return true if the command executed successfully (exit code 0), false otherwise
+     * @param environmentVariables map of environment variables to set in the
+     *                             container (can be null)
+     * @param m2Folder             optional path to the m2 folder to mount (can be
+     *                             null)
+     * @return true if the command executed successfully (exit code 0), false
+     *         otherwise
      */
-    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
-                                                   String containerWorkDir, String mavenCommand, 
-                                                   Path logFile, Map<String, String> environmentVariables,
-                                                   Path m2Folder) {
+    // public boolean executeMavenCommandInContainer(String dockerImage, Path
+    // projectDir,
+    // String containerWorkDir, String mavenCommand,
+    // Path logFile, Map<String, String> environmentVariables,
+    // Path m2Folder) {
+    // String containerId = null;
+    // try {
+    // // Ensure base image exists
+    // ensureBaseMavenImageExists(dockerImage);
+
+    // // Normalize container work directory (ensure it starts with /)
+    // String normalizedWorkDir = containerWorkDir.startsWith("/")
+    // ? containerWorkDir
+    // : "/" + containerWorkDir;
+
+    // Path absoluteProjectPath = projectDir.toAbsolutePath().normalize();
+
+    // // Prepare volume binds - always mount the project
+    // List<Bind> binds = new ArrayList<>();
+    // binds.add(new Bind(
+    // absoluteProjectPath.toString(),
+    // new Volume(normalizedWorkDir),
+    // AccessMode.rw));
+
+    // // Add m2 folder mount if provided
+    // addM2MountIfExists(binds, m2Folder);
+
+    // // Create host config with volume mounts
+    // HostConfig hostConfig = HostConfig.newHostConfig()
+    // .withBinds(binds);
+
+    // // Build container creation command
+    // // Use sleep infinity to keep container alive indefinitely until we
+    // explicitly stop it
+    // // This prevents the container from stopping before the exec command
+    // completes
+    // CreateContainerCmd createCmd = dockerClient.createContainerCmd(dockerImage)
+    // .withHostConfig(hostConfig)
+    // .withWorkingDir("/") // Set working dir to root initially
+    // .withCmd("sh", "-c", "sleep infinity"); // Keep container alive indefinitely
+
+    // // Add environment variables if provided
+    // if (environmentVariables != null && !environmentVariables.isEmpty()) {
+    // List<String> envList = new ArrayList<>();
+    // for (Map.Entry<String, String> entry : environmentVariables.entrySet()) {
+    // envList.add(entry.getKey() + "=" + entry.getValue());
+    // }
+    // createCmd.withEnv(envList);
+    // log.info("Setting {} environment variables in container",
+    // environmentVariables.size());
+    // }
+
+    // // Create container
+    // CreateContainerResponse container = createCmd.exec();
+    // containerId = container.getId();
+    // log.info("Created container {} for Maven command execution (project mounted
+    // at {})",
+    // containerId, normalizedWorkDir);
+
+    // // Start the container
+    // dockerClient.startContainerCmd(containerId).exec();
+    // log.info("Started container {}", containerId);
+
+    // // Execute command in the work directory (project folder)
+    // // For interactive commands like gemini, we need to ensure all output is
+    // captured
+    // // Redirect both stdout and stderr to tee, which writes to both file and
+    // stdout
+    // // This ensures we capture everything even if the command writes to stderr
+    // String setupAndRunCommand = String.format(
+    // "cd %s && (%s) 2>&1 | tee mavenCompile.log",
+    // normalizedWorkDir,
+    // mavenCommand
+    // );
+
+    // log.info("Will execute command in directory: {}", normalizedWorkDir);
+
+    // log.info("Executing command: {} in container", mavenCommand);
+    // // For interactive commands like gemini, we may need TTY, but it's disabled
+    // for exec
+    // // Instead, we ensure all output is captured via stdout/stderr redirection
+    // ExecCreateCmdResponse execResponse = dockerClient.execCreateCmd(containerId)
+    // .withCmd("sh", "-c", setupAndRunCommand)
+    // .withAttachStdout(true)
+    // .withAttachStderr(true)
+    // .withAttachStdin(false)
+    // .exec();
+
+    // // Capture output - use a callback that properly handles all stream types
+    // ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    // try {
+    // dockerClient.execStartCmd(execResponse.getId())
+    // .exec(new ResultCallback.Adapter<Frame>() {
+    // @Override
+    // public void onNext(Frame item) {
+    // // Capture both stdout and stderr
+    // if (item.getStreamType() == StreamType.STDOUT ||
+    // item.getStreamType() == StreamType.STDERR) {
+    // try {
+    // outputStream.write(item.getPayload());
+    // // Also log to console for debugging
+    // String line = new String(item.getPayload(), StandardCharsets.UTF_8);
+    // if (verbose && !line.trim().isEmpty()) {
+    // log.debug("Container output: {}", line.trim());
+    // }
+    // } catch (Exception e) {
+    // log.error("Error capturing output", e);
+    // }
+    // }
+    // }
+
+    // @Override
+    // public void onError(Throwable throwable) {
+    // log.error("Error in exec stream", throwable);
+    // super.onError(throwable);
+    // }
+    // })
+    // .awaitCompletion();
+    // } catch (InterruptedException e) {
+    // log.error("Interrupted while waiting for command completion", e);
+    // Thread.currentThread().interrupt();
+    // }
+
+    // // Wait for the exec command to complete and get exit code
+    // InspectExecResponse execInspect =
+    // dockerClient.inspectExecCmd(execResponse.getId()).exec();
+    // Integer exitCode = execInspect.getExitCode();
+    // boolean success = exitCode != null && exitCode == EXIT_CODE_OK;
+
+    // log.info("Maven command execution completed with exit code: {}", exitCode);
+
+    // // Copy the log file from container (or read from mounted volume)
+    // String logPathInContainer = normalizedWorkDir + "/mavenCompile.log";
+    // boolean logCopied = false;
+
+    // // Try to read log from mounted volume first (faster and more reliable)
+    // Path logFileOnHost = absoluteProjectPath.resolve("mavenCompile.log");
+    // if (Files.exists(logFileOnHost)) {
+    // try {
+    // // Only create parent directories if logFile has a parent (i.e., is not a
+    // relative path)
+    // if (logFile.getParent() != null) {
+    // Files.createDirectories(logFile.getParent());
+    // }
+    // Files.copy(logFileOnHost, logFile,
+    // java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+    // log.info("Log file copied from mounted volume to {}", logFile);
+    // logCopied = true;
+    // } catch (IOException e) {
+    // log.warn("Could not copy log file from mounted volume: {}", e.getMessage());
+    // }
+    // }
+
+    // // Fallback: try to copy log file from container
+    // if (!logCopied) {
+    // try {
+    // try (InputStream logStream = dockerClient
+    // .copyArchiveFromContainerCmd(containerId, logPathInContainer).exec()) {
+
+    // // Only create parent directories if logFile has a parent (i.e., is not a
+    // relative path)
+    // if (logFile.getParent() != null) {
+    // Files.createDirectories(logFile.getParent());
+    // }
+
+    // // Extract the log file from the TAR archive
+    // try (TarArchiveInputStream tarStream = new TarArchiveInputStream(logStream))
+    // {
+    // TarArchiveEntry entry;
+    // while ((entry = tarStream.getNextTarEntry()) != null) {
+    // if (!entry.isDirectory()) {
+    // String entryName = entry.getName();
+    // // Check if this is the log file (could be at various paths in TAR)
+    // if (entryName.endsWith("mavenCompile.log") ||
+    // entryName.equals("mavenCompile.log") ||
+    // entryName.endsWith(normalizedWorkDir + "/mavenCompile.log")) {
+    // byte[] logContent = tarStream.readAllBytes();
+    // Files.write(logFile, logContent, StandardOpenOption.CREATE,
+    // StandardOpenOption.TRUNCATE_EXISTING);
+    // log.info("Log file copied from container to {}", logFile);
+    // logCopied = true;
+    // break;
+    // }
+    // }
+    // }
+    // }
+    // }
+    // } catch (Exception e) {
+    // log.warn("Could not copy log file from container: {}. Using captured output
+    // instead.",
+    // e.getMessage());
+    // }
+    // }
+
+    // // Final fallback: if log file couldn't be copied, write the captured output
+    // // Also always write the captured output to ensure we have it even if tee
+    // worked
+    // try {
+    // // Only create parent directories if logFile has a parent (i.e., is not a
+    // relative path)
+    // if (logFile.getParent() != null) {
+    // Files.createDirectories(logFile.getParent());
+    // }
+    // String output = outputStream.toString(StandardCharsets.UTF_8);
+
+    // // If we already copied from file, append the captured output to ensure
+    // nothing is missing
+    // // Otherwise, write it as the main content
+    // if (logCopied && !output.trim().isEmpty()) {
+    // // Append captured output to existing log file (in case tee missed something)
+    // Files.write(logFile,
+    // ("\n\n=== Additional captured output ===\n" +
+    // output).getBytes(StandardCharsets.UTF_8),
+    // StandardOpenOption.APPEND);
+    // log.info("Appended captured output to log file at {}", logFile);
+    // } else if (!logCopied) {
+    // // Write captured output as the main log content
+    // Files.write(logFile, output.getBytes(StandardCharsets.UTF_8),
+    // StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    // log.info("Log file created from captured output at {} (size: {} bytes)",
+    // logFile, output.length());
+    // }
+    // } catch (IOException e) {
+    // log.error("Could not write log file", e);
+    // }
+
+    // return success;
+
+    // } catch (Exception e) {
+    // log.error("Error executing Maven command in container", e);
+    // // Try to save error to log file
+    // try {
+    // // Only create parent directories if logFile has a parent (i.e., is not a
+    // relative path)
+    // if (logFile != null && logFile.getParent() != null) {
+    // Files.createDirectories(logFile.getParent());
+    // }
+    // if (logFile != null) {
+    // String errorMsg = String.format("[ERROR] Failed to execute Maven command:
+    // %s%nError: %s%n",
+    // mavenCommand, e.getMessage());
+    // Files.write(logFile, errorMsg.getBytes(StandardCharsets.UTF_8),
+    // StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    // }
+    // } catch (IOException ioException) {
+    // log.error("Could not write error log file", ioException);
+    // }
+    // return false;
+    // } finally {
+    // // Clean up container
+    // if (containerId != null) {
+    // // cleanupContainer(containerId);
+    // }
+    // }
+    // }
+
+    /**
+     * Executes a Maven command (or Agent command) in a Docker container.
+     * Optimized for Agent execution with TTY support and proper cleanup.
+     */
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir,
+            String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables,
+            Path m2Folder, boolean verbose) {
+        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir, mavenCommand,
+                logFile, environmentVariables, m2Folder, null, verbose);
+    }
+
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir,
+            String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables,
+            Path m2Folder, Path spoonDocsFolder, boolean verbose) {
         String containerId = null;
         try {
-            // Ensure base image exists
             ensureBaseMavenImageExists(dockerImage);
-            
-            // Normalize container work directory (ensure it starts with /)
-            String normalizedWorkDir = containerWorkDir.startsWith("/") 
-                    ? containerWorkDir 
-                    : "/" + containerWorkDir;
-            
+
+            String normalizedWorkDir = containerWorkDir.startsWith("/") ? containerWorkDir : "/" + containerWorkDir;
             Path absoluteProjectPath = projectDir.toAbsolutePath().normalize();
-            
-            // Prepare volume binds - always mount the project
+
+            // 1. Configurar Montajes de Volumen (Proyecto + M2 + Spoon Docs)
             List<Bind> binds = new ArrayList<>();
-            binds.add(new Bind(
-                    absoluteProjectPath.toString(),
-                    new Volume(normalizedWorkDir),
-                    AccessMode.rw));
-            
-            // Add m2 folder mount if provided
+            binds.add(new Bind(absoluteProjectPath.toString(), new Volume(normalizedWorkDir), AccessMode.rw));
             addM2MountIfExists(binds, m2Folder);
             
-            // Create host config with volume mounts
-            HostConfig hostConfig = HostConfig.newHostConfig()
-                    .withBinds(binds);
-            
-            // Build container creation command
-            // Use sleep infinity to keep container alive indefinitely until we explicitly stop it
-            // This prevents the container from stopping before the exec command completes
+            // Add Spoon documentation mount if provided (mount it in the workspace/api-docs)
+            // Note: This creates a bind mount inside the already-mounted workspace directory
+            // Docker supports nested bind mounts, so this should work
+            if (spoonDocsFolder != null && Files.exists(spoonDocsFolder) && Files.isDirectory(spoonDocsFolder)) {
+                // Mount documentation in the workspace at /workspace/api-docs
+                String spoonDocsMountPath = normalizedWorkDir + "/api-docs";
+                binds.add(new Bind(
+                        spoonDocsFolder.toAbsolutePath().toString(),
+                        new Volume(spoonDocsMountPath),
+                        AccessMode.ro)); // Read-only mount for documentation
+                log.info("Spoon documentation will be mounted: {} -> {}", spoonDocsFolder, spoonDocsMountPath);
+            }
+
+            HostConfig hostConfig = HostConfig.newHostConfig().withBinds(binds);
+
+            // 2. Crear Contenedor (Estrategia Sleep Infinity)
+            // Mantenemos el contenedor vivo indefinidamente para poder ejecutar el comando
+            // exec después.
             CreateContainerCmd createCmd = dockerClient.createContainerCmd(dockerImage)
                     .withHostConfig(hostConfig)
-                    .withWorkingDir("/")  // Set working dir to root initially
-                    .withCmd("sh", "-c", "sleep infinity");  // Keep container alive indefinitely
-            
-            // Add environment variables if provided
+                    .withWorkingDir("/")
+                    .withCmd("sh", "-c", "sleep infinity");
+
             if (environmentVariables != null && !environmentVariables.isEmpty()) {
                 List<String> envList = new ArrayList<>();
                 for (Map.Entry<String, String> entry : environmentVariables.entrySet()) {
                     envList.add(entry.getKey() + "=" + entry.getValue());
                 }
                 createCmd.withEnv(envList);
-                log.info("Setting {} environment variables in container", environmentVariables.size());
             }
-            
-            // Create container
+
             CreateContainerResponse container = createCmd.exec();
             containerId = container.getId();
-            log.info("Created container {} for Maven command execution (project mounted at {})", 
-                    containerId, normalizedWorkDir);
-            
-            // Start the container
+            log.info("Created container {} for execution", containerId);
+
             dockerClient.startContainerCmd(containerId).exec();
-            log.info("Started container {}", containerId);
-            
-            // Execute maven command in the work directory (project folder)
-            // The command will cd to the work directory (which contains the project) and run maven, capturing output to log file
+
+            // 3. Preparar el Comando
+            // Usamos "2>&1" para mezclar errores y salida estándar.
+            // Usamos "tee" para guardar en archivo dentro del volumen Y mostrar en consola
+            // al mismo tiempo.
             String setupAndRunCommand = String.format(
-                "cd %s && %s 2>&1 | tee mavenCompile.log",
-                normalizedWorkDir,
-                mavenCommand
-            );
-            
-            log.info("Will execute command in directory: {}", normalizedWorkDir);
-            
-            log.info("Executing Maven command: {} in container", mavenCommand);
+                    "cd %s && (%s) 2>&1 | tee mavenCompile.log",
+                    normalizedWorkDir,
+                    mavenCommand);
+
+            log.info("Executing command in container: {}", mavenCommand);
+
+            // 4. Ejecutar con TTY (CRÍTICO PARA AGENTES)
+            // .withTty(true) es vital para que herramientas como Gemini no buffericen el
+            // output
+            // y para que se comporten como si estuvieran en una terminal real.
             ExecCreateCmdResponse execResponse = dockerClient.execCreateCmd(containerId)
                     .withCmd("sh", "-c", setupAndRunCommand)
                     .withAttachStdout(true)
                     .withAttachStderr(true)
+                    .withTty(true)
                     .exec();
-            
-            // Capture output
+
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            dockerClient.execStartCmd(execResponse.getId())
-                    .exec(new ResultCallback.Adapter<Frame>() {
-                        @Override
-                        public void onNext(Frame item) {
-                            if (item.getStreamType() == StreamType.STDOUT || 
-                                item.getStreamType() == StreamType.STDERR) {
+
+            try {
+                dockerClient.execStartCmd(execResponse.getId())
+                        .exec(new ResultCallback.Adapter<Frame>() {
+                            @Override
+                            public void onNext(Frame item) {
                                 try {
                                     outputStream.write(item.getPayload());
+                                    // Opcional: Imprimir en consola de Java para depuración en tiempo real
+                                    if (verbose) {
+                                        System.out.print(new String(item.getPayload(), StandardCharsets.UTF_8));
+                                    }
                                 } catch (Exception e) {
                                     log.error("Error capturing output", e);
                                 }
                             }
-                        }
-                    })
-                    .awaitCompletion();
-            
-            // Wait for the exec command to complete and get exit code
+                        })
+                        .awaitCompletion();
+            } catch (InterruptedException e) {
+                log.error("Interrupted while waiting for command", e);
+                Thread.currentThread().interrupt();
+            }
+
+            // 5. Verificar Código de Salida
             InspectExecResponse execInspect = dockerClient.inspectExecCmd(execResponse.getId()).exec();
             Integer exitCode = execInspect.getExitCode();
             boolean success = exitCode != null && exitCode == EXIT_CODE_OK;
-            
-            log.info("Maven command execution completed with exit code: {}", exitCode);
-            
-            // Copy the log file from container (or read from mounted volume)
-            String logPathInContainer = normalizedWorkDir + "/mavenCompile.log";
-            boolean logCopied = false;
-            
-            // Try to read log from mounted volume first (faster and more reliable)
+
+            log.info("Execution completed. Exit code: {}", exitCode);
+
+            // 6. Recuperación de Logs (Estrategia Robusta)
+            // Intento A: Copiar el archivo físico del volumen montado (Rápido y seguro)
             Path logFileOnHost = absoluteProjectPath.resolve("mavenCompile.log");
+            boolean logSaved = false;
+
             if (Files.exists(logFileOnHost)) {
                 try {
-                    // Only create parent directories if logFile has a parent (i.e., is not a relative path)
-                    if (logFile.getParent() != null) {
+                    if (logFile.getParent() != null)
                         Files.createDirectories(logFile.getParent());
-                    }
                     Files.copy(logFileOnHost, logFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                    log.info("Log file copied from mounted volume to {}", logFile);
-                    logCopied = true;
+                    logSaved = true;
                 } catch (IOException e) {
-                    log.warn("Could not copy log file from mounted volume: {}", e.getMessage());
+                    log.warn("Failed to copy log from mounted volume: {}", e.getMessage());
                 }
             }
-            
-            // Fallback: try to copy log file from container
-            if (!logCopied) {
+
+            // Intento B (Fallback): Si no hay archivo, guardamos lo capturado en memoria
+            if (!logSaved) {
                 try {
-                    try (InputStream logStream = dockerClient
-                            .copyArchiveFromContainerCmd(containerId, logPathInContainer).exec()) {
-                        
-                        // Only create parent directories if logFile has a parent (i.e., is not a relative path)
-                        if (logFile.getParent() != null) {
-                            Files.createDirectories(logFile.getParent());
-                        }
-                        
-                        // Extract the log file from the TAR archive
-                        try (TarArchiveInputStream tarStream = new TarArchiveInputStream(logStream)) {
-                            TarArchiveEntry entry;
-                            while ((entry = tarStream.getNextTarEntry()) != null) {
-                                if (!entry.isDirectory()) {
-                                    String entryName = entry.getName();
-                                    // Check if this is the log file (could be at various paths in TAR)
-                                    if (entryName.endsWith("mavenCompile.log") || 
-                                        entryName.equals("mavenCompile.log") ||
-                                        entryName.endsWith(normalizedWorkDir + "/mavenCompile.log")) {
-                                        byte[] logContent = tarStream.readAllBytes();
-                                        Files.write(logFile, logContent, StandardOpenOption.CREATE, 
-                                                   StandardOpenOption.TRUNCATE_EXISTING);
-                                        log.info("Log file copied from container to {}", logFile);
-                                        logCopied = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    log.warn("Could not copy log file from container: {}. Using captured output instead.", 
-                            e.getMessage());
-                }
-            }
-            
-            // Final fallback: if log file couldn't be copied, write the captured output
-            if (!logCopied) {
-                try {
-                    // Only create parent directories if logFile has a parent (i.e., is not a relative path)
-                    if (logFile.getParent() != null) {
+                    if (logFile.getParent() != null)
                         Files.createDirectories(logFile.getParent());
-                    }
-                    String output = outputStream.toString(StandardCharsets.UTF_8);
-                    Files.write(logFile, output.getBytes(StandardCharsets.UTF_8), 
-                               StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                    log.info("Log file created from captured output at {}", logFile);
+                    Files.write(logFile, outputStream.toByteArray(), StandardOpenOption.CREATE,
+                            StandardOpenOption.TRUNCATE_EXISTING);
+                    log.info("Log saved from captured stream (fallback).");
                 } catch (IOException e) {
-                    log.error("Could not write log file", e);
+                    log.error("Failed to write log file", e);
                 }
             }
-            
+
             return success;
-            
+
         } catch (Exception e) {
-            log.error("Error executing Maven command in container", e);
-            // Try to save error to log file
-            try {
-                // Only create parent directories if logFile has a parent (i.e., is not a relative path)
-                if (logFile != null && logFile.getParent() != null) {
-                    Files.createDirectories(logFile.getParent());
-                }
-                if (logFile != null) {
-                    String errorMsg = String.format("[ERROR] Failed to execute Maven command: %s%nError: %s%n", 
-                                                   mavenCommand, e.getMessage());
-                    Files.write(logFile, errorMsg.getBytes(StandardCharsets.UTF_8), 
-                               StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                }
-            } catch (IOException ioException) {
-                log.error("Could not write error log file", ioException);
-            }
+            log.error("Error executing command in container", e);
             return false;
         } finally {
-            // Clean up container
+            // 7. LIMPIEZA (CRÍTICO: DESCOMENTADO)
+            // Esto evita que se acumulen cientos de contenedores "zombies"
             if (containerId != null) {
                 // cleanupContainer(containerId);
             }
         }
     }
-    
+
     /**
      * Overload version without m2 folder for backward compatibility.
      */
-    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
-                                                   String containerWorkDir, String mavenCommand, 
-                                                   Path logFile, Map<String, String> environmentVariables) {
-        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir, 
-                                             mavenCommand, logFile, environmentVariables, null);
-    }
-    
-    /**
-     * Overload version without environment variables and m2 folder for backward compatibility.
-     */
-    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir, 
-                                                   String containerWorkDir, String mavenCommand, 
-                                                   Path logFile) {
-        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir, 
-                                             mavenCommand, logFile, null, null);
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir,
+            String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables) {
+        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir,
+                mavenCommand, logFile, environmentVariables, null, this.verbose);
     }
 
-    
+    /**
+     * Overload version without environment variables and m2 folder for backward
+     * compatibility.
+     */
+    public boolean executeMavenCommandInContainer(String dockerImage, Path projectDir,
+            String containerWorkDir, String mavenCommand,
+            Path logFile) {
+        return executeMavenCommandInContainer(dockerImage, projectDir, containerWorkDir,
+                mavenCommand, logFile, null, null, this.verbose);
+    }
+
 }
