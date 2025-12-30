@@ -274,7 +274,7 @@ public class AgentRepairPipeline implements RepairPipeline {
                 ? containerWorkDir + projectName
                 : containerWorkDir + "/" + projectName;
         // Include tee in the command to save log to mavenTest.log in the project directory
-        String testCommand = String.format("cd %s && mvn test 2>&1 | tee mavenTest.log", projectPathInContainer);
+        String testCommand = String.format("cd %s && mvn compile 2>&1 | tee mavenTest.log", projectPathInContainer);
 
         // Execute test command using the same method as gemini command
         // The log will be saved as mavenCompile.log by DockerBuild (we'll copy the actual log from project directory)
@@ -336,7 +336,7 @@ public class AgentRepairPipeline implements RepairPipeline {
 
             // Copy compile log
             try {
-                Path compileLogTarget = commitReportDir.resolve("maven_compile_output.log");
+                Path compileLogTarget = commitReportDir.resolve("agent_compile_output.log");
                 Files.createDirectories(commitReportDir);
                 Files.copy(compileLogFile, compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
                 log.info("Copied compile log to {}", compileLogTarget);
@@ -363,18 +363,15 @@ public class AgentRepairPipeline implements RepairPipeline {
                     attemptCategory = convertFailureCategory(logCategory);
                     attemptSuccessful = (attemptCategory == FailureCategory.BUILD_SUCCESS);
                     
-                    // Also generate the full breaking classifier report for completeness
+                    // Note: breaking-classifier-report.json was already generated in MainCli
+                    // from the initial log (before applying rules). We don't regenerate it here
+                    // because the test log is AFTER rules are applied and won't contain the original errors.
+                    // Use the existing classifierReport that was generated before rules
                     Path classifierReport = commitReportDir.resolve("breaking-classifier-report.json");
-                    github.chains.breakingclassifier.BreakingClassifierApp classifierApp = 
-                            new github.chains.breakingclassifier.BreakingClassifierApp();
-                    github.chains.breakingclassifier.BreakingReport breakingReport = 
-                            classifierApp.analyzeLog(testLogTarget, classifierReport);
-
-                    if (breakingReport != null) {
-                        log.info("Breaking classifier full analysis completed. Category: {}, Files with errors: {}",
-                                breakingReport.failureCategory(), breakingReport.errorsByFile().size());
+                    if (!Files.exists(classifierReport)) {
+                        log.warn("breaking-classifier-report.json not found. It should have been generated in MainCli before calling runRepairLoop.");
                     } else {
-                        log.warn("Breaking classifier analysis returned null report");
+                        log.info("Using existing breaking-classifier-report.json from MainCli (generated before applying rules)");
                     }
                     
                     // Generate complete change-impact report (including breaking-changes.json)
