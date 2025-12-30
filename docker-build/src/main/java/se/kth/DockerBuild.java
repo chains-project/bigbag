@@ -2011,12 +2011,17 @@ public class DockerBuild {
             dockerClient.startContainerCmd(containerId).exec();
 
             // 3. Prepare command
+            // Verify m2 mount before executing command (for debugging)
+            String m2CheckCommand = m2Folder != null 
+                    ? "ls -la /root/.m2/repository 2>/dev/null | head -5 || echo 'M2 repository not accessible'" 
+                    : "echo 'M2 folder not mounted'";
             String setupAndRunCommand = String.format(
-                    "cd %s && (%s) 2>&1 | tee mavenCompile.log",
+                    "cd %s && echo '=== M2 Repository Check ===' && %s && echo '=== Executing Maven Command ===' && (%s) 2>&1 | tee mavenCompile.log",
                     normalizedWorkDir,
+                    m2CheckCommand,
                     mavenCommand);
 
-            log.info("Executing command in container: {}", mavenCommand);
+            log.info("Executing command in container: {} (m2 mounted: {})", mavenCommand, m2Folder != null);
 
             // 4. Execute with TTY (critical for agents)
             ExecCreateCmdResponse execResponse = dockerClient.execCreateCmd(containerId)
