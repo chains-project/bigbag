@@ -10,6 +10,7 @@ import com.example.core.model.ClassificationSummary;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
 import com.example.core.service.ProcessIdService;
+import com.example.core.util.FileSystemUtils;
 import com.example.core.util.ProjectPaths;
 
 import org.slf4j.Logger;
@@ -326,6 +327,15 @@ public class AgentRepairPipeline implements RepairPipeline {
             }
         }
 
+        // Step 8: Cleanup workspace directory (temporary folder created for agent execution)
+        if (executionResult.workspaceDir() != null && Files.exists(executionResult.workspaceDir())) {
+            try {
+                cleanupWorkspaceDirectory(executionResult.workspaceDir());
+            } catch (Exception e) {
+                log.warn("Failed to cleanup workspace directory {}: {}", executionResult.workspaceDir(), e.getMessage());
+            }
+        }
+
         // Return list with the attempt (following the same pattern as ModelRepairPipeline)
         List<Attempt> attempts = new ArrayList<>();
         if (attempt != null) {
@@ -391,6 +401,32 @@ public class AgentRepairPipeline implements RepairPipeline {
                     filePath, record.breakingCommit(), e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Cleans up the temporary workspace directory created for agent execution.
+     * This directory is created with Files.createTempDirectory() and should be
+     * deleted after copying results to the commit report directory.
+     * 
+     * @param workspaceDir the workspace directory to clean up
+     */
+    private void cleanupWorkspaceDirectory(Path workspaceDir) {
+        if (workspaceDir == null || !Files.exists(workspaceDir)) {
+            return;
+        }
+        
+        try {
+            // Check if it's a temp directory (created with createTempDirectory)
+            String dirName = workspaceDir.getFileName().toString();
+            if (dirName.startsWith("agent-workspace-")) {
+                FileSystemUtils.deleteDirectory(workspaceDir);
+                log.info("Cleaned up temporary workspace directory: {}", workspaceDir);
+            } else {
+                log.warn("Workspace directory {} does not appear to be a temporary directory. Skipping cleanup for safety.", workspaceDir);
+            }
+        } catch (IOException e) {
+            log.warn("Failed to cleanup workspace directory {}: {}", workspaceDir, e.getMessage());
+        }
     }
     
 }

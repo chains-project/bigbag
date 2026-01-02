@@ -1903,10 +1903,10 @@ public class DockerBuild {
             log.error("Error executing command in container", e);
             return false;
         } finally {
-            // 7. LIMPIEZA (CRÍTICO: DESCOMENTADO)
-            // Esto evita que se acumulen cientos de contenedores "zombies"
+            // Cleanup: Always remove container after execution
+            // This prevents accumulation of zombie containers
             if (containerId != null) {
-                // cleanupContainer(containerId);
+                cleanupContainer(containerId);
             }
         }
     }
@@ -2110,9 +2110,9 @@ public class DockerBuild {
             log.error("Error executing command in container", e);
             return false;
         } finally {
-            // Cleanup
+            // Cleanup: Always remove container after execution
             if (containerId != null) {
-                // cleanupContainer(containerId);
+                cleanupContainer(containerId);
             }
         }
     }
