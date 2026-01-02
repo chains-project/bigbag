@@ -40,6 +40,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.concurrent.Callable;
@@ -345,17 +346,63 @@ public class MainCli implements Callable<Integer> {
                 System.out.println("\nUse --verbose to see detailed information for each record");
             }
 
-            Map<String, BreakingUpdateRecord> recordByCommit = buildRecordIndex(records);
+            // Always load existing results from JSON report if it exists
+            Map<String, ReportEntry> existingResults = new LinkedHashMap<>();
+            Set<String> processedCommits = new HashSet<>();
+            if (jsonOutput != null && Files.exists(jsonOutput)) {
+                existingResults = loadExistingResults(jsonOutput);
+                processedCommits = new HashSet<>(existingResults.keySet());
+                log.info("Loaded {} existing results from {}", existingResults.size(), jsonOutput);
+            }
 
-            // If clean mode is enabled, remove all existing folders BEFORE processing
-            // This should happen regardless of whether we're extracting or just processing
+            // Check if FILTER option is enabled
+            boolean filterEnabled = envConfig.getBoolean("FILTER").orElse(false);
+
+            // If FILTER is enabled, only process commits that are NOT in the report
+            List<BreakingUpdateRecord> recordsToProcess = records;
+            if (filterEnabled) {
+                if (!processedCommits.isEmpty()) {
+                    int originalSize = records.size();
+                    recordsToProcess = filterRecords(records, processedCommits);
+                    log.info("Filter mode enabled: Skipping {} already processed commits. Processing {} new commits (from {} total).",
+                            processedCommits.size(), recordsToProcess.size(), originalSize);
+                    System.out.println("Filter mode enabled: Skipping " + processedCommits.size() + 
+                            " already processed commits. Processing " + recordsToProcess.size() + " new commits.");
+                    
+                    if (recordsToProcess.isEmpty()) {
+                        log.info("All commits have already been processed. Nothing to do.");
+                        System.out.println("All commits have already been processed. Nothing to do.");
+                        return 0;
+                    }
+                } else {
+                    log.info("Filter mode enabled but no existing results found. Processing all commits.");
+                }
+            }
+
+            // Build record index from filtered records
+            final Map<String, BreakingUpdateRecord> recordByCommit = buildRecordIndex(recordsToProcess);
+
+            // If clean mode is enabled, remove existing folders BEFORE processing
+            // If FILTER is enabled, only clean commits that will be processed (preserve existing)
             if (shouldClean) {
-                System.out.println(
-                        "Clean mode enabled: Removing existing {breakingCommit} folders and reports before processing...");
-                extractionService.cleanExistingFolders(records, outputDir);
+                if (filterEnabled && !processedCommits.isEmpty()) {
+                    // Only clean commits that will be processed (not the ones already in report)
+                    System.out.println("Clean mode enabled with filter: Removing folders for commits to be processed (preserving already processed)...");
+                    extractionService.cleanExistingFolders(recordsToProcess, outputDir);
+                    
+                    if (jsonOutput != null) {
+                        // Only clean JSON entries for commits that will be processed
+                        cleanReportsAndJson(recordsToProcess, jsonOutput);
+                    }
+                } else {
+                    // Normal clean behavior: clean all commits
+                    System.out.println(
+                            "Clean mode enabled: Removing existing {breakingCommit} folders and reports before processing...");
+                    extractionService.cleanExistingFolders(records, outputDir);
 
-                if (jsonOutput != null) {
-                    cleanReportsAndJson(records, jsonOutput);
+                    if (jsonOutput != null) {
+                        cleanReportsAndJson(records, jsonOutput);
+                    }
                 }
             }
 
@@ -379,18 +426,18 @@ public class MainCli implements Callable<Integer> {
                 System.out.println("\n=== Extracting Projects from Docker Images ===");
 
                 classificationSummaries = extractionService.extractProjectsFromDockerImages(
-                        records,
+                        recordsToProcess,  // Use filtered records if FILTER is enabled
                         outputDir,
                         shouldClassify,
                         shouldClean,
                         summaryConsumer);
             } else if (shouldClassify) {
-                classificationSummaries = extractionService.classifyExistingProjects(records, outputDir,
+                classificationSummaries = extractionService.classifyExistingProjects(recordsToProcess, outputDir,
                         summaryConsumer);
             }
 
             if (jsonOutput != null && (classificationSummaries == null || classificationSummaries.isEmpty())) {
-                List<ClassificationSummary> datasetSummaries = buildDatasetOnlySummaries(records);
+                List<ClassificationSummary> datasetSummaries = buildDatasetOnlySummaries(recordsToProcess);
                 datasetSummaries.forEach(summaryConsumer);
             }
 
@@ -626,6 +673,90 @@ public class MainCli implements Callable<Integer> {
         }
         
         return new BranchesInfo(mainBranch, agentBranch, repairBranch, attemptBranches);
+    }
+
+    /**
+     * Loads existing results from breaking-updates-results.json if it exists.
+     * 
+     * @param jsonOutputPath the path to breaking-updates-results.json
+     * @return Map of breakingCommit -> ReportEntry, or empty map if file doesn't exist
+     */
+    private Map<String, ReportEntry> loadExistingResults(Path jsonOutputPath) {
+        Map<String, ReportEntry> existingResults = new LinkedHashMap<>();
+        
+        if (jsonOutputPath == null || !Files.exists(jsonOutputPath)) {
+            log.debug("No existing results file found at {}", jsonOutputPath);
+            return existingResults;
+        }
+        
+        try {
+            ObjectMapper mapper = new ObjectMapper()
+                    .enable(SerializationFeature.INDENT_OUTPUT);
+            
+            // Try to read as Map<String, ReportEntry>
+            try {
+                existingResults = mapper.readValue(
+                        jsonOutputPath.toFile(),
+                        mapper.getTypeFactory().constructMapType(
+                                LinkedHashMap.class, 
+                                String.class, 
+                                ReportEntry.class));
+                
+                log.debug("Loaded {} existing results from {}", existingResults.size(), jsonOutputPath);
+                
+            } catch (MismatchedInputException e) {
+                // Handle legacy array format
+                try {
+                    ReportEntry[] legacyEntries = mapper.readValue(
+                            jsonOutputPath.toFile(), 
+                            ReportEntry[].class);
+                    for (ReportEntry entry : legacyEntries) {
+                        if (entry.breakingCommit() != null) {
+                            existingResults.put(entry.breakingCommit(), entry);
+                        }
+                    }
+                    log.debug("Loaded {} existing results from legacy format", existingResults.size());
+                } catch (IOException legacyEx) {
+                    log.warn("Failed to read existing results (legacy format): {}", legacyEx.getMessage());
+                }
+            }
+            
+        } catch (IOException e) {
+            log.warn("Failed to load existing results from {}: {}", jsonOutputPath, e.getMessage());
+        }
+        
+        return existingResults;
+    }
+
+    /**
+     * Filters BreakingUpdateRecords to exclude already processed commits.
+     * 
+     * @param records the list of all records to process
+     * @param processedCommits set of commit hashes that have already been processed
+     * @return filtered list containing only unprocessed commits
+     */
+    private List<BreakingUpdateRecord> filterRecords(
+            List<BreakingUpdateRecord> records, 
+            Set<String> processedCommits) {
+        
+        if (processedCommits == null || processedCommits.isEmpty()) {
+            return records; // No filtering needed
+        }
+        
+        List<BreakingUpdateRecord> filtered = records.stream()
+                .filter(record -> {
+                    String commit = record.breakingCommit();
+                    boolean alreadyProcessed = processedCommits.contains(commit);
+                    
+                    if (alreadyProcessed) {
+                        log.debug("Skipping already processed commit: {}", commit);
+                    }
+                    
+                    return !alreadyProcessed;
+                })
+                .collect(Collectors.toList());
+        
+        return filtered;
     }
 
     private String parentOrSelf(String path) {
