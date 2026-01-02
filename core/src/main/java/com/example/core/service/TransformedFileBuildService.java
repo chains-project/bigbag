@@ -77,7 +77,12 @@ public class TransformedFileBuildService {
      * @return BuildResult with log file path, category, and attempt, or null if failed
      */
     public BuildResult replaceAndBuild(Path transformedDir, Path projectDir, String dockerImage,
-                                       BreakingUpdateRecord record, Path outputReportDir, int attemptNumber) {
+            BreakingUpdateRecord record, Path outputReportDir, int attemptNumber) {
+        return replaceAndBuild(transformedDir, projectDir, dockerImage, record, outputReportDir, attemptNumber, null);
+    }
+
+    public BuildResult replaceAndBuild(Path transformedDir, Path projectDir, String dockerImage,
+            BreakingUpdateRecord record, Path outputReportDir, int attemptNumber, String processId) {
         if (transformedDir == null || !Files.exists(transformedDir)) {
             log.warn("Transformed directory does not exist: {}", transformedDir);
             return null;
@@ -121,7 +126,7 @@ public class TransformedFileBuildService {
                 log.info("No differences found between transformed and original files. All {} files are identical.",
                         transformedFiles.size());
                 Path logFile = outputReportDir.resolve("attempt_" + attemptNumber + "_build.log");
-                Attempt attempt = new Attempt(attemptNumber, FailureCategory.NO_DIFF,
+                Attempt attempt = new Attempt(attemptNumber, processId, FailureCategory.NO_DIFF,
                         outputReportDir.toString(), false);
                 // Explicit category for no-diff so it is not reported as UNKNOWN
                 return new BuildResult(logFile, FailureCategory.NO_DIFF, attempt, false);
@@ -190,7 +195,7 @@ public class TransformedFileBuildService {
                 log.info("Build was successful (exit code 0), category: BUILD_SUCCESS");
                 
                 // Use the attempt from result if available, but update attempt number
-                attempt = new Attempt(attemptNumber, FailureCategory.BUILD_SUCCESS, 
+                attempt = new Attempt(attemptNumber, processId, FailureCategory.BUILD_SUCCESS, 
                         buildLogFile.getParent().toString(), true);
             } else {
                 // 6. Build failed, run breaking-classifier to determine the failure category
@@ -220,7 +225,7 @@ public class TransformedFileBuildService {
                 }
 
                 // 7. Create Attempt from result or inferred category
-                attempt = new Attempt(attemptNumber, inferredCategory, 
+                attempt = new Attempt(attemptNumber, processId, inferredCategory, 
                         buildLogFile.getParent().toString(), 
                         inferredCategory == FailureCategory.BUILD_SUCCESS);
             }

@@ -549,29 +549,83 @@ public class MainCli implements Callable<Integer> {
         String commit = summary.breakingCommit() != null ? summary.breakingCommit() : "unknown";
         String originalCategory = summary.datasetCategory();
         String inferred = summary.inferredCategory();
+        
+        // Extract processId from attempts (all attempts should have the same processId)
+        String processId = null;
+        String fullProcessId = null;
+        BranchesInfo branches = null;
+        
         // If attempts are available, use them to build the ReportEntry
         if (summary.attempts() != null && !summary.attempts().isEmpty()) {
+            // Extract processId from first attempt (all should have the same)
+            se.kth.models.Attempt firstAttempt = summary.attempts().get(0);
+            processId = firstAttempt.getProcessId();
+            
+            // Build branches info based on processId and pipeline type
+            branches = buildBranchesInfo(summary, processId);
+            
             List<AttemptReport> attemptReports = summary.attempts().stream()
                     .map(attempt -> new AttemptReport(
                             attempt.getAttemptCount(),
+                            attempt.getProcessId(), // Include processId in attempt report
                             attempt.getFailureCategory().toString(),
                             0, 0, 0, 0, 0, // Placeholder for file stats
                             0, 0, 0, 0, 0, // Placeholder for error stats
                             parentOrSelf(attempt.getLogFileParent()),
                             attempt.isSuccessful()))
                     .collect(Collectors.toList());
-            return new ReportEntry(commit, originalCategory, attemptReports);
+            return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, attemptReports);
         } else {
             // Fallback to single attempt if no detailed attempts are provided
             AttemptReport attempt = new AttemptReport(
                     1,
+                    null, // No processId available
                     inferred != null ? inferred : originalCategory,
                     0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0,
                     summary.logFile() != null ? parentOrSelf(summary.logFile()) : "",
                     inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred));
-            return new ReportEntry(commit, originalCategory, java.util.List.of(attempt));
+            return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, java.util.List.of(attempt));
         }
+    }
+
+    /**
+     * Builds branches information based on the processId and pipeline type.
+     */
+    private BranchesInfo buildBranchesInfo(ClassificationSummary summary, String processId) {
+        if (processId == null || processId.isBlank()) {
+            return null;
+        }
+        
+        String mainBranch = "main";
+        String agentBranch = null;
+        String repairBranch = null;
+        List<String> attemptBranches = new ArrayList<>();
+        
+        // Determine pipeline type from attempts or environment
+        String pipelineType = determinePipelineType();
+        
+        if ("agent".equals(pipelineType)) {
+            // Agent pipeline: main -> agent-{ruleGen}-{processId}
+            // We need to determine the rule generator name
+            String ruleGenerator = envConfig.get("RULE_GENERATOR").orElse("spoon");
+            agentBranch = String.format("agent-%s-%s", ruleGenerator, processId);
+        } else {
+            // Model pipeline: main -> repair/{category}-{processId} -> attempt_{N}-{processId}
+            String category = summary.datasetCategory() != null 
+                    ? summary.datasetCategory().toLowerCase() 
+                    : "unknown";
+            repairBranch = String.format("repair/%s-%s", category, processId);
+            
+            // Build attempt branch names from attempts
+            if (summary.attempts() != null) {
+                for (se.kth.models.Attempt attempt : summary.attempts()) {
+                    attemptBranches.add(String.format("attempt_%d-%s", attempt.getAttemptCount(), processId));
+                }
+            }
+        }
+        
+        return new BranchesInfo(mainBranch, agentBranch, repairBranch, attemptBranches);
     }
 
     private String parentOrSelf(String path) {
@@ -828,12 +882,23 @@ public class MainCli implements Callable<Integer> {
     private record ReportEntry(
             String breakingCommit,
             String originalFailureCategory,
+            String processId,
+            String fullProcessId,
+            BranchesInfo branches,
             java.util.List<AttemptReport> attempts) {
+    }
+
+    private record BranchesInfo(
+            String main,
+            String agent,
+            String repair,
+            java.util.List<String> attempts) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     private record AttemptReport(
             int index,
+            String processId,
             String failureCategory,
             int prefixFiles,
             int postfixFiles,

@@ -6,6 +6,7 @@ import com.example.core.model.ClassificationSummary;
 import com.example.core.prompt.PromptGenerationService;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
+import com.example.core.service.ProcessIdService;
 import com.example.core.service.TransformedFileBuildService;
 import com.example.core.util.ProjectPaths;
 import org.slf4j.Logger;
@@ -64,14 +65,31 @@ public class ModelRepairPipeline implements RepairPipeline {
             log.warn("Git repository initialization failed or already exists: {}", e.getMessage());
         }
 
-        // Create repair branch based on failure category
-        String repairBranchName = "repair/"
-                + (record.failureCategory() != null ? record.failureCategory().toLowerCase() : "unknown");
+        // Step 1: Generate process ID for this repair execution
+        String processId = ProcessIdService.generateShortProcessId();
+        String fullProcessId = ProcessIdService.generateProcessId();
+        log.info("Generated process ID: {} (full: {})", processId, fullProcessId);
+
+        // Step 2: Prepare project for new process (commit changes, checkout main)
         try {
-            gitWorkflowService.createAndCheckoutBranch(projectDir, repairBranchName);
+            gitWorkflowService.prepareForNewProcess(projectDir);
+            log.info("Prepared project for new repair process");
+        } catch (Exception e) {
+            log.error("Failed to prepare project for new process: {}", e.getMessage(), e);
+            return attempts;
+        }
+
+        // Step 3: Create repair branch from main with process ID
+        String category = record.failureCategory() != null 
+                ? record.failureCategory().toLowerCase() 
+                : "unknown";
+        String repairBranchName;
+        try {
+            gitWorkflowService.createRepairBranch(projectDir, category, processId);
+            repairBranchName = "repair/" + category + "-" + processId;
             log.info("Created and checked out repair branch: {}", repairBranchName);
         } catch (Exception e) {
-            log.error("Failed to create/checkout repair branch {}: {}", repairBranchName, e.getMessage(), e);
+            log.error("Failed to create repair branch: {}", e.getMessage(), e);
             return attempts;
         }
 
@@ -106,18 +124,14 @@ public class ModelRepairPipeline implements RepairPipeline {
             
             Path attemptTransformedDir = attemptDir.resolve("transformed");
 
-            // Create Git branch for this attempt
-            String branchName = "attempt_" + attemptNumber;
+            // Create Git branch for this attempt with process ID
+            String branchName;
             try {
-                if (attemptNumber == 1) {
-                    gitWorkflowService.createBranchFromBase(projectDir, branchName, previousBranch);
-                } else {
-                    gitWorkflowService.createBranchFromBase(projectDir, branchName, previousBranch);
-                }
-                gitWorkflowService.checkout(projectDir, branchName);
-                log.info("Created and checked out branch: {}", branchName);
+                gitWorkflowService.createAttemptBranch(projectDir, attemptNumber, processId, previousBranch);
+                branchName = String.format("attempt_%d-%s", attemptNumber, processId);
+                log.info("Created and checked out attempt branch: {}", branchName);
             } catch (Exception e) {
-                log.error("Failed to create/checkout branch {}: {}", branchName, e.getMessage(), e);
+                log.error("Failed to create/checkout attempt branch: {}", e.getMessage(), e);
                 break;
             }
 
@@ -169,6 +183,7 @@ public class ModelRepairPipeline implements RepairPipeline {
                     
                     Attempt transformationFailureAttempt = new Attempt(
                             attemptNumber,
+                            processId, // processId - links attempt to process
                             FailureCategory.TRANSFORMATION_FAILURE,
                             attemptDir.toString(),
                             false
@@ -207,7 +222,8 @@ public class ModelRepairPipeline implements RepairPipeline {
                     dockerImage,
                     record,
                     attemptDir, // Use attempt-specific directory for output
-                    attemptNumber
+                    attemptNumber,
+                    processId // Pass processId to link attempt to process
             );
 
             if (buildResult == null) {

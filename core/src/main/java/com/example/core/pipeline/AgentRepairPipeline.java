@@ -9,6 +9,7 @@ import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
+import com.example.core.service.ProcessIdService;
 import com.example.core.util.ProjectPaths;
 
 import org.slf4j.Logger;
@@ -68,27 +69,40 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.warn("Git repository initialization failed or already exists: {}", e.getMessage());
         }
 
-        // Step 1: Create agent instance using factory (dynamic selection based on environment)
+        // Step 1: Generate process ID for this repair execution
+        String processId = ProcessIdService.generateShortProcessId();
+        String fullProcessId = ProcessIdService.generateProcessId();
+        log.info("Generated process ID: {} (full: {})", processId, fullProcessId);
+
+        // Step 2: Prepare project for new process (commit changes, checkout main)
+        try {
+            gitWorkflowService.prepareForNewProcess(projectDir);
+            log.info("Prepared project for new repair process");
+        } catch (Exception e) {
+            log.error("Failed to prepare project for new process: {}", e.getMessage(), e);
+            return new ArrayList<>();
+        }
+
+        // Step 3: Create agent instance using factory (dynamic selection based on environment)
         BaseAgent agent;
         try {
             agent = AgentFactory.createAgent(envConfig);
-            log.info("Created agent: {}", agent.getName());
+            log.info("Created agent: {} (rule generator: {})", agent.getRuleGeneratorName(), agent.getLlmAgentName());
         } catch (Exception e) {
             log.error("Failed to create agent: {}", e.getMessage(), e);
             return new ArrayList<>();
         }
         
-        // Step 2: Create agent branch: agent-{AGENT_NAME}
-        String agentBranchName = "agent-" + agent.getName();
+        // Step 4: Create agent branch from main with process ID
         try {
-            gitWorkflowService.createAndCheckoutBranch(projectDir, agentBranchName);
-            log.info("Created and checked out agent branch: {}", agentBranchName);
+            gitWorkflowService.createAgentBranch(projectDir, agent.getRuleGeneratorName(), processId);
+            log.info("Created and checked out agent branch: agent-{}-{}", agent.getRuleGeneratorName(), processId);
         } catch (Exception e) {
-            log.error("Failed to create/checkout agent branch {}: {}", agentBranchName, e.getMessage(), e);
+            log.error("Failed to create agent branch: {}", e.getMessage(), e);
             return new ArrayList<>();
         }
 
-        // Step 3: Ensure agent Docker image exists
+        // Step 5: Ensure agent Docker image exists
         String dockerImageAgentName = agent.getDockerImageName();
         Path dockerfileDir = agent.getDockerfilePath();
         try {
@@ -100,7 +114,7 @@ public class AgentRepairPipeline implements RepairPipeline {
             return new ArrayList<>();
         }
 
-        // Step 4: Find and prepare m2 folder for mounting
+        // Step 6: Find and prepare m2 folder for mounting
         Path m2Folder = dockerBuild.findM2Folder(projectDir);
         if (m2Folder != null) {
             log.info("Found m2 folder at: {}. It will be mounted to /root/.m2 in container", m2Folder);
@@ -109,6 +123,7 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
 
         // The project is now in the agent branch created above. We mount it directly without copying.
+        String agentBranchName = "agent-" + agent.getRuleGeneratorName() + "-" + processId;
         log.info("Project directory {} is in agent branch {} for agent modifications", projectDir, agentBranchName);
 
         // Copy original error files to commitReportDir/original/ before applying agent changes
@@ -291,11 +306,13 @@ public class AgentRepairPipeline implements RepairPipeline {
             if (commitReportDir != null) {
                 attempt = new Attempt(
                         1, // attemptCount - agent pipeline has only one attempt
+                        processId, // processId - links attempt to process
                         attemptCategory,
                         commitReportDir.toString(), // logFileParent
                         attemptSuccessful
                 );
-                log.info("Created attempt 1 - Category: {}, Success: {}", attemptCategory, attemptSuccessful);
+                log.info("Created attempt 1 (process: {}) - Category: {}, Success: {}", 
+                        processId, attemptCategory, attemptSuccessful);
             }
         }
 
