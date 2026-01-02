@@ -1,5 +1,9 @@
 package com.example.core.pipeline;
 
+import com.example.core.agent.AgentFactory;
+import com.example.core.agent.BaseAgent;
+import com.example.core.agent.model.AgentExecutionRequest;
+import com.example.core.agent.model.AgentExecutionResult;
 import com.example.core.config.EnvConfig;
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
@@ -15,17 +19,19 @@ import se.kth.models.FailureCategory;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Agent-based repair pipeline implementation.
- * This is a placeholder for future implementation of agent-based repair
- * strategies.
- * Currently returns an empty list of attempts.
+ * 
+ * This pipeline is now generic and scalable, using the Strategy/Factory pattern
+ * to support multiple agent types (Spoon, OpenRewrite, etc.) without code changes.
+ * 
+ * The pipeline:
+ * 1. Uses AgentFactory to dynamically select the appropriate agent based on environment variables
+ * 2. Delegates all agent-specific logic (mounts, commands, setup) to the agent instance
+ * 3. Remains agnostic to the specific agent implementation
  */
 public class AgentRepairPipeline implements RepairPipeline {
 
@@ -62,11 +68,18 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.warn("Git repository initialization failed or already exists: {}", e.getMessage());
         }
 
-        // Get agent name from environment variable
-        String agentName = envConfig.get("AGENT_NAME").orElse("unknown");
+        // Step 1: Create agent instance using factory (dynamic selection based on environment)
+        BaseAgent agent;
+        try {
+            agent = AgentFactory.createAgent(envConfig);
+            log.info("Created agent: {}", agent.getName());
+        } catch (Exception e) {
+            log.error("Failed to create agent: {}", e.getMessage(), e);
+            return new ArrayList<>();
+        }
         
-        // Create agent branch: agent-{AGENT_NAME}
-        String agentBranchName = "agent-" + agentName;
+        // Step 2: Create agent branch: agent-{AGENT_NAME}
+        String agentBranchName = "agent-" + agent.getName();
         try {
             gitWorkflowService.createAndCheckoutBranch(projectDir, agentBranchName);
             log.info("Created and checked out agent branch: {}", agentBranchName);
@@ -75,25 +88,19 @@ public class AgentRepairPipeline implements RepairPipeline {
             return new ArrayList<>();
         }
 
-        String agentImage = agentName;
-
-        Path dockerfileDir = Path.of("images/" + agentImage + "/Dockerfile");
-
-        String dockerImageAgentName = agentImage + ":latest";
-
+        // Step 3: Ensure agent Docker image exists
+        String dockerImageAgentName = agent.getDockerImageName();
+        Path dockerfileDir = agent.getDockerfilePath();
         try {
-            log.info("Ensuring agent image exists");
+            log.info("Ensuring agent image exists: {}", dockerImageAgentName);
             dockerBuild.ensureImageExistsOrBuildFromDockerfile(dockerImageAgentName, dockerfileDir);
-            log.info("Docker image {} is ready", agentImage);
-
+            log.info("Docker image {} is ready", dockerImageAgentName);
         } catch (Exception e) {
             log.error("Error ensuring agent image exists", e);
+            return new ArrayList<>();
         }
 
-        // Find and prepare m2 folder for mounting
-        // The m2 folder is typically at extractedPath/m2 (where extractedPath contains
-        // both project and m2)
-        // findM2Folder looks for m2 in the parent directory of projectDir
+        // Step 4: Find and prepare m2 folder for mounting
         Path m2Folder = dockerBuild.findM2Folder(projectDir);
         if (m2Folder != null) {
             log.info("Found m2 folder at: {}. It will be mounted to /root/.m2 in container", m2Folder);
@@ -161,155 +168,26 @@ public class AgentRepairPipeline implements RepairPipeline {
             }
         }
 
-        // Create workspace directory structure for spoon-base-template (copied)
-        // Structure: workspace/
-        //   - {projectName}/  (mounted from projectDir - already in correct branch)
-        //   - spoon-base-template/  (copied)
-        //   - api-docs/  (mounted)
-        Path workspaceDir = null;
-        Path spoonBaseTemplate = envConfig.getPath("SPOON_BASE_TEMPLATE").orElse(null);
-        try {
-            workspaceDir = Files.createTempDirectory("agent-workspace-");
-            log.info("Created workspace directory at: {}", workspaceDir);
-            
-            // Copy Spoon base template to workspace/spoon-base-template (project is mounted directly)
-            if (spoonBaseTemplate != null && Files.exists(spoonBaseTemplate)) {
-                Path spoonBaseTarget = workspaceDir.resolve("spoon-base-template");
-                copyDirectory(spoonBaseTemplate, spoonBaseTarget);
-                log.info("Copied Spoon base template from {} to {}", spoonBaseTemplate, spoonBaseTarget);
-            } else {
-                log.warn("Spoon base template path not provided or does not exist. SPOON_BASE_TEMPLATE={}", spoonBaseTemplate);
-            }
-        } catch (IOException e) {
-            log.error("Failed to create workspace directory structure: {}", e.getMessage(), e);
-        }
-
-        // Get Spoon API documentation path for mounting
-        Path spoonApiDocs = envConfig.getPath("SPOON_API_DOCS").orElse(null);
-        if (spoonApiDocs == null || !Files.exists(spoonApiDocs)) {
-            log.warn("Spoon API docs path not provided or does not exist. SPOON_API_DOCS={}", spoonApiDocs);
-        }
-
-        // Execute command in the workspace
-        String containerWorkDir = "/workspace"; // Working directory in the agent container
-        
-        // Build the command with proper folder references
-        // In workspace: project is at /{projectName}/, spoon-base-template is at /spoon-base-template/, api-docs is at /api-docs/
-        String spoonBaseFolder = "spoon-base-template"; // Folder name in workspace
-        String apiDocsFolder = "api-docs"; // Folder name in workspace (mounted)
-        
-        // Format the command: gemini expects the format: gemini --debug --yolo " execute in /path/ 'command'"
-        // The inner command is in single quotes, wrapped in double quotes
-        // IMPORTANT: The agent must save transformation rules in /workspace/spoon-base-template/
-        String spoonBaseFullPath = containerWorkDir + "/" + spoonBaseFolder; // /workspace/spoon-base-template
-        String mavenCommand = String.format(
-            "gemini --model gemini-3-pro-preview --debug --yolo \" 'Project /%s/ does not compile. Plan: "
-          + "1) Run `mvn compile` in the project /%s/ to get the compilation errors only. "
-          + "2) Generate a Spoon source code transformation to fix the errors. "
-          + "   - Use the project in folder %s/ as the base project template. "
-          + "   - Only modify the files that are causing the compilation errors. "
-          + "   - Save the transformation rules inside the folder %s/, e.g., in `%s/src/main/java/github/chains/processors/`. "
-          + "   - Use the Spoon API documentation located in folder %s/ for reference. "
-          + "3) Ensure the generated transformation file compiles correctly. "
-          + "4) Apply the transformation to fix the compilation errors. "
-          + "5) Verify that the project now compiles successfully with `mvn compile`. "
-          + "> /%s/agent_execution.log 2>&1'\"",
-            projectName, projectName, spoonBaseFolder, spoonBaseFullPath, spoonBaseFullPath, apiDocsFolder, projectName
-        );
-        
-        
-        // Create log file for the compile command execution
-        // Use outputBaseDir to create an absolute path so getParent() works correctly
-        Path compileLogFile = outputBaseDir.resolve("maven_compile_output.log");
-
-        // Prepare environment variables for Gemini (and other needed vars)
-        Map<String, String> envVars = new HashMap<>();
-
-        // Add Gemini API key if available
-        envConfig.get("LLM_API_KEY").ifPresent(key -> envVars.put("GEMINI_API_KEY", key));
-        envConfig.get("LLM_API_KEY").ifPresent(key -> envVars.put("GOOGLE_API_KEY", key));
-
-        // Add any other environment variables that might be needed
-        // You can add more here as needed, e.g.:
-        // envConfig.get("OTHER_ENV_VAR").ifPresent(value ->
-        // envVars.put("OTHER_ENV_VAR", value));
-
-        if (workspaceDir == null) {
-            log.error("Workspace directory was not created. Cannot proceed with execution.");
-            return new ArrayList<>();
-        }
-
-        log.info("Executing '{}' in agent container {} (project: {} -> /workspace/{}, workspace: {}, workDir: {}, env vars: {}, m2: {}, spoon docs: {})",
-                mavenCommand, dockerImageAgentName, projectDir, projectName, workspaceDir, containerWorkDir, envVars.size(),
-                m2Folder != null ? "mounted" : "not mounted",
-                spoonApiDocs != null ? "mounted" : "not mounted");
-
-        // Use executeMavenCommandInContainerWithWorkspace to mount:
-        // 1. Workspace (with spoon-base-template copied) at /workspace
-        // 2. Project (already in correct branch) at /workspace/{projectName}/
-        // 3. Spoon docs at /workspace/api-docs/
-        // 4. M2 at /root/.m2
-        boolean compileSuccess = dockerBuild.executeMavenCommandInContainerWithWorkspace(
-                dockerImageAgentName,
-                workspaceDir, // Workspace with spoon-base-template
-                projectDir, // Project directory (already in correct branch) - mounted directly
-                projectName, // Project name for mount path
-                containerWorkDir,
-                mavenCommand,
-                compileLogFile,
-                envVars.isEmpty() ? null : envVars,
-                m2Folder,
-                spoonApiDocs,
-                this.verbose
-        );
-
-        log.info("Maven compile execution completed. Success: {}. Log saved to: {}",
-                compileSuccess, compileLogFile);
-
-        // After compile command, run mvn test inside /workspace/{projectName}
-        // The command will save its log to mavenTest.log in the project directory
-        // The workspace is at /workspace, and project is at /workspace/{projectName}
-        // So we need to execute: cd /workspace/{projectName} && mvn test > mavenTest.log 2>&1
-        String projectPathInContainer = containerWorkDir.endsWith("/")
-                ? containerWorkDir + projectName
-                : containerWorkDir + "/" + projectName;
-        // Include tee in the command to save log to mavenTest.log in the project directory
-        String testCommand = String.format("cd %s && mvn compile 2>&1 | tee mavenTest.log", projectPathInContainer);
-
-        // Execute test command using the same method as gemini command
-        // The log will be saved as mavenCompile.log by DockerBuild (we'll copy the actual log from project directory)
-        Path tempTestLogFile = outputBaseDir.resolve("temp_maven_test.log");
-        boolean testSuccess = dockerBuild.executeMavenCommandInContainerWithWorkspace(
-                dockerImageAgentName,
-                workspaceDir,
+        // Step 5: Execute agent (delegated to agent - it handles everything internally)
+        AgentExecutionRequest executionRequest = new AgentExecutionRequest(
+                dockerBuild,
                 projectDir,
                 projectName,
-                containerWorkDir, // Keep workspace as base directory
-                testCommand, // Command includes cd and tee to save log in project directory
-                tempTestLogFile, // Temporary log file (we'll copy the actual mavenTest.log from project)
-                envVars.isEmpty() ? null : envVars,
+                dockerImageAgentName,
                 m2Folder,
-                spoonApiDocs,
+                outputBaseDir,
+                commitReportDir,
                 this.verbose
         );
-
-        log.info("Maven test execution completed. Success: {}", testSuccess);
         
-        // Copy the actual test log from project directory (where mvn test saved it with tee)
-        Path testLogFile = commitReportDir != null
-                ? commitReportDir.resolve("maven_test_output.log")
-                : outputBaseDir.resolve("maven_test_output.log");
+        AgentExecutionResult executionResult;
         try {
-            Path testLogSource = projectDir.resolve("mavenTest.log");
-            if (Files.exists(testLogSource)) {
-                Files.createDirectories(testLogFile.getParent());
-                Files.copy(testLogSource, testLogFile, StandardCopyOption.REPLACE_EXISTING);
-                log.info("Copied mvn test log from project directory to {}", testLogFile);
-            } else {
-                log.warn("mvn test log not found at {}. Test may have failed to save log.", testLogSource);
-            }
+            executionResult = agent.execute(executionRequest);
+            log.info("Agent execution completed. Success: {}, Compile: {}, Test: {}", 
+                    executionResult.success(), executionResult.compileSuccess(), executionResult.testSuccess());
         } catch (IOException e) {
-            log.warn("Failed to copy mvn test log from project directory: {}", e.getMessage());
+            log.error("Failed to execute agent: {}", e.getMessage(), e);
+            return new ArrayList<>();
         }
 
         // Create attempt result based on breaking classifier analysis
@@ -317,35 +195,22 @@ public class AgentRepairPipeline implements RepairPipeline {
         FailureCategory attemptCategory = FailureCategory.UNKNOWN_FAILURE;
         boolean attemptSuccessful = false;
 
-        // Copy all logs to commit report directory with distinct names
+        // Step 6: Copy logs to commit report directory with distinct names
         if (commitReportDir != null) {
-            // Copy agent execution log (from project directory)
-            try {
-                Path agentLogSource = projectDir.resolve("agent_execution.log");
-                if (Files.exists(agentLogSource)) {
-                    Path agentLogTarget = commitReportDir.resolve("agent_execution.log");
-                    Files.createDirectories(commitReportDir);
-                    Files.copy(agentLogSource, agentLogTarget, StandardCopyOption.REPLACE_EXISTING);
-                    log.info("Copied agent execution log to {}", agentLogTarget);
-                } else {
-                    log.debug("Agent execution log not found at {}", agentLogSource);
-                }
-            } catch (IOException e) {
-                log.warn("Failed to copy agent execution log to commit directory: {}", e.getMessage());
-            }
-
             // Copy compile log
-            try {
-                Path compileLogTarget = commitReportDir.resolve("agent_compile_output.log");
-                Files.createDirectories(commitReportDir);
-                Files.copy(compileLogFile, compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
-                log.info("Copied compile log to {}", compileLogTarget);
-            } catch (IOException e) {
-                log.warn("Failed to copy compile log to commit directory: {}", e.getMessage());
+            if (executionResult.compileLogFile() != null) {
+                try {
+                    Path compileLogTarget = commitReportDir.resolve("agent_compile_output.log");
+                    Files.createDirectories(commitReportDir);
+                    Files.copy(executionResult.compileLogFile(), compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
+                    log.info("Copied compile log to {}", compileLogTarget);
+                } catch (IOException e) {
+                    log.warn("Failed to copy compile log to commit directory: {}", e.getMessage());
+                }
             }
 
-            // Test log was already copied above (right after mvn test execution)
-            Path testLogTarget = testLogFile;
+            // Test log was already copied by the agent
+            Path testLogTarget = executionResult.testLogFile();
 
             // Analyze mvn test log with breaking classifier to determine failure category
             // Use the direct log categorization method that analyzes the log file content
@@ -361,7 +226,7 @@ public class AgentRepairPipeline implements RepairPipeline {
                     
                     // Convert breaking classifier FailureCategory to se.kth.models.FailureCategory
                     attemptCategory = convertFailureCategory(logCategory);
-                    attemptSuccessful = (attemptCategory == FailureCategory.BUILD_SUCCESS);
+                    attemptSuccessful = executionResult.success();
                     
                     // Note: breaking-classifier-report.json was already generated in MainCli
                     // from the initial log (before applying rules). We don't regenerate it here
@@ -434,41 +299,14 @@ public class AgentRepairPipeline implements RepairPipeline {
             }
         }
 
-        // Copy spoon-base-template from workspace (with generated rules) to commitReportDir/spoon-base-template
-        // IMPORTANT: Copy from workspaceDir (which has the rules generated by the agent) not from the original template
-        // Use commitReportDir directly (already points to the correct commit directory)
-        if (workspaceDir != null && Files.exists(workspaceDir) && commitReportDir != null) {
+        // Step 7: Copy agent output/results from workspace to commitReportDir
+        // Delegated to the agent - each agent knows how to copy its own results
+        if (executionResult.workspaceDir() != null && Files.exists(executionResult.workspaceDir()) && commitReportDir != null) {
             try {
-                Path workspaceSpoonBase = workspaceDir.resolve("spoon-base-template");
-                if (Files.exists(workspaceSpoonBase)) {
-                    Files.createDirectories(commitReportDir);
-                    
-                    Path spoonBaseTarget = commitReportDir.resolve("spoon-base-template");
-                    if (Files.exists(spoonBaseTarget)) {
-                        // Delete existing directory if it exists
-                        Files.walkFileTree(spoonBaseTarget, new SimpleFileVisitor<Path>() {
-                            @Override
-                            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                                Files.deleteIfExists(file);
-                                return FileVisitResult.CONTINUE;
-                            }
-                            @Override
-                            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                                Files.deleteIfExists(dir);
-                                return FileVisitResult.CONTINUE;
-                            }
-                        });
-                    }
-                    copyDirectory(workspaceSpoonBase, spoonBaseTarget);
-                    log.info("Copied spoon-base-template (with generated rules) from workspace {} to {}", workspaceSpoonBase, spoonBaseTarget);
-                } else {
-                    log.warn("spoon-base-template not found in workspace at {}. Skipping copy.", workspaceSpoonBase);
-                }
-            } catch (IOException e) {
-                log.warn("Failed to copy spoon-base-template from workspace to repair_pipeline directory: {}", e.getMessage());
+                agent.copyResults(executionResult.workspaceDir(), commitReportDir);
+            } catch (Exception e) {
+                log.warn("Failed to copy agent results from workspace: {}", e.getMessage());
             }
-        } else {
-            log.warn("Workspace directory not available. Cannot copy spoon-base-template with generated rules.");
         }
 
         // Return list with the attempt (following the same pattern as ModelRepairPipeline)
@@ -507,31 +345,6 @@ public class AgentRepairPipeline implements RepairPipeline {
     }
 
     /**
-     * Copies a directory recursively from source to target.
-     * 
-     * @param source the source directory
-     * @param target the target directory (will be created if it doesn't exist)
-     * @throws IOException if an I/O error occurs
-     */
-    private void copyDirectory(Path source, Path target) throws IOException {
-        Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                Path targetDir = target.resolve(source.relativize(dir));
-                Files.createDirectories(targetDir);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                Path targetFile = target.resolve(source.relativize(file));
-                Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
-                return FileVisitResult.CONTINUE;
-            }
-        });
-    }
-
-    /**
      * Resolves the path to an original source file from the extracted project.
      * Uses the same logic as PromptGenerationService.resolveOriginalSourceFile.
      * 
@@ -562,5 +375,5 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
         return null;
     }
-
+    
 }

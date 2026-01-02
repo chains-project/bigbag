@@ -773,7 +773,7 @@ public class PromptGenerationService {
                 "--output-file", outputFile.toString(),
                 "--meta-file", metaFile.toString()
         );
-        // Ejecutar desde la raíz del proyecto (padre de reports/)
+        // Execute from the project root (parent of reports/)
         Path projectRoot = findProjectRoot(commitReportDir);
         pb.directory(projectRoot.toFile());
         pb.redirectErrorStream(true);
