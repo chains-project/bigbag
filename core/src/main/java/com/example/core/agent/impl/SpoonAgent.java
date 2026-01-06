@@ -172,13 +172,13 @@ public class SpoonAgent extends BaseAgent {
         String apiDocsPath = workspaceDir + "/" + API_DOCS_FOLDER;
         
         return String.format(
-            "gemini --model gemini-3-pro-preview --debug --yolo \" 'Project /%s/ does not compile. Plan: "
-          + "1) Run `mvn compile` in the project /%s/ to get the compilation errors only. "
+            "gemini --model gemini-3-pro-preview --debug --yolo \" 'Project @%s/ does not compile. Plan: "
+          + "1) Run `mvn compile` in the project @%s/ to get the compilation errors only. "
           + "2) Generate a Spoon source code transformation to fix the errors. "
           + "   - Use the project in folder %s/ as the base project template. "
           + "   - Only modify the files that are causing the compilation errors. "
-          + "   - Save the transformation rules inside the folder %s/, e.g., in `%s/src/main/java/github/chains/processors/`. "
-          + "   - Use the Spoon API documentation located in folder %s/ for reference. "
+          + "   - Save the transformation rules inside the folder @%s/, e.g., in `%s/src/main/java/github/chains/processors/`. "
+          + "   - Use the Spoon API documentation located in folder @%s/ for reference. "
           + "3) Ensure the generated transformation file compiles correctly. "
           + "4) Apply the transformation to fix the compilation errors. "
           + "5) Verify that the project now compiles successfully with `mvn compile`. "
