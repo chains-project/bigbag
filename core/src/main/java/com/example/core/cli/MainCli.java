@@ -247,16 +247,27 @@ public class MainCli implements Callable<Integer> {
                 // Build path based on pipeline type
                 if ("agent".equals(selectedPipelineType)) {
                     // For agent pipeline:
-                    // repair_pipeline/{AGENT_NAME}/breaking-updates-results.json
+                    // repair_pipeline/{AGENT_NAME}/{RULE_GENERATOR}/breaking-updates-results.json (if RULE_GENERATOR exists)
+                    // repair_pipeline/{AGENT_NAME}/breaking-updates-results.json (if RULE_GENERATOR does not exist)
                     String agentName = envConfig.get("AGENT_NAME").orElse("unknown");
                     String repairPipelineDir = envConfig.get("REPAIR_PIPELINE").orElse("pipeline");
-                    jsonOutput = jsonOutputDir.resolve(repairPipelineDir).resolve(agentName)
-                            .resolve("breaking-updates-results.json");
-                    log.info("JSON output will be written to: {} (agent pipeline)", jsonOutput);
+                    Path basePath = jsonOutputDir.resolve(repairPipelineDir).resolve(agentName);
+                    
+                    // Only add RULE_GENERATOR to path if it exists
+                    String ruleGenerator = envConfig.get("RULE_GENERATOR").orElse(null);
+                    if (ruleGenerator != null && !ruleGenerator.isBlank()) {
+                        jsonOutput = basePath.resolve(ruleGenerator).resolve("breaking-updates-results.json");
+                        log.info("JSON output will be written to: {} (agent pipeline: {} + {})", jsonOutput, agentName, ruleGenerator);
+                    } else {
+                        jsonOutput = basePath.resolve("breaking-updates-results.json");
+                        log.info("JSON output will be written to: {} (agent pipeline: {})", jsonOutput, agentName);
+                    }
                 } else {
-                    // For model pipeline: {model}/breaking-updates-results.json
-                    jsonOutput = jsonOutputDir.resolve(modelName).resolve("breaking-updates-results.json");
-                    log.info("JSON output will be written to: {} (model pipeline)", jsonOutput);
+                    // For model pipeline: {model}/{RULE_GENERATOR}/breaking-updates-results.json
+                    String ruleGenerator = envConfig.get("RULE_GENERATOR").orElse("spoon");
+                    jsonOutput = jsonOutputDir.resolve(modelName).resolve(ruleGenerator)
+                            .resolve("breaking-updates-results.json");
+                    log.info("JSON output will be written to: {} (model pipeline: {} + {})", jsonOutput, modelName, ruleGenerator);
                 }
             }
 

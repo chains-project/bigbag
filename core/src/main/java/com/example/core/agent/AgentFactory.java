@@ -1,5 +1,6 @@
 package com.example.core.agent;
 
+import com.example.core.agent.impl.JavaParserAgent;
 import com.example.core.agent.impl.SpoonAgent;
 import com.example.core.config.EnvConfig;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class AgentFactory {
         // Register known rule generators
         // Each generator takes (EnvConfig, llmAgentName) and returns BaseAgent
         registerRuleGenerator("spoon", (envConfig, llmAgentName) -> new SpoonAgent(envConfig, llmAgentName));
+        registerRuleGenerator("javaparser", (envConfig, llmAgentName) -> new JavaParserAgent(envConfig, llmAgentName));
         // Future generators can be registered here:
         // registerRuleGenerator("openrewrite", (envConfig, llmAgentName) -> new OpenRewriteAgent(envConfig, llmAgentName));
     }
@@ -91,8 +93,11 @@ public class AgentFactory {
         }
         
         // Strategy 2: Auto-detect based on environment variables
+        // Note: Both Spoon and JavaParser use BASE_TEMPLATE and API_DOCS
+        // So we can't auto-detect based on these alone - explicit RULE_GENERATOR is required
+        // If BASE_TEMPLATE/API_DOCS are present but no explicit generator, default to spoon for backward compatibility
         if (envConfig.get("BASE_TEMPLATE").isPresent() || envConfig.get("API_DOCS").isPresent()) {
-            log.debug("Auto-detected rule generator: spoon (from BASE_TEMPLATE/API_DOCS)");
+            log.debug("BASE_TEMPLATE/API_DOCS detected. Defaulting to spoon (use RULE_GENERATOR=javaparser to use JavaParser)");
             return "spoon";
         }
         
