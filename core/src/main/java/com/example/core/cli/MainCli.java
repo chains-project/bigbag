@@ -12,6 +12,7 @@ import com.example.core.report.JsonReportReader;
 import com.example.core.service.BreakingUpdateExtractionService;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
+import com.example.core.service.ParallelProcessingService;
 import com.example.core.util.FileSystemUtils;
 import com.example.core.util.ProjectPaths;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -140,6 +141,9 @@ public class MainCli implements Callable<Integer> {
     private final GitWorkflowService gitWorkflowService;
     private RepairPipeline repairPipeline;
     private DockerBuild dockerBuild;
+    
+    // Thread-safety: Lock for JSON file writing
+    private final Object jsonWriteLock = new Object();
 
     public MainCli() {
         this.envConfig = EnvConfig.loadDefault();
@@ -177,6 +181,14 @@ public class MainCli implements Callable<Integer> {
             boolean envClassify = envConfig.getBoolean("CLASSIFY").orElse(DEFAULT_EXTRACT_JARS_AND_CLASSIFY);
             boolean envClean = envConfig.getBoolean("CLEAN").orElse(DEFAULT_CLEAN_EXISTING);
             boolean envVerbose = envConfig.getBoolean("VERBOSE").orElse(false);
+            boolean envParallel = envConfig.getBoolean("PARALLEL_ENABLED").orElse(false);
+            int envParallelThreads = envConfig.get("PARALLEL_THREADS")
+                    .map(Integer::parseInt)
+                    .orElse(Runtime.getRuntime().availableProcessors());
+            // Timeout opcional: null = sin timeout (ilimitado), solo procesa en paralelo
+            Long envCommitTimeout = envConfig.get("COMMIT_TIMEOUT_MINUTES")
+                    .map(Long::parseLong)
+                    .orElse(null); // null = sin timeout, procesa sin límite de tiempo
 
             // Set verbose from options or environment
             this.verbose = options.isVerbose() || envVerbose;
@@ -347,12 +359,16 @@ public class MainCli implements Callable<Integer> {
             }
 
             // Always load existing results from JSON report if it exists
-            Map<String, ReportEntry> existingResults = new LinkedHashMap<>();
+            // If the file doesn't exist, it means this is the first execution - this is normal
+            final Map<String, ReportEntry> existingResults = new LinkedHashMap<>();
             Set<String> processedCommits = new HashSet<>();
             if (jsonOutput != null && Files.exists(jsonOutput)) {
-                existingResults = loadExistingResults(jsonOutput);
+                Map<String, ReportEntry> loaded = loadExistingResults(jsonOutput);
+                existingResults.putAll(loaded);
                 processedCommits = new HashSet<>(existingResults.keySet());
                 log.info("Loaded {} existing results from {}", existingResults.size(), jsonOutput);
+            } else if (jsonOutput != null) {
+                log.debug("No existing results file found at {} - this is the first execution", jsonOutput);
             }
 
             // Check if FILTER option is enabled
@@ -388,7 +404,7 @@ public class MainCli implements Callable<Integer> {
                 if (filterEnabled && !processedCommits.isEmpty()) {
                     // Only clean commits that will be processed (not the ones already in report)
                     System.out.println("Clean mode enabled with filter: Removing folders for commits to be processed (preserving already processed)...");
-                    extractionService.cleanExistingFolders(recordsToProcess, outputDir);
+                    extractionService.cleanExistingFolders(recordsToProcess, outputDir, jsonOutput != null ? jsonOutput.getParent() : null);
                     
                     if (jsonOutput != null) {
                         // Only clean JSON entries for commits that will be processed
@@ -398,7 +414,7 @@ public class MainCli implements Callable<Integer> {
                     // Normal clean behavior: clean all commits
                     System.out.println(
                             "Clean mode enabled: Removing existing {breakingCommit} folders and reports before processing...");
-                    extractionService.cleanExistingFolders(records, outputDir);
+                    extractionService.cleanExistingFolders(records, outputDir, jsonOutput != null ? jsonOutput.getParent() : null);
 
                     if (jsonOutput != null) {
                         cleanReportsAndJson(records, jsonOutput);
@@ -413,7 +429,11 @@ public class MainCli implements Callable<Integer> {
                         finalJsonOutput,
                         summary,
                         recordByCommit,
-                        outputDir);
+                        outputDir,
+                        existingResults,
+                        filterEnabled,
+                        shouldClean
+                );
             }
 
             // Extract or classify depending on requested actions
@@ -423,14 +443,42 @@ public class MainCli implements Callable<Integer> {
 
             if (shouldExtract) {
                 log.info("=== Starting Project Extraction ===");
-                System.out.println("\n=== Extracting Projects from Docker Images ===");
-
-                classificationSummaries = extractionService.extractProjectsFromDockerImages(
-                        recordsToProcess,  // Use filtered records if FILTER is enabled
-                        outputDir,
-                        shouldClassify,
-                        shouldClean,
-                        summaryConsumer);
+                
+                // Check if parallel processing is enabled
+                if (envParallel) {
+                    System.out.println("\n=== Parallel Processing Mode ===");
+                    log.info("Parallel processing enabled with {} threads", envParallelThreads);
+                    
+                    ParallelProcessingService parallelService = new ParallelProcessingService(
+                            envParallelThreads, 
+                            this.verbose, 
+                            envCommitTimeout
+                    );
+                    
+                    try {
+                        classificationSummaries = parallelService.processCommitsInParallel(
+                                recordsToProcess,
+                                outputDir,
+                                shouldClassify,
+                                shouldClean,
+                                summaryConsumer,
+                                repairPipeline,
+                                recordByCommit,
+                                jsonOutput,
+                                changeImpactReportService
+                        );
+                    } finally {
+                        parallelService.shutdown();
+                    }
+                } else {
+                    System.out.println("\n=== Extracting Projects from Docker Images (Sequential) ===");
+                    classificationSummaries = extractionService.extractProjectsFromDockerImages(
+                            recordsToProcess,  // Use filtered records if FILTER is enabled
+                            outputDir,
+                            shouldClassify,
+                            shouldClean,
+                            summaryConsumer);
+                }
             } else if (shouldClassify) {
                 classificationSummaries = extractionService.classifyExistingProjects(recordsToProcess, outputDir,
                         summaryConsumer);
@@ -515,30 +563,54 @@ public class MainCli implements Callable<Integer> {
     private void writeClassificationSummary(Path targetJson,
             ClassificationSummary summary,
             Map<String, BreakingUpdateRecord> recordByCommit,
-            Path outputDir) {
-        try {
-            if (targetJson.getParent() != null) {
-                Files.createDirectories(targetJson.getParent());
-            }
-            ObjectMapper mapper = new ObjectMapper()
-                    .enable(SerializationFeature.INDENT_OUTPUT);
-            Map<String, ReportEntry> existing = new LinkedHashMap<>();
-            if (Files.exists(targetJson)) {
-                try {
-                    existing = mapper.readValue(
-                            targetJson.toFile(),
-                            mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class,
-                                    ReportEntry.class));
-                } catch (MismatchedInputException e) {
-                    // Handle legacy array format
-                    ReportEntry[] legacyEntries = mapper.readValue(targetJson.toFile(), ReportEntry[].class);
-                    for (ReportEntry entry : legacyEntries) {
-                        if (entry.breakingCommit() != null) {
-                            existing.put(entry.breakingCommit(), entry);
+            Path outputDir,
+            Map<String, ReportEntry> existingResults,
+            boolean filterEnabled,
+            boolean shouldClean) {
+        // Thread-safe JSON writing: synchronize on lock to prevent concurrent writes
+        synchronized (jsonWriteLock) {
+            try {
+                // Always ensure parent directory exists (never create the JSON file as a directory)
+                if (targetJson.getParent() != null) {
+                    Files.createDirectories(targetJson.getParent());
+                }
+                
+                // Safety check: if targetJson exists as a directory (should never happen), remove it
+                // breaking-updates-results.json is ALWAYS a file, never a directory
+                if (Files.exists(targetJson) && Files.isDirectory(targetJson)) {
+                    log.error("CRITICAL: breaking-updates-results.json exists as a directory at {}. This should never happen. Removing directory.", targetJson);
+                    try {
+                        FileSystemUtils.deleteDirectory(targetJson);
+                        log.info("Removed incorrect directory at {} to create JSON file", targetJson);
+                    } catch (IOException e) {
+                        log.error("Failed to remove directory at {}: {}", targetJson, e.getMessage(), e);
+                        System.err.println("Error: Could not remove directory to create JSON file: " + targetJson);
+                        return; // Cannot proceed if we can't remove the directory
+                    }
+                }
+                
+                ObjectMapper mapper = new ObjectMapper()
+                        .enable(SerializationFeature.INDENT_OUTPUT);
+                
+                Map<String, ReportEntry> currentReportEntries = new LinkedHashMap<>();
+                if (filterEnabled && existingResults != null) {
+                    currentReportEntries.putAll(existingResults);
+                } else if (Files.exists(targetJson) && Files.isRegularFile(targetJson)) {
+                    try {
+                        currentReportEntries = mapper.readValue(
+                                targetJson.toFile(),
+                                mapper.getTypeFactory().constructMapType(LinkedHashMap.class, String.class,
+                                        ReportEntry.class));
+                    } catch (MismatchedInputException e) {
+                        // Handle legacy array format
+                        ReportEntry[] legacyEntries = mapper.readValue(targetJson.toFile(), ReportEntry[].class);
+                        for (ReportEntry entry : legacyEntries) {
+                            if (entry.breakingCommit() != null) {
+                                currentReportEntries.put(entry.breakingCommit(), entry);
+                            }
                         }
                     }
                 }
-            }
 
             String key = summary.breakingCommit();
             if (key == null) {
@@ -548,9 +620,9 @@ public class MainCli implements Callable<Integer> {
                 key = tempEntry.breakingCommit();
             }
 
-            if (key != null) {
-                List<se.kth.models.Attempt> attempts = writePerCommitReport(targetJson.getParent(), outputDir, key,
-                        summary, recordByCommit.get(key));
+                if (key != null) {
+                    List<se.kth.models.Attempt> attempts = writePerCommitReport(targetJson.getParent(), outputDir, key,
+                            summary, recordByCommit.get(key), shouldClean);
 
                 // Only write to JSON if we have attempts (after attempt 1 is processed)
                 // The attempts contain the failureCategory derived from analyzing the log after
@@ -568,27 +640,28 @@ public class MainCli implements Callable<Integer> {
 
                     // Write to JSON only after attempts are processed
                     ReportEntry entry = buildReportEntry(summary);
-                    existing.put(key, entry);
-                    mapper.writeValue(targetJson.toFile(), existing);
+                    currentReportEntries.put(key, entry);
+                    mapper.writeValue(targetJson.toFile(), currentReportEntries);
                     log.info("Classification summary written to {} (after {} attempts)", targetJson, attempts.size());
                 } else {
                     log.debug("Skipping JSON write for {} - no attempts processed yet", key);
                 }
-            } else {
-                // If no key, still write the summary (for backward compatibility)
-                ReportEntry entry = buildReportEntry(summary);
-                if (entry.breakingCommit() != null) {
-                    existing.put(entry.breakingCommit(), entry);
+                } else {
+                    // If no key, still write the summary (for backward compatibility)
+                    ReportEntry entry = buildReportEntry(summary);
+                    if (entry.breakingCommit() != null) {
+                        currentReportEntries.put(entry.breakingCommit(), entry);
+                    }
+                    mapper.writeValue(targetJson.toFile(), currentReportEntries);
+                    log.info("Classification summary written to {}", targetJson);
                 }
-                mapper.writeValue(targetJson.toFile(), existing);
-                log.info("Classification summary written to {}", targetJson);
+                if (!verbose) {
+                    System.out.printf(Locale.ROOT, "Classification summary written to %s%n", targetJson);
+                }
+            } catch (IOException e) {
+                log.error("Failed to write classification summary to {}", targetJson, e);
+                System.err.println("Error: Could not write classification summary JSON: " + e.getMessage());
             }
-            if (!verbose) {
-                System.out.printf(Locale.ROOT, "Classification summary written to %s%n", targetJson);
-            }
-        } catch (IOException e) {
-            log.error("Failed to write classification summary to {}", targetJson, e);
-            System.err.println("Error: Could not write classification summary JSON: " + e.getMessage());
         }
     }
 
@@ -685,7 +758,14 @@ public class MainCli implements Callable<Integer> {
         Map<String, ReportEntry> existingResults = new LinkedHashMap<>();
         
         if (jsonOutputPath == null || !Files.exists(jsonOutputPath)) {
-            log.debug("No existing results file found at {}", jsonOutputPath);
+            // File doesn't exist - this is normal for first execution, no action needed
+            log.debug("No existing results file found at {} - first execution", jsonOutputPath);
+            return existingResults;
+        }
+        
+        // Check if path is a directory instead of a file
+        if (Files.isDirectory(jsonOutputPath)) {
+            log.warn("Expected JSON file but found directory at {}. Skipping load of existing results.", jsonOutputPath);
             return existingResults;
         }
         
@@ -773,7 +853,8 @@ public class MainCli implements Callable<Integer> {
             Path outputBaseDir,
             String commit,
             ClassificationSummary summary,
-            BreakingUpdateRecord record) {
+            BreakingUpdateRecord record,
+            boolean shouldClean) {
         if (reportBase == null || commit == null) {
             return null;
         }
@@ -852,7 +933,13 @@ public class MainCli implements Callable<Integer> {
             // Each attempt: uses log from previous attempt → generates prompts → generates
             // transformed files → builds → analyzes
             List<se.kth.models.Attempt> attempts = null;
-            if (summary.dockerImage() != null) {
+            
+            // Check if repair pipeline was already executed (e.g., in parallel processing)
+            // If summary already has attempts, skip repair pipeline execution to avoid duplicate runs
+            if (summary.attempts() != null && !summary.attempts().isEmpty()) {
+                log.info("Repair pipeline already executed (attempts found in summary). Skipping duplicate execution for commit: {}", commit);
+                attempts = summary.attempts();
+            } else if (summary.dockerImage() != null) {
                 try {
                     attempts = repairPipeline.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
                             record, commitDir, summary, outputBaseDir, initialLogFile);
@@ -914,6 +1001,12 @@ public class MainCli implements Callable<Integer> {
             return;
         }
 
+        // Check if path is a directory instead of a file
+        if (Files.exists(jsonFile) && Files.isDirectory(jsonFile)) {
+            log.warn("Expected JSON file but found directory at {}. Skipping JSON cleanup.", jsonFile);
+            return;
+        }
+
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
@@ -923,6 +1016,7 @@ public class MainCli implements Callable<Integer> {
                     .collect(Collectors.toSet());
 
             if (!Files.exists(jsonFile)) {
+                // File doesn't exist - this is normal for first execution, no cleanup needed
                 return;
             }
 
