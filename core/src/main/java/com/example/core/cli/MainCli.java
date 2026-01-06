@@ -411,6 +411,7 @@ public class MainCli implements Callable<Integer> {
 
             // If clean mode is enabled, remove existing folders BEFORE processing
             // If FILTER is enabled, only clean commits that will be processed (preserve existing)
+            // Always use recordsToProcess to ensure we clean only what will be processed
             if (shouldClean) {
                 if (filterEnabled && !processedCommits.isEmpty()) {
                     // Only clean commits that will be processed (not the ones already in report)
@@ -422,13 +423,15 @@ public class MainCli implements Callable<Integer> {
                         cleanReportsAndJson(recordsToProcess, jsonOutput);
                     }
                 } else {
-                    // Normal clean behavior: clean all commits
+                    // Normal clean behavior: clean commits that will be processed
+                    // Use recordsToProcess (which equals records when FILTER is disabled) to ensure
+                    // we clean only the commits that will actually be processed
                     System.out.println(
                             "Clean mode enabled: Removing existing {breakingCommit} folders and reports before processing...");
-                    extractionService.cleanExistingFolders(records, outputDir, jsonOutput != null ? jsonOutput.getParent() : null);
+                    extractionService.cleanExistingFolders(recordsToProcess, outputDir, jsonOutput != null ? jsonOutput.getParent() : null);
 
                     if (jsonOutput != null) {
-                        cleanReportsAndJson(records, jsonOutput);
+                        cleanReportsAndJson(recordsToProcess, jsonOutput);
                     }
                 }
             }
@@ -449,50 +452,66 @@ public class MainCli implements Callable<Integer> {
 
             // Extract or classify depending on requested actions
             List<ClassificationSummary> classificationSummaries = java.util.Collections.emptyList();
-            // BreakingUpdateExtractionService extractionService = new
-            // BreakingUpdateExtractionService(verbose); // Now initialized in constructor
-
-            if (shouldExtract) {
-                log.info("=== Starting Project Extraction ===");
+            
+            // Determine if we should use parallel processing
+            // Parallel processing is enabled by default, except when processing a single specific file
+            boolean useParallel = envParallel && fileToProcess == null;
+            
+            if (useParallel) {
+                // Parallel processing mode (always enabled unless processing single file)
+                System.out.println("\n=== Parallel Processing Mode ===");
+                log.info("Parallel processing enabled with {} threads", envParallelThreads);
                 
-                // Check if parallel processing is enabled
-                if (envParallel) {
-                    System.out.println("\n=== Parallel Processing Mode ===");
-                    log.info("Parallel processing enabled with {} threads", envParallelThreads);
-                    
-                    ParallelProcessingService parallelService = new ParallelProcessingService(
-                            envParallelThreads, 
-                            this.verbose, 
-                            envCommitTimeout
-                    );
-                    
-                    try {
-                        classificationSummaries = parallelService.processCommitsInParallel(
-                                recordsToProcess,
-                                outputDir,
-                                shouldClassify,
-                                shouldClean,
-                                summaryConsumer,
-                                repairPipeline,
-                                recordByCommit,
-                                jsonOutput,
-                                changeImpactReportService
-                        );
-                    } finally {
-                        parallelService.shutdown();
-                    }
-                } else {
-                    System.out.println("\n=== Extracting Projects from Docker Images (Sequential) ===");
-                    classificationSummaries = extractionService.extractProjectsFromDockerImages(
-                            recordsToProcess,  // Use filtered records if FILTER is enabled
+                ParallelProcessingService parallelService = new ParallelProcessingService(
+                        envParallelThreads, 
+                        this.verbose, 
+                        envCommitTimeout
+                );
+                
+                try {
+                    classificationSummaries = parallelService.processCommitsInParallel(
+                            recordsToProcess,
                             outputDir,
                             shouldClassify,
                             shouldClean,
-                            summaryConsumer);
+                            summaryConsumer,
+                            repairPipeline,
+                            recordByCommit,
+                            jsonOutput,
+                            changeImpactReportService
+                    );
+                } finally {
+                    parallelService.shutdown();
                 }
-            } else if (shouldClassify) {
-                classificationSummaries = extractionService.classifyExistingProjects(recordsToProcess, outputDir,
-                        summaryConsumer);
+            } else {
+                // Sequential processing (when parallel is disabled or processing single file)
+                if (shouldExtract) {
+                    log.info("=== Starting Project Extraction (Sequential) ===");
+                    System.out.println("\n=== Extracting Projects from Docker Images (Sequential) ===");
+                    classificationSummaries = extractionService.extractProjectsFromDockerImages(
+                            recordsToProcess,
+                            outputDir,
+                            shouldClassify,
+                            shouldClean,
+                            summaryConsumer,
+                            repairPipeline,
+                            recordByCommit,
+                            jsonOutput,
+                            changeImpactReportService
+                    );
+                } else if (shouldClassify) {
+                    log.info("=== Classifying Existing Projects (Sequential) ===");
+                    System.out.println("\n=== Classifying Existing Projects (Sequential) ===");
+                    classificationSummaries = extractionService.classifyExistingProjects(
+                            recordsToProcess, 
+                            outputDir,
+                            summaryConsumer,
+                            repairPipeline,
+                            recordByCommit,
+                            jsonOutput,
+                            changeImpactReportService
+                    );
+                }
             }
 
             if (jsonOutput != null && (classificationSummaries == null || classificationSummaries.isEmpty())) {

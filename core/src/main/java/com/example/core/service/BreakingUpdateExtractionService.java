@@ -304,7 +304,11 @@ public class BreakingUpdateExtractionService {
             Path outputBaseDir,
             boolean extractJarsAndClassify,
             boolean cleanExisting,
-            Consumer<ClassificationSummary> summaryConsumer) {
+            Consumer<ClassificationSummary> summaryConsumer,
+            com.example.core.pipeline.RepairPipeline repairPipeline,
+            java.util.Map<String, BreakingUpdateRecord> recordByCommit,
+            Path jsonOutput,
+            com.example.core.service.ChangeImpactReportService changeImpactReportService) {
 
         int successCount = 0;
         int failureCount = 0;
@@ -367,7 +371,11 @@ public class BreakingUpdateExtractionService {
     public List<ClassificationSummary> classifyExistingProjects(
             List<BreakingUpdateRecord> records,
             Path outputBaseDir,
-            Consumer<ClassificationSummary> summaryConsumer) {
+            Consumer<ClassificationSummary> summaryConsumer,
+            com.example.core.pipeline.RepairPipeline repairPipeline,
+            java.util.Map<String, BreakingUpdateRecord> recordByCommit,
+            Path jsonOutput,
+            com.example.core.service.ChangeImpactReportService changeImpactReportService) {
         ClassificationService classificationService = new ClassificationService(verbose);
         List<ClassificationSummary> summaries = new java.util.ArrayList<>();
 
