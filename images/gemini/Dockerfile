@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # ETAPA 1: BASE CON JAVA 8 Y MAVEN (Debian Bullseye)
 # -----------------------------------------------------------------------------
-    FROM maven:3.9.6-eclipse-temurin-17
+    FROM maven:3.9.2-eclipse-temurin-11
 
     USER root
     

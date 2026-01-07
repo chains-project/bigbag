@@ -654,7 +654,7 @@ public class MainCli implements Callable<Integer> {
                     List<se.kth.models.Attempt> attempts = writePerCommitReport(targetJson.getParent(), outputDir, key,
                             summary, recordByCommit.get(key), shouldClean);
 
-                // Only write to JSON if we have attempts (after attempt 1 is processed)
+                // Always write to JSON, even if no attempts were generated (to record failures)
                 // The attempts contain the failureCategory derived from analyzing the log after
                 // building with transformed files
                 if (attempts != null && !attempts.isEmpty()) {
@@ -668,13 +668,49 @@ public class MainCli implements Callable<Integer> {
                             summary.dockerImage(),
                             attempts);
 
-                    // Write to JSON only after attempts are processed
+                    // Write to JSON after attempts are processed
                     ReportEntry entry = buildReportEntry(summary);
                     currentReportEntries.put(key, entry);
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
                     log.info("Classification summary written to {} (after {} attempts)", targetJson, attempts.size());
                 } else {
-                    log.debug("Skipping JSON write for {} - no attempts processed yet", key);
+                    // No attempts generated - create a failure attempt to record the failure
+                    // Determine failure category based on available information
+                    se.kth.models.FailureCategory failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                    String failureReason = "NO_ATTEMPTS_GENERATED";
+                    
+                    // Try to infer failure type from summary
+                    if (summary.dockerImage() == null) {
+                        failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                        failureReason = "NO_DOCKER_IMAGE";
+                    } else if (summary.inferredCategory() != null) {
+                        // Try to use the inferred category if available
+                        try {
+                            failureCategory = se.kth.models.FailureCategory.valueOf(summary.inferredCategory());
+                        } catch (IllegalArgumentException e) {
+                            // Keep UNKNOWN_FAILURE if category doesn't match
+                        }
+                    }
+                    
+                    String logFileParent = summary.logFile() != null ? new java.io.File(summary.logFile()).getParent() : "";
+                    List<se.kth.models.Attempt> failureAttempts = java.util.List.of(
+                            new se.kth.models.Attempt(1, failureCategory, logFileParent, false));
+                    
+                    ClassificationSummary failureSummary = new ClassificationSummary(
+                            summary.project(),
+                            summary.breakingCommit(),
+                            summary.datasetCategory(),
+                            failureCategory.toString(),
+                            summary.logFile(),
+                            summary.classifierReport(),
+                            summary.dockerImage(),
+                            failureAttempts);
+                    
+                    ReportEntry entry = buildReportEntry(failureSummary);
+                    currentReportEntries.put(key, entry);
+                    mapper.writeValue(targetJson.toFile(), currentReportEntries);
+                    log.warn("Classification summary written to {} with failure attempt (reason: {})", 
+                            targetJson, failureReason);
                 }
                 } else {
                     // If no key, still write the summary (for backward compatibility)
@@ -963,13 +999,15 @@ public class MainCli implements Callable<Integer> {
             // Each attempt: uses log from previous attempt → generates prompts → generates
             // transformed files → builds → analyzes
             List<se.kth.models.Attempt> attempts = null;
+            se.kth.models.FailureCategory failureCategory = null;
+            String failureReason = null;
             
             // Check if repair pipeline was already executed (e.g., in parallel processing)
             // If summary already has attempts, skip repair pipeline execution to avoid duplicate runs
             if (summary.attempts() != null && !summary.attempts().isEmpty()) {
                 log.info("Repair pipeline already executed (attempts found in summary). Skipping duplicate execution for commit: {}", commit);
                 attempts = summary.attempts();
-            } else if (summary.dockerImage() != null) {
+            } else if (summary.dockerImage() != null && repairPipeline != null) {
                 try {
                     attempts = repairPipeline.runRepairLoop(commitOutputDir, record.project(), summary.dockerImage(),
                             record, commitDir, summary, outputBaseDir, initialLogFile);
@@ -1011,12 +1049,54 @@ public class MainCli implements Callable<Integer> {
                                     "Spoon transformation failed for commit {}. Stopping repair loop for this commit. Continuing with next commit.",
                                     record.breakingCommit());
                         }
+                    } else {
+                        // No attempts returned - pipeline failed silently (should not happen with updated AgentRepairPipeline)
+                        failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                        failureReason = "PIPELINE_RETURNED_EMPTY";
+                        log.warn("Repair pipeline returned no attempts for commit: {}", commit);
                     }
                 } catch (Exception e) {
-                    // Any other exception in repair loop - log and continue with next commit
+                    // Any other exception in repair loop - determine failure type from exception
                     log.error("Error in repair loop for commit {}: {}", record.breakingCommit(), e.getMessage(), e);
+                    String errorMsg = e.getMessage() != null ? e.getMessage().toLowerCase() : "";
+                    if (errorMsg.contains("docker") || errorMsg.contains("container") || 
+                        errorMsg.contains("cannot connect") || errorMsg.contains("timeout") ||
+                        errorMsg.contains("connection refused") || errorMsg.contains("network")) {
+                        failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;  // Container/Docker failure
+                        failureReason = "CONTAINER_ERROR";
+                    } else if (errorMsg.contains("agent") || errorMsg.contains("transformation") || 
+                               errorMsg.contains("spoon")) {
+                        failureCategory = se.kth.models.FailureCategory.TRANSFORMATION_FAILURE;  // Agent error
+                        failureReason = "AGENT_ERROR";
+                    } else {
+                        failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                        failureReason = "PIPELINE_EXCEPTION";
+                    }
                     // Don't update summary - keep original state
                 }
+            } else {
+                // No docker image or repair pipeline available - cannot run repair pipeline
+                if (summary.dockerImage() == null) {
+                    failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                    failureReason = "NO_DOCKER_IMAGE";
+                    log.warn("Docker image not available for repair pipeline (commit: {})", commit);
+                } else if (repairPipeline == null) {
+                    failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
+                    failureReason = "NO_REPAIR_PIPELINE";
+                    log.warn("Repair pipeline not available for commit: {}", commit);
+                }
+            }
+            
+            // If no attempts were generated but we have a failure category, create a failure attempt
+            if ((attempts == null || attempts.isEmpty()) && failureCategory != null) {
+                String logFileParent = commitDir != null ? commitDir.toString() : (summary.logFile() != null ? new java.io.File(summary.logFile()).getParent() : "");
+                attempts = java.util.List.of(new se.kth.models.Attempt(
+                        1,
+                        failureCategory,
+                        logFileParent,
+                        false));
+                log.info("Created failure attempt for commit {} with category: {} (reason: {})", 
+                        commit, failureCategory, failureReason != null ? failureReason : "UNKNOWN");
             }
 
             return attempts;

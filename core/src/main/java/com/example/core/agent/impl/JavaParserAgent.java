@@ -186,7 +186,7 @@ public class JavaParserAgent extends BaseAgent {
                         + "2) Generate a source code transformation with JavaParserto fix the errors. "
                         + "   - Use the project in folder @%s/ as the base project template. "
                         + "   - Use JavaParser AST manipulation to create the transformation. "
-                        + "   - Save the transformation code inside the folder @%s/, e.g., in `%s/src/main/java/github/chains/javaparser/Main.java`. "
+                        + "   - Save the transformation code inside the folder @%s/, e.g., in `%s/src/main/java/github/chains/Main.java`. "
                         + "   - Use the JavaParser API documentation located in folder @%s/ for reference. "
                         + "3) Ensure the generated transformation code compiles correctly. "
                         + "4) Apply the transformation to fix the compilation errors. "

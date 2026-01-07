@@ -160,6 +160,16 @@ public class ParallelProcessingService {
                 );
                 summaries.add(failureSummary);
                 
+                // Asegurar que también se registre en el reporte JSON
+                if (summaryConsumer != null) {
+                    try {
+                        summaryConsumer.accept(failureSummary);
+                    } catch (Exception consumerError) {
+                        log.error("Error while consuming timeout summary for commit {}: {}", 
+                                record.breakingCommit(), consumerError.getMessage(), consumerError);
+                    }
+                }
+                
             } catch (ExecutionException e) {
                 failureCount.incrementAndGet();
                 Throwable cause = e.getCause();
@@ -178,6 +188,16 @@ public class ParallelProcessingService {
                         null
                 );
                 summaries.add(failureSummary);
+                
+                // Asegurar que también se registre en el reporte JSON
+                if (summaryConsumer != null) {
+                    try {
+                        summaryConsumer.accept(failureSummary);
+                    } catch (Exception consumerError) {
+                        log.error("Error while consuming error summary for commit {}: {}", 
+                                record.breakingCommit(), consumerError.getMessage(), consumerError);
+                    }
+                }
                 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

@@ -81,7 +81,8 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("Prepared project for new repair process");
         } catch (Exception e) {
             log.error("Failed to prepare project for new process: {}", e.getMessage(), e);
-            return new ArrayList<>();
+            // Return failure attempt for setup failure
+            return createFailureAttempt(processId, commitReportDir, FailureCategory.UNKNOWN_FAILURE, "SETUP_FAILURE");
         }
 
         // Step 3: Create agent instance using factory (dynamic selection based on environment)
@@ -91,7 +92,8 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("Created agent: {} (rule generator: {})", agent.getRuleGeneratorName(), agent.getLlmAgentName());
         } catch (Exception e) {
             log.error("Failed to create agent: {}", e.getMessage(), e);
-            return new ArrayList<>();
+            // Return failure attempt for agent creation failure
+            return createFailureAttempt(processId, commitReportDir, FailureCategory.TRANSFORMATION_FAILURE, "AGENT_CREATION_FAILURE");
         }
         
         // Step 4: Create agent branch from main with process ID
@@ -100,7 +102,8 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("Created and checked out agent branch: agent-{}-{}", agent.getRuleGeneratorName(), processId);
         } catch (Exception e) {
             log.error("Failed to create agent branch: {}", e.getMessage(), e);
-            return new ArrayList<>();
+            // Return failure attempt for Git setup failure
+            return createFailureAttempt(processId, commitReportDir, FailureCategory.UNKNOWN_FAILURE, "GIT_SETUP_FAILURE");
         }
 
         // Step 5: Ensure agent Docker image exists
@@ -112,7 +115,8 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.info("Docker image {} is ready", dockerImageAgentName);
         } catch (Exception e) {
             log.error("Error ensuring agent image exists", e);
-            return new ArrayList<>();
+            // Return failure attempt for Docker image/container setup failure
+            return createFailureAttempt(processId, commitReportDir, FailureCategory.UNKNOWN_FAILURE, "DOCKER_IMAGE_FAILURE");
         }
 
         // Step 6: Find and prepare m2 folder for mounting
@@ -203,13 +207,38 @@ public class AgentRepairPipeline implements RepairPipeline {
                     executionResult.success(), executionResult.compileSuccess(), executionResult.testSuccess());
         } catch (IOException e) {
             log.error("Failed to execute agent: {}", e.getMessage(), e);
-            return new ArrayList<>();
+            // Return failure attempt for agent execution failure (container or agent error)
+            // Check if it's likely a container issue (Docker command failure) vs agent error
+            String errorMsg = e.getMessage() != null ? e.getMessage().toLowerCase() : "";
+            FailureCategory failureCategory;
+            String failureReason;
+            if (errorMsg.contains("docker") || errorMsg.contains("container") || 
+                errorMsg.contains("cannot connect") || errorMsg.contains("timeout") ||
+                errorMsg.contains("connection refused") || errorMsg.contains("network")) {
+                failureCategory = FailureCategory.UNKNOWN_FAILURE;  // Container/Docker failure
+                failureReason = "CONTAINER_EXECUTION_FAILURE";
+            } else {
+                failureCategory = FailureCategory.TRANSFORMATION_FAILURE;  // Agent command execution error
+                failureReason = "AGENT_COMMAND_EXECUTION_FAILURE";
+            }
+            return createFailureAttempt(processId, commitReportDir, failureCategory, failureReason);
         }
 
         // Create attempt result based on breaking classifier analysis
         Attempt attempt = null;
         FailureCategory attemptCategory = FailureCategory.UNKNOWN_FAILURE;
         boolean attemptSuccessful = false;
+        
+        // Distinguish between agent execution failure and compilation failure after transformation
+        // If agent.execute() succeeded but compileSuccess is false, it means:
+        // - The agent command executed (no IOException)
+        // - But the compilation failed after applying the transformation
+        // This is different from AGENT_COMMAND_EXECUTION_FAILURE (IOException)
+        if (!executionResult.compileSuccess() && executionResult.compileLogFile() != null) {
+            log.warn("Agent command executed but compilation failed. This indicates a compilation error after transformation was applied.");
+            // The attemptCategory will be determined from the log analysis below
+            // But we know it's a compilation failure after transformation, not an agent execution error
+        }
 
         // Step 6: Copy logs to commit report directory with distinct names
         if (commitReportDir != null) {
@@ -225,12 +254,45 @@ public class AgentRepairPipeline implements RepairPipeline {
                 }
             }
 
+            // First, check if the agent command itself failed (compileLogFile contains errors)
+            // The compileLogFile is the log of the agent command execution
+            // If it has errors, it means the agent command failed, not the compilation after transformation
+            boolean agentCommandFailed = false;
+            if (executionResult.compileLogFile() != null && Files.exists(executionResult.compileLogFile())) {
+                try {
+                    log.info("Analyzing agent command log (compileLogFile) to check for agent execution errors...");
+                    github.chains.breakingclassifier.FailureCategory agentLogCategory = 
+                            github.chains.breakingclassifier.ErrorReportAggregator.categorizeLog(executionResult.compileLogFile());
+                    
+                    // If the agent command log indicates failure (not BUILD_SUCCESS), it's an agent error
+                    if (agentLogCategory != null && 
+                        agentLogCategory != github.chains.breakingclassifier.FailureCategory.BUILD_SUCCESS) {
+                        agentCommandFailed = true;
+                        attemptCategory = FailureCategory.TRANSFORMATION_FAILURE;  // Agent command execution error
+                        attemptSuccessful = false;
+                        log.warn("Agent command execution failed. Category from agent log: {}. Setting category to TRANSFORMATION_FAILURE (agent error).", 
+                                agentLogCategory);
+                    } else {
+                        log.info("Agent command executed successfully. Proceeding to analyze Maven test log.");
+                    }
+                } catch (Exception e) {
+                    log.warn("Failed to analyze agent command log: {}. Assuming agent command succeeded.", e.getMessage());
+                    // If we can't analyze, assume agent command succeeded and continue with normal flow
+                }
+            } else if (!executionResult.compileSuccess()) {
+                // If compileSuccess is false but no log file, it's likely an agent error
+                agentCommandFailed = true;
+                attemptCategory = FailureCategory.TRANSFORMATION_FAILURE;
+                attemptSuccessful = false;
+                log.warn("Agent command failed (compileSuccess=false) but no log file available. Setting category to TRANSFORMATION_FAILURE (agent error).");
+            }
+
             // Test log was already copied by the agent
             Path testLogTarget = executionResult.testLogFile();
 
-            // Analyze mvn test log with breaking classifier to determine failure category
-            // Use the direct log categorization method that analyzes the log file content
-            if (testLogTarget != null && Files.exists(testLogTarget)) {
+            // Only analyze Maven test log if agent command succeeded
+            // If agent command failed, we already set the category to TRANSFORMATION_FAILURE
+            if (!agentCommandFailed && testLogTarget != null && Files.exists(testLogTarget)) {
                 try {
                     log.info("Analyzing mvn test log category directly from log file...");
                     
@@ -243,6 +305,13 @@ public class AgentRepairPipeline implements RepairPipeline {
                     // Convert breaking classifier FailureCategory to se.kth.models.FailureCategory
                     attemptCategory = convertFailureCategory(logCategory);
                     attemptSuccessful = executionResult.success();
+                    
+                    // Log distinction between agent execution failure and compilation failure
+                    if (!executionResult.compileSuccess()) {
+                        log.info("Compilation failed after agent transformation was applied. Category: {}", attemptCategory);
+                    } else if (!executionResult.testSuccess()) {
+                        log.info("Compilation succeeded but tests failed after agent transformation. Category: {}", attemptCategory);
+                    }
                     
                     // Note: breaking-classifier-report.json was already generated in MainCli
                     // from the initial log (before applying rules). We don't regenerate it here
@@ -297,11 +366,17 @@ public class AgentRepairPipeline implements RepairPipeline {
                     attemptCategory = FailureCategory.UNKNOWN_FAILURE;
                     attemptSuccessful = false;
                 }
-            } else {
+            } else if (!agentCommandFailed) {
+                // Agent command succeeded but test log not available
                 log.warn("Test log file not available for breaking classifier analysis");
-                attemptCategory = FailureCategory.UNKNOWN_FAILURE;
+                // If agent command succeeded but no test log, use UNKNOWN_FAILURE
+                // (we already checked compileLogFile for agent errors above)
+                if (attemptCategory == FailureCategory.UNKNOWN_FAILURE) {
+                    attemptCategory = FailureCategory.UNKNOWN_FAILURE;
+                }
                 attemptSuccessful = false;
             }
+            // If agentCommandFailed is true, we already set attemptCategory to TRANSFORMATION_FAILURE above
             
             // Create Attempt object (attempt 1 for agent pipeline - single attempt)
             if (commitReportDir != null) {
@@ -337,14 +412,41 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
 
         // Return list with the attempt (following the same pattern as ModelRepairPipeline)
+        // Always return at least one attempt - if attempt is null, create a failure attempt
         List<Attempt> attempts = new ArrayList<>();
         if (attempt != null) {
             attempts.add(attempt);
+        } else {
+            // This should not happen if everything worked, but create a failure attempt as fallback
+            log.warn("No attempt was created for commit {} - creating failure attempt", record.breakingCommit());
+            attempts.addAll(createFailureAttempt(processId, commitReportDir, FailureCategory.UNKNOWN_FAILURE, "NO_ATTEMPT_CREATED"));
         }
         
         log.info("Agent repair pipeline completed for {} (commit: {}). Total attempts: {}", 
                 projectName, record.breakingCommit(), attempts.size());
         return attempts;
+    }
+    
+    /**
+     * Creates a failure attempt with a specific failure category and reason.
+     * 
+     * @param processId the process ID
+     * @param commitReportDir the commit report directory (can be null)
+     * @param failureCategory the failure category
+     * @param reason the reason for the failure (for logging)
+     * @return list with a single failure attempt
+     */
+    private List<Attempt> createFailureAttempt(String processId, Path commitReportDir, 
+                                               FailureCategory failureCategory, String reason) {
+        String logFileParent = commitReportDir != null ? commitReportDir.toString() : "";
+        Attempt failureAttempt = new Attempt(
+                1,
+                processId,
+                failureCategory,
+                logFileParent,
+                false);
+        log.warn("Created failure attempt for reason: {} with category: {}", reason, failureCategory);
+        return java.util.List.of(failureAttempt);
     }
 
     /**
