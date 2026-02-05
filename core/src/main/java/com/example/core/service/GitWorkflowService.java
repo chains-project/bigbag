@@ -2,8 +2,6 @@ package com.example.core.service;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -143,5 +141,133 @@ public class GitWorkflowService {
             log.error("Failed to commit changes at {}", projectDir, e);
             throw new RuntimeException("Git commit failed", e);
         }
+    }
+
+    /**
+     * Prepares project for new repair process:
+     * 1. Commits any uncommitted changes
+     * 2. Ensures main branch exists (creates from master if needed)
+     * 3. Checks out main branch (shared, no processId)
+     * 
+     * @param projectDir the project directory
+     * @return the main branch name ("main")
+     */
+    public String prepareForNewProcess(Path projectDir) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            // 1. Check for uncommitted changes
+            if (hasUncommittedChanges(projectDir)) {
+                log.info("Uncommitted changes detected, committing before new repair process");
+                commitAll(projectDir, "Auto-commit: Uncommitted changes before new repair process");
+            }
+            
+            // 2. Ensure main branch exists (create from master if needed)
+            ensureMainBranchExists(projectDir);
+            
+            // 3. Checkout main (shared branch, no processId)
+            checkout(projectDir, "main");
+            
+            return "main";
+        } catch (IOException e) {
+            log.error("Failed to prepare project for new process at {}", projectDir, e);
+            throw new RuntimeException("Failed to prepare project for new process", e);
+        }
+    }
+
+    /**
+     * Checks if there are uncommitted changes in the repository.
+     *
+     * @param projectDir the project directory
+     * @return true if there are uncommitted changes, false otherwise
+     */
+    public boolean hasUncommittedChanges(Path projectDir) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            org.eclipse.jgit.api.Status status = git.status().call();
+            return !status.isClean();
+        } catch (IOException | GitAPIException e) {
+            log.warn("Failed to check git status at {}, assuming no uncommitted changes", projectDir);
+            return false;
+        }
+    }
+
+    /**
+     * Ensures main branch exists. Creates it from master if needed.
+     * If master doesn't exist either, creates main as initial branch.
+     *
+     * @param projectDir the project directory
+     */
+    public void ensureMainBranchExists(Path projectDir) {
+        try (Git git = Git.open(projectDir.toFile())) {
+            // Check if main branch exists
+            boolean mainExists = git.branchList().call().stream()
+                    .anyMatch(ref -> ref.getName().endsWith("/main"));
+            
+            if (mainExists) {
+                log.debug("Main branch already exists");
+                return;
+            }
+            
+            // Check if master branch exists
+            boolean masterExists = git.branchList().call().stream()
+                    .anyMatch(ref -> ref.getName().endsWith("/master"));
+            
+            if (masterExists) {
+                log.info("Creating main branch from master");
+                git.checkout()
+                        .setCreateBranch(true)
+                        .setName("main")
+                        .setStartPoint("master")
+                        .call();
+            } else {
+                // No master either, create main as new branch from current HEAD
+                log.info("Creating main branch from current HEAD");
+                git.checkout()
+                        .setCreateBranch(true)
+                        .setName("main")
+                        .call();
+            }
+        } catch (IOException | GitAPIException e) {
+            log.error("Failed to ensure main branch exists at {}", projectDir, e);
+            throw new RuntimeException("Failed to ensure main branch exists", e);
+        }
+    }
+
+    /**
+     * Creates an agent branch with process ID from main.
+     *
+     * @param projectDir the project directory
+     * @param ruleGenerator the rule generator name (e.g., "spoon")
+     * @param processId the process identifier
+     */
+    public void createAgentBranch(Path projectDir, String ruleGenerator, String processId) {
+        String agentBranchName = String.format("agent-%s-%s", ruleGenerator, processId);
+        createBranchFromBase(projectDir, agentBranchName, "main");
+        checkout(projectDir, agentBranchName);
+    }
+
+    /**
+     * Creates a repair branch with process ID from main.
+     *
+     * @param projectDir the project directory
+     * @param category the failure category (e.g., "compilation_failure")
+     * @param processId the process identifier
+     */
+    public void createRepairBranch(Path projectDir, String category, String processId) {
+        String repairBranchName = String.format("repair/%s-%s", category.toLowerCase(), processId);
+        createBranchFromBase(projectDir, repairBranchName, "main");
+        checkout(projectDir, repairBranchName);
+    }
+
+    /**
+     * Creates an attempt branch with process ID from a base branch.
+     *
+     * @param projectDir the project directory
+     * @param attemptNumber the attempt number
+     * @param processId the process identifier
+     * @param baseBranch the base branch name
+     */
+    public void createAttemptBranch(Path projectDir, int attemptNumber, String processId, String baseBranch) {
+        String attemptBranchName = String.format("attempt_%d-%s", attemptNumber, processId);
+        createBranchFromBase(projectDir, attemptBranchName, baseBranch);
+        checkout(projectDir, attemptBranchName);
     }
 }
