@@ -57,6 +57,9 @@ public class MainCliOptions {
             "--pipeline" }, description = "Repair pipeline to use: 'model' (default) or 'agent'")
     private String pipelineType;
 
+    @CommandLine.Option(names = { "--skip-hashes-file" }, description = "Path to a file containing commit hashes to skip (one hash per line)")
+    private Path skipHashesFile;
+
     // Getters
     public String getInputDirStr() {
         return inputDirStr;
@@ -108,6 +111,10 @@ public class MainCliOptions {
 
     public String getPipelineType() {
         return pipelineType;
+    }
+
+    public Path getSkipHashesFile() {
+        return skipHashesFile;
     }
 }
 
