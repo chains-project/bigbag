@@ -249,50 +249,40 @@ public class AgentRepairPipeline implements RepairPipeline {
                     Files.createDirectories(commitReportDir);
                     Files.copy(executionResult.compileLogFile(), compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
                     log.info("Copied compile log to {}", compileLogTarget);
+
+                    // Detect MODEL_FAILURE: agent ran but model produced no output (totalCalls=0, empty response)
+                    if (detectModelFailure(compileLogTarget)) {
+                        log.warn("MODEL_FAILURE detected: the LLM model produced no output (totalCalls=0). " +
+                                "The compilation failure is due to the model not generating any transformation, not a real compilation issue.");
+                        attemptCategory = FailureCategory.MODEL_FAILURE;
+                        attemptSuccessful = false;
+
+                        // Create attempt and return early — no point classifying Maven logs
+                        attempt = new Attempt(1, processId, attemptCategory, commitReportDir.toString(), attemptSuccessful);
+                        log.info("Created attempt 1 (process: {}) - Category: MODEL_FAILURE, Success: false", processId);
+                        return attempt != null ? List.of(attempt) : new ArrayList<>();
+                    }
                 } catch (IOException e) {
                     log.warn("Failed to copy compile log to commit directory: {}", e.getMessage());
                 }
             }
 
-            // First, check if the agent command itself failed (compileLogFile contains errors)
-            // The compileLogFile is the log of the agent command execution
-            // If it has errors, it means the agent command failed, not the compilation after transformation
-            boolean agentCommandFailed = false;
-            if (executionResult.compileLogFile() != null && Files.exists(executionResult.compileLogFile())) {
-                try {
-                    log.info("Analyzing agent command log (compileLogFile) to check for agent execution errors...");
-                    github.chains.breakingclassifier.FailureCategory agentLogCategory = 
-                            github.chains.breakingclassifier.ErrorReportAggregator.categorizeLog(executionResult.compileLogFile());
-                    
-                    // If the agent command log indicates failure (not BUILD_SUCCESS), it's an agent error
-                    if (agentLogCategory != null && 
-                        agentLogCategory != github.chains.breakingclassifier.FailureCategory.BUILD_SUCCESS) {
-                        agentCommandFailed = true;
-                        attemptCategory = FailureCategory.TRANSFORMATION_FAILURE;  // Agent command execution error
-                        attemptSuccessful = false;
-                        log.warn("Agent command execution failed. Category from agent log: {}. Setting category to TRANSFORMATION_FAILURE (agent error).", 
-                                agentLogCategory);
-                    } else {
-                        log.info("Agent command executed successfully. Proceeding to analyze Maven test log.");
-                    }
-                } catch (Exception e) {
-                    log.warn("Failed to analyze agent command log: {}. Assuming agent command succeeded.", e.getMessage());
-                    // If we can't analyze, assume agent command succeeded and continue with normal flow
-                }
-            } else if (!executionResult.compileSuccess()) {
-                // If compileSuccess is false but no log file, it's likely an agent error
-                agentCommandFailed = true;
-                attemptCategory = FailureCategory.TRANSFORMATION_FAILURE;
-                attemptSuccessful = false;
-                log.warn("Agent command failed (compileSuccess=false) but no log file available. Setting category to TRANSFORMATION_FAILURE (agent error).");
+            // Classify the final result using the actual Maven compile log (testLogFile),
+            // NOT the agent LLM output (compileLogFile) which may contain irrelevant bash/parsing errors.
+            // Priority: testLogFile (final mvn compile) > agentExecutionLog (agent_execution.log)
+            Path testLogTarget = executionResult.testLogFile();
+            Path mavenLog = null;
+            if (testLogTarget != null && Files.exists(testLogTarget)) {
+                mavenLog = testLogTarget;
+                log.info("Using final mvn compile log for classification: {}", mavenLog);
+            } else if (executionResult.agentExecutionLog() != null && Files.exists(executionResult.agentExecutionLog())) {
+                mavenLog = executionResult.agentExecutionLog();
+                log.info("Test log not available. Using agent execution log for classification: {}", mavenLog);
+            } else {
+                log.warn("No Maven build log available for classification.");
             }
 
-            // Test log was already copied by the agent
-            Path testLogTarget = executionResult.testLogFile();
-
-            // Only analyze Maven test log if agent command succeeded
-            // If agent command failed, we already set the category to TRANSFORMATION_FAILURE
-            if (!agentCommandFailed && testLogTarget != null && Files.exists(testLogTarget)) {
+            if (mavenLog != null) {
                 try {
                     log.info("Analyzing mvn test log category directly from log file...");
                     
@@ -366,17 +356,12 @@ public class AgentRepairPipeline implements RepairPipeline {
                     attemptCategory = FailureCategory.UNKNOWN_FAILURE;
                     attemptSuccessful = false;
                 }
-            } else if (!agentCommandFailed) {
-                // Agent command succeeded but test log not available
-                log.warn("Test log file not available for breaking classifier analysis");
-                // If agent command succeeded but no test log, use UNKNOWN_FAILURE
-                // (we already checked compileLogFile for agent errors above)
-                if (attemptCategory == FailureCategory.UNKNOWN_FAILURE) {
-                    attemptCategory = FailureCategory.UNKNOWN_FAILURE;
-                }
+            } else {
+                // No Maven log available at all
+                log.warn("No Maven build log available for classification.");
+                attemptCategory = FailureCategory.UNKNOWN_FAILURE;
                 attemptSuccessful = false;
             }
-            // If agentCommandFailed is true, we already set attemptCategory to TRANSFORMATION_FAILURE above
             
             // Create Attempt object (attempt 1 for agent pipeline - single attempt)
             if (commitReportDir != null) {
@@ -494,12 +479,24 @@ public class AgentRepairPipeline implements RepairPipeline {
             if (normalized.startsWith("/")) {
                 normalized = normalized.substring(1);
             }
+
+            // Candidate 1: commitOutputDir/{filePath} (if filePath includes project name)
             Path candidate = commitOutputDir.resolve(normalized);
             if (Files.isRegularFile(candidate)) {
                 return candidate.normalize();
             }
+
+            // Candidate 2: commitOutputDir/{projectName}/{filePath}
+            // (filePath from breaking-classifier is usually relative to the project root,
+            //  e.g. "src/main/java/Foo.java" without the project directory prefix)
+            if (record.project() != null && !record.project().isBlank()) {
+                candidate = commitOutputDir.resolve(record.project()).resolve(normalized);
+                if (Files.isRegularFile(candidate)) {
+                    return candidate.normalize();
+                }
+            }
         } catch (Exception e) {
-            log.debug("Failed to resolve original source file {} for {}: {}", 
+            log.debug("Failed to resolve original source file {} for {}: {}",
                     filePath, record.breakingCommit(), e.getMessage());
         }
         return null;
@@ -530,5 +527,43 @@ public class AgentRepairPipeline implements RepairPipeline {
             log.warn("Failed to cleanup workspace directory {}: {}", workspaceDir, e.getMessage());
         }
     }
-    
+
+
+    /**
+     * Detects if the LLM model failed to produce any output by parsing the agent log.
+     * Looks for a JSON block with "totalCalls": 0 and an empty "response", which indicates
+     * the model did not generate any transformation rule.
+     *
+     * @param agentLogFile path to the agent_compile_output.log file
+     * @return true if model failure is detected (totalCalls == 0 and empty response)
+     */
+    private boolean detectModelFailure(Path agentLogFile) {
+        if (agentLogFile == null || !Files.exists(agentLogFile)) {
+            return false;
+        }
+        try {
+            String content = Files.readString(agentLogFile);
+
+            // Find the JSON stats block embedded in the log
+            // Look for the pattern: "totalCalls": <number>
+            java.util.regex.Pattern totalCallsPattern = java.util.regex.Pattern.compile("\"totalCalls\"\\s*:\\s*(\\d+)");
+            java.util.regex.Matcher totalCallsMatcher = totalCallsPattern.matcher(content);
+
+            // Find the first occurrence (inside "tools" stats)
+            if (totalCallsMatcher.find()) {
+                int totalCalls = Integer.parseInt(totalCallsMatcher.group(1));
+                if (totalCalls == 0) {
+                    // Also check for empty response to confirm
+                    boolean emptyResponse = content.contains("\"response\": \"\"") || content.contains("\"response\":\"\"");
+                    if (emptyResponse) {
+                        log.warn("Detected model failure: totalCalls=0 and empty response in {}", agentLogFile);
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            log.warn("Failed to read agent log file for model failure detection: {}", e.getMessage());
+        }
+        return false;
+    }
 }

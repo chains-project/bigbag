@@ -62,6 +62,8 @@ public class DockerBuild {
 
     private boolean verbose = false;
 
+    private boolean keepContainer = false;
+
     public DockerBuild(Boolean isBump, int max_attempts) {
         this.isBump = isBump;
         createDockerClient();
@@ -84,6 +86,10 @@ public class DockerBuild {
         this.verbose = verbose;
         createDockerClient();
         this.max_attempts = max_attempts;
+    }
+
+    public void setKeepContainer(boolean keepContainer) {
+        this.keepContainer = keepContainer;
     }
 
     /**
@@ -116,11 +122,14 @@ public class DockerBuild {
         }
         try {
             dockerClient.stopContainerCmd(containerId).exec();
+        } catch (com.github.dockerjava.api.exception.NotModifiedException e) {
+            log.debug("Container {} was already stopped", containerId);
         } catch (Exception e) {
             log.warn("Could not stop container {}", containerId, e);
         }
         try {
-            dockerClient.removeContainerCmd(containerId).exec();
+            dockerClient.removeContainerCmd(containerId).withForce(true).exec();
+            log.debug("Container {} removed successfully", containerId);
         } catch (Exception e) {
             log.warn("Could not remove container {}", containerId, e);
         }
@@ -2110,9 +2119,13 @@ public class DockerBuild {
             log.error("Error executing command in container", e);
             return false;
         } finally {
-            // Cleanup: Always remove container after execution
+            // Cleanup: skip if keepContainer is enabled (allows inspection after execution)
             if (containerId != null) {
-                cleanupContainer(containerId);
+                if (keepContainer) {
+                    log.info("KEEP_CONTAINER=true: container {} kept alive for inspection (image: {})", containerId, dockerImage);
+                } else {
+                    cleanupContainer(containerId);
+                }
             }
         }
     }

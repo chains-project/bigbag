@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # ETAPA 1: BASE CON JAVA 8 Y MAVEN (Debian Bullseye)
 # -----------------------------------------------------------------------------
-    FROM maven:3.9.2-eclipse-temurin-11
+    FROM maven:3.9.2-eclipse-temurin-17
 
     USER root
     
@@ -23,7 +23,7 @@
     # -----------------------------------------------------------------------------
     # ETAPA 3: INSTALACIÓN DE GEMINI CLI (NPM)
     # -----------------------------------------------------------------------------
-    RUN npm install -g @google/gemini-cli
+    RUN npm install -g @google/gemini-cli@0.22.5
     
     # -----------------------------------------------------------------------------
     # ETAPA 4: CONFIGURACIÓN CRÍTICA PARA DOCKER
@@ -43,7 +43,7 @@
     RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
         && sed -i 's/ZSH_THEME=.*/ZSH_THEME="agnoster"/' /root/.zshrc
     
-    WORKDIR /work
+    WORKDIR /workspace
     
     # Iniciamos con Zsh
     CMD ["zsh"]

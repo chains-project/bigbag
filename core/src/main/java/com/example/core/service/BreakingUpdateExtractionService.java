@@ -25,12 +25,19 @@ public class BreakingUpdateExtractionService {
     private static final Logger log = LoggerFactory.getLogger(BreakingUpdateExtractionService.class);
 
     private final boolean verbose;
+    private final boolean keepContainer;
     private final DockerBuild dockerBuild;
     private final GitWorkflowService gitWorkflowService;
 
     public BreakingUpdateExtractionService(boolean verbose) {
+        this(verbose, false);
+    }
+
+    public BreakingUpdateExtractionService(boolean verbose, boolean keepContainer) {
         this.verbose = verbose;
+        this.keepContainer = keepContainer;
         this.dockerBuild = new DockerBuild(false, verbose);
+        this.dockerBuild.setKeepContainer(keepContainer);
         this.gitWorkflowService = new GitWorkflowService();
     }
 
@@ -276,13 +283,15 @@ public class BreakingUpdateExtractionService {
             log.error("Error processing commit {}: {}", record.breakingCommit(), e.getMessage(), e);
             return buildSummary(record, dockerImage, null);
         } finally {
-            // Cleanup Docker image
-            if (dockerImage != null) {
+            // Cleanup Docker image (skip if keepContainer is enabled)
+            if (dockerImage != null && !keepContainer) {
                 try {
                     DockerBuild.deleteImage(dockerImage);
                 } catch (Exception e) {
                     log.warn("Failed to delete Docker image {}: {}", dockerImage, e.getMessage());
                 }
+            } else if (dockerImage != null) {
+                log.info("KEEP_CONTAINER=true: skipping deletion of breaking image {}", dockerImage);
             }
         }
 
