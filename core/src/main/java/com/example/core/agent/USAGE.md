@@ -2,7 +2,7 @@
 
 The architecture separates two concepts:
 - **AGENT_NAME**: The LLM/AI to use (e.g., "gemini", "copilot")
-- **RULE_GENERATOR**: The rule generator (e.g., "spoon", "javaparser", "openrewrite")
+- **RULE_GENERATOR**: The rule generator (e.g., "spoon", "openrewrite")
 
 This allows combinations like: gemini+spoon, copilot+spoon, gemini+openrewrite, etc.
 
@@ -11,27 +11,25 @@ This allows combinations like: gemini+spoon, copilot+spoon, gemini+openrewrite, 
 ```bash
 # .env
 AGENT_NAME=gemini          # LLM to use (gemini, copilot, etc.)
-RULE_GENERATOR=spoon       # Rule generator (spoon, javaparser, openrewrite, etc.)
-BASE_TEMPLATE=/path/to/base-template     # Used by Spoon and JavaParser
-API_DOCS=/path/to/api-docs              # Used by Spoon and JavaParser
+RULE_GENERATOR=spoon       # Rule generator (spoon, openrewrite, etc.)
+BASE_TEMPLATE=/path/to/spoon-base-template
+API_DOCS=/path/to/spoon-api-docs
 LLM_API_KEY=your_api_key_here
 ```
 
 ## Auto-detection
 
-If you don't define `RULE_GENERATOR`, the system will attempt to infer a sensible default:
+If you don't define `RULE_GENERATOR`, the system will automatically detect the rule generator:
 
 ```bash
 # .env (without RULE_GENERATOR)
 AGENT_NAME=gemini
-BASE_TEMPLATE=/path/to/base-template
-API_DOCS=/path/to/api-docs
+BASE_TEMPLATE=/path/to/spoon-base-template
+API_DOCS=/path/to/spoon-api-docs
 LLM_API_KEY=your_api_key_here
 ```
 
-Because both Spoon and JavaParser use `BASE_TEMPLATE` and `API_DOCS`, the factory cannot distinguish them automatically.  
-In this situation, the system **defaults to `spoon`** for backward compatibility.  
-If you want to use JavaParser, you **must** set `RULE_GENERATOR=javaparser`.
+The system will detect that `BASE_TEMPLATE` or `API_DOCS` are defined and will use `spoon` as the generator.
 
 ## Default Values
 
@@ -46,8 +44,8 @@ If you want to use JavaParser, you **must** set `RULE_GENERATOR=javaparser`.
 ### Optional but Recommended:
 - `AGENT_NAME`: LLM to use (default: "gemini")
 - `RULE_GENERATOR`: Rule generator (default: "spoon" or auto-detected)
-- `BASE_TEMPLATE`: Path to base template (for Spoon: spoon base project; for JavaParser: javaparser base project)
-- `API_DOCS`: Path to API documentation (for Spoon: spoon-core javadoc; for JavaParser: javaparser javadoc)
+- `BASE_TEMPLATE`: Path to base template (for Spoon: spoon-base-template)
+- `API_DOCS`: Path to API documentation (for Spoon: spoon-api-docs)
 
 ## Complete .env Example
 
@@ -56,11 +54,11 @@ If you want to use JavaParser, you **must** set `RULE_GENERATOR=javaparser`.
 AGENT_NAME=gemini
 
 # Rule Generator
-RULE_GENERATOR=spoon           # or "javaparser"
+RULE_GENERATOR=spoon
 
-# Rule Generator Configuration
-BASE_TEMPLATE=/home/user/base-template
-API_DOCS=/home/user/api-docs
+# Spoon Configuration
+BASE_TEMPLATE=/home/user/spoon-base-template
+API_DOCS=/home/user/spoon-api-docs
 
 # LLM Configuration
 LLM_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -74,10 +72,6 @@ LLM_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 # Gemini + Spoon
 AGENT_NAME=gemini
 RULE_GENERATOR=spoon
-
-# Gemini + JavaParser
-AGENT_NAME=gemini
-RULE_GENERATOR=javaparser
 
 # Copilot + Spoon
 AGENT_NAME=copilot

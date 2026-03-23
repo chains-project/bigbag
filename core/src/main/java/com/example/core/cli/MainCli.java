@@ -35,6 +35,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,14 +58,34 @@ public class MainCli implements Callable<Integer> {
     private static final Logger log = LoggerFactory.getLogger(MainCli.class);
 
     /**
-     * Loads commit hashes to skip from a file (one hash per line).
-     * Blank lines and lines starting with '#' are ignored.
+     * Loads commit hashes to skip from the file specified by SKIP_HASHES_FILE in .env.
+     * The file should contain one hash per line. Empty lines and lines starting with # are ignored.
      */
-    private static Set<String> loadSkipHashes(Path hashesFile) throws IOException {
-        return Files.readAllLines(hashesFile).stream()
-                .map(String::trim)
-                .filter(line -> !line.isEmpty() && !line.startsWith("#"))
-                .collect(Collectors.toSet());
+    private Set<String> loadSkipHashes() {
+        Set<String> skipHashes = new HashSet<>();
+        String skipHashesFile = envConfig.get("SKIP_HASHES_FILE").orElse(null);
+        if (skipHashesFile == null || skipHashesFile.isBlank() || "/path/to/file".equals(skipHashesFile)) {
+            log.info("SKIP_HASHES_FILE not configured. No commits will be skipped.");
+            return skipHashes;
+        }
+        Path path = Path.of(skipHashesFile);
+        if (!Files.exists(path)) {
+            log.warn("SKIP_HASHES_FILE does not exist: {}. No commits will be skipped.", skipHashesFile);
+            return skipHashes;
+        }
+        try {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty() && !trimmed.startsWith("#")) {
+                    skipHashes.add(trimmed);
+                }
+            }
+            log.info("Loaded {} hashes to skip from {}", skipHashes.size(), skipHashesFile);
+        } catch (IOException e) {
+            log.error("Failed to read SKIP_HASHES_FILE {}: {}", skipHashesFile, e.getMessage());
+        }
+        return skipHashes;
     }
 
     // Default configuration values
@@ -138,8 +159,13 @@ public class MainCli implements Callable<Integer> {
 
             // Reinitialize services with verbose flag to control logging (especially Docker
             // image pull)
-            this.extractionService = new BreakingUpdateExtractionService(this.verbose);
+            boolean keepContainer = envConfig.getBoolean("KEEP_CONTAINER").orElse(false);
+            this.extractionService = new BreakingUpdateExtractionService(this.verbose, keepContainer);
             this.dockerBuild = new DockerBuild(false, this.verbose);
+            this.dockerBuild.setKeepContainer(keepContainer);
+            if (keepContainer) {
+                log.info("KEEP_CONTAINER=true: breaking images and agent containers will NOT be removed after execution");
+            }
 
             // Determine pipeline type from CLI argument or environment variable
             String selectedPipelineType = determinePipelineType();
@@ -265,28 +291,23 @@ public class MainCli implements Callable<Integer> {
 
             log.info("Found {} breaking update records", records.size());
 
-            // Filter by skip-hashes file: skip commits whose hash appears in the file
-            Path skipHashesFile = options.getSkipHashesFile();
-            if (skipHashesFile == null) {
-                skipHashesFile = envConfig.getPath("SKIP_HASHES_FILE").orElse(null);
-            }
-            if (skipHashesFile != null && fileToProcess == null) {
-                if (!Files.exists(skipHashesFile)) {
-                    System.err.println("Error: skip-hashes file does not exist: " + skipHashesFile);
-                    return 1;
+            // Filter out commits listed in SKIP_HASHES_FILE
+            // This filter is only applied when no specific file is specified
+            if (fileToProcess == null) {
+                Set<String> skipHashes = loadSkipHashes();
+                if (!skipHashes.isEmpty()) {
+                    int originalSize = records.size();
+                    records = records.stream()
+                            .filter(record -> record.breakingCommit() == null || !skipHashes.contains(record.breakingCommit()))
+                            .collect(Collectors.toList());
+                    int skipped = originalSize - records.size();
+                    log.info("Skipped {} commits from SKIP_HASHES_FILE ({} remaining from {} total)", skipped, records.size(), originalSize);
+                    if (skipped > 0) {
+                        System.out.println("Skipped " + skipped + " commits from SKIP_HASHES_FILE (" + records.size()
+                                + " remaining from " + originalSize + " total)");
+                    }
                 }
-                Set<String> skipHashes = loadSkipHashes(skipHashesFile);
-                int originalSize = records.size();
-                records = records.stream()
-                        .filter(record -> record.breakingCommit() == null || !skipHashes.contains(record.breakingCommit()))
-                        .collect(Collectors.toList());
-                log.info("Skipped {} records matching skip-hashes file (from {} total)",
-                        originalSize - records.size(), originalSize);
-                if (originalSize != records.size()) {
-                    System.out.println("Skipped " + (originalSize - records.size())
-                            + " records matching skip-hashes file (from " + originalSize + " total)");
-                }
-            } else if (fileToProcess != null) {
+            } else {
                 log.info("Processing specific file, skipping hash filter");
             }
 
@@ -624,6 +645,11 @@ public class MainCli implements Callable<Integer> {
                     ReportEntry entry = buildReportEntry(summary);
                     currentReportEntries.put(key, entry);
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
+                    // Keep existingResults in sync so subsequent commits in this same run
+                    // are not lost when writeClassificationSummary is called again
+                    if (existingResults != null) {
+                        existingResults.put(key, entry);
+                    }
                     log.info("Classification summary written to {} (after {} attempts)", targetJson, attempts.size());
                 } else {
                     // No attempts generated - create a failure attempt to record the failure
@@ -661,6 +687,11 @@ public class MainCli implements Callable<Integer> {
                     ReportEntry entry = buildReportEntry(failureSummary);
                     currentReportEntries.put(key, entry);
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
+                    // Keep existingResults in sync so subsequent commits in this same run
+                    // are not lost when writeClassificationSummary is called again
+                    if (existingResults != null) {
+                        existingResults.put(key, entry);
+                    }
                     log.warn("Classification summary written to {} with failure attempt (reason: {})", 
                             targetJson, failureReason);
                 }
@@ -669,6 +700,11 @@ public class MainCli implements Callable<Integer> {
                     ReportEntry entry = buildReportEntry(summary);
                     if (entry.breakingCommit() != null) {
                         currentReportEntries.put(entry.breakingCommit(), entry);
+                        // Keep existingResults in sync so subsequent commits in this same run
+                        // are not lost when writeClassificationSummary is called again
+                        if (existingResults != null) {
+                            existingResults.put(entry.breakingCommit(), entry);
+                        }
                     }
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
                     log.info("Classification summary written to {}", targetJson);

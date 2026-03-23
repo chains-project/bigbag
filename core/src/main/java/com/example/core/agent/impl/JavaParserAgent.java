@@ -94,6 +94,7 @@ public class JavaParserAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 javaparserDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         log.info("Agent command execution completed. Success: {}. Log saved to: {}", compileSuccess, compileLogFile);
@@ -178,22 +179,22 @@ public class JavaParserAgent extends BaseAgent {
 
         // Use the LLM agent name from the parent class
         String llmCommand = llmAgentName;
-        String model = getEnv("LLM_MODEL").orElse("gemini-3-pro-preview");
+        String model = getEnv("LLM_MODEL").orElse("gemini-3.1-pro-preview");
 
         return String.format(
-                "%s --model %s --debug -o json --yolo \" 'Project @%s/ does not compile. Plan: "
-                        + "1) Run `mvn compile` in the project @%s/ to get the compilation errors only. "
-                        + "2) Generate a source code transformation with JavaParser to fix the errors. "
+                "%s --model %s -o json --yolo -p \" 'Project @%s/ does not compile. Plan: "
+                        + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
+                        + "2) Generate a source code transformation with JavaParserto fix the errors. "
                         + "   - Use the project in folder @%s/ as the base project template. "
                         + "   - Use JavaParser AST manipulation to create the transformation. "
-                        + "   - Save the transformation code inside the folder @%s/, e.g., in `%s/src/main/java/github/chains/Main.java`. "
+                        + "   - Save the transformation code inside the folder @%s/, e.g., in %s/src/main/java/github/chains/Main.java "
                         + "   - Use the JavaParser API documentation located in folder @%s/ for reference. "
                         + "3) Ensure the generated transformation code compiles correctly. "
                         + "4) Apply the transformation to fix the compilation errors. "
-                        + "5) Verify that the project now compiles successfully with `mvn compile`. "
-                        + "> /%s/agent_execution.log 2>&1'\"",
+                        + "5) Verify that the project now compiles successfully with mvn compile. "
+                        + "2>&1 | tee %s/%s/agent_execution.log'\"",
                 llmCommand, model, projectName, projectName, JAVAPARSER_BASE_FOLDER, javaparserBaseFullPath,
-                javaparserBaseFullPath, apiDocsPath, projectName);
+                javaparserBaseFullPath, apiDocsPath, workspaceDir, projectName);
     }
 
     /**
@@ -217,6 +218,7 @@ public class JavaParserAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 javaparserDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         // Copy the actual test log from project directory

@@ -62,6 +62,8 @@ public class DockerBuild {
 
     private boolean verbose = false;
 
+    private boolean keepContainer = false;
+
     public DockerBuild(Boolean isBump, int max_attempts) {
         this.isBump = isBump;
         createDockerClient();
@@ -84,6 +86,10 @@ public class DockerBuild {
         this.verbose = verbose;
         createDockerClient();
         this.max_attempts = max_attempts;
+    }
+
+    public void setKeepContainer(boolean keepContainer) {
+        this.keepContainer = keepContainer;
     }
 
     /**
@@ -116,11 +122,14 @@ public class DockerBuild {
         }
         try {
             dockerClient.stopContainerCmd(containerId).exec();
+        } catch (com.github.dockerjava.api.exception.NotModifiedException e) {
+            log.debug("Container {} was already stopped", containerId);
         } catch (Exception e) {
             log.warn("Could not stop container {}", containerId, e);
         }
         try {
-            dockerClient.removeContainerCmd(containerId).exec();
+            dockerClient.removeContainerCmd(containerId).withForce(true).exec();
+            log.debug("Container {} removed successfully", containerId);
         } catch (Exception e) {
             log.warn("Could not remove container {}", containerId, e);
         }
@@ -1957,6 +1966,15 @@ public class DockerBuild {
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
             boolean verbose) {
+        return executeMavenCommandInContainerWithWorkspace(dockerImage, workspaceDir, projectDir, projectName,
+                containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder, spoonDocsFolder,
+                "api-docs", verbose);
+    }
+
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, boolean verbose) {
         String containerId = null;
         try {
             ensureBaseMavenImageExists(dockerImage);
@@ -1978,14 +1996,14 @@ public class DockerBuild {
             // Add M2 mount if provided
             addM2MountIfExists(binds, m2Folder);
             
-            // Add Spoon documentation mount if provided (mount it in the workspace/api-docs)
+            // Add API documentation mount if provided (mount it using the agent-specific folder name)
             if (spoonDocsFolder != null && Files.exists(spoonDocsFolder) && Files.isDirectory(spoonDocsFolder)) {
-                String spoonDocsMountPath = normalizedWorkDir + "/api-docs";
+                String docsMountPath = normalizedWorkDir + "/" + docsFolderName;
                 binds.add(new Bind(
                         spoonDocsFolder.toAbsolutePath().toString(),
-                        new Volume(spoonDocsMountPath),
+                        new Volume(docsMountPath),
                         AccessMode.ro)); // Read-only mount for documentation
-                log.info("Spoon documentation will be mounted: {} -> {}", spoonDocsFolder, spoonDocsMountPath);
+                log.info("API documentation will be mounted: {} -> {}", spoonDocsFolder, docsMountPath);
             }
 
             HostConfig hostConfig = HostConfig.newHostConfig().withBinds(binds);
@@ -2110,9 +2128,13 @@ public class DockerBuild {
             log.error("Error executing command in container", e);
             return false;
         } finally {
-            // Cleanup: Always remove container after execution
+            // Cleanup: skip if keepContainer is enabled (allows inspection after execution)
             if (containerId != null) {
-                cleanupContainer(containerId);
+                if (keepContainer) {
+                    log.info("KEEP_CONTAINER=true: container {} kept alive for inspection (image: {})", containerId, dockerImage);
+                } else {
+                    cleanupContainer(containerId);
+                }
             }
         }
     }

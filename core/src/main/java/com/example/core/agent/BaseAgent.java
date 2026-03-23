@@ -80,7 +80,7 @@ public abstract class BaseAgent {
      * @return the Docker image name
      */
     public String getDockerImageName() {
-        return llmAgentName + ":latest";
+        return llmAgentName +":latest";
     }
     
     /**

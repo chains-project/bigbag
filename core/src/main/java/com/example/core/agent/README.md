@@ -6,23 +6,21 @@ This architecture provides a generic and scalable framework for code repair agen
 
 ```
 agent/
-├── BaseAgent.java               # Abstract base class with contracts
-├── AgentFactory.java            # Factory for dynamic agent selection
+├── BaseAgent.java              # Abstract base class with contracts
+├── AgentFactory.java           # Factory for dynamic agent selection
 ├── model/
-│   ├── AgentMount.java          # Model for file/volume mounts
-│   ├── AgentCommand.java        # Model for execution commands
-│   ├── AgentExecutionRequest.java  # Encapsulates all inputs for an execution
-│   └── AgentSetupResult.java    # Agent setup result
+│   ├── AgentMount.java         # Model for file/volume mounts
+│   ├── AgentCommand.java       # Model for execution commands
+│   └── AgentSetupResult.java   # Agent setup result
 └── impl/
-    ├── SpoonAgent.java          # Concrete implementation for Spoon-based rules
-    └── JavaParserAgent.java     # Concrete implementation for JavaParser-based rules
+    └── SpoonAgent.java         # Concrete implementation for Spoon
 ```
 
 ## Design Patterns
 
 ### Strategy Pattern
 - `BaseAgent`: Defines the common contract for all agents
-- `SpoonAgent`, `JavaParserAgent`, `OpenRewriteAgent` (future): Specific implementations
+- `SpoonAgent`, `OpenRewriteAgent` (future): Specific implementations
 
 ### Factory Pattern
 - `AgentFactory`: Dynamically selects the agent based on environment variables
@@ -55,10 +53,10 @@ The pipeline only calls `execute()` and the agent handles everything according t
 The `AgentFactory` determines which agent to instantiate using the following strategy:
 
 1. **Explicit AGENT_NAME**: If `AGENT_NAME` is defined, use that LLM agent
-2. **Explicit RULE_GENERATOR**: If `RULE_GENERATOR` is defined, use that rule generator (e.g., `spoon`, `javaparser`)
-3. **Auto-detection**:
-   - If `BASE_TEMPLATE` or `API_DOCS` are present but `RULE_GENERATOR` is not set, the factory defaults to `spoon` for backward compatibility.
-4. **Fallback**: If nothing is specified, it falls back to `spoon` as the rule generator and `gemini` as the LLM agent.
+2. **Auto-detection**: Searches for specific environment variables:
+   - `BASE_TEMPLATE` or `API_DOCS` → `SpoonAgent`
+   - (Future: `OPENREWRITE_*` → `OpenRewriteAgent`)
+3. **Fallback**: Defaults to `spoon` rule generator
 
 ### Usage Example:
 
@@ -114,7 +112,7 @@ public class OpenRewriteAgent extends BaseAgent {
 }
 ```
 
-2. **Register in AgentFactory** (for a new generator such as `openrewrite`):
+2. **Register in AgentFactory**:
 ```java
 // In AgentFactory
 static {
@@ -131,7 +129,7 @@ if (envConfig.get("OPENREWRITE_CONFIG").isPresent()) {
 }
 ```
 
-4. **Configure environment variables** (example for an `openrewrite`-based generator):
+4. **Configure environment variables**:
 ```bash
 # .env
 AGENT_NAME=gemini

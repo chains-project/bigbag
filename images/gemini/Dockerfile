@@ -1,14 +1,14 @@
 # -----------------------------------------------------------------------------
-# STAGE 1: BASE IMAGE WITH JAVA 11 AND MAVEN (Debian Bullseye)
+# ETAPA 1: BASE CON JAVA 8 Y MAVEN (Debian Bullseye)
 # -----------------------------------------------------------------------------
-    FROM maven:3.9.2-eclipse-temurin-11
+    FROM maven:3.9.2-eclipse-temurin-17
 
     USER root
     
     # -----------------------------------------------------------------------------
-    # STAGE 2: INSTALL NODE.JS AND TOOLS
+    # ETAPA 2: INSTALACIÓN DE NODE.JS Y HERRAMIENTAS
     # -----------------------------------------------------------------------------
-    # Install Node.js (required for Gemini CLI) and system tools
+    # Instalamos Node.js (necesario para Gemini CLI) y herramientas de sistema
     RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
         apt-get update && apt-get install -y \
         nodejs \
@@ -21,29 +21,29 @@
         && rm -rf /var/lib/apt/lists/*
     
     # -----------------------------------------------------------------------------
-    # STAGE 3: INSTALL GEMINI CLI (NPM)
+    # ETAPA 3: INSTALACIÓN DE GEMINI CLI (NPM)
     # -----------------------------------------------------------------------------
-    RUN npm install -g @google/gemini-cli
+    RUN npm install -g @google/gemini-cli@0.22.5
     
     # -----------------------------------------------------------------------------
-    # STAGE 4: CRITICAL DOCKER CONFIGURATION
+    # ETAPA 4: CONFIGURACIÓN CRÍTICA PARA DOCKER
     # -----------------------------------------------------------------------------
-    # 1. Disable Sandbox because we are already inside a container
+    # 1. Desactivamos el Sandbox porque ya estamos dentro de un contenedor
     ENV GEMINI_SANDBOX=false
     
-    # 2. Define the shell so Gemini can execute YOLO commands
+    # 2. Definimos el Shell para que Gemini pueda ejecutar comandos YOLO
     ENV SHELL=/bin/zsh
     
-    # 3. Force PATH
+    # 3. Forzamos el PATH
     ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
     
     # -----------------------------------------------------------------------------
-    # STAGE 5: SHELL AESTHETICS (Oh My Zsh)
+    # ETAPA 5: ESTÉTICA (Oh My Zsh)
     # -----------------------------------------------------------------------------
     RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
         && sed -i 's/ZSH_THEME=.*/ZSH_THEME="agnoster"/' /root/.zshrc
     
-    WORKDIR /work
+    WORKDIR /workspace
     
-    # Start with Zsh
+    # Iniciamos con Zsh
     CMD ["zsh"]
