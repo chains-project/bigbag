@@ -86,8 +86,15 @@ public class OpenCodeAgent extends BaseAgent {
         // Step 2: Prepare environment variables
         Map<String, String> envVars = prepareEnvironmentVariables();
 
-        // Step 3: Create log file
-        Path compileLogFile = request.outputBaseDir().resolve("maven_compile_output.log");
+        // Step 3: Create a temp log file for DockerBuild to capture container stdout.
+        // AgentRepairPipeline copies it to commitReportDir/agent_compile_output.log, then it is deleted.
+        Path compileLogFile;
+        try {
+            compileLogFile = Files.createTempFile("opencode-agent-compile-", ".log");
+        } catch (IOException e) {
+            log.warn("Could not create temp compile log, falling back to outputBaseDir: {}", e.getMessage());
+            compileLogFile = request.outputBaseDir().resolve("maven_compile_output.log");
+        }
 
         // Step 4: Build and execute the main agent command
         String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR);
@@ -297,6 +304,13 @@ public class OpenCodeAgent extends BaseAgent {
         String projectPath = CONTAINER_WORK_DIR + "/" + request.projectName();
         String testCommand = String.format("cd %s && mvn compile 2>&1 | tee mavenTest.log", projectPath);
 
+        Path tempLog = null;
+        try {
+            tempLog = Files.createTempFile("opencode-mvn-test-", ".log");
+        } catch (IOException e) {
+            log.warn("Could not create temp log file, falling back to outputBaseDir: {}", e.getMessage());
+            tempLog = request.outputBaseDir().resolve("temp_maven_test.log");
+        }
         request.dockerBuild().executeMavenCommandInContainerWithWorkspace(
                 request.dockerImageName(),
                 workspaceDir,
@@ -304,13 +318,14 @@ public class OpenCodeAgent extends BaseAgent {
                 request.projectName(),
                 CONTAINER_WORK_DIR,
                 testCommand,
-                request.outputBaseDir().resolve("temp_maven_test.log"),
+                tempLog,
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 apiDocsPath,
                 apiDocsFolder,
                 ghConfigDir,
                 request.verbose());
+        try { Files.deleteIfExists(tempLog); } catch (IOException ignored) {}
 
         Path testLogFile = request.commitReportDir() != null
                 ? request.commitReportDir().resolve("maven_test_output.log")

@@ -249,6 +249,7 @@ public class AgentRepairPipeline implements RepairPipeline {
                     Files.createDirectories(commitReportDir);
                     Files.copy(executionResult.compileLogFile(), compileLogTarget, StandardCopyOption.REPLACE_EXISTING);
                     log.info("Copied compile log to {}", compileLogTarget);
+                    try { Files.deleteIfExists(executionResult.compileLogFile()); } catch (IOException ignored) {}
 
                     // Detect MODEL_FAILURE: agent ran but model produced no output (totalCalls=0, empty response)
                     if (detectModelFailure(compileLogTarget)) {
