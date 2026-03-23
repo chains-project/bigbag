@@ -1966,6 +1966,15 @@ public class DockerBuild {
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
             boolean verbose) {
+        return executeMavenCommandInContainerWithWorkspace(dockerImage, workspaceDir, projectDir, projectName,
+                containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder, spoonDocsFolder,
+                "api-docs", verbose);
+    }
+
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, boolean verbose) {
         String containerId = null;
         try {
             ensureBaseMavenImageExists(dockerImage);
@@ -1987,14 +1996,14 @@ public class DockerBuild {
             // Add M2 mount if provided
             addM2MountIfExists(binds, m2Folder);
             
-            // Add Spoon documentation mount if provided (mount it in the workspace/api-docs)
+            // Add API documentation mount if provided (mount it using the agent-specific folder name)
             if (spoonDocsFolder != null && Files.exists(spoonDocsFolder) && Files.isDirectory(spoonDocsFolder)) {
-                String spoonDocsMountPath = normalizedWorkDir + "/api-docs";
+                String docsMountPath = normalizedWorkDir + "/" + docsFolderName;
                 binds.add(new Bind(
                         spoonDocsFolder.toAbsolutePath().toString(),
-                        new Volume(spoonDocsMountPath),
+                        new Volume(docsMountPath),
                         AccessMode.ro)); // Read-only mount for documentation
-                log.info("Spoon documentation will be mounted: {} -> {}", spoonDocsFolder, spoonDocsMountPath);
+                log.info("API documentation will be mounted: {} -> {}", spoonDocsFolder, docsMountPath);
             }
 
             HostConfig hostConfig = HostConfig.newHostConfig().withBinds(binds);

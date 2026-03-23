@@ -94,6 +94,7 @@ public class JavaParserAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 javaparserDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         log.info("Agent command execution completed. Success: {}. Log saved to: {}", compileSuccess, compileLogFile);
@@ -181,7 +182,7 @@ public class JavaParserAgent extends BaseAgent {
         String model = getEnv("LLM_MODEL").orElse("gemini-3.1-pro-preview");
 
         return String.format(
-                "%s --model %s -o json --debug --yolo -p \" 'Project @%s/ does not compile. Plan: "
+                "%s --model %s -o json --yolo -p \" 'Project @%s/ does not compile. Plan: "
                         + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
                         + "2) Generate a source code transformation with JavaParserto fix the errors. "
                         + "   - Use the project in folder @%s/ as the base project template. "
@@ -217,6 +218,7 @@ public class JavaParserAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 javaparserDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         // Copy the actual test log from project directory

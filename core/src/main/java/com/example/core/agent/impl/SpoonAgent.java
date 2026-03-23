@@ -32,7 +32,7 @@ public class SpoonAgent extends BaseAgent {
 
     // Container paths
     private static final String SPOON_BASE_FOLDER = "spoon-base-template";
-    private static final String API_DOCS_FOLDER = "api-docs";
+    private static final String API_DOCS_FOLDER = "spoon-api-docs";
     private static final String CONTAINER_WORK_DIR = "/workspace";
 
     public SpoonAgent(EnvConfig envConfig, String llmAgentName) {
@@ -89,6 +89,7 @@ public class SpoonAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 spoonDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         log.info("Agent command execution completed. Success: {}. Log saved to: {}", compileSuccess, compileLogFile);
@@ -173,14 +174,14 @@ public class SpoonAgent extends BaseAgent {
         String model = getEnv("LLM_MODEL").orElse("gemini-3.1-pro-preview");
 
         return String.format(
-                "%s --model %s --debug --yolo -o json "
+                "%s --model %s --yolo --debug -o json "
                         + "-p \" 'Project @%s/ does not compile. Plan: "
                         + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
                         + "2) Generate a Spoon source code transformation to fix the errors. "
                         + "   - Use the project in folder @%s/ as the base project template. "
                         + "   - Use Spoon AST manipulation to create the transformation. "
                         + "   - Save the transformation rules inside the folder @%s/, e.g., in %s/src/main/java/github/chains/Main.java. "
-                        + "   - Use the Spoon API documentation located in folder @%s/ for reference. "
+                        + "   - Use the Spoon API documentation located in folder %s/ for reference. "
                         + "3) Ensure the generated transformation file compiles correctly. "
                         + "4) Apply the transformation to fix the compilation errors. "
                         + "5) Verify that the project now compiles successfully with mvn compile. "
@@ -218,6 +219,7 @@ public class SpoonAgent extends BaseAgent {
                 envVars.isEmpty() ? null : envVars,
                 request.m2Folder(),
                 spoonDocsFolder,
+                API_DOCS_FOLDER,
                 request.verbose());
 
         // Copy the actual test log from project directory
