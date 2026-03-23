@@ -108,7 +108,8 @@ public class SpoonAgent extends BaseAgent {
                 testLogFile,
                 agentExecutionLog,
                 compileSuccess,
-                testSuccess);
+                testSuccess,
+                null);
     }
 
     /**

@@ -258,7 +258,7 @@ public class AgentRepairPipeline implements RepairPipeline {
                         attemptSuccessful = false;
 
                         // Create attempt and return early — no point classifying Maven logs
-                        attempt = new Attempt(1, processId, attemptCategory, commitReportDir.toString(), attemptSuccessful);
+                        attempt = new Attempt(1, processId, attemptCategory, commitReportDir.toString(), attemptSuccessful, executionResult.containerId());
                         log.info("Created attempt 1 (process: {}) - Category: MODEL_FAILURE, Success: false", processId);
                         return attempt != null ? List.of(attempt) : new ArrayList<>();
                     }
@@ -370,7 +370,8 @@ public class AgentRepairPipeline implements RepairPipeline {
                         processId, // processId - links attempt to process
                         attemptCategory,
                         commitReportDir.toString(), // logFileParent
-                        attemptSuccessful
+                        attemptSuccessful,
+                        executionResult.containerId()
                 );
                 log.info("Created attempt 1 (process: {}) - Category: {}, Success: {}", 
                         processId, attemptCategory, attemptSuccessful);

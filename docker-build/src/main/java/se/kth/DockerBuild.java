@@ -64,6 +64,13 @@ public class DockerBuild {
 
     private boolean keepContainer = false;
 
+    /** ID of the last container started by executeMavenCommandInContainerWithWorkspace. */
+    private String lastContainerId = null;
+
+    public String getLastContainerId() {
+        return lastContainerId;
+    }
+
     public DockerBuild(Boolean isBump, int max_attempts) {
         this.isBump = isBump;
         createDockerClient();
@@ -1971,10 +1978,48 @@ public class DockerBuild {
                 "api-docs", verbose);
     }
 
+    /**
+     * Mounts the gh CLI config directory into the container at /root/.config/gh (read-only).
+     * Required for GitHub Copilot authentication: Copilot API only accepts OAuth tokens,
+     * which gh CLI stores in ~/.config/gh after running "gh auth login".
+     *
+     * @param binds       the list of binds to add to
+     * @param ghConfigDir the host path to the gh config directory (can be null)
+     */
+    public void addGhConfigMountIfExists(List<Bind> binds, Path ghConfigDir) {
+        if (ghConfigDir == null) return;
+        Path normalized = ghConfigDir.toAbsolutePath().normalize();
+        if (!Files.exists(normalized) || !Files.isDirectory(normalized)) {
+            log.warn("GH_CONFIG_DIR does not exist or is not a directory: {}. Skipping gh config mount.", normalized);
+            return;
+        }
+        binds.add(new Bind(normalized.toString(), new Volume("/root/.config/gh"), AccessMode.ro));
+        log.info("gh config will be mounted (read-only): {} -> /root/.config/gh", normalized);
+    }
+
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, Path ghConfigDir, boolean verbose) {
+        // Delegate to the standard overload — ghConfigDir is injected into binds below
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose);
+    }
+
     public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
             String docsFolderName, boolean verbose) {
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, null, verbose);
+    }
+
+    private boolean executeMavenCommandInContainerWithWorkspaceInternal(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, Path ghConfigDir, boolean verbose) {
         String containerId = null;
         try {
             ensureBaseMavenImageExists(dockerImage);
@@ -1995,7 +2040,10 @@ public class DockerBuild {
             
             // Add M2 mount if provided
             addM2MountIfExists(binds, m2Folder);
-            
+
+            // Add gh CLI config mount if provided (needed for GitHub Copilot OAuth auth)
+            addGhConfigMountIfExists(binds, ghConfigDir);
+
             // Add API documentation mount if provided (mount it using the agent-specific folder name)
             if (spoonDocsFolder != null && Files.exists(spoonDocsFolder) && Files.isDirectory(spoonDocsFolder)) {
                 String docsMountPath = normalizedWorkDir + "/" + docsFolderName;
@@ -2024,6 +2072,7 @@ public class DockerBuild {
 
             CreateContainerResponse container = createCmd.exec();
             containerId = container.getId();
+            this.lastContainerId = containerId;
             log.info("Created container {} for execution with workspace structure", containerId);
 
             dockerClient.startContainerCmd(containerId).exec();

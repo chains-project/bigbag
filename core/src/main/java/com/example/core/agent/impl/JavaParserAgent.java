@@ -113,7 +113,8 @@ public class JavaParserAgent extends BaseAgent {
                 testLogFile,
                 agentExecutionLog,
                 compileSuccess,
-                testSuccess);
+                testSuccess,
+                null);
     }
 
     /**
