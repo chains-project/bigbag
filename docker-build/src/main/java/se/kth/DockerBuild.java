@@ -2083,7 +2083,7 @@ public class DockerBuild {
                     ? "ls -la /root/.m2/repository 2>/dev/null | head -5 || echo 'M2 repository not accessible'" 
                     : "echo 'M2 folder not mounted'";
             String setupAndRunCommand = String.format(
-                    "cd %s && echo '=== M2 Repository Check ===' && %s && echo '=== Executing Maven Command ===' && (%s) 2>&1 | tee mavenCompile.log",
+                    "cd %s && echo '=== M2 Repository Check ===' && %s && echo '=== Executing Maven Command ===' && (%s) 2>&1 | tee mavenCompile.log /proc/1/fd/1",
                     normalizedWorkDir,
                     m2CheckCommand,
                     mavenCommand);

@@ -41,6 +41,14 @@ ENV SHELL=/bin/zsh
 ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
 
 # -----------------------------------------------------------------------------
+# STAGE 4b: OPENCODE PERMISSIONS CONFIG
+# -----------------------------------------------------------------------------
+# Auto-approve all tool executions (no interactive prompts during pipeline runs)
+RUN mkdir -p /root/.config/opencode && \
+    echo '{"$schema":"https://opencode.ai/config.json","permission":"allow"}' \
+    > /root/.config/opencode/opencode.json
+
+# -----------------------------------------------------------------------------
 # STAGE 5: SHELL THEME (Oh My Zsh)
 # -----------------------------------------------------------------------------
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
