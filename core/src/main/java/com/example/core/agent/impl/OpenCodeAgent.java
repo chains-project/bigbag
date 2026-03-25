@@ -184,9 +184,10 @@ public class OpenCodeAgent extends BaseAgent {
      *
      * The provider is selected via the LLM_PROVIDER env var (default: "anthropic"):
      * <ul>
-     *   <li>"anthropic" → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
-     *   <li>"openai"    → injects OPENAI_API_KEY from LLM_API_KEY</li>
-     *   <li>"copilot"   → injects GITHUB_TOKEN from LLM_API_KEY (GitHub Copilot)</li>
+     *   <li>"anthropic"   → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
+     *   <li>"openai"      → injects OPENAI_API_KEY from LLM_API_KEY</li>
+     *   <li>"openrouter"  → injects OPENROUTER_API_KEY from LLM_API_KEY</li>
+     *   <li>"copilot"     → injects GITHUB_TOKEN from LLM_API_KEY (GitHub Copilot)</li>
      * </ul>
      */
     private Map<String, String> prepareEnvironmentVariables() {
@@ -208,6 +209,10 @@ public class OpenCodeAgent extends BaseAgent {
                 case "openai":
                     envVars.put("OPENAI_API_KEY", key);
                     log.info("Using OpenAI provider (OPENAI_API_KEY injected)");
+                    break;
+                case "openrouter":
+                    envVars.put("OPENROUTER_API_KEY", key);
+                    log.info("Using OpenRouter provider (OPENROUTER_API_KEY injected)");
                     break;
                 case "anthropic":
                 default:
@@ -261,7 +266,7 @@ public class OpenCodeAgent extends BaseAgent {
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
 
         return String.format(
-                "opencode run -m %s --print-logs --format json "
+                "opencode run -m %s --format json "
                         + "\"Project @%s/ does not compile. Plan: "
                         + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
                         + "2) Generate a %s source code transformation to fix the errors. "

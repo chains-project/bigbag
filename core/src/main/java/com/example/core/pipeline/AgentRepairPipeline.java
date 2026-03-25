@@ -251,6 +251,9 @@ public class AgentRepairPipeline implements RepairPipeline {
                     log.info("Copied compile log to {}", compileLogTarget);
                     try { Files.deleteIfExists(executionResult.compileLogFile()); } catch (IOException ignored) {}
 
+                    // Detect INSUFFICIENT_CREDITS: OpenRouter returned a payment/credits error — stop everything
+                    detectInsufficientCredits(compileLogTarget);
+
                     // Detect MODEL_FAILURE: agent ran but model produced no output (totalCalls=0, empty response)
                     if (detectModelFailure(compileLogTarget)) {
                         log.warn("MODEL_FAILURE detected: the LLM model produced no output (totalCalls=0). " +
@@ -530,6 +533,80 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
     }
 
+
+    /**
+     * Detects provider-level hard stops that make further execution pointless:
+     * <ul>
+     *   <li>OpenRouter insufficient credits (402)</li>
+     *   <li>OpenCode free-tier daily usage limit (FreeUsageLimitError / 429)</li>
+     * </ul>
+     * If detected, prints a clear message to stderr and throws a RuntimeException
+     * to stop the entire pipeline immediately.
+     *
+     * @param agentLogFile path to the agent_compile_output.log file
+     * @throws RuntimeException if a fatal provider limit is found
+     */
+    private void detectInsufficientCredits(Path agentLogFile) {
+        if (agentLogFile == null || !Files.exists(agentLogFile)) {
+            return;
+        }
+        try {
+            String content = Files.readString(agentLogFile);
+
+            // --- OpenCode free-tier daily limit ---
+            if (content.contains("FreeUsageLimitError")) {
+                // Extract retry-after seconds from the log if present
+                String retryInfo = "";
+                java.util.regex.Matcher m = java.util.regex.Pattern
+                        .compile("\"retry-after\"\\s*:\\s*\"?(\\d+)\"?")
+                        .matcher(content);
+                if (m.find()) {
+                    long seconds = Long.parseLong(m.group(1));
+                    long hours   = seconds / 3600;
+                    long minutes = (seconds % 3600) / 60;
+                    retryInfo = String.format(" Retry after: %dh %dm (%ds).", hours, minutes, seconds);
+                }
+                String message = "[FATAL] OpenCode free-tier daily limit reached — no further commits will be processed." + retryInfo;
+                log.error(message);
+                System.err.println(message);
+                throw new ProviderLimitException(message, null);
+            }
+
+            // --- OpenRouter insufficient credits (402) ---
+            // Real error: "This request requires more credits, or fewer max_tokens. You requested up to X tokens, but can only afford Y"
+            // statusCode is "statusCode":402 (not "code":402)
+            boolean noCredits =
+                    content.contains("\"name\":\"APIError\"") ||
+                    content.contains("\"name\": \"APIError\"") ||
+                    content.contains("requires more credits") ||
+                    content.contains("can only afford") ||
+                    content.contains("Key limit exceeded") ||
+                    content.contains("insufficient_credits") ||
+                    content.contains("Insufficient credits") ||
+                    content.contains("insufficient credits") ||
+                    content.contains("No credits left") ||
+                    content.contains("out of credits") ||
+                    content.contains("402 Payment Required") ||
+                    content.contains("\"statusCode\":402") ||
+                    content.contains("\"statusCode\": 402") ||
+                    content.contains("\"statusCode\":403") ||
+                    content.contains("\"statusCode\": 403") ||
+                    content.contains("\"code\": 402") ||
+                    content.contains("\"code\":402") ||
+                    content.contains("\"code\": 403") ||
+                    content.contains("\"code\":403");
+
+            if (noCredits) {
+                String message = "[FATAL] OpenRouter: API key/credit limit reached — no further commits will be processed. " +
+                        "Manage your key at https://openrouter.ai/settings/keys";
+                log.error(message);
+                System.err.println(message);
+                throw new ProviderLimitException(message, null);
+            }
+        } catch (IOException e) {
+            log.warn("Failed to read agent log for credits/limit check: {}", e.getMessage());
+        }
+    }
 
     /**
      * Detects if the LLM model failed to produce any output by parsing the agent log.

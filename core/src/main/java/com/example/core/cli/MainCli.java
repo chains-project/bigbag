@@ -1045,16 +1045,22 @@ public class MainCli implements Callable<Integer> {
                         failureReason = "PIPELINE_RETURNED_EMPTY";
                         log.warn("Repair pipeline returned no attempts for commit: {}", commit);
                     }
+                } catch (com.example.core.pipeline.ProviderLimitException e) {
+                    // Provider limit (OpenRouter 402/403 / OpenCode free-tier): propagate so
+                    // writeClassificationSummary can write the JSON entry before stopping the pipeline
+                    log.warn("Provider limit reached for commit {}: {}", record.breakingCommit(), e.getMessage());
+                    throw e;
                 } catch (Exception e) {
                     // Any other exception in repair loop - determine failure type from exception
                     log.error("Error in repair loop for commit {}: {}", record.breakingCommit(), e.getMessage(), e);
                     String errorMsg = e.getMessage() != null ? e.getMessage().toLowerCase() : "";
-                    if (errorMsg.contains("docker") || errorMsg.contains("container") || 
+
+                    if (errorMsg.contains("docker") || errorMsg.contains("container") ||
                         errorMsg.contains("cannot connect") || errorMsg.contains("timeout") ||
                         errorMsg.contains("connection refused") || errorMsg.contains("network")) {
                         failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;  // Container/Docker failure
                         failureReason = "CONTAINER_ERROR";
-                    } else if (errorMsg.contains("agent") || errorMsg.contains("transformation") || 
+                    } else if (errorMsg.contains("agent") || errorMsg.contains("transformation") ||
                                errorMsg.contains("spoon")) {
                         failureCategory = se.kth.models.FailureCategory.TRANSFORMATION_FAILURE;  // Agent error
                         failureReason = "AGENT_ERROR";
