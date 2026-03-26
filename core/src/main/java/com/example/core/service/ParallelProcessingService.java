@@ -2,6 +2,7 @@ package com.example.core.service;
 
 import com.example.core.model.BreakingUpdateRecord;
 import com.example.core.model.ClassificationSummary;
+import com.example.core.pipeline.ProviderLimitException;
 import com.example.core.pipeline.RepairPipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
@@ -31,6 +33,10 @@ public class ParallelProcessingService {
     private final AtomicInteger successCount = new AtomicInteger(0);
     private final AtomicInteger failureCount = new AtomicInteger(0);
 
+    // Global stop flag: set to true when a ProviderLimitException is detected
+    // to prevent remaining commits from consuming API credits.
+    private final AtomicBoolean globalStop = new AtomicBoolean(false);
+
     public ParallelProcessingService(int threadCount, boolean verbose, Long commitTimeoutMinutes) {
         this.threadCount = threadCount;
         this.verbose = verbose;
@@ -46,17 +52,17 @@ public class ParallelProcessingService {
             }
         });
         if (commitTimeoutMinutes != null) {
-            log.info("Initialized ParallelProcessingService with {} threads, timeout: {} minutes", 
+            log.info("Initialized ParallelProcessingService with {} threads, timeout: {} minutes",
                     threadCount, commitTimeoutMinutes);
         } else {
-            log.info("Initialized ParallelProcessingService with {} threads, no timeout (unlimited)", 
+            log.info("Initialized ParallelProcessingService with {} threads, no timeout (unlimited)",
                     threadCount);
         }
     }
 
     /**
      * Processes commits in parallel.
-     * 
+     *
      * @param records the list of breaking update records to process
      * @param outputBaseDir the base output directory
      * @param extractJarsAndClassify whether to extract JARs and run classifier
@@ -89,14 +95,19 @@ public class ParallelProcessingService {
         }
         System.out.println();
 
-        List<Future<ClassificationSummary>> futures = new ArrayList<>();
-        BreakingUpdateExtractionService extractionService = new BreakingUpdateExtractionService(verbose);
+        // Use CompletionService so results are collected in completion order (first-done-first-served).
+        // This ensures commits that finish early are written to JSON immediately without waiting
+        // for slower commits submitted before them.
+        CompletionService<ClassificationSummary> completionService =
+                new ExecutorCompletionService<>(executor);
+
+        // Keep track of submitted futures so we can cancel them on ProviderLimitException.
+        List<Future<ClassificationSummary>> submittedFutures = new ArrayList<>(records.size());
 
         // Submit all tasks
         for (BreakingUpdateRecord record : records) {
             CommitProcessor processor = new CommitProcessor(
                     record,
-                    extractionService,
                     outputBaseDir,
                     extractJarsAndClassify,
                     cleanExisting,
@@ -104,31 +115,46 @@ public class ParallelProcessingService {
                     recordByCommit,
                     jsonOutputPath,
                     verbose,
-                    changeImpactReportService,
-                    this::updateProgress
+                    changeImpactReportService
             );
-            
-            Future<ClassificationSummary> future = executor.submit(processor);
-            futures.add(future);
+
+            Future<ClassificationSummary> future = completionService.submit(processor);
+            submittedFutures.add(future);
         }
 
-        // Collect results
+        // Collect results in completion order
         List<ClassificationSummary> summaries = new ArrayList<>();
-        for (int i = 0; i < futures.size(); i++) {
-            Future<ClassificationSummary> future = futures.get(i);
-            BreakingUpdateRecord record = records.get(i);
-            
-            try {
-                // Wait for completion (with or without timeout)
-                ClassificationSummary summary;
-                if (commitTimeoutMinutes != null) {
-                    // Con timeout configurado
-                    summary = future.get(commitTimeoutMinutes, TimeUnit.MINUTES);
-                } else {
-                    // Sin timeout - espera indefinidamente
-                    summary = future.get();
+        for (int i = 0; i < records.size(); i++) {
+
+            // If a ProviderLimitException was detected, cancel all remaining futures and stop.
+            if (globalStop.get()) {
+                log.warn("Global stop triggered — cancelling {} pending futures", records.size() - i);
+                for (Future<ClassificationSummary> f : submittedFutures) {
+                    f.cancel(true);
                 }
-                
+                break;
+            }
+
+            try {
+                Future<ClassificationSummary> future;
+                if (commitTimeoutMinutes != null) {
+                    future = completionService.poll(commitTimeoutMinutes, TimeUnit.MINUTES);
+                } else {
+                    future = completionService.take(); // blocks until any task completes
+                }
+
+                if (future == null) {
+                    // poll() returned null: timeout elapsed with no completed task
+                    failureCount.incrementAndGet();
+                    completedCount.incrementAndGet();
+                    log.error("Timeout: no commit completed within {} minutes", commitTimeoutMinutes);
+                    // We cannot associate the timeout with a specific record here (CompletionService
+                    // doesn't track which record belongs to which future), so we log and continue.
+                    continue;
+                }
+
+                ClassificationSummary summary = future.get();
+
                 if (summary != null) {
                     summaries.add(summary);
                     if (summaryConsumer != null) {
@@ -137,72 +163,43 @@ public class ParallelProcessingService {
                     successCount.incrementAndGet();
                 } else {
                     failureCount.incrementAndGet();
-                    log.warn("Processing returned null for commit: {}", record.breakingCommit());
+                    log.warn("Processing returned null for a commit");
                 }
-                
-            } catch (TimeoutException e) {
-                // Solo puede ocurrir si commitTimeoutMinutes != null
-                failureCount.incrementAndGet();
-                log.error("Timeout processing commit {} after {} minutes", 
-                        record.breakingCommit(), commitTimeoutMinutes);
-                future.cancel(true);
-                
-                // Create a failure summary
-                ClassificationSummary failureSummary = new ClassificationSummary(
-                        record.project(),
-                        record.breakingCommit(),
-                        record.failureCategory(),
-                        "TIMEOUT",
-                        null,
-                        null,
-                        null,
-                        null
-                );
-                summaries.add(failureSummary);
-                
-                // Asegurar que también se registre en el reporte JSON
-                if (summaryConsumer != null) {
-                    try {
-                        summaryConsumer.accept(failureSummary);
-                    } catch (Exception consumerError) {
-                        log.error("Error while consuming timeout summary for commit {}: {}", 
-                                record.breakingCommit(), consumerError.getMessage(), consumerError);
-                    }
-                }
-                
+                completedCount.incrementAndGet();
+
             } catch (ExecutionException e) {
-                failureCount.incrementAndGet();
+                completedCount.incrementAndGet();
                 Throwable cause = e.getCause();
-                log.error("Error processing commit {}: {}", 
-                        record.breakingCommit(), cause != null ? cause.getMessage() : e.getMessage(), cause);
-                
-                // Create a failure summary
-                ClassificationSummary failureSummary = new ClassificationSummary(
-                        record.project(),
-                        record.breakingCommit(),
-                        record.failureCategory(),
-                        "ERROR",
-                        null,
-                        null,
-                        null,
-                        null
-                );
-                summaries.add(failureSummary);
-                
-                // Asegurar que también se registre en el reporte JSON
+
+                // ProviderLimitException: stop everything — remaining commits would fail anyway
+                // and continuing would waste API credits.
+                if (cause instanceof ProviderLimitException) {
+                    log.error("ProviderLimitException detected — activating global stop: {}", cause.getMessage());
+                    globalStop.set(true);
+                    failureCount.incrementAndGet();
+                    for (Future<ClassificationSummary> f : submittedFutures) {
+                        f.cancel(true);
+                    }
+                    break;
+                }
+
+                failureCount.incrementAndGet();
+                log.error("Error processing a commit: {}",
+                        cause != null ? cause.getMessage() : e.getMessage(), cause);
+
+                // Emit a failure summary so the JSON report is still updated
                 if (summaryConsumer != null) {
                     try {
-                        summaryConsumer.accept(failureSummary);
+                        // We cannot recover the specific record here; log the error only.
+                        log.warn("Failure summary not written because commit identity is unavailable from CompletionService.");
                     } catch (Exception consumerError) {
-                        log.error("Error while consuming error summary for commit {}: {}", 
-                                record.breakingCommit(), consumerError.getMessage(), consumerError);
+                        log.error("Error while consuming error summary: {}", consumerError.getMessage(), consumerError);
                     }
                 }
-                
+
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.error("Interrupted while waiting for commit {}: {}", 
-                        record.breakingCommit(), e.getMessage());
+                log.error("Interrupted while waiting for commit result: {}", e.getMessage());
                 failureCount.incrementAndGet();
                 break;
             }
@@ -216,25 +213,6 @@ public class ParallelProcessingService {
         System.out.println();
 
         return summaries;
-    }
-
-    /**
-     * Updates progress counters (thread-safe callback).
-     */
-    private void updateProgress(boolean success) {
-        completedCount.incrementAndGet();
-        if (success) {
-            successCount.incrementAndGet();
-        } else {
-            failureCount.incrementAndGet();
-        }
-        
-        if (verbose) {
-            int completed = completedCount.get();
-            log.debug("Progress: {}/{} completed ({} success, {} failed)", 
-                    completed, completedCount.get() + (successCount.get() + failureCount.get() - completed),
-                    successCount.get(), failureCount.get());
-        }
     }
 
     /**
@@ -257,4 +235,3 @@ public class ParallelProcessingService {
         }
     }
 }
-

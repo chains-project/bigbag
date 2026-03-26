@@ -145,7 +145,7 @@ public class MainCli implements Callable<Integer> {
             boolean envClassify = envConfig.getBoolean("CLASSIFY").orElse(DEFAULT_EXTRACT_JARS_AND_CLASSIFY);
             boolean envClean = envConfig.getBoolean("CLEAN").orElse(DEFAULT_CLEAN_EXISTING);
             boolean envVerbose = envConfig.getBoolean("VERBOSE").orElse(false);
-            boolean envParallel = envConfig.getBoolean("PARALLEL_ENABLED").orElse(false);
+            boolean envParallel = envConfig.getBoolean("PARALLEL_ENABLED").orElse(true);
             int envParallelThreads = envConfig.get("PARALLEL_THREADS")
                     .map(Integer::parseInt)
                     .orElse(Runtime.getRuntime().availableProcessors());

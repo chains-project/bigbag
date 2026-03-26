@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 
 /**
  * Processes a single commit (extraction, classification, and repair pipeline).
@@ -26,7 +25,6 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
     private static final Logger log = LoggerFactory.getLogger(CommitProcessor.class);
 
     private final BreakingUpdateRecord record;
-    private final BreakingUpdateExtractionService extractionService;
     private final Path outputBaseDir;
     private final boolean extractJarsAndClassify;
     private final boolean cleanExisting;
@@ -34,11 +32,9 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
     private final Path jsonOutputPath;
     private final ChangeImpactReportService changeImpactReportService;
     private final boolean verbose;
-    private final Consumer<Boolean> progressCallback;
 
     public CommitProcessor(
             BreakingUpdateRecord record,
-            BreakingUpdateExtractionService extractionService,
             Path outputBaseDir,
             boolean extractJarsAndClassify,
             boolean cleanExisting,
@@ -46,10 +42,8 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
             Map<String, BreakingUpdateRecord> recordByCommit,
             Path jsonOutputPath,
             boolean verbose,
-            ChangeImpactReportService changeImpactReportService,
-            Consumer<Boolean> progressCallback) {
+            ChangeImpactReportService changeImpactReportService) {
         this.record = record;
-        this.extractionService = extractionService;
         this.outputBaseDir = outputBaseDir;
         this.extractJarsAndClassify = extractJarsAndClassify;
         this.cleanExisting = cleanExisting;
@@ -57,7 +51,6 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
         this.jsonOutputPath = jsonOutputPath;
         this.changeImpactReportService = changeImpactReportService;
         this.verbose = verbose;
-        this.progressCallback = progressCallback;
     }
 
     @Override
@@ -69,7 +62,10 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
         
         try {
             // Step 1: Extract and classify (equivalent to processSingleCommit)
-            ClassificationSummary summary = extractionService.processSingleCommit(
+            // Each thread gets its own ExtractionService instance to avoid shared mutable state
+            BreakingUpdateExtractionService localExtractionService =
+                    new BreakingUpdateExtractionService(verbose);
+            ClassificationSummary summary = localExtractionService.processSingleCommit(
                     record,
                     outputBaseDir,
                     extractJarsAndClassify,
@@ -78,9 +74,6 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
 
             if (summary == null) {
                 log.warn("[{}] Failed to extract/classify commit: {}", threadName, commit);
-                if (progressCallback != null) {
-                    progressCallback.accept(false);
-                }
                 return null;
             }
 
@@ -217,18 +210,11 @@ public class CommitProcessor implements Callable<ClassificationSummary> {
                 }
             }
 
-            if (progressCallback != null) {
-                progressCallback.accept(true);
-            }
-
             log.info("[{}] Completed processing commit: {}", threadName, commit);
             return summary;
 
         } catch (Exception e) {
             log.error("[{}] Fatal error processing commit {}: {}", threadName, commit, e.getMessage(), e);
-            if (progressCallback != null) {
-                progressCallback.accept(false);
-            }
             throw e;
         }
     }
