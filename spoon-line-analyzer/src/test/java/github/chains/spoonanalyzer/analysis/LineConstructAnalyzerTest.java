@@ -23,8 +23,8 @@ class LineConstructAnalyzerTest {
     static void buildModel() {
         projectPath = Path.of("src/test/resources/sample-maven-project").toAbsolutePath().normalize();
         analyzer = LineConstructAnalyzer.initialize(projectPath, Collections.emptyList());
-        sampleSource = projectPath.resolve("src/main/java/com/example/sample/App.java");
-        unresolvedImportSource = projectPath.resolve("src/main/java/com/example/sample/LegacyImport.java");
+        sampleSource = projectPath.resolve("src/main/java/github/chains/sample/App.java");
+        unresolvedImportSource = projectPath.resolve("src/main/java/github/chains/sample/LegacyImport.java");
     }
 
     @Test
@@ -124,7 +124,7 @@ class LineConstructAnalyzerTest {
     @Test
     void handlesDifferentLineNumbersCorrectly() {
         // Test various line numbers to ensure Spoon source code reading works correctly
-        Path helperSource = projectPath.resolve("src/main/java/com/example/sample/Helper.java");
+        Path helperSource = projectPath.resolve("src/main/java/github/chains/sample/Helper.java");
 
         // Line 3: import statement (has constructs)
         List<ConstructUsage> usages3 = analyzer.analyze(helperSource, 3);

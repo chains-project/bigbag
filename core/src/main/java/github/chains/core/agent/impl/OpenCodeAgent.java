@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * OpenCode-based agent implementation supporting multiple rule generators.
@@ -22,7 +23,7 @@ import java.util.Map;
  * - "javaparser" → uses JavaParser AST transformation
  *
  * OpenCode CLI syntax: {@code opencode --model <model> -p "<prompt>"}
- * API key env vars injected: ANTHROPIC_API_KEY, OPENAI_API_KEY (from LLM_API_KEY)
+ * API keys are injected per {@code LLM_PROVIDER} (see {@link #prepareEnvironmentVariables()}).
  */
 public class OpenCodeAgent extends BaseAgent {
 
@@ -36,6 +37,15 @@ public class OpenCodeAgent extends BaseAgent {
     private static final String BASE_TEMPLATE = "BASE_TEMPLATE";
     private static final String API_DOCS = "API_DOCS";
     private static final String CONTAINER_WORK_DIR = "/workspace";
+
+    /** Env value for Copilot; OpenCode CLI expects provider id {@code github-copilot}. */
+    private static final String PROVIDER_COPILOT = "copilot";
+    private static final String PROVIDER_GITHUB_COPILOT = "github-copilot";
+
+    /** Google Gemini via OpenCode uses provider id {@code google} (e.g. {@code google/gemini-2.5-pro}). */
+    private static final String PROVIDER_GOOGLE = "google";
+    /** Alias for {@value #PROVIDER_GOOGLE} in {@code LLM_PROVIDER} only. */
+    private static final String PROVIDER_GEMINI = "gemini";
 
     // Per-engine configuration, resolved at construction time
     private final String baseFolder;
@@ -104,7 +114,7 @@ public class OpenCodeAgent extends BaseAgent {
         // Set GH_CONFIG_DIR in .env to the path of ~/.config/gh on the host where the pipeline runs.
         // The host must have run "gh auth login" with Copilot scope at least once.
         String rawProvider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
-        Path ghConfigDir = rawProvider.equals("copilot")
+        Path ghConfigDir = isCopilotProvider(rawProvider)
                 ? getEnvPath("GH_CONFIG_DIR").orElse(null)
                 : null;
 
@@ -187,7 +197,11 @@ public class OpenCodeAgent extends BaseAgent {
      *   <li>"anthropic"   → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
      *   <li>"openai"      → injects OPENAI_API_KEY from LLM_API_KEY</li>
      *   <li>"openrouter"  → injects OPENROUTER_API_KEY from LLM_API_KEY</li>
-     *   <li>"copilot"     → injects GITHUB_TOKEN from LLM_API_KEY (GitHub Copilot)</li>
+     *   <li>"copilot" / {@code github-copilot} → injects GITHUB_TOKEN from LLM_API_KEY (GitHub Copilot)</li>
+     *   <li>"google" / {@code gemini} → injects GOOGLE_GENERATIVE_AI_API_KEY (required by OpenCode),
+     *       plus GOOGLE_API_KEY and GEMINI_API_KEY for compatibility, from {@code LLM_API_KEY},
+     *       {@code GOOGLE_GENERATIVE_AI_API_KEY}, {@code GOOGLE_API_KEY}, or {@code GEMINI_API_KEY}
+     *       (first set wins)</li>
      * </ul>
      */
     private Map<String, String> prepareEnvironmentVariables() {
@@ -195,16 +209,25 @@ public class OpenCodeAgent extends BaseAgent {
 
         String provider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
 
-        getEnv("LLM_API_KEY").ifPresent(key -> {
+        resolveApiKeyForProvider(provider).ifPresent(key -> {
             switch (provider) {
-                case "copilot":
-                    // Do NOT inject GITHUB_TOKEN as env var — OpenCode must exchange the OAuth token
-                    // for a Copilot token via api.github.com/copilot_internal/v2/token.
-                    // This exchange only happens when OpenCode reads credentials from ~/.config/gh,
-                    // which is mounted into the container via GH_CONFIG_DIR.
-                    // Re-store the token in the file (not macOS keyring) by running:
-                    //   echo "<gho_token>" | gh auth login --with-token --hostname github.com
-                    log.info("Copilot provider: credentials will be read from mounted ~/.config/gh");
+                case PROVIDER_COPILOT:
+                case PROVIDER_GITHUB_COPILOT:
+                    // Inject GITHUB_TOKEN from LLM_API_KEY so the gh CLI inside the container
+                    // can authenticate without needing ~/.config/gh mounted.
+                    // On macOS, gh auth login stores the token in the Keychain (not in the config
+                    // file), so mounting GH_CONFIG_DIR would be empty. Injecting GITHUB_TOKEN
+                    // directly avoids that issue.
+                    envVars.put("GITHUB_TOKEN", key);
+                    log.info("Copilot provider: GITHUB_TOKEN injected from LLM_API_KEY");
+                    break;
+                case PROVIDER_GOOGLE:
+                case PROVIDER_GEMINI:
+                    // OpenCode's Google provider reads GOOGLE_GENERATIVE_AI_API_KEY (Vercel AI SDK naming).
+                    envVars.put("GOOGLE_GENERATIVE_AI_API_KEY", key);
+                    envVars.put("GOOGLE_API_KEY", key);
+                    envVars.put("GEMINI_API_KEY", key);
+                    log.info("Google provider: GOOGLE_GENERATIVE_AI_API_KEY (and GOOGLE_API_KEY, GEMINI_API_KEY) injected");
                     break;
                 case "openai":
                     envVars.put("OPENAI_API_KEY", key);
@@ -227,6 +250,20 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
+     * Resolves the API key for the container. Google accepts LLM_API_KEY,
+     * GOOGLE_GENERATIVE_AI_API_KEY, GOOGLE_API_KEY, or GEMINI_API_KEY; other providers use LLM_API_KEY only.
+     */
+    private Optional<String> resolveApiKeyForProvider(String provider) {
+        if (isGoogleProvider(provider)) {
+            return getEnv("LLM_API_KEY")
+                    .or(() -> getEnv("GOOGLE_GENERATIVE_AI_API_KEY"))
+                    .or(() -> getEnv("GOOGLE_API_KEY"))
+                    .or(() -> getEnv("GEMINI_API_KEY"));
+        }
+        return getEnv("LLM_API_KEY");
+    }
+
+    /**
      * Builds the OpenCode CLI command with a prompt tailored to the active rule generator.
      * Syntax: {@code opencode run -m <provider/model> --format json "<prompt>" 2>&1 | tee <log>}
      *
@@ -236,7 +273,9 @@ public class OpenCodeAgent extends BaseAgent {
         String baseFullPath = workspaceDir + "/" + baseFolder;
         // Only reference docs in the prompt if the directory is actually mounted
         String docsPath     = apiDocsPath != null ? workspaceDir + "/" + apiDocsFolder : null;
-        String model        = getEnv("LLM_MODEL").orElse("ministral-large-latest");
+        String rawProviderForModel = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
+        String defaultModel = defaultOpenCodeModel(rawProviderForModel);
+        String model        = getEnv("LLM_MODEL").orElse(defaultModel);
 
         String toolName = GENERATOR_SPOON.equals(ruleGeneratorName) ? "Spoon" : "JavaParser";
         String docsLine = docsPath != null
@@ -248,17 +287,22 @@ public class OpenCodeAgent extends BaseAgent {
         //   "anthropic"      → anthropic/claude-sonnet-4-5
         //   "openai"         → openai/gpt-4o
         //   "copilot"        → github-copilot/gpt-4o  (OpenCode uses "github-copilot", not "copilot")
+        //   "google" / "gemini" → google/<model>  (requires GOOGLE_GENERATIVE_AI_API_KEY in container for OpenCode)
         //
         // IMPORTANT: GitHub Copilot API does NOT accept Personal Access Tokens (PAT).
         // It requires an OAuth token obtained via: gh auth login
         // On your local machine run: gh auth token   → use that value as LLM_API_KEY
         String rawProvider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
-        String openCodeProvider = rawProvider.equals("copilot") ? "github-copilot" : rawProvider;
+        String openCodeProvider = toOpenCodeProviderId(rawProvider);
         String providerModel = openCodeProvider + "/" + model;
 
         // Run opencode and capture all output (stdout + stderr) to the log file.
         // SESSION_ID is extracted by parsing the JSON events in the log (field: "sessionID":"ses_...").
-        String logFile = workspaceDir + "/" + projectName + "/agent_execution.log";
+        // Use /tmp for the tee target to guarantee write access regardless of how volumes are mounted.
+        // The project directory (/workspace/{project}/) may be read-only or may not exist at command
+        // start time, which would silently break the tee and prevent session ID extraction.
+        String logFile = "/tmp/agent_execution.log";
+        String projectLogFile = workspaceDir + "/" + projectName + "/agent_execution.log";
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
 
         return String.format(
@@ -285,6 +329,7 @@ public class OpenCodeAgent extends BaseAgent {
                         + "6) Confirm generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. "
                         + "   The rule must be applicable to other projects by simply changing the input source directory path. "
                         + "\" 2>&1 | tee %s; "
+                        + "cp %s %s 2>/dev/null || true; "
                         + "SESSION_ID=$(grep -o '\"sessionID\":\"ses_[^\"]*\"' %s | head -1 | cut -d'\"' -f4); "
                         + "echo \"Session ID: $SESSION_ID\"; "
                         + "if [ -n \"$SESSION_ID\" ]; then "
@@ -301,6 +346,8 @@ public class OpenCodeAgent extends BaseAgent {
                 docsLine,
                 projectName,
                 logFile,
+                logFile,
+                projectLogFile,
                 logFile,
                 sessionFile,
                 sessionFile);
@@ -458,5 +505,33 @@ public class OpenCodeAgent extends BaseAgent {
         copyDirectory(sourceBase, targetBase);
         log.info("Copied {} base template (with generated rules) from {} to {}",
                 ruleGeneratorName, sourceBase, targetBase);
+    }
+
+    private static boolean isCopilotProvider(String rawProvider) {
+        return PROVIDER_COPILOT.equals(rawProvider) || PROVIDER_GITHUB_COPILOT.equals(rawProvider);
+    }
+
+    private static boolean isGoogleProvider(String rawProvider) {
+        return PROVIDER_GOOGLE.equals(rawProvider) || PROVIDER_GEMINI.equals(rawProvider);
+    }
+
+    private static String toOpenCodeProviderId(String rawProvider) {
+        if (isCopilotProvider(rawProvider)) {
+            return PROVIDER_GITHUB_COPILOT;
+        }
+        if (isGoogleProvider(rawProvider)) {
+            return PROVIDER_GOOGLE;
+        }
+        return rawProvider;
+    }
+
+    private static String defaultOpenCodeModel(String rawProvider) {
+        if (isCopilotProvider(rawProvider)) {
+            return "gpt-4o";
+        }
+        if (isGoogleProvider(rawProvider)) {
+            return "gemini-2.5-pro";
+        }
+        return "ministral-large-latest";
     }
 }

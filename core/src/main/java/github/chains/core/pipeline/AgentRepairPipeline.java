@@ -572,12 +572,12 @@ public class AgentRepairPipeline implements RepairPipeline {
                 throw new ProviderLimitException(message, null);
             }
 
-            // --- OpenRouter insufficient credits (402) ---
+            // --- OpenRouter / provider insufficient credits (402) ---
             // Real error: "This request requires more credits, or fewer max_tokens. You requested up to X tokens, but can only afford Y"
-            // statusCode is "statusCode":402 (not "code":402)
+            // NOTE: Do NOT match generic 403 — GitHub Copilot returns 403 for access/permission errors
+            // (e.g. model not in subscription), which is NOT a credit limit. Only match explicit
+            // credit/payment indicators.
             boolean noCredits =
-                    content.contains("\"name\":\"APIError\"") ||
-                    content.contains("\"name\": \"APIError\"") ||
                     content.contains("requires more credits") ||
                     content.contains("can only afford") ||
                     content.contains("Key limit exceeded") ||
@@ -589,16 +589,21 @@ public class AgentRepairPipeline implements RepairPipeline {
                     content.contains("402 Payment Required") ||
                     content.contains("\"statusCode\":402") ||
                     content.contains("\"statusCode\": 402") ||
-                    content.contains("\"statusCode\":403") ||
-                    content.contains("\"statusCode\": 403") ||
                     content.contains("\"code\": 402") ||
-                    content.contains("\"code\":402") ||
-                    content.contains("\"code\": 403") ||
-                    content.contains("\"code\":403");
+                    content.contains("\"code\":402");
+
+            // --- GitHub Copilot 403: model not available in subscription ---
+            // This is an access/permission error, not a credit limit. Log a warning but do NOT stop the pipeline.
+            if (content.contains("api.githubcopilot.com") &&
+                    (content.contains("\"statusCode\":403") || content.contains("\"statusCode\": 403"))) {
+                log.warn("[Copilot] 403 Forbidden from GitHub Copilot API. " +
+                        "The requested model may not be available in your subscription. " +
+                        "Try a different LLM_MODEL (e.g. gpt-4o-mini, claude-3.5-sonnet). " +
+                        "Check: https://docs.github.com/en/copilot/using-github-copilot/ai-models");
+            }
 
             if (noCredits) {
-                String message = "[FATAL] OpenRouter: API key/credit limit reached — no further commits will be processed. " +
-                        "Manage your key at https://openrouter.ai/settings/keys";
+                String message = "[FATAL] Provider: API key/credit limit reached — no further commits will be processed. ";
                 log.error(message);
                 System.err.println(message);
                 throw new ProviderLimitException(message, null);
