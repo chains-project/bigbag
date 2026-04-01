@@ -199,12 +199,31 @@ public abstract class BaseAgent {
     
     /**
      * Helper method to get an optional path environment variable.
-     * 
+     *
      * @param key the environment variable key
      * @return Optional containing the Path if present
      */
     protected Optional<Path> getEnvPath(String key) {
         return envConfig.getPath(key);
+    }
+
+    /**
+     * Copies a single file to commitReportDir, preserving its filename. Silently skips if not found.
+     */
+    protected void copyFileToReport(Path source, Path commitReportDir) {
+        if (commitReportDir == null || source == null) return;
+        if (!Files.exists(source)) {
+            log.debug("File not found, skipping copy: {}", source);
+            return;
+        }
+        try {
+            Files.createDirectories(commitReportDir);
+            Path target = commitReportDir.resolve(source.getFileName());
+            Files.copy(source, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            log.info("Copied {} to {}", source.getFileName(), target);
+        } catch (java.io.IOException e) {
+            log.warn("Failed to copy {}: {}", source.getFileName(), e.getMessage());
+        }
     }
 }
 

@@ -97,7 +97,7 @@ public class OpenCodeAgent extends BaseAgent {
         }
 
         // Step 4: Build and execute the main agent command
-        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR);
+        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath);
         log.info("Executing OpenCode+{} command in container {}", ruleGeneratorName, request.dockerImageName());
 
         // For Copilot: mount the host's gh config directory so the container can authenticate.
@@ -228,22 +228,20 @@ public class OpenCodeAgent extends BaseAgent {
 
     /**
      * Builds the OpenCode CLI command with a prompt tailored to the active rule generator.
-     * Syntax: {@code opencode --model <model> -p "<prompt>" 2>&1 | tee <log>}
+     * Syntax: {@code opencode run -m <provider/model> --format json "<prompt>" 2>&1 | tee <log>}
+     *
+     * @param apiDocsPath host path to API docs (null if not configured)
      */
-    private String buildAgentCommand(String projectName, String workspaceDir) {
+    private String buildAgentCommand(String projectName, String workspaceDir, Path apiDocsPath) {
         String baseFullPath = workspaceDir + "/" + baseFolder;
-        String docsPath     = workspaceDir + "/" + apiDocsFolder;
-        String model        = getEnv("LLM_MODEL").orElse("claude-sonnet-4-5");
+        // Only reference docs in the prompt if the directory is actually mounted
+        String docsPath     = apiDocsPath != null ? workspaceDir + "/" + apiDocsFolder : null;
+        String model        = getEnv("LLM_MODEL").orElse("ministral-large-latest");
 
-        String transformationTool;
-        String transformationDetail;
-        if (GENERATOR_SPOON.equals(ruleGeneratorName)) {
-            transformationTool   = "Spoon";
-            transformationDetail = "Use Spoon AST manipulation to create the transformation.";
-        } else {
-            transformationTool   = "JavaParser";
-            transformationDetail = "Use JavaParser AST manipulation to create the transformation.";
-        }
+        String toolName = GENERATOR_SPOON.equals(ruleGeneratorName) ? "Spoon" : "JavaParser";
+        String docsLine = docsPath != null
+                ? "   - Use the " + toolName + " API documentation located in folder @" + docsPath + "/ for reference. "
+                : "";
 
         // OpenCode CLI syntax: opencode run -m <provider/model> "<prompt>"
         // Provider IDs as recognized by OpenCode (use: opencode providers to list them):
@@ -259,42 +257,49 @@ public class OpenCodeAgent extends BaseAgent {
         String providerModel = openCodeProvider + "/" + model;
 
         // Run opencode and capture all output (stdout + stderr) to the log file.
-        // --print-logs streams internal debug logs to stderr; combining with 2>&1 captures everything.
         // SESSION_ID is extracted by parsing the JSON events in the log (field: "sessionID":"ses_...").
-        // This avoids the tail -1 bug where the last line is a log message instead of the session ID.
         String logFile = workspaceDir + "/" + projectName + "/agent_execution.log";
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
 
         return String.format(
                 "opencode run -m %s --format json "
-                        + "\"Project @%s/ does not compile. Plan: "
-                        + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
-                        + "2) Generate a %s source code transformation to fix the errors. "
-                        + "   - Use the project in folder @%s/ as the base project template. "
-                        + "   - %s "
-                        + "   - Save the transformation rules inside the folder @%s/, e.g., in %s/src/main/java/github/chains/Main.java. "
-                        + "   - Use the %s API documentation located in folder %s/ for reference. "
-                        + "3) Ensure the generated transformation compiles correctly. "
-                        + "4) Apply the transformation to fix the compilation errors. "
-                        + "5) Verify that the project now compiles successfully with mvn compile. "
+                        + "\"Project @%s/ does not compile due to a breaking dependency update. "
+                        + "Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - "
+                        + "that can be applied to ANY Maven project affected by the same breaking change. "
+                        + "Plan: "
+                        + "1) Run mvn test-compile in @%s/ to collect compilation errors. "
+                        + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? "
+                        + "2) Characterize the breaking change abstractly: "
+                        + "   - What was the old API pattern? (e.g., Foo.bar(String)) "
+                        + "   - What is the new API pattern? (e.g., Foo.bar(String, boolean)) "
+                        + "   - What structural transformation does this require at the call site? "
+                        + "   Do NOT assume the fix is specific to this project - any project calling the old API will need the same transformation. "
+                        + "3) Generate a GENERIC %s transformation using the template in @%s/: "
+                        + "   - Match the old API pattern structurally, not by project-specific class names. "
+                        + "   - Use visitor patterns to traverse all files and apply the fix wherever the old pattern appears. "
+                        + "   - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. "
+                        + "   - Save the transformation in %s/src/main/java/github/chains/Main.java. "
+                        + "%s"
+                        + "4) Compile the transformation and verify it has no errors. "
+                        + "5) Apply the transformation to @%s/ and verify with mvn test-compile that the project now builds. "
+                        + "6) Confirm generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. "
+                        + "   The rule must be applicable to other projects by simply changing the input source directory path. "
                         + "\" 2>&1 | tee %s; "
                         + "SESSION_ID=$(grep -o '\"sessionID\":\"ses_[^\"]*\"' %s | head -1 | cut -d'\"' -f4); "
                         + "echo \"Session ID: $SESSION_ID\"; "
                         + "if [ -n \"$SESSION_ID\" ]; then "
                         + "  opencode export \"$SESSION_ID\" > %s && echo \"Session exported to %s\"; "
                         + "else "
-                        + "  echo \"WARNING: Could not extract session ID — skipping export\"; "
+                        + "  echo \"WARNING: Could not extract session ID - skipping export\"; "
                         + "fi",
                 providerModel,
                 projectName,
                 projectName,
-                transformationTool,
-                baseFullPath,
-                transformationDetail,
+                toolName,
                 baseFullPath,
                 baseFullPath,
-                transformationTool,
-                docsPath,
+                docsLine,
+                projectName,
                 logFile,
                 logFile,
                 sessionFile,
@@ -307,7 +312,7 @@ public class OpenCodeAgent extends BaseAgent {
     private Path executeTestCommand(AgentExecutionRequest request, Path workspaceDir,
             Map<String, String> envVars, Path apiDocsPath, Path ghConfigDir) {
         String projectPath = CONTAINER_WORK_DIR + "/" + request.projectName();
-        String testCommand = String.format("cd %s && mvn compile 2>&1 | tee mavenTest.log", projectPath);
+        String testCommand = String.format("cd %s && mvn test-compile 2>&1 | tee mavenTest.log", projectPath);
 
         Path tempLog = null;
         try {
@@ -413,25 +418,6 @@ public class OpenCodeAgent extends BaseAgent {
             log.warn("Failed to copy agent execution log: {}", e.getMessage());
         }
         return null;
-    }
-
-    /**
-     * Copies a single file to commitReportDir, preserving its filename. Silently skips if not found.
-     */
-    private void copyFileToReport(Path source, Path commitReportDir) {
-        if (commitReportDir == null || source == null) return;
-        if (!Files.exists(source)) {
-            log.debug("File not found, skipping copy: {}", source);
-            return;
-        }
-        try {
-            Files.createDirectories(commitReportDir);
-            Path target = commitReportDir.resolve(source.getFileName());
-            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-            log.info("Copied {} to {}", source.getFileName(), target);
-        } catch (IOException e) {
-            log.warn("Failed to copy {}: {}", source.getFileName(), e.getMessage());
-        }
     }
 
     @Override

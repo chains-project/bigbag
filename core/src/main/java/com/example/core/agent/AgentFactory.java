@@ -1,8 +1,7 @@
 package com.example.core.agent;
 
-import com.example.core.agent.impl.JavaParserAgent;
+import com.example.core.agent.impl.GeminiAgent;
 import com.example.core.agent.impl.OpenCodeAgent;
-import com.example.core.agent.impl.SpoonAgent;
 import com.example.core.config.EnvConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +20,10 @@ import java.util.Map;
  * LLM agent and rule generator. Supported combinations:
  *
  * <pre>
- *   AGENT_NAME=gemini   + RULE_GENERATOR=spoon       → SpoonAgent
- *   AGENT_NAME=gemini   + RULE_GENERATOR=javaparser   → JavaParserAgent
- *   AGENT_NAME=opencode + RULE_GENERATOR=spoon       → OpenCodeSpoonAgent
- *   AGENT_NAME=opencode + RULE_GENERATOR=javaparser   → OpenCodeJavaParserAgent
+ *   AGENT_NAME=gemini   + RULE_GENERATOR=spoon       → GeminiAgent(spoon)
+ *   AGENT_NAME=gemini   + RULE_GENERATOR=javaparser   → GeminiAgent(javaparser)
+ *   AGENT_NAME=opencode + RULE_GENERATOR=spoon       → OpenCodeAgent(spoon)
+ *   AGENT_NAME=opencode + RULE_GENERATOR=javaparser   → OpenCodeAgent(javaparser)
  * </pre>
  *
  * Each agent implementation encapsulates the CLI command syntax specific to its
@@ -42,16 +41,16 @@ public class AgentFactory {
 
     static {
         // Gemini-based agents (use Gemini CLI: gemini --model X --yolo --debug -o json -p)
-        registerAgent("gemini", "spoon",      (env, llm) -> new SpoonAgent(env, llm));
-        registerAgent("gemini", "javaparser", (env, llm) -> new JavaParserAgent(env, llm));
+        registerAgent("gemini", "spoon",      (env, llm) -> new GeminiAgent(env, llm, GeminiAgent.GENERATOR_SPOON));
+        registerAgent("gemini", "javaparser", (env, llm) -> new GeminiAgent(env, llm, GeminiAgent.GENERATOR_JAVAPARSER));
 
         // OpenCode-based agents (use OpenCode CLI: opencode --model X -p)
         registerAgent("opencode", "spoon",      (env, llm) -> new OpenCodeAgent(env, llm, OpenCodeAgent.GENERATOR_SPOON));
         registerAgent("opencode", "javaparser", (env, llm) -> new OpenCodeAgent(env, llm, OpenCodeAgent.GENERATOR_JAVAPARSER));
 
         // Default fallbacks by rule generator (used when AGENT_NAME does not match any known LLM)
-        registerRuleGenerator("spoon",      (env, llm) -> new SpoonAgent(env, llm));
-        registerRuleGenerator("javaparser", (env, llm) -> new JavaParserAgent(env, llm));
+        registerRuleGenerator("spoon",      (env, llm) -> new GeminiAgent(env, llm, GeminiAgent.GENERATOR_SPOON));
+        registerRuleGenerator("javaparser", (env, llm) -> new GeminiAgent(env, llm, GeminiAgent.GENERATOR_JAVAPARSER));
     }
     
     /**

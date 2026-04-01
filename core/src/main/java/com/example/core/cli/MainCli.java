@@ -16,6 +16,7 @@ import com.example.core.service.ParallelProcessingService;
 import com.example.core.util.FileSystemUtils;
 import com.example.core.util.ProjectPaths;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -617,19 +618,27 @@ public class MainCli implements Callable<Integer> {
 
             String key = summary.breakingCommit();
             if (key == null) {
-                // Fallback to entry's commit if summary doesn't have it (though summary usually
-                // should)
-                ReportEntry tempEntry = buildReportEntry(summary);
+                ReportEntry tempEntry = buildReportEntry(summary, 0, 0, null);
                 key = tempEntry.breakingCommit();
             }
 
+                // Commit report dir: breaking-classifier-report.json is written inside writePerCommitReport,
+                // so prefix metrics must be read AFTER that call (not before — file does not exist yet on fresh runs).
+                Path reportBase = targetJson.getParent();
+                AgentStats agentStats = parseAgentStats(reportBase, key);
+
                 if (key != null) {
-                    List<se.kth.models.Attempt> attempts = writePerCommitReport(targetJson.getParent(), outputDir, key,
+                    List<se.kth.models.Attempt> attempts = writePerCommitReport(reportBase, outputDir, key,
                             summary, recordByCommit.get(key), shouldClean);
 
-                // Always write to JSON, even if no attempts were generated (to record failures)
-                // The attempts contain the failureCategory derived from analyzing the log after
-                // building with transformed files
+                int[] prefixMetrics = readPrefixMetrics(reportBase, key);
+                int prefixFiles = prefixMetrics[0];
+                int prefixErrors = prefixMetrics[1];
+
+                if (agentStats == null) {
+                    agentStats = parseAgentStats(reportBase, key);
+                }
+
                 if (attempts != null && !attempts.isEmpty()) {
                     summary = new ClassificationSummary(
                             summary.project(),
@@ -641,28 +650,21 @@ public class MainCli implements Callable<Integer> {
                             summary.dockerImage(),
                             attempts);
 
-                    // Write to JSON after attempts are processed
-                    ReportEntry entry = buildReportEntry(summary);
+                    ReportEntry entry = buildReportEntry(summary, prefixFiles, prefixErrors, agentStats);
                     currentReportEntries.put(key, entry);
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
-                    // Keep existingResults in sync so subsequent commits in this same run
-                    // are not lost when writeClassificationSummary is called again
                     if (existingResults != null) {
                         existingResults.put(key, entry);
                     }
                     log.info("Classification summary written to {} (after {} attempts)", targetJson, attempts.size());
                 } else {
-                    // No attempts generated - create a failure attempt to record the failure
-                    // Determine failure category based on available information
                     se.kth.models.FailureCategory failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
                     String failureReason = "NO_ATTEMPTS_GENERATED";
                     
-                    // Try to infer failure type from summary
                     if (summary.dockerImage() == null) {
                         failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;
                         failureReason = "NO_DOCKER_IMAGE";
                     } else if (summary.inferredCategory() != null) {
-                        // Try to use the inferred category if available
                         try {
                             failureCategory = se.kth.models.FailureCategory.valueOf(summary.inferredCategory());
                         } catch (IllegalArgumentException e) {
@@ -684,11 +686,9 @@ public class MainCli implements Callable<Integer> {
                             summary.dockerImage(),
                             failureAttempts);
                     
-                    ReportEntry entry = buildReportEntry(failureSummary);
+                    ReportEntry entry = buildReportEntry(failureSummary, prefixFiles, prefixErrors, agentStats);
                     currentReportEntries.put(key, entry);
                     mapper.writeValue(targetJson.toFile(), currentReportEntries);
-                    // Keep existingResults in sync so subsequent commits in this same run
-                    // are not lost when writeClassificationSummary is called again
                     if (existingResults != null) {
                         existingResults.put(key, entry);
                     }
@@ -696,12 +696,9 @@ public class MainCli implements Callable<Integer> {
                             targetJson, failureReason);
                 }
                 } else {
-                    // If no key, still write the summary (for backward compatibility)
-                    ReportEntry entry = buildReportEntry(summary);
+                    ReportEntry entry = buildReportEntry(summary, 0, 0, null);
                     if (entry.breakingCommit() != null) {
                         currentReportEntries.put(entry.breakingCommit(), entry);
-                        // Keep existingResults in sync so subsequent commits in this same run
-                        // are not lost when writeClassificationSummary is called again
                         if (existingResults != null) {
                             existingResults.put(entry.breakingCommit(), entry);
                         }
@@ -719,7 +716,7 @@ public class MainCli implements Callable<Integer> {
         }
     }
 
-    private ReportEntry buildReportEntry(ClassificationSummary summary) {
+    private ReportEntry buildReportEntry(ClassificationSummary summary, int prefixFiles, int prefixErrors, AgentStats agentStats) {
         String commit = summary.breakingCommit() != null ? summary.breakingCommit() : "unknown";
         String originalCategory = summary.datasetCategory();
         String inferred = summary.inferredCategory();
@@ -743,11 +740,12 @@ public class MainCli implements Callable<Integer> {
                             attempt.getAttemptCount(),
                             attempt.getProcessId(),
                             attempt.getFailureCategory().toString(),
-                            0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0,
+                            prefixFiles,
+                            prefixErrors,
                             parentOrSelf(attempt.getLogFileParent()),
                             attempt.isSuccessful(),
-                            attempt.getContainerId()))
+                            attempt.getContainerId(),
+                            agentStats))
                     .collect(Collectors.toList());
             return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, attemptReports);
         } else {
@@ -756,11 +754,12 @@ public class MainCli implements Callable<Integer> {
                     1,
                     null,
                     inferred != null ? inferred : originalCategory,
-                    0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0,
+                    prefixFiles,
+                    prefixErrors,
                     summary.logFile() != null ? parentOrSelf(summary.logFile()) : "",
                     inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred),
-                    null);
+                    null,
+                    agentStats);
             return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, java.util.List.of(attempt));
         }
     }
@@ -862,6 +861,252 @@ public class MainCli implements Callable<Integer> {
         }
         
         return existingResults;
+    }
+
+    /**
+     * Reads the breaking-classifier-report.json for a commit and extracts prefix metrics.
+     * Returns an int[] where [0] = prefixFiles, [1] = prefixErrors.
+     * Falls back to {0, 0} if the report is missing or unreadable.
+     */
+    private int[] readPrefixMetrics(Path reportBaseDir, String commitHash) {
+        if (reportBaseDir == null || commitHash == null) {
+            return new int[]{0, 0};
+        }
+        Path classifierReport = reportBaseDir.resolve(commitHash).resolve("breaking-classifier-report.json");
+        if (!Files.exists(classifierReport) || !Files.isRegularFile(classifierReport)) {
+            log.debug("No breaking-classifier-report.json found at {} for prefix metrics", classifierReport);
+            return new int[]{0, 0};
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            com.fasterxml.jackson.databind.JsonNode root = mapper.readTree(classifierReport.toFile());
+            com.fasterxml.jackson.databind.JsonNode errorsByFile = root.get("errorsByFile");
+            if (errorsByFile == null || !errorsByFile.isArray()) {
+                return new int[]{0, 0};
+            }
+            int prefixFiles = errorsByFile.size();
+            int prefixErrors = 0;
+            for (com.fasterxml.jackson.databind.JsonNode fileGroup : errorsByFile) {
+                com.fasterxml.jackson.databind.JsonNode errors = fileGroup.get("errors");
+                if (errors != null && errors.isArray()) {
+                    prefixErrors += errors.size();
+                }
+            }
+            log.debug("Prefix metrics for {}: files={}, errors={}", commitHash, prefixFiles, prefixErrors);
+            return new int[]{prefixFiles, prefixErrors};
+        } catch (IOException e) {
+            log.warn("Failed to read breaking-classifier-report.json for prefix metrics: {}", e.getMessage());
+            return new int[]{0, 0};
+        }
+    }
+
+    /**
+     * Parses agent statistics from the agent log files in the commit report directory.
+     * Supports both Gemini CLI format (JSON block at end) and OpenCode format (JSONL events).
+     */
+    private AgentStats parseAgentStats(Path reportBaseDir, String commitHash) {
+        if (reportBaseDir == null || commitHash == null) return null;
+        Path commitDir = reportBaseDir.resolve(commitHash);
+
+        Path compileLog = commitDir.resolve("agent_compile_output.log");
+        Path executionLog = commitDir.resolve("agent_execution.log");
+
+        AgentStats stats = tryParseGeminiStats(compileLog);
+        if (stats == null) stats = tryParseGeminiStats(executionLog);
+        if (stats == null) stats = tryParseOpenCodeStats(executionLog);
+        if (stats == null) stats = tryParseOpenCodeStats(compileLog);
+        return stats;
+    }
+
+    /**
+     * Tries to parse Gemini CLI agent stats from a log file.
+     * Gemini logs end with a JSON block containing session_id, response, and stats.
+     */
+    private AgentStats tryParseGeminiStats(Path logFile) {
+        if (logFile == null || !Files.exists(logFile)) return null;
+        try {
+            String content = Files.readString(logFile);
+
+            int lastBrace = content.lastIndexOf("\n{");
+            if (lastBrace < 0 && content.startsWith("{")) {
+                lastBrace = 0;
+            }
+            if (lastBrace < 0) return null;
+
+            String jsonPart = content.substring(lastBrace).trim();
+            ObjectMapper mapper = new ObjectMapper();
+            com.fasterxml.jackson.databind.JsonNode root = mapper.readTree(jsonPart);
+
+            if (!root.has("stats") || !root.has("session_id")) return null;
+
+            com.fasterxml.jackson.databind.JsonNode stats = root.get("stats");
+
+            // Parse model info
+            com.fasterxml.jackson.databind.JsonNode models = stats.path("models");
+            String modelName = null;
+            int totalRequests = 0, totalErrors = 0;
+            long totalLatencyMs = 0, totalTokens = 0, inputTokens = 0, outputTokens = 0, cachedTokens = 0;
+
+            if (models.isObject()) {
+                var fields = models.fields();
+                if (fields.hasNext()) {
+                    var entry = fields.next();
+                    modelName = entry.getKey();
+                    com.fasterxml.jackson.databind.JsonNode modelData = entry.getValue();
+                    com.fasterxml.jackson.databind.JsonNode api = modelData.path("api");
+                    totalRequests = api.path("totalRequests").asInt(0);
+                    totalErrors = api.path("totalErrors").asInt(0);
+                    totalLatencyMs = api.path("totalLatencyMs").asLong(0);
+                    com.fasterxml.jackson.databind.JsonNode tokens = modelData.path("tokens");
+                    inputTokens = tokens.path("input").asLong(0);
+                    outputTokens = tokens.path("candidates").asLong(0);
+                    totalTokens = tokens.path("total").asLong(0);
+                    cachedTokens = tokens.path("cached").asLong(0);
+                }
+            }
+
+            // Parse tool stats
+            com.fasterxml.jackson.databind.JsonNode tools = stats.path("tools");
+            int toolCalls = tools.path("totalCalls").asInt(0);
+            int toolSuccess = tools.path("totalSuccess").asInt(0);
+            int toolFail = tools.path("totalFail").asInt(0);
+
+            java.util.Map<String, Integer> toolCounts = null;
+            com.fasterxml.jackson.databind.JsonNode byName = tools.path("byName");
+            if (byName.isObject()) {
+                toolCounts = new java.util.LinkedHashMap<>();
+                var it = byName.fields();
+                while (it.hasNext()) {
+                    var e = it.next();
+                    int c = e.getValue().path("count").asInt(0);
+                    toolCounts.put(e.getKey(), c);
+                }
+                if (toolCounts.isEmpty()) {
+                    toolCounts = null;
+                }
+            }
+
+            // Parse file stats
+            com.fasterxml.jackson.databind.JsonNode files = stats.path("files");
+            int linesAdded = files.path("totalLinesAdded").asInt(0);
+            int linesRemoved = files.path("totalLinesRemoved").asInt(0);
+
+            log.debug("Parsed Gemini stats from {}: model={}, requests={}, toolCalls={}",
+                    logFile.getFileName(), modelName, totalRequests, toolCalls);
+
+            return new AgentStats(
+                    modelName, totalRequests, totalErrors, totalLatencyMs,
+                    totalTokens, inputTokens, outputTokens, cachedTokens,
+                    null, // Gemini doesn't report dollar cost
+                    toolCalls, toolSuccess, toolFail,
+                    linesAdded, linesRemoved,
+                    toolCounts);
+        } catch (Exception e) {
+            log.debug("Not a Gemini-format log: {} ({})", logFile.getFileName(), e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Tries to parse OpenCode agent stats from a JSONL log file.
+     * OpenCode logs contain one JSON event per line with types: step_start, step_finish, tool_use, text.
+     */
+    private AgentStats tryParseOpenCodeStats(Path logFile) {
+        if (logFile == null || !Files.exists(logFile)) return null;
+        try {
+            List<String> lines = Files.readAllLines(logFile);
+            ObjectMapper mapper = new ObjectMapper();
+
+            String modelName = null;
+            double totalCost = 0;
+            long totalTokens = 0, inputTokens = 0, outputTokens = 0, cachedTokens = 0;
+            int totalApiRequests = 0;
+            int totalToolCalls = 0, totalToolSuccess = 0, totalToolFail = 0;
+            long firstTimestamp = Long.MAX_VALUE, lastTimestamp = 0;
+            boolean foundStepFinish = false;
+            java.util.Map<String, Integer> toolCounts = new java.util.LinkedHashMap<>();
+
+            for (String line : lines) {
+                line = line.trim();
+                if (!line.startsWith("{")) {
+                    // Plain-text log line — try to extract model name
+                    if (modelName == null && line.contains("service=llm") && line.contains("modelID=")) {
+                        int idx = line.indexOf("modelID=");
+                        String rest = line.substring(idx + 8);
+                        int endIdx = rest.indexOf(' ');
+                        modelName = endIdx > 0 ? rest.substring(0, endIdx) : rest.trim();
+                    }
+                    continue;
+                }
+                try {
+                    com.fasterxml.jackson.databind.JsonNode event = mapper.readTree(line);
+                    String type = event.path("type").asText("");
+                    long ts = event.path("timestamp").asLong(0);
+                    if (ts > 0) {
+                        firstTimestamp = Math.min(firstTimestamp, ts);
+                        lastTimestamp = Math.max(lastTimestamp, ts);
+                    }
+
+                    if ("step_finish".equals(type)) {
+                        foundStepFinish = true;
+                        totalApiRequests++;
+                        com.fasterxml.jackson.databind.JsonNode part = event.path("part");
+                        totalCost += part.path("cost").asDouble(0);
+                        com.fasterxml.jackson.databind.JsonNode tokens = part.path("tokens");
+                        totalTokens += tokens.path("total").asLong(0);
+                        inputTokens += tokens.path("input").asLong(0);
+                        outputTokens += tokens.path("output").asLong(0);
+                        com.fasterxml.jackson.databind.JsonNode cache = tokens.path("cache");
+                        cachedTokens += cache.path("read").asLong(0);
+                    }
+
+                    if ("tool_use".equals(type)) {
+                        totalToolCalls++;
+                        String status = event.path("part").path("state").path("status").asText("");
+                        if ("completed".equals(status)) totalToolSuccess++;
+                        else if ("error".equals(status)) totalToolFail++;
+
+                        String toolName = event.path("part").path("tool").asText("");
+                        if (toolName != null && !toolName.isBlank()) {
+                            toolCounts.merge(toolName, 1, Integer::sum);
+                        }
+
+                        // Extract model name from task tool metadata
+                        if (modelName == null) {
+                            com.fasterxml.jackson.databind.JsonNode model =
+                                    event.path("part").path("state").path("metadata").path("model");
+                            if (!model.isMissingNode()) {
+                                String mid = model.path("modelID").asText(null);
+                                if (mid != null) modelName = mid;
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                    // Skip unparseable JSON lines
+                }
+            }
+
+            if (!foundStepFinish) return null;
+
+            Long latencyMs = (firstTimestamp < lastTimestamp)
+                    ? (lastTimestamp - firstTimestamp) : null;
+
+            log.debug("Parsed OpenCode stats from {}: model={}, steps={}, toolCalls={}, cost={}",
+                    logFile.getFileName(), modelName, totalApiRequests, totalToolCalls, totalCost);
+
+            java.util.Map<String, Integer> toolsOut = toolCounts.isEmpty() ? null : toolCounts;
+
+            return new AgentStats(
+                    modelName, totalApiRequests, 0, latencyMs,
+                    totalTokens, inputTokens, outputTokens, cachedTokens,
+                    totalCost > 0 ? totalCost : null,
+                    totalToolCalls, totalToolSuccess, totalToolFail,
+                    null, null, // OpenCode doesn't report lines added/removed
+                    toolsOut);
+        } catch (Exception e) {
+            log.debug("Not an OpenCode-format log: {} ({})", logFile.getFileName(), e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -1232,18 +1477,31 @@ public class MainCli implements Callable<Integer> {
             String processId,
             String failureCategory,
             int prefixFiles,
-            int postfixFiles,
-            int fixedFiles,
-            int unfixedFiles,
-            int newFiles,
             int prefixErrors,
-            int postfixErrors,
-            int fixedErrors,
-            int unfixedErrors,
-            int newErrors,
             String outputFolder,
             boolean successful,
-            String containerId) {
+            String containerId,
+            AgentStats agentStats) {
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    private record AgentStats(
+            String modelName,
+            Integer totalApiRequests,
+            Integer totalApiErrors,
+            Long totalLatencyMs,
+            Long totalTokens,
+            Long inputTokens,
+            Long outputTokens,
+            Long cachedTokens,
+            Double totalCost,
+            Integer totalToolCalls,
+            Integer totalToolSuccess,
+            Integer totalToolFail,
+            Integer totalLinesAdded,
+            Integer totalLinesRemoved,
+            java.util.Map<String, Integer> tools) {
     }
 
     /**
