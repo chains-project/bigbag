@@ -3,10 +3,10 @@ package chains.changeimpact.service;
 import chains.changeimpact.model.ChangeImpactReport;
 import chains.changeimpact.model.ChangeImpactRequest;
 import chains.changeimpact.model.ConstructImpact;
-import com.example.japicmp.JapicmpDiffTool;
-import com.example.japicmp.model.ComparisonReport;
-import com.example.spoonanalyzer.analysis.LineConstructAnalyzer;
-import com.example.spoonanalyzer.model.ConstructUsage;
+import github.chains.japicmp.JapicmpDiffTool;
+import github.chains.japicmp.model.ComparisonReport;
+import github.chains.spoonanalyzer.analysis.LineConstructAnalyzer;
+import github.chains.spoonanalyzer.model.ConstructUsage;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

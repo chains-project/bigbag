@@ -1,6 +1,6 @@
 package chains.changeimpact.model;
 
-import com.example.japicmp.model.CompatibilityChangeInfo;
+import github.chains.japicmp.model.CompatibilityChangeInfo;
 
 /**
  * Lightweight copy of japicmp compatibility change information for JSON output.
