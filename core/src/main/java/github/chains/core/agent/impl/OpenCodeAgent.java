@@ -114,7 +114,9 @@ public class OpenCodeAgent extends BaseAgent {
         // USE_ANALYSIS_FILES=true (default) → agent reads pre-analyzed JSON reports instead of running mvn test-compile.
         // Set USE_ANALYSIS_FILES=false to disable and let the agent discover errors on its own.
         boolean useAnalysisFiles = !getEnv("USE_ANALYSIS_FILES").map("false"::equalsIgnoreCase).orElse(false);
-        boolean hasAnalysisFiles = useAnalysisFiles && Files.exists(workspaceDir.resolve("input_change-impact.json"));
+        boolean hasAnalysisFiles = useAnalysisFiles
+                && Files.exists(workspaceDir.resolve("input_change-impact.json"))
+                && Files.exists(workspaceDir.resolve("breaking-changes.json"));
         String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath, hasAnalysisFiles);
         log.info("Executing OpenCode+{} command in container {}", ruleGeneratorName, request.dockerImageName());
 
@@ -172,7 +174,7 @@ public class OpenCodeAgent extends BaseAgent {
      */
     private void copyAnalysisFilesToWorkspace(Path commitReportDir, Path workspaceDir) {
         if (commitReportDir == null) return;
-        for (String fileName : new String[]{"input_change-impact.json", "breaking-classifier-report.json"}) {
+        for (String fileName : new String[]{"input_change-impact.json", "breaking-changes.json"}) {
             Path src = commitReportDir.resolve(fileName);
             if (Files.exists(src)) {
                 try {
@@ -337,63 +339,63 @@ public class OpenCodeAgent extends BaseAgent {
         String projectLogFile = workspaceDir + "/" + projectName + "/agent_execution.log";
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
 
-        // Build step 1 based on whether pre-analyzed files are available.
-        // When available, the agent skips running mvn test-compile for discovery and reads
-        // the pre-computed reports instead, saving significant time and tokens.
-        String changeImpactFile  = workspaceDir + "/input_change-impact.json";
-        String classifierFile    = workspaceDir + "/breaking-classifier-report.json";
-        String step1;
-        if (hasAnalysisFiles) {
-            step1 = "1) The breaking change has already been analyzed. "
-                    + "Read @" + changeImpactFile + " to know exactly which classes/methods/constructors "
-                    + "were removed or moved in the dependency (fields: constructs[].apiChanges[].changeStatus, "
-                    + "qualifiedSignature, declaringType). "
-                    + "Read @" + classifierFile + " to see the exact compilation errors and affected files. "
-                    + "DO NOT run mvn test-compile for error discovery - use these files instead. ";
-        } else {
-            step1 = "1) Run mvn test-compile in @" + projectName + "/ to collect compilation errors. "
-                    + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? ";
-        }
+        String changeImpactFile    = workspaceDir + "/input_change-impact.json";
+        String breakingChangesFile = workspaceDir + "/breaking-changes.json";
+        String step1 = hasAnalysisFiles
+                ? "1) The breaking change has already been analyzed - DO NOT run any Maven command for discovery. "
+                  + "Read @" + breakingChangesFile + " for the full API diff of the dependency "
+                  + "(fields: breakingChanges[].elementType, qualifiedSignature, changeStatus, "
+                  + "compatibilityChanges[].type, parameterTypes): "
+                  + "this gives you the exact old signatures that were removed or changed. "
+                  + "Read @" + changeImpactFile + " to see which files and call sites in the project are affected "
+                  + "(fields: files[].filePath, errors[].lineNumber, errors[].codeLine, "
+                  + "errors[].changeImpact.constructs[].apiChanges[].changeStatus, qualifiedSignature, parameterTypes). "
+                : "1) Run mvn test-compile in @" + projectName + "/ to collect compilation errors. "
+                  + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? ";
 
-        return String.format(
-                "opencode run -m %s --format json "
-                        + "\"Project @%s/ does not compile due to a breaking dependency update. "
-                        + "Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - "
-                        + "that can be applied to ANY Maven project affected by the same breaking change. "
-                        + "Plan: "
-                        + "%s"
-                        + "2) Characterize the breaking change abstractly: "
-                        + "   - What was the old API pattern? (e.g., Foo.bar(String)) "
-                        + "   - What is the new API pattern? (e.g., Foo.bar(String, boolean)) "
-                        + "   - What structural transformation does this require at the call site? "
-                        + "   Do NOT assume the fix is specific to this project - any project calling the old API will need the same transformation. "
-                        + "3) Generate a GENERIC %s transformation using the template in @%s/: "
-                        + "   - Match the old API pattern structurally, not by project-specific class names. "
-                        + "   - Use patterns to traverse all files and apply the fix wherever the old pattern appears. "
-                        + "   - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. "
-                        + "   - Save the transformation in %s/src/main/java/github/chains/Main.java. "
-                        + "%s"
-                        + "4) Compile the transformation and verify it has no errors. "
-                        + "5) Apply the transformation to @%s/ and verify with mvn test-compile that the project now builds. "
-                        + "6) Confirm generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. "
-                        + "   The rule must be applicable to other projects by simply changing the input source directory path. "
-                        + "\" 2>&1 | tee %s; "
-                        + "cp %s %s 2>/dev/null || true; "
-                        + "SESSION_ID=$(grep -o '\"sessionID\":\"ses_[^\"]*\"' %s | head -1 | cut -d'\"' -f4); "
-                        + "echo \"Session ID: $SESSION_ID\"; "
-                        + "if [ -n \"$SESSION_ID\" ]; then "
-                        + "  opencode export \"$SESSION_ID\" > %s && echo \"Session exported to %s\"; "
-                        + "else "
-                        + "  echo \"WARNING: Could not extract session ID - skipping export\"; "
-                        + "fi",
-                providerModel,
+        String prompt = """
+                Project @%s/ does not compile due to a breaking dependency update. \
+                Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - \
+                that can be applied to ANY Maven project affected by the same breaking change. \
+                Plan: \
+                %s\
+                2) Characterize the breaking change abstractly: \
+                   - What was the old API pattern? (e.g., Foo.bar(String)) \
+                   - What is the new API pattern? (e.g., Foo.bar(String, boolean)) \
+                   - What structural transformation does this require at the call site? \
+                   Do NOT assume the fix is specific to this project - any project calling the old API will need the same transformation. \
+                3) Generate a GENERIC %s transformation using the template in @%s/: \
+                   - Match the old API pattern structurally, not by project-specific class names. \
+                   - Use patterns to traverse all files and apply the fix wherever the old pattern appears. \
+                   - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. \
+                   - Save the transformation in %s/src/main/java/github/chains/Main.java. \
+                %s\
+                4) Compile the transformation and verify it has no errors. \
+                5) Apply the transformation to @%s/ and make sure to fix both compilation errors and test errors. \
+                6) Confirm generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. \
+                   The rule must be applicable to other projects by simply changing the input source directory path.\
+                """.formatted(
                 projectName,
                 step1,
                 toolName,
                 baseFullPath,
                 baseFullPath,
                 docsLine,
-                projectName,
+                projectName);
+
+        return """
+                opencode run -m %s --format json "%s" 2>&1 | tee %s; \
+                cp %s %s 2>/dev/null || true; \
+                SESSION_ID=$(grep -o '"sessionID":"ses_[^"]*"' %s | head -1 | cut -d'"' -f4); \
+                echo "Session ID: $SESSION_ID"; \
+                if [ -n "$SESSION_ID" ]; then \
+                  opencode export "$SESSION_ID" > %s && echo "Session exported to %s"; \
+                else \
+                  echo "WARNING: Could not extract session ID - skipping export"; \
+                fi\
+                """.formatted(
+                providerModel,
+                prompt,
                 logFile,
                 logFile,
                 projectLogFile,
