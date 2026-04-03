@@ -93,6 +93,10 @@ public class OpenCodeAgent extends BaseAgent {
         Path workspaceDir = setupWorkspace(request);
         Path apiDocsPath  = resolveApiDocsPath();
 
+        // Step 1b: Copy pre-analyzed breaking-change reports into workspace so the agent
+        // can read them directly via @/workspace/... without running mvn test-compile first.
+        copyAnalysisFilesToWorkspace(request.commitReportDir(), workspaceDir);
+
         // Step 2: Prepare environment variables
         Map<String, String> envVars = prepareEnvironmentVariables();
 
@@ -107,7 +111,11 @@ public class OpenCodeAgent extends BaseAgent {
         }
 
         // Step 4: Build and execute the main agent command
-        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath);
+        // USE_ANALYSIS_FILES=true (default) → agent reads pre-analyzed JSON reports instead of running mvn test-compile.
+        // Set USE_ANALYSIS_FILES=false to disable and let the agent discover errors on its own.
+        boolean useAnalysisFiles = !getEnv("USE_ANALYSIS_FILES").map("false"::equalsIgnoreCase).orElse(false);
+        boolean hasAnalysisFiles = useAnalysisFiles && Files.exists(workspaceDir.resolve("input_change-impact.json"));
+        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath, hasAnalysisFiles);
         log.info("Executing OpenCode+{} command in container {}", ruleGeneratorName, request.dockerImageName());
 
         // For Copilot: mount the host's gh config directory so the container can authenticate.
@@ -156,6 +164,27 @@ public class OpenCodeAgent extends BaseAgent {
                 compileSuccess,
                 testSuccess,
                 containerId);
+    }
+
+    /**
+     * Copies input_change-impact.json and breaking-classifier-report.json from commitReportDir
+     * into the workspace root so they are available inside the container at /workspace/*.
+     */
+    private void copyAnalysisFilesToWorkspace(Path commitReportDir, Path workspaceDir) {
+        if (commitReportDir == null) return;
+        for (String fileName : new String[]{"input_change-impact.json", "breaking-classifier-report.json"}) {
+            Path src = commitReportDir.resolve(fileName);
+            if (Files.exists(src)) {
+                try {
+                    Files.copy(src, workspaceDir.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+                    log.info("Copied {} to workspace for agent consumption", fileName);
+                } catch (IOException e) {
+                    log.warn("Failed to copy {} to workspace: {}", fileName, e.getMessage());
+                }
+            } else {
+                log.debug("{} not found in commitReportDir, agent will discover errors manually", fileName);
+            }
+        }
     }
 
     /**
@@ -267,9 +296,12 @@ public class OpenCodeAgent extends BaseAgent {
      * Builds the OpenCode CLI command with a prompt tailored to the active rule generator.
      * Syntax: {@code opencode run -m <provider/model> --format json "<prompt>" 2>&1 | tee <log>}
      *
-     * @param apiDocsPath host path to API docs (null if not configured)
+     * @param apiDocsPath    host path to API docs (null if not configured)
+     * @param hasAnalysisFiles true if input_change-impact.json and breaking-classifier-report.json
+     *                         were copied into the workspace and are readable by the agent
      */
-    private String buildAgentCommand(String projectName, String workspaceDir, Path apiDocsPath) {
+    private String buildAgentCommand(String projectName, String workspaceDir, Path apiDocsPath,
+            boolean hasAnalysisFiles) {
         String baseFullPath = workspaceDir + "/" + baseFolder;
         // Only reference docs in the prompt if the directory is actually mounted
         String docsPath     = apiDocsPath != null ? workspaceDir + "/" + apiDocsFolder : null;
@@ -305,14 +337,31 @@ public class OpenCodeAgent extends BaseAgent {
         String projectLogFile = workspaceDir + "/" + projectName + "/agent_execution.log";
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
 
+        // Build step 1 based on whether pre-analyzed files are available.
+        // When available, the agent skips running mvn test-compile for discovery and reads
+        // the pre-computed reports instead, saving significant time and tokens.
+        String changeImpactFile  = workspaceDir + "/input_change-impact.json";
+        String classifierFile    = workspaceDir + "/breaking-classifier-report.json";
+        String step1;
+        if (hasAnalysisFiles) {
+            step1 = "1) The breaking change has already been analyzed. "
+                    + "Read @" + changeImpactFile + " to know exactly which classes/methods/constructors "
+                    + "were removed or moved in the dependency (fields: constructs[].apiChanges[].changeStatus, "
+                    + "qualifiedSignature, declaringType). "
+                    + "Read @" + classifierFile + " to see the exact compilation errors and affected files. "
+                    + "DO NOT run mvn test-compile for error discovery - use these files instead. ";
+        } else {
+            step1 = "1) Run mvn test-compile in @" + projectName + "/ to collect compilation errors. "
+                    + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? ";
+        }
+
         return String.format(
                 "opencode run -m %s --format json "
                         + "\"Project @%s/ does not compile due to a breaking dependency update. "
                         + "Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - "
                         + "that can be applied to ANY Maven project affected by the same breaking change. "
                         + "Plan: "
-                        + "1) Run mvn test-compile in @%s/ to collect compilation errors. "
-                        + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? "
+                        + "%s"
                         + "2) Characterize the breaking change abstractly: "
                         + "   - What was the old API pattern? (e.g., Foo.bar(String)) "
                         + "   - What is the new API pattern? (e.g., Foo.bar(String, boolean)) "
@@ -320,7 +369,7 @@ public class OpenCodeAgent extends BaseAgent {
                         + "   Do NOT assume the fix is specific to this project - any project calling the old API will need the same transformation. "
                         + "3) Generate a GENERIC %s transformation using the template in @%s/: "
                         + "   - Match the old API pattern structurally, not by project-specific class names. "
-                        + "   - Use visitor patterns to traverse all files and apply the fix wherever the old pattern appears. "
+                        + "   - Use patterns to traverse all files and apply the fix wherever the old pattern appears. "
                         + "   - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. "
                         + "   - Save the transformation in %s/src/main/java/github/chains/Main.java. "
                         + "%s"
@@ -339,7 +388,7 @@ public class OpenCodeAgent extends BaseAgent {
                         + "fi",
                 providerModel,
                 projectName,
-                projectName,
+                step1,
                 toolName,
                 baseFullPath,
                 baseFullPath,
