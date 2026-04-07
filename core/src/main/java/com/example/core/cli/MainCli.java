@@ -221,7 +221,7 @@ public class MainCli implements Callable<Integer> {
                     String agentName = envConfig.get("AGENT_NAME").orElse("unknown");
                     String repairPipelineDir = envConfig.get("REPAIR_PIPELINE").orElse("pipeline");
                     Path basePath = jsonOutputDir.resolve(repairPipelineDir).resolve(agentName);
-                    
+
                     // Only add RULE_GENERATOR to path if it exists
                     String ruleGenerator = envConfig.get("RULE_GENERATOR").orElse(null);
                     if (ruleGenerator != null && !ruleGenerator.isBlank()) {
@@ -741,24 +741,26 @@ public class MainCli implements Callable<Integer> {
             List<AttemptReport> attemptReports = summary.attempts().stream()
                     .map(attempt -> new AttemptReport(
                             attempt.getAttemptCount(),
-                            attempt.getProcessId(), // Include processId in attempt report
+                            attempt.getProcessId(),
                             attempt.getFailureCategory().toString(),
-                            0, 0, 0, 0, 0, // Placeholder for file stats
-                            0, 0, 0, 0, 0, // Placeholder for error stats
+                            0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0,
                             parentOrSelf(attempt.getLogFileParent()),
-                            attempt.isSuccessful()))
+                            attempt.isSuccessful(),
+                            attempt.getContainerId()))
                     .collect(Collectors.toList());
             return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, attemptReports);
         } else {
             // Fallback to single attempt if no detailed attempts are provided
             AttemptReport attempt = new AttemptReport(
                     1,
-                    null, // No processId available
+                    null,
                     inferred != null ? inferred : originalCategory,
                     0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0,
                     summary.logFile() != null ? parentOrSelf(summary.logFile()) : "",
-                    inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred));
+                    inferred != null && "BUILD_SUCCESS".equalsIgnoreCase(inferred),
+                    null);
             return new ReportEntry(commit, originalCategory, processId, fullProcessId, branches, java.util.List.of(attempt));
         }
     }
@@ -1043,16 +1045,22 @@ public class MainCli implements Callable<Integer> {
                         failureReason = "PIPELINE_RETURNED_EMPTY";
                         log.warn("Repair pipeline returned no attempts for commit: {}", commit);
                     }
+                } catch (com.example.core.pipeline.ProviderLimitException e) {
+                    // Provider limit (OpenRouter 402/403 / OpenCode free-tier): propagate so
+                    // writeClassificationSummary can write the JSON entry before stopping the pipeline
+                    log.warn("Provider limit reached for commit {}: {}", record.breakingCommit(), e.getMessage());
+                    throw e;
                 } catch (Exception e) {
                     // Any other exception in repair loop - determine failure type from exception
                     log.error("Error in repair loop for commit {}: {}", record.breakingCommit(), e.getMessage(), e);
                     String errorMsg = e.getMessage() != null ? e.getMessage().toLowerCase() : "";
-                    if (errorMsg.contains("docker") || errorMsg.contains("container") || 
+
+                    if (errorMsg.contains("docker") || errorMsg.contains("container") ||
                         errorMsg.contains("cannot connect") || errorMsg.contains("timeout") ||
                         errorMsg.contains("connection refused") || errorMsg.contains("network")) {
                         failureCategory = se.kth.models.FailureCategory.UNKNOWN_FAILURE;  // Container/Docker failure
                         failureReason = "CONTAINER_ERROR";
-                    } else if (errorMsg.contains("agent") || errorMsg.contains("transformation") || 
+                    } else if (errorMsg.contains("agent") || errorMsg.contains("transformation") ||
                                errorMsg.contains("spoon")) {
                         failureCategory = se.kth.models.FailureCategory.TRANSFORMATION_FAILURE;  // Agent error
                         failureReason = "AGENT_ERROR";
@@ -1234,7 +1242,8 @@ public class MainCli implements Callable<Integer> {
             int unfixedErrors,
             int newErrors,
             String outputFolder,
-            boolean successful) {
+            boolean successful,
+            String containerId) {
     }
 
     /**

@@ -113,7 +113,8 @@ public class JavaParserAgent extends BaseAgent {
                 testLogFile,
                 agentExecutionLog,
                 compileSuccess,
-                testSuccess);
+                testSuccess,
+                null);
     }
 
     /**
@@ -184,7 +185,7 @@ public class JavaParserAgent extends BaseAgent {
         return String.format(
                 "%s --model %s -o json --yolo -p \" 'Project @%s/ does not compile. Plan: "
                         + "1) Run mvn compile in the project @%s/ to get the compilation errors only. "
-                        + "2) Generate a source code transformation with JavaParserto fix the errors. "
+                        + "2) Generate a source code transformation with JavaParser to fix the errors. "
                         + "   - Use the project in folder @%s/ as the base project template. "
                         + "   - Use JavaParser AST manipulation to create the transformation. "
                         + "   - Save the transformation code inside the folder @%s/, e.g., in %s/src/main/java/github/chains/Main.java "
