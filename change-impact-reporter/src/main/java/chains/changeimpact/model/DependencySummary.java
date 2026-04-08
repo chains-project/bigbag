@@ -1,7 +1,7 @@
 package chains.changeimpact.model;
 
-import com.example.spoonanalyzer.model.DependencyInfo;
-import com.example.spoonanalyzer.model.DependencyOrigin;
+import github.chains.spoonanalyzer.model.DependencyInfo;
+import github.chains.spoonanalyzer.model.DependencyOrigin;
 
 import java.nio.file.Path;
 

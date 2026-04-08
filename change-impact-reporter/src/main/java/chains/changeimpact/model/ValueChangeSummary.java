@@ -1,6 +1,6 @@
 package chains.changeimpact.model;
 
-import com.example.japicmp.model.ValueChange;
+import github.chains.japicmp.model.ValueChange;
 
 /**
  * Captures value before/after pairs with a flag indicating a change.
