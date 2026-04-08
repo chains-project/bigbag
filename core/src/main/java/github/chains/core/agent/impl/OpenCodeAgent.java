@@ -19,11 +19,12 @@ import java.util.Optional;
  * OpenCode-based agent implementation supporting multiple rule generators.
  *
  * Supported rule generators (controlled by RULE_GENERATOR env var):
- * - "spoon"      → uses Spoon AST transformation
+ * - "spoon" → uses Spoon AST transformation
  * - "javaparser" → uses JavaParser AST transformation
  *
  * OpenCode CLI syntax: {@code opencode --model <model> -p "<prompt>"}
- * API keys are injected per {@code LLM_PROVIDER} (see {@link #prepareEnvironmentVariables()}).
+ * API keys are injected per {@code LLM_PROVIDER} (see
+ * {@link #prepareEnvironmentVariables()}).
  */
 public class OpenCodeAgent extends BaseAgent {
 
@@ -38,11 +39,17 @@ public class OpenCodeAgent extends BaseAgent {
     private static final String API_DOCS = "API_DOCS";
     private static final String CONTAINER_WORK_DIR = "/workspace";
 
-    /** Env value for Copilot; OpenCode CLI expects provider id {@code github-copilot}. */
+    /**
+     * Env value for Copilot; OpenCode CLI expects provider id
+     * {@code github-copilot}.
+     */
     private static final String PROVIDER_COPILOT = "copilot";
     private static final String PROVIDER_GITHUB_COPILOT = "github-copilot";
 
-    /** Google Gemini via OpenCode uses provider id {@code google} (e.g. {@code google/gemini-2.5-pro}). */
+    /**
+     * Google Gemini via OpenCode uses provider id {@code google} (e.g.
+     * {@code google/gemini-2.5-pro}).
+     */
     private static final String PROVIDER_GOOGLE = "google";
     /** Alias for {@value #PROVIDER_GOOGLE} in {@code LLM_PROVIDER} only. */
     private static final String PROVIDER_GEMINI = "gemini";
@@ -60,7 +67,7 @@ public class OpenCodeAgent extends BaseAgent {
      */
     public OpenCodeAgent(EnvConfig envConfig, String llmAgentName, String ruleGenerator) {
         super(envConfig, llmAgentName, ruleGenerator);
-        this.baseFolder    = ruleGenerator + "-base-template";
+        this.baseFolder = ruleGenerator + "-base-template";
         this.apiDocsFolder = ruleGenerator + "-api-docs";
     }
 
@@ -91,17 +98,17 @@ public class OpenCodeAgent extends BaseAgent {
 
         // Step 1: Setup workspace and copy base template
         Path workspaceDir = setupWorkspace(request);
-        Path apiDocsPath  = resolveApiDocsPath();
+        Path apiDocsPath = resolveApiDocsPath();
 
-        // Step 1b: Copy pre-analyzed breaking-change reports into workspace so the agent
-        // can read them directly via @/workspace/... without running mvn test-compile first.
-        copyAnalysisFilesToWorkspace(request.commitReportDir(), workspaceDir);
+        // Step 1b: Copy API spec and Javadoc into workspace so the agent can read them
+        copyRoseauArtifactsToWorkspace(request.apiSpecPath(), request.javadocPath(), workspaceDir);
 
         // Step 2: Prepare environment variables
         Map<String, String> envVars = prepareEnvironmentVariables();
 
         // Step 3: Create a temp log file for DockerBuild to capture container stdout.
-        // AgentRepairPipeline copies it to commitReportDir/agent_compile_output.log, then it is deleted.
+        // AgentRepairPipeline copies it to commitReportDir/agent_compile_output.log,
+        // then it is deleted.
         Path compileLogFile;
         try {
             compileLogFile = Files.createTempFile("opencode-agent-compile-", ".log");
@@ -111,17 +118,28 @@ public class OpenCodeAgent extends BaseAgent {
         }
 
         // Step 4: Build and execute the main agent command
-        // USE_ANALYSIS_FILES=true (default) → agent reads pre-analyzed JSON reports instead of running mvn test-compile.
-        // Set USE_ANALYSIS_FILES=false to disable and let the agent discover errors on its own.
-        boolean useAnalysisFiles = !getEnv("USE_ANALYSIS_FILES").map("false"::equalsIgnoreCase).orElse(false);
-        boolean hasAnalysisFiles = useAnalysisFiles
-                && Files.exists(workspaceDir.resolve("input_change-impact.json"))
-                && Files.exists(workspaceDir.resolve("breaking-changes.json"));
-        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath, hasAnalysisFiles);
+        String apiSpecFileName = request.apiSpecPath() != null
+                ? request.apiSpecPath().getFileName().toString()
+                : null;
+        String javadocDirName = request.javadocPath() != null
+                ? request.javadocPath().getFileName().toString()
+                : null;
+        String containerApiSpecPath = (apiSpecFileName != null && Files.exists(workspaceDir.resolve(apiSpecFileName)))
+                ? CONTAINER_WORK_DIR + "/" + apiSpecFileName
+                : null;
+        String containerJavadocPath = (javadocDirName != null
+                && Files.isDirectory(workspaceDir.resolve(javadocDirName)))
+                        ? CONTAINER_WORK_DIR + "/" + javadocDirName
+                        : null;
+
+        String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath,
+                containerApiSpecPath, containerJavadocPath);
         log.info("Executing OpenCode+{} command in container {}", ruleGeneratorName, request.dockerImageName());
 
-        // For Copilot: mount the host's gh config directory so the container can authenticate.
-        // Set GH_CONFIG_DIR in .env to the path of ~/.config/gh on the host where the pipeline runs.
+        // For Copilot: mount the host's gh config directory so the container can
+        // authenticate.
+        // Set GH_CONFIG_DIR in .env to the path of ~/.config/gh on the host where the
+        // pipeline runs.
         // The host must have run "gh auth login" with Copilot scope at least once.
         String rawProvider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
         Path ghConfigDir = isCopilotProvider(rawProvider)
@@ -144,17 +162,19 @@ public class OpenCodeAgent extends BaseAgent {
                 request.verbose());
 
         String containerId = request.dockerBuild().getLastContainerId();
-        log.info("Agent command completed. Success: {}. Container: {}. Log: {}", compileSuccess, containerId, compileLogFile);
+        log.info("Agent command completed. Success: {}. Container: {}. Log: {}", compileSuccess, containerId,
+                compileLogFile);
 
         // Step 5: Verify fix with mvn compile
-        Path testLogFile  = executeTestCommand(request, workspaceDir, envVars, apiDocsPath, ghConfigDir);
+        Path testLogFile = executeTestCommand(request, workspaceDir, envVars, apiDocsPath, ghConfigDir);
         boolean testSuccess = testLogFile != null && Files.exists(testLogFile);
 
         // Step 6: Copy agent logs from projectDir (mounted at /workspace/{projectName})
         Path agentExecutionLog = copyAgentExecutionLog(request.projectDir(), request.commitReportDir());
         copyFileToReport(request.projectDir().resolve("agent_session.json"), request.commitReportDir());
 
-        // Step 7: Copy workspace contents (excluding project dir and api docs) to commitReportDir
+        // Step 7: Copy workspace contents (excluding project dir and api docs) to
+        // commitReportDir
         copyWorkspaceToReport(workspaceDir, request.commitReportDir(), request.projectName());
 
         return new AgentExecutionResult(
@@ -169,26 +189,38 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
-     * Copies input_change-impact.json and breaking-classifier-report.json from commitReportDir
-     * into the workspace root so they are available inside the container at /workspace/*.
+     * Copies roseau-api-v2.md and the Javadoc directory into the workspace so the
+     * agent
+     * can reference them inside the container at fixed paths.
      */
-    private void copyAnalysisFilesToWorkspace(Path commitReportDir, Path workspaceDir) {
-        if (commitReportDir == null) return;
-        for (String fileName : new String[]{"input_change-impact.json", "breaking-changes.json"}) {
-            Path src = commitReportDir.resolve(fileName);
-            if (Files.exists(src)) {
-                try {
-                    Files.copy(src, workspaceDir.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-                    log.info("Copied {} to workspace for agent consumption", fileName);
-                } catch (IOException e) {
-                    log.warn("Failed to copy {} to workspace: {}", fileName, e.getMessage());
-                }
-            } else {
-                log.debug("{} not found in commitReportDir, agent will discover errors manually", fileName);
+    private void copyRoseauArtifactsToWorkspace(Path apiSpecPath, Path javadocPath, Path workspaceDir) {
+        if (apiSpecPath != null && Files.exists(apiSpecPath)) {
+            Path dest = workspaceDir.resolve(apiSpecPath.getFileName());
+            try {
+                Files.copy(apiSpecPath, dest, StandardCopyOption.REPLACE_EXISTING);
+                log.info("Copied {} to workspace", apiSpecPath.getFileName());
+            } catch (IOException e) {
+                log.warn("Failed to copy {} to workspace: {}", apiSpecPath.getFileName(), e.getMessage());
+            }
+        }
+        if (javadocPath != null && Files.isDirectory(javadocPath)) {
+            Path dest = workspaceDir.resolve(javadocPath.getFileName());
+            try {
+                copyDirectory(javadocPath, dest);
+                log.info("Copied Javadoc directory to workspace as {}/", javadocPath.getFileName());
+            } catch (IOException e) {
+                log.warn("Failed to copy Javadoc directory {} to workspace: {}", javadocPath.getFileName(),
+                        e.getMessage());
             }
         }
     }
 
+    /**
+     * Copies input_change-impact.json and breaking-classifier-report.json from
+     * commitReportDir
+     * into the workspace root so they are available inside the container at
+     * /workspace/*.
+     */
     /**
      * Creates a temp workspace directory and copies the base template into it.
      */
@@ -214,7 +246,8 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
-     * Resolves the API docs path from the environment, or null if not set / not found.
+     * Resolves the API docs path from the environment, or null if not set / not
+     * found.
      */
     private Path resolveApiDocsPath() {
         return getEnvPath(API_DOCS).filter(Files::exists).orElse(null);
@@ -225,14 +258,18 @@ public class OpenCodeAgent extends BaseAgent {
      *
      * The provider is selected via the LLM_PROVIDER env var (default: "anthropic"):
      * <ul>
-     *   <li>"anthropic"   → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
-     *   <li>"openai"      → injects OPENAI_API_KEY from LLM_API_KEY</li>
-     *   <li>"openrouter"  → injects OPENROUTER_API_KEY from LLM_API_KEY</li>
-     *   <li>"copilot" / {@code github-copilot} → injects GITHUB_TOKEN from LLM_API_KEY (GitHub Copilot)</li>
-     *   <li>"google" / {@code gemini} → injects GOOGLE_GENERATIVE_AI_API_KEY (required by OpenCode),
-     *       plus GOOGLE_API_KEY and GEMINI_API_KEY for compatibility, from {@code LLM_API_KEY},
-     *       {@code GOOGLE_GENERATIVE_AI_API_KEY}, {@code GOOGLE_API_KEY}, or {@code GEMINI_API_KEY}
-     *       (first set wins)</li>
+     * <li>"anthropic" → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
+     * <li>"openai" → injects OPENAI_API_KEY from LLM_API_KEY</li>
+     * <li>"openrouter" → injects OPENROUTER_API_KEY from LLM_API_KEY</li>
+     * <li>"copilot" / {@code github-copilot} → injects GITHUB_TOKEN from
+     * LLM_API_KEY (GitHub Copilot)</li>
+     * <li>"google" / {@code gemini} → injects GOOGLE_GENERATIVE_AI_API_KEY
+     * (required by OpenCode),
+     * plus GOOGLE_API_KEY and GEMINI_API_KEY for compatibility, from
+     * {@code LLM_API_KEY},
+     * {@code GOOGLE_GENERATIVE_AI_API_KEY}, {@code GOOGLE_API_KEY}, or
+     * {@code GEMINI_API_KEY}
+     * (first set wins)</li>
      * </ul>
      */
     private Map<String, String> prepareEnvironmentVariables() {
@@ -254,11 +291,13 @@ public class OpenCodeAgent extends BaseAgent {
                     break;
                 case PROVIDER_GOOGLE:
                 case PROVIDER_GEMINI:
-                    // OpenCode's Google provider reads GOOGLE_GENERATIVE_AI_API_KEY (Vercel AI SDK naming).
+                    // OpenCode's Google provider reads GOOGLE_GENERATIVE_AI_API_KEY (Vercel AI SDK
+                    // naming).
                     envVars.put("GOOGLE_GENERATIVE_AI_API_KEY", key);
                     envVars.put("GOOGLE_API_KEY", key);
                     envVars.put("GEMINI_API_KEY", key);
-                    log.info("Google provider: GOOGLE_GENERATIVE_AI_API_KEY (and GOOGLE_API_KEY, GEMINI_API_KEY) injected");
+                    log.info(
+                            "Google provider: GOOGLE_GENERATIVE_AI_API_KEY (and GOOGLE_API_KEY, GEMINI_API_KEY) injected");
                     break;
                 case "openai":
                     envVars.put("OPENAI_API_KEY", key);
@@ -282,7 +321,8 @@ public class OpenCodeAgent extends BaseAgent {
 
     /**
      * Resolves the API key for the container. Google accepts LLM_API_KEY,
-     * GOOGLE_GENERATIVE_AI_API_KEY, GOOGLE_API_KEY, or GEMINI_API_KEY; other providers use LLM_API_KEY only.
+     * GOOGLE_GENERATIVE_AI_API_KEY, GOOGLE_API_KEY, or GEMINI_API_KEY; other
+     * providers use LLM_API_KEY only.
      */
     private Optional<String> resolveApiKeyForProvider(String provider) {
         if (isGoogleProvider(provider)) {
@@ -295,70 +335,67 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
-     * Builds the OpenCode CLI command with a prompt tailored to the active rule generator.
-     * Syntax: {@code opencode run -m <provider/model> --format json "<prompt>" 2>&1 | tee <log>}
+     * Builds the OpenCode CLI command with a prompt tailored to the active rule
+     * generator.
+     * Syntax:
+     * {@code opencode run -m <provider/model> --format json "<prompt>" 2>&1 | tee <log>}
      *
-     * @param apiDocsPath    host path to API docs (null if not configured)
-     * @param hasAnalysisFiles true if input_change-impact.json and breaking-classifier-report.json
-     *                         were copied into the workspace and are readable by the agent
+     * @param apiDocsPath      host path to API docs (null if not configured)
+     * @param hasAnalysisFiles true if input_change-impact.json and
+     *                         breaking-classifier-report.json
+     *                         were copied into the workspace and are readable by
+     *                         the agent
      */
     private String buildAgentCommand(String projectName, String workspaceDir, Path apiDocsPath,
-            boolean hasAnalysisFiles) {
+            String containerApiSpecPath, String containerJavadocPath) {
         String baseFullPath = workspaceDir + "/" + baseFolder;
         // Only reference docs in the prompt if the directory is actually mounted
-        String docsPath     = apiDocsPath != null ? workspaceDir + "/" + apiDocsFolder : null;
+        String docsPath = apiDocsPath != null ? workspaceDir + "/" + apiDocsFolder : null;
         String rawProviderForModel = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
         String defaultModel = defaultOpenCodeModel(rawProviderForModel);
-        String model        = getEnv("LLM_MODEL").orElse(defaultModel);
+        String model = getEnv("LLM_MODEL").orElse(defaultModel);
 
         String toolName = GENERATOR_SPOON.equals(ruleGeneratorName) ? "Spoon" : "JavaParser";
-        String docsLine = docsPath != null
-                ? "   - Use the " + toolName + " API documentation located in folder @" + docsPath + "/ for reference. "
-                : "";
 
         // OpenCode CLI syntax: opencode run -m <provider/model> "<prompt>"
-        // Provider IDs as recognized by OpenCode (use: opencode providers to list them):
-        //   "anthropic"      → anthropic/claude-sonnet-4-5
-        //   "openai"         → openai/gpt-4o
-        //   "copilot"        → github-copilot/gpt-4o  (OpenCode uses "github-copilot", not "copilot")
-        //   "google" / "gemini" → google/<model>  (requires GOOGLE_GENERATIVE_AI_API_KEY in container for OpenCode)
+        // Provider IDs as recognized by OpenCode (use: opencode providers to list
+        // them):
+        // "anthropic" → anthropic/claude-sonnet-4-5
+        // "openai" → openai/gpt-4o
+        // "copilot" → github-copilot/gpt-4o (OpenCode uses "github-copilot", not
+        // "copilot")
+        // "google" / "gemini" → google/<model> (requires GOOGLE_GENERATIVE_AI_API_KEY
+        // in container for OpenCode)
         //
         // IMPORTANT: GitHub Copilot API does NOT accept Personal Access Tokens (PAT).
         // It requires an OAuth token obtained via: gh auth login
-        // On your local machine run: gh auth token   → use that value as LLM_API_KEY
+        // On your local machine run: gh auth token → use that value as LLM_API_KEY
         String rawProvider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
         String openCodeProvider = toOpenCodeProviderId(rawProvider);
         String providerModel = openCodeProvider + "/" + model;
 
         // Run opencode and capture all output (stdout + stderr) to the log file.
-        // SESSION_ID is extracted by parsing the JSON events in the log (field: "sessionID":"ses_...").
-        // Use /tmp for the tee target to guarantee write access regardless of how volumes are mounted.
-        // The project directory (/workspace/{project}/) may be read-only or may not exist at command
-        // start time, which would silently break the tee and prevent session ID extraction.
+        // SESSION_ID is extracted by parsing the JSON events in the log (field:
+        // "sessionID":"ses_...").
+        // Use /tmp for the tee target to guarantee write access regardless of how
+        // volumes are mounted.
+        // The project directory (/workspace/{project}/) may be read-only or may not
+        // exist at command
+        // start time, which would silently break the tee and prevent session ID
+        // extraction.
         String logFile = "/tmp/agent_execution.log";
         String projectLogFile = workspaceDir + "/" + projectName + "/agent_execution.log";
         String sessionFile = workspaceDir + "/" + projectName + "/agent_session.json";
-
-        String changeImpactFile    = workspaceDir + "/input_change-impact.json";
-        String breakingChangesFile = workspaceDir + "/breaking-changes.json";
-        String step1 = hasAnalysisFiles
-                ? "1) The breaking change has already been analyzed - DO NOT run any Maven command for discovery. "
-                  + "Read @" + breakingChangesFile + " for the full API diff of the dependency "
-                  + "(fields: breakingChanges[].elementType, qualifiedSignature, changeStatus, "
-                  + "compatibilityChanges[].type, parameterTypes): "
-                  + "this gives you the exact old signatures that were removed or changed. "
-                  + "Read @" + changeImpactFile + " to see which files and call sites in the project are affected "
-                  + "(fields: files[].filePath, errors[].lineNumber, errors[].codeLine, "
-                  + "errors[].changeImpact.constructs[].apiChanges[].changeStatus, qualifiedSignature, parameterTypes). "
-                : "1) Run mvn test-compile in @" + projectName + "/ to collect compilation errors. "
-                  + "Identify the root cause: which API (class/method/constructor/signature) changed in the dependency? ";
 
         String prompt = """
                 Project @%s/ does not compile due to a breaking dependency update. \
                 Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - \
                 that can be applied to ANY Maven project affected by the same breaking change. \
                 Plan: \
-                %s\
+                1) Identify the compilation errors in @%s/ and determine which API \
+                   (class/method/constructor/signature) changed in the dependency. \
+                   The new dependency API specification is available at %s and the Javadoc at %s/ \
+                   for reference when identifying replacement types, methods, or fields. \
                 2) Characterize the breaking change abstractly: \
                    - What was the old API pattern? (e.g., Foo.bar(String)) \
                    - What is the new API pattern? (e.g., Foo.bar(String, boolean)) \
@@ -369,19 +406,23 @@ public class OpenCodeAgent extends BaseAgent {
                    - Use patterns to traverse all files and apply the fix wherever the old pattern appears. \
                    - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. \
                    - Save the transformation in %s/src/main/java/github/chains/Main.java. \
-                %s\
+                   - Use the %s API documentation located in folder %s/ for reference. \
                 4) Compile the transformation and verify it has no errors. \
-                5) Apply the transformation to @%s/ and make sure to fix both compilation errors and test errors. \
-                6) Confirm generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. \
+                5) Apply the transformation to @%s/ and ensure both compilation errors and test errors are fixed. \
+                6) Ensure generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. \
                    The rule must be applicable to other projects by simply changing the input source directory path.\
-                """.formatted(
-                projectName,
-                step1,
-                toolName,
-                baseFullPath,
-                baseFullPath,
-                docsLine,
-                projectName);
+                """
+                .formatted(
+                        projectName,
+                        projectName,
+                        containerApiSpecPath,
+                        containerJavadocPath,
+                        toolName,
+                        baseFullPath,
+                        baseFullPath,
+                        toolName,
+                        docsPath,
+                        projectName);
 
         return """
                 opencode run -m %s --format json "%s" 2>&1 | tee %s; \
@@ -410,7 +451,7 @@ public class OpenCodeAgent extends BaseAgent {
     private Path executeTestCommand(AgentExecutionRequest request, Path workspaceDir,
             Map<String, String> envVars, Path apiDocsPath, Path ghConfigDir) {
         String projectPath = CONTAINER_WORK_DIR + "/" + request.projectName();
-        String testCommand = String.format("cd %s && mvn test-compile 2>&1 | tee mavenTest.log", projectPath);
+        String testCommand = String.format("cd %s && mvn test 2>&1 | tee mavenTest.log", projectPath);
 
         Path tempLog = null;
         try {
@@ -433,15 +474,20 @@ public class OpenCodeAgent extends BaseAgent {
                 apiDocsFolder,
                 ghConfigDir,
                 request.verbose());
-        try { Files.deleteIfExists(tempLog); } catch (IOException ignored) {}
+        try {
+            Files.deleteIfExists(tempLog);
+        } catch (IOException ignored) {
+        }
 
         Path testLogFile = request.commitReportDir() != null
                 ? request.commitReportDir().resolve("maven_test_output.log")
                 : request.outputBaseDir().resolve("maven_test_output.log");
 
         try {
-            // mavenTest.log is written at /workspace/{projectName}/mavenTest.log in the container,
-            // which maps to projectDir/mavenTest.log on the host (projectDir is mounted there).
+            // mavenTest.log is written at /workspace/{projectName}/mavenTest.log in the
+            // container,
+            // which maps to projectDir/mavenTest.log on the host (projectDir is mounted
+            // there).
             Path source = request.projectDir().resolve("mavenTest.log");
             if (Files.exists(source)) {
                 Files.createDirectories(testLogFile.getParent());
@@ -458,12 +504,16 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
-     * Copies workspace contents directly into commitReportDir, excluding the project
-     * directory (already in the benchmark) and the api-docs directory (read-only reference).
-     * Only the agent-generated artifacts (base template, session JSON, etc.) are copied.
+     * Copies workspace contents directly into commitReportDir, excluding the
+     * project
+     * directory (already in the benchmark) and the api-docs directory (read-only
+     * reference).
+     * Only the agent-generated artifacts (base template, session JSON, etc.) are
+     * copied.
      */
     private void copyWorkspaceToReport(Path workspaceDir, Path commitReportDir, String projectName) {
-        if (workspaceDir == null || commitReportDir == null) return;
+        if (workspaceDir == null || commitReportDir == null)
+            return;
         if (!Files.exists(workspaceDir)) {
             log.warn("Workspace directory not found, skipping workspace copy: {}", workspaceDir);
             return;
@@ -496,10 +546,12 @@ public class OpenCodeAgent extends BaseAgent {
     }
 
     /**
-     * Copies agent_execution.log from the project directory to the report directory.
+     * Copies agent_execution.log from the project directory to the report
+     * directory.
      */
     private Path copyAgentExecutionLog(Path projectDir, Path commitReportDir) {
-        if (commitReportDir == null) return null;
+        if (commitReportDir == null)
+            return null;
 
         try {
             Path source = projectDir.resolve("agent_execution.log");

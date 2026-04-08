@@ -211,6 +211,26 @@ public class AgentRepairPipeline implements RepairPipeline {
                     "JAVADOC_GENERATION_FAILURE");
         }
 
+        // Resolve apiSpecPath and javadocPath for the agent prompt
+        // File is named {artifactId}-{newVersion}-api.md (matches RoseauApiExtractor output)
+        String artifactId = record.updatedDependency() != null ? record.updatedDependency().dependencyArtifactId() : null;
+        String newVersion  = record.updatedDependency() != null ? record.updatedDependency().newVersion() : null;
+        Path apiSpecPath = null;
+        if (commitReportDir != null && artifactId != null && newVersion != null) {
+            Path candidate = commitReportDir.resolve(artifactId + "-" + newVersion + "-api.md");
+            if (Files.exists(candidate)) apiSpecPath = candidate;
+        }
+
+        Path javadocPath = null;
+        try {
+            javadocPath = Files.list(extractedPath)
+                    .filter(p -> Files.isDirectory(p) && p.getFileName().toString().startsWith("javadoc-"))
+                    .findFirst()
+                    .orElse(null);
+        } catch (IOException e) {
+            log.warn("Could not search for javadoc directory in {}: {}", extractedPath, e.getMessage());
+        }
+
         // Step 5: Execute agent (delegated to agent - it handles everything internally)
         AgentExecutionRequest executionRequest = new AgentExecutionRequest(
                 dockerBuild,
@@ -220,7 +240,9 @@ public class AgentRepairPipeline implements RepairPipeline {
                 m2Folder,
                 outputBaseDir,
                 commitReportDir,
-                this.verbose
+                this.verbose,
+                apiSpecPath,
+                javadocPath
         );
         
         AgentExecutionResult executionResult;

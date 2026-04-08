@@ -22,6 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>25</java.version>
+        <ecj.version>3.38.0</ecj.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <picocli.version>4.7.6</picocli.version>
         <jackson.version>2.17.1</jackson.version>
@@ -72,6 +73,18 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <!-- Force ECJ to 3.38.0 everywhere — roseau-core pulls 3.45.0 which removed
+                 CompactConstructorDeclaration, causing NoClassDefFoundError when Spoon runs -->
+            <dependency>
+                <groupId>org.eclipse.jdt</groupId>
+                <artifactId>ecj</artifactId>
+                <version>${ecj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jdt</groupId>
+                <artifactId>org.eclipse.jdt.core</artifactId>
+                <version>${ecj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

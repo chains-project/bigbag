@@ -47,7 +47,19 @@ public record AgentExecutionRequest(
         /**
          * Whether to enable verbose logging
          */
-        boolean verbose
+        boolean verbose,
+
+        /**
+         * Path to the Roseau API spec markdown for the new dependency version (roseau-api-v2.md).
+         * Null if not available.
+         */
+        Path apiSpecPath,
+
+        /**
+         * Path to the extracted Javadoc directory for the new dependency version.
+         * Null if not available.
+         */
+        Path javadocPath
 ) {
 }
 

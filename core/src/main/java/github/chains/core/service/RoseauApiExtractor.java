@@ -98,9 +98,9 @@ public class RoseauApiExtractor {
         LibraryTypes typesV2 = buildLibraryTypes(jarV2, newVersion);
         if (typesV2 == null) return;
 
-        // JSON snapshots (raw, for tooling)
-        writeApiJson(typesV1, commitReportDir.resolve("roseau-api-v1.json"), prevVersion);
-        writeApiJson(typesV2, commitReportDir.resolve("roseau-api-v2.json"), newVersion);
+        // JSON snapshots (raw, for tooling) — named after the JAR file
+        writeApiJson(typesV1, commitReportDir.resolve(artifactId + "-" + prevVersion + "-api.json"), prevVersion);
+        writeApiJson(typesV2, commitReportDir.resolve(artifactId + "-" + newVersion + "-api.json"), newVersion);
 
         // Build resolved APIs and compute diff
         API apiV1 = Roseau.buildAPI(typesV1);
@@ -108,13 +108,16 @@ public class RoseauApiExtractor {
         RoseauReport report = Roseau.diff(apiV1, apiV2);
 
         // Breaking changes: JSON (compact, for tooling) + Markdown diff (readable, for prompt)
-        writeBreakingChangesJson(report, commitReportDir.resolve("roseau-breaking-changes.json"),
+        writeBreakingChangesJson(report,
+                commitReportDir.resolve(artifactId + "-breaking-changes.json"),
                 prevVersion, newVersion);
-        writeDiffMarkdown(report, commitReportDir.resolve("roseau-api-diff.md"),
+        writeDiffMarkdown(report,
+                commitReportDir.resolve(artifactId + "-api-diff.md"),
                 groupId, artifactId, prevVersion, newVersion);
 
         // New API spec as Markdown (readable, for agent to consult)
-        writeApiSpecMarkdown(apiV2, commitReportDir.resolve("roseau-api-v2.md"),
+        writeApiSpecMarkdown(apiV2,
+                commitReportDir.resolve(artifactId + "-" + newVersion + "-api.md"),
                 groupId, artifactId, newVersion);
 
     }

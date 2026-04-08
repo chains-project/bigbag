@@ -1,9 +1,10 @@
 package github.chains.core.service;
 
-import github.chains.core.model.BreakingUpdateRecord;
-import github.chains.core.model.UpdatedDependency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import github.chains.core.model.BreakingUpdateRecord;
+import github.chains.core.model.UpdatedDependency;
 
 import java.io.IOException;
 import java.io.InputStream;
