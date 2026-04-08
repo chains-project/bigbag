@@ -885,6 +885,90 @@ public class DockerBuild {
     }
 
     /**
+     * Writes the first regular file entry from a Docker copy-archive tar stream to {@code hostFile}.
+     */
+    private void extractFirstFileFromTarStream(Path hostFile, InputStream tarStream) throws IOException {
+        try (TarArchiveInputStream tar = new TarArchiveInputStream(tarStream)) {
+            TarArchiveEntry entry;
+            while ((entry = tar.getNextTarEntry()) != null) {
+                if (!entry.isDirectory()) {
+                    if (hostFile.getParent() != null) {
+                        Files.createDirectories(hostFile.getParent());
+                    }
+                    byte[] fileContent = tar.readAllBytes();
+                    Files.write(hostFile, fileContent, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                    return;
+                }
+            }
+        }
+    }
+
+    private Path uniqueGeminiSessionDest(Path destDir, String fileName) throws IOException {
+        Files.createDirectories(destDir);
+        Path candidate = destDir.resolve(fileName);
+        if (!Files.exists(candidate)) {
+            return candidate;
+        }
+        String base = fileName;
+        String ext = "";
+        int dot = fileName.lastIndexOf('.');
+        if (dot > 0) {
+            base = fileName.substring(0, dot);
+            ext = fileName.substring(dot);
+        }
+        for (int i = 1; i < 1000; i++) {
+            candidate = destDir.resolve(base + "_" + i + ext);
+            if (!Files.exists(candidate)) {
+                return candidate;
+            }
+        }
+        return destDir.resolve(base + "_" + System.currentTimeMillis() + ext);
+    }
+
+    /**
+     * After Gemini CLI runs inside a container, copies {@code session-*.json} chat files from
+     * {@code /root/.gemini/tmp} (recursively) to a host directory.
+     *
+     * @return number of files copied
+     */
+    public int copyGeminiCliSessionFilesFromContainer(String containerId, Path hostDestinationDir) {
+        if (containerId == null || hostDestinationDir == null) {
+            return 0;
+        }
+        try {
+            Files.createDirectories(hostDestinationDir);
+        } catch (IOException e) {
+            log.warn("Could not create Gemini session export directory {}: {}", hostDestinationDir, e.getMessage());
+            return 0;
+        }
+
+        String raw = executeInContainer(containerId, "sh", "-c",
+                "find /root/.gemini/tmp -type f -name 'session-*.json' 2>/dev/null || true");
+        int copied = 0;
+        for (String line : raw.split("\\R")) {
+            String containerPath = line.trim();
+            if (containerPath.isEmpty()) {
+                continue;
+            }
+            if (!containerPath.contains("session-") || !containerPath.endsWith(".json")) {
+                continue;
+            }
+            String baseName = Paths.get(containerPath).getFileName().toString();
+            try {
+                Path dest = uniqueGeminiSessionDest(hostDestinationDir, baseName);
+                try (InputStream archive = dockerClient.copyArchiveFromContainerCmd(containerId, containerPath).exec()) {
+                    extractFirstFileFromTarStream(dest, archive);
+                }
+                copied++;
+                log.debug("Copied Gemini session chat file to {}", dest);
+            } catch (Exception e) {
+                log.debug("Could not copy Gemini session file {}: {}", containerPath, e.getMessage());
+            }
+        }
+        return copied;
+    }
+
+    /**
      * Copies only the JAR file from a TAR archive, ignoring directory structure.
      * This method extracts only the specific JAR file and writes it directly to the
      * output path.
@@ -2001,10 +2085,23 @@ public class DockerBuild {
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
             String docsFolderName, Path ghConfigDir, boolean verbose) {
-        // Delegate to the standard overload — ghConfigDir is injected into binds below
         return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
                 projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
-                spoonDocsFolder, docsFolderName, ghConfigDir, verbose);
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, null);
+    }
+
+    /**
+     * Like {@link #executeMavenCommandInContainerWithWorkspace(String, Path, Path, String, String, String, Path, Map, Path, Path, String, Path, boolean)}
+     * but exports Gemini CLI chat sessions from {@code /root/.gemini/tmp} (files matching {@code session-*.json})
+     * into {@code geminiSessionExportDir} on the host before the container is removed.
+     */
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, Path ghConfigDir, boolean verbose, Path geminiSessionExportDir) {
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, geminiSessionExportDir);
     }
 
     public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
@@ -2013,13 +2110,25 @@ public class DockerBuild {
             String docsFolderName, boolean verbose) {
         return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
                 projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
-                spoonDocsFolder, docsFolderName, null, verbose);
+                spoonDocsFolder, docsFolderName, null, verbose, null);
+    }
+
+    /**
+     * @param geminiSessionExportDir optional host directory for Gemini CLI {@code session-*.json} exports; may be null
+     */
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, boolean verbose, Path geminiSessionExportDir) {
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, null, verbose, geminiSessionExportDir);
     }
 
     private boolean executeMavenCommandInContainerWithWorkspaceInternal(String dockerImage, Path workspaceDir,
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
-            String docsFolderName, Path ghConfigDir, boolean verbose) {
+            String docsFolderName, Path ghConfigDir, boolean verbose, Path geminiSessionExportDir) {
         String containerId = null;
         try {
             ensureBaseMavenImageExists(dockerImage);
@@ -2168,6 +2277,19 @@ public class DockerBuild {
                     log.info("Log saved from captured stream (fallback).");
                 } catch (IOException e) {
                     log.error("Failed to write log file", e);
+                }
+            }
+
+            if (geminiSessionExportDir != null) {
+                try {
+                    int n = copyGeminiCliSessionFilesFromContainer(containerId, geminiSessionExportDir);
+                    if (n > 0) {
+                        log.info("Exported {} Gemini CLI session JSON file(s) to {}", n, geminiSessionExportDir);
+                    } else {
+                        log.debug("No session-*.json files under /root/.gemini/tmp (Gemini may not have created a session).");
+                    }
+                } catch (Exception ex) {
+                    log.warn("Failed to export Gemini CLI session files: {}", ex.getMessage());
                 }
             }
 

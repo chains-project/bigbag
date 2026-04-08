@@ -1,9 +1,9 @@
 package chains.changeimpact.service;
 
-import com.example.japicmp.model.ClassChange;
-import com.example.japicmp.model.ClassDetail;
-import com.example.japicmp.model.ComparisonReport;
-import com.example.japicmp.model.MemberChange;
+import github.chains.japicmp.model.ClassChange;
+import github.chains.japicmp.model.ClassDetail;
+import github.chains.japicmp.model.ComparisonReport;
+import github.chains.japicmp.model.MemberChange;
 
 import java.util.ArrayList;
 import java.util.Collections;

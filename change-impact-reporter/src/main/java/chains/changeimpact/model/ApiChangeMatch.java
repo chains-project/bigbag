@@ -1,7 +1,7 @@
 package chains.changeimpact.model;
 
-import com.example.japicmp.model.ClassChange;
-import com.example.japicmp.model.MemberChange;
+import github.chains.japicmp.model.ClassChange;
+import github.chains.japicmp.model.MemberChange;
 
 import java.util.List;
 import java.util.Objects;

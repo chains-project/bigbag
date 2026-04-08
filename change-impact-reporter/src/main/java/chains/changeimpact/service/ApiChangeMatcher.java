@@ -3,10 +3,10 @@ package chains.changeimpact.service;
 import chains.changeimpact.model.ApiChangeMatch;
 import chains.changeimpact.model.ConstructImpact;
 import chains.changeimpact.model.DependencySummary;
-import com.example.japicmp.model.ClassChange;
-import com.example.japicmp.model.MemberChange;
-import com.example.spoonanalyzer.model.ConstructType;
-import com.example.spoonanalyzer.model.ConstructUsage;
+import github.chains.japicmp.model.ClassChange;
+import github.chains.japicmp.model.MemberChange;
+import github.chains.spoonanalyzer.model.ConstructType;
+import github.chains.spoonanalyzer.model.ConstructUsage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
