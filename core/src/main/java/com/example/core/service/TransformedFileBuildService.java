@@ -396,6 +396,7 @@ public class TransformedFileBuildService {
                 case DEPENDENCY_RESOLUTION_FAILURE -> FailureCategory.DEPENDENCY_RESOLUTION_FAILURE;
                 case DEPENDENCY_LOCK_FAILURE -> FailureCategory.DEPENDENCY_LOCK_FAILURE;
                 case UNKNOWN -> FailureCategory.UNKNOWN_FAILURE;
+                case FAILURE_JAVADOC_GENERATION -> FailureCategory.FAILURE_JAVADOC_GENERATION;
             };
         } catch (Exception e) {
             log.warn("Failed to convert category: {}", classifierCategory, e);

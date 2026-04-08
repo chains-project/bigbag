@@ -10,6 +10,8 @@ import com.example.core.model.ClassificationSummary;
 import com.example.core.service.ChangeImpactReportService;
 import com.example.core.service.GitWorkflowService;
 import com.example.core.service.ProcessIdService;
+import com.example.core.service.JavadocExtractor;
+import com.example.core.service.RoseauApiExtractor;
 import com.example.core.util.FileSystemUtils;
 import com.example.core.util.ProjectPaths;
 
@@ -44,6 +46,8 @@ public class AgentRepairPipeline implements RepairPipeline {
     private final boolean verbose;
     private final ChangeImpactReportService changeImpactService;
     private final GitWorkflowService gitWorkflowService;
+    private final RoseauApiExtractor roseauApiExtractor;
+    private final JavadocExtractor javadocExtractor;
 
     public AgentRepairPipeline(DockerBuild dockerBuild, EnvConfig envConfig, boolean verbose) {
         this.dockerBuild = dockerBuild;
@@ -51,6 +55,8 @@ public class AgentRepairPipeline implements RepairPipeline {
         this.verbose = verbose;
         this.changeImpactService = new ChangeImpactReportService(verbose, envConfig);
         this.gitWorkflowService = new GitWorkflowService();
+        this.roseauApiExtractor = new RoseauApiExtractor();
+        this.javadocExtractor = new JavadocExtractor();
     }
 
     @Override
@@ -186,6 +192,23 @@ public class AgentRepairPipeline implements RepairPipeline {
             } else {
                 log.warn("breaking-classifier report not found at {}. Skipping copy of original error files.", classifierReport);
             }
+        }
+
+        // Step 5a: Generate Roseau API representations for both dependency versions
+        if (commitReportDir != null) {
+            try {
+                roseauApiExtractor.extractAndCopy(record, extractedPath, commitReportDir);
+            } catch (Exception e) {
+                log.warn("Failed to extract Roseau API representations: {}", e.getMessage());
+            }
+        }
+
+        // Step 5b: Extract Javadoc of the new dependency version into the project directory
+        boolean javadocOk = javadocExtractor.extract(record, extractedPath);
+        if (!javadocOk) {
+            log.error("Javadoc generation failed for commit {} — stopping pipeline", record.breakingCommit());
+            return createFailureAttempt(processId, commitReportDir, FailureCategory.FAILURE_JAVADOC_GENERATION,
+                    "JAVADOC_GENERATION_FAILURE");
         }
 
         // Step 5: Execute agent (delegated to agent - it handles everything internally)
