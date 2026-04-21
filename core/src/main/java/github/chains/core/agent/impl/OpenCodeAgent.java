@@ -71,6 +71,26 @@ public class OpenCodeAgent extends BaseAgent {
         this.apiDocsFolder = ruleGenerator + "-api-docs";
     }
 
+    /**
+     * Returns the Docker image name. When LLM_PROVIDER=copilot the dedicated
+     * {@code opencode-copilot} image is used (pre-baked with Copilot auth files).
+     */
+    @Override
+    public String getDockerImageName() {
+        String provider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
+        return isCopilotProvider(provider) ? "opencode-copilot:latest" : "opencode:latest";
+    }
+
+    /**
+     * Returns the Dockerfile path matching {@link #getDockerImageName()}.
+     */
+    @Override
+    public Path getDockerfilePath() {
+        String provider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
+        String imageDir = isCopilotProvider(provider) ? "opencode-copilot" : "opencode";
+        return Path.of("images/" + imageDir + "/Dockerfile");
+    }
+
     @Override
     public void validateEnvironment() throws IllegalStateException {
         getEnvPath(BASE_TEMPLATE).ifPresentOrElse(
