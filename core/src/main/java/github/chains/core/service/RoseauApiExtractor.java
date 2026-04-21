@@ -6,6 +6,7 @@ import io.github.alien.roseau.Library;
 import io.github.alien.roseau.Roseau;
 import io.github.alien.roseau.api.model.API;
 import io.github.alien.roseau.api.model.ClassDecl;
+import io.github.alien.roseau.api.model.ConstructorDecl;
 import io.github.alien.roseau.api.model.FieldDecl;
 import io.github.alien.roseau.api.model.LibraryTypes;
 import io.github.alien.roseau.api.model.MethodDecl;
@@ -391,9 +392,29 @@ public class RoseauApiExtractor {
                     .toList();
 
             for (TypeDecl type : types) {
-                // Type header
+                // Type header: visibility + modifiers + kind + name
                 String kind = typeKind(type);
-                sb.append("## ").append(kind).append(" `").append(type.getQualifiedName()).append("`\n");
+                String visStr = type.getVisibility().name().toLowerCase();
+                String typeMods = modifiersStr(type.getModifiers());
+                sb.append("## ").append(visStr).append(" ").append(typeMods).append(kind)
+                  .append(" `").append(type.getQualifiedName()).append("`");
+
+                // Formal type parameters (generics)
+                List<?> typeParams = type.getFormalTypeParameters();
+                if (!typeParams.isEmpty()) {
+                    String tpStr = typeParams.stream().map(Object::toString).collect(Collectors.joining(", "));
+                    sb.append("<").append(tpStr).append(">");
+                }
+                sb.append("\n");
+
+                // Annotations on the type
+                if (!type.getAnnotations().isEmpty()) {
+                    String annStr = type.getAnnotations().stream()
+                            .map(a -> "@" + a.actualAnnotation().getQualifiedName())
+                            .sorted()
+                            .collect(Collectors.joining(", "));
+                    sb.append("annotations: ").append(annStr).append("  \n");
+                }
 
                 // Superclass (for classes)
                 if (type instanceof ClassDecl classDecl && classDecl.getSuperClass() != null) {
@@ -414,6 +435,33 @@ public class RoseauApiExtractor {
                 }
                 sb.append("\n");
 
+                // Constructors (classes only)
+                if (type instanceof ClassDecl classDecl) {
+                    List<ConstructorDecl> constructors = classDecl.getDeclaredConstructors().stream()
+                            .filter(c -> c.isPublic() || c.isProtected())
+                            .sorted(Comparator.comparing(ConstructorDecl::getSignature))
+                            .toList();
+                    if (!constructors.isEmpty()) {
+                        sb.append("**Constructors:**\n");
+                        for (ConstructorDecl ctor : constructors) {
+                            String params = ctor.getParameters().stream()
+                                    .map(p -> p.type().getQualifiedName() + (p.isVarargs() ? "..." : "") + " " + p.name())
+                                    .collect(Collectors.joining(", "));
+                            sb.append("- `")
+                              .append(ctor.getVisibility().name().toLowerCase()).append(" ")
+                              .append(modifiersStr(ctor.getModifiers()))
+                              .append(classDecl.getSimpleName()).append("(").append(params).append(")");
+                            if (!ctor.getThrownExceptions().isEmpty()) {
+                                String throws_ = ctor.getThrownExceptions().stream()
+                                        .map(Object::toString).sorted().collect(Collectors.joining(", "));
+                                sb.append(" throws ").append(throws_);
+                            }
+                            sb.append("`\n");
+                        }
+                        sb.append("\n");
+                    }
+                }
+
                 // Fields
                 List<FieldDecl> fields = type.getDeclaredFields().stream()
                         .filter(f -> f.isPublic() || f.isProtected())
@@ -423,6 +471,7 @@ public class RoseauApiExtractor {
                     sb.append("**Fields:**\n");
                     for (FieldDecl field : fields) {
                         sb.append("- `")
+                          .append(field.getVisibility().name().toLowerCase()).append(" ")
                           .append(modifiersStr(field.getModifiers()))
                           .append(field.getType().getQualifiedName()).append(" ")
                           .append(field.getSimpleName()).append("`\n");
@@ -439,13 +488,26 @@ public class RoseauApiExtractor {
                 if (!methods.isEmpty()) {
                     sb.append("**Methods:**\n");
                     for (MethodDecl method : methods) {
+                        String methodTypeParams = "";
+                        if (!method.getFormalTypeParameters().isEmpty()) {
+                            methodTypeParams = "<" + method.getFormalTypeParameters().stream()
+                                    .map(Object::toString).collect(Collectors.joining(", ")) + "> ";
+                        }
                         String params = method.getParameters().stream()
-                                .map(p -> p.type().getQualifiedName() + " " + p.name())
+                                .map(p -> p.type().getQualifiedName() + (p.isVarargs() ? "..." : "") + " " + p.name())
                                 .collect(Collectors.joining(", "));
                         sb.append("- `")
+                          .append(method.getVisibility().name().toLowerCase()).append(" ")
                           .append(modifiersStr(method.getModifiers()))
+                          .append(methodTypeParams)
                           .append(method.getType().getQualifiedName()).append(" ")
-                          .append(method.getSimpleName()).append("(").append(params).append(")`\n");
+                          .append(method.getSimpleName()).append("(").append(params).append(")");
+                        if (!method.getThrownExceptions().isEmpty()) {
+                            String throws_ = method.getThrownExceptions().stream()
+                                    .map(Object::toString).sorted().collect(Collectors.joining(", "));
+                            sb.append(" throws ").append(throws_);
+                        }
+                        sb.append("`\n");
                     }
                     sb.append("\n");
                 }

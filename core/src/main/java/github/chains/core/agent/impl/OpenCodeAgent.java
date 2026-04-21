@@ -407,8 +407,8 @@ public class OpenCodeAgent extends BaseAgent {
                    - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client. \
                    - Save the transformation in %s/src/main/java/github/chains/Main.java. \
                    - Use the %s API documentation located in folder %s/ for reference. \
-                4) Compile the transformation and verify it has no errors. \
-                5) Apply the transformation to @%s/ and ensure both compilation errors and test errors are fixed. \
+                4) Compile and validatethe transformation to ensure it has no errors. \
+                5) Execute the transformation to @%s/ and ensure both compilation errors and test errors are fixed. \
                 6) Ensure generalizability: ensure the generated rule contains no hardcoded project-specific identifiers. \
                    The rule must be applicable to other projects by simply changing the input source directory path.\
                 """
@@ -424,8 +424,32 @@ public class OpenCodeAgent extends BaseAgent {
                         docsPath,
                         projectName);
 
+        // When the model ID contains a provider-specific routing suffix (e.g. "qwen/qwen3-coder:deepinfra/turbo"),
+        // OpenCode does not recognise it from its built-in list. We write a minimal opencode.json into a
+        // temporary directory and pass --dir so OpenCode picks it up as its working-directory config.
+        String opencodeRunPrefix;
+        if (model.contains(":")) {
+            // OpenCode prepends the organization prefix (first path segment of the model id)
+            // automatically when building the OpenRouter request. To avoid doubling (e.g.
+            // "qwen/qwen/qwen3-coder-next:ionstream"), the `id` field in opencode.json must
+            // NOT include the org prefix — OpenCode adds it. Strip "org/" from the full id.
+            // e.g. "qwen/qwen3-coder-next:ionstream" → id "qwen3-coder-next:ionstream"
+            String modelKey = model.replace("/", "_").replace(":", "__");
+            int slashIdx = model.indexOf("/");
+            String modelIdForConfig = slashIdx >= 0 ? model.substring(slashIdx + 1) : model;
+            String escapedModelIdForConfig = modelIdForConfig.replace("\"", "\\\"");
+            opencodeRunPrefix = String.format(
+                    "mkdir -p /tmp/opencode-cfg && " +
+                    "printf '{\"provider\":{\"openrouter\":{\"models\":{\"%%s\":{\"id\":\"%%s\"}}}}}' " +
+                    "'%s' '%s' > /tmp/opencode-cfg/opencode.json && " +
+                    "opencode run --dir /tmp/opencode-cfg -m openrouter/%s --format json",
+                    modelKey, escapedModelIdForConfig, modelKey);
+        } else {
+            opencodeRunPrefix = "opencode run -m " + providerModel + " --format json";
+        }
+
         return """
-                opencode run -m %s --format json "%s" 2>&1 | tee %s; \
+                %s "%s" 2>&1 | tee %s; \
                 cp %s %s 2>/dev/null || true; \
                 SESSION_ID=$(grep -o '"sessionID":"ses_[^"]*"' %s | head -1 | cut -d'"' -f4); \
                 echo "Session ID: $SESSION_ID"; \
@@ -435,7 +459,7 @@ public class OpenCodeAgent extends BaseAgent {
                   echo "WARNING: Could not extract session ID - skipping export"; \
                 fi\
                 """.formatted(
-                providerModel,
+                opencodeRunPrefix,
                 prompt,
                 logFile,
                 logFile,
