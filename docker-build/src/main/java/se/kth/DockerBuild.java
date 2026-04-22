@@ -2115,7 +2115,16 @@ public class DockerBuild {
             String docsFolderName, Path ghConfigDir, boolean verbose) {
         return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
                 projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
-                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, null);
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, null, null);
+    }
+
+    public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, Path ghConfigDir, Path javadocFolder, boolean verbose) {
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, null, javadocFolder);
     }
 
     /**
@@ -2129,7 +2138,7 @@ public class DockerBuild {
             String docsFolderName, Path ghConfigDir, boolean verbose, Path geminiSessionExportDir) {
         return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
                 projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
-                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, geminiSessionExportDir);
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, geminiSessionExportDir, null);
     }
 
     public boolean executeMavenCommandInContainerWithWorkspace(String dockerImage, Path workspaceDir,
@@ -2157,6 +2166,16 @@ public class DockerBuild {
             Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
             Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
             String docsFolderName, Path ghConfigDir, boolean verbose, Path geminiSessionExportDir) {
+        return executeMavenCommandInContainerWithWorkspaceInternal(dockerImage, workspaceDir, projectDir,
+                projectName, containerWorkDir, mavenCommand, logFile, environmentVariables, m2Folder,
+                spoonDocsFolder, docsFolderName, ghConfigDir, verbose, geminiSessionExportDir, null);
+    }
+
+    private boolean executeMavenCommandInContainerWithWorkspaceInternal(String dockerImage, Path workspaceDir,
+            Path projectDir, String projectName, String containerWorkDir, String mavenCommand,
+            Path logFile, Map<String, String> environmentVariables, Path m2Folder, Path spoonDocsFolder,
+            String docsFolderName, Path ghConfigDir, boolean verbose, Path geminiSessionExportDir,
+            Path javadocFolder) {
         String containerId = null;
         try {
             ensureBaseMavenImageExists(dockerImage);
@@ -2187,8 +2206,18 @@ public class DockerBuild {
                 binds.add(new Bind(
                         spoonDocsFolder.toAbsolutePath().toString(),
                         new Volume(docsMountPath),
-                        AccessMode.ro)); // Read-only mount for documentation
+                        AccessMode.ro));
                 log.info("API documentation will be mounted: {} -> {}", spoonDocsFolder, docsMountPath);
+            }
+
+            // Add Javadoc mount if provided (read-only, avoids copying into workspace)
+            if (javadocFolder != null && Files.exists(javadocFolder) && Files.isDirectory(javadocFolder)) {
+                String javadocMountPath = normalizedWorkDir + "/" + javadocFolder.getFileName();
+                binds.add(new Bind(
+                        javadocFolder.toAbsolutePath().toString(),
+                        new Volume(javadocMountPath),
+                        AccessMode.ro));
+                log.info("Javadoc will be mounted (read-only): {} -> {}", javadocFolder, javadocMountPath);
             }
 
             HostConfig hostConfig = HostConfig.newHostConfig().withBinds(binds);

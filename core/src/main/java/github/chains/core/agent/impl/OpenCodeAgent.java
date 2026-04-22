@@ -147,10 +147,9 @@ public class OpenCodeAgent extends BaseAgent {
         String containerApiSpecPath = (apiSpecFileName != null && Files.exists(workspaceDir.resolve(apiSpecFileName)))
                 ? CONTAINER_WORK_DIR + "/" + apiSpecFileName
                 : null;
-        String containerJavadocPath = (javadocDirName != null
-                && Files.isDirectory(workspaceDir.resolve(javadocDirName)))
-                        ? CONTAINER_WORK_DIR + "/" + javadocDirName
-                        : null;
+        String containerJavadocPath = javadocDirName != null
+                ? CONTAINER_WORK_DIR + "/" + javadocDirName
+                : null;
 
         String agentCommand = buildAgentCommand(request.projectName(), CONTAINER_WORK_DIR, apiDocsPath,
                 containerApiSpecPath, containerJavadocPath);
@@ -179,6 +178,7 @@ public class OpenCodeAgent extends BaseAgent {
                 apiDocsPath,
                 apiDocsFolder,
                 ghConfigDir,
+                request.javadocPath(),
                 request.verbose());
 
         String containerId = request.dockerBuild().getLastContainerId();
@@ -221,16 +221,6 @@ public class OpenCodeAgent extends BaseAgent {
                 log.info("Copied {} to workspace", apiSpecPath.getFileName());
             } catch (IOException e) {
                 log.warn("Failed to copy {} to workspace: {}", apiSpecPath.getFileName(), e.getMessage());
-            }
-        }
-        if (javadocPath != null && Files.isDirectory(javadocPath)) {
-            Path dest = workspaceDir.resolve(javadocPath.getFileName());
-            try {
-                copyDirectory(javadocPath, dest);
-                log.info("Copied Javadoc directory to workspace as {}/", javadocPath.getFileName());
-            } catch (IOException e) {
-                log.warn("Failed to copy Javadoc directory {} to workspace: {}", javadocPath.getFileName(),
-                        e.getMessage());
             }
         }
     }
@@ -517,6 +507,7 @@ public class OpenCodeAgent extends BaseAgent {
                 apiDocsPath,
                 apiDocsFolder,
                 ghConfigDir,
+                request.javadocPath(),
                 request.verbose());
         try {
             Files.deleteIfExists(tempLog);

@@ -222,14 +222,16 @@ public class AgentRepairPipeline implements RepairPipeline {
             if (Files.exists(candidate)) apiSpecPath = candidate;
         }
 
+        Path javadocCacheDir = envConfig.get("JAVADOC_CACHE_DIR").map(Paths::get).orElse(null);
         Path javadocPath = null;
-        try {
-            javadocPath = Files.list(extractedPath)
-                    .filter(p -> Files.isDirectory(p) && p.getFileName().toString().startsWith("javadoc-"))
-                    .findFirst()
-                    .orElse(null);
-        } catch (IOException e) {
-            log.warn("Could not search for javadoc directory in {}: {}", extractedPath, e.getMessage());
+        if (artifactId != null && newVersion != null) {
+            String javadocDirName = "javadoc-" + artifactId + "-" + newVersion;
+            Path candidate = javadocCacheDir != null
+                    ? javadocCacheDir.resolve(javadocDirName)
+                    : extractedPath.resolve(javadocDirName);
+            if (Files.isDirectory(candidate)) {
+                javadocPath = candidate;
+            }
         }
 
         // Step 5: Execute agent (delegated to agent - it handles everything internally)

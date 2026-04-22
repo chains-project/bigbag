@@ -78,6 +78,17 @@ public class JavadocExtractor {
             return false;
         }
 
+        String javadocDirName = "javadoc-" + artifactId + "-" + version;
+
+        // If cache has already extracted this javadoc, reuse it directly
+        if (cacheDir != null) {
+            Path cachedDir = cacheDir.resolve(javadocDirName);
+            if (Files.isDirectory(cachedDir)) {
+                log.info("JavadocExtractor: reusing extracted Javadoc from cache: {}", cachedDir);
+                return true;
+            }
+        }
+
         Path javadocJar = resolveJavadocJar(groupId, artifactId, version, extractedPath);
         if (javadocJar == null) {
             log.error("JavadocExtractor: Javadoc JAR not found locally or on Maven Central for {}:{} v{}",
@@ -85,7 +96,10 @@ public class JavadocExtractor {
             return false;
         }
 
-        Path javadocDir = extractedPath.resolve("javadoc-" + artifactId + "-" + version);
+        // Extract to cache if available, otherwise to extractedPath
+        Path javadocDir = cacheDir != null
+                ? cacheDir.resolve(javadocDirName)
+                : extractedPath.resolve(javadocDirName);
         log.info("JavadocExtractor: extracting {} → {}", javadocJar.getFileName(), javadocDir);
 
         try {
