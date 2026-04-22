@@ -56,7 +56,8 @@ public class AgentRepairPipeline implements RepairPipeline {
         this.changeImpactService = new ChangeImpactReportService(verbose, envConfig);
         this.gitWorkflowService = new GitWorkflowService();
         this.roseauApiExtractor = new RoseauApiExtractor();
-        this.javadocExtractor = new JavadocExtractor();
+        Path javadocCacheDir = envConfig.get("JAVADOC_CACHE_DIR").map(Paths::get).orElse(null);
+        this.javadocExtractor = new JavadocExtractor(javadocCacheDir);
     }
 
     @Override
@@ -232,6 +233,7 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
 
         // Step 5: Execute agent (delegated to agent - it handles everything internally)
+        dockerBuild.setCurrentCommit(record.breakingCommit());
         AgentExecutionRequest executionRequest = new AgentExecutionRequest(
                 dockerBuild,
                 projectDir,

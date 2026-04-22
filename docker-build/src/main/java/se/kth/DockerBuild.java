@@ -43,6 +43,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.UUID;
 
 public class DockerBuild {
 
@@ -67,8 +68,35 @@ public class DockerBuild {
     /** ID of the last container started by executeMavenCommandInContainerWithWorkspace. */
     private String lastContainerId = null;
 
+    private Map<String, String> containerLabels = new HashMap<>();
+    private String containerNamePrefix = "bigbag";
+    private String currentCommit = "unknown";
+
     public String getLastContainerId() {
         return lastContainerId;
+    }
+
+    public void setContainerLabels(Map<String, String> labels) {
+        this.containerLabels = labels != null ? labels : new HashMap<>();
+        String engine = this.containerLabels.getOrDefault("bigbag.engine", "");
+        String model = this.containerLabels.getOrDefault("bigbag.model", "")
+                .replaceAll("[^a-zA-Z0-9]", "-");
+        this.containerNamePrefix = "bigbag"
+                + (engine.isEmpty() ? "" : "-" + engine)
+                + (model.isEmpty() ? "" : "-" + model);
+    }
+
+    public void setCurrentCommit(String commit) {
+        this.currentCommit = (commit != null && commit.length() >= 7) ? commit.substring(0, 7) : "unknown";
+    }
+
+    private CreateContainerCmd labeled(CreateContainerCmd cmd) {
+        if (!containerLabels.isEmpty()) {
+            cmd.withLabels(containerLabels);
+        }
+        String shortHash = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
+        cmd.withName(containerNamePrefix + "-" + currentCommit + "-" + shortHash);
+        return cmd;
     }
 
     public DockerBuild(Boolean isBump, int max_attempts) {
@@ -158,8 +186,8 @@ public class DockerBuild {
         try {
             ensureBaseMavenImageExists(dockerImage);
 
-            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
-                    .withCmd("sh", "-c", "sleep 10")
+            CreateContainerResponse container = labeled(dockerClient.createContainerCmd(dockerImage)
+                    .withCmd("sh", "-c", "sleep 10"))
                     .exec();
 
             containerId = container.getId();
@@ -202,11 +230,11 @@ public class DockerBuild {
         String projectDirectoryName = "project";
         log.info("Creating container for {} with version {} in {}", gitUrl, versionTag, baseImage);
 
-        CreateContainerResponse container = dockerClient.createContainerCmd(baseImage)
+        CreateContainerResponse container = labeled(dockerClient.createContainerCmd(baseImage)
                 .withCmd("/bin/sh", "-c",
                         ("git clone --branch %s %s %s && cd %s && mvn test -B -l output.log -DtestFailureIgnore=true " +
                                 "-Dmaven.test.failure.ignore=true").formatted(versionTag,
-                                        gitUrl, projectDirectoryName, projectDirectoryName))
+                                        gitUrl, projectDirectoryName, projectDirectoryName)))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -250,8 +278,8 @@ public class DockerBuild {
 
         try {
             // 1. Create a container from the existing image
-            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
-                    .withCmd("/bin/sh") // Ensure container has a shell to execute commands
+            CreateContainerResponse container = labeled(dockerClient.createContainerCmd(dockerImage)
+                    .withCmd("/bin/sh")) // Ensure container has a shell to execute commands
                     .exec();
 
             String containerId = container.getId();
@@ -309,8 +337,8 @@ public class DockerBuild {
 
             // copy project to container
             // 1. Create a container from the existing image
-            CreateContainerResponse container = dockerClient.createContainerCmd(dockerImage)
-                    .withCmd("/bin/sh") // Ensure container has a shell to execute commands
+            CreateContainerResponse container = labeled(dockerClient.createContainerCmd(dockerImage)
+                    .withCmd("/bin/sh")) // Ensure container has a shell to execute commands
                     .exec();
 
             // 2. Start the container
@@ -362,9 +390,9 @@ public class DockerBuild {
             log.info("Creating docker image for breaking update {}", clientName);
 
             // create container with base image
-            CreateContainerResponse container = dockerClient.createContainerCmd(baseImage)
+            CreateContainerResponse container = labeled(dockerClient.createContainerCmd(baseImage)
                     .withWorkingDir("/%s".formatted(clientName))
-                    .withCmd("sh")
+                    .withCmd("sh"))
                     .exec();
 
             // start container
@@ -469,9 +497,9 @@ public class DockerBuild {
     private String startContainer(String cmd, String image, Path client) {
         String clientName = client.getFileName().toString();
 
-        CreateContainerResponse container = dockerClient.createContainerCmd(image)
+        CreateContainerResponse container = labeled(dockerClient.createContainerCmd(image)
                 .withWorkingDir("/" + clientName)
-                .withCmd("sh", "-c", cmd)
+                .withCmd("sh", "-c", cmd))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -521,10 +549,10 @@ public class DockerBuild {
                         new Volume(normalizedContainerPath),
                         AccessMode.rw));
 
-        CreateContainerResponse container = dockerClient.createContainerCmd(image)
+        CreateContainerResponse container = labeled(dockerClient.createContainerCmd(image)
                 .withHostConfig(hostConfig)
                 .withWorkingDir(normalizedContainerPath)
-                .withCmd("sh", "-c", cmd)
+                .withCmd("sh", "-c", cmd))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -819,9 +847,9 @@ public class DockerBuild {
     }
 
     public CreateContainerResponse startContainerEntryPoint(String imageId, String[] entrypoint) {
-        CreateContainerResponse container = dockerClient
+        CreateContainerResponse container = labeled(dockerClient
                 .createContainerCmd(imageId)
-                .withEntrypoint(entrypoint)
+                .withEntrypoint(entrypoint))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -1038,10 +1066,10 @@ public class DockerBuild {
      * @return the containerID of the started container
      */
     public String startSpinningContainer(String imageId, HostConfig hostConfig) {
-        CreateContainerResponse container = dockerClient
+        CreateContainerResponse container = labeled(dockerClient
                 .createContainerCmd(imageId)
                 .withHostConfig(hostConfig)
-                .withEntrypoint("sh", "-c", "sleep 60")
+                .withEntrypoint("sh", "-c", "sleep 60"))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -1058,9 +1086,9 @@ public class DockerBuild {
      * @return the containerID of the started container
      */
     public String startSpinningContainer(String imageId) {
-        CreateContainerResponse container = dockerClient
+        CreateContainerResponse container = labeled(dockerClient
                 .createContainerCmd(imageId)
-                .withEntrypoint("sh", "-c", "sleep infinity")
+                .withEntrypoint("sh", "-c", "sleep infinity"))
                 .exec();
 
         dockerClient.startContainerCmd(container.getId()).exec();
@@ -1459,13 +1487,13 @@ public class DockerBuild {
         try (TarArchiveOutputStream tarOut = new TarArchiveOutputStream(baos)) {
             tarOut.setLongFileMode(TarArchiveOutputStream.LONGFILE_POSIX);
 
-            // Add Dockerfile
-            Path dockerfile = dockerfileDir.resolve("Dockerfile");
-            if (Files.exists(dockerfile)) {
-                TarArchiveEntry entry = new TarArchiveEntry(dockerfile.toFile(), "Dockerfile");
-                tarOut.putArchiveEntry(entry);
-                Files.copy(dockerfile, tarOut);
-                tarOut.closeArchiveEntry();
+            try (var stream = Files.list(dockerfileDir)) {
+                for (Path file : stream.filter(Files::isRegularFile).toList()) {
+                    TarArchiveEntry entry = new TarArchiveEntry(file.toFile(), file.getFileName().toString());
+                    tarOut.putArchiveEntry(entry);
+                    Files.copy(file, tarOut);
+                    tarOut.closeArchiveEntry();
+                }
             }
 
             tarOut.finish();
@@ -1909,7 +1937,7 @@ public class DockerBuild {
                 createCmd.withEnv(envList);
             }
 
-            CreateContainerResponse container = createCmd.exec();
+            CreateContainerResponse container = labeled(createCmd).exec();
             containerId = container.getId();
             log.info("Created container {} for execution", containerId);
 
@@ -2179,7 +2207,7 @@ public class DockerBuild {
                 createCmd.withEnv(envList);
             }
 
-            CreateContainerResponse container = createCmd.exec();
+            CreateContainerResponse container = labeled(createCmd).exec();
             containerId = container.getId();
             this.lastContainerId = containerId;
             log.info("Created container {} for execution with workspace structure", containerId);

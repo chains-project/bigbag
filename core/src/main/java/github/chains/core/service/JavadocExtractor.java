@@ -27,10 +27,11 @@ import java.util.jar.JarFile;
  *
  * <p>Javadoc JAR resolution order:
  * <ol>
+ *   <li>{@code JAVADOC_CACHE_DIR} (shared cache, avoids re-downloading across runs)</li>
  *   <li>{@code extractedPath/} root (copied from the breaking Docker image)</li>
  *   <li>{@code extractedPath/m2/.m2/repository/...}</li>
  *   <li>{@code ~/.m2/repository/...}</li>
- *   <li>Maven Central — downloaded via HTTP using the dependency coordinates</li>
+ *   <li>Maven Central — downloaded and saved to cache if available</li>
  * </ol>
  *
  * <p>Extracted HTML is placed at:
@@ -42,6 +43,16 @@ public class JavadocExtractor {
 
     private static final String MAVEN_CENTRAL_BASE = "https://repo1.maven.org/maven2";
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
+
+    private final Path cacheDir;
+
+    public JavadocExtractor() {
+        this.cacheDir = null;
+    }
+
+    public JavadocExtractor(Path cacheDir) {
+        this.cacheDir = cacheDir;
+    }
 
     /**
      * Resolves the Javadoc JAR for the new dependency version and extracts it
@@ -117,14 +128,23 @@ public class JavadocExtractor {
         String javadocJarName = artifactId + "-" + version + "-javadoc.jar";
         String groupPath      = groupId.replace('.', '/');
 
-        // 1. Directly in extractedPath root (copied from the breaking Docker image)
+        // 1. Shared cache (JAVADOC_CACHE_DIR)
+        if (cacheDir != null) {
+            Path cached = cacheDir.resolve(javadocJarName);
+            if (Files.isRegularFile(cached)) {
+                log.info("JavadocExtractor: found Javadoc JAR in cache: {}", cached);
+                return cached;
+            }
+        }
+
+        // 2. Directly in extractedPath root (copied from the breaking Docker image)
         Path direct = extractedPath.resolve(javadocJarName);
         if (Files.isRegularFile(direct)) {
             log.debug("JavadocExtractor: found Javadoc JAR at extracted root: {}", direct);
             return direct;
         }
 
-        // 2. In the project's embedded m2 cache
+        // 3. In the project's embedded m2 cache
         Path fromProjectM2 = extractedPath
                 .resolve("m2").resolve(".m2").resolve("repository")
                 .resolve(groupPath).resolve(artifactId).resolve(version).resolve(javadocJarName);
@@ -133,7 +153,7 @@ public class JavadocExtractor {
             return fromProjectM2;
         }
 
-        // 3. User's local Maven repository
+        // 4. User's local Maven repository
         Path userM2 = Paths.get(System.getProperty("user.home"), ".m2", "repository")
                 .resolve(groupPath).resolve(artifactId).resolve(version).resolve(javadocJarName);
         if (Files.isRegularFile(userM2)) {
@@ -141,10 +161,20 @@ public class JavadocExtractor {
             return userM2;
         }
 
-        // 4. Download from Maven Central using the dependency coordinates
+        // 5. Download from Maven Central — save to cache if available, else to extractedPath
         String mavenCentralUrl = MAVEN_CENTRAL_BASE + "/" + groupPath + "/" + artifactId
                 + "/" + version + "/" + javadocJarName;
-        return downloadFromMavenCentral(mavenCentralUrl, extractedPath.resolve(javadocJarName));
+        Path downloadDest = cacheDir != null ? cacheDir.resolve(javadocJarName)
+                                             : extractedPath.resolve(javadocJarName);
+        if (cacheDir != null) {
+            try {
+                Files.createDirectories(cacheDir);
+            } catch (IOException e) {
+                log.warn("JavadocExtractor: could not create cache dir {}: {}", cacheDir, e.getMessage());
+                downloadDest = extractedPath.resolve(javadocJarName);
+            }
+        }
+        return downloadFromMavenCentral(mavenCentralUrl, downloadDest);
     }
 
     /**

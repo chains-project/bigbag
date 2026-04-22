@@ -168,6 +168,12 @@ public class MainCli implements Callable<Integer> {
                 log.info("KEEP_CONTAINER=true: breaking images and agent containers will NOT be removed after execution");
             }
 
+            Map<String, String> containerLabels = new HashMap<>();
+            containerLabels.put("bigbag", "");
+            envConfig.get("RULE_GENERATOR").ifPresent(e -> containerLabels.put("bigbag.engine", e));
+            envConfig.get("LLM_MODEL").ifPresent(m -> containerLabels.put("bigbag.model", m));
+            this.dockerBuild.setContainerLabels(containerLabels);
+
             // Determine pipeline type from CLI argument or environment variable
             String selectedPipelineType = determinePipelineType();
             this.repairPipeline = createRepairPipeline(selectedPipelineType);
