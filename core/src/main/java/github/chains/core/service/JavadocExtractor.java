@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -41,7 +42,11 @@ public class JavadocExtractor {
 
     private static final Logger log = LoggerFactory.getLogger(JavadocExtractor.class);
 
-    private static final String MAVEN_CENTRAL_BASE = "https://repo1.maven.org/maven2";
+    private static final List<String> MAVEN_REPOS = List.of(
+            "https://repo1.maven.org/maven2",
+            "https://repo.jenkins-ci.org/releases",
+            "https://repo.jenkins-ci.org/public"
+    );
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
 
     private final Path cacheDir;
@@ -175,9 +180,7 @@ public class JavadocExtractor {
             return userM2;
         }
 
-        // 5. Download from Maven Central — save to cache if available, else to extractedPath
-        String mavenCentralUrl = MAVEN_CENTRAL_BASE + "/" + groupPath + "/" + artifactId
-                + "/" + version + "/" + javadocJarName;
+        // 5. Try each known Maven repository in order
         Path downloadDest = cacheDir != null ? cacheDir.resolve(javadocJarName)
                                              : extractedPath.resolve(javadocJarName);
         if (cacheDir != null) {
@@ -188,7 +191,12 @@ public class JavadocExtractor {
                 downloadDest = extractedPath.resolve(javadocJarName);
             }
         }
-        return downloadFromMavenCentral(mavenCentralUrl, downloadDest);
+        for (String repoBase : MAVEN_REPOS) {
+            String url = repoBase + "/" + groupPath + "/" + artifactId + "/" + version + "/" + javadocJarName;
+            Path result = downloadFromMavenRepo(url, downloadDest);
+            if (result != null) return result;
+        }
+        return null;
     }
 
     /**
@@ -196,8 +204,8 @@ public class JavadocExtractor {
      * Returns {@code dest} on success, {@code null} if the artifact is not
      * found (404) or any network/IO error occurs.
      */
-    private Path downloadFromMavenCentral(String url, Path dest) {
-        log.info("JavadocExtractor: downloading Javadoc JAR from Maven Central: {}", url);
+    private Path downloadFromMavenRepo(String url, Path dest) {
+        log.info("JavadocExtractor: downloading Javadoc JAR from: {}", url);
         try {
             HttpClient client = HttpClient.newBuilder()
                     .connectTimeout(DOWNLOAD_TIMEOUT)
@@ -214,7 +222,7 @@ public class JavadocExtractor {
                     HttpResponse.BodyHandlers.ofInputStream());
 
             if (response.statusCode() == 404) {
-                log.warn("JavadocExtractor: Javadoc JAR not published on Maven Central (404): {}", url);
+                log.debug("JavadocExtractor: 404 at {}", url);
                 return null;
             }
             if (response.statusCode() != 200) {
