@@ -68,6 +68,8 @@ public class AgentRepairPipeline implements RepairPipeline {
         log.info("Starting agent-based repair pipeline for {} (commit: {})",
                 projectName, record.breakingCommit());
 
+        dockerBuild.setCurrentCommit(record.breakingCommit());
+
         Path projectDir = ProjectPaths.resolveProjectDir(extractedPath, projectName);
 
         // Initialize Git repository if not already initialized
@@ -235,7 +237,6 @@ public class AgentRepairPipeline implements RepairPipeline {
         }
 
         // Step 5: Execute agent (delegated to agent - it handles everything internally)
-        dockerBuild.setCurrentCommit(record.breakingCommit());
         AgentExecutionRequest executionRequest = new AgentExecutionRequest(
                 dockerBuild,
                 projectDir,

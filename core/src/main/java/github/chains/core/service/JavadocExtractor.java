@@ -50,6 +50,7 @@ public class JavadocExtractor {
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
 
     private final Path cacheDir;
+    private static final java.util.concurrent.ConcurrentHashMap<String, Object> extractionLocks = new java.util.concurrent.ConcurrentHashMap<>();
 
     public JavadocExtractor() {
         this.cacheDir = null;
@@ -84,7 +85,9 @@ public class JavadocExtractor {
         }
 
         String javadocDirName = "javadoc-" + artifactId + "-" + version;
+        Object lock = extractionLocks.computeIfAbsent(javadocDirName, k -> new Object());
 
+        synchronized (lock) {
         // If cache has already extracted this javadoc, reuse it directly
         if (cacheDir != null) {
             Path cachedDir = cacheDir.resolve(javadocDirName);
@@ -137,6 +140,7 @@ public class JavadocExtractor {
             log.error("JavadocExtractor: failed to extract Javadoc JAR {}: {}", javadocJar, e.getMessage());
             return false;
         }
+        } // end synchronized
     }
 
     // -------------------------------------------------------------------------

@@ -70,7 +70,7 @@ public class DockerBuild {
 
     private Map<String, String> containerLabels = new HashMap<>();
     private String containerNamePrefix = "bigbag";
-    private String currentCommit = "unknown";
+    private final ThreadLocal<String> currentCommit = ThreadLocal.withInitial(() -> "unknown");
 
     public String getLastContainerId() {
         return lastContainerId;
@@ -87,7 +87,7 @@ public class DockerBuild {
     }
 
     public void setCurrentCommit(String commit) {
-        this.currentCommit = (commit != null && commit.length() >= 7) ? commit.substring(0, 7) : "unknown";
+        this.currentCommit.set((commit != null && commit.length() >= 7) ? commit.substring(0, 7) : "unknown");
     }
 
     private CreateContainerCmd labeled(CreateContainerCmd cmd) {
@@ -95,7 +95,7 @@ public class DockerBuild {
             cmd.withLabels(containerLabels);
         }
         String shortHash = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
-        cmd.withName(containerNamePrefix + "-" + currentCommit + "-" + shortHash);
+        cmd.withName(containerNamePrefix + "-" + currentCommit.get() + "-" + shortHash);
         return cmd;
     }
 
