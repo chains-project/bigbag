@@ -1,0 +1,30 @@
+/* The MIT License (MIT) Copyright (c) 2020-2022 artipie.com
+https://github.com/artipie/docker-adapter/LICENSE.txt
+ */
+package com.artipie.docker.http;
+import com.artipie.docker.Digest;
+import com.artipie.docker.error.BlobUnknownError;
+import java.util.Collections;
+import com.artipie.http.hm.RsHasBody;
+import com.artipie.http.hm.RsHasStatus;
+import com.artipie.http.rs.RsStatus;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Test;
+/**
+ * Test case for {@link ErrorsResponse}.
+ *
+ * @since 0.5
+ */
+public final class ErrorsResponseTest {
+    @Test
+    void shouldHaveExpectedStatus() {
+        final RsStatus status = RsStatus.NOT_FOUND;
+        MatcherAssert.assertThat(new ErrorsResponse(status, Collections.emptyList()), new RsHasStatus(status));
+    }
+
+    @Test
+    void shouldHaveExpectedBody() {
+        // @checkstyle LineLengthCheck (1 line)
+        MatcherAssert.assertThat(new ErrorsResponse(RsStatus.NOT_FOUND, Collections.singleton(new BlobUnknownError(new Digest.Sha256("123")))), new RsHasBody("{\"errors\":[{\"code\":\"BLOB_UNKNOWN\",\"message\":\"blob unknown to registry\",\"detail\":\"sha256:123\"}]}".getBytes()));
+    }
+}

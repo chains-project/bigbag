@@ -1,0 +1,129 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 0
+  adminConnectors:
+    - type: http
+      port: 0
+  requestLog:
+    appenders: []
+
+logging:
+  level: ERROR
+  appenders:
+    - type: logstash-console
+      threshold: ERROR
+      target: stdout
+      customFields:
+        container: "adminusers"
+
+database:
+  driverClass: org.postgresql.Driver
+  user: postgres
+  password: mysecretpassword
+  url:
+
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "SELECT '1'"
+
+  # the timeout before a connection validation queries fail
+  validationQueryTimeout: 2s
+
+  # The initial size of the connection pool
+  initialSize: 4
+
+  # the minimum number of connections to keep open
+  minSize: 4
+
+  # the maximum number of connections to keep open
+  maxSize: 8
+
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: false
+
+  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
+  evictionInterval: 10s
+
+  # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
+  minIdleTime: 1 minute
+
+jpa:
+  jpaLoggingLevel: WARNING
+  sqlLoggingLevel: WARNING
+  ddlGenerationOutputMode: database
+  queryResultsCache: false
+  cacheSharedDefault: false
+
+notify:
+  cardApiKey: ${NOTIFY_API_KEY:-api_key-pay-notify-service-id-pay-notify-secret-needs-to-be-32-chars-fsghdngfhmhfkrgsfs}
+  notificationBaseURL: ${NOTIFY_BASE_URL:-https://stubs.pymnt.localdomain/notify}
+  signInOtpSmsTemplateId: ${NOTIFY_SIGN_IN_OTP_SMS_TEMPLATE_ID:-pay-notify-sign-in-otp-sms-template-id}
+  changeSignIn2faToSmsOtpSmsTemplateId: ${NOTIFY_CHANGE_SIGN_IN_2FA_TO_SMS_OTP_SMS_TEMPLATE_ID:-pay-notify-change-sign-in-2fa-to-sms-otp-sms-template-id}
+  selfInitiatedCreateUserAndServiceOtpSmsTemplateId: ${NOTIFY_SELF_INITIATED_CREATE_USER_AND_SERVICE_OTP_SMS_TEMPLATE_ID:-pay-notify-self-initiated-create-user-and-service-otp-sms-template-id}
+  createUserInResponseToInvitationToServiceOtpSmsTemplateId: ${NOTIFY_CREATE_USER_IN_RESPONSE_TO_INVITATION_TO_SERVICE_OTP_SMS_TEMPLATE_ID:-pay-notify-create-user-in-response-to-invitation-to-service-otp-sms-template-id}
+  inviteUserEmailTemplateId: ${NOTIFY_INVITE_USER_EMAIL_TEMPLATE_ID:-pay-notify-invite-user-email-template-id}
+  inviteUserExistingEmailTemplateId: ${NOTIFY_INVITE_USER_EXISTING_EMAIL_TEMPLATE_ID:-pay-notify-invite-user-existing-email-template-id}
+  forgottenPasswordEmailTemplateId: ${NOTIFY_FORGOTTEN_PASSWORD_EMAIL_TEMPLATE_ID:-pay-notify-forgotten-password-email-template-id}
+  inviteServiceEmailTemplateId: ${NOTIFY_INVITE_SERVICE_EMAIL_TEMPLATE_ID:-pay-notify-invite-service-email-template-id}
+  inviteServiceUserExistsEmailTemplateId: ${NOTIFY_INVITE_SERVICE_USER_EXITS_EMAIL_TEMPLATE_ID:-pay-notify-invite-service-user-exists-email-template-id}
+  inviteServiceUserDisabledEmailTemplateId: ${NOTIFY_INVITE_SERVICE_USER_DISABLED_EMAIL_TEMPLATE_ID:-pay-notify-invite-service-user-disabled-email-template-id}
+  liveAccountCreatedEmailTemplateId: ${NOTIFY_LIVE_ACCOUNT_CREATED_EMAIL_TEMPLATE_ID:-pay-notify-live-account-created-email-template-id}
+  stripeDisputeCreatedEmailTemplateId: ${NOTIFY_STRIPE_DISPUTE_CREATED_EMAIL_TEMPLATE_ID:-pay-notify-stripe-dispute-created-email-template-id}
+  stripeDisputeLostEmailTemplateId: ${NOTIFY_STRIPE_DISPUTE_LOST_EMAIL_TEMPLATE_ID:-pay-notify-stripe-dispute-lost-email-template-id}
+  stripeDisputeLostAndServiceChargedEmailTemplateId: ${NOTIFY_STRIPE_DISPUTE_LOST_AND_SERVICE_CHARGED_EMAIL_TEMPLATE_ID:-pay-notify-stripe-dispute-lost-email-template-id}
+  stripeDisputeEvidenceSubmittedEmailTemplateId: ${NOTIFY_STRIPE_DISPUTE_EVIDENCE_SUBMITTED_EMAIL_TEMPLATE_ID:-pay-notify-stripe-dispute-evidence-submitted-email-template-id}
+  stripeDisputeWonEmailTemplateId: ${NOTIFY_STRIPE_DISPUTE_WON_EMAIL_TEMPLATE_ID:-pay-notify-stripe-dispute-won-email-template-id}
+  notifyEmailReplyToSupportId: ${NOTIFY_EMAIL_REPLY_TO_SUPPORT_ID:-pay-notify-email-reply-to-support-id}
+
+notifyDirectDebit:
+  mandateCancelledEmailTemplateId: ${NOTIFY_MANDATE_CANCELLED_EMAIL_TEMPLATE_ID:-pay-mandate-cancelled-email-template-id}
+  mandateFailedEmailTemplateId: ${NOTIFY_MANDATE_FAILED_EMAIL_TEMPLATE_ID:-pay-mandate-failed-email-template-id}
+  paymentFailedEmailTemplateId: ${NOTIFY_PAYMENT_FAILED_EMAIL_TEMPLATE_ID:-pay-payment-failed-email-template-id}
+  oneOffMandateAndPaymentCreatedEmailTemplateId: ${NOTIFY_ONE_OFF_MANDATE_AND_PAYMENT_CREATED_EMAIL_TEMPLATE_ID:-pay-one-off-mandate-and-payment-created-email-template-id}
+  onDemandMandateCreatedEmailTemplateId: ${NOTIFY_ON_DEMAND_MANDATE_CREATED_EMAIL_TEMPLATE_ID:-pay-on-demand-mandate-created-email-template-id}
+  onDemandPaymentConfirmedEmailTemplateId: ${NOTIFY_ON_DEMAND_PAYMENT_CONFIRMED_EMAIL_TEMPLATE_ID:-pay-on-demand-payment-confirmed-email-template-id}
+
+forgottenPasswordExpiryMinutes: ${FORGOTTEN_PASSWORD_EXPIRY_MINUTES:-90}
+
+graphiteHost: ${METRICS_HOST:-localhost}
+graphitePort: ${METRICS_PORT:-8092}
+
+links:
+  selfserviceUrl: ${SELFSERVICE_URL:-https://selfservice.pymnt.localdomain}
+  selfserviceInvitesUrl: ${SELFSERVICE_URL:-https://selfservice.pymnt.localdomain}/invites
+  selfserviceLoginUrl: ${SELFSERVICE_URL:-https://selfservice.pymnt.localdomain}/login
+  selfserviceForgottenPasswordUrl: ${SELFSERVICE_URL:-https://selfservice.pymnt.localdomain}/reset-password
+  selfserviceServicesUrl: ${SELFSERVICE_URL:-https://selfservice.pymnt.localdomain}/services
+  supportUrl: ${SUPPORT_URL:-https://frontend.pymnt.localdomain/contact/}
+
+baseUrl: ${BASE_URL:-http://localhost:8080}
+loginAttemptCap: ${LOGIN_ATTEMPT_CAP:-10}
+
+secondFactorAuthentication:
+  timeWindowInSeconds: 30
+  validTimeWindows: 9
+
+sqs:
+  nonStandardServiceEndpoint: ${AWS_SQS_NON_STANDARD_SERVICE_ENDPOINT:-true}
+  endpoint: ${AWS_SQS_ENDPOINT:-localhost}
+  region: ${AWS_SQS_REGION:-region-1}
+  secretKey: ${AWS_SECRET_KEY:-x}
+  accessKey: ${AWS_ACCESS_KEY:-x}
+  eventSubscriberQueueUrl: ${AWS_SQS_EVENT_SUBSCRIBER_QUEUE_URL}
+  messageMaximumWaitTimeInSeconds: ${AWS_SQS_MESSAGE_MAXIMUM_WAIT_TIME_IN_SECONDS:-1}
+  messageMaximumBatchSize: ${AWS_SQS_MESSAGE_MAXIMUM_BATCH_SIZE:-10}
+
+eventSubscriberQueue:
+  eventSubscriberQueueEnabled: ${EVENT_SUBSCRIBER_QUEUE_ENABLED:-false}
+  failedMessageRetryDelayInSeconds: ${EVENT_SUBSCRIBER_QUEUE_MESSAGE_RETRY_FAILED_IN_SECONDS:-3600}
+  queueSchedulerNumberOfThreads: ${EVENT_SUBSCRIBER_QUEUE_SCHEDULER_NUMBER_OF_THREADS:-1}
+  queueSchedulerThreadDelayInMilliseconds: ${EVENT_SUBSCRIBER_QUEUE_SCHEDULER_THREAD_DELAY_IN_MILLISECONDS:-1}
+  queueSchedulerShutdownTimeoutInSeconds: ${EVENT_SUBSCRIBER_QUEUE_SCHEDULER_SHUTDOWN_TIMEOUT_IN_SECONDS:-15}
+
+ledgerBaseURL: ${LEDGER_URL}
+
+restClientConfig:
+  disabledSecureConnection: ${DISABLE_INTERNAL_HTTPS:-false}

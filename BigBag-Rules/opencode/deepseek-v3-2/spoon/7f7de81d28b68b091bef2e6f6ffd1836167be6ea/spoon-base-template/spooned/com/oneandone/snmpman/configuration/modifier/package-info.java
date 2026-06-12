@@ -1,0 +1,12 @@
+/**
+ * This package contains all components to represent modified {@link org.snmp4j.smi.Variable}.
+ * <br>
+ * In this context the so called modified variables are those which value change with every prompt.
+ * <br>
+ * Every implementation of the {@link com.oneandone.snmpman.configuration.modifier.VariableModifier} can be used as a binding
+ * modifier in a device configuration.
+ *
+ * @see com.oneandone.snmpman.configuration.Device
+ */
+package com.oneandone.snmpman.configuration.modifier;
+

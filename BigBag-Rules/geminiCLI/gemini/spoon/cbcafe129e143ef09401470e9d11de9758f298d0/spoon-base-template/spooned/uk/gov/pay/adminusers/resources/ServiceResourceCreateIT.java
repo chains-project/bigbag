@@ -1,0 +1,18 @@
+package uk.gov.pay.adminusers.resources;
+import com.fasterxml.jackson.databind.JsonNode;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
+import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import uk.gov.service.payments.commons.model.SupportedLanguage;
+class ServiceResourceCreateIT extends IntegrationTest {
+    @Test
+    void shouldCreateService() {
+        JsonNode payload = mapper.valueToTree(Map.of("service_name", Map.of(SupportedLanguage.ENGLISH.toString(), "Service name"), "gateway_account_ids", List.of("1")));
+        givenSetup().when().contentType(JSON).body(payload).post("v1/api/services").then().statusCode(201).body("created_date", is(not(nullValue()))).body("gateway_account_ids", is(List.of("1"))).body("service_name", hasEntry("en", "Service name"));
+    }
+}

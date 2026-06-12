@@ -1,0 +1,26 @@
+  ---
+  Read and Write S3 Objects
+  ---
+  Yegor Bugayenko
+  ---
+  2014-11-02
+  ---
+
+Read and Write S3 Objects
+
+  All you need to read an object is to know its bucket and its name:
+
++--
+import com.jcabi.s3.Bucket;
+import com.jcabi.s3.Ocket;
+import com.jcabi.s3.Region;
+public class Main {
+  public static void main(String[] args) {
+    Region region = new Region.Simple("key", "secret");
+    Bucket bucket = region.bucket("my.example.com");
+    Ocket.Text ocket = new Ocket.Text(bucket.ocket("test.txt"));
+    String content = ocket.read();
+    ocket.write("hello, world!");
+  }
+}
++--
