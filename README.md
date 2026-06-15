@@ -227,4 +227,4 @@ Results are written per-commit under `OUTPUT_DIR/<breakingCommit>/` and summaris
 
 ## License
 
-This artifact is released for academic reproducibility. See `LICENSE` for terms.
+This artifact is released for academic reproducibility. See [`LICENSE`](LICENSE) for terms.
