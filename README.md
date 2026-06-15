@@ -1,120 +1,230 @@
-# Transformer Agent Monorepo
+# BigBag
+>*Agentic Generation of AST Transformation Rules for Fixing Breaking Updates*
 
-Transformer Agent is a Maven multi-module workspace that bundles every component required to analyze and repair breaking dependency updates. It combines static analysis, API differencing, change impact reporting, Docker-based reproduction, and build-log classification into a single toolkit inspired by the Bacardi workflow.
+BigBag is a pipeline that automatically repairs Java projects broken by a dependency update. Given a project that fails to compile after bumping a library version, BigBag (1) reproduces the failure inside a reproducible Docker environment, (2) pinpoints every source line impacted by the API change, (3) constructs a rich context prompt, and (4) drives an LLM-backed coding agent to write a source-transformation rule (Spoon or JavaParser) that brings the project back to a green build.
+
+---
+
+## Repository Structure
 
 ```
-📦 transformer-agent
-├── core/                    ⇢ Pipelines, CLIs, orchestration utilities
-├── docker-build/            ⇢ Docker helpers used by the pipelines
-├── breaking-classifier/     ⇢ Maven build log parser & classifier
+📦 transformer-agent (BigBag artifact)
+├── core/                    ⇢ Orchestration pipelines, CLIs, repair entry-points
+├── docker-build/            ⇢ Docker helpers — pull, extract, mount, reproduce
+├── breaking-classifier/     ⇢ Maven build-log parser & failure classifier
 ├── api_changes/             ⇢ japicmp-based API diff generator
 ├── spoon-line-analyzer/     ⇢ Spoon-powered per-line construct scanner
-├── change-impact-reporter/  ⇢ Merges construct usage + API diffs into JSON
-└── prompts/, analysis/, …   ⇢ Prompt templates, experiment data, reports
+├── change-impact-reporter/  ⇢ Fuses Spoon + japicmp output into a single JSON
+├── BigBag-Rules/            ⇢ Raw repair-rule outputs for every evaluated combination
+│   ├── opencode/            ⇢   OpenCode agent runs
+│   │   ├── deepseek-v3-2/   ⇢     DeepSeek V3 results (spoon / javaparser)
+│   │   ├── gpt-5-4-mini/    ⇢     GPT-4o-mini results
+│   │   └── qwen3-coder-30b/ ⇢     Qwen3-Coder 30B results
+│   └── geminiCLI/           ⇢   Gemini CLI agent runs
+├── prompts/                 ⇢ Prompt templates used in the evaluation
+├── analysis/                ⇢ Experiment data and result reports
+└── llm/                     ⇢ Standalone LLM client utilities
 ```
+
+---
+
+## Approach Overview
+
+```
+Breaking update JSON
+        │
+        ▼
+┌─────────────────────┐
+│  Docker Extraction  │  Pull image → extract project + .m2 to disk
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Build Reproduction │  Re-run Maven inside Docker; capture build.log
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Failure Classifier │  Parse log → failure category + error locations
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  API Diff (japicmp) │  Compare old JAR vs new JAR → structural API changes
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Impact Analysis    │  Map API changes to source lines via Spoon
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Prompt Generation  │  Assemble context: errors + API diff + impacted lines
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│   LLM Coding Agent  │  Agent writes a Spoon / JavaParser transformation rule
+│  (Gemini · OpenCode)│
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  Rule Execution &   │  Apply rule → rebuild → verify green build
+│  Verification       │
+└─────────────────────┘
+```
+
+### LLM Agents & Rule Generators Evaluated
+
+| Agent backend | Models evaluated |
+|---|---|
+| **OpenCode** | DeepSeek V3, GPT-4o-mini, Qwen3-Coder 30B |
+| **Gemini CLI** | Gemini 2.x |
+
+| Rule generator | Description |
+|---|---|
+| **Spoon** | AST-level Java source transformation |
+| **JavaParser** | Token/AST-based transformation alternative |
+
+---
 
 ## Requirements
 
-- JDK 21+
-- Maven 3.9+
-- Docker daemon (for the extraction/build flows inside the `core` module)
+| Dependency | Version |
+|---|---|
+| JDK | 21+ |
+| Maven | 3.9+ |
+| Docker | daemon running |
+| Roseau (API diff) | built from source (see setup below) |
 
-## Building Everything
+---
+
+## Setup
+
+### 1 — Install Roseau
+
+Roseau is a dependency not yet on Maven Central. The provided script clones and installs it:
 
 ```bash
-mvn clean package
+bash setup.sh
 ```
 
-The reactor builds every module and produces shaded/fat JARs under each module’s `target/` directory (see the list above). Docker images are **not** built automatically; Docker is only required when the runtime pipelines pull/extract containers.
-
-## Module Overview
-
-| Module | Purpose | Key artifacts |
-| --- | --- | --- |
-| `core` | High-level pipelines (Breaking Update processor, Bump analyzer, Breaking Change CLI). Orchestrates Docker extraction, log classification, and result management. | `core/target/core-1.0.0-SNAPSHOT.jar`, `core/target/bump-analyzer-1.0.0-SNAPSHOT.jar` |
-| `docker-build` | Thin wrapper around `docker-java` with utilities to pull images, extract projects/M2 folders, mount volumes, run builds, and fetch artifacts from containers. | `docker-build/target/docker-build-1.0.0-SNAPSHOT.jar` |
-| `breaking-classifier` | Parses Maven build logs, groups compiler/test errors per file, classifies them into failure categories, and exports structured JSON (`BreakingReport`). | `breaking-classifier/target/breaking-classifier-1.0.0-SNAPSHOT-jar-with-dependencies.jar` |
-| `spoon-line-analyzer` | Uses Spoon to inspect a source file and list every construct that appears on a specific line. Useful for mapping code usages back to API change events. | `spoon-line-analyzer/target/spoon-line-analyzer-1.0.0-SNAPSHOT-jar-with-dependencies.jar` |
-| `api_changes` (`japicmp-diff-tool`) | Compares two JARs, captures rich API diffs (added/removed/changed members), and emits JSON that can be correlated with source constructs. | `api_changes/target/japicmp-diff-tool-1.0.0-SNAPSHOT-shaded.jar` |
-| `change-impact-reporter` | Merges construct usage (from Spoon) and API diffs (from japicmp) into a single JSON report describing which lines are affected by each breaking change. | `change-impact-reporter/target/change-impact-reporter-1.0.0-SNAPSHOT-jar-with-dependencies.jar` |
-
-Each module also carries its own README with advanced flags, JSON schemas, and usage notes.
-
-## Core Module Highlights
-
-The `core` module is the “conductor” of the repo. It exposes multiple entry points:
-
-- **Breaking Update Processor CLI** (`com.example.core.Main`): scans benchmark JSON files, extracts Docker images, reproduces builds, and classifies failures in bulk. See `core/README.md` for CLI flags.
-- **Bump Analyzer** (`com.example.core.bump.BumpAnalyzerMain`): analyzes version combinations for a given dependency and emits reports about compatibility ranges.
-- **Breaking Change CLI** (`com.example.core.breakingchange.BreakingChangeCli`): processes a single BreakingChange JSON by downloading the referenced Docker image, extracting the project to disk, locating build logs, running `breaking-classifier`, and writing a structured JSON summary (failure category, error counts, log path, etc.). Example:
+### 2 — Build all modules
 
 ```bash
-java -cp core/target/core-1.0.0-SNAPSHOT.jar com.example.core.breakingchange.BreakingChangeCli \
-  --input ./breaking-change.json \
-  --output-dir ./extracted-projects \
-  --result-json ./reports/breaking-change-report.json \
-  --force \
+mvn clean package -DskipTests
+```
+
+This produces a fat JAR for every module under the respective `target/` directory.
+
+### 3 — Configure the environment
+
+Copy `.env.example` to `.env` and fill in the required values:
+
+```bash
+cp .env.example .env
+```
+
+Key variables:
+
+```dotenv
+# LLM agent backend: "gemini" | "opencode"
+AGENT_NAME=gemini
+LLM_API_KEY=your_api_key_here
+
+# Code transformation engine: "spoon" | "javaparser"
+RULE_GENERATOR=spoon
+
+# Paths to the rule-generator template and its API docs
+BASE_TEMPLATE=/path/to/spoon-base-template
+API_DOCS=/path/to/spoon-javadoc
+
+# Input: directory of breaking-update JSON files (one per project)
+INPUT_DIR=/path/to/breaking-updates
+
+# Output: extracted projects, logs, and repair results
+OUTPUT_DIR=/path/to/output
+
+# Pipeline mode: "agent" (LLM agent) | "model" (direct prompt)
+REPAIR_PIPELINE=agent
+```
+
+---
+
+## Running the Repair Pipeline
+
+### Process all breaking updates in a directory
+
+```bash
+java -jar core/target/core-1.0.0-SNAPSHOT.jar \
+  --input-dir "$INPUT_DIR" \
+  --output-dir "$OUTPUT_DIR" \
+  --repair-pipeline agent \
   --verbose
 ```
 
-## Module Quickstarts
-
-### spoon-line-analyzer
+### Process a single breaking update
 
 ```bash
-java -jar spoon-line-analyzer/target/spoon-line-analyzer-1.0.0-SNAPSHOT-jar-with-dependencies.jar \
-  --project /path/to/project \
-  --file src/main/java/package/Class.java \
-  --line 42
+java -jar core/target/core-1.0.0-SNAPSHOT.jar \
+  --input-dir "$INPUT_DIR" \
+  --output-dir "$OUTPUT_DIR" \
+  --specific-file <breakingCommit> \
+  --repair-pipeline agent
 ```
 
-### api_changes (japicmp-diff-tool)
+### Classify only (no repair)
+
+Reproduce the failure and classify the build log without attempting repair:
 
 ```bash
-java -jar api_changes/target/japicmp-diff-tool-1.0.0-SNAPSHOT-shaded.jar \
-  old.jar new.jar output.json
+java -jar core/target/core-1.0.0-SNAPSHOT.jar \
+  --input-dir "$INPUT_DIR" \
+  --output-dir "$OUTPUT_DIR" \
+  --classify \
+  --no-repair
 ```
 
-### change-impact-reporter
+The full list of CLI flags is documented in `core/README.md`.
+
+---
+
+## Module Reference
+
+| Module | Artifact | Purpose |
+|---|---|---|
+| `core` | `core-1.0.0-SNAPSHOT.jar` | End-to-end pipelines and CLI entry-points |
+| `docker-build` | `docker-build-1.0.0-SNAPSHOT.jar` | Docker image pull, project extraction, build reproduction |
+| `breaking-classifier` | `breaking-classifier-…-jar-with-dependencies.jar` | Build-log parsing and failure categorisation |
+| `api_changes` | `japicmp-diff-tool-…-shaded.jar` | JAR-level API diff (added/removed/changed members) |
+| `spoon-line-analyzer` | `spoon-line-analyzer-…-jar-with-dependencies.jar` | Per-line Java construct identification |
+| `change-impact-reporter` | `change-impact-reporter-…-jar-with-dependencies.jar` | Merge Spoon + japicmp output into impact JSON |
+
+Each module ships its own README with advanced flags and JSON schema descriptions.
+
+---
+
+## Replication
+
+The `BigBag-Rules/` directory contains the raw rule outputs produced by every agent–model–generator combination evaluated in the paper. To re-run a specific combination:
 
 ```bash
-java -jar change-impact-reporter/target/change-impact-reporter-1.0.0-SNAPSHOT-jar-with-dependencies.jar \
-  --project /path/to/project \
-  --file src/main/java/package/Class.java \
-  --line 42 \
-  --old-jar old.jar \
-  --new-jar new.jar \
-  --output output.json
+# Example: OpenCode + DeepSeek V3 + Spoon
+AGENT_NAME=opencode \
+LLM_MODEL=deepseek/deepseek-chat \
+RULE_GENERATOR=spoon \
+java -jar core/target/core-1.0.0-SNAPSHOT.jar \
+  --input-dir "$INPUT_DIR" \
+  --output-dir "$OUTPUT_DIR" \
+  --repair-pipeline agent
 ```
 
-### breaking-classifier
+Results are written per-commit under `OUTPUT_DIR/<breakingCommit>/` and summarised in the JSON report specified by `JSON_OUTPUT`.
 
-```bash
-java -jar breaking-classifier/target/breaking-classifier-1.0.0-SNAPSHOT-jar-with-dependencies.jar \
-  --log /path/to/maven.log \
-  --json-output report.json
-```
+---
 
-### docker-build (library)
+## License
 
-Used programmatically from `core`. You rarely run it directly, but you can explore `se.kth.DockerBuild` to understand how project extraction and build reproduction are orchestrated.
-
-## Next Steps
-
-1. Build everything once with `mvn clean package`.
-2. Inspect module READMEs for advanced scenarios (e.g., running classifiers, fusing Spoon + japicmp reports, executing the Bacardi-style pipeline).
-3. Create a `.env` file at the repository root (or copy from `.env.example`) with all CLI options. Every key must be present; execution stops if a required entry is missing. Example:
-
-```
-INPUT_DIR=/absolute/path/to/breaking-updates
-OUTPUT_DIR=./output
-SPECIFIC_FILE=
-CATEGORY=COMPILATION_FAILURE
-EXTRACT=true
-CLASSIFY=true
-CLEAN=true
-VERBOSE=false
-JSON_OUTPUT=./reports/breaking-updates-results.json
-```
-
-4. Provide API keys and `.env` entries (see the `analysis/` folder and prompts/) if you plan to integrate LLM-based repair strategies downstream.
+This artifact is released for academic reproducibility. See `LICENSE` for terms.

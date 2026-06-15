@@ -1,0 +1,21 @@
+Project @<project>/ does not compile due to a breaking dependency update.
+Your goal is to generate a GENERIC, REUSABLE transformation rule - not a one-off patch - that can be applied to ANY Maven project affected by the same breaking change.
+
+Plan:
+1) Identify the compilation errors in @<project>/ and determine which API (class/method/constructor/signature) changed in the dependency.
+   The new dependency API specification is available at <api-spec.md> and the Javadoc at <dependency-API-documentation> for reference when identifying replacement types, methods, or fields.
+2) Characterize the breaking change abstractly:
+   - What was the old API pattern? (e.g., Foo.bar(String))
+   - What is the new API pattern? (e.g., Foo.bar(String, boolean))
+   - What structural transformation does this require at the call site?
+   Do NOT assume the fix is specific to this project - any project calling the old API will need the same transformation.
+3) Generate a GENERIC [Spoon/Javaparser] transformation using the template in @<template>/:
+   - Match the old API pattern structurally, not by project-specific class names.
+   - Use patterns to traverse all files and apply the fix wherever the old pattern appears.
+   - Parameterize by fully-qualified type names and method signatures from the dependency, NOT from the client.
+   - Save the transformation in <template>/src/main/java/github/chains/Main.java.
+   - Use the [Spoon/Javaparser] API documentation located in folder @<API-Documentation> for reference.
+4) Compile and validate the transformation to ensure it has no errors.
+5) Execute the transformation to @<project> and ensure both compilation errors and test errors are fixed.
+6) Ensure generalizability: ensure the generated rule contains no hardcoded project-specific identifiers.
+   The rule must be applicable to other projects by simply changing the input source directory path.
