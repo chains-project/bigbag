@@ -271,6 +271,7 @@ public class OpenCodeAgent extends BaseAgent {
      * <li>"anthropic" → injects ANTHROPIC_API_KEY from LLM_API_KEY</li>
      * <li>"openai" → injects OPENAI_API_KEY from LLM_API_KEY</li>
      * <li>"openrouter" → injects OPENROUTER_API_KEY from LLM_API_KEY</li>
+     * <li>"deepseek" → injects DEEPSEEK_API_KEY from LLM_API_KEY (DeepSeek API)</li>
      * <li>"copilot" / {@code github-copilot} → injects GITHUB_TOKEN from
      * LLM_API_KEY (GitHub Copilot)</li>
      * <li>"google" / {@code gemini} → injects GOOGLE_GENERATIVE_AI_API_KEY
@@ -286,6 +287,18 @@ public class OpenCodeAgent extends BaseAgent {
         Map<String, String> envVars = new HashMap<>();
 
         String provider = getEnv("LLM_PROVIDER").orElse("anthropic").toLowerCase();
+
+        // Custom OpenAI-compatible provider (LLM_BASE_URL set): the generated opencode.json
+        // reads the key from <PROVIDER>_API_KEY, see customProviderRunPrefix().
+        if (customProviderBaseUrl().isPresent()) {
+            resolveApiKeyForProvider(provider).ifPresent(key -> {
+                envVars.put(customProviderKeyEnv(provider), key);
+                log.info("Custom OpenAI-compatible provider '{}' ({} injected)",
+                        provider, customProviderKeyEnv(provider));
+            });
+            getEnv("LLM_MODEL").ifPresent(model -> envVars.put("LLM_MODEL", model));
+            return envVars;
+        }
 
         resolveApiKeyForProvider(provider).ifPresent(key -> {
             switch (provider) {
@@ -316,6 +329,10 @@ public class OpenCodeAgent extends BaseAgent {
                 case "openrouter":
                     envVars.put("OPENROUTER_API_KEY", key);
                     log.info("Using OpenRouter provider (OPENROUTER_API_KEY injected)");
+                    break;
+                case "deepseek":
+                    envVars.put("DEEPSEEK_API_KEY", key);
+                    log.info("Using DeepSeek provider (DEEPSEEK_API_KEY injected)");
                     break;
                 case "anthropic":
                 default:
@@ -438,7 +455,9 @@ public class OpenCodeAgent extends BaseAgent {
         // OpenCode does not recognise it from its built-in list. We write a minimal opencode.json into a
         // temporary directory and pass --dir so OpenCode picks it up as its working-directory config.
         String opencodeRunPrefix;
-        if (model.contains(":")) {
+        if (customProviderBaseUrl().isPresent()) {
+            opencodeRunPrefix = customProviderRunPrefix(rawProvider, model, customProviderBaseUrl().get());
+        } else if (model.contains(":")) {
             // OpenCode prepends the organization prefix (first path segment of the model id)
             // automatically when building the OpenRouter request. To avoid doubling (e.g.
             // "qwen/qwen/qwen3-coder-next:ionstream"), the `id` field in opencode.json must
@@ -651,6 +670,32 @@ public class OpenCodeAgent extends BaseAgent {
 
     private static boolean isGoogleProvider(String rawProvider) {
         return PROVIDER_GOOGLE.equals(rawProvider) || PROVIDER_GEMINI.equals(rawProvider);
+    }
+
+    /** Base URL of a custom OpenAI-compatible provider (e.g. https://api.modelstream.ai/v1). */
+    private Optional<String> customProviderBaseUrl() {
+        return getEnv("LLM_BASE_URL").map(String::trim).filter(s -> !s.isBlank());
+    }
+
+    /** Env var holding the custom provider key inside the container, e.g. MODELSTREAM_API_KEY. */
+    private static String customProviderKeyEnv(String provider) {
+        return provider.toUpperCase().replaceAll("[^A-Z0-9]", "_") + "_API_KEY";
+    }
+
+    /**
+     * Command prefix for a custom OpenAI-compatible provider: writes an opencode.json that
+     * declares the provider (key read from the environment, never written to disk) and points
+     * OpenCode at it via OPENCODE_CONFIG, so the working directory stays /workspace and the
+     * image's global config (permissions) still applies.
+     */
+    private static String customProviderRunPrefix(String provider, String model, String baseUrl) {
+        String json = ("{\"provider\":{\"%s\":{\"npm\":\"@ai-sdk/openai-compatible\",\"name\":\"%s\","
+                + "\"options\":{\"baseURL\":\"%s\",\"apiKey\":\"{env:%s}\"},"
+                + "\"models\":{\"%s\":{\"name\":\"%s\"}}}}}")
+                .formatted(provider, provider, baseUrl, customProviderKeyEnv(provider), model, model);
+        return "mkdir -p /tmp/opencode-cfg && printf '%s' '" + json.replace("'", "") + "'"
+                + " > /tmp/opencode-cfg/opencode.json && OPENCODE_CONFIG=/tmp/opencode-cfg/opencode.json"
+                + " opencode run -m " + provider + "/" + model + " --format json";
     }
 
     private static String toOpenCodeProviderId(String rawProvider) {
