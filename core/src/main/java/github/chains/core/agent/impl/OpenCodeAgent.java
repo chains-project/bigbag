@@ -252,7 +252,47 @@ public class OpenCodeAgent extends BaseAgent {
             }
         });
 
+        // Optional Maven Central mirror (MAVEN_MIRROR): Central answers 429 to heavy Docker
+        // traffic, which breaks template compilation inside the agent container.
+        Optional<String> mirror = mavenMirrorUrl();
+        if (mirror.isPresent()) {
+            String settings = """
+                    <settings><mirrors><mirror>
+                      <id>maven-central-mirror</id><mirrorOf>central</mirrorOf><url>%s</url>
+                    </mirror></mirrors></settings>
+                    """.formatted(mirror.get());
+            Files.writeString(workspaceDir.resolve(MAVEN_MIRROR_SETTINGS), settings);
+            log.info("Maven Central mirror configured: {}", mirror.get());
+        }
+
         return workspaceDir;
+    }
+
+    /** Settings file written into the workspace root when MAVEN_MIRROR is set. */
+    private static final String MAVEN_MIRROR_SETTINGS = ".maven-mirror.xml";
+
+    private Optional<String> mavenMirrorUrl() {
+        return getEnv("MAVEN_MIRROR").map(String::trim).filter(s -> !s.isBlank());
+    }
+
+    /** Small Central artifact used to probe whether Central is rate-limiting this container. */
+    private static final String CENTRAL_PROBE_URL = "https://repo.maven.apache.org/maven2/"
+            + "org/apache/maven/plugins/maven-resources-plugin/3.3.0/maven-resources-plugin-3.3.0.pom";
+
+    /**
+     * Shell prefix that keeps Maven Central as the default and switches every later mvn call
+     * in the container to the mirror (MAVEN_ARGS, Maven >= 3.9) only when Central answers 429.
+     * Empty when MAVEN_MIRROR is not set. The probe runs inside the container because the host
+     * and the containers may be rate-limited differently.
+     */
+    private String mavenMirrorFallbackPrefix() {
+        if (mavenMirrorUrl().isEmpty()) {
+            return "";
+        }
+        String settings = CONTAINER_WORK_DIR + "/" + MAVEN_MIRROR_SETTINGS;
+        return "if [ \"$(curl -s -o /dev/null -w '%{http_code}' " + CENTRAL_PROBE_URL + ")\" = \"429\" ]; then "
+                + "export MAVEN_ARGS=\"-gs " + settings + "\"; "
+                + "echo 'Maven Central returned 429: using mirror'; fi; ";
     }
 
     /**
@@ -476,6 +516,7 @@ public class OpenCodeAgent extends BaseAgent {
         } else {
             opencodeRunPrefix = "opencode run -m " + providerModel + " --format json";
         }
+        opencodeRunPrefix = mavenMirrorFallbackPrefix() + opencodeRunPrefix;
 
         return """
                 %s "%s" 2>&1 | tee %s; \
@@ -504,7 +545,8 @@ public class OpenCodeAgent extends BaseAgent {
     private Path executeTestCommand(AgentExecutionRequest request, Path workspaceDir,
             Map<String, String> envVars, Path apiDocsPath, Path ghConfigDir) {
         String projectPath = CONTAINER_WORK_DIR + "/" + request.projectName();
-        String testCommand = String.format("cd %s && mvn test 2>&1 | tee mavenTest.log", projectPath);
+        String testCommand = mavenMirrorFallbackPrefix()
+                + String.format("cd %s && mvn test 2>&1 | tee mavenTest.log", projectPath);
 
         Path tempLog = null;
         try {
