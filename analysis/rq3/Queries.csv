@@ -1,239 +1,206 @@
-BU id,search,query,date,results,source
-BU01,code search (size-sharded),"filename:pom.xml ""maven-dependency-tree"" ""org.apache.maven.shared"" ""2.2"" size:0..4000000",2026-10-20,241,output/reps_search_round2/1_phase1.log
-BU01,"code search (original, capped)","filename:pom.xml ""maven-dependency-tree"" ""org.apache.maven.shared"" ""2.2""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU01,unmerged PR search (exact),"type:pr is:unmerged ""maven-dependency-tree from 2.2 to 3.1.0"" language:Java",2026-05-25,10,pr_searcher.py:165 (first 100 results)
-BU01,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""maven-dependency-tree"" ""2.2"" language:Java",2026-05-25,,pr_searcher.py:167
-BU01,all-PR history search,"""maven-dependency-tree"" ""2.2"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU02,"code search (original, capped)","filename:pom.xml ""assertj-core"" ""org.assertj"" ""3.22.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU02,unmerged PR search (exact),"type:pr is:unmerged ""assertj-core from 3.22.0 to 3.23.0"" language:Java",2026-05-25,1216,pr_searcher.py:165 (first 100 results)
-BU02,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""assertj-core"" ""3.22.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU02,all-PR history search,"""assertj-core"" ""3.22.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU03,"code search (original, capped)","filename:pom.xml ""github-api"" ""org.kohsuke"" ""1.93""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU03,unmerged PR search (exact),"type:pr is:unmerged ""github-api from 1.93 to 1.313"" language:Java",2026-05-25,1,pr_searcher.py:165 (first 100 results)
-BU03,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""github-api"" ""1.93"" language:Java",2026-05-25,,pr_searcher.py:167
-BU03,all-PR history search,"""github-api"" ""1.93"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU04,"code search (original, capped)","filename:pom.xml ""github-api"" ""org.kohsuke"" ""1.93""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU04,unmerged PR search (exact),"type:pr is:unmerged ""github-api from 1.93 to 1.314"" language:Java",2026-05-25,101,pr_searcher.py:165 (first 100 results)
-BU04,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""github-api"" ""1.93"" language:Java",2026-05-25,,pr_searcher.py:167
-BU04,all-PR history search,"""github-api"" ""1.93"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:2000001..4000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:1000001..2000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:500001..1000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:250001..500000",2026-10-19,5,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:125001..250000",2026-10-19,3,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:62501..125000",2026-10-19,42,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:31251..62500",2026-10-19,87,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:15626..31250",2026-10-19,166,output/reps_search/1_phase1.log
-BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:0..15625",2026-10-19,968,output/reps_search/1_phase1.log
-BU05,"code search (original, capped)","filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU05,unmerged PR search (exact),"type:pr is:unmerged ""reflections from 0.9.9 to 0.10.2"" language:Java",2026-05-25,20,pr_searcher.py:165 (first 100 results)
-BU05,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""reflections"" ""0.9.9"" language:Java",2026-05-25,,pr_searcher.py:167
-BU05,all-PR history search,"""reflections"" ""0.9.9"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU06,"code search (original, capped)","filename:pom.xml ""google-cloud-pubsublite"" ""com.google.cloud"" ""0.6.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU06,unmerged PR search (exact),"type:pr is:unmerged ""google-cloud-pubsublite from 0.6.0 to 0.18.0"" language:Java",2026-05-25,0,pr_searcher.py:165 (first 100 results)
-BU06,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""google-cloud-pubsublite"" ""0.6.0"" language:Java",2026-05-25,0,pr_searcher.py:167
-BU06,all-PR history search,"""google-cloud-pubsublite"" ""0.6.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:2000001..4000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:1000001..2000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:500001..1000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:250001..500000",2026-10-20,93,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:125001..250000",2026-10-20,37,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:62501..125000",2026-10-20,109,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:31251..62500",2026-10-20,200,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:15626..31250",2026-10-20,251,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:7813..15625",2026-10-20,300,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:3907..7812",2026-10-20,768,output/reps_search_round2/1_phase1.log
-BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:0..3906",2026-10-20,651,output/reps_search_round2/1_phase1.log
-BU07,"code search (original, capped)","filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU07,unmerged PR search (exact),"type:pr is:unmerged ""flyway-core from 3.2.1 to 9.21.1"" language:Java",2026-05-25,,pr_searcher.py:165 (first 100 results)
-BU07,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""flyway-core"" ""3.2.1"" language:Java",2026-05-25,,pr_searcher.py:167
-BU07,all-PR history search,"""flyway-core"" ""3.2.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU08,code search (size-sharded),"filename:pom.xml ""bcprov-jdk15on"" ""org.bouncycastle"" ""1.51"" size:0..4000000",2026-10-19,231,output/reps_search/1_phase1.log
-BU08,"code search (original, capped)","filename:pom.xml ""bcprov-jdk15on"" ""org.bouncycastle"" ""1.51""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU08,unmerged PR search (exact),"type:pr is:unmerged ""bcprov-jdk15on from 1.51 to 1.67"" language:Java",2026-05-25,91,pr_searcher.py:165 (first 100 results)
-BU08,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""bcprov-jdk15on"" ""1.51"" language:Java",2026-05-25,,pr_searcher.py:167
-BU08,all-PR history search,"""bcprov-jdk15on"" ""1.51"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2000001..4000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1000001..2000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:500001..1000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:250001..500000",2026-10-20,94,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:125001..250000",2026-10-20,52,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:62501..125000",2026-10-20,95,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:31251..62500",2026-10-20,148,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:15626..31250",2026-10-20,408,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:7813..15625",2026-10-20,988,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:6837..7812",2026-10-20,354,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:5860..6836",2026-10-20,606,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:4884..5859",2026-10-20,932,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:4396..4883",2026-10-20,926,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3907..4395",2026-10-20,964,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3663..3906",2026-10-20,636,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3419..3662",2026-10-20,636,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3175..3418",2026-10-20,700,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2931..3174",2026-10-20,772,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2687..2930",2026-10-20,990,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2565..2686",2026-10-20,537,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2443..2564",2026-10-20,632,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2199..2442",2026-10-20,744,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1954..2198",2026-10-20,834,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1832..1953",2026-10-20,455,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1710..1831",2026-10-20,808,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1466..1709",2026-10-20,550,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:977..1465",2026-10-20,610,output/reps_search_round2/1_phase1.log
-BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:0..976",2026-10-20,141,output/reps_search_round2/1_phase1.log
-BU09,"code search (original, capped)","filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU09,unmerged PR search (exact),"type:pr is:unmerged ""jakarta.servlet-api from 5.0.0 to 6.0.0"" language:Java",2026-05-25,64,pr_searcher.py:165 (first 100 results)
-BU09,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jakarta.servlet-api"" ""5.0.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU09,all-PR history search,"""jakarta.servlet-api"" ""5.0.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:2000001..4000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:1000001..2000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:500001..1000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:250001..500000",2026-10-19,107,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:125001..250000",2026-10-19,55,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:62501..125000",2026-10-19,148,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:31251..62500",2026-10-19,318,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:15626..31250",2026-10-19,450,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:11720..15625",2026-10-19,374,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:7813..11719",2026-10-19,854,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:5860..7812",2026-10-19,573,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:3907..5859",2026-10-19,770,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:1954..3906",2026-10-19,916,output/reps_search/1_phase1.log
-BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:0..1953",2026-10-19,207,output/reps_search/1_phase1.log
-BU10,"code search (original, capped)","filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU10,unmerged PR search (exact),"type:pr is:unmerged ""jackson-databind from 2.10.0 to 2.13.4.1"" language:Java",2026-05-25,3985,pr_searcher.py:165 (first 100 results)
-BU10,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jackson-databind"" ""2.10.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU10,all-PR history search,"""jackson-databind"" ""2.10.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU11,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.33""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU11,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.33 to 2.0"" language:Java",2026-05-25,638,pr_searcher.py:165 (first 100 results)
-BU11,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.33"" language:Java",2026-05-25,,pr_searcher.py:167
-BU11,all-PR history search,"""snakeyaml"" ""1.33"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:2000001..4000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:1000001..2000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:500001..1000000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:250001..500000",2026-10-20,0,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:125001..250000",2026-10-20,20,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:62501..125000",2026-10-20,115,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:31251..62500",2026-10-20,101,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:15626..31250",2026-10-20,133,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:7813..15625",2026-10-20,563,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:3907..7812",2026-10-20,834,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:1954..3906",2026-10-20,850,output/reps_search_round2/1_phase1.log
-BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:0..1953",2026-10-20,233,output/reps_search_round2/1_phase1.log
-BU12,"code search (original, capped)","filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU12,unmerged PR search (exact),"type:pr is:unmerged ""mockito-core from 3.12.4 to 4.1.0"" language:Java",2026-05-25,396,pr_searcher.py:165 (first 100 results)
-BU12,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""mockito-core"" ""3.12.4"" language:Java",2026-05-25,,pr_searcher.py:167
-BU12,all-PR history search,"""mockito-core"" ""3.12.4"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU13,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.24""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU13,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.24 to 2.0"" language:Java",2026-05-25,36,pr_searcher.py:165 (first 100 results)
-BU13,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.24"" language:Java",2026-05-25,,pr_searcher.py:167
-BU13,all-PR history search,"""snakeyaml"" ""1.24"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU14,"code search (original, capped)","filename:pom.xml ""doxia-site-renderer"" ""org.apache.maven.doxia"" ""1.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU14,unmerged PR search (exact),"type:pr is:unmerged ""doxia-site-renderer from 1.0 to 1.11.1"" language:Java",2026-05-25,3,pr_searcher.py:165 (first 100 results)
-BU14,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""doxia-site-renderer"" ""1.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU14,all-PR history search,"""doxia-site-renderer"" ""1.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU15,"code search (original, capped)","filename:pom.xml ""jasypt"" ""org.jasypt"" ""1.8""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU15,unmerged PR search (exact),"type:pr is:unmerged ""jasypt from 1.8 to 1.9.2"" language:Java",2026-05-25,23,pr_searcher.py:165 (first 100 results)
-BU15,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jasypt"" ""1.8"" language:Java",2026-05-25,,pr_searcher.py:167
-BU15,all-PR history search,"""jasypt"" ""1.8"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU16,"code search (original, capped)","filename:pom.xml ""datafaker"" ""net.datafaker"" ""1.3.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU16,unmerged PR search (exact),"type:pr is:unmerged ""datafaker from 1.3.0 to 1.4.0"" language:Java",2026-05-25,24,pr_searcher.py:165 (first 100 results)
-BU16,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""datafaker"" ""1.3.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU16,all-PR history search,"""datafaker"" ""1.3.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU17,"code search (original, capped)","filename:pom.xml ""jcabi-aspects"" ""com.jcabi"" ""0.24.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU17,unmerged PR search (exact),"type:pr is:unmerged ""jcabi-aspects from 0.24.1 to 0.25.1"" language:Java",2026-05-25,0,pr_searcher.py:165 (first 100 results)
-BU17,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jcabi-aspects"" ""0.24.1"" language:Java",2026-05-25,1,pr_searcher.py:167
-BU17,all-PR history search,"""jcabi-aspects"" ""0.24.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2000001..4000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:1000001..2000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:500001..1000000",2026-10-19,0,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:250001..500000",2026-10-19,273,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:125001..250000",2026-10-19,156,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:62501..125000",2026-10-19,716,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:46876..62500",2026-10-19,430,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:31251..46875",2026-10-19,740,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:23439..31250",2026-10-19,750,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:19533..23438",2026-10-19,533,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:15626..19532",2026-10-19,702,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:13673..15625",2026-10-19,450,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:11720..13672",2026-10-19,501,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:9767..11719",2026-10-19,910,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:8790..9766",2026-10-19,608,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:7813..8789",2026-10-19,694,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:7325..7812",2026-10-19,479,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:6837..7324",2026-10-19,545,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:6349..6836",2026-10-19,513,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:5860..6348",2026-10-19,585,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:5372..5859",2026-10-19,628,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:4884..5371",2026-10-19,644,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:4396..4883",2026-10-19,660,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:3907..4395",2026-10-19,896,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:3419..3906",2026-10-19,708,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2931..3418",2026-10-19,693,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2443..2930",2026-10-19,668,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:1954..2442",2026-10-19,934,output/reps_search/1_phase1.log
-BU18,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:0..1953",2026-10-19,634,output/reps_search/1_phase1.log
-BU18,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU18,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 2.0 to 2.1"" language:Java",2026-05-25,129,pr_searcher.py:165 (first 100 results)
-BU18,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""2.0"" language:Java",2026-05-25,,pr_searcher.py:167
-BU18,all-PR history search,"""snakeyaml"" ""2.0"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU19,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU19,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.11.1"" language:Java",2026-05-25,1,pr_searcher.py:165 (first 100 results)
-BU19,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,,pr_searcher.py:167
-BU19,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU20,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU20,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.10.0"" language:Java",2026-05-25,392,pr_searcher.py:165 (first 100 results)
-BU20,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,,pr_searcher.py:167
-BU20,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU21,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU21,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.11.0"" language:Java",2026-05-25,1,pr_searcher.py:165 (first 100 results)
-BU21,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,,pr_searcher.py:167
-BU21,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU22,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.32"" size:0..4000000",2026-10-20,481,output/reps_search_round2/1_phase1.log
-BU22,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.32""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU22,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.32 to 2.0"" language:Java",2026-05-25,261,pr_searcher.py:165 (first 100 results)
-BU22,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.32"" language:Java",2026-05-25,,pr_searcher.py:167
-BU22,all-PR history search,"""snakeyaml"" ""1.32"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU23,"code search (original, capped)","filename:pom.xml ""jcabi-aspects"" ""com.jcabi"" ""0.24.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU23,unmerged PR search (exact),"type:pr is:unmerged ""jcabi-aspects from 0.24.1 to 0.25.1"" language:Java",2026-05-25,0,pr_searcher.py:165 (first 100 results)
-BU23,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jcabi-aspects"" ""0.24.1"" language:Java",2026-05-25,1,pr_searcher.py:167
-BU23,all-PR history search,"""jcabi-aspects"" ""0.24.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU24,"code search (original, capped)","filename:pom.xml ""jcabi-aspects"" ""com.jcabi"" ""0.24.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU24,unmerged PR search (exact),"type:pr is:unmerged ""jcabi-aspects from 0.24.1 to 0.25.1"" language:Java",2026-05-25,0,pr_searcher.py:165 (first 100 results)
-BU24,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jcabi-aspects"" ""0.24.1"" language:Java",2026-05-25,1,pr_searcher.py:167
-BU24,all-PR history search,"""jcabi-aspects"" ""0.24.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU25,"code search (original, capped)","filename:pom.xml ""jcabi-aspects"" ""com.jcabi"" ""0.24.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU25,unmerged PR search (exact),"type:pr is:unmerged ""jcabi-aspects from 0.24.1 to 0.25.1"" language:Java",2026-05-25,0,pr_searcher.py:165 (first 100 results)
-BU25,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jcabi-aspects"" ""0.24.1"" language:Java",2026-05-25,1,pr_searcher.py:167
-BU25,all-PR history search,"""jcabi-aspects"" ""0.24.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU26,"code search (original, capped)","filename:pom.xml ""mysql-connector-java"" ""mysql"" ""5.1.49""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU26,unmerged PR search (exact),"type:pr is:unmerged ""mysql-connector-java from 5.1.49 to 8.0.28"" language:Java",2026-05-25,594,pr_searcher.py:165 (first 100 results)
-BU26,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""mysql-connector-java"" ""5.1.49"" language:Java",2026-05-25,,pr_searcher.py:167
-BU26,all-PR history search,"""mysql-connector-java"" ""5.1.49"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU27,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45,output/reps_search/1_phase1.log
-BU27,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU27,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.26"" language:Java",2026-05-25,93,pr_searcher.py:165 (first 100 results)
-BU27,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,,pr_searcher.py:167
-BU27,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU28,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45,output/reps_search/1_phase1.log
-BU28,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU28,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.30"" language:Java",2026-05-25,19,pr_searcher.py:165 (first 100 results)
-BU28,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,,pr_searcher.py:167
-BU28,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU29,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45,output/reps_search/1_phase1.log
-BU29,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU29,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.22"" language:Java",2026-05-25,82,pr_searcher.py:165 (first 100 results)
-BU29,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,,pr_searcher.py:167
-BU29,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU30,"code search (original, capped)","filename:pom.xml ""geoip2"" ""com.maxmind.geoip2"" ""2.16.1""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU30,unmerged PR search (exact),"type:pr is:unmerged ""geoip2 from 2.16.1 to 3.0.0"" language:Java",2026-05-25,31,pr_searcher.py:165 (first 100 results)
-BU30,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""geoip2"" ""2.16.1"" language:Java",2026-05-25,,pr_searcher.py:167
-BU30,all-PR history search,"""geoip2"" ""2.16.1"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU31,code search (size-sharded),"filename:pom.xml ""dubbo"" ""org.apache.dubbo"" ""2.7.3"" size:0..4000000",2026-10-20,455,output/reps_search_round2/1_phase1.log
-BU31,"code search (original, capped)","filename:pom.xml ""dubbo"" ""org.apache.dubbo"" ""2.7.3""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU31,unmerged PR search (exact),"type:pr is:unmerged ""dubbo from 2.7.3 to 2.7.21"" language:Java",2026-05-25,,pr_searcher.py:165 (first 100 results)
-BU31,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""dubbo"" ""2.7.3"" language:Java",2026-05-25,,pr_searcher.py:167
-BU31,all-PR history search,"""dubbo"" ""2.7.3"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
-BU32,"code search (original, capped)","filename:pom.xml ""plexus-archiver"" ""org.codehaus.plexus"" ""4.2.7""  (≤10 pages × 100)",2026-04-21,,github_searcher.py:319
-BU32,unmerged PR search (exact),"type:pr is:unmerged ""plexus-archiver from 4.2.7 to 4.4.0"" language:Java",2026-05-25,12,pr_searcher.py:165 (first 100 results)
-BU32,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""plexus-archiver"" ""4.2.7"" language:Java",2026-05-25,,pr_searcher.py:167
-BU32,all-PR history search,"""plexus-archiver"" ""4.2.7"" is:pr",2026-10-05 / 2026-10-19..20,,history_search.py:85 (≤10 pages × 100)
+BU id,search,query,date,results
+BU01,code search (size-sharded),"filename:pom.xml ""maven-dependency-tree"" ""org.apache.maven.shared"" ""2.2"" size:0..4000000",2026-10-20,241
+BU01,"code search (original, capped)","filename:pom.xml ""maven-dependency-tree"" ""org.apache.maven.shared"" ""2.2""  (≤10 pages × 100)",2026-04-21,
+BU01,unmerged PR search (exact),"type:pr is:unmerged ""maven-dependency-tree from 2.2 to 3.1.0"" language:Java",2026-05-25,10
+BU01,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""maven-dependency-tree"" ""2.2"" language:Java",2026-05-25,
+BU01,all-PR history search,"""maven-dependency-tree"" ""2.2"" is:pr",2026-10-05 / 2026-10-19..20,
+BU02,"code search (original, capped)","filename:pom.xml ""assertj-core"" ""org.assertj"" ""3.22.0""  (≤10 pages × 100)",2026-04-21,
+BU02,unmerged PR search (exact),"type:pr is:unmerged ""assertj-core from 3.22.0 to 3.23.0"" language:Java",2026-05-25,1216
+BU02,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""assertj-core"" ""3.22.0"" language:Java",2026-05-25,
+BU02,all-PR history search,"""assertj-core"" ""3.22.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU03,"code search (original, capped)","filename:pom.xml ""github-api"" ""org.kohsuke"" ""1.93""  (≤10 pages × 100)",2026-04-21,
+BU03,unmerged PR search (exact),"type:pr is:unmerged ""github-api from 1.93 to 1.313"" language:Java",2026-05-25,1
+BU03,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""github-api"" ""1.93"" language:Java",2026-05-25,
+BU03,all-PR history search,"""github-api"" ""1.93"" is:pr",2026-10-05 / 2026-10-19..20,
+BU04,"code search (original, capped)","filename:pom.xml ""github-api"" ""org.kohsuke"" ""1.93""  (≤10 pages × 100)",2026-04-21,
+BU04,unmerged PR search (exact),"type:pr is:unmerged ""github-api from 1.93 to 1.314"" language:Java",2026-05-25,101
+BU04,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""github-api"" ""1.93"" language:Java",2026-05-25,
+BU04,all-PR history search,"""github-api"" ""1.93"" is:pr",2026-10-05 / 2026-10-19..20,
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:2000001..4000000",2026-10-19,0
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:1000001..2000000",2026-10-19,0
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:500001..1000000",2026-10-19,0
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:250001..500000",2026-10-19,5
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:125001..250000",2026-10-19,3
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:62501..125000",2026-10-19,42
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:31251..62500",2026-10-19,87
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:15626..31250",2026-10-19,166
+BU05,code search (size-sharded),"filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9"" size:0..15625",2026-10-19,968
+BU05,"code search (original, capped)","filename:pom.xml ""reflections"" ""org.reflections"" ""0.9.9""  (≤10 pages × 100)",2026-04-21,
+BU05,unmerged PR search (exact),"type:pr is:unmerged ""reflections from 0.9.9 to 0.10.2"" language:Java",2026-05-25,20
+BU05,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""reflections"" ""0.9.9"" language:Java",2026-05-25,
+BU05,all-PR history search,"""reflections"" ""0.9.9"" is:pr",2026-10-05 / 2026-10-19..20,
+BU06,"code search (original, capped)","filename:pom.xml ""google-cloud-pubsublite"" ""com.google.cloud"" ""0.6.0""  (≤10 pages × 100)",2026-04-21,
+BU06,unmerged PR search (exact),"type:pr is:unmerged ""google-cloud-pubsublite from 0.6.0 to 0.18.0"" language:Java",2026-05-25,0
+BU06,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""google-cloud-pubsublite"" ""0.6.0"" language:Java",2026-05-25,0
+BU06,all-PR history search,"""google-cloud-pubsublite"" ""0.6.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:2000001..4000000",2026-10-20,0
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:1000001..2000000",2026-10-20,0
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:500001..1000000",2026-10-20,0
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:250001..500000",2026-10-20,93
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:125001..250000",2026-10-20,37
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:62501..125000",2026-10-20,109
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:31251..62500",2026-10-20,200
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:15626..31250",2026-10-20,251
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:7813..15625",2026-10-20,300
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:3907..7812",2026-10-20,768
+BU07,code search (size-sharded),"filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1"" size:0..3906",2026-10-20,651
+BU07,"code search (original, capped)","filename:pom.xml ""flyway-core"" ""org.flywaydb"" ""3.2.1""  (≤10 pages × 100)",2026-04-21,
+BU07,unmerged PR search (exact),"type:pr is:unmerged ""flyway-core from 3.2.1 to 9.21.1"" language:Java",2026-05-25,
+BU07,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""flyway-core"" ""3.2.1"" language:Java",2026-05-25,
+BU07,all-PR history search,"""flyway-core"" ""3.2.1"" is:pr",2026-10-05 / 2026-10-19..20,
+BU08,code search (size-sharded),"filename:pom.xml ""bcprov-jdk15on"" ""org.bouncycastle"" ""1.51"" size:0..4000000",2026-10-19,231
+BU08,"code search (original, capped)","filename:pom.xml ""bcprov-jdk15on"" ""org.bouncycastle"" ""1.51""  (≤10 pages × 100)",2026-04-21,
+BU08,unmerged PR search (exact),"type:pr is:unmerged ""bcprov-jdk15on from 1.51 to 1.67"" language:Java",2026-05-25,91
+BU08,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""bcprov-jdk15on"" ""1.51"" language:Java",2026-05-25,
+BU08,all-PR history search,"""bcprov-jdk15on"" ""1.51"" is:pr",2026-10-05 / 2026-10-19..20,
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2000001..4000000",2026-10-20,0
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1000001..2000000",2026-10-20,0
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:500001..1000000",2026-10-20,0
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:250001..500000",2026-10-20,94
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:125001..250000",2026-10-20,52
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:62501..125000",2026-10-20,95
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:31251..62500",2026-10-20,148
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:15626..31250",2026-10-20,408
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:7813..15625",2026-10-20,988
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:6837..7812",2026-10-20,354
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:5860..6836",2026-10-20,606
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:4884..5859",2026-10-20,932
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:4396..4883",2026-10-20,926
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3907..4395",2026-10-20,964
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3663..3906",2026-10-20,636
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3419..3662",2026-10-20,636
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:3175..3418",2026-10-20,700
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2931..3174",2026-10-20,772
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2687..2930",2026-10-20,990
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2565..2686",2026-10-20,537
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2443..2564",2026-10-20,632
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:2199..2442",2026-10-20,744
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1954..2198",2026-10-20,834
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1832..1953",2026-10-20,455
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1710..1831",2026-10-20,808
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:1466..1709",2026-10-20,550
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:977..1465",2026-10-20,610
+BU09,code search (size-sharded),"filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0"" size:0..976",2026-10-20,141
+BU09,"code search (original, capped)","filename:pom.xml ""jakarta.servlet-api"" ""jakarta.servlet"" ""5.0.0""  (≤10 pages × 100)",2026-04-21,
+BU09,unmerged PR search (exact),"type:pr is:unmerged ""jakarta.servlet-api from 5.0.0 to 6.0.0"" language:Java",2026-05-25,64
+BU09,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jakarta.servlet-api"" ""5.0.0"" language:Java",2026-05-25,
+BU09,all-PR history search,"""jakarta.servlet-api"" ""5.0.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:2000001..4000000",2026-10-19,0
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:1000001..2000000",2026-10-19,0
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:500001..1000000",2026-10-19,0
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:250001..500000",2026-10-19,107
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:125001..250000",2026-10-19,55
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:62501..125000",2026-10-19,148
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:31251..62500",2026-10-19,318
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:15626..31250",2026-10-19,450
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:11720..15625",2026-10-19,374
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:7813..11719",2026-10-19,854
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:5860..7812",2026-10-19,573
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:3907..5859",2026-10-19,770
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:1954..3906",2026-10-19,916
+BU10,code search (size-sharded),"filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0"" size:0..1953",2026-10-19,207
+BU10,"code search (original, capped)","filename:pom.xml ""jackson-databind"" ""com.fasterxml.jackson.core"" ""2.10.0""  (≤10 pages × 100)",2026-04-21,
+BU10,unmerged PR search (exact),"type:pr is:unmerged ""jackson-databind from 2.10.0 to 2.13.4.1"" language:Java",2026-05-25,3985
+BU10,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jackson-databind"" ""2.10.0"" language:Java",2026-05-25,
+BU10,all-PR history search,"""jackson-databind"" ""2.10.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU11,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.33""  (≤10 pages × 100)",2026-04-21,
+BU11,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.33 to 2.0"" language:Java",2026-05-25,638
+BU11,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.33"" language:Java",2026-05-25,
+BU11,all-PR history search,"""snakeyaml"" ""1.33"" is:pr",2026-10-05 / 2026-10-19..20,
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:2000001..4000000",2026-10-20,0
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:1000001..2000000",2026-10-20,0
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:500001..1000000",2026-10-20,0
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:250001..500000",2026-10-20,0
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:125001..250000",2026-10-20,20
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:62501..125000",2026-10-20,115
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:31251..62500",2026-10-20,101
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:15626..31250",2026-10-20,133
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:7813..15625",2026-10-20,563
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:3907..7812",2026-10-20,834
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:1954..3906",2026-10-20,850
+BU12,code search (size-sharded),"filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4"" size:0..1953",2026-10-20,233
+BU12,"code search (original, capped)","filename:pom.xml ""mockito-core"" ""org.mockito"" ""3.12.4""  (≤10 pages × 100)",2026-04-21,
+BU12,unmerged PR search (exact),"type:pr is:unmerged ""mockito-core from 3.12.4 to 4.1.0"" language:Java",2026-05-25,396
+BU12,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""mockito-core"" ""3.12.4"" language:Java",2026-05-25,
+BU12,all-PR history search,"""mockito-core"" ""3.12.4"" is:pr",2026-10-05 / 2026-10-19..20,
+BU13,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.24""  (≤10 pages × 100)",2026-04-21,
+BU13,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.24 to 2.0"" language:Java",2026-05-25,36
+BU13,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.24"" language:Java",2026-05-25,
+BU13,all-PR history search,"""snakeyaml"" ""1.24"" is:pr",2026-10-05 / 2026-10-19..20,
+BU14,"code search (original, capped)","filename:pom.xml ""doxia-site-renderer"" ""org.apache.maven.doxia"" ""1.0""  (≤10 pages × 100)",2026-04-21,
+BU14,unmerged PR search (exact),"type:pr is:unmerged ""doxia-site-renderer from 1.0 to 1.11.1"" language:Java",2026-05-25,3
+BU14,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""doxia-site-renderer"" ""1.0"" language:Java",2026-05-25,
+BU14,all-PR history search,"""doxia-site-renderer"" ""1.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU15,"code search (original, capped)","filename:pom.xml ""jasypt"" ""org.jasypt"" ""1.8""  (≤10 pages × 100)",2026-04-21,
+BU15,unmerged PR search (exact),"type:pr is:unmerged ""jasypt from 1.8 to 1.9.2"" language:Java",2026-05-25,23
+BU15,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jasypt"" ""1.8"" language:Java",2026-05-25,
+BU15,all-PR history search,"""jasypt"" ""1.8"" is:pr",2026-10-05 / 2026-10-19..20,
+BU16,"code search (original, capped)","filename:pom.xml ""jcabi-aspects"" ""com.jcabi"" ""0.24.1""  (≤10 pages × 100)",2026-04-21,
+BU16,unmerged PR search (exact),"type:pr is:unmerged ""jcabi-aspects from 0.24.1 to 0.25.1"" language:Java",2026-05-25,0
+BU16,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""jcabi-aspects"" ""0.24.1"" language:Java",2026-05-25,1
+BU16,all-PR history search,"""jcabi-aspects"" ""0.24.1"" is:pr",2026-10-05 / 2026-10-19..20,
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2000001..4000000",2026-10-19,0
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:1000001..2000000",2026-10-19,0
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:500001..1000000",2026-10-19,0
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:250001..500000",2026-10-19,273
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:125001..250000",2026-10-19,156
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:62501..125000",2026-10-19,716
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:46876..62500",2026-10-19,430
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:31251..46875",2026-10-19,740
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:23439..31250",2026-10-19,750
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:19533..23438",2026-10-19,533
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:15626..19532",2026-10-19,702
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:13673..15625",2026-10-19,450
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:11720..13672",2026-10-19,501
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:9767..11719",2026-10-19,910
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:8790..9766",2026-10-19,608
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:7813..8789",2026-10-19,694
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:7325..7812",2026-10-19,479
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:6837..7324",2026-10-19,545
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:6349..6836",2026-10-19,513
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:5860..6348",2026-10-19,585
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:5372..5859",2026-10-19,628
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:4884..5371",2026-10-19,644
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:4396..4883",2026-10-19,660
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:3907..4395",2026-10-19,896
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:3419..3906",2026-10-19,708
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2931..3418",2026-10-19,693
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:2443..2930",2026-10-19,668
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:1954..2442",2026-10-19,934
+BU17,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0"" size:0..1953",2026-10-19,634
+BU17,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""2.0""  (≤10 pages × 100)",2026-04-21,
+BU17,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 2.0 to 2.1"" language:Java",2026-05-25,129
+BU17,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""2.0"" language:Java",2026-05-25,
+BU17,all-PR history search,"""snakeyaml"" ""2.0"" is:pr",2026-10-05 / 2026-10-19..20,
+BU18,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,
+BU18,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.11.1"" language:Java",2026-05-25,1
+BU18,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,
+BU18,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,
+BU19,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,
+BU19,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.10.0"" language:Java",2026-05-25,392
+BU19,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,
+BU19,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,
+BU20,"code search (original, capped)","filename:pom.xml ""zip4j"" ""net.lingala.zip4j"" ""1.3.2""  (≤10 pages × 100)",2026-04-21,
+BU20,unmerged PR search (exact),"type:pr is:unmerged ""zip4j from 1.3.2 to 2.11.0"" language:Java",2026-05-25,1
+BU20,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""zip4j"" ""1.3.2"" language:Java",2026-05-25,
+BU20,all-PR history search,"""zip4j"" ""1.3.2"" is:pr",2026-10-05 / 2026-10-19..20,
+BU21,code search (size-sharded),"filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.32"" size:0..4000000",2026-10-20,481
+BU21,"code search (original, capped)","filename:pom.xml ""snakeyaml"" ""org.yaml"" ""1.32""  (≤10 pages × 100)",2026-04-21,
+BU21,unmerged PR search (exact),"type:pr is:unmerged ""snakeyaml from 1.32 to 2.0"" language:Java",2026-05-25,261
+BU21,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""snakeyaml"" ""1.32"" language:Java",2026-05-25,
+BU21,all-PR history search,"""snakeyaml"" ""1.32"" is:pr",2026-10-05 / 2026-10-19..20,
+BU22,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45
+BU22,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,
+BU22,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.26"" language:Java",2026-05-25,93
+BU22,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,
+BU22,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,
+BU23,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45
+BU23,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,
+BU23,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.30"" language:Java",2026-05-25,19
+BU23,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,
+BU23,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,
+BU24,code search (size-sharded),"filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37"" size:0..4000000",2026-10-19,45
+BU24,"code search (original, capped)","filename:pom.xml ""struts2-core"" ""org.apache.struts"" ""2.3.37""  (≤10 pages × 100)",2026-04-21,
+BU24,unmerged PR search (exact),"type:pr is:unmerged ""struts2-core from 2.3.37 to 2.5.22"" language:Java",2026-05-25,82
+BU24,"unmerged PR search (fallback, only if exact returns 0)","type:pr is:unmerged in:title ""struts2-core"" ""2.3.37"" language:Java",2026-05-25,
+BU24,all-PR history search,"""struts2-core"" ""2.3.37"" is:pr",2026-10-05 / 2026-10-19..20,
