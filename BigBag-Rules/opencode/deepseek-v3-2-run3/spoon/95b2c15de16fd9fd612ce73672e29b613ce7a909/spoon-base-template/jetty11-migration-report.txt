@@ -1,0 +1,35 @@
+=== Generic Jetty 11 Migration Report ===
+Source: /workspace/jadler/jadler-jetty
+Timestamp: Wed Nov 11 04:24:40 UTC 2026
+
+TRANSFORMATION RULES APPLIED:
+1. javax.servlet → jakarta.servlet (package migration)
+2. SelectChannelConnector → ServerConnector (class replacement)
+3. Remove Server.setSendServerVersion() and setSendDateHeader()
+4. Update Connector.setPort()/getLocalPort() calls
+5. Fix AbstractHandler.handle() signature
+
+FOUND: AbstractHandler implementation: net.jadler.stubbing.server.jetty.JadlerHandler
+  WARNING: handle() method uses javax.servlet types
+           Should be migrated to jakarta.servlet types
+FIXED: javax.servlet.http.HttpServletRequest → jakarta.servlet.http.HttpServletRequest
+FIXED: javax.servlet.http.HttpServletResponse → jakarta.servlet.http.HttpServletResponse
+FIXED: javax.servlet.http.HttpServletRequest → jakarta.servlet.http.HttpServletRequest
+FIXED: javax.servlet.http.HttpServletResponse → jakarta.servlet.http.HttpServletResponse
+FIXED: javax.servlet.http.HttpServletResponse → jakarta.servlet.http.HttpServletResponse
+FIXED: javax.servlet.http.HttpServletResponse → jakarta.servlet.http.HttpServletResponse
+FIXED: javax.servlet.http.HttpServletResponse → jakarta.servlet.http.HttpServletResponse
+FIXED: javax.servlet.http.HttpServletRequest → jakarta.servlet.http.HttpServletRequest
+FIXED: javax.servlet.http.HttpServletRequest → jakarta.servlet.http.HttpServletRequest
+FIXED: javax.servlet.http.HttpServletRequest → jakarta.servlet.http.HttpServletRequest
+
+=== SUMMARY ===
+Total fixes applied: 10
+Warnings/notes: 1
+
+=== MANUAL REVIEW REQUIRED ===
+The following changes require manual adjustment:
+1. SelectChannelConnector → ServerConnector: Constructor arguments need adjustment
+   ServerConnector requires Server as first constructor parameter
+2. Verify Connector.setPort()/getLocalPort() calls target ServerConnector instances
+3. Update any configuration that used removed Server methods
